@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>ПРОТЕКТОР — шиномонтаж за 25 минут</title>
+  <meta name="description" content="Шиномонтаж ПРОТЕКТОР: две линии, запись на точное время, одна машина за 25 минут. Балансировка, ремонт проколов, хранение шин, правка литых дисков. С 8:00 до 22:00 без выходных.">
+  <meta name="theme-color" content="#0F0F12">
+  <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>
+    // Загрузочный экран и анимации — только если браузер не просит меньше движения
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+  </script>
+</head>
+<body>
+
+  <!-- Загрузка: знак, счётчик до 100 и полоса протектора, потом экран уезжает вверх -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__mark">
+      <span class="mark"></span>
+      <span class="loader__word">ПРОТЕКТОР</span>
+    </div>
+    <div class="loader__count" id="loader-count">00</div>
+    <div class="loader__track"><i id="loader-bar"></i></div>
+  </div>
+
+  <a class="skip" href="#main">К содержанию</a>
+
+  <!-- Шапка: всё важное в одну строку — где, когда, телефон и запись -->
+  <header class="header" id="header">
+    <a class="logo" href="#top" aria-label="ПРОТЕКТОР — наверх">
+      <span class="mark"></span>
+      <span class="logo__word">ПРОТЕКТОР</span>
+    </a>
+    <div class="header__where">
+      <span>[город], [адрес]</span>
+      <span class="header__hours"><i class="dot" id="open-dot"></i><span id="open-text">Каждый день с 8:00 до 22:00</span></span>
+    </div>
+    <nav class="header__nav" aria-label="Разделы">
+      <a href="#services">Услуги</a>
+      <a href="#visit">Как это проходит</a>
+      <a href="#wheel">Гарантии</a>
+      <a href="#book">Запись</a>
+    </nav>
+    <a class="header__phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+    <a class="cut cut--red header__cta" href="#book">Записаться</a>
+  </header>
+
+  <main id="main">
+
+    <!-- 1. Первый экран -->
+    <section class="hero" id="top">
+      <div class="hero__light" aria-hidden="true"></div>
+      <div class="hero__wheel" id="hero-wheel" aria-hidden="true"><svg viewBox="0 0 1000 1000" focusable="false">
+  <!-- Колесо в боковой проекции: шина, надпись на боковине, литой диск с десятью спицами.
+       Свет — тёплый красный ключ слева и холодный блик сверху, как в тёмной студийной съёмке. -->
+  <defs>
+    <radialGradient id="h-rubber" cx="50%" cy="50%" r="50%">
+      <stop offset="0.66" stop-color="#0d0d10"/>
+      <stop offset="0.80" stop-color="#1b1b20"/>
+      <stop offset="0.93" stop-color="#121216"/>
+      <stop offset="1" stop-color="#070709"/>
+    </radialGradient>
+    <linearGradient id="h-metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9dbe0"/>
+      <stop offset="0.35" stop-color="#8b8f98"/>
+      <stop offset="0.55" stop-color="#3b3d44"/>
+      <stop offset="0.8" stop-color="#9da1aa"/>
+      <stop offset="1" stop-color="#2a2b30"/>
+    </linearGradient>
+    <linearGradient id="h-spoke" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5d6068"/>
+      <stop offset="0.45" stop-color="#c9ccd2"/>
+      <stop offset="0.6" stop-color="#7b7f88"/>
+      <stop offset="1" stop-color="#2c2d33"/>
+    </linearGradient>
+    <radialGradient id="h-barrel" cx="50%" cy="50%" r="50%">
+      <stop offset="0.2" stop-color="#050506"/>
+      <stop offset="0.85" stop-color="#16171b"/>
+      <stop offset="1" stop-color="#2a2b31"/>
+    </radialGradient>
+    <radialGradient id="h-hub" cx="45%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#e6e7ea"/>
+      <stop offset="0.5" stop-color="#8e929a"/>
+      <stop offset="1" stop-color="#2b2c31"/>
+    </radialGradient>
+    <radialGradient id="h-keyRed" cx="0%" cy="55%" r="85%">
+      <stop offset="0" stop-color="#ff2a17" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#c3150b" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#c3150b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="h-rimLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <path id="h-sideArc" d="M 500 500 m -400 0 a 400 400 0 1 1 800 0 a 400 400 0 1 1 -800 0"/>
+    <!-- Одна спица: двойная, сужается к ободу -->
+    <g id="h-spokePair">
+      <!-- Широкая спица с канавкой посередине, расширяется к ободу -->
+      <path d="M 466 418 L 446 214 Q 450 196 470 194 L 530 194 Q 550 196 554 214 L 534 418 Z" fill="url(#h-spoke)"/>
+      <path d="M 497 410 L 494 206 L 506 206 L 503 410 Z" fill="#141418" opacity="0.9"/>
+      <path d="M 466 418 L 446 214 Q 450 196 470 194 L 474 194 L 482 418 Z" fill="#ffffff" opacity="0.12"/>
+    </g>
+    <!-- Блок протектора на плече шины -->
+    <path id="h-lug" d="M 492 10 L 508 10 L 511 42 L 489 42 Z" fill="#1c1c21"/>
+    <clipPath id="h-tireClip"><circle cx="500" cy="500" r="490"/></clipPath>
+  </defs>
+
+  <g class="tire-rot">
+    <!-- Шина -->
+    <circle cx="500" cy="500" r="490" fill="url(#h-rubber)"/>
+    <g fill="#24242a">
+      <use href="#h-lug"/><use href="#h-lug" transform="rotate(5 500 500)"/><use href="#h-lug" transform="rotate(10 500 500)"/><use href="#h-lug" transform="rotate(15 500 500)"/><use href="#h-lug" transform="rotate(20 500 500)"/><use href="#h-lug" transform="rotate(25 500 500)"/><use href="#h-lug" transform="rotate(30 500 500)"/><use href="#h-lug" transform="rotate(35 500 500)"/><use href="#h-lug" transform="rotate(40 500 500)"/><use href="#h-lug" transform="rotate(45 500 500)"/><use href="#h-lug" transform="rotate(50 500 500)"/><use href="#h-lug" transform="rotate(55 500 500)"/><use href="#h-lug" transform="rotate(60 500 500)"/><use href="#h-lug" transform="rotate(65 500 500)"/><use href="#h-lug" transform="rotate(70 500 500)"/><use href="#h-lug" transform="rotate(75 500 500)"/><use href="#h-lug" transform="rotate(80 500 500)"/><use href="#h-lug" transform="rotate(85 500 500)"/><use href="#h-lug" transform="rotate(90 500 500)"/><use href="#h-lug" transform="rotate(95 500 500)"/><use href="#h-lug" transform="rotate(100 500 500)"/><use href="#h-lug" transform="rotate(105 500 500)"/><use href="#h-lug" transform="rotate(110 500 500)"/><use href="#h-lug" transform="rotate(115 500 500)"/><use href="#h-lug" transform="rotate(120 500 500)"/><use href="#h-lug" transform="rotate(125 500 500)"/><use href="#h-lug" transform="rotate(130 500 500)"/><use href="#h-lug" transform="rotate(135 500 500)"/><use href="#h-lug" transform="rotate(140 500 500)"/><use href="#h-lug" transform="rotate(145 500 500)"/><use href="#h-lug" transform="rotate(150 500 500)"/><use href="#h-lug" transform="rotate(155 500 500)"/><use href="#h-lug" transform="rotate(160 500 500)"/><use href="#h-lug" transform="rotate(165 500 500)"/><use href="#h-lug" transform="rotate(170 500 500)"/><use href="#h-lug" transform="rotate(175 500 500)"/><use href="#h-lug" transform="rotate(180 500 500)"/><use href="#h-lug" transform="rotate(185 500 500)"/><use href="#h-lug" transform="rotate(190 500 500)"/><use href="#h-lug" transform="rotate(195 500 500)"/><use href="#h-lug" transform="rotate(200 500 500)"/><use href="#h-lug" transform="rotate(205 500 500)"/><use href="#h-lug" transform="rotate(210 500 500)"/><use href="#h-lug" transform="rotate(215 500 500)"/><use href="#h-lug" transform="rotate(220 500 500)"/><use href="#h-lug" transform="rotate(225 500 500)"/><use href="#h-lug" transform="rotate(230 500 500)"/><use href="#h-lug" transform="rotate(235 500 500)"/><use href="#h-lug" transform="rotate(240 500 500)"/><use href="#h-lug" transform="rotate(245 500 500)"/><use href="#h-lug" transform="rotate(250 500 500)"/><use href="#h-lug" transform="rotate(255 500 500)"/><use href="#h-lug" transform="rotate(260 500 500)"/><use href="#h-lug" transform="rotate(265 500 500)"/><use href="#h-lug" transform="rotate(270 500 500)"/><use href="#h-lug" transform="rotate(275 500 500)"/><use href="#h-lug" transform="rotate(280 500 500)"/><use href="#h-lug" transform="rotate(285 500 500)"/><use href="#h-lug" transform="rotate(290 500 500)"/><use href="#h-lug" transform="rotate(295 500 500)"/><use href="#h-lug" transform="rotate(300 500 500)"/><use href="#h-lug" transform="rotate(305 500 500)"/><use href="#h-lug" transform="rotate(310 500 500)"/><use href="#h-lug" transform="rotate(315 500 500)"/><use href="#h-lug" transform="rotate(320 500 500)"/><use href="#h-lug" transform="rotate(325 500 500)"/><use href="#h-lug" transform="rotate(330 500 500)"/><use href="#h-lug" transform="rotate(335 500 500)"/><use href="#h-lug" transform="rotate(340 500 500)"/><use href="#h-lug" transform="rotate(345 500 500)"/><use href="#h-lug" transform="rotate(350 500 500)"/><use href="#h-lug" transform="rotate(355 500 500)"/>
+    </g>
+    <!-- Рёбра боковины -->
+    <circle cx="500" cy="500" r="452" fill="none" stroke="#202026" stroke-width="2"/>
+    <circle cx="500" cy="500" r="352" fill="none" stroke="#1f1f25" stroke-width="3"/>
+    <text font-family="Unbounded, Arial, sans-serif" font-weight="700" font-size="34" letter-spacing="10" fill="#2e2e35">
+      <textPath href="#h-sideArc" startOffset="3%">ПРОТЕКТОР</textPath>
+    </text>
+    <text font-family="Unbounded, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="8" fill="#2a2a31">
+      <textPath href="#h-sideArc" startOffset="53%">R13 — R22 · ШИНОМОНТАЖ</textPath>
+    </text>
+
+    <!-- Диск -->
+    <circle cx="500" cy="500" r="338" fill="url(#h-metal)"/>
+    <circle cx="500" cy="500" r="326" fill="#1a1b1f"/>
+    <circle cx="500" cy="500" r="318" fill="url(#h-barrel)"/>
+    <!-- Тормозной диск и суппорт за спицами -->
+    <circle cx="500" cy="500" r="250" fill="#2a2b30"/>
+    <circle cx="500" cy="500" r="250" fill="none" stroke="#3d3f46" stroke-width="40" stroke-dasharray="3 9"/>
+    <circle cx="500" cy="500" r="150" fill="#1b1c20"/>
+  </g>
+
+  <!-- Суппорт не вращается -->
+  <path d="M 286 395 A 232 232 0 0 1 395 290 L 418 330 A 186 186 0 0 0 330 414 Z" fill="#c81d14"/>
+    <path d="M 300 392 A 220 220 0 0 1 392 304" fill="none" stroke="#ff5a48" stroke-width="3" opacity="0.6"/>
+
+  <g class="tire-rot">
+    <g>
+      <use href="#h-spokePair"/>
+      <use href="#h-spokePair" transform="rotate(72 500 500)"/>
+      <use href="#h-spokePair" transform="rotate(144 500 500)"/>
+      <use href="#h-spokePair" transform="rotate(216 500 500)"/>
+      <use href="#h-spokePair" transform="rotate(288 500 500)"/>
+    </g>
+    <circle cx="500" cy="500" r="104" fill="url(#h-hub)"/>
+    <g fill="#16171b">
+      <circle cx="500" cy="448" r="11"/>
+      <circle cx="549.5" cy="484" r="11"/>
+      <circle cx="530.6" cy="542" r="11"/>
+      <circle cx="469.4" cy="542" r="11"/>
+      <circle cx="450.5" cy="484" r="11"/>
+    </g>
+    <circle cx="500" cy="500" r="30" fill="#0f0f12"/>
+    <path d="M 487 507 L 493 488 L 516 488 L 510 507 Z" fill="#e3261c"/>
+  </g>
+
+  <!-- Свет не вращается вместе с колесом -->
+  <g clip-path="url(#h-tireClip)" pointer-events="none">
+    <rect width="1000" height="1000" fill="url(#h-keyRed)"/>
+    <path d="M 70 360 A 440 440 0 0 1 930 360" fill="none" stroke="url(#h-rimLight)" stroke-width="22" opacity="0.6"/>
+  </g>
+</svg>
+</div>
+      <div class="hero__copy">
+        <p class="hero__lead">Шиномонтаж на две линии. Запишитесь на своё время — и не стойте в очереди.</p>
+        <h1 class="display hero__title"><span>Переобуем</span><span>за 25 минут</span></h1>
+        <div class="hero__actions">
+          <a class="cut cut--red cut--lg" href="#book">Выбрать время</a>
+          <a class="hero__call" href="tel:+70000000000">Или позвоните: +7 (000) 000-00-00</a>
+        </div>
+      </div>
+      <div class="tread" aria-hidden="true"><div class="tread__belt" data-belt></div></div>
+    </section>
+
+    <!-- 2. Услуги -->
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="wrap">
+        <h2 class="display services__title" id="services-title">Что делаем</h2>
+        <div class="services__grid">
+          <article class="offer cut-box cut-box--red">
+            <p class="offer__kicker">Самое частое</p>
+            <h3 class="offer__title">Сезонная переобувка R13–R22</h3>
+            <p class="offer__text">Легковые и кроссоверы. Снимаем, меняем резину, балансируем, ставим обратно — одна машина полностью за 25 минут.</p>
+            <a class="cut cut--ink" href="#book">Записаться на переобувку</a>
+            <div class="offer__wheel" aria-hidden="true"></div>
+          </article>
+          <article class="svc cut-box">
+            <h3>Балансировка</h3>
+            <p>На станке и финишная — прямо на вашем автомобиле, если руль бьёт даже после обычной.</p>
+          </article>
+          <article class="svc cut-box">
+            <h3>Проколы и боковые порезы</h3>
+            <p>Ремонтируем изнутри. На ремонт прокола даём гарантию 12 месяцев.</p>
+          </article>
+          <article class="svc cut-box">
+            <h3>Сезонное хранение</h3>
+            <p>Оставьте комплект у нас и заберите его к следующему сезону.</p>
+          </article>
+          <article class="svc cut-box">
+            <h3>Правка литых дисков</h3>
+            <p>Если поймали яму: выправим диск, чтобы колесо снова держало давление и не било.</p>
+          </article>
+          <article class="svc svc--wide cut-box">
+            <h3>Выезд к клиенту</h3>
+            <p>Не получается приехать — приедем сами. Отметьте это при записи и оставьте адрес.</p>
+            <a class="cut cut--line" href="#book" data-mobile-service>Вызвать мастера</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Как проходят 25 минут: блок закрепляется, прокрутка ведёт таймер и шаги -->
+    <section class="visit" id="visit" aria-labelledby="visit-title">
+      <div class="visit__pin">
+        <div class="wrap visit__inner">
+          <div class="visit__head">
+            <h2 class="display visit__title" id="visit-title">25 минут<br>от заезда до выезда</h2>
+            <p class="visit__note">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p>
+          </div>
+          <div class="visit__timer" aria-hidden="true"><span id="visit-timer">00:00</span></div>
+          <ol class="visit__steps" id="visit-steps">
+            <li><b>Приезжаете к своему времени</b><span>Записались на 14:30 — в 14:30 машина уже на подъёмнике.</span></li>
+            <li><b>Ждёте с кофе</b><span>В комнате ожидания тепло, есть кофе и видно, как идёт работа.</span></li>
+            <li><b>Меняем шины</b><span>Снимаем колёса, перебортовываем резину, проверяем диски.</span></li>
+            <li><b>Балансируем</b><span>Каждое колесо — на станке. Если нужно, добиваем финишной балансировкой на машине.</span></li>
+            <li><b>Накачиваем азотом</b><span>Бесплатно. Затягиваем колёса и проверяем давление.</span></li>
+            <li><b>Выезжаете</b><span>Через 25 минут после того, как заехали.</span></li>
+          </ol>
+          <div class="visit__rail" aria-hidden="true"><i id="visit-rail"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Колесо крупно и всё, что мы делаем, чтобы оно вернулось целым -->
+    <section class="wheel" id="wheel" aria-labelledby="wheel-title">
+      <div class="wrap wheel__inner">
+        <h2 class="display wheel__title" id="wheel-title">Колесо вернётся целым</h2>
+        <div class="wheel__stage">
+          <div class="wheel__art" aria-hidden="true"><svg viewBox="0 0 1000 1000" focusable="false">
+  <!-- Колесо в боковой проекции: шина, надпись на боковине, литой диск с десятью спицами.
+       Свет — тёплый красный ключ слева и холодный блик сверху, как в тёмной студийной съёмке. -->
+  <defs>
+    <radialGradient id="g-rubber" cx="50%" cy="50%" r="50%">
+      <stop offset="0.66" stop-color="#0d0d10"/>
+      <stop offset="0.80" stop-color="#1b1b20"/>
+      <stop offset="0.93" stop-color="#121216"/>
+      <stop offset="1" stop-color="#070709"/>
+    </radialGradient>
+    <linearGradient id="g-metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9dbe0"/>
+      <stop offset="0.35" stop-color="#8b8f98"/>
+      <stop offset="0.55" stop-color="#3b3d44"/>
+      <stop offset="0.8" stop-color="#9da1aa"/>
+      <stop offset="1" stop-color="#2a2b30"/>
+    </linearGradient>
+    <linearGradient id="g-spoke" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5d6068"/>
+      <stop offset="0.45" stop-color="#c9ccd2"/>
+      <stop offset="0.6" stop-color="#7b7f88"/>
+      <stop offset="1" stop-color="#2c2d33"/>
+    </linearGradient>
+    <radialGradient id="g-barrel" cx="50%" cy="50%" r="50%">
+      <stop offset="0.2" stop-color="#050506"/>
+      <stop offset="0.85" stop-color="#16171b"/>
+      <stop offset="1" stop-color="#2a2b31"/>
+    </radialGradient>
+    <radialGradient id="g-hub" cx="45%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#e6e7ea"/>
+      <stop offset="0.5" stop-color="#8e929a"/>
+      <stop offset="1" stop-color="#2b2c31"/>
+    </radialGradient>
+    <radialGradient id="g-keyRed" cx="0%" cy="55%" r="85%">
+      <stop offset="0" stop-color="#ff2a17" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#c3150b" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#c3150b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="g-rimLight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <path id="g-sideArc" d="M 500 500 m -400 0 a 400 400 0 1 1 800 0 a 400 400 0 1 1 -800 0"/>
+    <!-- Одна спица: двойная, сужается к ободу -->
+    <g id="g-spokePair">
+      <!-- Широкая спица с канавкой посередине, расширяется к ободу -->
+      <path d="M 466 418 L 446 214 Q 450 196 470 194 L 530 194 Q 550 196 554 214 L 534 418 Z" fill="url(#g-spoke)"/>
+      <path d="M 497 410 L 494 206 L 506 206 L 503 410 Z" fill="#141418" opacity="0.9"/>
+      <path d="M 466 418 L 446 214 Q 450 196 470 194 L 474 194 L 482 418 Z" fill="#ffffff" opacity="0.12"/>
+    </g>
+    <!-- Блок протектора на плече шины -->
+    <path id="g-lug" d="M 492 10 L 508 10 L 511 42 L 489 42 Z" fill="#1c1c21"/>
+    <clipPath id="g-tireClip"><circle cx="500" cy="500" r="490"/></clipPath>
+  </defs>
+
+  <g class="tire-rot">
+    <!-- Шина -->
+    <circle cx="500" cy="500" r="490" fill="url(#g-rubber)"/>
+    <g fill="#24242a">
+      <use href="#g-lug"/><use href="#g-lug" transform="rotate(5 500 500)"/><use href="#g-lug" transform="rotate(10 500 500)"/><use href="#g-lug" transform="rotate(15 500 500)"/><use href="#g-lug" transform="rotate(20 500 500)"/><use href="#g-lug" transform="rotate(25 500 500)"/><use href="#g-lug" transform="rotate(30 500 500)"/><use href="#g-lug" transform="rotate(35 500 500)"/><use href="#g-lug" transform="rotate(40 500 500)"/><use href="#g-lug" transform="rotate(45 500 500)"/><use href="#g-lug" transform="rotate(50 500 500)"/><use href="#g-lug" transform="rotate(55 500 500)"/><use href="#g-lug" transform="rotate(60 500 500)"/><use href="#g-lug" transform="rotate(65 500 500)"/><use href="#g-lug" transform="rotate(70 500 500)"/><use href="#g-lug" transform="rotate(75 500 500)"/><use href="#g-lug" transform="rotate(80 500 500)"/><use href="#g-lug" transform="rotate(85 500 500)"/><use href="#g-lug" transform="rotate(90 500 500)"/><use href="#g-lug" transform="rotate(95 500 500)"/><use href="#g-lug" transform="rotate(100 500 500)"/><use href="#g-lug" transform="rotate(105 500 500)"/><use href="#g-lug" transform="rotate(110 500 500)"/><use href="#g-lug" transform="rotate(115 500 500)"/><use href="#g-lug" transform="rotate(120 500 500)"/><use href="#g-lug" transform="rotate(125 500 500)"/><use href="#g-lug" transform="rotate(130 500 500)"/><use href="#g-lug" transform="rotate(135 500 500)"/><use href="#g-lug" transform="rotate(140 500 500)"/><use href="#g-lug" transform="rotate(145 500 500)"/><use href="#g-lug" transform="rotate(150 500 500)"/><use href="#g-lug" transform="rotate(155 500 500)"/><use href="#g-lug" transform="rotate(160 500 500)"/><use href="#g-lug" transform="rotate(165 500 500)"/><use href="#g-lug" transform="rotate(170 500 500)"/><use href="#g-lug" transform="rotate(175 500 500)"/><use href="#g-lug" transform="rotate(180 500 500)"/><use href="#g-lug" transform="rotate(185 500 500)"/><use href="#g-lug" transform="rotate(190 500 500)"/><use href="#g-lug" transform="rotate(195 500 500)"/><use href="#g-lug" transform="rotate(200 500 500)"/><use href="#g-lug" transform="rotate(205 500 500)"/><use href="#g-lug" transform="rotate(210 500 500)"/><use href="#g-lug" transform="rotate(215 500 500)"/><use href="#g-lug" transform="rotate(220 500 500)"/><use href="#g-lug" transform="rotate(225 500 500)"/><use href="#g-lug" transform="rotate(230 500 500)"/><use href="#g-lug" transform="rotate(235 500 500)"/><use href="#g-lug" transform="rotate(240 500 500)"/><use href="#g-lug" transform="rotate(245 500 500)"/><use href="#g-lug" transform="rotate(250 500 500)"/><use href="#g-lug" transform="rotate(255 500 500)"/><use href="#g-lug" transform="rotate(260 500 500)"/><use href="#g-lug" transform="rotate(265 500 500)"/><use href="#g-lug" transform="rotate(270 500 500)"/><use href="#g-lug" transform="rotate(275 500 500)"/><use href="#g-lug" transform="rotate(280 500 500)"/><use href="#g-lug" transform="rotate(285 500 500)"/><use href="#g-lug" transform="rotate(290 500 500)"/><use href="#g-lug" transform="rotate(295 500 500)"/><use href="#g-lug" transform="rotate(300 500 500)"/><use href="#g-lug" transform="rotate(305 500 500)"/><use href="#g-lug" transform="rotate(310 500 500)"/><use href="#g-lug" transform="rotate(315 500 500)"/><use href="#g-lug" transform="rotate(320 500 500)"/><use href="#g-lug" transform="rotate(325 500 500)"/><use href="#g-lug" transform="rotate(330 500 500)"/><use href="#g-lug" transform="rotate(335 500 500)"/><use href="#g-lug" transform="rotate(340 500 500)"/><use href="#g-lug" transform="rotate(345 500 500)"/><use href="#g-lug" transform="rotate(350 500 500)"/><use href="#g-lug" transform="rotate(355 500 500)"/>
+    </g>
+    <!-- Рёбра боковины -->
+    <circle cx="500" cy="500" r="452" fill="none" stroke="#202026" stroke-width="2"/>
+    <circle cx="500" cy="500" r="352" fill="none" stroke="#1f1f25" stroke-width="3"/>
+    <text font-family="Unbounded, Arial, sans-serif" font-weight="700" font-size="34" letter-spacing="10" fill="#2e2e35">
+      <textPath href="#g-sideArc" startOffset="3%">ПРОТЕКТОР</textPath>
+    </text>
+    <text font-family="Unbounded, Arial, sans-serif" font-weight="500" font-size="22" letter-spacing="8" fill="#2a2a31">
+      <textPath href="#g-sideArc" startOffset="53%">R13 — R22 · ШИНОМОНТАЖ</textPath>
+    </text>
+
+    <!-- Диск -->
+    <circle cx="500" cy="500" r="338" fill="url(#g-metal)"/>
+    <circle cx="500" cy="500" r="326" fill="#1a1b1f"/>
+    <circle cx="500" cy="500" r="318" fill="url(#g-barrel)"/>
+    <!-- Тормозной диск и суппорт за спицами -->
+    <circle cx="500" cy="500" r="250" fill="#2a2b30"/>
+    <circle cx="500" cy="500" r="250" fill="none" stroke="#3d3f46" stroke-width="40" stroke-dasharray="3 9"/>
+    <circle cx="500" cy="500" r="150" fill="#1b1c20"/>
+  </g>
+
+  <!-- Суппорт не вращается -->
+  <path d="M 286 395 A 232 232 0 0 1 395 290 L 418 330 A 186 186 0 0 0 330 414 Z" fill="#c81d14"/>
+    <path d="M 300 392 A 220 220 0 0 1 392 304" fill="none" stroke="#ff5a48" stroke-width="3" opacity="0.6"/>
+
+  <g class="tire-rot">
+    <g>
+      <use href="#g-spokePair"/>
+      <use href="#g-spokePair" transform="rotate(72 500 500)"/>
+      <use href="#g-spokePair" transform="rotate(144 500 500)"/>
+      <use href="#g-spokePair" transform="rotate(216 500 500)"/>
+      <use href="#g-spokePair" transform="rotate(288 500 500)"/>
+    </g>
+    <circle cx="500" cy="500" r="104" fill="url(#g-hub)"/>
+    <g fill="#16171b">
+      <circle cx="500" cy="448" r="11"/>
+      <circle cx="549.5" cy="484" r="11"/>
+      <circle cx="530.6" cy="542" r="11"/>
+      <circle cx="469.4" cy="542" r="11"/>
+      <circle cx="450.5" cy="484" r="11"/>
+    </g>
+    <circle cx="500" cy="500" r="30" fill="#0f0f12"/>
+    <path d="M 487 507 L 493 488 L 516 488 L 510 507 Z" fill="#e3261c"/>
+  </g>
+
+  <!-- Свет не вращается вместе с колесом -->
+  <g clip-path="url(#g-tireClip)" pointer-events="none">
+    <rect width="1000" height="1000" fill="url(#g-keyRed)"/>
+    <path d="M 70 360 A 440 440 0 0 1 930 360" fill="none" stroke="url(#g-rimLight)" stroke-width="22" opacity="0.6"/>
+  </g>
+</svg>
+</div>
+          <ul class="tags" id="wheel-tags">
+            <li class="tag tag--big cut-box cut-box--red" style="--x:4%;--y:6%"><b>12 месяцев</b><span>гарантия на ремонт прокола</span></li>
+            <li class="tag cut-box" style="--x:66%;--y:4%"><b>Финишная балансировка</b><span>прямо на автомобиле</span></li>
+            <li class="tag cut-box" style="--x:72%;--y:42%"><b>Правим литые диски</b><span>после ям и бордюров</span></li>
+            <li class="tag cut-box" style="--x:62%;--y:78%"><b>Азот в шины</b><span>бесплатно для всех</span></li>
+            <li class="tag cut-box" style="--x:0%;--y:52%"><b>Ремонт боковых порезов</b><span>не только проколов</span></li>
+            <li class="tag cut-box" style="--x:8%;--y:84%"><b>Комната ожидания</b><span>с кофе, пока меняем шины</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Запись на точное время -->
+    <section class="book" id="book" aria-labelledby="book-title">
+      <div class="wrap book__inner">
+        <div class="book__head">
+          <h2 class="display book__title" id="book-title">Своё время</h2>
+          <p class="book__note">Выберите день и время — две линии, поэтому свободных окон обычно хватает. Работаем с 8:00 до 22:00 без выходных.</p>
+        </div>
+
+        <form class="book__form" id="book-form" novalidate>
+          <fieldset class="book__col">
+            <legend>День</legend>
+            <div class="days" id="days" role="radiogroup" aria-label="День"></div>
+            <p class="book__label" id="slots-label">Время</p>
+            <div class="slots" id="slots" role="radiogroup" aria-labelledby="slots-label"></div>
+          </fieldset>
+
+          <fieldset class="book__col">
+            <legend>Машина и услуга</legend>
+            <p class="book__label">Размер дисков</p>
+            <div class="chips" id="radius" role="radiogroup" aria-label="Размер дисков"></div>
+            <p class="book__label">Что сделать</p>
+            <div class="chips chips--wrap" id="what">
+              <label class="chip"><input type="checkbox" name="what" value="Переобувка" checked><span>Переобувка</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Балансировка"><span>Балансировка</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Ремонт прокола"><span>Ремонт прокола</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Хранение шин"><span>Хранение шин</span></label>
+              <label class="chip"><input type="checkbox" name="what" value="Правка дисков"><span>Правка дисков</span></label>
+            </div>
+            <label class="switch"><input type="checkbox" id="mobile"><span class="switch__track"></span><span>Нужен выезд к вам</span></label>
+            <div class="field field--address" id="address-field" hidden>
+              <label for="address">Адрес</label>
+              <input id="address" name="address" autocomplete="street-address" placeholder="Улица, дом, где стоит машина">
+            </div>
+          </fieldset>
+
+          <fieldset class="book__col book__col--send">
+            <legend>Контакты</legend>
+            <div class="field">
+              <label for="name">Имя</label>
+              <input id="name" name="name" autocomplete="name" placeholder="Как к вам обращаться">
+            </div>
+            <div class="field">
+              <label for="phone">Телефон</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__">
+            </div>
+            <label class="consent"><input type="checkbox" id="consent"><span>Согласен на обработку персональных данных</span></label>
+            <p class="book__summary" id="summary" aria-live="polite"></p>
+            <button class="cut cut--red cut--lg book__send" type="submit" id="send">Записаться</button>
+            <p class="book__error" id="book-error" role="alert"></p>
+          </fieldset>
+        </form>
+
+        <div class="book__done cut-box cut-box--red" id="book-done" hidden tabindex="-1">
+          <p class="display book__done-title">Записали</p>
+          <p id="book-done-text"></p>
+          <button class="cut cut--ink" type="button" id="book-again">Изменить запись</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Футер — отдельный слой под страницей: страница уезжает вверх и открывает его -->
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="footer__cols">
+        <div>
+          <p class="footer__k">Где</p>
+          <p>[город], [адрес]</p>
+        </div>
+        <div>
+          <p class="footer__k">Когда</p>
+          <p>Каждый день с 8:00 до 22:00</p>
+          <p class="footer__live"><i class="dot" id="open-dot-2"></i><span id="open-text-2"></span></p>
+        </div>
+        <div>
+          <p class="footer__k">Связь</p>
+          <p><a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
+        </div>
+        <div class="footer__go">
+          <a class="cut cut--red cut--lg" href="#book">Записаться на время</a>
+        </div>
+      </div>
+      <p class="footer__word" aria-hidden="true">ПРОТЕКТОР</p>
+      <div class="footer__base">
+        <span>© <span id="year"></span> Шиномонтаж «ПРОТЕКТОР»</span>
+        <a href="#top">Наверх</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
