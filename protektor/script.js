@@ -91,6 +91,7 @@
     rail.style.width = (p * 100) + '%';
     var on = Math.min(steps.length, Math.floor(p * steps.length + 0.35));
     steps.forEach(function (li, i) { li.classList.toggle('is-on', i < on); });
+    steps.forEach(function (li, i) { li.classList.toggle('is-now', i === Math.max(0, on - 1)); });
   };
   window.addEventListener('scroll', function () {
     if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
@@ -133,7 +134,8 @@
   var word = document.querySelector('.footer__word');
   var fitWord = function () {
     word.style.fontSize = '200px';
-    var avail = word.parentElement.clientWidth - 64 - 64;
+    var cs = getComputedStyle(word.parentElement);
+    var avail = word.parentElement.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     word.style.fontSize = Math.floor(200 * avail / word.scrollWidth) + 'px';
   };
   var sizeFooter = function () { fitWord(); main.style.setProperty('--footer-h', footer.offsetHeight + 'px'); };

@@ -19,6 +19,7 @@
   --text: "Onest", "Helvetica Neue", Arial, sans-serif;
 
   --wrap: 1312px;
+  --pad: 64px;
   --cut: 14px;
   --skew: -9deg;
   --ease: cubic-bezier(0.22, 0.8, 0.2, 1);
@@ -27,7 +28,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
 body {
-  min-width: 1440px;
   background: var(--rubber);
   color: var(--chalk);
   font-family: var(--text);
@@ -42,7 +42,7 @@ ul, ol { list-style: none; }
 fieldset { border: 0; min-width: 0; }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
 
-.wrap { width: var(--wrap); margin-inline: auto; }
+.wrap { width: min(var(--wrap), 100% - 2 * var(--pad)); margin-inline: auto; }
 .skip { position: absolute; left: 16px; top: -60px; z-index: 300; padding: 10px 16px; background: var(--signal); }
 .skip:focus { top: 16px; }
 
@@ -170,13 +170,15 @@ body::after {
 .header__nav a { position: relative; padding: 6px 0; color: var(--steel); transition: color 0.2s; }
 .header__nav a:hover, .header__nav a.is-active { color: var(--chalk); }
 .header__nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--signal); }
-.header__phone { font-weight: 600; font-size: 15px; font-variant-numeric: tabular-nums; }
+.header__phone { display: flex; align-items: center; font-weight: 600; font-size: 15px; font-variant-numeric: tabular-nums; }
+.header__phone-icon { display: none; width: 20px; height: 20px; fill: currentColor; }
 .header__cta { height: 44px; padding: 0 22px; }
 
 /* ---------- 1. Первый экран (композиция Refive, шрифт Fire n' Smoke) ---------- */
 .hero {
   position: relative;
   height: 100vh;
+  height: 100svh;
   min-height: 820px;
   overflow: hidden;
   background:
@@ -483,3 +485,144 @@ main { position: relative; z-index: 1; background: var(--rubber); margin-bottom:
   *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; }
 }
 .book__form[hidden] { display: none; }
+
+/* ================= Адаптив ================= */
+
+/* Ноутбуки поменьше */
+@media (max-width: 1280px) {
+  :root { --pad: 40px; }
+  .header { gap: 28px; padding: 0 var(--pad); }
+  .header__nav { gap: 20px; }
+  .hero__copy { left: var(--pad); }
+  .hero__title { font-size: 104px; }
+  .hero__wheel { width: 960px; height: 960px; margin-top: -460px; right: -300px; }
+  .footer__inner { padding-inline: var(--pad); }
+  .tag { width: 300px; }
+}
+
+/* Планшеты */
+@media (max-width: 1080px) {
+  .header__where { display: none; }
+  .hero__title { font-size: min(104px, 10.6vw); }
+  .hero__copy { width: auto; right: var(--pad); }
+  .visit__inner { display: flex; flex-direction: column; padding: 100px 0 56px; }
+  .visit__note { display: none; }
+  .visit__timer { order: 2; align-self: flex-start; margin: 22px 0 18px; font-size: 120px; }
+  .visit__steps { order: 3; align-self: stretch; gap: 0; }
+  .visit__steps li { padding: 14px 0; }
+  .visit__steps span { display: none; }
+  .visit__steps li.is-now span { display: block; margin-top: 4px; }
+  .services__title, .wheel__title { font-size: 72px; }
+  .services__grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .offer { grid-column: 1 / -1; grid-row: auto; min-height: 420px; }
+  .svc { min-height: 220px; }
+  .visit__title { font-size: 56px; }
+  .visit__timer { font-size: 150px; }
+  .visit__inner { column-gap: 48px; }
+  .book__title { font-size: 88px; }
+  .book__form { grid-template-columns: 1fr 1fr; }
+  .book__col--send { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; align-items: end; }
+  .book__col--send legend { grid-column: 1 / -1; }
+  .book__col--send .consent, .book__col--send .book__summary, .book__col--send .book__send, .book__col--send .book__error { grid-column: 1 / -1; }
+  /* Колесо и плашки: плашки сеткой под колесом */
+  .wheel__stage { height: auto; display: flex; flex-direction: column; align-items: center; }
+  .wheel__art { position: relative; left: auto; top: auto; margin: 0; width: min(640px, 92vw); height: min(640px, 92vw); }
+  .tags { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 32px; }
+  .tag { position: static; width: auto; }
+  .tag--big { grid-column: 1 / -1; width: auto; }
+  .footer__cols { grid-template-columns: 1fr 1fr; }
+  .footer__go { grid-column: 1 / -1; }
+}
+
+@media (max-width: 900px) {
+  .header__nav { display: none; }
+  .header__phone { margin-left: auto; }
+}
+
+/* Телефоны */
+@media (max-width: 640px) {
+  :root { --pad: 16px; --cut: 10px; }
+  body { font-size: 16px; }
+  html { scroll-padding-top: 64px; }
+
+  .header { height: 60px; gap: 12px; }
+  .logo__word { font-size: 16px; }
+  .logo .mark { width: 18px; height: 18px; }
+  .header__phone span { display: none; }
+  .header__phone-icon { display: block; }
+  .header__phone { display: grid; place-items: center; width: 40px; height: 40px; background: var(--graphite); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+  .header__cta { height: 40px; padding: 0 16px; font-size: 14px; }
+
+  /* Первый экран: колесо сверху справа, текст снизу */
+  .hero { min-height: 640px; }
+  .hero__wheel { width: 560px; height: 560px; right: -220px; top: 64px; margin-top: 0; }
+  .hero__light { background: radial-gradient(70% 45% at 70% 32%, rgba(227, 38, 28, 0.25), transparent 70%), linear-gradient(180deg, transparent 30%, rgba(15, 15, 18, 0.92) 62%); }
+  .hero__copy { left: var(--pad); right: var(--pad); bottom: 64px; width: auto; }
+  .hero__lead { font-size: 15px; margin-bottom: 18px; max-width: 300px; }
+  .hero__title { font-size: 10.4vw; }
+  .hero__lead { text-shadow: 0 2px 12px rgba(0,0,0,.8); color: var(--chalk); }
+  .hero__actions { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 26px; }
+  .hero__call { text-align: center; }
+  .tread { height: 28px; }
+  .tread__belt { background-size: 84px 28px; }
+
+  /* Услуги */
+  .services { padding: 88px 0; }
+  .services__title, .wheel__title { font-size: 44px; margin-bottom: 32px; }
+  .services__grid { grid-template-columns: 1fr; gap: 10px; }
+  .offer { min-height: 0; padding: 28px 22px; }
+  .offer__title { font-size: 30px; }
+  .offer__text { margin: 16px 0 24px; font-size: 16px; }
+  .offer .cut { width: 100%; }
+  .offer__wheel { width: 300px; height: 300px; right: -120px; bottom: -150px; }
+  .svc { min-height: 0; padding: 22px; gap: 10px; }
+  .svc h3 { font-size: 20px; }
+  .svc p { margin-top: 0; font-size: 15px; }
+  .svc--wide { flex-direction: column; align-items: stretch; gap: 10px; padding: 22px; }
+  .svc--wide .cut { margin: 8px 0 0; }
+
+  /* 25 минут: блок по-прежнему закреплён, шаги компактные — описание только у текущего */
+  .visit { height: 260vh; }
+  .visit__inner { display: flex; flex-direction: column; padding: 76px 0 40px; }
+  .visit__title { font-size: 30px; }
+  .visit__note { display: none; }
+  .visit__timer { order: 2; align-self: flex-start; margin: 18px 0 14px; font-size: 76px; }
+  .visit__steps { order: 3; align-self: stretch; gap: 0; }
+  .visit__steps li { grid-template-columns: 30px 1fr; column-gap: 10px; padding: 11px 0; }
+  .visit__steps li::before, .visit__steps b { font-size: 16px; }
+  .visit__steps span { display: none; font-size: 14px; }
+  .visit__steps li.is-now span { display: block; margin-top: 4px; }
+  .visit__rail { bottom: 24px; }
+
+  /* Колесо и плашки */
+  .wheel { padding: 88px 0; }
+  .wheel__stage { margin-top: 8px; }
+  .tags { grid-template-columns: 1fr; gap: 8px; margin-top: 20px; }
+  .tag { padding: 18px 20px; }
+  .tag b { font-size: 17px; }
+  .tag--big b { font-size: 32px; }
+
+  /* Запись */
+  .book { padding: 88px 0 96px; }
+  .book__head { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 36px; }
+  .book__title { font-size: 56px; }
+  .book__form { grid-template-columns: 1fr; gap: 36px; }
+  .book__col--send { display: flex; }
+  .days { gap: 5px; }
+  .day { height: 62px; font-size: 11px; }
+  .day b { font-size: 18px; }
+  .slots { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .chips { gap: 6px; }
+  .radius { padding: 0 4px; font-size: 14px; }
+  .chip span { padding: 0 12px; font-size: 14px; }
+  .book__done { flex-direction: column; align-items: flex-start; gap: 16px; padding: 28px 22px; }
+  .book__done-title { font-size: 48px; }
+  .book__done .cut { margin-left: 0; width: 100%; }
+
+  /* Футер */
+  .footer__inner { padding: 48px var(--pad) 22px; }
+  .footer__cols { grid-template-columns: 1fr; gap: 22px; font-size: 16px; }
+  .footer__go .cut { width: 100%; }
+  .footer__word { margin-top: 32px; }
+  .footer__base { margin-top: 22px; font-size: 13px; }
+}
