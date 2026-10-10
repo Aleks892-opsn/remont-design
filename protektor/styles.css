@@ -166,7 +166,8 @@ body::after {
 .header__hours { display: flex; align-items: center; gap: 8px; color: var(--chalk); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--steel); flex: none; }
 .dot.is-open { background: #3fd36b; box-shadow: 0 0 0 4px rgba(63, 211, 107, 0.15); }
-.header__nav { display: flex; gap: 28px; margin-left: auto; }
+.header__nav { display: flex; gap: 28px; margin-left: auto; white-space: nowrap; }
+.header__where, .header__phone { white-space: nowrap; }
 .header__nav a { position: relative; padding: 6px 0; color: var(--steel); transition: color 0.2s; }
 .header__nav a:hover, .header__nav a.is-active { color: var(--chalk); }
 .header__nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--signal); }
@@ -479,6 +480,160 @@ main { position: relative; z-index: 1; background: var(--rubber); margin-bottom:
 }
 .footer__base { display: flex; justify-content: space-between; margin-top: 36px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.3); font-size: 14px; }
 .footer__base a:hover { text-decoration: underline; }
+
+
+/* ---------- Мессенджеры ---------- */
+.header__msgs, .footer__msgs, .where__msgs { display: flex; align-items: center; gap: 8px; }
+.msg {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  background: var(--graphite);
+  color: var(--chalk);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: background-color 0.2s;
+}
+.msg svg { width: 20px; height: 20px; fill: currentColor; }
+.msg:hover { background: var(--signal); }
+.footer__msgs { margin-top: 12px; }
+.footer__msgs .msg { background: rgba(0, 0, 0, 0.22); color: #fff; }
+.footer__msgs .msg:hover { background: var(--rubber); }
+
+/* ---------- Сезонная подсказка ---------- */
+.season { position: relative; z-index: 2; background: var(--signal); color: #fff; }
+.season__inner { display: flex; align-items: center; gap: 28px; min-height: 72px; padding: 14px 0; }
+.season__tag { flex: none; font-family: var(--display); font-weight: 900; font-size: 20px; text-transform: uppercase; letter-spacing: -0.02em; transform: skewX(var(--skew)); }
+.season__text { font-size: 16px; }
+.season__link { flex: none; margin-left: auto; font-weight: 600; border-bottom: 2px solid rgba(255, 255, 255, 0.5); transition: border-color 0.2s; }
+.season__link:hover { border-color: #fff; }
+
+/* ---------- Цены ---------- */
+.prices { padding: 30px 0 150px; }
+.prices__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; margin-bottom: 40px; }
+.prices__title { font-size: 96px; }
+.prices__note { max-width: 440px; color: var(--steel); }
+.prices__radius { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; margin-bottom: 24px; }
+.prices__table { display: grid; }
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 24px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.price-row:last-child { border-bottom: 1px solid var(--line); }
+.price-row b { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -0.015em; }
+.price-row small { display: block; margin-top: 4px; color: var(--steel); font-size: 15px; font-family: var(--text); font-weight: 400; letter-spacing: 0; }
+.price-row span { font-family: var(--display); font-weight: 900; font-size: 30px; letter-spacing: -0.03em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price-row span.is-tbd { color: var(--steel); font-size: 20px; font-weight: 700; }
+.prices__foot { margin-top: 18px; color: var(--steel); font-size: 15px; }
+
+/* ---------- Подробно ---------- */
+.details { padding: 0 0 150px; }
+.details__title { font-size: 96px; margin-bottom: 56px; }
+.details__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.detail { padding: 36px; }
+.detail h3 { margin-bottom: 22px; font-family: var(--display); font-weight: 700; font-size: 25px; letter-spacing: -0.02em; }
+.detail ul { display: grid; gap: 14px; }
+.detail li { position: relative; padding-left: 22px; color: var(--steel); font-size: 16px; }
+.detail li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 10px; height: 10px; background: var(--signal); clip-path: polygon(30% 0, 100% 0, 70% 100%, 0 100%); }
+
+/* ---------- Вопросы ---------- */
+.faq { padding: 140px 0 150px; background: var(--asphalt); }
+.faq__inner { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+.faq__title { font-size: 96px; position: sticky; top: 120px; }
+.faq__item { border-top: 1px solid var(--line); }
+.faq__item:last-child { border-bottom: 1px solid var(--line); }
+.faq__item summary {
+  position: relative;
+  padding: 26px 56px 26px 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  list-style: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  background: linear-gradient(var(--signal) 0 0) center / 100% 3px no-repeat, linear-gradient(var(--signal) 0 0) center / 3px 100% no-repeat;
+  transition: transform 0.3s var(--ease);
+}
+.faq__item[open] summary::after { transform: rotate(45deg); }
+.faq__item summary:hover { color: #fff; }
+.faq__item p { padding: 0 56px 26px 0; color: var(--steel); max-width: 640px; }
+
+/* ---------- Как доехать ---------- */
+.where { padding: 150px 0 170px; }
+.where__inner { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: stretch; }
+.where__title { font-size: 80px; }
+.where__addr { margin-top: 28px; font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -0.015em; }
+.where__list { display: grid; gap: 0; margin-top: 24px; }
+.where__list li { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 16px; }
+.where__list b { font-weight: 600; }
+.where__list span { color: var(--steel); }
+.where__btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.where__msgs { margin-top: 24px; color: var(--steel); font-size: 15px; gap: 12px; }
+.where__map { position: relative; min-height: 520px; overflow: hidden; clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
+.where__map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.where__map-note { position: absolute; left: 20px; bottom: 18px; padding: 6px 12px; background: rgba(15, 15, 18, 0.85); color: var(--steel); font-size: 13px; }
+
+.footer__base { gap: 24px; }
+.footer__links { display: flex; gap: 24px; flex: none; }
+.consent a { text-decoration: underline; }
+
+@media (max-width: 1520px) {
+  .header__msgs { display: none; }
+}
+@media (max-width: 1080px) {
+  .prices__title, .details__title, .faq__title { font-size: 72px; }
+  .prices__radius { grid-template-columns: repeat(5, 1fr); }
+  .details__grid { grid-template-columns: 1fr; }
+  .faq__inner { grid-template-columns: 1fr; gap: 32px; }
+  .faq__title { position: static; }
+  .where__inner { grid-template-columns: 1fr; }
+  .where__map { min-height: 380px; }
+}
+@media (max-width: 640px) {
+  .season__inner { flex-wrap: wrap; gap: 6px 14px; padding: 14px 0; }
+  .season__text { flex-basis: 100%; order: 3; font-size: 15px; }
+  .prices { padding: 10px 0 88px; }
+  .prices__head { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
+  .prices__title, .faq__title, .where__title { font-size: 44px; }
+  .details__title { font-size: 36px; }
+  .prices__radius { gap: 6px; }
+  .price-row { padding: 16px 0; gap: 12px; }
+  .price-row b { font-size: 17px; }
+  .price-row small { font-size: 13px; }
+  .price-row span { font-size: 22px; }
+  .price-row span.is-tbd { font-size: 15px; }
+  .details { padding-bottom: 88px; }
+  .details__title { margin-bottom: 28px; }
+  .details__grid { gap: 10px; }
+  .detail { padding: 24px 22px; }
+  .detail h3 { font-size: 20px; margin-bottom: 14px; }
+  .detail li { font-size: 15px; }
+  .faq { padding: 88px 0; }
+  .faq__item summary { padding: 20px 44px 20px 0; font-size: 17px; }
+  .faq__item p { padding-right: 0; font-size: 15px; }
+  .where { padding: 88px 0; }
+  .where__addr { font-size: 19px; }
+  .where__list li { grid-template-columns: 96px 1fr; font-size: 15px; }
+  .where__btns .cut { flex: 1 1 100%; }
+  .where__map { min-height: 300px; }
+  .footer__base { flex-direction: column; gap: 10px; }
+  .footer__links { justify-content: space-between; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

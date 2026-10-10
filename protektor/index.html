@@ -41,10 +41,12 @@
     </div>
     <nav class="header__nav" aria-label="Разделы">
       <a href="#services">Услуги</a>
-      <a href="#visit">Как это проходит</a>
+      <a href="#prices">Цены</a>
       <a href="#wheel">Гарантии</a>
+      <a href="#faq">Вопросы</a>
       <a href="#book">Запись</a>
     </nav>
+    <div class="header__msgs"><a class="msg" href="https://t.me/[telegram]" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></svg></a><a class="msg" href="https://wa.me/70000000000" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg></a></div>
     <a class="header__phone" href="tel:+70000000000" aria-label="Позвонить: +7 (000) 000-00-00"><svg class="header__phone-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span>+7 (000) 000-00-00</span></a>
     <a class="cut cut--red header__cta" href="#book">Записаться</a>
   </header>
@@ -177,6 +179,16 @@
       <div class="tread" aria-hidden="true"><div class="tread__belt" data-belt></div></div>
     </section>
 
+    <!-- Сезонная подсказка: текст меняется по месяцу (script.js) -->
+    <aside class="season" id="season" aria-live="polite">
+      <div class="wrap season__inner">
+        <span class="season__tag" id="season-tag">Сезон</span>
+        <p class="season__text" id="season-text">Переобуваться стоит, когда температура устойчиво держится около +5…+7 °C.</p>
+        <a class="season__link" href="#book">Записаться</a>
+      </div>
+    </aside>
+
+
     <!-- 2. Услуги -->
     <section class="services" id="services" aria-labelledby="services-title">
       <div class="wrap">
@@ -213,6 +225,20 @@
         </div>
       </div>
     </section>
+
+    <!-- Цены: таблица по радиусу. Суммы задаются в script.js (PRICES) -->
+    <section class="prices" id="prices" aria-labelledby="prices-title">
+      <div class="wrap">
+        <div class="prices__head">
+          <h2 class="display prices__title" id="prices-title">Цены</h2>
+          <p class="prices__note">Выберите размер дисков — покажем цены за комплект из четырёх колёс. Без доплат за «сложную» резину по ходу работы.</p>
+        </div>
+        <div class="prices__radius" id="price-radius" role="radiogroup" aria-label="Размер дисков"></div>
+        <div class="prices__table" id="price-table"></div>
+        <p class="prices__foot" id="price-foot"></p>
+      </div>
+    </section>
+
 
     <!-- 3. Как проходят 25 минут: блок закрепляется, прокрутка ведёт таймер и шаги -->
     <section class="visit" id="visit" aria-labelledby="visit-title">
@@ -365,6 +391,55 @@
       </div>
     </section>
 
+    <!-- Подробно: как бережём диски, что входит в гарантию, как устроено хранение -->
+    <section class="details" id="details" aria-labelledby="details-title">
+      <div class="wrap">
+        <h2 class="display details__title" id="details-title">Без сюрпризов</h2>
+        <div class="details__grid">
+          <article class="detail cut-box">
+            <h3>Как бережём диски</h3>
+            <ul>
+              <li>На монтажном станке — пластиковые насадки, металл не касается обода.</li>
+              <li>Грузики подбираем под цвет диска и клеим с внутренней стороны.</li>
+              <li>Перед установкой чистим посадочное место, колёса затягиваем с нужным моментом.</li>
+            </ul>
+          </article>
+          <article class="detail cut-box">
+            <h3>Гарантия 12 месяцев</h3>
+            <ul>
+              <li>Действует на ремонт прокола: если колесо начнёт спускать в этом месте — переделаем бесплатно.</li>
+              <li>Достаточно назвать номер телефона, на который была запись.</li>
+              <li>Боковые порезы ремонтируем тоже — про гарантию на них скажем после осмотра.</li>
+            </ul>
+          </article>
+          <article class="detail cut-box">
+            <h3>Хранение шин</h3>
+            <ul>
+              <li>Принимаем комплект с дисками и без. Сдаёте при переобувке — забираете при следующей.</li>
+              <li>Каждое колесо подписываем, комплект храним в отдельном мешке.</li>
+              <li>Стоимость сезона — <span data-price="storage">[цена]</span> за комплект.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Частые вопросы -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq__inner">
+        <h2 class="display faq__title" id="faq-title">Вопросы</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Обязательно записываться?</summary><p>Нет, можно приехать и так. Но по записи машина встаёт на подъёмник ровно в ваше время, а без записи придётся ждать свободную линию.</p></details>
+          <details class="faq__item"><summary>Сколько ждать без записи?</summary><p>Зависит от загрузки: в сезон очередь бывает. Позвоните перед выездом — скажем, сколько машин впереди.</p></details>
+          <details class="faq__item"><summary>Сколько длится переобувка?</summary><p>Одна машина полностью — около 25 минут: снять, перебортовать, отбалансировать, поставить и накачать.</p></details>
+          <details class="faq__item"><summary>Какие колёса берёте?</summary><p>Легковые и кроссоверы, диски от R13 до R22.</p></details>
+          <details class="faq__item"><summary>Можно оплатить картой?</summary><p>[уточнить способы оплаты]</p></details>
+          <details class="faq__item"><summary>Где подождать?</summary><p>В комнате ожидания: там тепло, есть кофе и видно, как идёт работа.</p></details>
+        </div>
+      </div>
+    </section>
+
+
     <!-- 5. Запись на точное время -->
     <section class="book" id="book" aria-labelledby="book-title">
       <div class="wrap book__inner">
@@ -410,7 +485,7 @@
               <label for="phone">Телефон</label>
               <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__">
             </div>
-            <label class="consent"><input type="checkbox" id="consent"><span>Согласен на обработку персональных данных</span></label>
+            <label class="consent"><input type="checkbox" id="consent"><span>Согласен на обработку персональных данных по <a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a></span></label>
             <p class="book__summary" id="summary" aria-live="polite"></p>
             <button class="cut cut--red cut--lg book__send" type="submit" id="send">Записаться</button>
             <p class="book__error" id="book-error" role="alert"></p>
@@ -421,6 +496,44 @@
           <p class="display book__done-title">Записали</p>
           <p id="book-done-text"></p>
           <button class="cut cut--ink" type="button" id="book-again">Изменить запись</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Как доехать -->
+    <section class="where" id="where" aria-labelledby="where-title">
+      <div class="wrap where__inner">
+        <div class="where__text">
+          <h2 class="display where__title" id="where-title">Как доехать</h2>
+          <p class="where__addr">[город], [адрес]</p>
+          <ul class="where__list">
+            <li><b>Ориентир</b><span>[например: за заправкой, въезд со двора]</span></li>
+            <li><b>Парковка</b><span>[где оставить машину, если приехали заранее]</span></li>
+            <li><b>Часы</b><span>Каждый день с 8:00 до 22:00</span></li>
+          </ul>
+          <div class="where__btns">
+            <a class="cut cut--red" href="https://yandex.ru/maps/?text=[адрес]" target="_blank" rel="noopener">Открыть в Яндекс Картах</a>
+            <a class="cut cut--line" href="https://2gis.ru/search/[адрес]" target="_blank" rel="noopener">2ГИС</a>
+          </div>
+          <div class="where__msgs">
+            <span>Удобнее написать?</span>
+            <a class="msg" href="https://t.me/[telegram]" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></svg></a><a class="msg" href="https://wa.me/70000000000" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg></a>
+          </div>
+        </div>
+        <div class="where__map" role="img" aria-label="Схема проезда (заглушка — сюда встанет карта)">
+          <svg viewBox="0 0 640 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="640" height="520" fill="#18181d"/>
+            <g stroke="#26262d" stroke-width="26" fill="none" stroke-linecap="square">
+              <path d="M-20 140 H660"/><path d="M-20 380 H660"/><path d="M180 -20 V540"/><path d="M470 -20 V540"/>
+            </g>
+            <g stroke="#34343c" stroke-width="2" stroke-dasharray="10 12" fill="none">
+              <path d="M-20 140 H660"/><path d="M-20 380 H660"/><path d="M180 -20 V540"/><path d="M470 -20 V540"/>
+            </g>
+            <g fill="#1f1f25"><rect x="210" y="170" width="230" height="180"/><rect x="20" y="170" width="130" height="180"/><rect x="500" y="170" width="120" height="180"/><rect x="210" y="10" width="230" height="100"/><rect x="210" y="410" width="230" height="100"/></g>
+            <path d="M180 520 V380 H330 V300" stroke="#e3261c" stroke-width="5" fill="none" stroke-dasharray="2 10" stroke-linecap="round"/>
+            <g transform="translate(330 268)"><path d="M0 34 C -18 10 -22 -2 -22 -10 a22 22 0 0 1 44 0 c0 8 -4 20 -22 44z" fill="#e3261c"/><path d="M-6 -16 H10 L6 -2 H-10 Z" fill="#0f0f12"/></g>
+          </svg>
+          <span class="where__map-note">Схема-заглушка. Сюда встанет карта с вашим адресом.</span>
         </div>
       </div>
     </section>
@@ -442,6 +555,7 @@
         <div>
           <p class="footer__k">Связь</p>
           <p><a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
+          <div class="footer__msgs"><a class="msg" href="https://t.me/[telegram]" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></svg></a><a class="msg" href="https://wa.me/70000000000" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg></a></div>
         </div>
         <div class="footer__go">
           <a class="cut cut--red cut--lg" href="#book">Записаться на время</a>
@@ -449,8 +563,8 @@
       </div>
       <p class="footer__word" aria-hidden="true">ПРОТЕКТОР</p>
       <div class="footer__base">
-        <span>© <span id="year"></span> Шиномонтаж «ПРОТЕКТОР»</span>
-        <a href="#top">Наверх</a>
+        <span>© <span id="year"></span> Шиномонтаж «ПРОТЕКТОР» · [ИП или ООО «Название»] · ИНН [—] · ОГРН [—]</span>
+        <span class="footer__links"><a href="privacy.html">Политика конфиденциальности</a><a href="#top">Наверх</a></span>
       </div>
     </div>
   </footer>

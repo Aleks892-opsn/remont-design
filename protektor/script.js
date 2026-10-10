@@ -143,6 +143,54 @@
   window.addEventListener('resize', sizeFooter);
   if (document.fonts) document.fonts.ready.then(sizeFooter);
 
+
+  /* ---------- Цены ----------
+     Впишите суммы в рублях вместо null. Для услуг с byRadius — по одной сумме на каждый размер.
+     Пока стоит null, на сайте показывается «[цена]». */
+  var RADII = ['R13', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20', 'R21', 'R22'];
+  var PRICES = [
+    { name: 'Шиномонтаж комплекта', note: 'снять, перебортовать, отбалансировать, поставить', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
+    { name: 'Балансировка четырёх колёс', note: 'на станке', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
+    { name: 'Финишная балансировка', note: 'на автомобиле, если бьёт руль', price: null },
+    { name: 'Ремонт прокола', note: 'за колесо, гарантия 12 месяцев', price: null },
+    { name: 'Ремонт бокового пореза', note: 'после осмотра', price: null, from: true },
+    { name: 'Правка литого диска', note: 'за диск', price: null, from: true },
+    { name: 'Сезонное хранение', note: 'за комплект', price: null, key: 'storage' },
+    { name: 'Выезд к клиенту', note: 'по [город]', price: null, from: true },
+    { name: 'Азот в шины', note: 'для всех клиентов', free: true }
+  ];
+  var rub = function (n) { return n.toLocaleString('ru-RU') + ' ₽'; };
+  var priceText = function (item, radius) {
+    if (item.free) return { text: 'Бесплатно', tbd: false };
+    var v = item.byRadius ? item.byRadius[radius] : item.price;
+    if (v == null) return { text: '[цена]', tbd: true };
+    return { text: (item.from ? 'от ' : '') + rub(v), tbd: false };
+  };
+  var priceRadius = 'R16';
+  var renderPrices = function () {
+    $('price-table').innerHTML = PRICES.map(function (item) {
+      var p = priceText(item, priceRadius);
+      return '<div class="price-row"><b>' + item.name + '<small>' + item.note + '</small></b><span class="' + (p.tbd ? 'is-tbd' : '') + '">' + p.text + '</span></div>';
+    }).join('');
+    $('price-foot').textContent = 'Цены для дисков ' + priceRadius + '. Точную сумму за ремонт и правку назовём после осмотра.';
+    document.querySelectorAll('[data-price]').forEach(function (el) {
+      var item = PRICES.filter(function (x) { return x.key === el.dataset.price; })[0];
+      if (item) el.textContent = priceText(item, priceRadius).text;
+    });
+  };
+
+  /* ---------- Сезонная подсказка: по месяцу ---------- */
+  var SEASON = [
+    { months: [2, 3], tag: 'Весна', text: 'Пора на летнюю, когда днём стабильно +5…+7 °C и ночью уже без заморозков. В апреле очереди — запишитесь заранее.' },
+    { months: [4, 5, 6, 7], tag: 'Лето', text: 'Сезон спокойный: хорошее время проверить балансировку, выправить диски после зимних ям и сдать зимнюю резину на хранение.' },
+    { months: [8, 9, 10], tag: 'Осень', text: 'Пора на зимнюю, когда ночью около нуля. Первый снег — самые длинные очереди, лучше записаться заранее.' },
+    { months: [11, 0, 1], tag: 'Зима', text: 'Поймали яму или прокол — приезжайте: ремонтируем проколы с гарантией 12 месяцев и правим литые диски.' }
+  ];
+  var nowMonth = new Date().getMonth();
+  var season = SEASON.filter(function (x) { return x.months.indexOf(nowMonth) >= 0; })[0];
+  $('season-tag').textContent = season.tag;
+  $('season-text').textContent = season.text;
+
   /* ---------- Запись на время ---------- */
   var DAYS = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
   var MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -294,6 +342,11 @@
     $('book-done').hidden = false;
     $('book-done').focus();
   });
+  radioGroup($('price-radius'), RADII.map(function (r) {
+    return { cls: 'radius', html: r, value: r, label: 'Цены для дисков ' + r, checked: r === priceRadius };
+  }), function (v) { priceRadius = v; renderPrices(); });
+  renderPrices();
+
   $('book-again').addEventListener('click', function () {
     $('book-done').hidden = true;
     $('book-form').hidden = false;
