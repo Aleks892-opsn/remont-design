@@ -88,6 +88,8 @@
     ticking = false;
     var y = window.scrollY;
     header.classList.toggle('is-solid', y > 40);
+    // Лента протектора едет при прокрутке — и на компьютере, и на телефоне
+    if (belt && motion) belt.style.setProperty('--belt', (-y * 0.6 % 840).toFixed(1) + 'px');
     if (isPhone()) {
       // Сначала все замеры, потом все записи — чтобы не дёргать раскладку на каждом кадре
       var writes = phoneJobs.map(function (job) { return job(y); });
@@ -97,7 +99,6 @@
     if (!motion) return;
 
     setRot(heroWheel, y * degPerPx * 2.2);
-    if (belt) belt.style.setProperty('--belt', (-y * 0.6 % 120) + 'px');
 
     if (bigWheel) {
       var r = bigWheel.getBoundingClientRect();

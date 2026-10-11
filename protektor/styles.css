@@ -234,7 +234,8 @@ body::after {
   width: 400%;
   background: url("assets/tread.svg") 0 0 / 120px 40px repeat-x;
   opacity: 0.55;
-  transform: translateX(var(--belt, 0px));
+  transform: translate3d(var(--belt, 0px), 0, 0);
+  will-change: transform;
 }
 
 /* Въезд колеса после загрузки */
@@ -928,8 +929,6 @@ main { overflow-x: clip; }
   .footer__links a { display: inline-flex; align-items: center; min-height: 44px; }
 
   /* Пальцу нужно не меньше 44px: увеличиваем область нажатия, не меняя вида */
-  .season__link { position: relative; }
-  .season__link::after { content: ""; position: absolute; left: -8px; right: -8px; top: -10px; bottom: -10px; }
   .msg { width: 44px; height: 44px; }
   .footer__cols a[href^="tel"] { display: inline-block; padding: 11px 0; margin: -11px 0; }
 }
@@ -1006,4 +1005,12 @@ main { overflow-x: clip; }
   .motion .hero.m-photo .hero__photo img { opacity: 1; transform: none; }
   .in-frame .header { top: 64px; }
   .in-frame .msheet { padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Телефон: без кнопки в сезонной плашке, лента — белые шевроны на чёрном */
+@media (max-width: 640px) {
+  .season__link { display: none; }
+  .tread { background: #000; }
+  .tread__belt { background-image: url("assets/tread-white.svg"); opacity: 1; }
+  .services { padding-top: 52px; }
 }
