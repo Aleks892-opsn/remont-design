@@ -64,6 +64,18 @@
   var heroWheel = $('hero-wheel');
   var bigWheel = document.querySelector('.wheel__art');
   var belt = document.querySelector('[data-belt]');
+  // На телефоне лента едет медленно и догоняет прокрутку плавно, а не рывками
+  var beltNow = 0, beltTo = 0, beltRaf = 0;
+  var beltStep = function () {
+    beltNow += (beltTo - beltNow) * 0.12;
+    if (Math.abs(beltTo - beltNow) < 0.1) beltNow = beltTo;
+    belt.style.setProperty('--belt', (beltNow % 840).toFixed(2) + 'px');
+    beltRaf = beltNow === beltTo ? 0 : requestAnimationFrame(beltStep);
+  };
+  var moveBelt = function (y) {
+    beltTo = -y * 0.2;
+    if (!beltRaf) beltRaf = requestAnimationFrame(beltStep);
+  };
   var visit = $('visit');
   var timer = $('visit-timer');
   var rail = $('visit-rail');
@@ -89,7 +101,10 @@
     var y = window.scrollY;
     header.classList.toggle('is-solid', y > 40);
     // Лента протектора едет при прокрутке — и на компьютере, и на телефоне
-    if (belt && motion) belt.style.setProperty('--belt', (-y * 0.6 % 840).toFixed(1) + 'px');
+    if (belt && motion) {
+      if (isPhone()) moveBelt(y);
+      else belt.style.setProperty('--belt', (-y * 0.6 % 840).toFixed(1) + 'px');
+    }
     if (isPhone()) {
       // Сначала все замеры, потом все записи — чтобы не дёргать раскладку на каждом кадре
       var writes = phoneJobs.map(function (job) { return job(y); });
