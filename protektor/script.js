@@ -89,7 +89,8 @@
   // На телефоне колесо — готовые картинки-слои: крутим их через transform (это делает видеокарта, без перерисовки SVG)
   var setRot = function (wrap, deg) {
     if (!wrap) return;
-    if (isPhone()) {
+    // Колесо в блоке гарантий — картинками и на компьютере
+    if (isPhone() || wrap === bigWheel) {
       var imgs = wrap.querySelectorAll('.mwheel__rot');
       for (var i = 0; i < imgs.length; i++) imgs[i].style.transform = 'rotate(' + deg + 'deg)';
       return;
@@ -99,6 +100,7 @@
 
   var ticking = false;
   var phoneJobs = []; // обработчики прокрутки телефонных блоков (добавляются ниже)
+  var deskJobs = [];  // то же для компьютера — для блоков, которые устроены одинаково
   var onScroll = function () {
     ticking = false;
     var y = window.scrollY;
@@ -111,14 +113,11 @@
       writes.forEach(function (w) { if (w) w(); });
       return;
     }
+    var dw = deskJobs.map(function (job) { return job(y); });
+    dw.forEach(function (w) { if (w) w(); });
     if (!motion) return;
 
     setRot(heroWheel, y * degPerPx * 2.2);
-
-    if (bigWheel) {
-      var r = bigWheel.getBoundingClientRect();
-      setRot(bigWheel, (innerHeight - r.top) * 0.18);
-    }
 
     // Закреплённый блок визита: прогресс от 0 до 1 → таймер 00:00…25:00 и шаги по очереди
     var vr = visit.getBoundingClientRect();
@@ -634,6 +633,7 @@
     };
     track.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(draw); }, { passive: true });
     var go = function (i) { track.scrollTo({ left: i * step(), behavior: motion ? 'smooth' : 'auto' }); };
+    cards.forEach(function (c, k) { c.addEventListener('click', function (e) { if (!e.target.closest('a')) go(k); }); });
     prev.addEventListener('click', function () { go(Math.max(0, cur - 1)); });
     next.addEventListener('click', function () { go(Math.min(cards.length - 1, cur + 1)); });
     track.addEventListener('keydown', function (e) {
@@ -687,7 +687,7 @@
       cards.forEach(function (c, i) { var d = Math.abs(c.getBoundingClientRect().left - left); if (d < bd) { bd = d; best = i; } });
       return best;
     };
-    phoneJobs.push(function () {
+    var wheelJob = function () {
       var r = bigWheel.getBoundingClientRect();
       if (r.bottom < -100 || r.top > innerHeight + 100) return null;
       var step = (cards[1].offsetLeft - cards[0].offsetLeft) || 1;
@@ -700,16 +700,15 @@
         count.textContent = pad(i + 1);
         cards.forEach(function (c, k) { c.classList.toggle('is-now', k === i); });
       };
-    });
+    };
+    phoneJobs.push(wheelJob);
+    deskJobs.push(wheelJob);
     track.addEventListener('scroll', requestScroll, { passive: true });
     cards.forEach(function (c, k) {
       c.addEventListener('click', function () {
-        if (!isPhone()) return;
         track.scrollTo({ left: c.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft), behavior: motion ? 'smooth' : 'auto' });
       });
     });
-    // На компьютере подсветка и счётчик не нужны
-    phoneMQ.addEventListener('change', function () { if (!isPhone()) { cards.forEach(function (c) { c.classList.remove('is-now'); }); cur = -1; } });
   })();
 
   // Фото первого экрана на телефоне: если файла пока нет — прячем пустое место
@@ -908,7 +907,7 @@
     };
   })();
   if (!motion) hero.classList.add('m-in', 'm-done');
-  if (isPhone()) onScroll(); // телефонные блоки готовы — первый кадр
+  onScroll(); // все блоки готовы — первый кадр
   if (!motion) {
     timer.textContent = '25:00';
     rail.style.width = '100%';
