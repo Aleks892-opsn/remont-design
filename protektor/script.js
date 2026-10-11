@@ -71,8 +71,14 @@
   // Колесо 1080px в диаметре: при прокрутке на X пикселей «проезжает» X — поворот X / (π·d) оборотов
   var degPerPx = 360 / (Math.PI * 1080);
 
+  // На телефоне колесо — готовые картинки-слои: крутим их через transform (это делает видеокарта, без перерисовки SVG)
   var setRot = function (wrap, deg) {
     if (!wrap) return;
+    if (isPhone()) {
+      var imgs = wrap.querySelectorAll('.mwheel__rot');
+      for (var i = 0; i < imgs.length; i++) imgs[i].style.transform = 'rotate(' + deg + 'deg)';
+      return;
+    }
     wrap.querySelectorAll('.tire-rot').forEach(function (g) { g.style.setProperty('--rot', deg + 'deg'); });
   };
 
@@ -581,32 +587,39 @@
     phoneMQ.addEventListener('change', function () { if (!isPhone()) close(false); });
   })();
 
-  /* ---------- Гармошка услуг: тап раскрывает, строка посередине экрана — красная ---------- */
+  /* ---------- Карусель услуг: свайп вбок, карточка, на которую пролистали, — красная ---------- */
   (function () {
-    var rows = Array.prototype.slice.call(document.querySelectorAll('.msvc__row'));
-    rows.forEach(function (row) {
-      var btn = row.querySelector('.msvc__btn');
-      btn.addEventListener('click', function () {
-        var open = !row.classList.contains('is-open');
-        rows.forEach(function (r) { r.classList.remove('is-open'); r.querySelector('.msvc__btn').setAttribute('aria-expanded', 'false'); });
-        if (open) { row.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); }
-        // раскрытие меняет высоты — обновим подсветку после анимации
-        setTimeout(requestScroll, 480);
-      });
-    });
-    var act = null;
-    phoneJobs.push(function () {
-      var mid = innerHeight / 2, next = null;
-      for (var i = 0; i < rows.length; i++) {
-        var r = rows[i].getBoundingClientRect();
-        if (r.top <= mid && r.bottom > mid) { next = rows[i]; break; }
+    var track = $('mcar-track');
+    if (!track) return;
+    var cards = Array.prototype.slice.call(track.querySelectorAll('.mcar__card'));
+    var tires = cards.map(function (c) { return c.querySelector('.mcar__tire'); });
+    var ticks = Array.prototype.slice.call(document.querySelectorAll('#mcar-ticks span'));
+    var prev = $('mcar-prev'), next = $('mcar-next'), num = $('mcar-n');
+    var cur = 0, raf = 0;
+    var step = function () { return (cards[1].offsetLeft - cards[0].offsetLeft) || 1; };
+    var draw = function () {
+      raf = 0;
+      var s = step();
+      var i = Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / s)));
+      if (motion) {
+        var deg = 'rotate(' + (track.scrollLeft * 0.45).toFixed(1) + 'deg)';
+        for (var k = 0; k < tires.length; k++) tires[k].style.transform = deg;
       }
-      if (next === act) return null;
-      return function () {
-        if (act) act.classList.remove('is-act');
-        if (next) next.classList.add('is-act');
-        act = next;
-      };
+      if (i === cur) return;
+      cur = i;
+      num.textContent = pad(i + 1);
+      cards.forEach(function (c, k) { c.classList.toggle('is-now', k === i); });
+      ticks.forEach(function (t, k) { t.classList.toggle('is-on', k === i); t.classList.toggle('is-past', k < i); });
+      prev.disabled = i === 0;
+      next.disabled = i === cards.length - 1;
+    };
+    track.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(draw); }, { passive: true });
+    var go = function (i) { track.scrollTo({ left: i * step(), behavior: motion ? 'smooth' : 'auto' }); };
+    prev.addEventListener('click', function () { go(Math.max(0, cur - 1)); });
+    next.addEventListener('click', function () { go(Math.min(cards.length - 1, cur + 1)); });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { go(Math.min(cards.length - 1, cur + 1)); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { go(Math.max(0, cur - 1)); e.preventDefault(); }
     });
   })();
 
@@ -669,7 +682,7 @@
 
   /* ---------- Первый экран: колесо въезжает, катится дальше от прокрутки, потом текст ---------- */
   phoneHero = (function () {
-    var groups = Array.prototype.slice.call(heroWheel.querySelectorAll('.tire-rot'));
+    var groups = Array.prototype.slice.call(heroWheel.querySelectorAll('.mwheel__rot'));
     var ENTER = 1300;          // длительность въезда, мс
     var t0 = null, done = !motion, raf = 0, x0 = 0;
     var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
@@ -682,7 +695,7 @@
       var x = enter + Math.min(window.scrollY, innerHeight * 1.5) * 0.9;
       // поворот ровно на пройденный путь: x / (π·D) оборотов; D — диаметр шины (98% картинки)
       var deg = x / (Math.PI * d * 0.98) * 360;
-      heroWheel.style.setProperty('--wx', x.toFixed(2) + 'px');
+      heroWheel.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
       for (var i = 0; i < groups.length; i++) groups[i].style.transform = 'rotate(' + deg.toFixed(2) + 'deg)';
     };
     var reveal = function () {
@@ -702,6 +715,7 @@
         if (hero.classList.contains('is-in') && t0 === null) { done = true; reveal(); }
       } else {
         groups.forEach(function (g) { g.style.transform = ''; });
+        heroWheel.style.transform = '';
       }
       requestScroll();
     });

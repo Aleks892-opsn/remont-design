@@ -50,7 +50,7 @@
     <a class="header__phone" href="tel:+70000000000" aria-label="Позвонить: +7 (000) 000-00-00"><svg class="header__phone-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span>+7 (000) 000-00-00</span></a>
     <a class="cut cut--red header__cta" href="#book">Записаться</a>
     <!-- Только на телефоне: меню-шторка снизу -->
-    <button class="header__menu" type="button" id="menu-open" aria-label="Открыть меню" aria-expanded="false" aria-controls="msheet"><i></i><i></i><i></i></button>
+    <button class="header__menu" type="button" id="menu-open" aria-label="Открыть меню" aria-expanded="false" aria-controls="msheet"><span class="header__menu-ic" aria-hidden="true"><i></i><i></i><i></i></span><span class="header__menu-t">Меню</span></button>
   </header>
 
   <main id="main">
@@ -168,7 +168,7 @@
     <rect width="1000" height="1000" fill="url(#h-keyRed)"/>
     <path d="M 70 360 A 440 440 0 0 1 930 360" fill="none" stroke="url(#h-rimLight)" stroke-width="22" opacity="0.6"/>
   </g>
-</svg>
+</svg><div class="mwheel"><img class="mwheel__rot" src="assets/wheel/back.webp" alt="" decoding="async"><img src="assets/wheel/cal.webp" alt="" decoding="async"><img class="mwheel__rot" src="assets/wheel/front.webp" alt="" decoding="async"><img src="assets/wheel/light.webp" alt="" decoding="async"></div>
 </div>
       <div class="hero__copy">
         <p class="hero__lead"><span class="hero__lead-k">Шиномонтаж на две линии.</span> Запишитесь на своё время — и не стойте в очереди.</p>
@@ -227,34 +227,65 @@
             <a class="cut cut--line" href="#book" data-mobile-service>Вызвать мастера</a>
           </article>
         </div>
-        <!-- Только на телефоне: услуги списком-гармошкой. Строка посередине экрана подсвечивается красным -->
-        <p class="msvc-sub">Шесть услуг. Нажмите — расскажем коротко.</p>
-        <ul class="msvc" id="msvc">
-          <li class="msvc__row is-open">
-            <button class="msvc__btn" type="button" id="msvc-b1" aria-expanded="true" aria-controls="msvc-p1"><span class="msvc__n">01</span><span class="msvc__t">Сезонная переобувка<small>Самое частое · R13–R22</small></span><span class="msvc__ic" aria-hidden="true"></span></button>
-            <div class="msvc__panel" id="msvc-p1" role="region" aria-labelledby="msvc-b1"><div><div class="msvc__in"><p>Легковые и кроссоверы. Снимаем, меняем резину, балансируем, ставим обратно — одна машина полностью за 25 минут.</p><span class="msvc__fact">Одна машина — 25 минут</span><a class="cut cut--line" href="#book" data-mbook-what="Переобувка">Записаться на переобувку</a></div></div></div>
-          </li>
-          <li class="msvc__row">
-            <button class="msvc__btn" type="button" id="msvc-b2" aria-expanded="false" aria-controls="msvc-p2"><span class="msvc__n">02</span><span class="msvc__t">Балансировка</span><span class="msvc__ic" aria-hidden="true"></span></button>
-            <div class="msvc__panel" id="msvc-p2" role="region" aria-labelledby="msvc-b2"><div><div class="msvc__in"><p>На станке и финишная — прямо на вашем автомобиле, если руль бьёт даже после обычной.</p><span class="msvc__fact">Станок + на машине</span><a class="cut cut--line" href="#book" data-mbook-what="Балансировка">Записаться на балансировку</a></div></div></div>
-          </li>
-          <li class="msvc__row">
-            <button class="msvc__btn" type="button" id="msvc-b3" aria-expanded="false" aria-controls="msvc-p3"><span class="msvc__n">03</span><span class="msvc__t">Проколы и боковые порезы</span><span class="msvc__ic" aria-hidden="true"></span></button>
-            <div class="msvc__panel" id="msvc-p3" role="region" aria-labelledby="msvc-b3"><div><div class="msvc__in"><p>Ремонтируем изнутри. На ремонт прокола даём гарантию 12 месяцев.</p><span class="msvc__fact">Гарантия 12 месяцев</span><a class="cut cut--line" href="#book" data-mbook-what="Ремонт прокола">Записаться на ремонт</a></div></div></div>
-          </li>
-          <li class="msvc__row">
-            <button class="msvc__btn" type="button" id="msvc-b4" aria-expanded="false" aria-controls="msvc-p4"><span class="msvc__n">04</span><span class="msvc__t">Сезонное хранение</span><span class="msvc__ic" aria-hidden="true"></span></button>
-            <div class="msvc__panel" id="msvc-p4" role="region" aria-labelledby="msvc-b4"><div><div class="msvc__in"><p>Оставьте комплект у нас и заберите его к следующему сезону.</p><span class="msvc__fact">До следующего сезона</span><a class="cut cut--line" href="#book" data-mbook-what="Хранение шин">Записаться на хранение</a></div></div></div>
-          </li>
-          <li class="msvc__row">
-            <button class="msvc__btn" type="button" id="msvc-b5" aria-expanded="false" aria-controls="msvc-p5"><span class="msvc__n">05</span><span class="msvc__t">Правка литых дисков</span><span class="msvc__ic" aria-hidden="true"></span></button>
-            <div class="msvc__panel" id="msvc-p5" role="region" aria-labelledby="msvc-b5"><div><div class="msvc__in"><p>Если поймали яму: выправим диск, чтобы колесо снова держало давление и не било.</p><span class="msvc__fact">После ям и бордюров</span><a class="cut cut--line" href="#book" data-mbook-what="Правка дисков">Записаться на правку</a></div></div></div>
-          </li>
-          <li class="msvc__row">
-            <button class="msvc__btn" type="button" id="msvc-b6" aria-expanded="false" aria-controls="msvc-p6"><span class="msvc__n">06</span><span class="msvc__t">Выезд к клиенту</span><span class="msvc__ic" aria-hidden="true"></span></button>
-            <div class="msvc__panel" id="msvc-p6" role="region" aria-labelledby="msvc-b6"><div><div class="msvc__in"><p>Не получается приехать — приедем сами. Отметьте это при записи и оставьте адрес.</p><span class="msvc__fact">Приедем по адресу</span><a class="cut cut--line" href="#book" data-mobile-service>Вызвать мастера</a></div></div></div>
-          </li>
-        </ul>
+        <!-- Только на телефоне: услуги каруселью. Карточка, на которую пролистали, становится красной -->
+                <div class="mcar" id="mcar">
+                  <p class="mcar__count" aria-live="polite"><b id="mcar-n">01</b>/06</p>
+                  <div class="mcar__track" id="mcar-track" tabindex="0" role="group" aria-label="Услуги, листайте вбок">
+                    <article class="mcar__card cut-box is-now">
+              <span class="mcar__n">01 · Самое частое</span>
+              <h3 class="mcar__t">Сезонная переобувка R13–R22</h3>
+              <p class="mcar__x">Легковые и кроссоверы. Снимаем, меняем резину, балансируем, ставим обратно.</p>
+              <span class="mcar__fact">Одна машина — 25 минут</span>
+              <a class="cut mcar__btn" href="#book" data-mbook-what="Переобувка">Записаться на переобувку</a>
+              <img class="mcar__tire" src="assets/wheel/full.webp" alt="" loading="lazy" decoding="async">
+            </article>
+                    <article class="mcar__card cut-box">
+              <span class="mcar__n">02</span>
+              <h3 class="mcar__t">Балансировка</h3>
+              <p class="mcar__x">На станке и финишная — прямо на вашем автомобиле, если руль бьёт даже после обычной.</p>
+              <span class="mcar__fact">Станок + на машине</span>
+              <a class="cut mcar__btn" href="#book" data-mbook-what="Балансировка">Записаться на балансировку</a>
+              <img class="mcar__tire" src="assets/wheel/full.webp" alt="" loading="lazy" decoding="async">
+            </article>
+                    <article class="mcar__card cut-box">
+              <span class="mcar__n">03</span>
+              <h3 class="mcar__t">Проколы и боковые порезы</h3>
+              <p class="mcar__x">Ремонтируем изнутри. Не только проколы — боковые порезы тоже.</p>
+              <span class="mcar__fact">Гарантия на прокол 12 месяцев</span>
+              <a class="cut mcar__btn" href="#book" data-mbook-what="Ремонт прокола">Записаться на ремонт</a>
+              <img class="mcar__tire" src="assets/wheel/full.webp" alt="" loading="lazy" decoding="async">
+            </article>
+                    <article class="mcar__card cut-box">
+              <span class="mcar__n">04</span>
+              <h3 class="mcar__t">Сезонное хранение</h3>
+              <p class="mcar__x">Оставьте комплект у нас и заберите его к следующему сезону.</p>
+              <span class="mcar__fact">С дисками и без</span>
+              <a class="cut mcar__btn" href="#book" data-mbook-what="Хранение шин">Сдать на хранение</a>
+              <img class="mcar__tire" src="assets/wheel/full.webp" alt="" loading="lazy" decoding="async">
+            </article>
+                    <article class="mcar__card cut-box">
+              <span class="mcar__n">05</span>
+              <h3 class="mcar__t">Правка литых дисков</h3>
+              <p class="mcar__x">Поймали яму? Выправим диск, чтобы колесо снова держало давление и не било.</p>
+              <span class="mcar__fact">После ям и бордюров</span>
+              <a class="cut mcar__btn" href="#book" data-mbook-what="Правка дисков">Записаться на правку</a>
+              <img class="mcar__tire" src="assets/wheel/full.webp" alt="" loading="lazy" decoding="async">
+            </article>
+                    <article class="mcar__card cut-box">
+              <span class="mcar__n">06</span>
+              <h3 class="mcar__t">Выезд к клиенту</h3>
+              <p class="mcar__x">Не получается приехать — приедем сами. Отметьте выезд при записи и оставьте адрес.</p>
+              <span class="mcar__fact">Приедем к вам</span>
+              <a class="cut mcar__btn" href="#book" data-mobile-service>Вызвать мастера</a>
+              <img class="mcar__tire" src="assets/wheel/full.webp" alt="" loading="lazy" decoding="async">
+            </article>
+                  </div>
+                  <div class="mcar__nav">
+            <div class="mcar__ticks" id="mcar-ticks" aria-hidden="true"><span class="is-on"><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
+            <button class="mcar__arr" type="button" id="mcar-prev" aria-label="Предыдущая услуга" disabled>‹</button>
+            <button class="mcar__arr" type="button" id="mcar-next" aria-label="Следующая услуга">›</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -429,7 +460,7 @@
     <rect width="1000" height="1000" fill="url(#g-keyRed)"/>
     <path d="M 70 360 A 440 440 0 0 1 930 360" fill="none" stroke="url(#g-rimLight)" stroke-width="22" opacity="0.6"/>
   </g>
-</svg>
+</svg><div class="mwheel"><img class="mwheel__rot" src="assets/wheel/back.webp" alt="" decoding="async"><img src="assets/wheel/cal.webp" alt="" decoding="async"><img class="mwheel__rot" src="assets/wheel/front.webp" alt="" decoding="async"><img src="assets/wheel/light.webp" alt="" decoding="async"></div>
 </div>
           <div class="wheel__meta"><p class="wheel__count"><b id="wheel-count">01</b>/06</p><span>листайте плашки →</span></div>
           <ul class="tags" id="wheel-tags" aria-label="Гарантии">

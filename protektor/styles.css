@@ -635,6 +635,9 @@ main { position: relative; z-index: 1; background: var(--rubber); margin-bottom:
   .footer__links { justify-content: space-between; }
 }
 
+
+
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; }
@@ -695,7 +698,7 @@ main { position: relative; z-index: 1; background: var(--rubber); margin-bottom:
 }
 
 /* Элементы только для телефона: на планшете и компьютере их нет */
-.header__menu, .hero__facts, .msvc, .msvc-sub, .mtl, .wheel__pin, .wheel__meta, .mbook, .mbook__voice, .mscrim, .msheet { display: none; }
+.mwheel, .header__menu, .hero__facts, .mcar, .mtl, .wheel__pin, .wheel__meta, .mbook, .mbook__voice, .mscrim, .msheet { display: none; }
 /* Ничего не выпирает вбок (заголовок «Без сюрпризов» на узком планшете) */
 main { overflow-x: clip; }
 
@@ -816,35 +819,6 @@ main { overflow-x: clip; }
   .services { padding: 88px 0; }
   .services__title, .wheel__title { font-size: 44px; margin-bottom: 0; }
   .services__grid { display: none; }
-  .msvc-sub { display: block; margin: 14px 0 24px; color: var(--steel); font-size: 15px; }
-  .msvc { display: block; border-bottom: 1px solid var(--line); }
-  .msvc__row { position: relative; border-top: 1px solid var(--line); transition: background-color 0.35s, color 0.35s, border-color 0.35s; }
-  .msvc__row.is-act { background: var(--signal); color: #fff; border-color: transparent; clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut)); }
-  .msvc__row.is-act + .msvc__row { border-top-color: transparent; }
-  .msvc__btn { display: grid; grid-template-columns: 30px minmax(0, 1fr) 44px; align-items: center; gap: 10px; width: 100%; min-height: 76px; padding: 14px 10px; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
-  .msvc__n { font-family: var(--display); font-weight: 700; font-size: 13px; color: var(--steel); transition: color 0.35s; }
-  .msvc__t { font-family: var(--display); font-weight: 900; font-size: min(19px, calc((100vw - 146px) / 11.2)); line-height: 1.05; letter-spacing: -0.03em; text-transform: uppercase; transform: skewX(var(--skew)); transform-origin: left bottom; }
-  .msvc__t small { display: block; margin-top: 6px; font-family: var(--text); font-weight: 500; font-size: 12px; letter-spacing: 0.02em; text-transform: none; color: var(--signal); transform: skewX(9deg); transform-origin: left bottom; transition: color 0.35s; }
-  .msvc__ic { position: relative; width: 44px; height: 44px; background: var(--graphite); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); transition: background-color 0.35s; }
-  .msvc__ic::before, .msvc__ic::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; margin: -1px 0 0 -8px; background: currentColor; transition: transform 0.5s var(--ease); }
-  .msvc__ic::after { transform: rotate(90deg); }
-  .msvc__row.is-open .msvc__ic { background: var(--signal); }
-  .msvc__row.is-open .msvc__ic::before { transform: rotate(135deg); }
-  .msvc__row.is-open .msvc__ic::after { transform: rotate(225deg); }
-  .msvc__row.is-open .msvc__n { color: var(--signal); }
-  .msvc__row.is-act .msvc__n, .msvc__row.is-act .msvc__t small { color: rgba(255, 255, 255, 0.85); }
-  .msvc__row.is-act .msvc__ic, .msvc__row.is-act.is-open .msvc__ic { background: rgba(0, 0, 0, 0.22); }
-  .msvc__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
-  .msvc__row.is-open .msvc__panel { grid-template-rows: 1fr; }
-  .msvc__panel > div { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s 0.45s; }
-  .msvc__row.is-open .msvc__panel > div { visibility: visible; transition-delay: 0s; }
-  .msvc__in { padding: 0 10px 22px 50px; }
-  .msvc__in p { color: var(--steel); font-size: 15px; transition: color 0.35s; }
-  .msvc__fact { display: inline-flex; margin: 14px 0 16px; padding: 6px 10px; font-size: 13px; font-weight: 600; background: var(--graphite); clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); }
-  .msvc__in .cut { display: flex; width: 100%; }
-  .msvc__row.is-act .msvc__in p { color: rgba(255, 255, 255, 0.9); }
-  .msvc__row.is-act .msvc__fact { background: rgba(0, 0, 0, 0.22); }
-  .msvc__row.is-act .cut { background: var(--rubber); color: var(--chalk); }
 
   /* ---------- 3. 25 минут: лента времени без закрепления ---------- */
   .visit { height: auto; }
@@ -963,3 +937,53 @@ main { overflow-x: clip; }
 @media (max-width: 640px) and (prefers-reduced-motion: reduce) {
   .mtl__line i { height: 100%; }
 }
+
+/* ---------- Услуги на телефоне: карусель ---------- */
+@media (max-width: 640px) {
+  .mcar { display: block; margin: 0 calc(-1 * var(--pad)); }
+  .mcar__count { margin: -64px var(--pad) 22px auto; width: max-content; font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--steel); font-variant-numeric: tabular-nums; }
+  .mcar__count b { font-weight: 900; font-size: 32px; letter-spacing: -0.03em; color: var(--chalk); }
+  .mcar__track { display: flex; gap: 10px; padding: 0 var(--pad); scroll-padding: 0 var(--pad); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+  .mcar__track::-webkit-scrollbar { display: none; }
+  .mcar__card { position: relative; flex: 0 0 calc(100% - 48px); scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; align-items: flex-start; min-height: 440px; padding: 26px 22px 22px; overflow: hidden; background: var(--asphalt); transition: background-color 0.45s var(--ease), color 0.45s; }
+  .mcar__card.is-now { background: var(--signal); color: #fff; }
+  .mcar__n { font-family: var(--display); font-weight: 700; font-size: 13px; color: var(--steel); transition: color 0.45s; }
+  .mcar__t { position: relative; z-index: 1; margin-top: 16px; font-family: var(--display); font-weight: 900; font-size: 27px; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; transform: skewX(var(--skew)); transform-origin: left bottom; }
+  .mcar__x { position: relative; z-index: 1; max-width: 290px; margin-top: 16px; font-size: 15px; color: var(--steel); transition: color 0.45s; }
+  .mcar__fact { position: relative; z-index: 1; display: inline-flex; margin-top: 14px; padding: 6px 10px; font-size: 13px; font-weight: 600; background: var(--graphite); clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px); transition: background-color 0.45s; }
+  .mcar__btn { position: relative; z-index: 1; margin-top: auto; width: 100%; background: var(--graphite); color: var(--chalk); }
+  .mcar__card.is-now .mcar__n { color: rgba(255, 255, 255, 0.75); }
+  .mcar__card.is-now .mcar__x { color: rgba(255, 255, 255, 0.92); }
+  .mcar__card.is-now .mcar__fact { background: rgba(0, 0, 0, 0.22); }
+  .mcar__card.is-now .mcar__btn { background: var(--rubber); }
+  .mcar__tire { position: absolute; right: -96px; bottom: -40px; width: 260px; height: 260px; opacity: 0.4; pointer-events: none; will-change: transform; transition: opacity 0.45s; }
+  .mcar__card.is-now .mcar__tire { opacity: 0.9; }
+  .mcar__nav { display: flex; align-items: center; gap: 8px; padding: 16px var(--pad) 0; }
+  .mcar__ticks { display: flex; flex: 1; gap: 4px; margin-right: 8px; }
+  .mcar__ticks span { flex: 1; }
+  .mcar__ticks i { display: block; height: 6px; background: var(--graphite); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); transition: background-color 0.3s; }
+  .mcar__ticks .is-past i { background: #5a2420; }
+  .mcar__ticks .is-on i { background: var(--signal); }
+  .mcar__arr { width: 44px; height: 44px; border: 0; background: var(--graphite); color: var(--chalk); font-size: 24px; line-height: 1; cursor: pointer; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+  .mcar__arr:disabled { opacity: 0.35; cursor: default; }
+}
+
+/* Шапка на телефоне: сплошная полоса сверху и заметная кнопка «Меню» */
+@media (max-width: 640px) {
+  .header, .header.is-solid { background: rgba(15, 15, 18, 0.94); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .header__menu { display: flex !important; align-items: center; gap: 10px; width: auto !important; height: 44px; padding: 0 14px 0 12px; background: var(--signal) !important; color: #fff; font: 600 15px/1 var(--text); }
+  .header__menu-ic { display: grid; gap: 4px; }
+  .header__menu-ic i { display: block; width: 18px; height: 2px; background: #fff !important; margin: 0 !important; }
+  .header__menu-ic i:last-child { width: 12px; }
+  .logo { margin-right: auto; }
+}
+
+/* Колесо на телефоне: слои-картинки вместо живого SVG — вращение без подтормаживаний */
+@media (max-width: 640px) {
+  .hero__wheel > svg, .wheel__art > svg { display: none; }
+  .mwheel { display: block; position: absolute; inset: 0; contain: strict; }
+  .mwheel img { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; }
+  .mwheel__rot { will-change: transform; transform: translateZ(0); }
+  .motion .hero .hero__wheel { will-change: transform; }
+}
+
