@@ -1014,11 +1014,3 @@ main { overflow-x: clip; }
   .tread__belt { background-image: url("assets/tread-white.svg"); opacity: 1; }
   .services { padding-top: 52px; }
 }
-
-/* Телефон: футер — обычный блок в конце страницы, а не слой под ней.
-   На iPhone при быстрой прокрутке страница не всегда успевает дорисоваться,
-   и красный футер просвечивал вместо первого экрана. */
-@media (max-width: 640px) {
-  main { margin-bottom: 0; box-shadow: none; }
-  .footer { position: relative; z-index: 1; }
-}
