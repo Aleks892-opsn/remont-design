@@ -1125,3 +1125,9 @@ main { overflow-x: clip; }
   .details__grid { flex-direction: column; gap: 16px; overflow: visible; margin: 0; padding: 0; scroll-snap-type: none; }
   .detail, .detail.cut-box { flex: none; width: 100%; }
 }
+
+/* Телефон: шапка с меню стоит наверху первого экрана и уезжает вместе со страницей */
+@media (max-width: 640px) {
+  .header { position: absolute; }
+  html { scroll-padding-top: 16px; }
+}
