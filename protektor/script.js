@@ -690,6 +690,16 @@
     img.addEventListener('error', fail);
   })();
 
+  // Верхний отступ первого экрана на телефоне = ровно низ шапки + небольшой зазор (шапка может быть сдвинута в превью)
+  var fitHeroTop = function () {
+    if (!isPhone()) { hero.style.removeProperty('--hero-top'); return; }
+    var hb = header.getBoundingClientRect();
+    hero.style.setProperty('--hero-top', Math.round(hb.bottom + window.scrollY + 16) + 'px');
+  };
+  fitHeroTop();
+  window.addEventListener('resize', fitHeroTop);
+  if (document.fonts) document.fonts.ready.then(fitHeroTop);
+
   /* ---------- Первый экран: колесо въезжает, катится дальше от прокрутки, потом текст ---------- */
   phoneHero = (function () {
     var groups = Array.prototype.slice.call(heroWheel.querySelectorAll('.mwheel__rot'));
