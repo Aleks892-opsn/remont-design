@@ -1131,3 +1131,17 @@ main { overflow-x: clip; }
   .header { position: absolute; }
   html { scroll-padding-top: 16px; }
 }
+
+/* Телефон: фото услуги фоном карточки цены — серое, прижато вправо, слева уходит в темноту под текст */
+.price-row__ph { display: none; }
+@media (max-width: 640px) {
+  .price-row__ph {
+    display: block; position: absolute; inset: 0;
+    background: center right / cover no-repeat;
+    filter: grayscale(1) brightness(0.55);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 30%, #000 75%);
+    mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 30%, #000 75%);
+    pointer-events: none;
+  }
+  .price-row__go { z-index: 1; }
+}

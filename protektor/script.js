@@ -189,19 +189,20 @@
 
 
   /* ---------- Цены ----------
-     Впишите суммы в рублях вместо null. Для услуг с byRadius — по одной сумме на каждый размер.
-     Пока стоит null, на сайте показывается «[цена]». */
+     Суммы в рублях — средние по рынку, сверьте со своими. Для услуг с byRadius — по одной сумме на каждый размер.
+     Если поставить null, на сайте покажется «[цена]».
+     photo — фон карточки на телефоне: файл assets/prices/<photo>.webp (16:9, серый). Нет файла — в углу просто колесо. */
   var RADII = ['R13', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20', 'R21', 'R22'];
   var PRICES = [
-    { what: 'Переобувка', name: 'Шиномонтаж комплекта', note: 'снять, перебортовать, отбалансировать, поставить', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
-    { what: 'Балансировка', name: 'Балансировка четырёх колёс', note: 'на станке', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
-    { what: 'Балансировка', name: 'Финишная балансировка', note: 'на автомобиле, если бьёт руль', price: null },
-    { what: 'Ремонт прокола', name: 'Ремонт прокола', note: 'за колесо, гарантия 12 месяцев', price: null },
-    { what: 'Ремонт прокола', name: 'Ремонт бокового пореза', note: 'после осмотра', price: null, from: true },
-    { what: 'Правка дисков', name: 'Правка литого диска', note: 'за диск', price: null, from: true },
-    { what: 'Хранение шин', name: 'Сезонное хранение', note: 'за комплект', price: null, key: 'storage' },
-    { what: 'Переобувка', mobile: true, name: 'Выезд к клиенту', note: 'по [город]', price: null, from: true },
-    { what: 'Переобувка', name: 'Азот в шины', note: 'для всех клиентов', free: true }
+    { what: 'Переобувка', name: 'Шиномонтаж комплекта', note: 'снять, перебортовать, отбалансировать, поставить', photo: 'montazh', byRadius: { R13: 2000, R14: 2200, R15: 2400, R16: 2800, R17: 3200, R18: 3600, R19: 4200, R20: 4800, R21: 5400, R22: 6000 } },
+    { what: 'Балансировка', name: 'Балансировка четырёх колёс', note: 'на станке', photo: 'balans', byRadius: { R13: 800, R14: 900, R15: 1000, R16: 1100, R17: 1300, R18: 1500, R19: 1700, R20: 1900, R21: 2100, R22: 2400 } },
+    { what: 'Балансировка', name: 'Финишная балансировка', note: 'на автомобиле, если бьёт руль', price: 2000, photo: 'finish' },
+    { what: 'Ремонт прокола', name: 'Ремонт прокола', note: 'за колесо, гарантия 12 месяцев', price: 600, photo: 'prokol' },
+    { what: 'Ремонт прокола', name: 'Ремонт бокового пореза', note: 'после осмотра', price: 1500, photo: 'porez', from: true },
+    { what: 'Правка дисков', name: 'Правка литого диска', note: 'за диск', price: 1500, photo: 'disk', from: true },
+    { what: 'Хранение шин', name: 'Сезонное хранение', note: 'за комплект', price: 3500, photo: 'hranenie', key: 'storage' },
+    { what: 'Переобувка', mobile: true, name: 'Выезд к клиенту', note: 'по [город]', price: 3000, photo: 'vyezd', from: true },
+    { what: 'Переобувка', name: 'Азот в шины', note: 'для всех клиентов', free: true, photo: 'azot' }
   ];
   var rub = function (n) { return n.toLocaleString('ru-RU') + ' ₽'; };
   var priceText = function (item, radius) {
@@ -215,7 +216,7 @@
     $('price-table').innerHTML = PRICES.map(function (item) {
       var p = priceText(item, priceRadius);
       // Стрелка-кнопка видна только на телефоне: ведёт к записи и сразу отмечает услугу
-      return '<div class="price-row"><b>' + item.name + '<small>' + item.note + '</small></b><span class="' + (p.tbd ? 'is-tbd' : '') + '">' + p.text + '</span>' +
+      return '<div class="price-row">' + (item.photo ? '<i class="price-row__ph" style="background-image:url(assets/prices/' + item.photo + '.webp)" aria-hidden="true"></i>' : '') + '<b>' + item.name + '<small>' + item.note + '</small></b><span class="' + (p.tbd ? 'is-tbd' : '') + '">' + p.text + '</span>' +
         '<a class="price-row__go" href="#book" data-mbook-what="' + item.what + '"' + (item.mobile ? ' data-mobile-service' : '') + ' aria-label="Записаться: ' + item.name + '"></a></div>';
     }).join('');
     $('price-foot').textContent = 'Цены для дисков ' + priceRadius + '. Точную сумму за ремонт и правку назовём после осмотра.';
@@ -669,6 +670,19 @@
     var cards = Array.prototype.slice.call(track.children);
     var count = $('wheel-count');
     var cur = -1;
+    // Колесо плавно догоняет нужный угол на каждом кадре — без рывков при свайпе
+    var rotNow = null, rotTo = 0, rotRaf = 0;
+    var rotStep = function () {
+      rotNow += (rotTo - rotNow) * 0.14;
+      if (Math.abs(rotTo - rotNow) < 0.05) rotNow = rotTo;
+      setRot(bigWheel, rotNow.toFixed(2));
+      rotRaf = rotNow === rotTo ? 0 : requestAnimationFrame(rotStep);
+    };
+    var turnTo = function (deg) {
+      rotTo = deg;
+      if (rotNow === null || !motion) { rotNow = deg; setRot(bigWheel, deg.toFixed(2)); return; }
+      if (!rotRaf) rotRaf = requestAnimationFrame(rotStep);
+    };
     var index = function () {
       if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) return cards.length - 1;
       var left = track.getBoundingClientRect().left + parseFloat(getComputedStyle(track).paddingLeft);
@@ -683,7 +697,7 @@
       var rot = (motion ? (innerHeight - r.top) * 0.18 : 0) + track.scrollLeft / step * 60;
       var i = index();
       return function () {
-        setRot(bigWheel, rot.toFixed(2));
+        turnTo(rot);
         if (i === cur) return;
         cur = i;
         count.textContent = pad(i + 1);
