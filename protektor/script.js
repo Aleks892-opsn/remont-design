@@ -190,15 +190,15 @@
      Пока стоит null, на сайте показывается «[цена]». */
   var RADII = ['R13', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20', 'R21', 'R22'];
   var PRICES = [
-    { name: 'Шиномонтаж комплекта', note: 'снять, перебортовать, отбалансировать, поставить', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
-    { name: 'Балансировка четырёх колёс', note: 'на станке', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
-    { name: 'Финишная балансировка', note: 'на автомобиле, если бьёт руль', price: null },
-    { name: 'Ремонт прокола', note: 'за колесо, гарантия 12 месяцев', price: null },
-    { name: 'Ремонт бокового пореза', note: 'после осмотра', price: null, from: true },
-    { name: 'Правка литого диска', note: 'за диск', price: null, from: true },
-    { name: 'Сезонное хранение', note: 'за комплект', price: null, key: 'storage' },
-    { name: 'Выезд к клиенту', note: 'по [город]', price: null, from: true },
-    { name: 'Азот в шины', note: 'для всех клиентов', free: true }
+    { what: 'Переобувка', name: 'Шиномонтаж комплекта', note: 'снять, перебортовать, отбалансировать, поставить', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
+    { what: 'Балансировка', name: 'Балансировка четырёх колёс', note: 'на станке', byRadius: { R13: null, R14: null, R15: null, R16: null, R17: null, R18: null, R19: null, R20: null, R21: null, R22: null } },
+    { what: 'Балансировка', name: 'Финишная балансировка', note: 'на автомобиле, если бьёт руль', price: null },
+    { what: 'Ремонт прокола', name: 'Ремонт прокола', note: 'за колесо, гарантия 12 месяцев', price: null },
+    { what: 'Ремонт прокола', name: 'Ремонт бокового пореза', note: 'после осмотра', price: null, from: true },
+    { what: 'Правка дисков', name: 'Правка литого диска', note: 'за диск', price: null, from: true },
+    { what: 'Хранение шин', name: 'Сезонное хранение', note: 'за комплект', price: null, key: 'storage' },
+    { what: 'Переобувка', mobile: true, name: 'Выезд к клиенту', note: 'по [город]', price: null, from: true },
+    { what: 'Переобувка', name: 'Азот в шины', note: 'для всех клиентов', free: true }
   ];
   var rub = function (n) { return n.toLocaleString('ru-RU') + ' ₽'; };
   var priceText = function (item, radius) {
@@ -211,7 +211,9 @@
   var renderPrices = function () {
     $('price-table').innerHTML = PRICES.map(function (item) {
       var p = priceText(item, priceRadius);
-      return '<div class="price-row"><b>' + item.name + '<small>' + item.note + '</small></b><span class="' + (p.tbd ? 'is-tbd' : '') + '">' + p.text + '</span></div>';
+      // Стрелка-кнопка видна только на телефоне: ведёт к записи и сразу отмечает услугу
+      return '<div class="price-row"><b>' + item.name + '<small>' + item.note + '</small></b><span class="' + (p.tbd ? 'is-tbd' : '') + '">' + p.text + '</span>' +
+        '<a class="price-row__go" href="#book" data-mbook-what="' + item.what + '"' + (item.mobile ? ' data-mobile-service' : '') + ' aria-label="Записаться: ' + item.name + '"></a></div>';
     }).join('');
     $('price-foot').textContent = 'Цены для дисков ' + priceRadius + '. Точную сумму за ремонт и правку назовём после осмотра.';
     document.querySelectorAll('[data-price]').forEach(function (el) {
@@ -517,16 +519,16 @@
       showDone();
     });
 
-    // Кнопки «Записаться» в гармошке услуг отмечают нужную услугу
-    document.querySelectorAll('[data-mbook-what]').forEach(function (a) {
-      a.addEventListener('click', function () {
+    // Кнопки «Записаться» в карусели услуг и стрелки в ценах отмечают нужную услугу.
+    // Слушаем на документе: строки цен перерисовываются при смене размера дисков
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('[data-mbook-what]');
+      if (a) {
         var v = a.getAttribute('data-mbook-what');
         document.querySelectorAll('#mwhat input').forEach(function (x) { x.checked = x.value === v; });
         paint();
-      });
-    });
-    document.querySelectorAll('[data-mobile-service]').forEach(function (a) {
-      a.addEventListener('click', function () { setMobile(true); });
+      }
+      if (e.target.closest && e.target.closest('[data-mobile-service]')) setMobile(true);
     });
 
     var refresh = function () {
