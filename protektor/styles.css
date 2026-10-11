@@ -1173,3 +1173,130 @@ main { overflow-x: clip; }
 @media (max-width: 640px) {
   .hero__photo { flex: none; min-height: 0; aspect-ratio: 1536 / 1240; }
 }
+
+/* ======================================================================
+   Компьютер: то же, что сделали на телефоне, но в раскладке под широкий экран
+   ====================================================================== */
+.season { display: none; }
+.tread { background: #000; }
+.tread__belt { background-image: url("assets/tread-white.svg"); opacity: 1; }
+@media (min-width: 641px) {
+  /* Лента протектора между всеми блоками */
+  .tread--sep { display: block; position: relative; z-index: 2; left: auto; right: auto; bottom: auto; }
+  .prices, .details { padding-top: 110px; }
+  .faq, .book, .visit, .wheel, .where { margin-top: 0; }
+
+  /* Первый экран: вместо колеса — машина справа, заезжает с фарами и тормозит с дымом */
+  .hero .hero__wheel, .hero .hero__light { display: none; }
+  .hero { background: var(--rubber); }
+  .hero__photo {
+    display: block; position: absolute; z-index: 1; margin: 0;
+    right: 0; top: 50%; transform: translateY(-50%);
+    width: min(46vw, 820px); aspect-ratio: 1536 / 1240;
+    overflow: visible; overflow-x: clip;
+  }
+  .hero__photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    -webkit-mask-image: linear-gradient(to right, #000 72%, transparent 99%), linear-gradient(to bottom, transparent 0, #000 12%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, #000 72%, transparent 99%), linear-gradient(to bottom, transparent 0, #000 12%);
+    mask-composite: intersect;
+  }
+  .hero__car { position: absolute; inset: 0; transform-origin: 88% 89%; }
+  .motion .hero:not(.m-photo) .hero__car { transform: translateX(125%); }
+  .hero__lamp { display: block; position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .hero__lamp::before {
+    content: ""; position: absolute; left: -80px; top: -52px; width: 160px; height: 104px; border-radius: 50%;
+    background: radial-gradient(closest-side, #fff 0, rgba(255, 252, 240, 0.85) 30%, rgba(255, 245, 225, 0.25) 65%, transparent 100%);
+    mix-blend-mode: screen; transform: rotate(-32deg);
+  }
+  .hero__lamp::after {
+    content: ""; position: absolute; right: 10px; top: -100px; width: 560px; height: 250px;
+    background: linear-gradient(to left, rgba(255, 250, 235, 0.5), rgba(255, 250, 235, 0.1) 55%, transparent);
+    clip-path: polygon(100% 38%, 100% 52%, 0 100%, 0 0);
+    filter: blur(8px); mix-blend-mode: screen;
+  }
+  .hero__smoke { display: block; position: absolute; left: 0; top: -40%; width: 100%; height: 180%; pointer-events: none; }
+  /* Текст слева не заходит на машину */
+  .hero__copy { width: auto; }
+  .hero__title { font-size: clamp(56px, 5.5vw, 100px); text-shadow: none; }
+
+  /* Цены: красная карточка сверху, услуги — карточки с фото в три колонки */
+  .prices__head, .prices__radius, .prices__go { background: var(--signal); }
+  .prices__head {
+    margin: 0; padding: 48px 48px 24px; align-items: flex-end;
+    clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
+    background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal);
+  }
+  .prices__title { color: #fff; }
+  .prices__note { color: rgba(255, 255, 255, 0.88); }
+  .prices__radius { margin: -1px 0 0; padding: 8px 48px 24px; }
+  .prices__radius .chip span, .prices__radius button { background: rgba(0, 0, 0, 0.22); color: #fff; border-color: transparent; }
+  .prices__go {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 0; isolation: isolate;
+    min-height: 96px; margin: -1px 0 16px; padding: 0 48px 32px;
+    color: #fff; font-weight: 600; font-size: 17px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%, 0 calc(100% - 32px));
+  }
+  .prices__go::before {
+    content: ""; position: absolute; inset: 0 48px 32px; z-index: -1; background: var(--rubber);
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: background 0.2s;
+  }
+  .prices__go:hover::before { background: #000; }
+  .prices__table { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .price-row, .price-row:last-child {
+    position: relative; overflow: hidden; min-height: 250px;
+    display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; align-items: end; gap: 20px 12px;
+    padding: 30px; border: 0; background: var(--asphalt);
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+  }
+  .price-row::before {
+    content: ""; position: absolute; right: -70px; top: -50px; width: 260px; height: 260px;
+    background: url("assets/tire.svg") center / contain no-repeat; opacity: 0.16; pointer-events: none;
+  }
+  .price-row:has(.price-row__ph)::before { display: none; }
+  .price-row__ph {
+    display: block; position: absolute; inset: 0;
+    background: center right / cover no-repeat; filter: grayscale(1);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.45) 30%, #000 70%);
+    mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.45) 30%, #000 70%);
+    transition: transform 0.6s var(--ease); pointer-events: none;
+  }
+  .price-row:hover .price-row__ph { transform: scale(1.04); }
+  .price-row b { grid-column: 1 / -1; align-self: start; position: relative; font-size: 24px; line-height: 1.12; max-width: 80%; }
+  .price-row small { margin-top: 8px; font-size: 14px; line-height: 1.4; }
+  .price-row span { position: relative; grid-column: 2; grid-row: 2; font-size: 28px; text-align: right; }
+  .price-row__go {
+    display: grid; place-items: center; grid-column: 1; grid-row: 2;
+    position: relative; z-index: 1; width: 56px; height: 56px; background: var(--signal);
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: background 0.2s, transform 0.2s;
+  }
+  .price-row__go::after { content: ""; width: 12px; height: 12px; margin-left: -4px; border-top: 2.5px solid #fff; border-right: 2.5px solid #fff; transform: rotate(45deg); }
+  .price-row__go:hover { background: #ff3b2f; transform: translateX(3px); }
+
+  /* Без сюрпризов: три красные панели с огромным заголовком и наклонной карточкой */
+  .details__grid { gap: 20px; align-items: stretch; }
+  .detail, .detail.cut-box {
+    position: relative; overflow: hidden; padding: 44px 32px 52px; color: #fff;
+    background:
+      repeating-linear-gradient(-63deg, transparent 0 56px, rgba(0, 0, 0, 0.11) 56px 112px),
+      radial-gradient(90% 60% at 0 0, #ff4b33 0, transparent 70%),
+      var(--signal);
+  }
+  .detail__big {
+    display: block; position: relative; font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(36px, 3.4vw, 54px); line-height: 0.95; letter-spacing: -0.03em;
+    transform: skewX(var(--skew)); transform-origin: left;
+  }
+  .detail h3 { position: relative; margin: 16px 0 26px; font-family: var(--text); font-weight: 600; font-size: 18px; letter-spacing: 0; color: rgba(255, 255, 255, 0.9); }
+  .detail ul {
+    position: relative; gap: 12px; padding: 24px 22px; background: var(--rubber);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.92), 0 20px 40px rgba(0, 0, 0, 0.35);
+    transform: rotate(-2.5deg);
+  }
+  .detail:nth-child(2) ul { transform: rotate(2deg); }
+  .detail li { font-size: 15px; color: #c9cbd1; }
+}

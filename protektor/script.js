@@ -104,10 +104,7 @@
     var y = window.scrollY;
     header.classList.toggle('is-solid', y > 40);
     // Лента протектора едет при прокрутке — и на компьютере, и на телефоне
-    if (belt && motion) {
-      if (isPhone()) moveBelt(y);
-      else belt.style.setProperty('--belt', (-y * 0.6 % 840).toFixed(1) + 'px');
-    }
+    if (belt && motion) moveBelt(y);
     if (isPhone()) {
       // Сначала все замеры, потом все записи — чтобы не дёргать раскладку на каждом кадре
       var writes = phoneJobs.map(function (job) { return job(y); });
@@ -776,7 +773,8 @@
       ctx.setTransform(d, 0, 0, d, 0, 0);
     };
     var emit = function (now) {
-      var p = place(WHEEL), k = fig.clientWidth / 400;
+      // k — масштаб от ширины фото; размер клубов ограничиваем, чтобы на большом экране дым не слипался в пятно
+      var p = place(WHEEL), k = fig.clientWidth / 400, ks = Math.min(k, 1.25);
       var top = fig.clientHeight * 0.4; // холст начинается на 40% выше фото
       var shift = new DOMMatrix(getComputedStyle(car).transform).m41 || 0;
       var burst = now < emitFrom + 280, n = burst ? 6 : 3;
@@ -786,7 +784,7 @@
           x: p.x + shift + (back * 40 - 18) * k, y: top + p.y + (Math.random() * 10 - 6) * k,
           // выброс назад вдоль земли — быстро гаснет, дальше дым всплывает сам
           vx: (burst ? 1.2 + back * 2.6 : 0.4 + back * 1.4) * k, vy: -(Math.random() * 0.35) * k,
-          r: (6 + Math.random() * 9) * k, gr: (0.55 + Math.random() * 0.6) * k,
+          r: (6 + Math.random() * 9) * ks, gr: (0.55 + Math.random() * 0.6) * ks,
           rot: Math.random() * 6.28, spin: (Math.random() - 0.5) * 0.018,
           seed: Math.random() * 100, img: puffs[(Math.random() * puffs.length) | 0],
           a: 0.22 + Math.random() * 0.26, life: 0, max: 1800 + Math.random() * 1600
@@ -900,12 +898,12 @@
     });
     return {
       start: function () {
-        if (!isPhone() || !motion) { done = true; hero.classList.add('m-in', 'm-done'); return; }
-        // Машина заезжает с фарами и тормозит с дымом, текст проявляется по очереди
+        if (!motion) { done = true; hero.classList.add('m-in', 'm-done'); return; }
+        // Машина заезжает с фарами и тормозит с дымом — и на телефоне, и на компьютере
         done = true;
         hero.classList.add('m-photo');
         carIntro();
-        setTimeout(reveal, 450);
+        if (isPhone()) setTimeout(reveal, 450); else hero.classList.add('m-in', 'm-done');
       }
     };
   })();
