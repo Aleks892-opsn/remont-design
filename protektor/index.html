@@ -49,6 +49,8 @@
     <div class="header__msgs"><a class="msg" href="https://t.me/[telegram]" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></svg></a><a class="msg" href="https://wa.me/70000000000" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg></a></div>
     <a class="header__phone" href="tel:+70000000000" aria-label="Позвонить: +7 (000) 000-00-00"><svg class="header__phone-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span>+7 (000) 000-00-00</span></a>
     <a class="cut cut--red header__cta" href="#book">Записаться</a>
+    <!-- Только на телефоне: меню-шторка снизу -->
+    <button class="header__menu" type="button" id="menu-open" aria-label="Открыть меню" aria-expanded="false" aria-controls="msheet"><i></i><i></i><i></i></button>
   </header>
 
   <main id="main">
@@ -169,12 +171,14 @@
 </svg>
 </div>
       <div class="hero__copy">
-        <p class="hero__lead">Шиномонтаж на две линии. Запишитесь на своё время — и не стойте в очереди.</p>
+        <p class="hero__lead"><span class="hero__lead-k">Шиномонтаж на две линии.</span> Запишитесь на своё время — и не стойте в очереди.</p>
         <h1 class="display hero__title"><span>Переобуем</span><span>за 25 минут</span></h1>
         <div class="hero__actions">
           <a class="cut cut--red cut--lg" href="#book">Выбрать время</a>
           <a class="hero__call" href="tel:+70000000000">Или позвоните: +7 (000) 000-00-00</a>
         </div>
+        <!-- Только на телефоне: три коротких факта под колесом -->
+        <ul class="hero__facts"><li><b>2 линии</b>без очереди</li><li><b>R13–R22</b>легковые и кроссоверы</li><li><b>8–22</b>без выходных</li></ul>
       </div>
       <div class="tread" aria-hidden="true"><div class="tread__belt" data-belt></div></div>
     </section>
@@ -223,6 +227,34 @@
             <a class="cut cut--line" href="#book" data-mobile-service>Вызвать мастера</a>
           </article>
         </div>
+        <!-- Только на телефоне: услуги списком-гармошкой. Строка посередине экрана подсвечивается красным -->
+        <p class="msvc-sub">Шесть услуг. Нажмите — расскажем коротко.</p>
+        <ul class="msvc" id="msvc">
+          <li class="msvc__row is-open">
+            <button class="msvc__btn" type="button" id="msvc-b1" aria-expanded="true" aria-controls="msvc-p1"><span class="msvc__n">01</span><span class="msvc__t">Сезонная переобувка<small>Самое частое · R13–R22</small></span><span class="msvc__ic" aria-hidden="true"></span></button>
+            <div class="msvc__panel" id="msvc-p1" role="region" aria-labelledby="msvc-b1"><div><div class="msvc__in"><p>Легковые и кроссоверы. Снимаем, меняем резину, балансируем, ставим обратно — одна машина полностью за 25 минут.</p><span class="msvc__fact">Одна машина — 25 минут</span><a class="cut cut--line" href="#book" data-mbook-what="Переобувка">Записаться на переобувку</a></div></div></div>
+          </li>
+          <li class="msvc__row">
+            <button class="msvc__btn" type="button" id="msvc-b2" aria-expanded="false" aria-controls="msvc-p2"><span class="msvc__n">02</span><span class="msvc__t">Балансировка</span><span class="msvc__ic" aria-hidden="true"></span></button>
+            <div class="msvc__panel" id="msvc-p2" role="region" aria-labelledby="msvc-b2"><div><div class="msvc__in"><p>На станке и финишная — прямо на вашем автомобиле, если руль бьёт даже после обычной.</p><span class="msvc__fact">Станок + на машине</span><a class="cut cut--line" href="#book" data-mbook-what="Балансировка">Записаться на балансировку</a></div></div></div>
+          </li>
+          <li class="msvc__row">
+            <button class="msvc__btn" type="button" id="msvc-b3" aria-expanded="false" aria-controls="msvc-p3"><span class="msvc__n">03</span><span class="msvc__t">Проколы и боковые порезы</span><span class="msvc__ic" aria-hidden="true"></span></button>
+            <div class="msvc__panel" id="msvc-p3" role="region" aria-labelledby="msvc-b3"><div><div class="msvc__in"><p>Ремонтируем изнутри. На ремонт прокола даём гарантию 12 месяцев.</p><span class="msvc__fact">Гарантия 12 месяцев</span><a class="cut cut--line" href="#book" data-mbook-what="Ремонт прокола">Записаться на ремонт</a></div></div></div>
+          </li>
+          <li class="msvc__row">
+            <button class="msvc__btn" type="button" id="msvc-b4" aria-expanded="false" aria-controls="msvc-p4"><span class="msvc__n">04</span><span class="msvc__t">Сезонное хранение</span><span class="msvc__ic" aria-hidden="true"></span></button>
+            <div class="msvc__panel" id="msvc-p4" role="region" aria-labelledby="msvc-b4"><div><div class="msvc__in"><p>Оставьте комплект у нас и заберите его к следующему сезону.</p><span class="msvc__fact">До следующего сезона</span><a class="cut cut--line" href="#book" data-mbook-what="Хранение шин">Записаться на хранение</a></div></div></div>
+          </li>
+          <li class="msvc__row">
+            <button class="msvc__btn" type="button" id="msvc-b5" aria-expanded="false" aria-controls="msvc-p5"><span class="msvc__n">05</span><span class="msvc__t">Правка литых дисков</span><span class="msvc__ic" aria-hidden="true"></span></button>
+            <div class="msvc__panel" id="msvc-p5" role="region" aria-labelledby="msvc-b5"><div><div class="msvc__in"><p>Если поймали яму: выправим диск, чтобы колесо снова держало давление и не било.</p><span class="msvc__fact">После ям и бордюров</span><a class="cut cut--line" href="#book" data-mbook-what="Правка дисков">Записаться на правку</a></div></div></div>
+          </li>
+          <li class="msvc__row">
+            <button class="msvc__btn" type="button" id="msvc-b6" aria-expanded="false" aria-controls="msvc-p6"><span class="msvc__n">06</span><span class="msvc__t">Выезд к клиенту</span><span class="msvc__ic" aria-hidden="true"></span></button>
+            <div class="msvc__panel" id="msvc-p6" role="region" aria-labelledby="msvc-b6"><div><div class="msvc__in"><p>Не получается приехать — приедем сами. Отметьте это при записи и оставьте адрес.</p><span class="msvc__fact">Приедем по адресу</span><a class="cut cut--line" href="#book" data-mobile-service>Вызвать мастера</a></div></div></div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -258,6 +290,25 @@
             <li><b>Выезжаете</b><span>Через 25 минут после того, как заехали.</span></li>
           </ol>
           <div class="visit__rail" aria-hidden="true"><i id="visit-rail"></i></div>
+          <!-- Только на телефоне: лента времени без закрепления, линия заполняется по прокрутке -->
+          <div class="mtl" id="mtl">
+            <p class="mtl__start"><b>00:00</b><span>заезд</span></p>
+            <div class="mtl__body">
+              <div class="mtl__line" aria-hidden="true"><i></i><img class="mtl__wheel" src="assets/tire.svg" alt="" width="34" height="34"></div>
+              <ol class="mtl__list">
+              <li class="mtl__step"><span class="mtl__n">01</span><div><b>Приезжаете к своему времени</b><span>Записались на 14:30 — в 14:30 машина уже на подъёмнике.</span></div></li>
+              <li class="mtl__step"><span class="mtl__n">02</span><div><b>Ждёте с кофе</b><span>В комнате ожидания тепло, есть кофе и видно, как идёт работа.</span></div></li>
+              <li class="mtl__step"><span class="mtl__n">03</span><div><b>Меняем шины</b><span>Снимаем колёса, перебортовываем резину, проверяем диски.</span></div></li>
+              <li class="mtl__step"><span class="mtl__n">04</span><div><b>Балансируем</b><span>Каждое колесо — на станке. Если нужно, добиваем финишной балансировкой на машине.</span></div></li>
+              <li class="mtl__step"><span class="mtl__n">05</span><div><b>Накачиваем азотом</b><span>Бесплатно. Затягиваем колёса и проверяем давление.</span></div></li>
+              <li class="mtl__step"><span class="mtl__n">06</span><div><b>Выезжаете</b><span>Через 25 минут после того, как заехали.</span></div></li>
+              </ol>
+            </div>
+            <div class="mtl__end cut-box cut-box--red">
+              <p class="display">25:00</p>
+              <p>Вы уже едете. А в следующий сезон — снова на своё время.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -267,6 +318,7 @@
       <div class="wrap wheel__inner">
         <h2 class="display wheel__title" id="wheel-title">Колесо вернётся целым</h2>
         <div class="wheel__stage">
+          <span class="wheel__pin" aria-hidden="true"></span>
           <div class="wheel__art" aria-hidden="true"><svg viewBox="0 0 1000 1000" focusable="false">
   <!-- Колесо в боковой проекции: шина, надпись на боковине, литой диск с десятью спицами.
        Свет — тёплый красный ключ слева и холодный блик сверху, как в тёмной студийной съёмке. -->
@@ -379,7 +431,8 @@
   </g>
 </svg>
 </div>
-          <ul class="tags" id="wheel-tags">
+          <div class="wheel__meta"><p class="wheel__count"><b id="wheel-count">01</b>/06</p><span>листайте плашки →</span></div>
+          <ul class="tags" id="wheel-tags" aria-label="Гарантии">
             <li class="tag tag--big cut-box cut-box--red" style="--x:4%;--y:6%"><b>12 месяцев</b><span>гарантия на ремонт прокола</span></li>
             <li class="tag cut-box" style="--x:66%;--y:4%"><b>Финишная балансировка</b><span>прямо на автомобиле</span></li>
             <li class="tag cut-box" style="--x:72%;--y:42%"><b>Правим литые диски</b><span>после ям и бордюров</span></li>
@@ -447,6 +500,53 @@
           <h2 class="display book__title" id="book-title">Своё время</h2>
           <p class="book__note">Выберите день и время — две линии, поэтому свободных окон обычно хватает. Работаем с 8:00 до 22:00 без выходных.</p>
         </div>
+
+        <!-- Только на телефоне: сразу ближайшее свободное время, остальное — по кнопке -->
+        <form class="mbook cut-box" id="mbook" novalidate aria-label="Запись на время">
+          <div class="mbook__top">
+            <p class="mbook__kick"><i class="dot" id="open-dot-4"></i><span id="mbook-kick">Ближайшее свободное</span></p>
+            <p class="display mbook__time" id="mbook-time">—</p>
+            <p class="mbook__day"><b id="mbook-day"></b><span id="mbook-what">переобувка · R16</span></p>
+          </div>
+          <button class="mbook__other" type="button" id="mbook-other" aria-expanded="false" aria-controls="mbook-pick">Выбрать другое время<i aria-hidden="true"></i></button>
+          <div class="mbook__pick" id="mbook-pick">
+            <div class="mbook__pick-in">
+              <p class="mbook__lab">День</p>
+              <div class="mbook__strip" id="mdays" role="radiogroup" aria-label="День"></div>
+              <p class="mbook__lab" id="mslots-label">Время <span>свободно <b id="mfree"></b></span></p>
+              <div class="mbook__slots" id="mslots" role="radiogroup" aria-labelledby="mslots-label"></div>
+              <p class="mbook__empty" id="mempty" hidden>На этот день окна закончились — выберите другой.</p>
+              <p class="mbook__lab">Размер дисков</p>
+              <div class="mbook__strip" id="mradius" role="radiogroup" aria-label="Размер дисков"></div>
+              <p class="mbook__lab">Что сделать</p>
+              <div class="chips chips--wrap mbook__what" id="mwhat">
+                <label class="chip"><input type="checkbox" name="mwhat" value="Переобувка" checked><span>Переобувка</span></label>
+                <label class="chip"><input type="checkbox" name="mwhat" value="Балансировка"><span>Балансировка</span></label>
+                <label class="chip"><input type="checkbox" name="mwhat" value="Ремонт прокола"><span>Ремонт прокола</span></label>
+                <label class="chip"><input type="checkbox" name="mwhat" value="Хранение шин"><span>Хранение шин</span></label>
+                <label class="chip"><input type="checkbox" name="mwhat" value="Правка дисков"><span>Правка дисков</span></label>
+              </div>
+              <label class="switch"><input type="checkbox" id="mmobile"><span class="switch__track"></span><span>Нужен выезд к вам</span></label>
+              <button class="cut cut--line mbook__ok" type="button" id="mbook-ok">Готово</button>
+            </div>
+          </div>
+          <div class="field" id="maddress-field" hidden>
+            <label for="maddress">Адрес</label>
+            <input id="maddress" name="address" autocomplete="street-address" placeholder="Улица, дом, где стоит машина">
+          </div>
+          <div class="field">
+            <label for="mname">Имя</label>
+            <input id="mname" name="name" autocomplete="name" placeholder="Как к вам обращаться">
+          </div>
+          <div class="field">
+            <label for="mphone">Телефон</label>
+            <input id="mphone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__">
+          </div>
+          <label class="consent"><input type="checkbox" id="mconsent"><span>Согласен на обработку персональных данных по <a href="privacy.html" target="_blank" rel="noopener">политике конфиденциальности</a></span></label>
+          <p class="book__error" id="mbook-error" role="alert"></p>
+          <button class="cut cut--red cut--lg mbook__send" type="submit" id="msend">Записаться</button>
+        </form>
+        <p class="mbook__voice" id="mbook-voice">Удобнее голосом? <a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
 
         <form class="book__form" id="book-form" novalidate>
           <fieldset class="book__col">
@@ -568,6 +668,28 @@
       </div>
     </div>
   </footer>
+
+  <!-- Меню-шторка для телефона: выезжает снизу, закрывается свайпом вниз, тапом по фону или Esc -->
+  <div class="mscrim" id="mscrim"></div>
+  <div class="msheet" id="msheet" role="dialog" aria-modal="true" aria-label="Меню">
+    <button class="msheet__grab" type="button" id="menu-close" aria-label="Закрыть меню"></button>
+    <nav class="msheet__nav" aria-label="Разделы">
+      <a href="#services"><b>Услуги</b><small>6 видов</small></a>
+      <a href="#prices"><b>Цены</b><small>по размеру дисков</small></a>
+      <a href="#wheel"><b>Гарантии</b><small>12 месяцев</small></a>
+      <a href="#faq"><b>Вопросы</b><small>коротко</small></a>
+      <a href="#book"><b>Запись</b><small>7 дней вперёд</small></a>
+      <a href="#where"><b>Как доехать</b><small>[адрес]</small></a>
+    </nav>
+    <div class="msheet__acts">
+      <a class="cut cut--line" href="tel:+70000000000"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Позвонить</a>
+      <a class="cut cut--red" href="#book">Записаться</a>
+    </div>
+    <div class="msheet__foot">
+      <span class="msheet__msgs"><a class="msg" href="https://t.me/[telegram]" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></svg></a><a class="msg" href="https://wa.me/70000000000" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg></a></span>
+      <span class="msheet__live"><i class="dot" id="open-dot-3"></i><span id="open-text-3">Каждый день 8:00–22:00</span></span>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
