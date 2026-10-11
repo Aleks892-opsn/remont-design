@@ -680,6 +680,16 @@
     phoneMQ.addEventListener('change', function () { if (!isPhone()) { cards.forEach(function (c) { c.classList.remove('is-now'); }); cur = -1; } });
   })();
 
+  // Фото первого экрана на телефоне: если файла пока нет — прячем пустое место
+  (function () {
+    var fig = $('hero-photo');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    var fail = function () { fig.hidden = true; hero.classList.add('no-photo'); };
+    if (img.complete && !img.naturalWidth) fail();
+    img.addEventListener('error', fail);
+  })();
+
   /* ---------- Первый экран: колесо въезжает, катится дальше от прокрутки, потом текст ---------- */
   phoneHero = (function () {
     var groups = Array.prototype.slice.call(heroWheel.querySelectorAll('.mwheel__rot'));
@@ -689,6 +699,7 @@
     var size = function () { return heroWheel.offsetWidth || 400; };
     var startX = function () { return -(innerWidth / 2 + size() / 2 + 24); };
     var draw = function (now, dKnown) {
+      return; // колесо на первом экране телефона убрано
       if (!isPhone() || !motion) return;
       var d = dKnown || size();
       var enter = done ? 0 : t0 === null ? x0 : x0 * (1 - ease(clamp((now - t0) / ENTER, 0, 1)));
@@ -722,9 +733,10 @@
     return {
       start: function () {
         if (!isPhone() || !motion) { done = true; hero.classList.add('m-in', 'm-done'); return; }
-        x0 = startX();
-        t0 = performance.now();
-        raf = requestAnimationFrame(loop);
+        // Колеса на телефоне больше нет: сначала плавно проявляется фото, затем по очереди текст
+        done = true;
+        hero.classList.add('m-photo');
+        setTimeout(reveal, 450);
       }
     };
   })();

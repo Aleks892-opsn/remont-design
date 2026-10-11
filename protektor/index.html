@@ -13,6 +13,8 @@
   <script>
     // Загрузочный экран и анимации — только если браузер не просит меньше движения
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+    // Сайт открыт внутри другой страницы (например, превью в приложении): там сверху своя панель, сдвигаем шапку ниже
+    try { if (window.self !== window.top) document.documentElement.classList.add('in-frame'); } catch (e) { document.documentElement.classList.add('in-frame'); }
   </script>
 </head>
 <body>
@@ -170,6 +172,9 @@
   </g>
 </svg><div class="mwheel"><img class="mwheel__rot" src="assets/wheel/back.webp" alt="" decoding="async"><img src="assets/wheel/cal.webp" alt="" decoding="async"><img class="mwheel__rot" src="assets/wheel/front.webp" alt="" decoding="async"><img src="assets/wheel/light.webp" alt="" decoding="async"></div>
 </div>
+      <!-- Только на телефоне: фото вместо колеса. Края растворяются в фоне сайта.
+           Пока файла assets/hero-photo.webp нет, блок прячется (script.js) -->
+      <figure class="hero__photo" id="hero-photo" aria-hidden="true"><img src="assets/hero-photo.webp" alt="" decoding="async" fetchpriority="high"></figure>
       <div class="hero__copy">
         <p class="hero__lead"><span class="hero__lead-k">Шиномонтаж на две линии.</span> Запишитесь на своё время — и не стойте в очереди.</p>
         <h1 class="display hero__title"><span>Переобуем</span><span>за 25 минут</span></h1>
