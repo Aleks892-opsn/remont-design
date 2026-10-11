@@ -725,6 +725,129 @@
     img.addEventListener('error', fail);
   })();
 
+  /* ---------- Телефон: машина заезжает с фарами, тормозит с дымом из-под колеса, гасит фары ---------- */
+  var carIntro = (function () {
+    var fig = $('hero-photo'), car = $('hero-car'), lamp = $('hero-lamp'), cv = $('hero-smoke');
+    if (!fig || !car || !cv) return function () {};
+    var img = car.querySelector('img'), ctx = cv.getContext('2d');
+    var IW = 1536, IH = 1240;                 // размер фото
+    var LAMP = [330, 397], WHEEL = [814, 1097]; // фара и точка касания колеса на фото, px
+
+    // Фото вписано как object-fit: cover, object-position: 0% 55% — пересчитываем точку фото в точку блока
+    var place = function (pt) {
+      var W = fig.clientWidth, H = fig.clientHeight, k = Math.max(W / IW, H / IH);
+      return { x: pt[0] * k, y: (H - IH * k) * 0.55 + pt[1] * k, k: k };
+    };
+
+    // Клубы дыма: мягкий круг, «изъеденный» шумом; несколько разных, чтобы дым не повторялся
+    var noise = function (n) {
+      var g = [], i;
+      for (i = 0; i < (n + 1) * (n + 1); i++) g.push(Math.random());
+      return function (x, y) {
+        var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+        var at = function (a, b) { return g[(b % n) * (n + 1) + (a % n)]; };
+        var sx = xf * xf * (3 - 2 * xf), sy = yf * yf * (3 - 2 * yf);
+        var top = at(xi, yi) + (at(xi + 1, yi) - at(xi, yi)) * sx;
+        var bot = at(xi, yi + 1) + (at(xi + 1, yi + 1) - at(xi, yi + 1)) * sx;
+        return top + (bot - top) * sy;
+      };
+    };
+    var makePuff = function () {
+      var S = 160, c = document.createElement('canvas');
+      c.width = c.height = S;
+      var x2 = c.getContext('2d'), im = x2.createImageData(S, S), d = im.data;
+      var n1 = noise(8), n2 = noise(16), n3 = noise(32);
+      for (var y = 0; y < S; y++) for (var x = 0; x < S; x++) {
+        var dx = x / S - 0.5, dy = y / S - 0.5, r = Math.sqrt(dx * dx + dy * dy) * 2;
+        var fall = Math.max(0, 1 - r); fall = fall * fall * (3 - 2 * fall);
+        var t = n1(x / S * 4, y / S * 4) * 0.55 + n2(x / S * 8, y / S * 8) * 0.3 + n3(x / S * 16, y / S * 16) * 0.15;
+        var a = Math.max(0, Math.min(1, (t - 0.32) * 1.9)) * fall;
+        var shade = 205 + t * 40, q = (y * S + x) * 4;
+        d[q] = shade; d[q + 1] = shade; d[q + 2] = shade + 6; d[q + 3] = a * 255;
+      }
+      x2.putImageData(im, 0, 0);
+      return c;
+    };
+    var puffs = null, parts = [], raf = 0, last = 0, emitFrom = 0, emitUntil = 0;
+
+    var fit = function () {
+      var r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+      cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+    };
+    var emit = function (now) {
+      var p = place(WHEEL), k = fig.clientWidth / 400;
+      var top = fig.clientHeight * 0.4; // холст начинается на 40% выше фото
+      var shift = new DOMMatrix(getComputedStyle(car).transform).m41 || 0;
+      var burst = now < emitFrom + 280, n = burst ? 6 : 3;
+      for (var i = 0; i < n; i++) {
+        var back = Math.random();
+        parts.push({
+          x: p.x + shift + (back * 40 - 18) * k, y: top + p.y + (Math.random() * 10 - 6) * k,
+          // выброс назад вдоль земли — быстро гаснет, дальше дым всплывает сам
+          vx: (burst ? 1.2 + back * 2.6 : 0.4 + back * 1.4) * k, vy: -(Math.random() * 0.35) * k,
+          r: (6 + Math.random() * 9) * k, gr: (0.55 + Math.random() * 0.6) * k,
+          rot: Math.random() * 6.28, spin: (Math.random() - 0.5) * 0.018,
+          seed: Math.random() * 100, img: puffs[(Math.random() * puffs.length) | 0],
+          a: 0.22 + Math.random() * 0.26, life: 0, max: 1800 + Math.random() * 1600
+        });
+      }
+    };
+    var tick = function (now) {
+      var dt = Math.min(48, now - (last || now)); last = now;
+      if (now >= emitFrom && now < emitUntil) emit(now);
+      var r = cv.getBoundingClientRect();
+      ctx.clearRect(0, 0, r.width, r.height);
+      for (var i = parts.length - 1; i >= 0; i--) {
+        var q = parts[i];
+        q.life += dt;
+        if (q.life > q.max) { parts.splice(i, 1); continue; }
+        var f = dt / 16;
+        q.vx *= Math.pow(0.955, f); q.vy = q.vy * Math.pow(0.97, f) - 0.012 * f * (q.r / 40);
+        q.x += (q.vx + Math.sin(q.life * 0.0021 + q.seed) * 0.35) * f;
+        q.y += q.vy * f;
+        q.r += q.gr * f * (1 - q.life / q.max * 0.6);
+        q.rot += q.spin * f;
+        var life = q.life / q.max;
+        ctx.globalAlpha = q.a * Math.min(1, q.life / 120) * Math.pow(1 - life, 1.6);
+        ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(q.rot);
+        ctx.drawImage(q.img, -q.r, -q.r, q.r * 2, q.r * 2);
+        ctx.restore();
+      }
+      ctx.globalAlpha = 1;
+      if (parts.length || now < emitUntil) raf = requestAnimationFrame(tick);
+      else { raf = 0; ctx.clearRect(0, 0, r.width, r.height); }
+    };
+
+    return function () {
+      if (!car.animate || fig.hidden) return;
+      var l = place(LAMP);
+      lamp.style.left = l.x.toFixed(1) + 'px'; lamp.style.top = l.y.toFixed(1) + 'px';
+      if (!puffs) puffs = [makePuff(), makePuff(), makePuff(), makePuff()];
+      fit();
+      // 1. Заезд справа (машина смотрит влево), резкое торможение в конце
+      car.animate([
+        { transform: 'translateX(125%)', filter: 'blur(3px)', offset: 0 },
+        { transform: 'translateX(30%)', filter: 'blur(2px)', offset: 0.55, easing: 'cubic-bezier(.2,.75,.3,1)' },
+        { transform: 'translateX(0)', filter: 'blur(0)', offset: 1 }
+      ], { duration: 1100, delay: 150, fill: 'backwards', easing: 'cubic-bezier(.3,.1,.6,1)' });
+      // 2. Клевок носом при торможении и откат назад
+      car.animate([
+        { rotate: '0deg' }, { rotate: '-1.7deg', offset: 0.35 }, { rotate: '0.5deg', offset: 0.7 }, { rotate: '0deg' }
+      ], { duration: 750, delay: 1050, easing: 'ease-out' });
+      // 3. Фары горят с начала, после остановки моргают и гаснут
+      lamp.animate([
+        { opacity: 1, offset: 0 }, { opacity: 1, offset: 0.62 },
+        { opacity: 0.15, offset: 0.66 }, { opacity: 0.9, offset: 0.7 },
+        { opacity: 0.9, offset: 0.74 }, { opacity: 0, offset: 0.86 }, { opacity: 0, offset: 1 }
+      ], { duration: 4200, fill: 'forwards' });
+      // 4. Дым — с начала торможения, меньше секунды
+      var t0 = performance.now();
+      emitFrom = t0 + 800; emitUntil = t0 + 1650; last = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+  })();
+
   // Верхний отступ первого экрана на телефоне = ровно низ шапки + небольшой зазор (шапка может быть сдвинута в превью)
   var fitHeroTop = function () {
     if (!isPhone()) { hero.style.removeProperty('--hero-top'); return; }
@@ -778,9 +901,10 @@
     return {
       start: function () {
         if (!isPhone() || !motion) { done = true; hero.classList.add('m-in', 'm-done'); return; }
-        // Колеса на телефоне больше нет: сначала плавно проявляется фото, затем по очереди текст
+        // Машина заезжает с фарами и тормозит с дымом, текст проявляется по очереди
         done = true;
         hero.classList.add('m-photo');
+        carIntro();
         setTimeout(reveal, 450);
       }
     };

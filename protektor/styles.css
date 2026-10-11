@@ -1145,3 +1145,25 @@ main { overflow-x: clip; }
   }
   .price-row__go { z-index: 1; }
 }
+
+/* Телефон: машина на первом экране заезжает с фарами, тормозит с дымом и гасит фары */
+.hero__lamp, .hero__smoke { display: none; }
+@media (max-width: 640px) {
+  .hero__photo { overflow: visible; overflow-x: clip; }
+  .hero__car { position: absolute; inset: 0; transform-origin: 88% 89%; }
+  .motion .hero__photo img, .motion .hero.m-photo .hero__photo img { opacity: 1; transform: none; transition: none; }
+  .motion .hero:not(.m-photo) .hero__car { transform: translateX(125%); }
+  .hero__lamp { display: block; position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+  .hero__lamp::before {
+    content: ""; position: absolute; left: -46px; top: -30px; width: 92px; height: 60px; border-radius: 50%;
+    background: radial-gradient(closest-side, #fff 0, rgba(255, 252, 240, 0.85) 30%, rgba(255, 245, 225, 0.25) 65%, transparent 100%);
+    mix-blend-mode: screen; transform: rotate(-32deg);
+  }
+  .hero__lamp::after {
+    content: ""; position: absolute; right: 6px; top: -60px; width: 340px; height: 150px;
+    background: linear-gradient(to left, rgba(255, 250, 235, 0.55), rgba(255, 250, 235, 0.12) 55%, transparent);
+    clip-path: polygon(100% 38%, 100% 52%, 0 100%, 0 0);
+    filter: blur(6px); mix-blend-mode: screen;
+  }
+  .hero__smoke { display: block; position: absolute; left: 0; top: -40%; width: 100%; height: 180%; pointer-events: none; }
+}
