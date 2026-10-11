@@ -1356,3 +1356,16 @@ main { overflow-x: clip; }
   .tag.is-now, .tag.is-now:hover { background: var(--signal); color: #fff; }
   .tag.is-now span { color: rgba(255, 255, 255, 0.88); }
 }
+
+/* Компьютер: первый экран по центру — заголовок сверху, машина под ним */
+@media (min-width: 641px) {
+  .hero__copy { left: 50%; top: 104px; bottom: auto; transform: translateX(-50%); text-align: center; }
+  .hero__lead { margin: 0 auto 20px; }
+  .hero__title { align-items: center; font-size: clamp(56px, 6vw, 108px); }
+  .hero__actions { justify-content: center; margin-top: 28px; }
+  .hero__photo { right: auto; left: 50%; top: auto; bottom: 30px; width: min(36vw, 620px); transform: translateX(-50%); }
+  .hero__photo img {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 70%, transparent 99%), linear-gradient(to bottom, transparent 0, #000 12%);
+    mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 70%, transparent 99%), linear-gradient(to bottom, transparent 0, #000 12%);
+  }
+}
