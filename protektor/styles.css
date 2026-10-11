@@ -1115,3 +1115,13 @@ main { overflow-x: clip; }
   .detail:nth-child(2) ul { transform: rotate(2deg); }
   .detail li { font-size: 14.5px; color: #c9cbd1; }
 }
+
+/* Телефон: лента протектора между всеми блоками; «Без сюрпризов» — панели одна под другой */
+.tread--sep { display: none; }
+@media (max-width: 640px) {
+  .tread--sep { display: block; position: relative; z-index: 2; left: auto; right: auto; bottom: auto; }
+  .details { padding-top: 52px; }
+  .prices { padding-top: 28px; }
+  .details__grid { flex-direction: column; gap: 16px; overflow: visible; margin: 0; padding: 0; scroll-snap-type: none; }
+  .detail, .detail.cut-box { flex: none; width: 100%; }
+}

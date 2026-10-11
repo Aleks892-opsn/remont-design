@@ -64,12 +64,15 @@
   var heroWheel = $('hero-wheel');
   var bigWheel = document.querySelector('.wheel__art');
   var belt = document.querySelector('[data-belt]');
+  // На телефоне лент несколько — между всеми блоками; едут все вместе
+  var belts = document.querySelectorAll('[data-belt]');
   // На телефоне лента едет медленно и догоняет прокрутку плавно, а не рывками
   var beltNow = 0, beltTo = 0, beltRaf = 0;
   var beltStep = function () {
     beltNow += (beltTo - beltNow) * 0.12;
     if (Math.abs(beltTo - beltNow) < 0.1) beltNow = beltTo;
-    belt.style.setProperty('--belt', (beltNow % 840).toFixed(2) + 'px');
+    var v = (beltNow % 840).toFixed(2) + 'px';
+    for (var i = 0; i < belts.length; i++) belts[i].style.setProperty('--belt', v);
     beltRaf = beltNow === beltTo ? 0 : requestAnimationFrame(beltStep);
   };
   var moveBelt = function (y) {
