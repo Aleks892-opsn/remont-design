@@ -1138,12 +1138,13 @@ main { overflow-x: clip; }
   .price-row__ph {
     display: block; position: absolute; inset: 0;
     background: center right / cover no-repeat;
-    filter: grayscale(1) brightness(0.55);
-    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 30%, #000 75%);
-    mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 30%, #000 75%);
+    filter: grayscale(1);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.45) 30%, #000 70%);
+    mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.45) 30%, #000 70%);
     pointer-events: none;
   }
   .price-row__go { z-index: 1; }
+  .price-row:has(.price-row__ph)::before { display: none; }
 }
 
 /* Телефон: машина на первом экране заезжает с фарами, тормозит с дымом и гасит фары */
