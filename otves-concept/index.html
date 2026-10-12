@@ -1,0 +1,604 @@
+<title>ОТВЕС: концепция блоков</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;800&display=swap">
+<style>
+  /* Доска концепции: каждый вариант — кадр 1440 px, ужатый под ширину экрана */
+  :root {
+    --paper: #ecebe7;
+    --concrete: #d9d6cf;
+    --ink: #17181a;
+    --mute: #66676b;
+    --line: #c5c1b8;
+    --signal: #ff5a1f;
+    --f: "Geologica", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #f6f5f2; color: var(--ink); font: 16px/1.5 var(--f); overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  .wrap { padding-inline: clamp(16px, 4vw, 56px); }
+
+  /* ---------- Доска ---------- */
+  .top { padding-block: 44px 28px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; font: 800 22px var(--f); letter-spacing: 0.02em; }
+  .plumb { width: 14px; height: 26px; flex: none; }
+  .top h1 { margin: 22px 0 12px; font: 800 clamp(36px, 6vw, 76px)/0.95 var(--f); letter-spacing: -0.04em; text-transform: uppercase; text-wrap: balance; }
+  .top p { margin: 0 0 8px; max-width: 70ch; color: var(--mute); }
+  .pal { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .pal span { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px 6px 6px; background: #fff; border: 1px solid #e3e0da; font-size: 13px; }
+  .pal i { width: 22px; height: 22px; display: block; border: 1px solid rgba(0, 0, 0, 0.12); }
+  .toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; gap: 6px; overflow-x: auto; padding: 10px clamp(16px, 4vw, 56px); background: rgba(246, 245, 242, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid #e3e0da; scrollbar-width: none; }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a { flex: none; padding: 7px 11px; background: #fff; border: 1px solid #e3e0da; color: var(--ink); text-decoration: none; font-size: 13px; }
+
+  .blk { padding-block: 56px 10px; }
+  .blk__n { color: var(--signal); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .blk h2 { margin: 6px 0 8px; font: 800 clamp(28px, 4.4vw, 48px)/1 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .blk > p { margin: 0; max-width: 72ch; color: var(--mute); }
+  .var { margin-top: 26px; }
+  .var__cap { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+  .var__cap b { font-weight: 600; font-size: 17px; }
+  .var__cap span { color: var(--mute); font-size: 13px; }
+  .var__note { margin: 10px 0 0; color: var(--mute); font-size: 14px; max-width: 80ch; }
+  .var__note em { font-style: normal; color: var(--ink); font-weight: 600; }
+
+  /* Кадр 1440 */
+  .fr { position: relative; overflow: hidden; border: 1px solid #ddd9d2; background: var(--paper); }
+  .fr__in { position: absolute; left: 0; top: 0; width: 1440px; transform-origin: 0 0; overflow: hidden; }
+  .fr--h .fr__in { height: 110px; }
+  .fr--s .fr__in { height: 900px; }
+
+  /* ================= Общая система сайта ================= */
+  .S { position: relative; width: 1440px; height: 100%; background: var(--paper); color: var(--ink); font-family: var(--f); overflow: hidden; }
+  .S .lab { font: 600 12px var(--f); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+  .S .btn { display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 28px; background: var(--signal); color: #fff; font: 600 16px var(--f); text-decoration: none; }
+  .S .btn--ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .S .H { font-weight: 800; letter-spacing: -0.045em; text-transform: uppercase; line-height: 0.9; }
+  .S .ph { position: absolute; overflow: hidden; }
+  .S .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .S .gray img { filter: grayscale(0.15) contrast(1.02); }
+
+  /* --- Шапки --- */
+  .hdr { display: flex; align-items: center; gap: 40px; height: 110px; padding: 0 64px; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .hdr .logo { font-size: 24px; }
+  .hdr nav { display: flex; gap: 34px; margin: 0 auto; font-size: 15px; }
+  .hdr .pill { padding: 9px 14px; border: 1.5px solid var(--ink); font-size: 13px; font-weight: 600; }
+  .hdr .tel { font-weight: 600; }
+  .hdr .btn { height: 52px; }
+  .hdr2 { height: 110px; background: var(--ink); color: #fff; }
+  .hdr2__top { display: flex; gap: 28px; align-items: center; height: 36px; padding: 0 64px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #a9a9ac; border-bottom: 1px solid #2e2f33; }
+  .live { display: inline-flex; align-items: center; gap: 7px; color: #fff; }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+  .hdr2__main { display: flex; align-items: center; gap: 40px; height: 74px; padding: 0 64px; }
+  .hdr2__main nav { display: flex; gap: 34px; margin: 0 auto; font-size: 15px; color: #d8d8da; }
+
+  /* --- 1A Раскрытие --- */
+  .h1a .ph { left: 50%; top: 50%; width: 380px; height: 470px; transform: translate(-50%, -50%); animation: grow 7s cubic-bezier(.6, 0, .2, 1) infinite; }
+  @keyframes grow { 0%, 18% { width: 380px; height: 470px; } 55%, 85% { width: 1440px; height: 900px; } 100% { width: 380px; height: 470px; } }
+  .h1a .w { position: absolute; top: 50%; transform: translateY(-50%); font-size: 128px; z-index: 2; animation: part 7s cubic-bezier(.6, 0, .2, 1) infinite; }
+  .h1a .w--l { right: calc(50% + 210px); }
+  .h1a .w--r { left: calc(50% + 210px); color: var(--signal); }
+  @keyframes part { 0%, 18% { opacity: 1; } 45%, 90% { opacity: 0; } 100% { opacity: 1; } }
+  .h1a .over { position: absolute; left: 64px; right: 64px; bottom: 56px; z-index: 3; display: flex; justify-content: space-between; align-items: flex-end; color: #fff; animation: over 7s infinite; }
+  .h1a .over p { margin: 0; max-width: 560px; font: 300 30px/1.25 var(--f); letter-spacing: -0.02em; }
+  @keyframes over { 0%, 50% { opacity: 0; transform: translateY(20px); } 60%, 85% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; } }
+  .h1a .bob { position: absolute; left: 50%; top: 0; z-index: 4; width: 2px; height: 140px; background: var(--ink); transform-origin: 50% 0; animation: swing 3.2s ease-in-out infinite; }
+  .h1a .bob::after { content: ""; position: absolute; left: -9px; bottom: -22px; border: 10px solid transparent; border-top: 22px solid var(--signal); }
+  @keyframes swing { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg); } }
+  .S .hdrmini { position: absolute; left: 0; right: 0; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 30px 64px; }
+
+  /* --- 1B Кадр и факты на стекле --- */
+  .h1b .ph { inset: 0; }
+  .h1b .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(23, 24, 26, 0.75), rgba(23, 24, 26, 0.1) 60%), linear-gradient(0deg, rgba(23, 24, 26, 0.5), transparent 40%); }
+  .h1b .hdrmini { color: #fff; }
+  .h1b h1 { position: absolute; left: 64px; bottom: 170px; margin: 0; max-width: 760px; color: #fff; font-size: 104px; }
+  .h1b h1 em { font-style: normal; color: var(--signal); }
+  .h1b .sub { position: absolute; left: 64px; bottom: 64px; display: flex; gap: 22px; align-items: center; color: #fff; }
+  .h1b .sub p { margin: 0; max-width: 420px; font: 300 19px/1.4 var(--f); }
+  .glass { position: absolute; width: 270px; padding: 24px; color: #fff; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 20px; animation: float 6s ease-in-out infinite; }
+  .glass b { display: block; font: 800 44px/1 var(--f); letter-spacing: -0.04em; }
+  .glass span { font-size: 15px; opacity: 0.85; }
+  @keyframes float { 50% { transform: translateY(-14px); } }
+  .h1b .line { position: absolute; left: 980px; top: 0; bottom: 0; width: 2px; background: var(--signal); opacity: 0.85; }
+
+  /* --- 1C Название во всю ширину --- */
+  .h1c { background: var(--concrete); }
+  .h1c .mid { position: absolute; left: 64px; right: 64px; top: 150px; display: grid; grid-template-columns: 1fr 520px; gap: 60px; }
+  .h1c .mid p { margin: 0; font: 300 44px/1.12 var(--f); letter-spacing: -0.03em; }
+  .h1c .mid p b { font-weight: 800; color: var(--signal); }
+  .h1c .card { position: relative; height: 340px; }
+  .h1c .card .ph { inset: 0; }
+  .h1c .word { position: absolute; left: 40px; bottom: -42px; font-size: 372px; letter-spacing: -0.07em; white-space: nowrap; animation: rise 6s cubic-bezier(.2, .8, .2, 1) infinite; }
+  @keyframes rise { 0% { transform: translateY(70%); } 25%, 100% { transform: none; } }
+  .h1c .acts { position: absolute; left: 64px; top: 470px; display: flex; gap: 14px; }
+
+  /* --- 2A Смета-документ + заливка --- */
+  .b2a { background: var(--paper); }
+  .fillh { position: absolute; left: 64px; top: 90px; font-size: 88px; }
+  .fillh span { display: block; color: transparent; -webkit-text-stroke: 2px var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; animation: fillx 6s ease-in-out infinite; }
+  .fillh span:nth-child(2) { animation-delay: 0.5s; -webkit-text-stroke-color: var(--signal); background-image: linear-gradient(90deg, var(--signal) 50%, transparent 50%); }
+  @keyframes fillx { 0%, 10% { background-position: 100% 0; } 45%, 85% { background-position: 0 0; } 100% { background-position: 100% 0; } }
+  .b2a .txt { position: absolute; left: 64px; top: 330px; width: 560px; }
+  .b2a .txt p { margin: 0 0 22px; font: 300 22px/1.45 var(--f); }
+  .doc { position: absolute; right: 64px; top: 120px; width: 620px; padding: 36px 40px; background: #fff; box-shadow: 0 30px 60px rgba(23, 24, 26, 0.12); transform: rotate(-1.5deg); }
+  .doc__h { display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 2px solid var(--ink); }
+  .doc__h b { font-size: 22px; }
+  .doc table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 16px; font-variant-numeric: tabular-nums; }
+  .doc td { padding: 13px 0; border-bottom: 1px solid #e6e3dd; }
+  .doc td:last-child { text-align: right; }
+  .doc tr.ok td:first-child::before { content: "✓"; display: inline-block; width: 26px; color: var(--signal); font-weight: 800; }
+  .doc tr:not(.ok) td:first-child::before { content: ""; display: inline-block; width: 26px; }
+  .doc__sum { display: flex; justify-content: space-between; margin-top: 18px; font: 800 26px var(--f); }
+  .stamp { position: absolute; right: 40px; bottom: 26px; padding: 10px 16px; border: 3px solid var(--signal); color: var(--signal); font: 800 16px var(--f); letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-9deg); animation: stamp 6s infinite; }
+  @keyframes stamp { 0%, 40% { opacity: 0; transform: rotate(-9deg) scale(1.6); } 48%, 100% { opacity: 1; transform: rotate(-9deg) scale(1); } }
+
+  /* --- 2B Поэтапная оплата: шкала --- */
+  .b2b { background: var(--ink); color: #f1efea; }
+  .b2b .H { position: absolute; left: 64px; top: 90px; font-size: 96px; max-width: 900px; }
+  .b2b .H em { font-style: normal; color: var(--signal); }
+  .b2b .big { position: absolute; right: 64px; top: 96px; text-align: right; }
+  .b2b .big b { display: block; font: 800 168px/0.85 var(--f); letter-spacing: -0.06em; color: var(--signal); }
+  .b2b .big span { font-size: 17px; color: #a9a9ac; }
+  .scale { position: absolute; left: 64px; right: 64px; top: 520px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .scale div { position: relative; padding-top: 30px; border-top: 4px solid #3a3b40; }
+  .scale div::before { content: ""; position: absolute; left: 0; top: -4px; height: 4px; width: 0; background: var(--signal); animation: bar 7s infinite; animation-delay: var(--d); }
+  @keyframes bar { 0% { width: 0; } 12%, 100% { width: 100%; } }
+  .scale b { display: block; font-size: 21px; }
+  .scale span { font-size: 14px; color: #a9a9ac; }
+  .scale i { position: absolute; right: 0; top: 12px; font: 600 12px var(--f); font-style: normal; color: #a9a9ac; letter-spacing: 0.06em; text-transform: uppercase; }
+  .b2b .foot { position: absolute; left: 64px; bottom: 64px; display: flex; gap: 40px; align-items: center; color: #a9a9ac; }
+
+  /* --- 3A Кран --- */
+  .b3a { background: var(--concrete); background-image: linear-gradient(#cfcbc3 1px, transparent 1px), linear-gradient(90deg, #cfcbc3 1px, transparent 1px); background-size: 48px 48px; }
+  .b3a svg { position: absolute; left: 30px; top: 110px; width: 860px; }
+  .b3a .side { position: absolute; right: 64px; top: 90px; width: 440px; }
+  .b3a .cnt { font: 800 110px/1 var(--f); letter-spacing: -0.05em; }
+  .b3a .cnt small { font-size: 34px; color: var(--mute); }
+  .steps { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid #b9b5ac; }
+  .steps li { display: grid; grid-template-columns: 40px 1fr; padding: 13px 0; border-bottom: 1px solid #b9b5ac; color: #8f8b84; font-weight: 600; font-size: 19px; transition: color 0.3s, padding 0.3s, box-shadow 0.3s; }
+  .steps li i { font-style: normal; font-size: 13px; padding-top: 4px; }
+  .steps li.on { color: var(--ink); padding-left: 12px; box-shadow: inset 4px 0 0 var(--signal); }
+  .steps li.done { color: var(--ink); }
+  .cam { position: absolute; left: 64px; top: 70px; display: flex; gap: 12px; align-items: center; padding: 10px 14px; background: var(--ink); color: #fff; font-size: 13px; letter-spacing: 0.04em; }
+  .S .H.t3 { position: absolute; left: 64px; top: 760px; font-size: 64px; }
+
+  /* --- 3B Отвес --- */
+  .b3b { background: var(--paper); }
+  .b3b .H { position: absolute; left: 64px; top: 80px; font-size: 92px; max-width: 640px; }
+  .rope { position: absolute; left: 720px; top: 0; width: 2px; height: 900px; background: var(--ink); }
+  .rope__bob { position: absolute; left: 711px; width: 20px; height: 34px; animation: drop 9s cubic-bezier(.5, 0, .3, 1) infinite; }
+  .rope__bob::after { content: ""; position: absolute; left: 0; top: 0; border: 10px solid transparent; border-top: 34px solid var(--signal); }
+  @keyframes drop { 0% { top: 60px; } 30% { top: 300px; } 60% { top: 540px; } 90%, 100% { top: 780px; } }
+  .st3 { position: absolute; left: 770px; width: 600px; display: grid; grid-template-columns: 220px 1fr; gap: 20px; align-items: center; }
+  .st3 .ph { position: relative; height: 140px; }
+  .st3 b { display: block; font-size: 24px; letter-spacing: -0.02em; }
+  .st3 span { font-size: 15px; color: var(--mute); }
+  .st3 em { display: inline-block; margin-top: 8px; padding: 4px 9px; font: 600 11px var(--f); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ink); color: #fff; }
+  .yr { position: absolute; left: 600px; width: 100px; text-align: right; font: 600 13px var(--f); letter-spacing: 0.06em; color: var(--mute); }
+  .b3b .side { position: absolute; left: 64px; top: 360px; width: 520px; }
+  .b3b .side p { margin: 0 0 24px; font: 300 21px/1.45 var(--f); }
+
+  /* --- 4A Лента лет (Dieste) --- */
+  .b4a { background: var(--ink); color: #f1efea; }
+  .b4a::before { content: ""; position: absolute; left: 720px; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.4); }
+  .b4a .H { position: absolute; left: 64px; top: 64px; font-size: 64px; }
+  .tlx { position: absolute; left: 0; right: 0; top: 0; animation: tlx 10s cubic-bezier(.6, 0, .3, 1) infinite; }
+  @keyframes tlx { 0%, 20% { transform: translateY(0); } 40%, 60% { transform: translateY(-420px); } 80%, 100% { transform: translateY(-840px); } }
+  .tli { position: absolute; left: 420px; width: 600px; text-align: center; }
+  .tli .ph { position: relative; height: 380px; }
+  .tli b { display: block; margin-top: 14px; font-size: 22px; }
+  .tli span { font-size: 13px; color: #9a9b9e; letter-spacing: 0.04em; }
+  .tli .yy { position: absolute; left: -400px; top: 150px; font-size: 13px; color: #9a9b9e; letter-spacing: 0.08em; }
+  .tli.dim .ph { transform: scale(0.62); opacity: 0.4; }
+  .b4a .side { position: absolute; right: 64px; top: 380px; width: 300px; color: #a9a9ac; font-size: 15px; }
+
+  /* --- 4B Горизонтальная галерея с параллаксом --- */
+  .b4b { background: var(--paper); }
+  .b4b .H { position: absolute; left: 64px; top: 70px; font-size: 92px; }
+  .chips { position: absolute; left: 64px; top: 240px; display: flex; gap: 8px; }
+  .chips span { padding: 9px 16px; border: 1.5px solid var(--ink); font-size: 14px; font-weight: 600; }
+  .chips span.on { background: var(--ink); color: #fff; }
+  .gtrack { position: absolute; left: 64px; top: 320px; display: flex; gap: 28px; animation: gslide 16s linear infinite; }
+  @keyframes gslide { to { transform: translateX(-1050px); } }
+  .gi { width: 420px; flex: none; }
+  .gi .fr2 { height: 440px; overflow: hidden; }
+  .gi .fr2 img { width: 140%; max-width: none; height: 100%; object-fit: cover; animation: gpar 16s linear infinite; }
+  @keyframes gpar { from { transform: translateX(-20%); } to { transform: translateX(0); } }
+  .gi b { display: block; margin-top: 14px; font-size: 22px; letter-spacing: -0.02em; }
+  .gi span { font-size: 14px; color: var(--mute); }
+
+  /* --- 5A Отзывы плиткой + выезд инженера --- */
+  .b5a { background: var(--concrete); }
+  .b5a .H { position: absolute; left: 64px; top: 70px; font-size: 92px; }
+  .rate { position: absolute; left: 64px; top: 250px; font-size: 15px; }
+  .rate b { color: var(--signal); letter-spacing: 3px; }
+  .rows { position: absolute; left: 0; top: 330px; }
+  .row { display: flex; gap: 14px; margin-bottom: 14px; width: max-content; animation: drift 40s linear infinite; }
+  .row:nth-child(2) { margin-left: 180px; animation-duration: 52s; }
+  @keyframes drift { to { transform: translateX(-1100px); } }
+  .rc { width: 340px; padding: 24px; background: var(--paper); }
+  .rc header { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+  .rc .av { width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 600; }
+  .rc .av.o { background: var(--signal); }
+  .rc b { font-size: 16px; }
+  .rc p { margin: 0; font-size: 15px; color: #45464a; }
+  .rc small { display: block; margin-top: 10px; color: var(--signal); font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .cta5 { position: absolute; right: 64px; top: 70px; width: 470px; padding: 30px; background: var(--ink); color: #fff; z-index: 2; }
+  .cta5 b { display: block; font: 800 30px/1.05 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .cta5 p { margin: 10px 0 18px; color: #b1b1b4; font-size: 15px; }
+  .cta5 .inp { height: 50px; margin-bottom: 10px; padding: 0 16px; display: flex; align-items: center; background: #26272b; color: #8d8e92; font-size: 15px; }
+  .cta5 .btn { width: 100%; justify-content: center; }
+
+  /* --- 5B Отзыв + дом --- */
+  .b5b { background: var(--paper); }
+  .b5b .ph { left: 0; top: 0; width: 720px; height: 900px; }
+  .b5b .q { position: absolute; left: 800px; top: 90px; width: 560px; }
+  .b5b .q .lab { display: block; margin-bottom: 30px; }
+  .b5b .q blockquote { margin: 0; font: 300 38px/1.22 var(--f); letter-spacing: -0.025em; }
+  .b5b .q blockquote::before { content: "“"; display: block; height: 70px; font: 800 140px/1 var(--f); color: var(--signal); }
+  .b5b .who { margin-top: 26px; font-weight: 600; }
+  .b5b .facts { position: absolute; left: 800px; top: 600px; width: 560px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--ink); }
+  .b5b .facts div { padding-top: 16px; }
+  .b5b .facts b { display: block; font: 800 34px/1 var(--f); letter-spacing: -0.04em; }
+  .b5b .facts span { font-size: 14px; color: var(--mute); }
+  .b5b .nav { position: absolute; left: 800px; bottom: 64px; display: flex; gap: 10px; align-items: center; }
+  .b5b .nav i { width: 56px; height: 56px; display: grid; place-items: center; border: 1.5px solid var(--ink); font-style: normal; font-size: 22px; }
+  .b5b .nav .btn { margin-left: 26px; }
+
+  /* --- Футеры --- */
+  .fa { background: var(--signal); color: #fff; }
+  .fa .sheet { position: absolute; left: 0; right: 0; top: 0; height: 900px; background: var(--paper); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); animation: lift 7s cubic-bezier(.6, 0, .2, 1) infinite; }
+  .fa .sheet .H { position: absolute; left: 64px; bottom: 80px; font-size: 80px; color: var(--ink); }
+  @keyframes lift { 0%, 15% { transform: translateY(0); } 50%, 85% { transform: translateY(-620px); } 100% { transform: translateY(0); } }
+  .fa .cols { position: absolute; left: 64px; right: 64px; top: 330px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; font-size: 18px; }
+  .fa .cols .lab { color: rgba(255, 255, 255, 0.75); display: block; margin-bottom: 8px; }
+  .fa .word { position: absolute; left: 44px; bottom: -40px; font-size: 330px; color: #fff; }
+  .fb { background: var(--ink); color: #f1efea; }
+  .fb .rope2 { position: absolute; left: 1180px; top: 0; width: 2px; height: 300px; background: #f1efea; }
+  .fb .rope2::after { content: ""; position: absolute; left: -9px; bottom: -30px; border: 10px solid transparent; border-top: 30px solid var(--signal); }
+  .fb .H.big { position: absolute; left: 64px; top: 80px; font-size: 96px; max-width: 900px; }
+  .fb .cols { position: absolute; left: 64px; right: 64px; top: 420px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; padding-top: 22px; border-top: 1px solid #34353a; font-size: 17px; }
+  .fb .cols .lab { color: #8d8e92; display: block; margin-bottom: 8px; }
+  .fb .word { position: absolute; left: 44px; bottom: -40px; font-size: 330px; color: transparent; -webkit-text-stroke: 2px #f1efea; background: linear-gradient(90deg, #f1efea 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; animation: fillx 7s ease-in-out infinite; }
+
+  .end { padding-block: 60px 80px; }
+  .end h2 { margin: 0 0 12px; font: 800 32px/1 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .end ol { margin: 0; padding-left: 20px; color: var(--mute); max-width: 80ch; }
+  .end li { margin-bottom: 6px; }
+  .end small { display: block; margin-top: 20px; color: var(--mute); }
+  @media (prefers-reduced-motion: reduce) { .S *, .S *::before, .S *::after { animation: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="plumb" viewBox="0 0 14 26"><rect x="6" y="0" width="2" height="12" fill="currentColor"/><path d="M1 11 H13 L7 26 Z" fill="#ff5a1f"/></symbol></svg>
+
+<header class="wrap top">
+  <span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span>
+  <h1>Концепция блоков сайта</h1>
+  <p>Строительство частных домов под ключ. Пять содержательных блоков, шапка и отдельный футер. Для каждого — 2–3 варианта оформления в одной системе: один шрифт, одна палитра, один язык движения. Это не готовый сайт, а доска для выбора. Кадры показаны в ширине компьютера 1440 px.</p>
+  <p><b>Почему «ОТВЕС».</b> Отвес — грузик на нити, по которому строители выверяют вертикаль. Это про точность и честную проверку, поэтому из него сделан знак, а падающий отвес — сквозная фишка движения на сайте.</p>
+  <div class="pal">
+    <span><i style="background:#ecebe7"></i>Бумага #ECEBE7</span>
+    <span><i style="background:#d9d6cf"></i>Бетон #D9D6CF</span>
+    <span><i style="background:#17181a"></i>Графит #17181A</span>
+    <span><i style="background:#ff5a1f"></i>Сигнальный #FF5A1F</span>
+    <span><i style="background:#fff;font:800 13px Geologica;display:grid;place-items:center">Аа</i>Geologica 300 / 800</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Блоки">
+  <a href="#b0">Шапка</a><a href="#b1">1 · Первый экран</a><a href="#b2">2 · Смета</a><a href="#b3">3 · Как строим</a><a href="#b4">4 · Дома</a><a href="#b5">5 · Отзывы и выезд</a><a href="#bf">Футер</a>
+</nav>
+
+<!-- Шапка -->
+<section class="wrap blk" id="b0">
+  <span class="blk__n">Шапка</span>
+  <h2>Шапка</h2>
+  <p>Главное в шапке — сразу снять страх: «смета не меняется» и бесплатный выезд инженера.</p>
+  <div class="var">
+    <div class="var__cap"><b>А · Светлая, в одну строку</b><span>знак-отвес, меню, плашка «Смета не меняется», телефон, кнопка</span></div>
+    <div class="fr fr--h"><div class="fr__in"><div class="S"><div class="hdr">
+      <span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span>
+      <nav><span>Смета</span><span>Как строим</span><span>Дома</span><span>Отзывы</span></nav>
+      <span class="pill">Смета не меняется</span><span class="tel">+7 (000) 000-00-00</span><a class="btn">Выезд инженера — бесплатно</a>
+    </div></div></div></div>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>Б · Тёмная, в два этажа, с онлайн-камерой</b><span>сверху строка доверия: камера на объекте в эфире, 12 лет, 140 домов</span></div>
+    <div class="fr fr--h"><div class="fr__in"><div class="S"><div class="hdr2">
+      <div class="hdr2__top"><span class="live"><i></i>Онлайн-камера на объекте</span><span>12 лет</span><span>140 домов</span><span>[город]</span></div>
+      <div class="hdr2__main"><span class="logo" style="color:#fff"><svg class="plumb" style="color:#fff"><use href="#plumb"/></svg>ОТВЕС</span><nav><span>Смета</span><span>Как строим</span><span>Дома</span><span>Отзывы</span></nav><span style="font-weight:600">+7 (000) 000-00-00</span><a class="btn" style="height:48px">Выезд инженера</a></div>
+    </div></div></div></div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="wrap blk" id="b1">
+  <span class="blk__n">Блок 1</span>
+  <h2>Первый экран — оффер</h2>
+  <p>За 3 секунды: что строим, за сколько и почему не страшно. Оффер из фактов: дом 150 м² под ключ за 6 месяцев, смета в договоре не меняется.</p>
+  <div class="var">
+    <div class="var__cap"><b>1А · «Раскрытие» + падающий отвес</b><span>движение: фото из центра раскрывается на весь экран при прокрутке</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S h1a">
+      <div class="hdrmini"><span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span><span class="lab">Меню</span></div>
+      <i class="bob"></i>
+      <div class="H w w--l">Строим</div>
+      <div class="ph"><img src="img/p1.webp" alt="Дом с панорамным остеклением"></div>
+      <div class="H w w--r">ровно</div>
+      <div class="over"><p>Дом 150 м² под ключ за 6 месяцев. Смета фиксируется в договоре и не меняется.</p><a class="btn">Выезд инженера — бесплатно</a></div>
+    </div></div></div>
+    <p class="var__note">Раскрытие фото — со <em>stanzza.design</em>. Отвес над фото качается и при прокрутке «падает» на заголовок.</p>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>1Б · «Кадр и факты на стекле»</b><span>движение: стеклянные плашки плывут с разной скоростью</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S h1b">
+      <div class="ph"><img src="img/p16.webp" alt="Загородный дом вечером"></div>
+      <div class="hdrmini"><span class="logo" style="color:#fff"><svg class="plumb" style="color:#fff"><use href="#plumb"/></svg>ОТВЕС</span><span class="lab" style="color:#fff">Меню</span></div>
+      <i class="line"></i>
+      <h1 class="H">Дом под ключ <em>за 6 месяцев</em></h1>
+      <div class="sub"><a class="btn">Рассчитать дом</a><p>Смета в договоре не меняется. Платите по факту выполненных этапов.</p></div>
+      <div class="glass" style="left:1010px;top:150px"><b>12 лет</b><span>строим дома</span></div>
+      <div class="glass" style="left:1100px;top:390px;animation-delay:-2s"><b>140</b><span>домов построено</span></div>
+      <div class="glass" style="left:1020px;top:610px;animation-delay:-4s"><b>5 лет</b><span>гарантии на конструктив</span></div>
+    </div></div></div>
+    <p class="var__note">Стеклянные плашки поверх фото — с <em>nafta-avtomatika.ru</em>. Оранжевая вертикаль — нить отвеса, она проходит через весь сайт.</p>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>1В · «Название во всю ширину»</b><span>движение: «ОТВЕС» выезжает снизу</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S h1c">
+      <div class="hdrmini"><span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span><span class="lab">12 лет · 140 домов · [город]</span><span class="lab">Меню</span></div>
+      <div class="mid"><p>Строим частные дома <b>под ключ</b>. Дом 150&nbsp;м² — за&nbsp;6&nbsp;месяцев, смета в договоре не меняется.</p><div class="card"><div class="ph gray"><img src="img/p13.webp" alt="Дом со стеклянным фасадом"></div></div></div>
+      <div class="acts"><a class="btn">Выезд инженера — бесплатно</a><a class="btn btn--ghost">Построенные дома</a></div>
+      <div class="H word">Отвес</div>
+    </div></div></div>
+    <p class="var__note">Огромное название внизу — с <em>noww.ch</em> и <em>deadwater.fr</em>.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="wrap blk" id="b2">
+  <span class="blk__n">Блок 2</span>
+  <h2>Смета не меняется</h2>
+  <p>Главный страх — что цена вырастет по ходу. Показываем это сразу вторым блоком: смета фиксирована, платите только за сделанный этап.</p>
+  <div class="var">
+    <div class="var__cap"><b>2А · «Смета-документ»</b><span>движение: заголовок заливается из контура, на смету ставится печать</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b2a">
+      <div class="H fillh"><span>Смета</span><span>не меняется</span></div>
+      <div class="txt"><p>Цена фиксируется в договоре до начала работ. Платите по этапам — только после того, как этап принят.</p><a class="btn">Получить смету на свой дом</a></div>
+      <div class="doc">
+        <div class="doc__h"><b>Смета · дом 150 м²</b><span class="lab">Приложение к договору</span></div>
+        <table>
+          <tr class="ok"><td>Фундамент</td><td>[сумма]</td></tr>
+          <tr class="ok"><td>Коробка</td><td>[сумма]</td></tr>
+          <tr class="ok"><td>Кровля и фасад</td><td>[сумма]</td></tr>
+          <tr><td>Инженерные сети</td><td>[сумма]</td></tr>
+          <tr><td>Внутренняя отделка</td><td>[сумма]</td></tr>
+        </table>
+        <div class="doc__sum"><span>Итого</span><span>[сумма]</span></div>
+        <div class="stamp">Зафиксировано в договоре</div>
+      </div>
+    </div></div></div>
+    <p class="var__note">Заливка текста из контура — с <em>ateliernorth.vercel.app</em>. Галочки отмечают оплаченные этапы.</p>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>2Б · «Оплата по шкале»</b><span>движение: этапы заливаются по очереди, как прогресс стройки</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b2b">
+      <div class="H">Платите <em>по факту</em> — за&nbsp;принятый этап</div>
+      <div class="big"><b>0 ₽</b><span>доплат сверх сметы в договоре</span></div>
+      <div class="scale">
+        <div style="--d:0s"><i>этап 1</i><b>Проект</b><span>оплата после согласования</span></div>
+        <div style="--d:.8s"><i>этап 2</i><b>Фундамент</b><span>после акта</span></div>
+        <div style="--d:1.6s"><i>этап 3</i><b>Коробка</b><span>после акта</span></div>
+        <div style="--d:2.4s"><i>этап 4</i><b>Кровля</b><span>после акта</span></div>
+        <div style="--d:3.2s"><i>этап 5</i><b>Инженерия</b><span>после акта</span></div>
+        <div style="--d:4s"><i>этап 6</i><b>Отделка</b><span>после приёмки</span></div>
+      </div>
+      <div class="foot"><a class="btn">Получить смету</a><span>Фиксированная смета · поэтапная оплата · своя бригада без субподряда</span></div>
+    </div></div></div>
+    <p class="var__note">Крупное число как герой — с <em>nafta-avtomatika.ru</em>. «0 ₽ доплат» — это пересказ факта о фиксированной смете, а не новая цифра.</p>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="wrap blk" id="b3">
+  <span class="blk__n">Блок 3</span>
+  <h2>Как строим и как вы контролируете</h2>
+  <p>Страх — брак в скрытых работах. Показываем этапы и то, как заказчик видит каждый: онлайн-камера и еженедельный фотоотчёт.</p>
+  <div class="var">
+    <div class="var__cap"><b>3А · «Кран строит дом» — фишка, как колесо у ПРОТЕКТОРа</b><span>движение: блок закрепляется, при прокрутке кран кладёт этап за этапом</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b3a" id="crane-a">
+      <div class="cam"><span class="live"><i></i>Камера на объекте</span><span style="color:#a9a9ac">· фотоотчёт каждую неделю</span></div>
+      <svg viewBox="0 0 800 560" aria-hidden="true"></svg>
+      <div class="side">
+        <div class="cnt"><span data-n>01</span><small> / 06</small></div>
+        <ol class="steps">
+          <li class="on"><i>01</i>Выезд инженера на участок</li><li><i>02</i>Проект и смета в договоре</li><li><i>03</i>Фундамент</li><li><i>04</i>Коробка</li><li><i>05</i>Кровля и фасад</li><li><i>06</i>Инженерия и отделка</li>
+        </ol>
+      </div>
+      <div class="H t3">Каждый этап — на фото</div>
+    </div></div></div>
+    <p class="var__note">На сайте кран двигается от прокрутки, здесь он показан циклом. Справа этапы с прогрессом, как этапы и колесо у ПРОТЕКТОРа.</p>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>3Б · «Отвес» — грузик опускается по этапам</b><span>движение: нить отвеса идёт вниз через блок, у каждого этапа открывается фото скрытых работ</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b3b">
+      <div class="H">Скрытые работы — не скрываем</div>
+      <div class="side"><p>Арматуру, гидроизоляцию и утепление фотографируем до того, как их закроют. Отчёт приходит раз в неделю, камера на участке работает онлайн.</p><a class="btn">Посмотреть пример отчёта</a></div>
+      <i class="rope"></i><i class="rope__bob"></i>
+      <span class="yr" style="top:140px">ЭТАП 1</span><div class="st3" style="top:80px"><div class="ph"><img src="img/p10.webp" alt="Инженер с чертежом"></div><div><b>Выезд инженера</b><span>Бесплатно смотрим участок и грунт</span><br><em>фото участка</em></div></div>
+      <span class="yr" style="top:340px">ЭТАП 2</span><div class="st3" style="top:280px"><div class="ph"><img src="img/p2.webp" alt="Заливка бетона"></div><div><b>Фундамент</b><span>Плита, лента или сваи</span><br><em>фото армирования</em></div></div>
+      <span class="yr" style="top:540px">ЭТАП 3</span><div class="st3" style="top:480px"><div class="ph"><img src="img/p8.webp" alt="Каркас здания"></div><div><b>Коробка</b><span>Газобетон, кирпич или каркас</span><br><em>фото кладки</em></div></div>
+      <span class="yr" style="top:740px">ЭТАП 4</span><div class="st3" style="top:680px"><div class="ph"><img src="img/p7.webp" alt="Леса на фасаде"></div><div><b>Кровля и фасад</b><span>Утепление до закрытия</span><br><em>фото утепления</em></div></div>
+    </div></div></div>
+    <p class="var__note">Вертикальная нить с отметками — та же механика, что у ленты <em>eladiodieste.com</em>, но с отвесом-знаком компании.</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="wrap blk" id="b4">
+  <span class="blk__n">Блок 4</span>
+  <h2>Построенные дома</h2>
+  <p>Доказательство — реальные дома. 140 построено, показываем лучшие с площадью, сроком и материалом.</p>
+  <div class="var">
+    <div class="var__cap"><b>4А · «Лента лет»</b><span>движение: линия по центру, дом в центре экрана крупный и яркий, соседние приглушены</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b4a">
+      <div class="H">140 домов<br>за 12 лет</div>
+      <div class="tlx">
+        <div class="tli dim" style="top:-260px"><span class="yy">2014</span><div class="ph"><img src="img/p9.webp" alt="Дом-куб"></div><b>Дом «Куб»</b><span>ГАЗОБЕТОН · 150 М²</span></div>
+        <div class="tli" style="top:180px"><span class="yy">2016</span><div class="ph"><img src="img/p16.webp" alt="Дом вечером"></div><b>Дом у леса</b><span>КИРПИЧ · [площадь]</span></div>
+        <div class="tli dim" style="top:600px"><span class="yy">2020</span><div class="ph"><img src="img/p13.webp" alt="Дом-витраж"></div><b>Дом-витраж</b><span>КАРКАС · [площадь]</span></div>
+        <div class="tli dim" style="top:1020px"><span class="yy">2024</span><div class="ph"><img src="img/p5.webp" alt="Вилла"></div><b>Дом с террасой</b><span>ГАЗОБЕТОН · [площадь]</span></div>
+        <div class="tli dim" style="top:1440px"><span class="yy">2025</span><div class="ph"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>КАРКАС · [площадь]</span></div>
+      </div>
+      <p class="side">Нажмите на дом — откроется история стройки: фото этапов и итоговая смета.</p>
+    </div></div></div>
+    <p class="var__note">Целиком по вашей записи <em>eladiodieste.com</em>, в палитре сайта.</p>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>4Б · «Галерея с параллаксом»</b><span>движение: блок закрепляется, дома едут вбок, фото внутри рамок смещаются медленнее</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b4b">
+      <div class="H">Построенные дома</div>
+      <div class="chips"><span class="on">Все · 140</span><span>Газобетон</span><span>Кирпич</span><span>Каркас</span></div>
+      <div class="gtrack">
+        <div class="gi"><div class="fr2"><img src="img/p1.webp" alt="Дом с остеклением"></div><b>Дом-витраж</b><span>Каркас · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p9.webp" alt="Дом-куб"></div><b>Дом «Куб»</b><span>Газобетон · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>Каркас · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p16.webp" alt="Дом вечером"></div><b>Дом у леса</b><span>Кирпич · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p13.webp" alt="Дом со стеклом"></div><b>Дом у воды</b><span>Газобетон · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p5.webp" alt="Вилла"></div><b>Дом с террасой</b><span>Кирпич · [площадь] · [срок]</span></div>
+      </div>
+    </div></div></div>
+    <p class="var__note">Галерея объектов с параллаксом, которую вы отметили (<em>Codrops</em>). Фильтр по материалу — по услугам компании.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="wrap blk" id="b5">
+  <span class="blk__n">Блок 5</span>
+  <h2>Отзывы и выезд инженера</h2>
+  <p>Последний шаг перед заявкой: что говорят те, кому уже построили, и простое действие — бесплатный выезд инженера на участок.</p>
+  <div class="var">
+    <div class="var__cap"><b>5А · «Плитка отзывов» + форма</b><span>движение: два ряда отзывов со сдвигом медленно едут, при наведении останавливаются</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b5a">
+      <div class="H">Что говорят<br>хозяева</div>
+      <div class="rate"><b>★★★★★</b> 5.0 · [число] отзывов</div>
+      <div class="cta5"><b>Бесплатный выезд инженера</b><p>Посмотрим участок и грунт, ответим на вопросы и подготовим смету.</p><div class="inp">Имя</div><div class="inp">Телефон</div><a class="btn">Вызвать инженера</a></div>
+      <div class="rows">
+        <div class="row" data-rev></div>
+        <div class="row" data-rev></div>
+      </div>
+    </div></div></div>
+    <p class="var__note">Плитка отзывов в два ряда со сдвигом — с <em>fluid.glass</em> (ваша запись). Тексты отзывов — заглушки.</p>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>5Б · «Отзыв + дом»</b><span>движение: листаете отзывы, слева меняется фото дома этого заказчика</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S b5b">
+      <div class="ph"><img src="img/p16.webp" alt="Дом заказчика"></div>
+      <div class="q"><span class="lab">Отзыв · дом у леса</span><blockquote>Смета в договоре совпала с итоговой до рубля. Каждую неделю получали фото, на стройку приезжали только на приёмку этапов.</blockquote><div class="who">[Имя], [город] · заглушка</div></div>
+      <div class="facts"><div><b>[м²]</b><span>площадь</span></div><div><b>[мес]</b><span>срок</span></div><div><b>0 ₽</b><span>доплат к смете</span></div></div>
+      <div class="nav"><i>‹</i><i>›</i><a class="btn">Вызвать инженера</a></div>
+    </div></div></div>
+    <p class="var__note">Один отзыв крупно и рядом дом, о котором он. Работает сильнее, чем стена коротких отзывов.</p>
+  </div>
+</section>
+
+<!-- Футер -->
+<section class="wrap blk" id="bf">
+  <span class="blk__n">Футер</span>
+  <h2>Футер — отдельная сущность</h2>
+  <p>Не продолжение страницы, а отдельный слой: свой цвет, огромное название, контакты.</p>
+  <div class="var">
+    <div class="var__cap"><b>ФА · «Из-под страницы»</b><span>движение: страница уезжает вверх и открывает оранжевый футер, как у ПРОТЕКТОРа</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S fa">
+      <div class="cols"><div><span class="lab">Где</span>[город], [адрес]</div><div><span class="lab">Связь</span>+7 (000) 000-00-00</div><div><span class="lab">Онлайн</span>Камеры на объектах</div><div><a class="btn" style="background:var(--ink)">Выезд инженера</a></div></div>
+      <div class="H word">Отвес</div>
+      <div class="sheet"><div class="H">Строим ровно.<br>12 лет.</div></div>
+    </div></div></div>
+  </div>
+  <div class="var">
+    <div class="var__cap"><b>ФБ · «Графит и нить»</b><span>движение: нить отвеса спускается, «ОТВЕС» заливается из контура</span></div>
+    <div class="fr fr--s"><div class="fr__in"><div class="S fb">
+      <i class="rope2"></i>
+      <div class="H big">Приедем на участок бесплатно</div>
+      <div class="cols"><div><span class="lab">Где</span>[город], [адрес]</div><div><span class="lab">Связь</span>+7 (000) 000-00-00</div><div><span class="lab">Режим</span>[часы работы]</div><div><a class="btn">Вызвать инженера</a></div></div>
+      <div class="H word">Отвес</div>
+    </div></div></div>
+  </div>
+</section>
+
+<footer class="wrap end">
+  <h2>Как выбрать</h2>
+  <ol>
+    <li>Шапка: А или Б.</li>
+    <li>Первый экран: 1А, 1Б или 1В.</li>
+    <li>Смета: 2А или 2Б.</li>
+    <li>Как строим: 3А (кран) или 3Б (отвес).</li>
+    <li>Дома: 4А (лента лет) или 4Б (галерея).</li>
+    <li>Отзывы: 5А или 5Б.</li>
+    <li>Футер: ФА или ФБ.</li>
+  </ol>
+  <p style="color:var(--mute);max-width:80ch">Напишите, например: «Б, 1Б, 2А, 3А, 4Б, 5А, ФА». После этого соберу сайт. Все блоки уже в одной системе, их можно смешивать.</p>
+  <small>Фото — свободные изображения (CC0), временные заглушки. Цифры только из брифа, остальное в [скобках].</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function () {
+  // Масштаб кадров 1440 под ширину экрана
+  var fit = function () {
+    document.querySelectorAll('.fr').forEach(function (f) {
+      var inn = f.firstElementChild, k = f.clientWidth / 1440;
+      inn.style.transform = 'scale(' + k + ')';
+      f.style.height = (inn.offsetHeight * k) + 'px';
+    });
+  };
+  fit(); addEventListener('resize', fit);
+
+  // Отзывы-заглушки
+  var R = [['Анна', 'Смета не выросла ни на рубль, хотя мы меняли окна по ходу — пересчитали заранее.', 'Газобетон'],
+    ['Игорь', 'Смотрел стройку по камере из другого города. Приехал только на приёмку.', 'Каркас'],
+    ['Мария', 'Инженер приехал на участок бесплатно и сразу сказал про грунт — сделали сваи.', 'Сваи'],
+    ['Олег', 'Фото арматуры прислали до заливки. Спокойно, когда видишь скрытые работы.', 'Плита'],
+    ['Елена', 'Одна бригада от фундамента до отделки, никто ни на кого не кивал.', 'Кирпич'],
+    ['Дмитрий', 'Платили по этапам после акта. Сроки совпали с графиком.', 'Газобетон']];
+  var card = function (r, i) { return '<article class="rc"><header><span class="av' + (i % 3 === 1 ? ' o' : '') + '">' + r[0][0] + '</span><div><b>' + r[0] + '</b><br><span style="color:#ff5a1f;letter-spacing:2px">★★★★★</span></div></header><p>' + r[1] + '</p><small>' + r[2] + ' · заглушка</small></article>'; };
+  var rows = document.querySelectorAll('[data-rev]');
+  var a = R.map(card).join(''), b = R.slice().reverse().map(card).join('');
+  rows[0].innerHTML = a + a; rows[1].innerHTML = b + b;
+
+  // Кран: цикл этапов (на сайте — от прокрутки)
+  var sc = document.getElementById('crane-a');
+  sc.querySelector('svg').innerHTML = '<defs><pattern id="lat" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0 L14 14 M14 0 L0 14" stroke="#17181a" stroke-width="1.2"/></pattern></defs>' +
+    '<line x1="0" y1="520" x2="800" y2="520" stroke="#17181a" stroke-width="2"/><rect x="0" y="521" width="800" height="40" fill="#b9b5ac"/>' +
+    '<g id="hs"><rect class="pt pt1" x="420" y="500" width="300" height="20" fill="#8e8a82"/>' +
+    '<g class="pt pt2" fill="#17181a"><rect x="426" y="300" width="10" height="200"/><rect x="520" y="300" width="10" height="200"/><rect x="610" y="300" width="10" height="200"/><rect x="704" y="300" width="10" height="200"/><rect x="420" y="396" width="300" height="8"/></g>' +
+    '<g class="pt pt3" fill="#ecebe7" stroke="#17181a"><rect x="436" y="404" width="84" height="96"/><rect x="530" y="404" width="80" height="96"/><rect x="620" y="404" width="84" height="96"/><rect x="436" y="304" width="84" height="92"/><rect x="530" y="304" width="80" height="92"/><rect x="620" y="304" width="84" height="92"/></g>' +
+    '<polygon class="pt pt4" points="404,296 570,212 736,296" fill="#ff5a1f" stroke="#17181a" stroke-width="2"/>' +
+    '<g class="pt pt5" fill="#ffd27a" stroke="#17181a" stroke-width="1.5"><rect x="456" y="330" width="40" height="42"/><rect x="548" y="330" width="44" height="42"/><rect x="640" y="330" width="40" height="42"/><rect x="456" y="430" width="40" height="42"/><rect x="640" y="430" width="40" height="42"/><rect x="550" y="430" width="40" height="70" fill="#17181a"/></g></g>' +
+    '<rect x="250" y="120" width="26" height="400" fill="url(#lat)" stroke="#17181a" stroke-width="2"/><rect x="236" y="508" width="54" height="12" fill="#17181a"/>' +
+    '<rect x="238" y="96" width="50" height="26" fill="#ff5a1f" stroke="#17181a" stroke-width="2"/><polygon points="263,40 255,96 271,96" fill="#17181a"/>' +
+    '<rect x="120" y="96" width="660" height="14" fill="url(#lat)" stroke="#17181a" stroke-width="2"/><line x1="263" y1="40" x2="780" y2="96" stroke="#17181a" stroke-width="1.5"/><line x1="263" y1="40" x2="130" y2="96" stroke="#17181a" stroke-width="1.5"/><rect x="126" y="110" width="44" height="34" fill="#4a4b4f"/>' +
+    '<g id="tr"><rect x="-14" y="110" width="28" height="10" fill="#17181a"/><line id="cb" x1="0" y1="120" x2="0" y2="140" stroke="#17181a" stroke-width="2"/><g id="hk" transform="translate(0,140)"><path d="M-7 0 h14 v6 q0 12 -7 12 q-7 0 -7 -8" fill="none" stroke="#17181a" stroke-width="3"/><rect id="ld" x="-40" y="16" width="80" height="18" fill="#ff5a1f" stroke="#17181a" stroke-width="1.5"/></g></g>';
+  if (!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) { gsap && gsap.set('#hs .pt', { opacity: 1 }); return; }
+  var steps = sc.querySelectorAll('.steps li'), num = sc.querySelector('[data-n]');
+  var mark = function (i) { num.textContent = '0' + (i + 1); steps.forEach(function (li, k) { li.classList.toggle('on', k === i); li.classList.toggle('done', k < i); }); };
+  var tl = gsap.timeline({ repeat: -1, repeatDelay: 1, onRepeat: function () { gsap.set('#hs .pt', { opacity: 0 }); } });
+  gsap.set('#hs .pt', { opacity: 0 }); gsap.set('#tr', { x: 700 }); gsap.set('#hk', { y: 140 });
+  var depth = [470, 300, 380, 200, 360];
+  tl.call(mark, [0]).to({}, { duration: 0.8 }).call(mark, [1]).to({}, { duration: 0.8 });
+  depth.forEach(function (d, i) {
+    tl.call(mark, [Math.min(5, i + 1)])
+      .set('#ld', { opacity: 1 })
+      .to('#tr', { x: 180, duration: 0.6, ease: 'power2.inOut' })
+      .to('#tr', { x: 570, duration: 0.9, ease: 'power2.inOut' })
+      .to('#hk', { y: d - 120, duration: 0.6, ease: 'power2.inOut' })
+      .to('#cb', { attr: { y2: d - 120 }, duration: 0.6, ease: 'power2.inOut' }, '<')
+      .set('#ld', { opacity: 0 })
+      .fromTo('#hs .pt' + (i + 1), { opacity: 0, scaleY: 0.2, transformOrigin: '50% 100%' }, { opacity: 1, scaleY: 1, duration: 0.4, ease: 'back.out(2)' })
+      .to('#hk', { y: 140, duration: 0.5 }).to('#cb', { attr: { y2: 140 }, duration: 0.5 }, '<');
+  });
+  tl.call(mark, [5]).to({}, { duration: 2 });
+})();
+</script>
