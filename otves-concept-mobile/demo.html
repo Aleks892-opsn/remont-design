@@ -1,0 +1,549 @@
+<title>ОТВЕС: демо телефона</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;800&display=swap">
+<style>
+  /* Живая страница под телефон: колонка до 430 px. Двигается только от прокрутки, свайпа и нажатий */
+  :root {
+    --paper: #ecebe7;
+    --concrete: #d9d6cf;
+    --ink: #17181a;
+    --mute: #66676b;
+    --line: #c5c1b8;
+    --signal: #ff5a1f;
+    --f: "Geologica", "Helvetica Neue", Arial, sans-serif;
+    --pad: 18px;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #2a2b2e; color: var(--ink); font: 16px/1.5 var(--f); }
+  img { display: block; max-width: 100%; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  .site { position: relative; max-width: 430px; margin: 0 auto; background: var(--paper); overflow-x: clip; }
+  .H { margin: 0; font-weight: 800; letter-spacing: -0.045em; text-transform: uppercase; line-height: 0.92; }
+  .lab { font: 600 10px var(--f); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+  .btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 54px; padding: 0 20px; border: 0; background: var(--signal); color: #fff; font: 600 15px var(--f); text-decoration: none; }
+  .btn--ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .pic { overflow: hidden; }
+  .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .logo { display: inline-flex; align-items: center; gap: 8px; font: 800 18px var(--f); letter-spacing: 0.02em; }
+  .plumb { width: 11px; height: 21px; flex: none; }
+
+  /* Переключатель вариантов (это не часть сайта) */
+  .pick { position: relative; z-index: 15; display: flex; align-items: center; gap: 6px; overflow-x: auto; padding: 10px var(--pad); background: #fff3c4; border-top: 1px dashed #c9b25c; border-bottom: 1px dashed #c9b25c; scrollbar-width: none; }
+  .pick::-webkit-scrollbar { display: none; }
+  .pick b { flex: none; margin-right: 4px; font: 600 11px var(--f); letter-spacing: 0.06em; text-transform: uppercase; color: #7a6a2a; }
+  .pick button { flex: none; padding: 7px 11px; border: 1px solid #c9b25c; background: #fff; font-size: 13px; }
+  .pick button.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .intro { padding: 20px var(--pad); background: #fff3c4; color: #5b4f20; font-size: 14px; line-height: 1.45; }
+  .intro b { color: var(--ink); }
+
+  /* ---------- Шапка ---------- */
+  .hdr { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 12; }
+  .hbar { display: flex; align-items: center; justify-content: space-between; height: 62px; padding: 0 var(--pad); }
+  .menu { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 0; background: var(--ink); color: #fff; font: 600 13px var(--f); }
+  .menu i { display: grid; gap: 4px; }
+  .menu i::before, .menu i::after { content: ""; display: block; width: 16px; height: 2px; background: currentColor; }
+  .call { width: 40px; height: 40px; display: grid; place-items: center; border: 1.5px solid currentColor; color: inherit; }
+  .call svg { width: 16px; height: 16px; }
+  .hA { background: rgba(236, 235, 231, 0.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .hA .tr { display: flex; gap: 8px; padding: 0 var(--pad) 10px; }
+  .hA .tr span { flex: 1; padding: 6px 8px; border: 1.5px solid var(--ink); font: 600 11px var(--f); text-align: center; }
+  .hB { background: var(--ink); color: #fff; }
+  .hB .tl { display: flex; justify-content: space-between; padding: 8px var(--pad) 0; font: 600 10px var(--f); letter-spacing: 0.06em; text-transform: uppercase; color: #a9a9ac; }
+  .hB .menu { background: var(--signal); }
+  .live { display: inline-flex; align-items: center; gap: 6px; color: #fff; }
+  .live i { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); }
+
+  /* Шторка меню — открывается нажатием */
+  .scrim { position: fixed; inset: 0; z-index: 40; background: rgba(23, 24, 26, 0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .sheet { position: fixed; left: 50%; bottom: 0; z-index: 41; width: min(100%, 430px); padding: 14px var(--pad) calc(24px + env(safe-area-inset-bottom, 0px)); background: var(--paper); border-radius: 22px 22px 0 0; transform: translate(-50%, 105%); transition: transform 0.45s cubic-bezier(.2, .8, .2, 1); }
+  .menu-open .scrim { opacity: 1; pointer-events: auto; }
+  .menu-open .sheet { transform: translate(-50%, 0); }
+  .sheet .grab { width: 44px; height: 5px; margin: 0 auto 10px; border-radius: 3px; background: var(--line); }
+  .sheet a { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); font: 800 24px var(--f); letter-spacing: -0.03em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .sheet a small { font: 400 12px var(--f); text-transform: none; letter-spacing: 0; color: var(--mute); }
+  .sheet .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+
+  /* ---------- 1А Раскрытие (прокрутка) ---------- */
+  .h1a { position: relative; height: 100svh; min-height: 600px; overflow: hidden; background: var(--paper); }
+  .h1a .pic { position: absolute; left: 50%; top: 50%; width: 48%; height: 40%; transform: translate(-50%, -50%); }
+  .h1a .w { position: absolute; left: var(--pad); top: 16%; z-index: 2; font-size: clamp(46px, 15vw, 64px); }
+  .h1a .w--b { left: auto; right: var(--pad); top: auto; bottom: 16%; color: var(--signal); }
+  .h1a .over { position: absolute; left: var(--pad); right: var(--pad); bottom: 26px; z-index: 3; color: #fff; opacity: 0; }
+  .h1a .over p { margin: 0 0 14px; font: 300 21px/1.25 var(--f); }
+  .hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 3; padding: 6px 10px; background: var(--ink); color: #fff; font: 600 11px var(--f); white-space: nowrap; }
+
+  /* 1Б Кадр и стекло */
+  .h1b { position: relative; height: 100svh; min-height: 600px; overflow: hidden; color: #fff; }
+  .h1b .bg { position: absolute; inset: -8% 0; }
+  .h1b .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23, 24, 26, 0.35), rgba(23, 24, 26, 0.05) 35%, rgba(23, 24, 26, 0.85) 75%); }
+  .glass { position: absolute; z-index: 2; padding: 12px 14px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 14px; }
+  .glass b { display: block; font: 800 26px/1 var(--f); letter-spacing: -0.04em; }
+  .glass span { font-size: 11px; opacity: 0.85; }
+  .h1b h1 { position: absolute; left: var(--pad); right: var(--pad); bottom: 150px; z-index: 2; font-size: clamp(40px, 13vw, 54px); }
+  .h1b h1 em { font-style: normal; color: var(--signal); }
+  .h1b .sub { position: absolute; left: var(--pad); right: var(--pad); bottom: 24px; z-index: 2; }
+  .h1b .sub p { margin: 0 0 12px; font: 300 15px/1.4 var(--f); }
+
+  /* 1В Название */
+  .h1c { position: relative; min-height: 100svh; padding: 28px var(--pad) 0; background: var(--concrete); overflow: hidden; }
+  .h1c p { margin: 0 0 18px; font: 300 26px/1.15 var(--f); letter-spacing: -0.03em; }
+  .h1c p b { font-weight: 800; color: var(--signal); }
+  .h1c .card { height: 230px; }
+  .h1c .acts { display: grid; gap: 8px; margin-top: 14px; }
+  .h1c .word { margin: 20px -8px -0.12em; font-size: clamp(90px, 31vw, 132px); letter-spacing: -0.07em; }
+
+  /* ---------- 2А Смета-документ ---------- */
+  .b2a { padding: 56px var(--pad) 40px; }
+  .fill { font-size: clamp(42px, 13vw, 54px); }
+  .fill span { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; }
+  .fill span.o { -webkit-text-stroke-color: var(--signal); background-image: linear-gradient(90deg, var(--signal) 50%, transparent 50%); }
+  .b2a .txt { margin: 16px 0 24px; font: 300 16px/1.45 var(--f); }
+  .doc { position: relative; padding: 20px 18px; background: #fff; box-shadow: 0 20px 40px rgba(23, 24, 26, 0.12); transform: rotate(-1.5deg); }
+  .doc__h { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
+  .doc table { width: 100%; border-collapse: collapse; margin-top: 4px; font-size: 14px; }
+  .doc td { padding: 10px 0; border-bottom: 1px solid #e6e3dd; }
+  .doc td:last-child { text-align: right; color: var(--mute); }
+  .doc td:first-child::before { content: ""; display: inline-block; width: 20px; color: var(--signal); font-weight: 800; }
+  .doc tr.ok td:first-child::before { content: "✓"; }
+  .doc__sum { display: flex; justify-content: space-between; margin-top: 12px; font: 800 20px var(--f); }
+  .stamp { position: absolute; right: 12px; bottom: 50px; padding: 7px 10px; border: 2.5px solid var(--signal); color: var(--signal); background: rgba(255, 255, 255, 0.9); font: 800 11px var(--f); letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-9deg) scale(1.6); opacity: 0; }
+  .b2a .btn { margin-top: 30px; }
+
+  /* 2Б Шкала оплаты */
+  .b2b { padding: 56px var(--pad) 40px; background: var(--ink); color: #f1efea; }
+  .b2b .big b { display: block; font: 800 110px/0.85 var(--f); letter-spacing: -0.06em; color: var(--signal); }
+  .b2b .big span { font-size: 13px; color: #a9a9ac; }
+  .b2b .H { margin: 30px 0 24px; font-size: 36px; }
+  .b2b .H em { font-style: normal; color: var(--signal); }
+  .vsc div { position: relative; display: grid; grid-template-columns: 54px 1fr auto; align-items: center; padding: 13px 0 13px 16px; border-left: 3px solid #3a3b40; }
+  .vsc div::before { content: ""; position: absolute; left: -3px; top: 0; width: 3px; height: var(--h, 0%); background: var(--signal); }
+  .vsc i { font: 600 10px var(--f); font-style: normal; color: #8d8e92; letter-spacing: 0.06em; text-transform: uppercase; }
+  .vsc b { font-size: 17px; }
+  .vsc span { font-size: 12px; color: #a9a9ac; }
+  .b2b .btn { margin-top: 28px; }
+
+  /* ---------- 3А Кран ---------- */
+  .b3a { position: relative; height: 100svh; min-height: 640px; overflow: hidden; padding: 74px var(--pad) 0; background: var(--concrete); background-image: linear-gradient(#cfcbc3 1px, transparent 1px), linear-gradient(90deg, #cfcbc3 1px, transparent 1px); background-size: 28px 28px; }
+  .cam { display: inline-flex; gap: 8px; align-items: center; padding: 7px 10px; background: var(--ink); color: #fff; font-size: 11px; }
+  .b3a .H { margin-top: 10px; font-size: 34px; }
+  .b3a svg { display: block; width: calc(100% + 36px); margin: 4px -18px 0; }
+  .cnt { font: 800 50px/1 var(--f); letter-spacing: -0.05em; }
+  .cnt small { font-size: 18px; color: var(--mute); }
+  .steps { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid #b9b5ac; }
+  .steps li { display: grid; grid-template-columns: 30px 1fr; padding: 7px 0; border-bottom: 1px solid #b9b5ac; color: #8f8b84; font-weight: 600; font-size: 15px; transition: color .3s, padding .3s, box-shadow .3s; }
+  .steps li i { font-style: normal; font-size: 11px; padding-top: 3px; }
+  .steps li.on { color: var(--ink); padding-left: 10px; box-shadow: inset 4px 0 0 var(--signal); }
+  .steps li.done { color: var(--ink); }
+
+  /* 3Б Отвес */
+  .b3b { position: relative; padding: 56px var(--pad) 50px; }
+  .b3b .H { font-size: 38px; margin-bottom: 30px; }
+  .b3b .track { position: relative; padding-left: 42px; }
+  .b3b .rope { position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+  .b3b .rope i { position: absolute; left: 0; top: 0; width: 2px; height: var(--y, 0px); background: var(--ink); }
+  .b3b .bob { position: absolute; left: 4px; top: var(--y, 0px); width: 18px; height: 30px; margin-top: -2px; }
+  .b3b .bob::after { content: ""; position: absolute; left: 0; top: 0; border: 9px solid transparent; border-top: 30px solid var(--signal); }
+  .st { display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: center; margin-bottom: 34px; opacity: 0.35; transition: opacity .4s; }
+  .st.on { opacity: 1; }
+  .st .pic { height: 96px; }
+  .st b { display: block; font-size: 17px; letter-spacing: -0.02em; }
+  .st span { display: block; font-size: 12px; color: var(--mute); line-height: 1.35; }
+  .st em { display: inline-block; margin-top: 6px; padding: 3px 7px; font: 600 9px var(--f); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ink); color: #fff; }
+
+  /* ---------- 4А Лента лет ---------- */
+  .b4a { position: relative; padding: 56px 0 30vh; background: var(--ink); color: #f1efea; }
+  .b4a::before { content: ""; position: absolute; left: 50%; top: 150px; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.35); }
+  .b4a .H { padding: 0 var(--pad); font-size: 34px; margin-bottom: 18vh; }
+  .tli { position: relative; padding: 0 40px; margin-bottom: 16vh; text-align: center; }
+  .tli .yy { display: block; margin-bottom: 8px; font: 600 11px var(--f); letter-spacing: 0.08em; color: #9a9b9e; }
+  .tli .pic { height: 210px; transform-origin: center; }
+  .tli b { display: block; margin-top: 10px; font-size: 18px; }
+  .tli span { font-size: 11px; color: #9a9b9e; letter-spacing: 0.04em; }
+
+  /* 4Б Карусель — свайп */
+  .b4b { padding: 56px 0 40px; }
+  .b4b .H { padding: 0 var(--pad); font-size: 40px; }
+  .chips { display: flex; gap: 6px; overflow-x: auto; padding: 16px var(--pad); scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips button { flex: none; padding: 8px 13px; border: 1.5px solid var(--ink); background: transparent; font-size: 13px; font-weight: 600; }
+  .chips button.on { background: var(--ink); color: #fff; }
+  .gtrack { display: flex; gap: 12px; overflow-x: auto; padding: 0 var(--pad); scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); scrollbar-width: none; overscroll-behavior-x: contain; }
+  .gtrack::-webkit-scrollbar { display: none; }
+  .gi { flex: none; width: 76%; scroll-snap-align: start; }
+  .gi[hidden] { display: none; }
+  .gi .fr2 { height: 360px; overflow: hidden; }
+  .gi .fr2 img { width: 130%; max-width: none; height: 100%; object-fit: cover; }
+  .gi b { display: block; margin-top: 10px; font-size: 18px; }
+  .gi span { font-size: 12px; color: var(--mute); }
+  .gprog { display: flex; align-items: center; gap: 10px; padding: 18px var(--pad) 0; }
+  .gprog div { flex: 1; height: 4px; background: var(--line); }
+  .gprog div i { display: block; height: 100%; width: 20%; background: var(--signal); }
+  .gprog span { font: 600 13px var(--f); font-variant-numeric: tabular-nums; }
+
+  /* ---------- 5А Лента отзывов ---------- */
+  .b5a { padding: 56px 0 30px; background: var(--concrete); }
+  .b5a .H { padding: 0 var(--pad); font-size: 38px; }
+  .b5a .rate { padding: 10px var(--pad) 16px; font-size: 13px; }
+  .b5a .rate b { color: var(--signal); letter-spacing: 2px; }
+  .rv { display: flex; gap: 10px; overflow-x: auto; padding: 0 var(--pad) 10px; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); scrollbar-width: none; }
+  .rv::-webkit-scrollbar { display: none; }
+  .rc { flex: none; width: 78%; scroll-snap-align: start; padding: 16px; background: var(--paper); }
+  .rc header { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
+  .rc .av { width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 600; }
+  .rc .av.o { background: var(--signal); }
+  .rc p { margin: 0; font-size: 14px; color: #45464a; line-height: 1.4; }
+  .cta5 { margin: 18px 14px 0; padding: 20px; background: var(--ink); color: #fff; }
+  .cta5 b { display: block; font: 800 22px/1.05 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .cta5 p { margin: 8px 0 12px; color: #b1b1b4; font-size: 13px; }
+  .cta5 input { width: 100%; height: 50px; margin-bottom: 8px; padding: 0 14px; border: 0; background: #26272b; color: #fff; font: 16px var(--f); }
+  .cta5 .ok { display: none; padding: 14px 0 0; color: #fff; }
+  .cta5.sent form { display: none; }
+  .cta5.sent .ok { display: block; }
+
+  /* 5Б Отзыв + дом */
+  .b5b .pic { height: 300px; }
+  .b5b .pic img { transition: opacity .35s; }
+  .b5b .q { padding: 20px var(--pad) 0; min-height: 240px; }
+  .b5b blockquote { margin: 0; font: 300 22px/1.25 var(--f); letter-spacing: -0.02em; transition: opacity .35s; }
+  .b5b blockquote::before { content: "“"; display: block; height: 44px; font: 800 86px/1 var(--f); color: var(--signal); }
+  .b5b .who { margin-top: 12px; font-size: 13px; font-weight: 600; }
+  .b5b .facts { display: grid; grid-template-columns: repeat(3, 1fr); margin: 12px var(--pad) 0; border-top: 1.5px solid var(--ink); }
+  .b5b .facts div { padding-top: 10px; }
+  .b5b .facts b { display: block; font: 800 22px/1 var(--f); letter-spacing: -0.04em; }
+  .b5b .facts span { font-size: 11px; color: var(--mute); }
+  .b5b .nav { display: grid; grid-template-columns: 54px 54px 1fr; gap: 8px; padding: 20px var(--pad) 40px; }
+  .b5b .nav button { height: 54px; border: 1.5px solid var(--ink); background: transparent; font-size: 20px; }
+
+  /* ---------- Футеры ---------- */
+  .fa { position: relative; height: 170svh; background: var(--signal); color: #fff; }
+  .fa__in { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .fa .cols { position: absolute; left: var(--pad); right: var(--pad); top: 34%; display: grid; gap: 14px; font-size: 16px; }
+  .fa .cols .lab { display: block; color: rgba(255, 255, 255, 0.75); }
+  .fa .cols .btn { background: var(--ink); }
+  .fa .word, .fb .word { position: absolute; left: 8px; bottom: -0.12em; font-size: clamp(90px, 31vw, 132px); }
+  .fa .cover { position: absolute; left: 0; right: 0; top: 0; height: 100%; background: var(--paper); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); }
+  .fa .cover .H { position: absolute; left: var(--pad); bottom: 40px; font-size: 40px; color: var(--ink); }
+  .fb { position: relative; min-height: 100svh; padding: 50px var(--pad) 0; background: var(--ink); color: #f1efea; overflow: hidden; }
+  .fb .rope2 { position: absolute; right: 40px; top: 0; width: 2px; height: var(--r, 40px); background: #f1efea; }
+  .fb .rope2::after { content: ""; position: absolute; left: -8px; bottom: -26px; border: 9px solid transparent; border-top: 26px solid var(--signal); }
+  .fb .H { font-size: 40px; max-width: 80%; }
+  .fb .cols { display: grid; gap: 14px; margin-top: 50px; padding-top: 16px; border-top: 1px solid #34353a; font-size: 16px; }
+  .fb .cols .lab { display: block; color: #8d8e92; }
+  .fb .word { color: transparent; -webkit-text-stroke: 1.5px #f1efea; background: linear-gradient(90deg, #f1efea 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; }
+  .fb .spacer { height: 34vw; }
+
+  [data-v][hidden] { display: none !important; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="plumb" viewBox="0 0 14 26"><rect x="6" y="0" width="2" height="12" fill="currentColor"/><path d="M1 11 H13 L7 26 Z" fill="#ff5a1f"/></symbol>
+  <symbol id="tel" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="site" id="site">
+  <div class="intro"><b>Демо для телефона.</b> Здесь ничего не двигается само: листайте страницу, свайпайте карусели, нажимайте на этапы, меню и стрелки. Жёлтые полоски — переключатели вариантов, на сайте их не будет.</div>
+
+  <!-- Шапка -->
+  <div class="pick" data-for="hdr"><b>Шапка</b><button class="on" data-pick="A">А · светлая</button><button data-pick="B">Б · тёмная</button></div>
+  <header class="hdr" data-group="hdr">
+    <div class="hA" data-v="A">
+      <div class="hbar"><span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span><span style="display:flex;gap:8px"><a class="call" href="#f"><svg><use href="#tel"/></svg></a><button class="menu" data-menu><i></i>Меню</button></span></div>
+      <div class="tr"><span>Смета не меняется</span><span>Выезд бесплатно</span></div>
+    </div>
+    <div class="hB" data-v="B" hidden>
+      <div class="tl"><span class="live"><i></i>Камера на объекте</span><span>12 лет · 140 домов</span></div>
+      <div class="hbar"><span class="logo"><svg class="plumb" style="color:#fff"><use href="#plumb"/></svg>ОТВЕС</span><span style="display:flex;gap:8px"><a class="call" href="#f"><svg><use href="#tel"/></svg></a><button class="menu" data-menu><i></i>Меню</button></span></div>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <div class="pick" data-for="b1"><b>Экран 1</b><button class="on" data-pick="A">1А · раскрытие</button><button data-pick="B">1Б · стекло</button><button data-pick="C">1В · название</button></div>
+  <section data-group="b1">
+    <div class="h1a" data-v="A">
+      <h1 class="H w">Строим</h1>
+      <div class="pic"><img src="img/p1.webp" alt="Дом с панорамным остеклением"></div>
+      <div class="H w w--b">ровно</div>
+      <div class="over"><p>Дом 150 м² под ключ за 6 месяцев. Смета в договоре не меняется.</p><a class="btn" href="#b5">Выезд инженера — бесплатно</a></div>
+      <span class="hint">Листайте вниз ↓</span>
+    </div>
+    <div class="h1b" data-v="B" hidden>
+      <div class="bg pic"><img src="img/p16.webp" alt="Загородный дом вечером"></div>
+      <div class="glass" data-sp="1.6" style="left:18px;top:16%"><b>12 лет</b><span>строим</span></div>
+      <div class="glass" data-sp="0.8" style="right:18px;top:24%"><b>140</b><span>домов</span></div>
+      <div class="glass" data-sp="2.2" style="left:32%;top:38%"><b>5 лет</b><span>гарантии</span></div>
+      <h1 class="H">Дом под ключ <em>за 6 месяцев</em></h1>
+      <div class="sub"><p>Смета в договоре не меняется. Платите по факту этапов.</p><a class="btn" href="#b2">Рассчитать дом</a></div>
+    </div>
+    <div class="h1c" data-v="C" hidden>
+      <p>Строим частные дома <b>под ключ</b>. 150&nbsp;м² — за&nbsp;6&nbsp;месяцев, смета не&nbsp;меняется.</p>
+      <div class="pic card"><img src="img/p13.webp" alt="Дом со стеклянным фасадом"></div>
+      <div class="acts"><a class="btn" href="#b5">Выезд инженера — бесплатно</a><a class="btn btn--ghost" href="#b4">Построенные дома</a></div>
+      <div class="H word">Отвес</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <div class="pick" data-for="b2" id="b2"><b>Смета</b><button class="on" data-pick="A">2А · документ</button><button data-pick="B">2Б · шкала</button></div>
+  <section data-group="b2">
+    <div class="b2a" data-v="A">
+      <h2 class="H fill"><span>Смета</span><span class="o">не меняется</span></h2>
+      <p class="txt">Цена фиксируется в договоре до начала работ. Платите только за принятый этап.</p>
+      <div class="doc"><div class="doc__h"><b>Смета · 150 м²</b><span class="lab">к договору</span></div>
+        <table><tr><td>Фундамент</td><td>[сумма]</td></tr><tr><td>Коробка</td><td>[сумма]</td></tr><tr><td>Кровля и фасад</td><td>[сумма]</td></tr><tr><td>Инженерия</td><td>[сумма]</td></tr><tr><td>Отделка</td><td>[сумма]</td></tr></table>
+        <div class="doc__sum"><span>Итого</span><span>[сумма]</span></div><div class="stamp">Зафиксировано</div></div>
+      <a class="btn" href="#b5">Получить смету на свой дом</a>
+    </div>
+    <div class="b2b" data-v="B" hidden>
+      <div class="big"><b>0 ₽</b><span>доплат сверх сметы в договоре</span></div>
+      <h2 class="H">Платите <em>по факту</em> — за принятый этап</h2>
+      <div class="vsc"><div><i>Этап 1</i><b>Проект</b><span>после согласования</span></div><div><i>Этап 2</i><b>Фундамент</b><span>после акта</span></div><div><i>Этап 3</i><b>Коробка</b><span>после акта</span></div><div><i>Этап 4</i><b>Кровля</b><span>после акта</span></div><div><i>Этап 5</i><b>Инженерия</b><span>после акта</span></div><div><i>Этап 6</i><b>Отделка</b><span>после приёмки</span></div></div>
+      <a class="btn" href="#b5">Получить смету</a>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <div class="pick" data-for="b3"><b>Как строим</b><button class="on" data-pick="A">3А · кран</button><button data-pick="B">3Б · отвес</button></div>
+  <section data-group="b3">
+    <div class="b3a" data-v="A">
+      <span class="cam"><span class="live"><i></i>Камера</span><span style="color:#a9a9ac">· отчёт раз в неделю</span></span>
+      <h2 class="H">Как строим</h2>
+      <svg viewBox="0 0 800 560" aria-hidden="true" id="crane-svg"></svg>
+      <div class="cnt"><span id="cr-n">01</span><small> / 06</small></div>
+      <ol class="steps" id="cr-steps"><li class="on"><i>01</i>Выезд инженера</li><li><i>02</i>Проект и смета</li><li><i>03</i>Фундамент</li><li><i>04</i>Коробка</li><li><i>05</i>Кровля и фасад</li><li><i>06</i>Инженерия и отделка</li></ol>
+    </div>
+    <div class="b3b" data-v="B" hidden>
+      <h2 class="H">Скрытые работы — не скрываем</h2>
+      <div class="track" id="pl-track"><div class="rope"><i></i></div><i class="bob"></i>
+        <div class="st"><div class="pic"><img src="img/p10.webp" alt="Инженер с чертежом"></div><div><b>Выезд инженера</b><span>Бесплатно смотрим участок</span><em>фото участка</em></div></div>
+        <div class="st"><div class="pic"><img src="img/p2.webp" alt="Заливка бетона"></div><div><b>Фундамент</b><span>Плита, лента или сваи</span><em>фото арматуры</em></div></div>
+        <div class="st"><div class="pic"><img src="img/p8.webp" alt="Каркас"></div><div><b>Коробка</b><span>Газобетон, кирпич, каркас</span><em>фото кладки</em></div></div>
+        <div class="st"><div class="pic"><img src="img/p7.webp" alt="Леса на фасаде"></div><div><b>Кровля и фасад</b><span>Утепление до закрытия</span><em>фото утепления</em></div></div>
+        <div class="st"><div class="pic"><img src="img/p13.webp" alt="Готовый дом"></div><div><b>Инженерия и отделка</b><span>Сдаём дом под ключ</span><em>фото сдачи</em></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <div class="pick" data-for="b4" id="b4"><b>Дома</b><button class="on" data-pick="A">4А · лента лет</button><button data-pick="B">4Б · карусель</button></div>
+  <section data-group="b4">
+    <div class="b4a" data-v="A">
+      <h2 class="H">140 домов<br>за 12 лет</h2>
+      <div class="tli"><span class="yy">2016</span><div class="pic"><img src="img/p16.webp" alt="Дом у леса"></div><b>Дом у леса</b><span>КИРПИЧ · [ПЛОЩАДЬ]</span></div>
+      <div class="tli"><span class="yy">2018</span><div class="pic"><img src="img/p9.webp" alt="Дом-куб"></div><b>Дом «Куб»</b><span>ГАЗОБЕТОН · 150 М²</span></div>
+      <div class="tli"><span class="yy">2020</span><div class="pic"><img src="img/p13.webp" alt="Дом-витраж"></div><b>Дом-витраж</b><span>КАРКАС · [ПЛОЩАДЬ]</span></div>
+      <div class="tli"><span class="yy">2024</span><div class="pic"><img src="img/p5.webp" alt="Дом с террасой"></div><b>Дом с террасой</b><span>ГАЗОБЕТОН · [ПЛОЩАДЬ]</span></div>
+      <div class="tli"><span class="yy">2025</span><div class="pic"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>КАРКАС · [ПЛОЩАДЬ]</span></div>
+    </div>
+    <div class="b4b" data-v="B" hidden>
+      <h2 class="H">Построенные<br>дома</h2>
+      <div class="chips" id="g-chips"><button class="on" data-m="all">Все · 140</button><button data-m="gb">Газобетон</button><button data-m="kr">Кирпич</button><button data-m="kk">Каркас</button></div>
+      <div class="gtrack" id="g-track">
+        <div class="gi" data-m="kk"><div class="fr2"><img src="img/p1.webp" alt="Дом-витраж"></div><b>Дом-витраж</b><span>Каркас · [площадь] · [срок]</span></div>
+        <div class="gi" data-m="gb"><div class="fr2"><img src="img/p9.webp" alt="Дом-куб"></div><b>Дом «Куб»</b><span>Газобетон · [площадь] · [срок]</span></div>
+        <div class="gi" data-m="kk"><div class="fr2"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>Каркас · [площадь] · [срок]</span></div>
+        <div class="gi" data-m="kr"><div class="fr2"><img src="img/p16.webp" alt="Дом у леса"></div><b>Дом у леса</b><span>Кирпич · [площадь] · [срок]</span></div>
+        <div class="gi" data-m="gb"><div class="fr2"><img src="img/p5.webp" alt="Дом с террасой"></div><b>Дом с террасой</b><span>Газобетон · [площадь] · [срок]</span></div>
+      </div>
+      <div class="gprog"><div><i id="g-bar"></i></div><span id="g-n">01 / 05</span></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <div class="pick" data-for="b5" id="b5"><b>Отзывы</b><button class="on" data-pick="A">5А · лента + форма</button><button data-pick="B">5Б · отзыв + дом</button></div>
+  <section data-group="b5">
+    <div class="b5a" data-v="A">
+      <h2 class="H">Что говорят<br>хозяева</h2>
+      <div class="rate"><b>★★★★★</b> 5.0 · [число] отзывов · свайп →</div>
+      <div class="rv" id="rv"></div>
+      <div class="cta5" id="cta5"><b>Бесплатный выезд инженера</b><p>Посмотрим участок и грунт, подготовим смету.</p>
+        <form><input type="tel" id="tel5" inputmode="tel" placeholder="+7 (___) ___-__-__" aria-label="Телефон"><button class="btn" type="submit">Вызвать инженера</button></form>
+        <p class="ok">Готово, это демо — заявка никуда не ушла.</p></div>
+    </div>
+    <div class="b5b" data-v="B" hidden>
+      <div class="pic"><img id="q-img" src="img/p16.webp" alt="Дом заказчика"></div>
+      <div class="q"><span class="lab" id="q-lab">Отзыв 1 из 3 · дом у леса</span><blockquote id="q-t">Смета в договоре совпала с итоговой до рубля. Каждую неделю получали фото этапов.</blockquote><div class="who">[Имя], [город] · заглушка</div></div>
+      <div class="facts"><div><b>[м²]</b><span>площадь</span></div><div><b>[мес]</b><span>срок</span></div><div><b>0 ₽</b><span>доплат</span></div></div>
+      <div class="nav"><button id="q-prev" aria-label="Предыдущий отзыв">‹</button><button id="q-next" aria-label="Следующий отзыв">›</button><a class="btn" href="#f">Вызвать инженера</a></div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <div class="pick" data-for="ft" id="f"><b>Футер</b><button class="on" data-pick="A">ФА · из-под страницы</button><button data-pick="B">ФБ · графит</button></div>
+  <footer data-group="ft">
+    <div class="fa" data-v="A"><div class="fa__in">
+      <div class="cols"><div><span class="lab">Где</span>[город], [адрес]</div><div><span class="lab">Связь</span>+7 (000) 000-00-00</div><a class="btn" href="#b5">Выезд инженера</a></div>
+      <div class="H word">Отвес</div>
+      <div class="cover"><div class="H">Строим ровно.<br>12 лет.</div></div>
+    </div></div>
+    <div class="fb" data-v="B" hidden><i class="rope2"></i>
+      <h2 class="H">Приедем на участок бесплатно</h2>
+      <div class="cols"><div><span class="lab">Где</span>[город], [адрес]</div><div><span class="lab">Связь</span>+7 (000) 000-00-00</div><a class="btn" href="#b5">Вызвать инженера</a></div>
+      <div class="spacer"></div><div class="H word">Отвес</div>
+    </div>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<nav class="sheet" aria-label="Меню"><div class="grab"></div>
+  <a href="#b2">Смета<small>не меняется</small></a><a href="#b3">Как строим<small>6 этапов</small></a><a href="#b4">Дома<small>140 построено</small></a><a href="#b5">Отзывы<small>хозяева домов</small></a>
+  <div class="two"><a class="btn btn--ghost" href="#f" style="font-size:15px">Позвонить</a><a class="btn" href="#b5" style="font-size:15px;border:0">Выезд инженера</a></div>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ---------- Меню-шторка (нажатие) ----------
+  var setMenu = function (on) { document.body.classList.toggle('menu-open', on); };
+  $$('[data-menu]').forEach(function (b) { b.addEventListener('click', function () { setMenu(true); }); });
+  $('#scrim').addEventListener('click', function () { setMenu(false); });
+  $$('.sheet a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+  // ---------- Крановое SVG ----------
+  $('#crane-svg').innerHTML = '<defs><pattern id="lat" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0 L14 14 M14 0 L0 14" stroke="#17181a" stroke-width="1.2"/></pattern></defs>' +
+    '<line x1="0" y1="520" x2="800" y2="520" stroke="#17181a" stroke-width="3"/><rect x="0" y="521" width="800" height="40" fill="#b9b5ac"/>' +
+    '<g id="hs"><rect class="pt pt1" x="420" y="500" width="300" height="20" fill="#8e8a82"/>' +
+    '<g class="pt pt2" fill="#17181a"><rect x="426" y="300" width="12" height="200"/><rect x="520" y="300" width="12" height="200"/><rect x="610" y="300" width="12" height="200"/><rect x="702" y="300" width="12" height="200"/><rect x="420" y="396" width="300" height="10"/></g>' +
+    '<g class="pt pt3" fill="#ecebe7" stroke="#17181a" stroke-width="1.5"><rect x="438" y="406" width="82" height="94"/><rect x="532" y="406" width="78" height="94"/><rect x="622" y="406" width="80" height="94"/><rect x="438" y="304" width="82" height="92"/><rect x="532" y="304" width="78" height="92"/><rect x="622" y="304" width="80" height="92"/></g>' +
+    '<polygon class="pt pt4" points="404,298 570,212 736,298" fill="#ff5a1f" stroke="#17181a" stroke-width="3"/>' +
+    '<g class="pt pt5" fill="#ffd27a" stroke="#17181a" stroke-width="2"><rect x="456" y="330" width="40" height="42"/><rect x="548" y="330" width="44" height="42"/><rect x="640" y="330" width="40" height="42"/><rect x="456" y="430" width="40" height="42"/><rect x="640" y="430" width="40" height="42"/><rect x="550" y="430" width="40" height="70" fill="#17181a"/></g></g>' +
+    '<rect x="250" y="120" width="26" height="400" fill="url(#lat)" stroke="#17181a" stroke-width="3"/><rect x="236" y="508" width="54" height="12" fill="#17181a"/><rect x="238" y="96" width="50" height="26" fill="#ff5a1f" stroke="#17181a" stroke-width="3"/><polygon points="263,40 255,96 271,96" fill="#17181a"/>' +
+    '<rect x="120" y="96" width="660" height="14" fill="url(#lat)" stroke="#17181a" stroke-width="3"/><line x1="263" y1="40" x2="780" y2="96" stroke="#17181a" stroke-width="2"/><line x1="263" y1="40" x2="130" y2="96" stroke="#17181a" stroke-width="2"/><rect x="126" y="110" width="44" height="34" fill="#4a4b4f"/>' +
+    '<g id="tr"><rect x="-14" y="110" width="28" height="10" fill="#17181a"/><line id="cb" x1="0" y1="120" x2="0" y2="140" stroke="#17181a" stroke-width="3"/><g id="hk"><path d="M-7 0 h14 v6 q0 12 -7 12 q-7 0 -7 -8" fill="none" stroke="#17181a" stroke-width="4"/><rect id="ld" x="-40" y="16" width="80" height="18" fill="#ff5a1f" stroke="#17181a" stroke-width="2"/></g></g>';
+
+  // ---------- Отзывы ----------
+  var R = [['Анна', 'Смета не выросла, хотя меняли окна по ходу — пересчитали заранее.'], ['Игорь', 'Смотрел стройку по камере из другого города. Приехал только на приёмку.'], ['Мария', 'Инженер приехал бесплатно и сразу сказал про грунт — сделали сваи.'], ['Олег', 'Фото арматуры прислали до заливки. Спокойно, когда видишь скрытые работы.'], ['Елена', 'Одна бригада от фундамента до отделки.'], ['Дмитрий', 'Платили по этапам после акта, сроки совпали с графиком.']];
+  $('#rv').innerHTML = R.map(function (r, i) { return '<article class="rc"><header><span class="av' + (i % 3 === 1 ? ' o' : '') + '">' + r[0][0] + '</span><b>' + r[0] + '</b><span style="margin-left:auto;color:#ff5a1f;font-size:11px">★★★★★</span></header><p>' + r[1] + '</p><p style="margin-top:8px;font-size:11px;color:#ff5a1f">заглушка</p></article>'; }).join('');
+  $('#cta5 form').addEventListener('submit', function (e) { e.preventDefault(); $('#cta5').classList.add('sent'); });
+
+  // 5Б — стрелки
+  var Q = [['img/p16.webp', 'дом у леса', 'Смета в договоре совпала с итоговой до рубля. Каждую неделю получали фото этапов.'], ['img/p9.webp', 'дом «Куб»', 'Инженер приехал на участок бесплатно и подсказал фундамент под наш грунт.'], ['img/p13.webp', 'дом-витраж', 'Платили по этапам, после каждого акта. Своя бригада, без субподрядчиков.']];
+  var qi = 0;
+  var showQ = function (d) {
+    qi = (qi + d + Q.length) % Q.length;
+    var img = $('#q-img'), t = $('#q-t');
+    img.style.opacity = 0; t.style.opacity = 0;
+    setTimeout(function () { img.src = Q[qi][0]; t.textContent = Q[qi][2]; $('#q-lab').textContent = 'Отзыв ' + (qi + 1) + ' из ' + Q.length + ' · ' + Q[qi][1]; img.style.opacity = 1; t.style.opacity = 1; }, 250);
+  };
+  $('#q-prev').addEventListener('click', function () { showQ(-1); });
+  $('#q-next').addEventListener('click', function () { showQ(1); });
+  var tx = 0; $('.b5b .pic').addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  $('.b5b .pic').addEventListener('touchend', function (e) { var d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 40) showQ(d < 0 ? 1 : -1); });
+
+  // 4Б — карусель: прогресс, параллакс фото, фильтр
+  var gt = $('#g-track');
+  var gUpdate = function () {
+    var items = $$('.gi', gt).filter(function (x) { return !x.hidden; });
+    var max = gt.scrollWidth - gt.clientWidth, p = max > 0 ? gt.scrollLeft / max : 0;
+    var i = Math.round(p * (items.length - 1));
+    $('#g-bar').style.width = ((i + 1) / items.length * 100) + '%';
+    $('#g-n').textContent = pad(i + 1) + ' / ' + pad(items.length);
+    var c = gt.getBoundingClientRect();
+    items.forEach(function (it) { var r = it.getBoundingClientRect(); var k = (r.left - c.left) / c.width; it.querySelector('img').style.transform = 'translateX(' + (-12 - k * 10).toFixed(2) + '%)'; });
+  };
+  gt.addEventListener('scroll', function () { requestAnimationFrame(gUpdate); }, { passive: true });
+  $$('#g-chips button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('#g-chips button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      $$('.gi', gt).forEach(function (it) { it.hidden = !(b.dataset.m === 'all' || it.dataset.m === b.dataset.m); });
+      gt.scrollLeft = 0; gUpdate();
+    });
+  });
+
+  // ---------- Эффекты от прокрутки: создаются только для видимых вариантов ----------
+  var setups = {
+    'b1A': function (el) {
+      var tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top top', end: '+=120%', pin: true, scrub: 0.5 } });
+      tl.to($('.pic', el), { width: '100%', height: '100%', ease: 'none' }, 0)
+        .to($('.w', el), { yPercent: -120, opacity: 0, ease: 'none' }, 0)
+        .to($('.w--b', el), { yPercent: 120, opacity: 0, ease: 'none' }, 0)
+        .to($('.hint', el), { opacity: 0, duration: 0.2 }, 0)
+        .to($('.over', el), { opacity: 1, ease: 'none', duration: 0.3 }, 0.7);
+    },
+    'b1B': function (el) {
+      gsap.to($('.bg', el), { yPercent: 10, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
+      $$('.glass', el).forEach(function (g) { gsap.to(g, { y: -120 * +g.dataset.sp, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } }); });
+    },
+    'b1C': function (el) { gsap.fromTo($('.word', el), { yPercent: 60 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom bottom', scrub: true } }); },
+    'b2A': function (el) {
+      gsap.to($$('.fill span', el), { backgroundPosition: '0% 0', stagger: 0.5, ease: 'none', scrollTrigger: { trigger: $('.fill', el), start: 'top 85%', end: 'bottom 45%', scrub: true } });
+      var rows = $$('.doc tr', el);
+      ScrollTrigger.create({ trigger: $('.doc', el), start: 'top 75%', end: 'bottom 55%', scrub: true, onUpdate: function (s) { var n = Math.floor(s.progress * 3.2); rows.forEach(function (r, i) { r.classList.toggle('ok', i < n); }); } });
+      gsap.fromTo($('.stamp', el), { opacity: 0, scale: 1.6, rotation: -9 }, { opacity: 1, scale: 1, rotation: -9, ease: 'back.out(3)', scrollTrigger: { trigger: $('.doc', el), start: 'bottom 70%', end: 'bottom 55%', scrub: true } });
+    },
+    'b2B': function (el) {
+      $$('.vsc div', el).forEach(function (d) { gsap.fromTo(d, { '--h': '0%' }, { '--h': '100%', ease: 'none', scrollTrigger: { trigger: d, start: 'top 75%', end: 'bottom 60%', scrub: true } }); });
+    },
+    'b3A': function (el) {
+      var steps = $$('#cr-steps li'), cur = -1;
+      gsap.set('#hs .pt', { opacity: 0 }); gsap.set('#tr', { x: 700 }); gsap.set('#hk', { y: 140 }); gsap.set('#cb', { attr: { y2: 140 } });
+      var tl = gsap.timeline({ defaults: { ease: 'none' } });
+      tl.to({}, { duration: 0.6 });
+      [470, 300, 380, 200, 360].forEach(function (d, i) {
+        tl.set('#ld', { opacity: 1 }).to('#tr', { x: 180, duration: 0.25 }).to('#tr', { x: 570, duration: 0.35 })
+          .to('#hk', { y: d - 120, duration: 0.3 }).to('#cb', { attr: { y2: d - 120 }, duration: 0.3 }, '<')
+          .set('#ld', { opacity: 0 }).fromTo('#hs .pt' + (i + 1), { opacity: 0, scaleY: 0.2, transformOrigin: '50% 100%' }, { opacity: 1, scaleY: 1, duration: 0.2 })
+          .to('#hk', { y: 140, duration: 0.25 }).to('#cb', { attr: { y2: 140 }, duration: 0.25 }, '<');
+      });
+      var st = ScrollTrigger.create({ trigger: el, start: 'top top', end: '+=380%', pin: true, scrub: 0.6, animation: tl,
+        onUpdate: function (s) { var i = Math.min(5, Math.floor(s.progress * 6.02)); if (i === cur) return; cur = i; $('#cr-n').textContent = pad(i + 1); steps.forEach(function (li, k) { li.classList.toggle('on', k === i); li.classList.toggle('done', k < i); }); } });
+      steps.forEach(function (li, k) { li.style.cursor = 'pointer'; li.onclick = function () { window.scrollTo({ top: st.start + (st.end - st.start) * ((k + 0.9) / 6), behavior: 'smooth' }); }; });
+    },
+    'b3B': function (el) {
+      var tr = $('#pl-track'), sts = $$('.st', el);
+      ScrollTrigger.create({ trigger: tr, start: 'top 55%', end: 'bottom 55%', scrub: true, onUpdate: function (s) {
+        var y = s.progress * tr.offsetHeight; tr.style.setProperty('--y', y.toFixed(1) + 'px');
+        sts.forEach(function (x) { x.classList.toggle('on', x.offsetTop + 30 <= y); });
+      } });
+    },
+    'b4A': function (el) {
+      $$('.tli .pic', el).forEach(function (p) {
+        gsap.fromTo(p, { scale: 0.62, opacity: 0.35 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'center center', scrub: true } });
+        gsap.to(p, { scale: 0.62, opacity: 0.35, ease: 'none', immediateRender: false, scrollTrigger: { trigger: p, start: 'center center', end: 'bottom top', scrub: true } });
+      });
+    },
+    'b4B': function () { gUpdate(); },
+    'ftA': function (el) { gsap.fromTo($('.cover', el), { yPercent: 0 }, { yPercent: -72, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom bottom', scrub: true } }); },
+    'ftB': function (el) {
+      gsap.fromTo(el, { '--r': '40px' }, { '--r': '220px', ease: 'none', scrollTrigger: { trigger: el, start: 'top 80%', end: 'top 10%', scrub: true } });
+      gsap.to($('.word', el), { backgroundPosition: '0% 0', ease: 'none', scrollTrigger: { trigger: $('.word', el), start: 'top bottom', end: 'bottom 85%', scrub: true } });
+    }
+  };
+
+  var build = function () {
+    ScrollTrigger.getAll().forEach(function (t) { t.kill(true); });
+    gsap.set('.h1a .pic, .h1a .w, .h1a .over, .h1a .hint, .glass, .h1b .bg, .h1c .word, .stamp, .tli .pic, .fa .cover, .fb .word', { clearProps: 'all' });
+    if (reduce) { $$('.doc tr').forEach(function (r) { r.classList.add('ok'); }); $$('.st').forEach(function (s) { s.classList.add('on'); }); gsap.set('#hs .pt', { opacity: 1 }); return; }
+    ['b1', 'b2', 'b3', 'b4', 'ft'].forEach(function (g) {
+      var el = $('[data-group="' + g + '"] [data-v]:not([hidden])');
+      var fn = setups[g + el.dataset.v]; if (fn) fn(el);
+    });
+    ScrollTrigger.refresh();
+  };
+
+  // ---------- Переключатели вариантов ----------
+  $$('.pick').forEach(function (p) {
+    p.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      $$('button', p).forEach(function (x) { x.classList.toggle('on', x === b); });
+      var g = $('[data-group="' + p.dataset.for + '"]');
+      $$('[data-v]', g).forEach(function (v) { v.hidden = v.dataset.v !== b.dataset.pick; });
+      var top = p.getBoundingClientRect().top + scrollY;
+      build();
+      window.scrollTo(0, top - (p.dataset.for === 'hdr' ? 0 : 70));
+    });
+  });
+
+  build();
+  addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
