@@ -190,6 +190,24 @@
   .ft__word { margin: 28px -10px -0.13em; font: 800 clamp(96px, 31vw, 132px)/1 var(--f); letter-spacing: -0.07em; text-transform: uppercase; }
   .ft__base { position: relative; display: flex; justify-content: space-between; padding: 12px 0 18px; font-size: 12px; opacity: 0.85; }
 
+
+  /* --- 3. Лента лет в стилистике сайта --- */
+  .tl__list { position: relative; margin-top: 40px; padding-bottom: 10vh; }
+  .tl__list::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; background: var(--ink); }
+  .tli { position: relative; margin: 0 auto 14vh; padding: 0 34px; text-align: center; }
+  .tli__y { position: relative; z-index: 1; display: inline-block; margin-bottom: 10px; padding: 4px 10px; background: var(--paper); font: 800 14px var(--f); letter-spacing: 0.06em; color: var(--signal); }
+  .tli .pic { position: relative; z-index: 1; height: 220px; border: 1.5px solid var(--ink); transform-origin: center; }
+  .tli b { position: relative; z-index: 1; display: inline-block; margin-top: 12px; padding: 0 8px; background: var(--paper); font: 800 19px var(--f); letter-spacing: -0.02em; text-transform: uppercase; }
+  .tli > span:last-child { position: relative; z-index: 1; display: block; width: max-content; margin: 4px auto 0; padding: 0 8px; background: var(--paper); font-size: 12px; color: var(--mute); }
+  .tli::after { content: ""; position: absolute; left: 50%; top: 150px; z-index: 2; width: 12px; height: 12px; margin-left: -6px; background: var(--signal); }
+
+  /* --- 7. Отзывы едут сами --- */
+  .rv { overflow: hidden; padding: 0; }
+  .rv__in { display: flex; gap: 10px; width: max-content; animation: marq 46s linear infinite; }
+  .rv--r .rv__in { animation-direction: reverse; animation-duration: 54s; }
+  .rv.paused .rv__in { animation-play-state: paused; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .rv { overflow-x: auto; } .rv__in { animation: none; } }
   @media (prefers-reduced-motion: reduce) { .h2 span { color: inherit; -webkit-text-stroke: 0; background: none; } }
 </style>
 
@@ -232,18 +250,16 @@
     <a class="btn btn--ink" href="#how">Как мы строим →</a>
   </section>
 
-  <!-- 3. Дома -->
-  <section class="sec" id="homes" style="padding-inline:0">
+  <!-- 3. Дома: лента лет -->
+  <section class="sec tl" id="homes" style="padding-inline:0">
     <div style="padding:0 var(--pad)"><div class="tag">02 · Построено</div><h2 class="h2"><span>140 домов</span><span class="o">за 12 лет</span></h2></div>
-    <div class="chips" id="chips"><button class="on" data-m="all">Все</button><button data-m="gb">Газобетон</button><button data-m="kr">Кирпич</button><button data-m="kk">Каркас</button></div>
-    <div class="swipe" id="homes-track">
-      <article class="house" data-m="kk"><div class="pic"><img src="img/p1.webp" alt="Дом-витраж"></div><div class="house__m"><b>Дом-витраж</b><span>[год]</span></div><div class="house__t"><em>Каркас</em><em>[м²]</em><em>[срок]</em></div></article>
-      <article class="house" data-m="gb"><div class="pic"><img src="img/p9.webp" alt="Дом-куб"></div><div class="house__m"><b>Дом «Куб»</b><span>[год]</span></div><div class="house__t"><em>Газобетон</em><em>150 м²</em><em>6 мес</em></div></article>
-      <article class="house" data-m="kk"><div class="pic"><img src="img/p4.webp" alt="Белый дом"></div><div class="house__m"><b>Белый дом</b><span>[год]</span></div><div class="house__t"><em>Каркас</em><em>[м²]</em><em>[срок]</em></div></article>
-      <article class="house" data-m="kr"><div class="pic"><img src="img/p16.webp" alt="Дом у леса"></div><div class="house__m"><b>Дом у леса</b><span>[год]</span></div><div class="house__t"><em>Кирпич</em><em>[м²]</em><em>[срок]</em></div></article>
-      <article class="house" data-m="gb"><div class="pic"><img src="img/p5.webp" alt="Дом с террасой"></div><div class="house__m"><b>Дом с террасой</b><span>[год]</span></div><div class="house__t"><em>Газобетон</em><em>[м²]</em><em>[срок]</em></div></article>
+    <div class="tl__list">
+      <article class="tli"><span class="tli__y">2016</span><div class="pic"><img src="img/p16.webp" alt="Дом у леса"></div><b>Дом у леса</b><span>Кирпич · [площадь]</span></article>
+      <article class="tli"><span class="tli__y">2018</span><div class="pic"><img src="img/p9.webp" alt="Дом-куб"></div><b>Дом «Куб»</b><span>Газобетон · 150 м² · 6 мес</span></article>
+      <article class="tli"><span class="tli__y">2020</span><div class="pic"><img src="img/p13.webp" alt="Дом-витраж"></div><b>Дом-витраж</b><span>Каркас · [площадь]</span></article>
+      <article class="tli"><span class="tli__y">2023</span><div class="pic"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>Каркас · [площадь]</span></article>
+      <article class="tli"><span class="tli__y">2025</span><div class="pic"><img src="img/p5.webp" alt="Дом с террасой"></div><b>Дом с террасой</b><span>Газобетон · [площадь]</span></article>
     </div>
-    <div class="prog"><div><i id="homes-bar"></i></div><span id="homes-n">01 / 05</span></div>
   </section>
 
   <!-- 4. Как строим -->
@@ -292,7 +308,7 @@
   <!-- 7. Отзывы -->
   <section class="sec" id="reviews" style="padding-inline:0">
     <div style="padding:0 var(--pad)"><div class="tag">06 · Отзывы</div><h2 class="h2"><span>Что говорят</span><span class="o">хозяева</span></h2><div class="rate"><b>★★★★★</b> 5.0 · [число] отзывов</div></div>
-    <div style="margin-top:22px"><div class="rv" id="rv1"></div><div class="rv" id="rv2"></div></div>
+    <div style="margin-top:22px"><div class="rv" id="rv1"><div class="rv__in"></div></div><div class="rv rv--r" id="rv2"><div class="rv__in"></div></div></div>
   </section>
 
   <!-- 8. Заявка -->
@@ -327,7 +343,7 @@
 
 <div class="scrim" id="scrim"></div>
 <nav class="sheet" aria-label="Меню"><div class="grab"></div>
-  <a href="#dirs">Что строим<small>6 направлений</small></a><a href="#homes">Дома<small>140 построено</small></a><a href="#how">Как строим<small>6 этапов</small></a><a href="#why">Гарантии<small>смета не меняется</small></a><a href="#reviews">Отзывы<small>хозяева</small></a>
+  <a href="#dirs">Что строим<small>6 направлений</small></a><a href="#homes">Дома<small>140 за 12 лет</small></a><a href="#how">Как строим<small>6 этапов</small></a><a href="#why">Гарантии<small>смета не меняется</small></a><a href="#reviews">Отзывы<small>хозяева</small></a>
   <div class="two"><a class="btn btn--ghost" href="#form" style="font-size:15px;border:1.5px solid var(--ink)">Позвонить</a><a class="btn" href="#form" style="font-size:15px;border:0">Выезд инженера</a></div>
 </nav>
 
@@ -368,20 +384,6 @@
     upd();
     return upd;
   };
-
-  // Дома: прогресс + параллакс фото внутри рамки + фильтр
-  var homes = $('#homes-track');
-  var homesUpd = bindProg(homes, $('#homes-bar'), $('#homes-n'), function (c, t) {
-    var tr = t.getBoundingClientRect();
-    c.items.forEach(function (it) { var k = (it.getBoundingClientRect().left - tr.left) / tr.width; it.querySelector('img').style.transform = 'translateX(' + (-12 - k * 10).toFixed(2) + '%)'; });
-  });
-  $$('#chips button').forEach(function (b) {
-    b.onclick = function () {
-      $$('#chips button').forEach(function (x) { x.classList.toggle('on', x === b); });
-      $$('.house').forEach(function (h) { h.hidden = !(b.dataset.m === 'all' || h.dataset.m === b.dataset.m); });
-      homes.scrollLeft = 0; homesUpd();
-    };
-  });
 
   // Почему мы
   bindProg($("#why-track"), $('#why-bar'), $('#why-n'));
@@ -431,18 +433,14 @@
   // ---------- Отзывы: два ряда едут от прокрутки страницы, их можно листать пальцем ----------
   var R = [['Анна', 'Смета не выросла, хотя меняли окна по ходу — пересчитали заранее.', 'Газобетон'], ['Игорь', 'Смотрел стройку по камере из другого города. Приехал только на приёмку.', 'Каркас'], ['Мария', 'Инженер приехал бесплатно и сразу сказал про грунт — сделали сваи.', 'Сваи'], ['Олег', 'Фото арматуры прислали до заливки. Спокойно, когда видишь скрытые работы.', 'Плита'], ['Елена', 'Одна бригада от фундамента до отделки, никто ни на кого не кивал.', 'Кирпич'], ['Дмитрий', 'Платили по этапам после акта, сроки совпали с графиком.', 'Газобетон']];
   var card = function (r, i) { return '<article class="rc"><header><span class="av' + (i % 3 === 1 ? ' o' : '') + '">' + r[0][0] + '</span><div><b>' + r[0] + '</b><span>★★★★★</span></div></header><p>' + r[1] + '</p><small>' + r[2] + ' · заглушка</small></article>'; };
-  $('#rv1').innerHTML = R.map(card).join('') + R.map(card).join('');
-  $('#rv2').innerHTML = R.slice().reverse().map(card).join('') + R.slice().reverse().map(card).join('');
-  var rv1 = $('#rv1'), rv2 = $('#rv2'), lastY = scrollY;
-  rv2.scrollLeft = rv2.scrollWidth;
-  var rvSec = $('#reviews');
-  addEventListener('scroll', function () {
-    var dy = scrollY - lastY; lastY = scrollY;
-    var r = rvSec.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
-    rv1.scrollLeft += dy * 0.9;
-    rv2.scrollLeft -= dy * 0.9;
-  }, { passive: true });
+  var a = R.map(card).join(''), b = R.slice().reverse().map(card).join('');
+  $('#rv1 .rv__in').innerHTML = a + a; $('#rv2 .rv__in').innerHTML = b + b;
+  // Касание или наведение останавливает ленту, чтобы дочитать отзыв
+  $$('.rv').forEach(function (r) {
+    var stop = function () { r.classList.add('paused'); }, go = function () { r.classList.remove('paused'); };
+    r.addEventListener('mouseenter', stop); r.addEventListener('mouseleave', go);
+    r.addEventListener('touchstart', stop, { passive: true }); r.addEventListener('touchend', go);
+  });
 
   // Заявка
   $$('#mat button').forEach(function (b) { b.onclick = function () { $$('#mat button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; });
@@ -458,6 +456,11 @@
   });
   // Параллакс фото: первый экран, направления, стеклянный блок
   gsap.to('.hero .bg', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  // Лента лет: дом в центре экрана крупный, соседние меньше
+  $$('.tli .pic').forEach(function (p) {
+    gsap.fromTo(p, { scale: 0.66, opacity: 0.45 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'center center', scrub: true } });
+    gsap.to(p, { scale: 0.66, opacity: 0.45, ease: 'none', immediateRender: false, scrollTrigger: { trigger: p, start: 'center center', end: 'bottom top', scrub: true } });
+  });
   $$('.dir img').forEach(function (img) { gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } }); });
   gsap.to('.glassb .bg', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.glassb', start: 'top bottom', end: 'bottom top', scrub: true } });
   $$('.gl').forEach(function (g) { gsap.fromTo(g, { y: 90 * +g.dataset.sp }, { y: -90 * +g.dataset.sp, ease: 'none', scrollTrigger: { trigger: '.glassb', start: 'top bottom', end: 'bottom top', scrub: true } }); });
