@@ -1,0 +1,611 @@
+<title>Стройка: концепт</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Geologica:wght@300;400;800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Marck+Script&family=Onest:wght@400;500&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap">
+<style>
+  /* Демо-страница: светлый «бетон», каждый пример — своя мини-сцена во всю ширину */
+  :root {
+    --concrete: #e9e7e2;
+    --paper: #f4f2ed;
+    --ink: #17181a;
+    --mute: #6c6d70;
+    --line: #cfccc5;
+    --signal: #ff5a1f;
+    --blue: #1638b8;
+    --cream: #f7eed8;
+    --ui: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--ui); overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  .wrap { padding-inline: clamp(16px, 4vw, 56px); }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* Навигация по демо */
+  .dnav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; display: flex; gap: 6px; overflow-x: auto; padding: 10px clamp(16px, 4vw, 56px); background: rgba(244, 242, 237, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); scrollbar-width: none; }
+  .dnav::-webkit-scrollbar { display: none; }
+  .dnav a { flex: none; padding: 8px 12px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font: 500 13px var(--ui); background: #fff; }
+  .dnav a:hover { border-color: var(--ink); }
+
+  .intro { padding-block: 56px 40px; max-width: 900px; }
+  .intro h1 { margin: 10px 0 14px; font: 800 clamp(40px, 7vw, 84px)/0.95 "Geologica", var(--ui); letter-spacing: -0.03em; text-transform: uppercase; text-wrap: balance; }
+  .intro p { margin: 0; max-width: 62ch; color: var(--mute); font-size: 17px; }
+
+  .chap { padding-block: 72px 28px; border-top: 1px solid var(--line); }
+  .chap__n { color: var(--signal); }
+  .chap h2 { margin: 8px 0 10px; font: 800 clamp(32px, 5vw, 56px)/1 "Geologica", var(--ui); letter-spacing: -0.02em; text-transform: uppercase; }
+  .chap p { margin: 0; max-width: 64ch; color: var(--mute); }
+  .tag { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; justify-content: space-between; padding: 14px clamp(16px, 4vw, 56px); background: var(--ink); color: #fff; }
+  .tag b { font: 600 15px var(--ui); }
+  .tag span { color: #b7b8bb; font-size: 13px; }
+  .tag a { color: #fff; }
+
+  /* ================= 1. ШРИФТЫ ================= */
+  .fonts { display: grid; gap: 18px; padding-block: 8px 40px; }
+  .spec { position: relative; overflow: hidden; min-height: 460px; padding: 22px clamp(18px, 3vw, 40px) 30px; display: flex; flex-direction: column; gap: 18px; }
+  .spec__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .spec__name { font-weight: 700; }
+  .spec__fact { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: auto; }
+  .spec__fact div { min-width: 120px; }
+  .spec__fact b { display: block; }
+  .spec__btn { align-self: flex-start; padding: 14px 22px; border: 0; cursor: pointer; }
+  .spec__label { position: absolute; right: 14px; bottom: 12px; padding: 6px 10px; font: 600 12px var(--ui); background: var(--ink); color: #fff; }
+
+  /* F1 — Чертёж: Oswald + JetBrains Mono */
+  .f1 { background: var(--cream); color: var(--blue); background-image: linear-gradient(rgba(22, 56, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(22, 56, 184, 0.08) 1px, transparent 1px); background-size: 32px 32px; }
+  .f1 .spec__name { font: 700 22px "Oswald", sans-serif; text-transform: uppercase; }
+  .f1 h3 { margin: 10px 0 14px; font: 700 clamp(56px, 12vw, 150px)/0.86 "Oswald", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; }
+  .f1 p { margin: 0; max-width: 46ch; font: 400 13px/1.6 var(--mono); }
+  .f1 .spec__fact b { font: 700 40px/1 "Oswald", sans-serif; }
+  .f1 .spec__fact span { font: 400 12px var(--mono); text-transform: uppercase; }
+  .f1 .spec__btn { background: var(--blue); color: #fff; font: 600 13px var(--mono); }
+
+  /* F2 — Бетон: Geologica */
+  .f2 { background: #d9d6cf; color: var(--ink); }
+  .f2 .spec__name { font: 800 22px "Geologica", sans-serif; letter-spacing: -0.02em; }
+  .f2 h3 { margin: 8px 0 0; font: 800 clamp(48px, 10vw, 128px)/0.9 "Geologica", sans-serif; letter-spacing: -0.045em; text-transform: uppercase; }
+  .f2 h3 em { font-style: normal; color: var(--signal); }
+  .f2 p { margin: 0; max-width: 44ch; font: 300 18px/1.5 "Geologica", sans-serif; }
+  .f2 .spec__fact b { font: 800 44px/1 "Geologica", sans-serif; letter-spacing: -0.04em; }
+  .f2 .spec__fact span { font: 400 14px "Geologica", sans-serif; color: #55565a; }
+  .f2 .spec__btn { background: var(--signal); color: #fff; font: 600 16px "Geologica", sans-serif; }
+
+  /* F3 — Премиум: Playfair Display + Inter Tight */
+  .f3 { background: #1d1f1c; color: #efe9dc; }
+  .f3 .spec__name { font: 600 24px "Playfair Display", serif; }
+  .f3 h3 { margin: 8px 0 0; font: 600 clamp(46px, 9.5vw, 124px)/0.95 "Playfair Display", serif; letter-spacing: -0.02em; }
+  .f3 h3 i { font-weight: 500; color: #c9a86a; }
+  .f3 p { margin: 0; max-width: 46ch; font: 400 17px/1.6 var(--ui); color: #bdb8ad; }
+  .f3 .spec__fact b { font: 600 42px/1 "Playfair Display", serif; }
+  .f3 .spec__fact span { font: 400 13px var(--ui); color: #9d998f; }
+  .f3 .spec__btn { background: #efe9dc; color: #1d1f1c; font: 500 15px var(--ui); }
+
+  /* F4 — Капс + рукопись: Dela Gothic One + Marck Script + Onest */
+  .f4 { background: #fff; color: #10302a; align-items: center; text-align: center; }
+  .f4 .spec__bar { align-self: stretch; }
+  .f4 .spec__name { font: 400 22px "Dela Gothic One", sans-serif; }
+  .f4 h3 { position: relative; margin: 26px 0 0; font: 400 clamp(40px, 9vw, 116px)/1 "Dela Gothic One", sans-serif; text-transform: uppercase; letter-spacing: -0.01em; }
+  .f4 h3 span { position: absolute; left: 50%; top: 58%; transform: translateX(-38%) rotate(-6deg); font: 400 clamp(50px, 11vw, 140px)/1 "Marck Script", cursive; text-transform: none; color: #10302a; white-space: nowrap; pointer-events: none; }
+  .f4 p { margin: 54px auto 0; max-width: 44ch; font: 400 17px/1.6 "Onest", sans-serif; color: #44504d; }
+  .f4 .spec__fact { justify-content: center; }
+  .f4 .spec__fact b { font: 400 34px/1 "Dela Gothic One", sans-serif; }
+  .f4 .spec__fact span { font: 400 13px "Onest", sans-serif; color: #5b6663; }
+  .f4 .spec__btn { align-self: center; background: #10302a; color: #fff; font: 500 15px "Onest", sans-serif; border-radius: 40px; }
+
+  /* ================= 2. ГЛАВНЫЙ ЭКРАН ================= */
+  .hero { position: relative; overflow: hidden; }
+
+  /* H1 — Раскрытие (Stanzza) */
+  .h1 { height: 100svh; min-height: 560px; background: var(--paper); }
+  .h1__photo { position: absolute; left: 50%; top: 50%; width: 30vw; min-width: 200px; aspect-ratio: 4 / 5; transform: translate(-50%, -50%); overflow: hidden; will-change: width, height; }
+  .h1__photo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); }
+  .h1__w { position: absolute; top: 50%; font: 800 clamp(34px, 7vw, 110px)/0.9 "Geologica", sans-serif; text-transform: uppercase; letter-spacing: -0.04em; transform: translateY(-50%); z-index: 2; mix-blend-mode: difference; color: #fff; }
+  .h1__w--l { right: calc(50% + 15vw + 14px); text-align: right; }
+  .h1__w--r { left: calc(50% + 15vw + 14px); }
+  .h1__over { position: absolute; left: clamp(16px, 4vw, 56px); right: clamp(16px, 4vw, 56px); bottom: 36px; z-index: 3; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; justify-content: space-between; color: #fff; opacity: 0; }
+  .h1__over p { margin: 0; max-width: 40ch; font: 300 clamp(16px, 2vw, 22px)/1.4 "Geologica", sans-serif; }
+  .h1__over a { padding: 15px 24px; background: var(--signal); color: #fff; text-decoration: none; font: 600 15px var(--ui); }
+  .h1__top { position: absolute; top: 18px; left: clamp(16px, 4vw, 56px); right: clamp(16px, 4vw, 56px); display: flex; justify-content: space-between; z-index: 3; mix-blend-mode: difference; color: #fff; }
+
+  /* H2 — Название во всю ширину (NOWW / Deadwater / Laframboise) */
+  .h2 { min-height: 100svh; display: flex; flex-direction: column; padding: 18px clamp(16px, 4vw, 56px) 0; background: #111214; color: #f1efea; }
+  .h2__top { display: flex; justify-content: space-between; gap: 12px; color: #a3a4a7; }
+  .h2__mid { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; padding-block: 32px; }
+  .h2__mid p { margin: 0; max-width: 24ch; font: 300 clamp(22px, 3.4vw, 46px)/1.15 "Geologica", sans-serif; letter-spacing: -0.02em; }
+  .h2__mid p b { font-weight: 800; color: var(--signal); }
+  .h2__card { justify-self: end; width: min(100%, 420px); }
+  .h2__card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: grayscale(1) contrast(1.1); }
+  .h2__card div { display: flex; justify-content: space-between; margin-top: 8px; color: #a3a4a7; }
+  .h2__word { margin: 0 -0.04em; font: 800 22vw/0.78 "Geologica", sans-serif; letter-spacing: -0.06em; text-transform: uppercase; white-space: nowrap; }
+  .h2__word span { display: inline-block; transform: translateY(105%); }
+
+  /* H3 — Чертёж (Atelier North) */
+  .h3 { min-height: 100svh; padding: 18px clamp(16px, 4vw, 56px) 32px; background: var(--cream); color: var(--blue); background-image: linear-gradient(rgba(22, 56, 184, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(22, 56, 184, 0.07) 1px, transparent 1px); background-size: 40px 40px; display: flex; flex-direction: column; gap: 22px; }
+  .h3__top { display: flex; justify-content: space-between; align-items: center; }
+  .h3__top b { padding: 6px 10px; border: 1.5px solid var(--blue); font: 600 12px var(--mono); }
+  .h3 h1 { margin: 0; font: 700 clamp(64px, 14vw, 210px)/0.84 "Oswald", sans-serif; text-transform: uppercase; }
+  .h3 h1 .ln { display: block; overflow: hidden; }
+  .h3 h1 .ln span { display: block; transform: translateY(100%); }
+  .h3__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px; align-items: end; }
+  .h3__row p { margin: 6px 0 16px; max-width: 46ch; font: 400 13px/1.6 var(--mono); }
+  .h3__mail { display: inline-block; padding: 10px 14px; background: var(--blue); color: #fff; font: 600 13px var(--mono); text-decoration: none; }
+  .h3__idx { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--blue); }
+  .h3__idx a { display: flex; flex-direction: column; justify-content: space-between; min-height: 84px; padding: 10px; border: 0.75px solid var(--blue); color: var(--blue); text-decoration: none; font: 400 11px var(--mono); text-transform: uppercase; transition: background 0.25s, color 0.25s; }
+  .h3__idx a span:last-child { align-self: flex-end; font-weight: 600; }
+  .h3__idx a:hover { background: var(--blue); color: var(--cream); }
+  .h3__strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .h3__strip img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; filter: saturate(0.9); }
+
+  /* H4 — Кадр и цифры (Populous / Schmelzle) */
+  .h4 { height: 100svh; min-height: 580px; color: #fff; }
+  .h4__bg { position: absolute; inset: -6% 0; background: center / cover no-repeat; }
+  .h4__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.55) 100%); }
+  .h4__in { position: absolute; inset: 0; padding: 18px clamp(16px, 4vw, 56px) 30px; display: flex; flex-direction: column; justify-content: space-between; }
+  .h4__top { display: flex; justify-content: space-between; gap: 16px; }
+  .h4 h1 { margin: 0 0 22px; max-width: 12ch; font: 400 clamp(44px, 7.6vw, 120px)/0.95 "Inter Tight", sans-serif; letter-spacing: -0.045em; }
+  .h4__nums { display: flex; flex-wrap: wrap; gap: 14px 40px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.4); }
+  .h4__nums b { display: block; font: 500 clamp(30px, 4vw, 48px)/1 "Inter Tight", sans-serif; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .h4__nums span { font-size: 13px; opacity: 0.8; }
+  .h4__cross { position: absolute; width: 18px; height: 18px; }
+  .h4__cross::before, .h4__cross::after { content: ""; position: absolute; background: #fff; }
+  .h4__cross::before { left: 8px; top: 0; width: 2px; height: 18px; }
+  .h4__cross::after { top: 8px; left: 0; height: 2px; width: 18px; }
+
+  /* ================= 3. ФИШКА: кран строит дом ================= */
+  .crane { position: relative; height: 100svh; min-height: 600px; background: #f1efea; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: 20px; padding: 70px clamp(16px, 4vw, 56px) 30px; overflow: hidden; background-image: linear-gradient(#e2dfd8 1px, transparent 1px), linear-gradient(90deg, #e2dfd8 1px, transparent 1px); background-size: 48px 48px; }
+  .crane svg { width: 100%; height: auto; max-height: 78svh; }
+  .crane__side { align-self: center; }
+  .crane__count { font: 800 clamp(48px, 7vw, 92px)/1 "Geologica", sans-serif; letter-spacing: -0.05em; }
+  .crane__count small { font-size: 0.35em; color: var(--mute); letter-spacing: 0; }
+  .crane__steps { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .crane__steps li { display: grid; grid-template-columns: 36px 1fr; gap: 2px 10px; padding: 12px 0; border-bottom: 1px solid var(--line); color: #a6a39b; cursor: pointer; transition: color 0.3s, padding 0.3s; }
+  .crane__steps li i { grid-row: 1 / span 2; font: 600 13px var(--mono); font-style: normal; }
+  .crane__steps li b { font: 800 19px "Geologica", sans-serif; letter-spacing: -0.02em; }
+  .crane__steps li span { font-size: 14px; display: none; }
+  .crane__steps li.is-on { color: var(--ink); padding-left: 10px; box-shadow: inset 4px 0 0 var(--signal); }
+  .crane__steps li.is-on span { display: block; color: var(--mute); }
+  .crane__steps li.is-done { color: var(--ink); }
+  .crane__hint { margin-top: 12px; color: var(--mute); }
+
+  /* ================= 4. ЭФФЕКТЫ ================= */
+  /* E1 — Лента объектов (Eladio Dieste) */
+  .tl { position: relative; background: #0d0d0e; color: #f1efea; padding: 18vh clamp(16px, 4vw, 56px); }
+  .tl::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.35); }
+  .tl__it { position: relative; display: grid; grid-template-columns: 1fr; justify-items: center; margin: 0 auto 12vh; }
+  .tl__y { position: absolute; left: 0; top: 40%; font: 400 13px var(--mono); color: #8c8c8f; }
+  .tl__ph { width: min(62vw, 520px); aspect-ratio: 4 / 3; overflow: hidden; transform-origin: center; }
+  .tl__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .tl__dot { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4px 0 0 -4px; background: #fff; border-radius: 50%; z-index: 2; }
+  .tl__t { margin-top: 12px; text-align: center; font: 500 clamp(16px, 2vw, 22px) var(--ui); }
+  .tl__t small { display: block; color: #8c8c8f; font: 400 12px var(--mono); margin-top: 4px; }
+
+  /* E2 — Отзывы плиткой (Fluid Glass) */
+  .rv { background: #f1efea; padding: 70px 0 80px; overflow: hidden; }
+  .rv__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; padding-inline: clamp(16px, 4vw, 56px); margin-bottom: 30px; }
+  .rv__head h3 { margin: 0; font: 400 clamp(36px, 5vw, 64px)/1 "Inter Tight", sans-serif; letter-spacing: -0.04em; }
+  .rv__stars { color: #f2a10c; letter-spacing: 2px; }
+  .rv__row { display: flex; gap: 14px; width: max-content; margin-bottom: 14px; }
+  .rv__row:nth-child(3) { margin-left: 160px; }
+  .rv__c { width: 320px; padding: 22px; background: #fff; border: 1px solid #e0ddd6; }
+  .rv__c header { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .rv__av { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 600; }
+  .rv__c b { display: block; font-size: 15px; }
+  .rv__c p { margin: 0; font-size: 14px; color: #4b4c4f; }
+
+  /* E3 — Заголовок заливается из контура (Atelier North) */
+  .fill { background: var(--cream); color: var(--blue); padding: 18vh clamp(16px, 4vw, 56px); }
+  .fill h3 { display: flex; flex-wrap: wrap; gap: 0 0.25em; margin: 0; font: 700 clamp(64px, 15vw, 220px)/0.9 "Oswald", sans-serif; text-transform: uppercase; }
+  .fill h3 span { color: transparent; -webkit-text-stroke: 1.5px var(--blue); background: linear-gradient(90deg, var(--blue) 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; }
+  .fill p { max-width: 56ch; margin: 24px 0 0; font: 400 14px/1.7 var(--mono); }
+
+  /* E4 — Логотипы на стекле поверх фото (Нафта) */
+  .glass { position: relative; min-height: 120svh; overflow: hidden; color: #fff; }
+  .glass__bg { position: absolute; inset: -10% 0; background: center / cover no-repeat; }
+  .glass__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15)); }
+  .glass h3 { position: relative; z-index: 2; margin: 0; padding: 70px clamp(16px, 4vw, 56px) 0; max-width: 18ch; font: 600 clamp(30px, 4.4vw, 56px)/1.05 "Geologica", sans-serif; letter-spacing: -0.03em; }
+  .glass__t { position: absolute; z-index: 2; display: grid; place-items: center; width: clamp(130px, 18vw, 220px); aspect-ratio: 1; border-radius: 22px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.28); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); font: 800 clamp(15px, 1.6vw, 20px) "Geologica", sans-serif; letter-spacing: 0.04em; text-align: center; }
+  .glass__t small { display: block; font: 400 11px var(--mono); opacity: 0.7; margin-top: 4px; }
+
+  /* E5 — Категории шахматкой (Fluid Glass) */
+  .cats { background: #f1efea; padding: 70px clamp(16px, 4vw, 56px) 90px; }
+  .cats__g { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 980px; margin: 0 auto; }
+  .cats__g a { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 5; color: #fff; text-decoration: none; }
+  .cats__g a:nth-child(even) { transform: translateY(18%); }
+  .cats__g img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .cats__g a:hover img { transform: scale(1.06); }
+  .cats__g span { position: absolute; inset: 0; display: grid; place-items: center; font: 400 clamp(24px, 4vw, 52px)/1 "Inter Tight", sans-serif; letter-spacing: -0.03em; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4); }
+
+  /* E6 — Галерея объектов с параллаксом (Codrops) */
+  .gal { position: relative; height: 100svh; overflow: hidden; background: #17181a; color: #f1efea; }
+  .gal__head { position: absolute; top: 26px; left: clamp(16px, 4vw, 56px); right: clamp(16px, 4vw, 56px); display: flex; justify-content: space-between; z-index: 2; }
+  .gal__track { position: absolute; top: 50%; left: 0; display: flex; gap: clamp(16px, 3vw, 40px); padding-inline: clamp(16px, 4vw, 56px); transform: translateY(-46%); }
+  .gal__it { flex: none; width: clamp(240px, 34vw, 520px); }
+  .gal__fr { overflow: hidden; aspect-ratio: 3 / 4; }
+  .gal__fr img { width: 140%; max-width: none; height: 100%; object-fit: cover; }
+  .gal__it h4 { margin: 14px 0 2px; font: 500 20px var(--ui); letter-spacing: -0.02em; }
+  .gal__it p { margin: 0; color: #9a9b9e; font: 400 12px var(--mono); text-transform: uppercase; }
+
+  .end { padding: 60px clamp(16px, 4vw, 56px) 80px; border-top: 1px solid var(--line); }
+  .end p { max-width: 70ch; color: var(--mute); }
+  .end small { color: var(--mute); }
+
+  @media (max-width: 720px) {
+    .h2__mid { grid-template-columns: 1fr; }
+    .h2__card { justify-self: start; }
+    .h3__row { grid-template-columns: 1fr; }
+    .h3__strip { grid-template-columns: repeat(2, 1fr); }
+    .crane { grid-template-columns: 1fr; align-content: start; gap: 6px; padding-top: 64px; }
+    .crane svg { max-height: 46svh; }
+    .crane__count { font-size: 40px; }
+    .crane__steps li { padding: 7px 0; }
+    .crane__steps li b { font-size: 16px; }
+    .rv__c { width: 260px; }
+    .h1__w { font-size: 52px; transform: none; }
+    .h1__w--l { right: auto; left: 16px; top: 15%; text-align: left; }
+    .h1__w--r { left: auto; right: 16px; top: auto; bottom: 15%; }
+    .h1__photo { width: 58vw; }
+    .tl__y { top: -22px; left: 50%; transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .h2__word span, .h3 h1 .ln span { transform: none; }
+    .h1__over { opacity: 1; }
+  }
+</style>
+
+<nav class="dnav" aria-label="Разделы демо">
+  <a href="#fonts">1 · Шрифты</a>
+  <a href="#heroes">2 · Главный экран</a>
+  <a href="#crane">3 · Фишка: кран</a>
+  <a href="#effects">4 · Эффекты</a>
+</nav>
+
+<header class="wrap intro">
+  <span class="mono">Строительная компания · концепт и живые примеры</span>
+  <h1>Как будет выглядеть сайт стройки</h1>
+  <p>Название «Основа», цифры и тексты условные — только чтобы показать шрифты, главный экран и движение. Фото — свободные стоковые, на сайте заменим на ваши объекты.</p>
+</header>
+
+<!-- ================= 1. ШРИФТЫ ================= -->
+<section class="wrap chap" id="fonts">
+  <span class="mono chap__n">01 / Шрифты</span>
+  <h2>Четыре пары шрифтов вживую</h2>
+  <p>Один и тот же экран, набранный разными шрифтами. У всех есть кириллица, все бесплатные.</p>
+</section>
+<div class="wrap fonts">
+  <article class="spec f1">
+    <div class="spec__bar"><span class="spec__name">Основа</span><span class="mono">[меню]</span></div>
+    <h3>Строим<br>дома</h3>
+    <p>[О компании] Проектируем и строим частные дома и коммерческие здания под ключ. Фиксируем смету в договоре.</p>
+    <button class="spec__btn" type="button">Рассчитать стоимость ↗</button>
+    <div class="spec__fact"><div><b>14</b><span>лет на рынке</span></div><div><b>120+</b><span>объектов</span></div><div><b>5 лет</b><span>гарантии</span></div></div>
+    <span class="spec__label">А · «Чертёж» — Oswald + JetBrains Mono</span>
+  </article>
+  <article class="spec f2">
+    <div class="spec__bar"><span class="spec__name">ОСНОВА</span><span>Меню</span></div>
+    <h3>Строим <em>на&nbsp;века</em></h3>
+    <p>Частные дома и коммерческие здания под ключ. Смета в договоре не меняется.</p>
+    <button class="spec__btn" type="button">Рассчитать стоимость</button>
+    <div class="spec__fact"><div><b>14</b><span>лет на рынке</span></div><div><b>120+</b><span>объектов</span></div><div><b>5 лет</b><span>гарантии</span></div></div>
+    <span class="spec__label">Б · «Бетон» — Geologica</span>
+  </article>
+  <article class="spec f3">
+    <div class="spec__bar"><span class="spec__name">Основа</span><span style="font-size:14px">Меню</span></div>
+    <h3>Дом, в&nbsp;котором <i>хочется жить</i></h3>
+    <p>Проектируем и строим частные дома под ключ. Смета фиксируется в договоре и не меняется.</p>
+    <button class="spec__btn" type="button">Обсудить проект</button>
+    <div class="spec__fact"><div><b>14</b><span>лет на рынке</span></div><div><b>120+</b><span>объектов</span></div><div><b>5 лет</b><span>гарантии</span></div></div>
+    <span class="spec__label">В · «Премиум» — Playfair Display + Inter Tight</span>
+  </article>
+  <article class="spec f4">
+    <div class="spec__bar"><span class="spec__name">ОСНОВА</span><span style="font:400 14px Onest">Меню</span></div>
+    <h3>Дом под ключ<span>за сезон</span></h3>
+    <p>Проект, фундамент, коробка, кровля и отделка — одна команда и одна смета.</p>
+    <button class="spec__btn" type="button">Рассчитать стоимость</button>
+    <div class="spec__fact"><div><b>14</b><span>лет на рынке</span></div><div><b>120+</b><span>объектов</span></div><div><b>5 лет</b><span>гарантии</span></div></div>
+    <span class="spec__label">Г · «Капс + рукопись» — Dela Gothic One + Marck Script</span>
+  </article>
+</div>
+
+<!-- ================= 2. ГЛАВНЫЙ ЭКРАН ================= -->
+<section class="wrap chap" id="heroes">
+  <span class="mono chap__n">02 / Главный экран</span>
+  <h2>Четыре варианта первого экрана</h2>
+  <p>Листайте вниз — каждый вариант идёт во всю ширину, как на настоящем сайте. Под каждым подписано, откуда идея.</p>
+</section>
+
+<div class="tag"><b>Вариант 1 · «Раскрытие» — фото из центра раскрывается на весь экран при прокрутке</b><span>идея: <a href="https://stanzza.design/" target="_blank" rel="noopener">stanzza.design</a></span></div>
+<section class="hero h1" id="h1">
+  <div class="h1__top mono"><span>Основа</span><span>Меню</span></div>
+  <div class="h1__w h1__w--l">Строим</div>
+  <div class="h1__photo"><img src="img/p1.webp" alt="Современный дом с панорамным остеклением вечером"></div>
+  <div class="h1__w h1__w--r">дома</div>
+  <div class="h1__over"><p>Частные дома и коммерческие здания под ключ. Смета в договоре не меняется.</p><a href="#crane">Рассчитать стоимость</a></div>
+</section>
+
+<div class="tag"><b>Вариант 2 · «Название во всю ширину» — огромное название внизу, фото-карточка, короткое заявление</b><span>идея: <a href="https://www.noww.ch/" target="_blank" rel="noopener">noww.ch</a>, <a href="https://www.deadwater.fr/" target="_blank" rel="noopener">deadwater.fr</a>, <a href="https://laframboiseavocats.com/" target="_blank" rel="noopener">laframboiseavocats.com</a></span></div>
+<section class="hero h2" id="h2">
+  <div class="h2__top mono"><span>[2011—2026]</span><span>Москва и область</span><span>Меню</span></div>
+  <div class="h2__mid">
+    <p>Строим частные дома и&nbsp;коммерческие здания <b>под&nbsp;ключ</b>. Смета в&nbsp;договоре не&nbsp;меняется.</p>
+    <figure class="h2__card" style="margin:0"><img src="img/p8.webp" alt="Монтаж стального каркаса здания"><div class="mono"><span>Объект 042</span><span>Каркас · 2025</span></div></figure>
+  </div>
+  <div class="h2__word" aria-label="Основа"><span>Основа</span></div>
+</section>
+
+<div class="tag"><b>Вариант 3 · «Чертёж» — сетка, метки в скобках, узкий капс, меню-сетка</b><span>идея: <a href="https://ateliernorth.vercel.app/" target="_blank" rel="noopener">ateliernorth.vercel.app</a> (ваша запись)</span></div>
+<section class="hero h3" id="h3">
+  <div class="h3__top"><span class="mono">[Основа] — строительная компания</span><b>МЕНЮ</b></div>
+  <h1><span class="ln"><span>Строим</span></span><span class="ln"><span>дома под ключ</span></span></h1>
+  <div class="h3__row">
+    <div><span class="mono">[О компании]</span><p>Проектируем и строим частные дома и коммерческие здания. Одна команда от фундамента до ключей, смета фиксируется в договоре.</p><a class="h3__mail" href="#crane">Рассчитать стоимость ↗</a></div>
+    <nav class="h3__idx" aria-label="Разделы">
+      <a href="#effects"><span>[Объекты]</span><span>Что построили</span></a>
+      <a href="#crane"><span>[Этапы]</span><span>Как строим</span></a>
+      <a href="#fonts"><span>[Цены]</span><span>Калькулятор</span></a>
+      <a href="#heroes"><span>[Контакты]</span><span>Связаться</span></a>
+    </nav>
+  </div>
+  <div class="h3__strip"><img src="img/p13.webp" alt="Дом со стеклянным фасадом"><img src="img/p9.webp" alt="Кирпичный дом-куб"><img src="img/p4.webp" alt="Белый современный дом"><img src="img/p5.webp" alt="Вилла с бассейном"></div>
+</section>
+
+<div class="tag"><b>Вариант 4 · «Кадр и цифры» — фото стройки на весь экран, заголовок внизу, технические метки по углам</b><span>идея: <a href="https://populous.com/" target="_blank" rel="noopener">populous.com</a>, <a href="https://www.schmelzle.de/" target="_blank" rel="noopener">schmelzle.de</a></span></div>
+<section class="hero h4" id="h4">
+  <div class="h4__bg" style="background-image:url(img/p3.webp)"></div>
+  <div class="h4__in">
+    <div class="h4__top mono"><span>Основа</span><span>55.7558° N · 37.6173° E</span><span>Меню</span></div>
+    <div>
+      <h1>Строим то, что стоит десятилетиями</h1>
+      <div class="h4__nums">
+        <div><b data-count="14">0</b><span>лет на рынке</span></div>
+        <div><b data-count="120" data-suffix="+">0</b><span>сданных объектов</span></div>
+        <div><b data-count="86000" data-suffix=" м²">0</b><span>построено</span></div>
+        <div><b data-count="5" data-suffix=" лет">0</b><span>гарантии</span></div>
+      </div>
+    </div>
+  </div>
+  <i class="h4__cross" style="left:calc(50% - 9px);top:44%"></i>
+</section>
+
+<!-- ================= 3. ФИШКА ================= -->
+<section class="wrap chap" id="crane">
+  <span class="mono chap__n">03 / Фишка сайта</span>
+  <h2>Кран строит дом</h2>
+  <p>Как колесо у ПРОТЕКТОРа: пока листаете этапы, кран подвозит груз, и дом растёт этаж за этажом. На этапах можно и нажимать.</p>
+</section>
+<section class="crane" id="crane-scene">
+  <svg viewBox="0 0 800 560" role="img" aria-label="Башенный кран строит дом по этапам">
+    <defs>
+      <pattern id="lat" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0 L14 14 M14 0 L0 14" stroke="#17181a" stroke-width="1.2"/></pattern>
+    </defs>
+    <!-- земля -->
+    <line x1="0" y1="520" x2="800" y2="520" stroke="#17181a" stroke-width="2"/>
+    <g fill="#bdb9b0"><rect x="0" y="521" width="800" height="40"/></g>
+    <!-- дом: части появляются по этапам -->
+    <g id="house">
+      <rect class="pt pt1" x="420" y="500" width="300" height="20" fill="#8e8a82"/>
+      <g class="pt pt2" fill="#17181a"><rect x="426" y="300" width="10" height="200"/><rect x="520" y="300" width="10" height="200"/><rect x="610" y="300" width="10" height="200"/><rect x="704" y="300" width="10" height="200"/><rect x="420" y="396" width="300" height="8"/></g>
+      <g class="pt pt3" fill="#d6cfc2" stroke="#17181a" stroke-width="1"><rect x="436" y="404" width="84" height="96"/><rect x="530" y="404" width="80" height="96"/><rect x="620" y="404" width="84" height="96"/><rect x="436" y="304" width="84" height="92"/><rect x="530" y="304" width="80" height="92"/><rect x="620" y="304" width="84" height="92"/></g>
+      <g class="pt pt4" fill="#8e8a82"><rect x="414" y="292" width="312" height="10"/></g>
+      <polygon class="pt pt5" points="404,292 570,212 736,292" fill="#ff5a1f" stroke="#17181a" stroke-width="2"/>
+      <g class="pt pt6"><g fill="#ffd27a" stroke="#17181a" stroke-width="1.5"><rect x="456" y="330" width="40" height="42"/><rect x="548" y="330" width="44" height="42"/><rect x="640" y="330" width="40" height="42"/><rect x="456" y="430" width="40" height="42"/><rect x="640" y="430" width="40" height="42"/></g><rect x="550" y="430" width="40" height="70" fill="#17181a"/></g>
+    </g>
+    <!-- кран -->
+    <g id="cr">
+      <rect x="250" y="120" width="26" height="400" fill="url(#lat)" stroke="#17181a" stroke-width="2"/>
+      <rect x="236" y="508" width="54" height="12" fill="#17181a"/>
+      <rect x="238" y="96" width="50" height="26" fill="#ff5a1f" stroke="#17181a" stroke-width="2"/>
+      <polygon points="263,40 255,96 271,96" fill="#17181a"/>
+      <rect x="120" y="96" width="660" height="14" fill="url(#lat)" stroke="#17181a" stroke-width="2"/>
+      <line x1="263" y1="40" x2="780" y2="96" stroke="#17181a" stroke-width="1.5"/>
+      <line x1="263" y1="40" x2="130" y2="96" stroke="#17181a" stroke-width="1.5"/>
+      <rect x="126" y="110" width="44" height="34" fill="#4a4b4f"/>
+      <g id="trolley"><rect x="-14" y="110" width="28" height="10" fill="#17181a"/>
+        <line id="cable" x1="0" y1="120" x2="0" y2="200" stroke="#17181a" stroke-width="2"/>
+        <g id="hook"><path d="M-7 0 h14 v6 q0 12 -7 12 q-7 0 -7 -8" fill="none" stroke="#17181a" stroke-width="3"/><rect id="load" x="-40" y="16" width="80" height="18" fill="#ff5a1f" stroke="#17181a" stroke-width="1.5"/></g>
+      </g>
+    </g>
+  </svg>
+  <div class="crane__side">
+    <div class="crane__count"><span id="cr-n">01</span><small> / 06</small></div>
+    <ol class="crane__steps" id="cr-steps">
+      <li class="is-on"><i>01</i><b>Фундамент</b><span>Геология участка, плита или ленточный — по расчёту.</span></li>
+      <li><i>02</i><b>Каркас</b><span>Колонны и перекрытия, каждый этап принимаем по акту.</span></li>
+      <li><i>03</i><b>Стены</b><span>Газобетон, кирпич или каркас — что заложено в проекте.</span></li>
+      <li><i>04</i><b>Перекрытия</b><span>Монолит или плиты, проверяем уровнем и тепловизором.</span></li>
+      <li><i>05</i><b>Кровля</b><span>Стропильная система, утепление и покрытие.</span></li>
+      <li><i>06</i><b>Ключи</b><span>Окна, инженерия, отделка — заезжаете и живёте.</span></li>
+    </ol>
+    <p class="crane__hint mono">Листайте вниз или нажмите на этап</p>
+  </div>
+</section>
+
+<!-- ================= 4. ЭФФЕКТЫ ================= -->
+<section class="wrap chap" id="effects">
+  <span class="mono chap__n">04 / Эффекты из ваших записей</span>
+  <h2>Что понравилось — в стиле стройки</h2>
+  <p>Каждый эффект собран заново, с подписью, откуда он.</p>
+</section>
+
+<div class="tag"><b>Лента объектов — по центру линия, годы слева, фото в центре увеличивается</b><span>из <a href="https://www.eladiodieste.com/" target="_blank" rel="noopener">eladiodieste.com</a></span></div>
+<section class="tl">
+  <div class="tl__it"><span class="tl__y">2016</span><div class="tl__ph"><img src="img/p9.webp" alt="Кирпичный дом-куб"></div><i class="tl__dot"></i><div class="tl__t">Дом «Куб», Истра<small>Частный дом · 210 м²</small></div></div>
+  <div class="tl__it"><span class="tl__y">2018</span><div class="tl__ph"><img src="img/p16.webp" alt="Загородный дом вечером"></div><i class="tl__dot"></i><div class="tl__t">Дом у леса, Звенигород<small>Частный дом · 340 м²</small></div></div>
+  <div class="tl__it"><span class="tl__y">2020</span><div class="tl__ph"><img src="img/p14.webp" alt="Белое многоэтажное здание"></div><i class="tl__dot"></i><div class="tl__t">Клубный дом «Терраса»<small>Жилой комплекс · 6 200 м²</small></div></div>
+  <div class="tl__it"><span class="tl__y">2023</span><div class="tl__ph"><img src="img/p13.webp" alt="Дом со стеклянным фасадом"></div><i class="tl__dot"></i><div class="tl__t">Дом-витраж, Новорижское ш.<small>Частный дом · 280 м²</small></div></div>
+  <div class="tl__it"><span class="tl__y">2025</span><div class="tl__ph"><img src="img/p5.webp" alt="Вилла с бассейном"></div><i class="tl__dot"></i><div class="tl__t">Вилла с бассейном<small>Частный дом · 420 м²</small></div></div>
+</section>
+
+<div class="tag"><b>Отзывы плиткой в два ряда со сдвигом — лента плавно едет</b><span>из <a href="https://fluid.glass/" target="_blank" rel="noopener">fluid.glass</a></span></div>
+<section class="rv">
+  <div class="rv__head"><h3>Что говорят<br>заказчики</h3><div><span class="rv__stars">★★★★★</span> <span class="mono">5.0 / 58 отзывов</span></div></div>
+  <div class="rv__row" id="rv1"></div>
+  <div class="rv__row" id="rv2"></div>
+</section>
+
+<div class="tag"><b>Заголовок заливается цветом из контура при прокрутке</b><span>из <a href="https://ateliernorth.vercel.app/" target="_blank" rel="noopener">ateliernorth.vercel.app</a></span></div>
+<section class="fill">
+  <h3 id="fill"><span>Кто</span><span>мы</span><span>такие</span></h3>
+  <p>[О компании] Небольшая команда инженеров и прорабов. Строим сами, без субподряда на ключевых этапах, и показываем каждый этап на фото в чате с заказчиком.</p>
+</section>
+
+<div class="tag"><b>Партнёры на стеклянных плашках поверх фото, плашки плывут с разной скоростью</b><span>из <a href="https://nafta-avtomatika.ru/" target="_blank" rel="noopener">nafta-avtomatika.ru</a></span></div>
+<section class="glass" id="glass">
+  <div class="glass__bg" style="background-image:url(img/p2.webp)"></div>
+  <h3>Работаем с проверенными поставщиками материалов</h3>
+  <div class="glass__t" data-speed="1.6" style="left:58%;top:24%">ПАРТНЁР<small>[логотип]</small></div>
+  <div class="glass__t" data-speed="0.7" style="left:12%;top:52%">ПАРТНЁР<small>[логотип]</small></div>
+  <div class="glass__t" data-speed="1.2" style="left:64%;top:62%">ПАРТНЁР<small>[логотип]</small></div>
+  <div class="glass__t" data-speed="2" style="left:30%;top:80%">ПАРТНЁР<small>[логотип]</small></div>
+</section>
+
+<div class="tag"><b>Направления шахматкой, подпись прямо на фото</b><span>из <a href="https://fluid.glass/" target="_blank" rel="noopener">fluid.glass</a> (ваш скриншот)</span></div>
+<section class="cats">
+  <div class="cats__g">
+    <a href="#effects"><img src="img/p16.webp" alt="Загородный дом"><span>Частные дома</span></a>
+    <a href="#effects"><img src="img/p6.webp" alt="Жилые дома"><span>Коммерция</span></a>
+    <a href="#effects"><img src="img/p7.webp" alt="Леса на фасаде"><span>Реконструкция</span></a>
+    <a href="#effects"><img src="img/p10.webp" alt="Прораб с чертежом"><span>Проектирование</span></a>
+  </div>
+</section>
+
+<div class="tag"><b>Галерея объектов с параллаксом — блок закрепляется, объекты едут вбок</b><span>из <a href="https://tympanus.net/Tutorials/InfiniteScrollParallax/" target="_blank" rel="noopener">Codrops</a></span></div>
+<section class="gal" id="gal">
+  <div class="gal__head mono"><span>[Объекты]</span><span>Листайте вниз →</span></div>
+  <div class="gal__track" id="gal-track">
+    <div class="gal__it"><div class="gal__fr"><img src="img/p1.webp" alt="Дом с остеклением"></div><h4>Дом-витраж</h4><p>2024 · 280 м²</p></div>
+    <div class="gal__it"><div class="gal__fr"><img src="img/p12.webp" alt="Стройка с кранами"></div><h4>ЖК «Терраса»</h4><p>2025 · 6 200 м²</p></div>
+    <div class="gal__it"><div class="gal__fr"><img src="img/p4.webp" alt="Белый дом"></div><h4>Белый дом</h4><p>2023 · 190 м²</p></div>
+    <div class="gal__it"><div class="gal__fr"><img src="img/p11.webp" alt="Оранжевый башенный кран"></div><h4>Склад «Север»</h4><p>2022 · 3 400 м²</p></div>
+    <div class="gal__it"><div class="gal__fr"><img src="img/p5.webp" alt="Вилла с бассейном"></div><h4>Вилла у воды</h4><p>2025 · 420 м²</p></div>
+  </div>
+</section>
+
+<footer class="end">
+  <p>Это демо для выбора: шрифт (А–Г), главный экран (1–4), фишка и эффекты. Напишите, например: «шрифт Б, экран 3, кран да, эффекты: лента, отзывы, галерея».</p>
+  <small>Фото: свободные изображения (CC0) с rawpixel, StockSnap и WordPress Photos — только для демо.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  // Отзывы — заполняем до анимаций, чтобы ширина лент была известна
+  var reviews = [
+    ['Анна К.', '#c0392b', 'Построили дом за сезон, как и обещали. Смета не выросла ни на рубль.'],
+    ['Игорь Л.', '#2c3e50', 'Каждую неделю присылали фото этапов. Приехал только на приёмку кровли.'],
+    ['Мария С.', '#16a085', 'Помогли с проектом и участком со сложным грунтом, фундамент — на совесть.'],
+    ['Олег П.', '#8e44ad', 'Склад сдали раньше срока на две недели. Документы все в порядке.'],
+    ['Елена В.', '#d35400', 'Понравилось, что одна команда от фундамента до отделки.'],
+    ['Дмитрий Р.', '#27ae60', 'Прораб всегда на связи, на вопросы отвечали в тот же день.']
+  ];
+  var card = function (r) { return '<article class="rv__c"><header><span class="rv__av" style="background:' + r[1] + '">' + r[0][0] + '</span><div><b>' + r[0] + '</b><span class="rv__stars">★★★★★</span></div></header><p>' + r[2] + '</p></article>'; };
+  var html = reviews.map(card).join('');
+  document.getElementById('rv1').innerHTML = html + html;
+  var rev = reviews.slice().reverse().map(card).join('');
+  document.getElementById('rv2').innerHTML = rev + rev;
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || reduce) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // --- Главный экран 1: раскрытие фото
+  var h1 = gsap.timeline({ scrollTrigger: { trigger: '#h1', start: 'top top', end: '+=120%', scrub: 0.6, pin: true } });
+  h1.to('#h1 .h1__photo', { width: '100vw', height: '100svh', ease: 'none' }, 0)
+    .to('#h1 .h1__photo img', { scale: 1, ease: 'none' }, 0)
+    .to('#h1 .h1__w--l', { xPercent: -60, opacity: 0, ease: 'none' }, 0)
+    .to('#h1 .h1__w--r', { xPercent: 60, opacity: 0, ease: 'none' }, 0)
+    .to('#h1 .h1__over', { opacity: 1, y: 0, ease: 'none' }, 0.6);
+
+  // --- Главный экран 2: название выезжает снизу
+  gsap.to('#h2 .h2__word span', { y: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '#h2', start: 'top 70%' } });
+
+  // --- Главный экран 3: строки заголовка
+  gsap.to('#h3 h1 .ln span', { y: 0, duration: 1, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '#h3', start: 'top 70%' } });
+
+  // --- Главный экран 4: параллакс фона и счётчики
+  gsap.to('#h4 .h4__bg', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#h4', start: 'top bottom', end: 'bottom top', scrub: true } });
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    var o = { v: 0 }, to = +el.dataset.count, suf = el.dataset.suffix || '';
+    gsap.to(o, { v: to, duration: 1.8, ease: 'power2.out', scrollTrigger: { trigger: '#h4', start: 'top 60%' },
+      onUpdate: function () { el.textContent = Math.round(o.v).toLocaleString('ru-RU') + suf; } });
+  });
+
+  // --- Фишка: кран строит дом. Этап = подвезти груз и «положить» часть дома
+  gsap.set('#house .pt', { opacity: 0 });
+  gsap.set('#house .pt1', { opacity: 1, scaleY: 0, transformOrigin: '50% 100%' });
+  var spots = [ [570, 470], [570, 300], [570, 380], [570, 270], [570, 200], [570, 360] ]; // x тележки и глубина крюка для каждого этапа
+  var tl = gsap.timeline({ defaults: { ease: 'none' } });
+  gsap.set('#trolley', { x: 700 });
+  gsap.set('#hook', { y: 140 }); gsap.set('#cable', { attr: { y2: 140 } });
+  spots.forEach(function (s, i) {
+    var part = '#house .pt' + (i + 1);
+    tl.addLabel('s' + i)
+      .set('#load', { opacity: 1 })
+      .to('#trolley', { x: 180, duration: 0.25 })                      // за грузом к противовесу
+      .to('#trolley', { x: s[0], duration: 0.35 })                     // везём к дому
+      .to('#hook', { y: s[1] - 120, duration: 0.3 }, '<0.1')           // опускаем
+      .to('#cable', { attr: { y2: s[1] - 120 }, duration: 0.3 }, '<')
+      .set('#load', { opacity: 0 })
+      .fromTo(part, { opacity: 0, scaleY: 0.2, transformOrigin: '50% 100%' }, { opacity: 1, scaleY: 1, duration: 0.2 })
+      .to('#hook', { y: 140, duration: 0.25 })
+      .to('#cable', { attr: { y2: 140 }, duration: 0.25 }, '<');
+  });
+  tl.addLabel('end');
+  var steps = Array.prototype.slice.call(document.querySelectorAll('#cr-steps li'));
+  var cur = -1;
+  var st = ScrollTrigger.create({
+    trigger: '#crane-scene', start: 'top top', end: '+=420%', pin: true, scrub: 0.8, animation: tl,
+    onUpdate: function (self) {
+      var i = Math.min(5, Math.floor(self.progress * 6.02));
+      if (i === cur) return; cur = i;
+      document.getElementById('cr-n').textContent = '0' + (i + 1);
+      steps.forEach(function (li, k) { li.classList.toggle('is-on', k === i); li.classList.toggle('is-done', k < i); });
+    }
+  });
+  steps.forEach(function (li, k) {
+    li.addEventListener('click', function () {
+      var y = st.start + (st.end - st.start) * ((k + 0.85) / 6);
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+
+  // --- Эффект: лента объектов — фото в центре экрана крупнее и ярче
+  gsap.utils.toArray('.tl__ph').forEach(function (ph) {
+    gsap.fromTo(ph, { scale: 0.62, opacity: 0.35 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: ph, start: 'top bottom', end: 'center center', scrub: true } });
+    gsap.to(ph, { scale: 0.62, opacity: 0.35, ease: 'none', immediateRender: false, scrollTrigger: { trigger: ph, start: 'center center', end: 'bottom top', scrub: true } });
+  });
+
+  // --- Эффект: отзывы едут, ряды в разные стороны, пауза при наведении
+  var r1 = gsap.to('#rv1', { xPercent: -50, duration: 60, ease: 'none', repeat: -1 });
+  var r2 = gsap.fromTo('#rv2', { xPercent: -50 }, { xPercent: 0, duration: 70, ease: 'none', repeat: -1 });
+  document.querySelector('.rv').addEventListener('mouseenter', function () { r1.pause(); r2.pause(); });
+  document.querySelector('.rv').addEventListener('mouseleave', function () { r1.play(); r2.play(); });
+
+  // --- Эффект: заливка заголовка из контура, слово за словом
+  gsap.to('#fill span', { backgroundPosition: '0% 0', stagger: 0.5, ease: 'none', scrollTrigger: { trigger: '#fill', start: 'top 80%', end: 'bottom 35%', scrub: true } });
+
+  // --- Эффект: стеклянные плашки с разной скоростью, фон медленнее
+  gsap.to('#glass .glass__bg', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '#glass', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.utils.toArray('#glass .glass__t').forEach(function (t) {
+    gsap.fromTo(t, { y: 140 * +t.dataset.speed }, { y: -140 * +t.dataset.speed, ease: 'none', scrollTrigger: { trigger: '#glass', start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  // --- Эффект: шахматка — фото чуть смещаются внутри рамок
+  gsap.utils.toArray('.cats__g img').forEach(function (img, i) {
+    gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  // --- Эффект: горизонтальная галерея с параллаксом внутри кадров
+  var track = document.getElementById('gal-track');
+  var move = gsap.to(track, { x: function () { return -(track.scrollWidth - innerWidth); }, ease: 'none',
+    scrollTrigger: { trigger: '#gal', start: 'top top', end: function () { return '+=' + (track.scrollWidth - innerWidth); }, pin: true, scrub: 0.6, invalidateOnRefresh: true } });
+  gsap.utils.toArray('.gal__fr img').forEach(function (img) {
+    gsap.fromTo(img, { xPercent: -28 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: img.parentNode, containerAnimation: move, start: 'left right', end: 'right left', scrub: true } });
+  });
+
+  addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
