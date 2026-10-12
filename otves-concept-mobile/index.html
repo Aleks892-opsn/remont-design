@@ -1,0 +1,445 @@
+<title>ОТВЕС: телефон</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;600;800&display=swap">
+<style>
+  /* Доска: каждый вариант — экран телефона 375×812, варианты блока в ряд (на телефоне листаются вбок) */
+  :root {
+    --paper: #ecebe7;
+    --concrete: #d9d6cf;
+    --ink: #17181a;
+    --mute: #66676b;
+    --line: #c5c1b8;
+    --signal: #ff5a1f;
+    --f: "Geologica", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #f6f5f2; color: var(--ink); font: 16px/1.5 var(--f); overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  .wrap { padding-inline: clamp(16px, 4vw, 56px); }
+  .logo { display: inline-flex; align-items: center; gap: 8px; font: 800 18px var(--f); letter-spacing: 0.02em; }
+  .plumb { width: 11px; height: 21px; flex: none; }
+
+  .top { padding-block: 40px 22px; }
+  .top h1 { margin: 18px 0 10px; font: 800 clamp(34px, 6vw, 68px)/0.95 var(--f); letter-spacing: -0.04em; text-transform: uppercase; }
+  .top p { margin: 0 0 8px; max-width: 70ch; color: var(--mute); }
+  .pal { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .pal span { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px 5px 5px; background: #fff; border: 1px solid #e3e0da; font-size: 13px; }
+  .pal i { width: 20px; height: 20px; display: block; border: 1px solid rgba(0, 0, 0, 0.12); }
+  .toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; gap: 6px; overflow-x: auto; padding: 10px clamp(16px, 4vw, 56px); background: rgba(246, 245, 242, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid #e3e0da; scrollbar-width: none; }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a { flex: none; padding: 7px 11px; background: #fff; border: 1px solid #e3e0da; color: var(--ink); text-decoration: none; font-size: 13px; }
+
+  .blk { padding-block: 48px 8px; }
+  .blk__n { color: var(--signal); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .blk h2 { margin: 6px 0 8px; font: 800 clamp(26px, 4vw, 44px)/1 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .blk > p { margin: 0; max-width: 72ch; color: var(--mute); }
+  .row { display: flex; gap: 22px; overflow-x: auto; margin-top: 22px; padding: 4px clamp(16px, 4vw, 56px) 16px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .v { flex: none; width: 375px; max-width: calc(100vw - 32px); scroll-snap-align: center; }
+  .v__cap b { display: block; font-weight: 600; font-size: 16px; }
+  .v__cap span { display: block; min-height: 40px; color: var(--mute); font-size: 13px; line-height: 1.4; }
+  .v__note { margin: 10px 0 0; color: var(--mute); font-size: 13px; line-height: 1.45; }
+  .v__note em { font-style: normal; color: var(--ink); font-weight: 600; }
+
+  /* Телефон */
+  .ph-frame { position: relative; margin-top: 10px; border-radius: 34px; padding: 9px; background: #101113; box-shadow: 0 20px 40px rgba(23, 24, 26, 0.18); }
+  .scr { position: relative; height: 760px; border-radius: 26px; overflow: hidden; background: var(--paper); color: var(--ink); font-family: var(--f); }
+  .scr--short { height: auto; }
+  .notch { position: absolute; left: 50%; top: 8px; z-index: 30; width: 96px; height: 24px; margin-left: -48px; background: #101113; border-radius: 14px; }
+
+  /* Общие элементы экрана */
+  .scr .lab { font: 600 10px var(--f); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+  .scr .H { font-weight: 800; letter-spacing: -0.045em; text-transform: uppercase; line-height: 0.92; }
+  .scr .btn { display: flex; align-items: center; justify-content: center; height: 52px; padding: 0 20px; background: var(--signal); color: #fff; font: 600 15px var(--f); }
+  .scr .btn--ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .scr .pic { overflow: hidden; }
+  .scr .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .bar { position: absolute; left: 0; right: 0; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; height: 92px; padding: 34px 18px 0; }
+  .menu { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; background: var(--ink); color: #fff; font: 600 13px var(--f); }
+  .menu i { display: grid; gap: 4px; }
+  .menu i::before, .menu i::after { content: ""; display: block; width: 16px; height: 2px; background: currentColor; }
+
+  /* Шапка А / Б */
+  .hdA { background: var(--paper); border-bottom: 1px solid var(--line); }
+  .hdA .bar { position: relative; }
+  .hdA .tr { display: flex; gap: 8px; padding: 0 18px 14px; }
+  .hdA .tr span { flex: 1; padding: 8px 10px; border: 1.5px solid var(--ink); font: 600 11px var(--f); text-align: center; }
+  .hdB { background: var(--ink); color: #fff; }
+  .hdB .tline { display: flex; justify-content: space-between; padding: 40px 18px 0; font: 600 10px var(--f); letter-spacing: 0.06em; text-transform: uppercase; color: #a9a9ac; }
+  .live { display: inline-flex; align-items: center; gap: 6px; color: #fff; }
+  .live i { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+  .hdB .bar { position: relative; height: auto; padding: 12px 18px 16px; }
+  .hdB .menu { background: var(--signal); }
+  .call { width: 38px; height: 38px; display: grid; place-items: center; border: 1.5px solid currentColor; }
+  .call svg { width: 16px; height: 16px; }
+
+  /* 1А Раскрытие */
+  .h1a .pic { position: absolute; left: 50%; top: 52%; width: 180px; height: 230px; transform: translate(-50%, -50%); animation: grow 7s cubic-bezier(.6, 0, .2, 1) infinite; }
+  @keyframes grow { 0%, 18% { width: 180px; height: 230px; } 55%, 85% { width: 375px; height: 760px; } 100% { width: 180px; height: 230px; } }
+  .h1a .w { position: absolute; left: 18px; z-index: 3; font-size: 56px; animation: part 7s infinite; }
+  .h1a .w--t { top: 120px; }
+  .h1a .w--b { top: auto; bottom: 120px; left: auto; right: 18px; color: var(--signal); }
+  @keyframes part { 0%, 18% { opacity: 1; } 42%, 90% { opacity: 0; } 100% { opacity: 1; } }
+  .h1a .over { position: absolute; left: 18px; right: 18px; bottom: 26px; z-index: 4; color: #fff; animation: over 7s infinite; }
+  .h1a .over p { margin: 0 0 14px; font: 300 21px/1.25 var(--f); }
+  @keyframes over { 0%, 50% { opacity: 0; transform: translateY(16px); } 60%, 85% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; } }
+  .h1a .bob { position: absolute; left: 50%; top: 92px; z-index: 5; width: 2px; height: 80px; background: var(--ink); transform-origin: 50% 0; animation: swing 3.2s ease-in-out infinite; }
+  .h1a .bob::after { content: ""; position: absolute; left: -7px; bottom: -18px; border: 8px solid transparent; border-top: 18px solid var(--signal); }
+  @keyframes swing { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-5deg); } }
+
+  /* 1Б Кадр и стекло */
+  .h1b .pic { position: absolute; inset: 0; }
+  .h1b .pic::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23, 24, 26, 0.45), rgba(23, 24, 26, 0.05) 35%, rgba(23, 24, 26, 0.85) 75%); }
+  .h1b .bar { color: #fff; }
+  .h1b .bar .menu { background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(10px); }
+  .glass { position: absolute; z-index: 3; padding: 12px 14px; color: #fff; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 14px; animation: float 6s ease-in-out infinite; }
+  .glass b { display: block; font: 800 26px/1 var(--f); letter-spacing: -0.04em; }
+  .glass span { font-size: 11px; opacity: 0.85; }
+  @keyframes float { 50% { transform: translateY(-9px); } }
+  .h1b h1 { position: absolute; left: 18px; right: 18px; bottom: 150px; z-index: 3; margin: 0; color: #fff; font-size: 52px; }
+  .h1b h1 em { font-style: normal; color: var(--signal); }
+  .h1b .sub { position: absolute; left: 18px; right: 18px; bottom: 22px; z-index: 3; color: #fff; }
+  .h1b .sub p { margin: 0 0 12px; font: 300 15px/1.4 var(--f); }
+
+  /* 1В Название */
+  .h1c { background: var(--concrete); }
+  .h1c .inner { position: absolute; left: 18px; right: 18px; top: 104px; }
+  .h1c .inner p { margin: 0 0 18px; font: 300 26px/1.15 var(--f); letter-spacing: -0.03em; }
+  .h1c .inner p b { font-weight: 800; color: var(--signal); }
+  .h1c .card { height: 230px; }
+  .h1c .card img { filter: grayscale(0.15); }
+  .h1c .acts { display: grid; gap: 8px; margin-top: 14px; }
+  .h1c .word { position: absolute; left: 10px; bottom: -22px; font-size: 118px; letter-spacing: -0.07em; animation: rise 6s cubic-bezier(.2, .8, .2, 1) infinite; }
+  @keyframes rise { 0% { transform: translateY(70%); } 25%, 100% { transform: none; } }
+
+  /* 2А Смета */
+  .b2a .fill { position: absolute; left: 18px; top: 40px; font-size: 50px; }
+  .fill span { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; animation: fillx 6s ease-in-out infinite; }
+  .fill span:nth-child(2) { animation-delay: 0.5s; -webkit-text-stroke-color: var(--signal); background-image: linear-gradient(90deg, var(--signal) 50%, transparent 50%); }
+  @keyframes fillx { 0%, 10% { background-position: 100% 0; } 45%, 85% { background-position: 0 0; } 100% { background-position: 100% 0; } }
+  .b2a .txt { position: absolute; left: 18px; right: 18px; top: 170px; margin: 0; font: 300 16px/1.45 var(--f); }
+  .doc { position: absolute; left: 14px; right: 14px; top: 270px; padding: 20px 18px; background: #fff; box-shadow: 0 20px 40px rgba(23, 24, 26, 0.12); transform: rotate(-1.5deg); }
+  .doc__h { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
+  .doc__h b { font-size: 16px; }
+  .doc table { width: 100%; border-collapse: collapse; margin-top: 4px; font-size: 14px; }
+  .doc td { padding: 10px 0; border-bottom: 1px solid #e6e3dd; }
+  .doc td:last-child { text-align: right; color: var(--mute); }
+  .doc tr td:first-child::before { content: ""; display: inline-block; width: 20px; }
+  .doc tr.ok td:first-child::before { content: "✓"; color: var(--signal); font-weight: 800; }
+  .doc__sum { display: flex; justify-content: space-between; margin-top: 12px; font: 800 20px var(--f); }
+  .stamp { position: absolute; right: 14px; bottom: 56px; padding: 7px 10px; border: 2.5px solid var(--signal); color: var(--signal); font: 800 11px var(--f); letter-spacing: 0.06em; text-transform: uppercase; transform: rotate(-9deg); background: rgba(255, 255, 255, 0.85); animation: stamp 6s infinite; }
+  @keyframes stamp { 0%, 40% { opacity: 0; transform: rotate(-9deg) scale(1.6); } 48%, 100% { opacity: 1; transform: rotate(-9deg) scale(1); } }
+  .b2a .btn { position: absolute; left: 18px; right: 18px; bottom: 22px; }
+
+  /* 2Б Шкала оплаты */
+  .b2b { background: var(--ink); color: #f1efea; }
+  .b2b .big { position: absolute; left: 18px; top: 40px; }
+  .b2b .big b { display: block; font: 800 110px/0.85 var(--f); letter-spacing: -0.06em; color: var(--signal); }
+  .b2b .big span { font-size: 13px; color: #a9a9ac; }
+  .b2b .H { position: absolute; left: 18px; right: 18px; top: 200px; font-size: 36px; }
+  .b2b .H em { font-style: normal; color: var(--signal); }
+  .vsc { position: absolute; left: 18px; right: 18px; top: 330px; display: grid; gap: 0; }
+  .vsc div { position: relative; display: grid; grid-template-columns: 54px 1fr auto; align-items: center; padding: 11px 0 11px 16px; border-left: 3px solid #3a3b40; }
+  .vsc div::before { content: ""; position: absolute; left: -3px; top: 0; width: 3px; height: 0; background: var(--signal); animation: vbar 7s infinite; animation-delay: var(--d); }
+  @keyframes vbar { 0% { height: 0; } 10%, 100% { height: 100%; } }
+  .vsc i { font: 600 10px var(--f); font-style: normal; color: #8d8e92; letter-spacing: 0.06em; text-transform: uppercase; }
+  .vsc b { font-size: 17px; }
+  .vsc span { font-size: 12px; color: #a9a9ac; }
+  .b2b .btn { position: absolute; left: 18px; right: 18px; bottom: 22px; }
+
+  /* 3А Кран */
+  .b3a { background: var(--concrete); background-image: linear-gradient(#cfcbc3 1px, transparent 1px), linear-gradient(90deg, #cfcbc3 1px, transparent 1px); background-size: 28px 28px; }
+  .cam { position: absolute; left: 18px; top: 40px; display: flex; gap: 8px; align-items: center; padding: 7px 10px; background: var(--ink); color: #fff; font-size: 11px; }
+  .b3a .H.t { position: absolute; left: 18px; top: 80px; font-size: 34px; }
+  .b3a svg { position: absolute; left: -6px; top: 140px; width: 387px; }
+  .b3a .side { position: absolute; left: 18px; right: 18px; top: 425px; }
+  .b3a .cnt { font: 800 56px/1 var(--f); letter-spacing: -0.05em; }
+  .b3a .cnt small { font-size: 20px; color: var(--mute); }
+  .steps { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid #b9b5ac; }
+  .steps li { display: grid; grid-template-columns: 30px 1fr; padding: 8px 0; border-bottom: 1px solid #b9b5ac; color: #8f8b84; font-weight: 600; font-size: 15px; transition: color .3s, padding .3s, box-shadow .3s; }
+  .steps li i { font-style: normal; font-size: 11px; padding-top: 3px; }
+  .steps li.on { color: var(--ink); padding-left: 10px; box-shadow: inset 4px 0 0 var(--signal); }
+  .steps li.done { color: var(--ink); }
+
+  /* 3Б Отвес */
+  .b3b .H { position: absolute; left: 18px; right: 18px; top: 40px; font-size: 38px; }
+  .b3b .rope { position: absolute; left: 30px; top: 170px; bottom: 0; width: 2px; background: var(--ink); }
+  .b3b .bob { position: absolute; left: 22px; width: 18px; height: 30px; animation: drop 9s cubic-bezier(.5, 0, .3, 1) infinite; }
+  .b3b .bob::after { content: ""; position: absolute; left: 0; top: 0; border: 9px solid transparent; border-top: 30px solid var(--signal); }
+  @keyframes drop { 0% { top: 180px; } 30% { top: 330px; } 60% { top: 480px; } 90%, 100% { top: 630px; } }
+  .st { position: absolute; left: 56px; right: 18px; display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: center; }
+  .st .pic { height: 96px; }
+  .st b { display: block; font-size: 17px; letter-spacing: -0.02em; }
+  .st span { display: block; font-size: 12px; color: var(--mute); line-height: 1.35; }
+  .st em { display: inline-block; margin-top: 6px; padding: 3px 7px; font: 600 9px var(--f); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ink); color: #fff; }
+
+  /* 4А Лента лет */
+  .b4a { background: var(--ink); color: #f1efea; }
+  .b4a::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.4); }
+  .b4a .H { position: absolute; left: 0; right: 0; top: 0; z-index: 3; padding: 40px 18px 16px; font-size: 34px; background: linear-gradient(var(--ink) 75%, transparent); }
+  .tlx { position: absolute; left: 0; right: 0; top: 0; animation: tlx 10s cubic-bezier(.6, 0, .3, 1) infinite; }
+  @keyframes tlx { 0%, 20% { transform: translateY(0); } 40%, 60% { transform: translateY(-330px); } 80%, 100% { transform: translateY(-660px); } }
+  .tli { position: absolute; left: 40px; right: 40px; text-align: center; transition: transform .6s, opacity .6s; }
+  .tli .yy { display: block; margin-bottom: 8px; font: 600 11px var(--f); letter-spacing: 0.08em; color: #9a9b9e; }
+  .tli .pic { height: 210px; }
+  .tli b { display: block; margin-top: 10px; font-size: 18px; }
+  .tli span { font-size: 11px; color: #9a9b9e; letter-spacing: 0.04em; }
+  .tli.dim .pic { transform: scale(0.7); opacity: 0.4; }
+
+  /* 4Б Галерея-свайп */
+  .b4b .H { position: absolute; left: 18px; top: 40px; font-size: 40px; }
+  .chips { position: absolute; left: 18px; right: 0; top: 140px; display: flex; gap: 6px; overflow: hidden; }
+  .chips span { flex: none; padding: 7px 12px; border: 1.5px solid var(--ink); font-size: 12px; font-weight: 600; }
+  .chips span.on { background: var(--ink); color: #fff; }
+  .gtrack { position: absolute; left: 18px; top: 200px; display: flex; gap: 12px; animation: gslide 14s cubic-bezier(.6, 0, .3, 1) infinite; }
+  @keyframes gslide { 0%, 18% { transform: none; } 30%, 48% { transform: translateX(-282px); } 60%, 78% { transform: translateX(-564px); } 90%, 100% { transform: none; } }
+  .gi { flex: none; width: 270px; }
+  .gi .fr2 { height: 360px; overflow: hidden; }
+  .gi .fr2 img { width: 130%; max-width: none; height: 100%; object-fit: cover; transform: translateX(-12%); }
+  .gi b { display: block; margin-top: 10px; font-size: 18px; }
+  .gi span { font-size: 12px; color: var(--mute); }
+  .dots { position: absolute; left: 18px; right: 18px; bottom: 30px; display: flex; gap: 4px; }
+  .dots i { flex: 1; height: 4px; background: var(--line); }
+  .dots i:first-child { background: var(--signal); }
+
+  /* 5А Отзывы + форма */
+  .b5a { background: var(--concrete); }
+  .b5a .H { position: absolute; left: 18px; top: 40px; font-size: 38px; }
+  .b5a .rate { position: absolute; left: 18px; top: 128px; font-size: 13px; }
+  .b5a .rate b { color: var(--signal); letter-spacing: 2px; }
+  .rows { position: absolute; left: 0; top: 165px; }
+  .rrow { display: flex; gap: 10px; margin-bottom: 10px; width: max-content; animation: drift 30s linear infinite; }
+  .rrow:nth-child(2) { margin-left: 90px; animation-duration: 38s; }
+  @keyframes drift { to { transform: translateX(-900px); } }
+  .rc { width: 250px; padding: 16px; background: var(--paper); }
+  .rc header { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
+  .rc .av { width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 600; }
+  .rc .av.o { background: var(--signal); }
+  .rc p { margin: 0; font-size: 13px; color: #45464a; line-height: 1.4; }
+  .cta5 { position: absolute; left: 14px; right: 14px; bottom: 14px; padding: 20px; background: var(--ink); color: #fff; }
+  .cta5 b { display: block; font: 800 22px/1.05 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .cta5 p { margin: 8px 0 12px; color: #b1b1b4; font-size: 13px; }
+  .cta5 .inp { height: 46px; margin-bottom: 8px; padding: 0 14px; display: flex; align-items: center; background: #26272b; color: #8d8e92; font-size: 14px; }
+
+  /* 5Б Отзыв + дом */
+  .b5b .pic { position: absolute; left: 0; right: 0; top: 0; height: 300px; }
+  .b5b .q { position: absolute; left: 18px; right: 18px; top: 320px; }
+  .b5b blockquote { margin: 0; font: 300 22px/1.25 var(--f); letter-spacing: -0.02em; }
+  .b5b blockquote::before { content: "“"; display: block; height: 44px; font: 800 86px/1 var(--f); color: var(--signal); }
+  .b5b .who { margin-top: 12px; font-size: 13px; font-weight: 600; }
+  .b5b .facts { position: absolute; left: 18px; right: 18px; top: 560px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--ink); }
+  .b5b .facts div { padding-top: 10px; }
+  .b5b .facts b { display: block; font: 800 22px/1 var(--f); letter-spacing: -0.04em; }
+  .b5b .facts span { font-size: 11px; color: var(--mute); }
+  .b5b .nav { position: absolute; left: 18px; right: 18px; bottom: 22px; display: grid; grid-template-columns: 52px 52px 1fr; gap: 8px; }
+  .b5b .nav i { height: 52px; display: grid; place-items: center; border: 1.5px solid var(--ink); font-style: normal; font-size: 20px; }
+
+  /* Футеры */
+  .fa { background: var(--signal); color: #fff; }
+  .fa .sheet { position: absolute; left: 0; right: 0; top: 0; height: 760px; background: var(--paper); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); animation: lift 7s cubic-bezier(.6, 0, .2, 1) infinite; }
+  .fa .sheet .H { position: absolute; left: 18px; bottom: 40px; font-size: 40px; color: var(--ink); }
+  @keyframes lift { 0%, 15% { transform: none; } 50%, 85% { transform: translateY(-560px); } 100% { transform: none; } }
+  .fa .cols { position: absolute; left: 18px; right: 18px; top: 236px; display: grid; gap: 14px; font-size: 16px; }
+  .fa .cols .lab { display: block; color: rgba(255, 255, 255, 0.75); }
+  .fa .cols .btn { background: var(--ink); }
+  .fa .word, .fb .word { position: absolute; left: 10px; bottom: -18px; font-size: 104px; }
+  .fb { background: var(--ink); color: #f1efea; }
+  .fb .rope2 { position: absolute; right: 40px; top: 0; width: 2px; height: 170px; background: #f1efea; }
+  .fb .rope2::after { content: ""; position: absolute; left: -8px; bottom: -26px; border: 9px solid transparent; border-top: 26px solid var(--signal); }
+  .fb .H.big { position: absolute; left: 18px; right: 70px; top: 50px; font-size: 40px; }
+  .fb .cols { position: absolute; left: 18px; right: 18px; top: 250px; display: grid; gap: 14px; padding-top: 16px; border-top: 1px solid #34353a; font-size: 16px; }
+  .fb .cols .lab { display: block; color: #8d8e92; }
+  .fb .word { color: transparent; -webkit-text-stroke: 1.5px #f1efea; background: linear-gradient(90deg, #f1efea 50%, transparent 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; animation: fillx 7s ease-in-out infinite; }
+
+  /* Меню-шторка */
+  .sheetm { background: rgba(23, 24, 26, 0.5); }
+  .sheetm .panel { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 18px 26px; background: var(--paper); border-radius: 22px 22px 0 0; animation: up 5s cubic-bezier(.2, .8, .2, 1) infinite; }
+  @keyframes up { 0% { transform: translateY(100%); } 20%, 85% { transform: none; } 100% { transform: translateY(100%); } }
+  .sheetm .grab { width: 44px; height: 5px; margin: 0 auto 16px; border-radius: 3px; background: var(--line); }
+  .sheetm a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--line); font: 800 24px var(--f); letter-spacing: -0.03em; text-transform: uppercase; color: var(--ink); }
+  .sheetm a small { font: 400 12px var(--f); text-transform: none; letter-spacing: 0; color: var(--mute); }
+  .sheetm .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+
+  .end { padding-block: 50px 70px; }
+  .end h2 { margin: 0 0 10px; font: 800 30px/1 var(--f); letter-spacing: -0.03em; text-transform: uppercase; }
+  .end ol { margin: 0; padding-left: 20px; color: var(--mute); }
+  .end small { display: block; margin-top: 16px; color: var(--mute); }
+  @media (prefers-reduced-motion: reduce) { .scr *, .scr *::before, .scr *::after { animation: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="plumb" viewBox="0 0 14 26"><rect x="6" y="0" width="2" height="12" fill="currentColor"/><path d="M1 11 H13 L7 26 Z" fill="#ff5a1f"/></symbol>
+  <symbol id="tel" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></symbol>
+</svg>
+
+<header class="wrap top">
+  <span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span>
+  <h1>Концепция для телефона</h1>
+  <p>Те же блоки и та же палитра, но под экран телефона: одна колонка, крупные кнопки под палец, движение от свайпа и прокрутки. Варианты каждого блока стоят в ряд, на телефоне их можно листать вбок.</p>
+  <div class="pal">
+    <span><i style="background:#ecebe7"></i>Бумага</span><span><i style="background:#d9d6cf"></i>Бетон</span><span><i style="background:#17181a"></i>Графит</span><span><i style="background:#ff5a1f"></i>Сигнальный</span><span><i style="background:#fff;font:800 12px Geologica;display:grid;place-items:center">Аа</i>Geologica</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Блоки"><a href="#b0">Шапка и меню</a><a href="#b1">1 · Первый экран</a><a href="#b2">2 · Смета</a><a href="#b3">3 · Как строим</a><a href="#b4">4 · Дома</a><a href="#b5">5 · Отзывы</a><a href="#bf">Футер</a></nav>
+
+<section class="wrap blk" id="b0"><span class="blk__n">Шапка и меню</span><h2>Шапка и меню-шторка</h2><p>На телефоне шапка короткая: знак, кнопка звонка и «Меню». Меню выезжает снизу шторкой — до него легко дотянуться большим пальцем.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>А · Светлая + две плашки доверия</b><span>под шапкой «Смета не меняется» и «Выезд бесплатно»</span></div>
+    <div class="ph-frame"><div class="scr scr--short hdA"><i class="notch"></i><div class="bar"><span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span><span style="display:flex;gap:8px"><span class="call"><svg><use href="#tel"/></svg></span><span class="menu"><i></i>Меню</span></span></div><div class="tr"><span>Смета не меняется</span><span>Выезд бесплатно</span></div></div></div></div>
+  <div class="v"><div class="v__cap"><b>Б · Тёмная + онлайн-камера</b><span>мигающая точка «Камера на объекте», оранжевая кнопка меню</span></div>
+    <div class="ph-frame"><div class="scr scr--short hdB"><i class="notch"></i><div class="tline"><span class="live"><i></i>Камера на объекте</span><span>12 лет · 140 домов</span></div><div class="bar"><span class="logo" style="color:#fff"><svg class="plumb" style="color:#fff"><use href="#plumb"/></svg>ОТВЕС</span><span style="display:flex;gap:8px"><span class="call"><svg><use href="#tel"/></svg></span><span class="menu"><i></i>Меню</span></span></div></div></div></div>
+  <div class="v"><div class="v__cap"><b>Меню-шторка</b><span>выезжает снизу, у каждого пункта короткая подсказка, внизу звонок и инженер</span></div>
+    <div class="ph-frame"><div class="scr sheetm"><i class="notch"></i><div class="pic" style="position:absolute;inset:0"><img src="img/p16.webp" alt=""></div><div style="position:absolute;inset:0;background:rgba(23,24,26,.5)"></div><div class="panel"><div class="grab"></div>
+      <a>Смета<small>не меняется</small></a><a>Как строим<small>6 этапов</small></a><a>Дома<small>140 построено</small></a><a>Отзывы<small>хозяева домов</small></a>
+      <div class="two"><span class="btn btn--ghost">Позвонить</span><span class="btn">Выезд инженера</span></div></div></div></div></div>
+</div>
+
+<section class="wrap blk" id="b1"><span class="blk__n">Блок 1</span><h2>Первый экран</h2><p>Оффер из брифа: дом 150 м² под ключ за 6 месяцев, смета в договоре не меняется. Кнопка — внизу экрана, под большим пальцем.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>1А · «Раскрытие» + отвес</b><span>фото из центра раскрывается на весь экран при прокрутке</span></div>
+    <div class="ph-frame"><div class="scr h1a"><i class="notch"></i><div class="bar"><span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span><span class="menu"><i></i>Меню</span></div><i class="bob"></i>
+      <div class="H w w--t">Строим</div><div class="pic"><img src="img/p1.webp" alt="Дом с остеклением"></div><div class="H w w--b">ровно</div>
+      <div class="over"><p>Дом 150 м² под ключ за 6 месяцев. Смета в договоре не меняется.</p><span class="btn">Выезд инженера — бесплатно</span></div></div></div>
+    <p class="v__note">Слова сверху и снизу фото, а не по бокам, как на компьютере. Идея — <em>stanzza.design</em>.</p></div>
+  <div class="v"><div class="v__cap"><b>1Б · Кадр и факты на стекле</b><span>стеклянные плашки плывут поверх фото</span></div>
+    <div class="ph-frame"><div class="scr h1b"><i class="notch"></i><div class="pic"><img src="img/p16.webp" alt="Дом вечером"></div><div class="bar"><span class="logo" style="color:#fff"><svg class="plumb" style="color:#fff"><use href="#plumb"/></svg>ОТВЕС</span><span class="menu"><i></i>Меню</span></div>
+      <div class="glass" style="left:18px;top:120px"><b>12 лет</b><span>строим</span></div><div class="glass" style="right:18px;top:170px;animation-delay:-2s"><b>140</b><span>домов</span></div><div class="glass" style="left:120px;top:270px;animation-delay:-4s"><b>5 лет</b><span>гарантии</span></div>
+      <h1 class="H">Дом под ключ <em>за 6 месяцев</em></h1><div class="sub"><p>Смета в договоре не меняется. Платите по факту этапов.</p><span class="btn">Рассчитать дом</span></div></div></div>
+    <p class="v__note">Стеклянные плашки — с <em>nafta-avtomatika.ru</em>.</p></div>
+  <div class="v"><div class="v__cap"><b>1В · Название во всю ширину</b><span>«ОТВЕС» выезжает снизу, фото и две кнопки</span></div>
+    <div class="ph-frame"><div class="scr h1c"><i class="notch"></i><div class="bar"><span class="logo"><svg class="plumb"><use href="#plumb"/></svg>ОТВЕС</span><span class="menu"><i></i>Меню</span></div>
+      <div class="inner"><p>Строим частные дома <b>под ключ</b>. 150&nbsp;м² — за&nbsp;6&nbsp;месяцев, смета не&nbsp;меняется.</p><div class="pic card"><img src="img/p13.webp" alt="Дом со стеклом"></div><div class="acts"><span class="btn">Выезд инженера — бесплатно</span><span class="btn btn--ghost">Построенные дома</span></div></div>
+      <div class="H word">Отвес</div></div></div>
+    <p class="v__note">Огромное название — с <em>noww.ch</em>, <em>deadwater.fr</em>.</p></div>
+</div>
+
+<section class="wrap blk" id="b2"><span class="blk__n">Блок 2</span><h2>Смета не меняется</h2><p>Снимаем главный страх — рост цены. На телефоне смета идёт карточкой во всю ширину.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>2А · Смета-документ</b><span>заголовок заливается из контура, на смету падает печать</span></div>
+    <div class="ph-frame"><div class="scr b2a"><i class="notch"></i>
+      <div class="H fill"><span>Смета</span><span>не меняется</span></div>
+      <p class="txt">Цена фиксируется в договоре до начала работ. Платите только за принятый этап.</p>
+      <div class="doc"><div class="doc__h"><b>Смета · 150 м²</b><span class="lab">к договору</span></div>
+        <table><tr class="ok"><td>Фундамент</td><td>[сумма]</td></tr><tr class="ok"><td>Коробка</td><td>[сумма]</td></tr><tr class="ok"><td>Кровля и фасад</td><td>[сумма]</td></tr><tr><td>Инженерия</td><td>[сумма]</td></tr><tr><td>Отделка</td><td>[сумма]</td></tr></table>
+        <div class="doc__sum"><span>Итого</span><span>[сумма]</span></div><div class="stamp">Зафиксировано</div></div>
+      <span class="btn">Получить смету на свой дом</span></div></div>
+    <p class="v__note">Заливка текста — <em>ateliernorth.vercel.app</em>, как вы и хотели: только эффект.</p></div>
+  <div class="v"><div class="v__cap"><b>2Б · Оплата по шкале</b><span>на телефоне шкала вертикальная, этапы заливаются сверху вниз</span></div>
+    <div class="ph-frame"><div class="scr b2b"><i class="notch"></i>
+      <div class="big"><b>0 ₽</b><span>доплат сверх сметы в договоре</span></div>
+      <div class="H">Платите <em>по факту</em> — за принятый этап</div>
+      <div class="vsc">
+        <div style="--d:0s"><i>Этап 1</i><b>Проект</b><span>после согласования</span></div><div style="--d:.7s"><i>Этап 2</i><b>Фундамент</b><span>после акта</span></div><div style="--d:1.4s"><i>Этап 3</i><b>Коробка</b><span>после акта</span></div><div style="--d:2.1s"><i>Этап 4</i><b>Кровля</b><span>после акта</span></div><div style="--d:2.8s"><i>Этап 5</i><b>Инженерия</b><span>после акта</span></div><div style="--d:3.5s"><i>Этап 6</i><b>Отделка</b><span>после приёмки</span></div>
+      </div><span class="btn">Получить смету</span></div></div>
+    <p class="v__note">«0 ₽ доплат» — пересказ факта о фиксированной смете, не новая цифра.</p></div>
+</div>
+
+<section class="wrap blk" id="b3"><span class="blk__n">Блок 3</span><h2>Как строим и контроль</h2><p>Страх — брак в скрытых работах. Показываем этапы и онлайн-камеру с фотоотчётом.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>3А · «Кран строит дом» — фишка</b><span>блок закрепляется, при прокрутке кран кладёт этап за этапом, как колесо у ПРОТЕКТОРа</span></div>
+    <div class="ph-frame"><div class="scr b3a" id="crane"><i class="notch"></i><div class="cam"><span class="live"><i></i>Камера</span><span style="color:#a9a9ac">· отчёт раз в неделю</span></div>
+      <div class="H t">Как строим</div><svg viewBox="0 0 800 560" aria-hidden="true"></svg>
+      <div class="side"><div class="cnt"><span data-n>01</span><small> / 06</small></div><ol class="steps"><li class="on"><i>01</i>Выезд инженера</li><li><i>02</i>Проект и смета</li><li><i>03</i>Фундамент</li><li><i>04</i>Коробка</li><li><i>05</i>Кровля и фасад</li><li><i>06</i>Инженерия и отделка</li></ol></div></div></div>
+    <p class="v__note">На сайте кран двигается от прокрутки, здесь показан циклом.</p></div>
+  <div class="v"><div class="v__cap"><b>3Б · «Отвес» опускается по этапам</b><span>нить слева, грузик идёт вниз, у каждого этапа фото скрытых работ</span></div>
+    <div class="ph-frame"><div class="scr b3b"><i class="notch"></i><div class="H">Скрытые работы — не скрываем</div><i class="rope"></i><i class="bob"></i>
+      <div class="st" style="top:170px"><div class="pic"><img src="img/p10.webp" alt="Инженер"></div><div><b>Выезд инженера</b><span>Бесплатно смотрим участок</span><em>фото участка</em></div></div>
+      <div class="st" style="top:320px"><div class="pic"><img src="img/p2.webp" alt="Бетон"></div><div><b>Фундамент</b><span>Плита, лента или сваи</span><em>фото арматуры</em></div></div>
+      <div class="st" style="top:470px"><div class="pic"><img src="img/p8.webp" alt="Каркас"></div><div><b>Коробка</b><span>Газобетон, кирпич, каркас</span><em>фото кладки</em></div></div>
+      <div class="st" style="top:620px"><div class="pic"><img src="img/p7.webp" alt="Фасад"></div><div><b>Кровля и фасад</b><span>Утепление до закрытия</span><em>фото утепления</em></div></div></div></div>
+    <p class="v__note">Нить отвеса прижата к левому краю, чтобы фото было крупнее.</p></div>
+</div>
+
+<section class="wrap blk" id="b4"><span class="blk__n">Блок 4</span><h2>Построенные дома</h2><p>140 домов — показываем лучшие, с материалом, площадью и сроком.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>4А · Лента лет</b><span>линия по центру, дом в центре экрана крупный, соседние приглушены</span></div>
+    <div class="ph-frame"><div class="scr b4a"><i class="notch"></i><div class="H">140 домов<br>за 12 лет</div>
+      <div class="tlx">
+        <div class="tli" style="top:200px"><span class="yy">2016</span><div class="pic"><img src="img/p16.webp" alt="Дом у леса"></div><b>Дом у леса</b><span>КИРПИЧ · [ПЛОЩАДЬ]</span></div>
+        <div class="tli dim" style="top:530px"><span class="yy">2020</span><div class="pic"><img src="img/p13.webp" alt="Дом-витраж"></div><b>Дом-витраж</b><span>КАРКАС · [ПЛОЩАДЬ]</span></div>
+        <div class="tli dim" style="top:860px"><span class="yy">2024</span><div class="pic"><img src="img/p5.webp" alt="Дом с террасой"></div><b>Дом с террасой</b><span>ГАЗОБЕТОН · [ПЛОЩАДЬ]</span></div>
+        <div class="tli dim" style="top:1190px"><span class="yy">2025</span><div class="pic"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>КАРКАС · [ПЛОЩАДЬ]</span></div>
+      </div></div></div>
+    <p class="v__note">По вашей записи <em>eladiodieste.com</em> — она и снята с телефона, так что ляжет один в один.</p></div>
+  <div class="v"><div class="v__cap"><b>4Б · Карусель домов</b><span>свайп вбок, фото внутри рамки чуть отстаёт, внизу полоска прогресса</span></div>
+    <div class="ph-frame"><div class="scr b4b"><i class="notch"></i><div class="H">Построенные<br>дома</div>
+      <div class="chips"><span class="on">Все · 140</span><span>Газобетон</span><span>Кирпич</span><span>Каркас</span></div>
+      <div class="gtrack">
+        <div class="gi"><div class="fr2"><img src="img/p1.webp" alt="Дом-витраж"></div><b>Дом-витраж</b><span>Каркас · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p9.webp" alt="Дом-куб"></div><b>Дом «Куб»</b><span>Газобетон · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p4.webp" alt="Белый дом"></div><b>Белый дом</b><span>Каркас · [площадь] · [срок]</span></div>
+        <div class="gi"><div class="fr2"><img src="img/p16.webp" alt="Дом у леса"></div><b>Дом у леса</b><span>Кирпич · [площадь] · [срок]</span></div>
+      </div><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+    <p class="v__note">Как карусель услуг у ПРОТЕКТОРа, с параллаксом фото из <em>Codrops</em>.</p></div>
+</div>
+
+<section class="wrap blk" id="b5"><span class="blk__n">Блок 5</span><h2>Отзывы и выезд инженера</h2><p>Последний шаг: что говорят хозяева и простое действие — бесплатный выезд инженера.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>5А · Лента отзывов + форма снизу</b><span>два ряда отзывов едут, форма закреплена внизу экрана</span></div>
+    <div class="ph-frame"><div class="scr b5a"><i class="notch"></i><div class="H">Что говорят<br>хозяева</div><div class="rate"><b>★★★★★</b> 5.0 · [число] отзывов</div>
+      <div class="rows"><div class="rrow" data-rev></div><div class="rrow" data-rev></div></div>
+      <div class="cta5"><b>Бесплатный выезд инженера</b><p>Посмотрим участок и грунт, подготовим смету.</p><div class="inp">Телефон</div><span class="btn">Вызвать инженера</span></div></div></div>
+    <p class="v__note">Плитка отзывов со сдвигом — <em>fluid.glass</em>. На телефоне в форме одно поле: телефон.</p></div>
+  <div class="v"><div class="v__cap"><b>5Б · Отзыв + дом</b><span>свайп по отзывам — сверху меняется фото дома этого заказчика</span></div>
+    <div class="ph-frame"><div class="scr b5b"><i class="notch"></i><div class="pic"><img src="img/p16.webp" alt="Дом заказчика"></div>
+      <div class="q"><span class="lab">Отзыв · дом у леса</span><blockquote>Смета в договоре совпала с итоговой до рубля. Каждую неделю получали фото этапов.</blockquote><div class="who">[Имя], [город] · заглушка</div></div>
+      <div class="facts"><div><b>[м²]</b><span>площадь</span></div><div><b>[мес]</b><span>срок</span></div><div><b>0 ₽</b><span>доплат</span></div></div>
+      <div class="nav"><i>‹</i><i>›</i><span class="btn">Вызвать инженера</span></div></div></div>
+    <p class="v__note">Крупный отзыв рядом с домом убеждает сильнее, чем стена коротких.</p></div>
+</div>
+
+<section class="wrap blk" id="bf"><span class="blk__n">Футер</span><h2>Футер — отдельная сущность</h2><p>Свой цвет, огромное название, контакты и кнопка инженера во всю ширину.</p></section>
+<div class="row">
+  <div class="v"><div class="v__cap"><b>ФА · «Из-под страницы»</b><span>страница уезжает вверх и открывает оранжевый футер</span></div>
+    <div class="ph-frame"><div class="scr fa"><i class="notch"></i><div class="cols"><div><span class="lab">Где</span>[город], [адрес]</div><div><span class="lab">Связь</span>+7 (000) 000-00-00</div><span class="btn">Выезд инженера</span></div><div class="H word">Отвес</div><div class="sheet"><div class="H">Строим ровно.<br>12 лет.</div></div></div></div></div>
+  <div class="v"><div class="v__cap"><b>ФБ · «Графит и нить»</b><span>нить отвеса спускается, «ОТВЕС» заливается из контура</span></div>
+    <div class="ph-frame"><div class="scr fb"><i class="notch"></i><i class="rope2"></i><div class="H big">Приедем на участок бесплатно</div><div class="cols"><div><span class="lab">Где</span>[город], [адрес]</div><div><span class="lab">Связь</span>+7 (000) 000-00-00</div><span class="btn">Вызвать инженера</span></div><div class="H word">Отвес</div></div></div></div>
+</div>
+
+<footer class="wrap end">
+  <h2>Как выбрать</h2>
+  <ol><li>Шапка: А или Б (меню-шторка — в обоих).</li><li>Первый экран: 1А, 1Б или 1В.</li><li>Смета: 2А или 2Б.</li><li>Как строим: 3А (кран) или 3Б (отвес).</li><li>Дома: 4А или 4Б.</li><li>Отзывы: 5А или 5Б.</li><li>Футер: ФА или ФБ.</li></ol>
+  <p style="color:var(--mute)">Напишите строкой, например: «Б, 1Б, 2А, 3А, 4Б, 5А, ФА».</p>
+  <small>Фото — свободные (CC0), временные. Цифры только из брифа, остальное в [скобках].</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function () {
+  var R = [['Анна', 'Смета не выросла, хотя меняли окна по ходу — пересчитали заранее.'], ['Игорь', 'Смотрел стройку по камере из другого города.'], ['Мария', 'Инженер приехал бесплатно и сразу сказал про грунт.'], ['Олег', 'Фото арматуры прислали до заливки — спокойно.'], ['Елена', 'Одна бригада от фундамента до отделки.'], ['Дмитрий', 'Платили по этапам после акта, сроки совпали.']];
+  var card = function (r, i) { return '<article class="rc"><header><span class="av' + (i % 3 === 1 ? ' o' : '') + '">' + r[0][0] + '</span><b>' + r[0] + '</b><span style="margin-left:auto;color:#ff5a1f;font-size:11px">★★★★★</span></header><p>' + r[1] + '</p></article>'; };
+  var rows = document.querySelectorAll('[data-rev]'), a = R.map(card).join(''), b = R.slice().reverse().map(card).join('');
+  rows[0].innerHTML = a + a; rows[1].innerHTML = b + b;
+
+  var sc = document.getElementById('crane');
+  sc.querySelector('svg').innerHTML = '<defs><pattern id="lat" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0 L14 14 M14 0 L0 14" stroke="#17181a" stroke-width="1.2"/></pattern></defs>' +
+    '<line x1="0" y1="520" x2="800" y2="520" stroke="#17181a" stroke-width="3"/><rect x="0" y="521" width="800" height="40" fill="#b9b5ac"/>' +
+    '<g id="hs"><rect class="pt pt1" x="420" y="500" width="300" height="20" fill="#8e8a82"/>' +
+    '<g class="pt pt2" fill="#17181a"><rect x="426" y="300" width="12" height="200"/><rect x="520" y="300" width="12" height="200"/><rect x="610" y="300" width="12" height="200"/><rect x="702" y="300" width="12" height="200"/><rect x="420" y="396" width="300" height="10"/></g>' +
+    '<g class="pt pt3" fill="#ecebe7" stroke="#17181a" stroke-width="1.5"><rect x="438" y="406" width="82" height="94"/><rect x="532" y="406" width="78" height="94"/><rect x="622" y="406" width="80" height="94"/><rect x="438" y="304" width="82" height="92"/><rect x="532" y="304" width="78" height="92"/><rect x="622" y="304" width="80" height="92"/></g>' +
+    '<polygon class="pt pt4" points="404,298 570,212 736,298" fill="#ff5a1f" stroke="#17181a" stroke-width="3"/>' +
+    '<g class="pt pt5" fill="#ffd27a" stroke="#17181a" stroke-width="2"><rect x="456" y="330" width="40" height="42"/><rect x="548" y="330" width="44" height="42"/><rect x="640" y="330" width="40" height="42"/><rect x="456" y="430" width="40" height="42"/><rect x="640" y="430" width="40" height="42"/><rect x="550" y="430" width="40" height="70" fill="#17181a"/></g></g>' +
+    '<rect x="250" y="120" width="26" height="400" fill="url(#lat)" stroke="#17181a" stroke-width="3"/><rect x="236" y="508" width="54" height="12" fill="#17181a"/><rect x="238" y="96" width="50" height="26" fill="#ff5a1f" stroke="#17181a" stroke-width="3"/><polygon points="263,40 255,96 271,96" fill="#17181a"/>' +
+    '<rect x="120" y="96" width="660" height="14" fill="url(#lat)" stroke="#17181a" stroke-width="3"/><line x1="263" y1="40" x2="780" y2="96" stroke="#17181a" stroke-width="2"/><line x1="263" y1="40" x2="130" y2="96" stroke="#17181a" stroke-width="2"/><rect x="126" y="110" width="44" height="34" fill="#4a4b4f"/>' +
+    '<g id="tr"><rect x="-14" y="110" width="28" height="10" fill="#17181a"/><line id="cb" x1="0" y1="120" x2="0" y2="140" stroke="#17181a" stroke-width="3"/><g id="hk"><path d="M-7 0 h14 v6 q0 12 -7 12 q-7 0 -7 -8" fill="none" stroke="#17181a" stroke-width="4"/><rect id="ld" x="-40" y="16" width="80" height="18" fill="#ff5a1f" stroke="#17181a" stroke-width="2"/></g></g>';
+  if (!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) { if (window.gsap) gsap.set('#hs .pt', { opacity: 1 }); return; }
+  var steps = sc.querySelectorAll('.steps li'), num = sc.querySelector('[data-n]');
+  var mark = function (i) { num.textContent = '0' + (i + 1); steps.forEach(function (li, k) { li.classList.toggle('on', k === i); li.classList.toggle('done', k < i); }); };
+  gsap.set('#hs .pt', { opacity: 0 }); gsap.set('#tr', { x: 700 }); gsap.set('#hk', { y: 140 });
+  var tl = gsap.timeline({ repeat: -1, repeatDelay: 1, onRepeat: function () { gsap.set('#hs .pt', { opacity: 0 }); } });
+  tl.call(mark, [0]).to({}, { duration: 0.8 }).call(mark, [1]).to({}, { duration: 0.8 });
+  [470, 300, 380, 200, 360].forEach(function (d, i) {
+    tl.call(mark, [Math.min(5, i + 1)]).set('#ld', { opacity: 1 })
+      .to('#tr', { x: 180, duration: 0.6, ease: 'power2.inOut' }).to('#tr', { x: 570, duration: 0.9, ease: 'power2.inOut' })
+      .to('#hk', { y: d - 120, duration: 0.6, ease: 'power2.inOut' }).to('#cb', { attr: { y2: d - 120 }, duration: 0.6, ease: 'power2.inOut' }, '<')
+      .set('#ld', { opacity: 0 })
+      .fromTo('#hs .pt' + (i + 1), { opacity: 0, scaleY: 0.2, transformOrigin: '50% 100%' }, { opacity: 1, scaleY: 1, duration: 0.4, ease: 'back.out(2)' })
+      .to('#hk', { y: 140, duration: 0.5 }).to('#cb', { attr: { y2: 140 }, duration: 0.5 }, '<');
+  });
+  tl.call(mark, [5]).to({}, { duration: 2 });
+})();
+</script>
