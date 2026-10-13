@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Меню и логотип: варианты</title>
+<meta name="description" content="Варианты: чем заполнить место под логотипом и где поставить меню на главном экране.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12); --pad: 20px; --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Great Vibes', cursive; --fh: 'Unbounded', sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 300 15px/1.6 var(--fb); -webkit-text-size-adjust: 100%; }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; padding: 0; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .cap { font-family: var(--fh); font-weight: 200; letter-spacing: .02em; text-transform: uppercase; line-height: 1.12; }
+  .scr { font-family: var(--fs); line-height: 1; color: var(--ink2); }
+  .lbl { font: 500 10px/1 var(--fb); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+
+  .top { padding: 150px var(--pad) 6px; }
+  .top h1 { margin: 10px 0 8px; font-size: 22px; }
+  .top p { margin: 0; color: var(--ink2); font-size: 13px; }
+  .jump { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .14em; text-transform: uppercase; background: var(--paper); }
+  .grp { margin: 70px var(--pad) 0; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+  .grp .scr { font-size: 42px; }
+  .var__h { display: flex; align-items: baseline; gap: 12px; margin: 60px var(--pad) 14px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .var__h b { font-family: var(--fh); font-weight: 200; font-size: 40px; line-height: 1; }
+  .var__h div { flex: 1; }
+  .var__h span { display: block; font: 500 10px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+  .var__h small { display: block; margin-top: 4px; font-size: 12px; color: var(--mute); line-height: 1.45; }
+
+  /* Главный экран (как в демо, вариант Г) */
+  .gx { position: relative; height: 160vh; height: 160svh; max-height: 1500px; overflow: hidden; }
+  .gx.one { height: 100vh; height: 100svh; min-height: 640px; max-height: 920px; }
+  .gx > * { position: absolute; }
+  .gx__bg { left: 0; top: 0; width: 100%; height: 62%; object-fit: cover; }
+  .gx.one .gx__bg { height: 100%; }
+  .gx__head { left: var(--pad); right: var(--pad); top: 150px; text-align: center; z-index: 3; }
+  .gx__head h2 { margin: 0; font-size: 26px; }
+  .gx__head .scr { display: block; font-size: 58px; margin-top: -6px; transform: rotate(-4deg); }
+  .gx__head p { margin: 12px auto 0; max-width: 300px; font-size: 14px; color: var(--ink2); }
+  .gx__scene { left: -10%; width: 120%; top: 24%; z-index: 1; }
+  .gx.one .gx__scene { top: 44%; }
+  .house { display: block; width: 100%; height: auto; position: relative; }
+  .clouds { position: absolute; left: 0; right: 0; top: 52%; height: 0; }
+  .cl { position: absolute; left: -25%; width: 150%; max-width: none; top: 1vw; }
+  .floor { position: absolute; left: -40%; right: -40%; top: 50vw; height: 220vh; background: linear-gradient(rgba(244, 245, 247, 0), #f4f5f7 18%); }
+  @media (min-width: 481px) { .cl { top: 5px; } .floor { top: 240px; } }
+  .gx__logo { left: 0; right: 0; top: 56%; z-index: 4; display: flex; flex-direction: column; align-items: center; }
+  .gx__logo img { display: block; width: 84%; max-width: 400px; height: auto; }
+  .fill { left: var(--pad); right: var(--pad); top: 72%; z-index: 4; }
+
+  /* Заполнение · 1: цифры + кнопка */
+  .nums { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .nums div { padding: 16px 6px; text-align: center; }
+  .nums div + div { border-left: 1px solid var(--line); }
+  .nums b { display: block; font-family: var(--fh); font-weight: 200; font-size: 30px; line-height: 1; }
+  .nums span { display: block; margin-top: 8px; font-size: 11px; color: var(--ink2); line-height: 1.35; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 52px; margin-top: 20px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10.5px var(--fb); letter-spacing: .22em; text-transform: uppercase; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .row2 .btn { margin-top: 12px; }
+
+  /* Заполнение · 2: направления едут при прокрутке */
+  .run { left: 0; right: 0; top: 74%; z-index: 4; }
+  .run p { margin: 0; white-space: nowrap; font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 40px; line-height: 1.15; will-change: transform; }
+  .run p.o { color: transparent; -webkit-text-stroke: 1px rgba(20, 20, 20, .55); }
+  .run .lbl { display: block; text-align: center; margin-top: 18px; }
+
+  /* Заполнение · 3: лента объектов */
+  .objs .h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .objs .h b { font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 13px; letter-spacing: .04em; }
+  .strip { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); scrollbar-width: none; }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip a { flex: 0 0 44%; scroll-snap-align: start; }
+  .ph { position: relative; background: linear-gradient(160deg, #e3e6e9, #f4f5f6 70%); overflow: hidden; }
+  .ph::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(20, 20, 20, .025) 14px 15px); }
+  .strip .ph { aspect-ratio: 3/4; border-radius: 999px 999px 0 0; box-shadow: 0 14px 30px rgba(20, 20, 20, .06); }
+  .strip b { display: block; margin-top: 10px; font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 11px; }
+  .strip span { font-size: 11px; color: var(--mute); }
+
+  /* Заполнение · 4: форма в стекле */
+  .gcard { padding: 20px 18px; background: rgba(255, 255, 255, .78); border: 1px solid rgba(255, 255, 255, .95); box-shadow: 0 20px 50px rgba(20, 20, 20, .08); }
+  .gcard .scr { font-size: 36px; display: block; margin-bottom: 4px; }
+  .gcard h3 { margin: 0 0 14px; font-size: 16px; }
+  .gcard input { display: block; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); background: none; font-size: 15px; border-radius: 0; }
+  .gcard input:focus { outline: none; border-color: var(--ink); }
+  .gcard .btn { margin-top: 16px; }
+  .gcard small { display: block; margin-top: 10px; text-align: center; font-size: 11px; color: var(--mute); }
+
+  /* Меню · 1: нижняя панель */
+  .tabbar { left: 12px; right: 12px; bottom: 18px; z-index: 6; display: grid; grid-template-columns: repeat(4, 1fr); padding: 6px; border-radius: 22px; background: rgba(255, 255, 255, .9); border: 1px solid rgba(255, 255, 255, .95); box-shadow: 0 12px 34px rgba(20, 20, 20, .12); }
+  .tabbar a, .tabbar button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 0 6px; border-radius: 16px; font: 500 9px var(--fb); letter-spacing: .1em; text-transform: uppercase; }
+  .tabbar .on { background: var(--ink); color: #fff; }
+  .tabbar svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+
+  /* Меню · 2: разделы прямо под заголовком */
+  .chips { left: var(--pad); right: var(--pad); top: 392px; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .chips a { padding: 9px 14px; border-radius: 999px; background: rgba(255, 255, 255, .82); border: 1px solid rgba(255, 255, 255, .95); font: 500 10px var(--fb); letter-spacing: .14em; text-transform: uppercase; }
+  .chips a.all { background: var(--ink); color: #fff; border-color: var(--ink); display: inline-flex; gap: 8px; align-items: center; }
+  .chips i { display: inline-block; width: 12px; height: 7px; border-top: 1px solid #fff; border-bottom: 1px solid #fff; }
+
+  /* Меню · 3: плавающие кнопки */
+  .fab { right: 16px; z-index: 6; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 12px 30px rgba(20, 20, 20, .2); }
+  .fab.m { bottom: 22px; background: var(--ink); }
+  .fab.m i { display: block; width: 20px; height: 7px; border-top: 1.4px solid #fff; border-bottom: 1.4px solid #fff; }
+  .fab.t { bottom: 90px; width: 48px; height: 48px; right: 21px; background: #fff; }
+  .fab.t svg { width: 18px; height: 18px; fill: none; stroke: var(--ink); stroke-width: 1.4; }
+  .fab-l { right: 84px; bottom: 38px; z-index: 6; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .9); font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+
+  /* Меню · 4: вертикальный индекс у края */
+  .side { left: 10px; top: 50%; z-index: 6; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; }
+  .side a { writing-mode: vertical-rl; transform: rotate(180deg); padding: 10px 6px; border-radius: 999px; background: rgba(255, 255, 255, .82); font: 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; }
+  .side a.on { background: var(--ink); color: #fff; }
+  .gx.side-on .gx__head { left: 52px; }
+
+  /* Меню-шторка */
+  .scrim { position: fixed; inset: 0; z-index: 45; background: rgba(20, 20, 20, .25); opacity: 0; visibility: hidden; transition: .3s; }
+  .sheet { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; max-width: 480px; margin: 0 auto; padding: 10px var(--pad) calc(22px + env(safe-area-inset-bottom)); background: #fff; border-radius: 20px 20px 0 0; transform: translateY(105%); transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+  body.sh .scrim { opacity: 1; visibility: visible; }
+  body.sh .sheet { transform: none; }
+  .grab { width: 36px; height: 4px; border-radius: 4px; background: #ddd; margin: 0 auto 10px; }
+  .sheet a.m { display: flex; justify-content: space-between; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--line); font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 17px; }
+  .sheet a.m small { font: 500 10px var(--fb); color: var(--mute); letter-spacing: .14em; }
+  .sheet .row2 { margin-top: 14px; }
+
+  .end { padding: 70px var(--pad) 80px; text-align: center; color: var(--mute); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="lbl">Altitude · главный экран</span>
+    <h1 class="cap">Место под логотипом<br>и меню</h1>
+    <p>Сверху — 4 варианта, чем заполнить пустоту под логотипом (листайте каждый). Ниже — 4 варианта, где поставить меню, чтобы его было видно сразу.</p>
+    <nav class="jump"><a href="#f1">Цифры</a><a href="#f2">Направления</a><a href="#f3">Объекты</a><a href="#f4">Форма</a><a href="#m1">Панель</a><a href="#m2">Разделы</a><a href="#m3">Кнопка</a><a href="#m4">Край</a></nav>
+  </header>
+
+  <div class="grp"><span class="scr">под логотипом</span></div>
+
+  <div class="var__h" id="f1"><b>1</b><div><span>Цифры и кнопка</span><small>Под логотипом — три факта о компании и две кнопки: расчёт и звонок. Самый «продающий» вариант.</small></div></div>
+  <section class="gx" data-fill='<div class="nums"><div><b>[12]</b><span>лет<br>строим</span></div><div><b>[140]</b><span>домов<br>сдано</span></div><div><b>[3]</b><span>ЖК<br>в работе</span></div></div><div class="row2"><a class="btn" href="#">Расчёт</a><a class="btn ghost" href="#">Позвонить</a></div>'></section>
+
+  <div class="var__h" id="f2"><b>2</b><div><span>Направления едут</span><small>Две строки крупным шрифтом: «коттеджи · таунхаусы · ЖК · коммерция». Едут навстречу друг другу, пока вы листаете.</small></div></div>
+  <section class="gx run-v" data-run="1"></section>
+
+  <div class="var__h" id="f3"><b>3</b><div><span>Лента объектов</span><small>Под логотипом — свайп-лента сданных домов в арках. Сразу показывает работы.</small></div></div>
+  <section class="gx" data-fill='<div class="objs"><div class="h"><b>Сданные объекты</b><a class="lbl" href="#">Все →</a></div><div class="strip"><a href="#"><div class="ph"></div><b>Дом у озера</b><span>[2024] · [180] м²</span></a><a href="#"><div class="ph"></div><b>ЖК [Название]</b><span>[2023] · [96] кв.</span></a><a href="#"><div class="ph"></div><b>Таунхаусы</b><span>[2022] · [12] секций</span></a><a href="#"><div class="ph"></div><b>Коттедж</b><span>[2021] · [240] м²</span></a></div></div>'></section>
+
+  <div class="var__h" id="f4"><b>4</b><div><span>Форма в облаках</span><small>Под логотипом — карточка «Посчитаем ваш дом за 1 день»: телефон и кнопка. Заявка без прокрутки до конца.</small></div></div>
+  <section class="gx" data-fill='<form class="gcard" onsubmit="return false"><span class="scr">за один день</span><h3 class="cap">Посчитаем ваш дом</h3><input type="tel" placeholder="+7 (___) ___-__-__" aria-label="Телефон"><button class="btn" type="submit">Получить расчёт</button><small>Перезвоним в течение [15 минут]</small></form>'></section>
+
+  <div class="grp"><span class="scr">меню</span></div>
+
+  <div class="var__h" id="m1"><b>1</b><div><span>Нижняя панель</span><small>Как в приложении: 4 кнопки внизу под большим пальцем — Меню, Объекты, Расчёт, Звонок. Видна всегда, на любом экране.</small></div></div>
+  <section class="gx one" data-menu="tabbar"></section>
+
+  <div class="var__h" id="m2"><b>2</b><div><span>Разделы под заголовком</span><small>Главные разделы — кнопками прямо на первом экране, плюс «Все разделы». Меню — часть композиции.</small></div></div>
+  <section class="gx one" data-menu="chips"></section>
+
+  <div class="var__h" id="m3"><b>3</b><div><span>Плавающая кнопка</span><small>Круглая чёрная кнопка меню справа внизу и звонок над ней. Минимум на экране, открывается шторкой снизу.</small></div></div>
+  <section class="gx one" data-menu="fab"></section>
+
+  <div class="var__h" id="m4"><b>4</b><div><span>Индекс у края</span><small>Вертикальные вкладки разделов у левого края — как закладки в журнале. Необычно и видно сразу.</small></div></div>
+  <section class="gx one side-on" data-menu="side"></section>
+
+  <p class="end">Выберите по одному варианту: что под логотипом и где меню — поставлю в основное демо.</p>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<nav class="sheet" id="sheet" aria-label="Меню"><div class="grab"></div>
+  <a class="m" href="#">Что строим<small>01</small></a><a class="m" href="#">Объекты<small>02</small></a><a class="m" href="#">Как строим<small>03</small></a><a class="m" href="#">Гарантии<small>04</small></a><a class="m" href="#">Отзывы<small>05</small></a>
+  <div class="row2"><a class="btn ghost" href="#">Позвонить</a><a class="btn" href="#">Расчёт</a></div>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var TEL = '<svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>';
+  var MENU = {
+    tabbar: '<nav class="tabbar"><button data-open><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Меню</button><a href="#"><svg viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10z"/></svg>Объекты</a><a class="on" href="#"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>Расчёт</a><a href="#">' + TEL + 'Звонок</a></nav>',
+    chips: '<div class="chips"><a href="#">Коттеджи</a><a href="#">Таунхаусы</a><a href="#">ЖК</a><a href="#">Коммерция</a><a class="all" href="#" data-open><i></i>Все разделы</a></div>',
+    fab: '<a class="fab t" href="#" aria-label="Позвонить">' + TEL + '</a><span class="fab-l">меню</span><button class="fab m" data-open aria-label="Меню"><i></i></button>',
+    side: '<nav class="side"><a class="on" href="#">Главная</a><a href="#">Объекты</a><a href="#">Расчёт</a><a href="#" data-open>Ещё</a></nav>'
+  };
+  // Общая сцена: небо, заголовок, дом в облаках, логотип
+  $$('.gx').forEach(function (g) {
+    var one = g.classList.contains('one');
+    var h = '<img class="gx__bg" src="hero/bg.webp" alt=""><div class="gx__head"><h2 class="cap">Дома, которые<br>строят выше</h2><span class="scr">ожиданий</span><p>Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p></div>' +
+      '<div class="gx__scene"><img class="house" src="hero/house.webp" alt="Дом"><div class="clouds"><img class="cl" src="hero/clouds.webp" alt=""><i class="floor"></i></div></div>';
+    if (!one) h += '<div class="gx__logo"><img src="hero/logo-mark.webp" alt="Altitude"></div>';
+    if (g.dataset.fill) h += '<div class="fill">' + g.dataset.fill + '</div>';
+    if (g.dataset.run) h += '<div class="run"><p class="a">Коттеджи · Таунхаусы · ЖК · Коммерция · Коттеджи · Таунхаусы ·</p><p class="o b">ЖК · Коммерция · Коттеджи · Таунхаусы · ЖК · Коммерция ·</p><a class="lbl" href="#">Смотреть направления ↓</a></div>';
+    if (g.dataset.menu) h += MENU[g.dataset.menu];
+    g.innerHTML = h;
+  });
+  // Шторка меню
+  var sheet = function (on) { document.body.classList.toggle('sh', on); };
+  $$('[data-open]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); sheet(true); }); });
+  document.getElementById('scrim').onclick = function () { sheet(false); };
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  // Те же слои, что в демо: облака быстрее дома, логотип проступает
+  $$('.gx:not(.one)').forEach(function (g) {
+    var st = { trigger: g, start: 'top top', end: 'bottom top', scrub: true };
+    gsap.to(g.querySelector('.gx__head'), { y: 120, opacity: 0, ease: 'none', scrollTrigger: { trigger: g, start: 'top top', end: '30% top', scrub: true } });
+    gsap.to(g.querySelector('.gx__scene'), { y: 160, ease: 'none', scrollTrigger: st });
+    gsap.to(g.querySelector('.clouds'), { y: -260, ease: 'none', scrollTrigger: st });
+    gsap.fromTo(g.querySelector('.gx__logo'), { opacity: 0, y: 40 }, { opacity: 1, y: -20, ease: 'none', scrollTrigger: { trigger: g, start: '10% top', end: '45% top', scrub: true } });
+    var f = g.querySelector('.fill, .run');
+    if (f) gsap.fromTo(f, { opacity: 0, y: 50 }, { opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: g, start: '22% top', end: '52% top', scrub: true } });
+    if (g.dataset.run) {
+      gsap.fromTo(g.querySelector('.run .a'), { x: 0 }, { x: -360, ease: 'none', scrollTrigger: st });
+      gsap.fromTo(g.querySelector('.run .b'), { x: -360 }, { x: 0, ease: 'none', scrollTrigger: st });
+    }
+  });
+  addEventListener('load', function () { ScrollTrigger.refresh(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
