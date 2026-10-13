@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Варианты блоков</title>
+<meta name="description" content="Варианты оформления блоков «Что строим» и «Как строим» для мобильной версии.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12); --ph1: #e3e6e9; --ph2: #f4f5f6; --pad: 20px; --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Great Vibes', cursive; --fh: 'Unbounded', sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 300 15px/1.6 var(--fb); overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; }
+  .cap { font-family: var(--fh); font-weight: 200; letter-spacing: .02em; text-transform: uppercase; line-height: 1.15; }
+  .scr { font-family: var(--fs); font-weight: 400; line-height: 1; color: var(--ink2); }
+  .lbl { font: 500 10px/1 var(--fb); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+  .ph { position: relative; background: linear-gradient(160deg, var(--ph1), var(--ph2) 70%); overflow: hidden; }
+  .ph::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(20, 20, 20, .025) 14px 15px); }
+  .ph::after { content: attr(data-ph); position: absolute; left: 12px; bottom: 10px; font: 500 9px/1.3 var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .plus { display: inline-block; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--ink); position: relative; flex: none; transition: transform .35s; }
+  .plus::before, .plus::after { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 1px; background: var(--ink); transform: translate(-50%, -50%); }
+  .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  ul.sp { list-style: none; margin: 12px 0 0; padding: 0; }
+  ul.sp li { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px dashed var(--line); font-size: 12.5px; }
+  ul.sp li span:last-child { color: var(--mute); }
+
+  /* Шапка страницы */
+  .top { padding: 34px var(--pad) 10px; }
+  .top h1 { margin: 10px 0 8px; font-size: 22px; }
+  .top p { margin: 0; color: var(--ink2); font-size: 13px; }
+  .jump { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  .jump a { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .14em; text-transform: uppercase; color: inherit; text-decoration: none; background: var(--paper); }
+
+  /* Карточка варианта */
+  .var { padding: 70px var(--pad) 0; }
+  .var__h { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .var__h b { font-family: var(--fh); font-weight: 200; font-size: 40px; line-height: 1; }
+  .var__h div { flex: 1; }
+  .var__h span { display: block; font: 500 10px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+  .var__h small { display: block; margin-top: 4px; font-size: 12px; color: var(--mute); line-height: 1.4; }
+  .demo { margin-top: 26px; }
+  .h2 { margin: 0 0 4px; font-size: 22px; }
+  .accent { display: block; font-size: 46px; margin: -4px 0 0 14%; transform: rotate(-5deg); white-space: nowrap; }
+  .grp { margin: 90px var(--pad) 0; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+  .grp .scr { font-size: 44px; }
+
+  /* ===== Что строим · А — стопка карт ===== */
+  .deck { position: relative; height: 470px; margin-top: 24px; touch-action: pan-y; }
+  .dk { position: absolute; inset: 0 0 auto; height: 440px; padding: 12px 12px 18px; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(20, 20, 20, .07); transition: transform .45s cubic-bezier(.2, .7, .2, 1), opacity .45s; user-select: none; -webkit-user-select: none; }
+  .dk .ph { height: 230px; border-radius: 120px 120px 0 0; }
+  .dk__n { display: flex; justify-content: space-between; margin-top: 14px; }
+  .dk h3 { margin: 8px 0 4px; font-size: 18px; }
+  .dk p { margin: 0; font-size: 12.5px; color: var(--ink2); }
+  .deck-nav { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .arr { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: var(--paper); font-size: 16px; }
+  .hint { flex: 1; text-align: right; font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+
+  /* ===== Что строим · Б — бенто ===== */
+  .bento { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; gap: 8px; margin-top: 24px; }
+  .bt { position: relative; text-align: left; overflow: hidden; }
+  .bt .ph { position: absolute; inset: 0; }
+  .bt:nth-child(1) { grid-row: span 2; }
+  .bt:nth-child(4) { grid-column: span 2; }
+  .bt__l { position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; background: rgba(255, 255, 255, .6); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, .9); }
+  .bt__l b { font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 11.5px; letter-spacing: .03em; line-height: 1.2; }
+  .bt__l i { font: normal 500 9px var(--fb); letter-spacing: .16em; color: var(--mute); display: block; margin-bottom: 4px; }
+  .bt .ph::after { display: none; }
+  .bt__tag { position: absolute; left: 12px; top: 10px; font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .sheet { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; max-width: 480px; margin: 0 auto; max-height: 86svh; overflow-y: auto; padding: 10px var(--pad) calc(24px + env(safe-area-inset-bottom)); background: var(--paper); border-radius: 18px 18px 0 0; box-shadow: 0 -20px 60px rgba(20, 20, 20, .15); transform: translateY(105%); transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  body.sh-open .sheet { transform: none; }
+  .scrim { position: fixed; inset: 0; z-index: 45; background: rgba(20, 20, 20, .25); opacity: 0; visibility: hidden; transition: .3s; }
+  body.sh-open .scrim { opacity: 1; visibility: visible; }
+  .grab { width: 36px; height: 4px; border-radius: 4px; background: #ddd; margin: 0 auto 14px; }
+  .sheet .ph { aspect-ratio: 4/3; border-radius: 160px 160px 0 0; }
+  .sheet h3 { margin: 16px 0 6px; font-size: 22px; }
+  .sheet p { margin: 0; font-size: 13px; color: var(--ink2); }
+  .btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 52px; margin-top: 18px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10.5px var(--fb); letter-spacing: .22em; text-transform: uppercase; text-decoration: none; }
+
+  /* ===== Что строим · В — лента с увеличением ===== */
+  .cf { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; margin: 24px calc(var(--pad) * -1) 0; padding: 20px 0; scrollbar-width: none; }
+  .cf::-webkit-scrollbar { display: none; }
+  .cf__sp { flex: 0 0 20%; }
+  .cf .ph { flex: 0 0 60%; aspect-ratio: 3/4; scroll-snap-align: center; border-radius: 999px 999px 0 0; margin: 0 -2%; transform-origin: center 70%; box-shadow: 0 20px 40px rgba(20, 20, 20, .06); }
+  .cf__t { text-align: center; margin-top: 14px; min-height: 150px; }
+  .cf__t .scr { font-size: 40px; }
+  .cf__t h3 { margin: -4px 0 8px; font-size: 22px; transition: opacity .25s; }
+  .cf__t p { margin: 0 auto; max-width: 290px; font-size: 13px; color: var(--ink2); transition: opacity .25s; }
+  .cf__dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+  .cf__dots i { width: 22px; height: 1px; background: var(--line); transition: background .3s, width .3s; }
+  .cf__dots i.on { background: var(--ink); width: 40px; }
+
+  /* ===== Что строим · Г — этажи здания ===== */
+  .bld { margin-top: 30px; }
+  .roof { height: 70px; margin: 0 10px -1px; background: var(--ink); clip-path: polygon(50% 0, 100% 100%, 0 100%); position: relative; }
+  .roof::after { content: ''; position: absolute; inset: 1px; background: var(--bg); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .roof span { position: absolute; z-index: 1; left: 0; right: 0; bottom: 10px; text-align: center; font: 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .fl { border: 1px solid var(--ink); border-bottom: 0; margin: 0 22px; background: var(--paper); }
+  .fl > button { width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px 14px; text-align: left; }
+  .fl__e { font: 500 9px var(--fb); letter-spacing: .14em; color: var(--mute); width: 46px; flex: none; }
+  .fl__t { flex: 1; font-size: 14px; }
+  .fl__w { display: flex; gap: 5px; }
+  .fl__w i { width: 9px; height: 13px; border: 1px solid var(--ink); transition: background .3s; }
+  .fl.open .fl__w i { background: var(--ink); }
+  .fl__more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.2, .7, .2, 1); }
+  .fl.open .fl__more { grid-template-rows: 1fr; }
+  .fl__more > div { overflow: hidden; }
+  .fl__more .in { padding: 0 14px 16px; }
+  .fl__more .ph { aspect-ratio: 16/9; margin-bottom: 12px; }
+  .fl__more p { margin: 0; font-size: 12.5px; color: var(--ink2); }
+  .ground { border-top: 1px solid var(--ink); margin: 0; height: 30px; background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(20, 20, 20, .18) 6px 7px); }
+  .ground + p { margin: 10px 0 0; text-align: center; font: 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+
+  /* ===== Как строим · А — график по месяцам ===== */
+  .gt { margin-top: 24px; background: var(--paper); border: 1px solid var(--line); padding: 16px 14px 8px; }
+  .gt__m { display: grid; grid-template-columns: 96px repeat(12, 1fr); font: 500 8px var(--fb); color: var(--mute); text-align: center; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .gt__r { border-bottom: 1px solid var(--line); }
+  .gt__r > button { width: 100%; display: grid; grid-template-columns: 96px 1fr; align-items: center; padding: 12px 0; text-align: left; }
+  .gt__r .nm { font: 400 11.5px/1.25 var(--fb); padding-right: 8px; }
+  .gt__r .nm small { display: block; font-size: 9px; color: var(--mute); letter-spacing: .1em; }
+  .gt__tr { position: relative; height: 12px; background: repeating-linear-gradient(90deg, transparent 0 calc(100% / 12 - 1px), rgba(20, 20, 20, .07) calc(100% / 12 - 1px) calc(100% / 12)); }
+  .gt__bar { position: absolute; top: 0; bottom: 0; background: var(--ink); border-radius: 6px; transform-origin: left; }
+  .gt__r.open .gt__bar { box-shadow: 0 0 0 3px rgba(20, 20, 20, .12); }
+  .gt__more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s; }
+  .gt__r.open .gt__more { grid-template-rows: 1fr; }
+  .gt__more > div { overflow: hidden; }
+  .gt__more p { margin: 0 0 12px 96px; font-size: 12px; color: var(--ink2); }
+  .gt__sum { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0 8px; }
+  .gt__sum b { font-family: var(--fh); font-weight: 200; font-size: 22px; }
+
+  /* ===== Как строим · Б — лестница ===== */
+  .stairs { display: flex; align-items: flex-end; gap: 6px; height: 230px; margin-top: 28px; padding-bottom: 1px; border-bottom: 1px solid var(--ink); }
+  .stairs button { flex: 1; position: relative; border: 1px solid var(--ink); border-bottom: 0; background: var(--paper); transition: background .3s; }
+  .stairs button span { position: absolute; left: 0; right: 0; top: -24px; text-align: center; font-family: var(--fh); font-weight: 200; font-size: 13px; }
+  .stairs button.on { background: var(--ink); }
+  .stairs button.done { background: repeating-linear-gradient(135deg, var(--paper) 0 5px, rgba(20, 20, 20, .14) 5px 6px); }
+  .st-d { display: grid; grid-template-columns: auto 1fr; gap: 0 16px; margin-top: 22px; min-height: 140px; }
+  .st-d .pc { grid-row: span 3; font-family: var(--fh); font-weight: 200; font-size: 54px; line-height: .9; }
+  .st-d .pc small { font-size: 18px; }
+  .st-d b { font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 15px; line-height: 1.25; }
+  .st-d p { margin: 6px 0 0; font-size: 13px; color: var(--ink2); }
+  .st-d i { font: normal 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); margin-top: 8px; }
+  .st-d > * { transition: opacity .25s; }
+  .st-d.swap > * { opacity: 0; }
+
+  /* ===== Как строим · В — карточки с иконками ===== */
+  .swipe { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); padding: 0 var(--pad) 4px; margin: 24px calc(var(--pad) * -1) 0; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .swipe::-webkit-scrollbar { display: none; }
+  .swipe > * { flex: 0 0 78%; scroll-snap-align: start; }
+  .ic { padding: 20px 18px; background: var(--paper); border: 1px solid var(--line); min-height: 290px; display: flex; flex-direction: column; }
+  .ic svg { width: 84px; height: 84px; fill: none; stroke: var(--ink); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+  .ic i { margin-top: auto; font: normal 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .ic b { display: block; margin: 8px 0 6px; font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 16px; line-height: 1.25; }
+  .ic p { margin: 0; font-size: 12.5px; color: var(--ink2); }
+  .nav { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+  .prog { flex: 1; height: 1px; background: var(--line); position: relative; }
+  .prog i { position: absolute; left: 0; top: -.5px; height: 2px; background: var(--ink); transition: width .35s; }
+  .cnt { font: 500 11px var(--fb); letter-spacing: .14em; color: var(--mute); }
+
+  /* ===== Как строим · Г — ползунок готовности ===== */
+  .rd { margin-top: 24px; padding: 22px 18px; background: var(--paper); border: 1px solid var(--line); }
+  .rd__pc { display: flex; align-items: baseline; justify-content: space-between; }
+  .rd__pc b { font-family: var(--fh); font-weight: 200; font-size: 88px; line-height: .9; letter-spacing: -.02em; }
+  .rd__pc b small { font-size: 30px; }
+  .rd__bar { position: relative; height: 54px; margin: 22px 0 6px; }
+  .rd__bar .trk { position: absolute; left: 0; right: 0; top: 26px; height: 1px; background: var(--line); }
+  .rd__bar .fil { position: absolute; left: 0; top: 25px; height: 3px; background: var(--ink); width: 0; transition: width .3s; }
+  .rd__bar .tk { position: absolute; top: 18px; width: 1px; height: 17px; background: var(--ink); opacity: .3; }
+  .rd__bar input { position: absolute; inset: 0; width: 100%; margin: 0; opacity: 0; cursor: grab; }
+  .rd__bar .knob { position: absolute; top: 9px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 500 10px var(--fb); pointer-events: none; transition: left .3s; box-shadow: 0 6px 16px rgba(20, 20, 20, .2); }
+  .rd__lab { display: flex; justify-content: space-between; font: 500 8px var(--fb); letter-spacing: .14em; color: var(--mute); }
+  .rd__t { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); min-height: 110px; }
+  .rd__t b { font-family: var(--fh); font-weight: 200; text-transform: uppercase; font-size: 16px; }
+  .rd__t p { margin: 6px 0 0; font-size: 13px; color: var(--ink2); }
+  .rd__t i { display: block; margin-top: 8px; font: normal 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+
+  .end { padding: 80px var(--pad) 60px; text-align: center; color: var(--mute); font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="lbl">Altitude · варианты блоков</span>
+    <h1 class="cap">Что строим<br>и как строим</h1>
+    <p>По четыре варианта на каждый блок. Всё работает от ваших пальцев: свайп, нажатие, ползунок. Выберите по одному варианту в каждом блоке.</p>
+    <nav class="jump"><a href="#d1">Стопка</a><a href="#d2">Бенто</a><a href="#d3">Лента</a><a href="#d4">Этажи</a><a href="#h1">График</a><a href="#h2">Лестница</a><a href="#h3">Иконки</a><a href="#h4">Ползунок</a></nav>
+  </header>
+
+  <div class="grp"><span class="scr">что строим</span></div>
+
+  <!-- Что строим · А -->
+  <section class="var" id="d1">
+    <div class="var__h"><b>А</b><div><span>Стопка карт</span><small>Смахните верхнюю карту — под ней следующее направление. Как колода.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Четыре направления</h2><span class="accent scr">одна команда</span>
+      <div class="deck" id="deck"></div>
+      <div class="deck-nav"><button class="arr" id="dk-prev" aria-label="Назад">‹</button><button class="arr" id="dk-next" aria-label="Дальше">›</button><span class="hint">← смахните карту →</span></div>
+    </div>
+  </section>
+
+  <!-- Что строим · Б -->
+  <section class="var" id="d2">
+    <div class="var__h"><b>Б</b><div><span>Бенто-сетка</span><small>Четыре плитки разного размера. Нажатие открывает карточку снизу.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Четыре направления</h2><span class="accent scr">одна команда</span>
+      <div class="bento" id="bento"></div>
+    </div>
+  </section>
+
+  <!-- Что строим · В -->
+  <section class="var" id="d3">
+    <div class="var__h"><b>В</b><div><span>Лента с увеличением</span><small>Листайте арки: центральная крупная, соседние уменьшаются, название под ней меняется.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Четыре направления</h2>
+      <div class="cf" id="cf"></div>
+      <div class="cf__t" id="cf-t"></div>
+      <div class="cf__dots" id="cf-d"></div>
+    </div>
+  </section>
+
+  <!-- Что строим · Г -->
+  <section class="var" id="d4">
+    <div class="var__h"><b>Г</b><div><span>Этажи здания</span><small>Направления — этажи одного дома. Нажмите на этаж: в нём «загорается» свет и открывается описание.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Четыре направления</h2><span class="accent scr">один фундамент</span>
+      <div class="bld" id="bld"></div>
+    </div>
+  </section>
+
+  <div class="grp"><span class="scr">как строим</span></div>
+
+  <!-- Как строим · А -->
+  <section class="var" id="h1">
+    <div class="var__h"><b>А</b><div><span>График по месяцам</span><small>Этапы на шкале времени, полосы заполняются при прокрутке. Нажмите на этап — откроется описание.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Шесть этапов<br>на ваших глазах</h2>
+      <div class="gt" id="gt"></div>
+    </div>
+  </section>
+
+  <!-- Как строим · Б -->
+  <section class="var" id="h2">
+    <div class="var__h"><b>Б</b><div><span>Лестница</span><small>Шесть ступеней растут как дом. Нажмите на ступень — внизу этап и процент готовности.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Шесть этапов<br>на ваших глазах</h2>
+      <div class="stairs" id="stairs" style="margin-top:46px"></div>
+      <div class="st-d" id="st-d"></div>
+    </div>
+  </section>
+
+  <!-- Как строим · В -->
+  <section class="var" id="h3">
+    <div class="var__h"><b>В</b><div><span>Карточки с иконками</span><small>Свайп-лента: у каждого этапа своя тонкая иконка в стиле сайта.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Шесть этапов<br>на ваших глазах</h2>
+      <div class="swipe" id="icons"></div>
+      <div class="nav"><span class="cnt" id="ic-n">01 / 06</span><div class="prog"><i id="ic-bar"></i></div></div>
+    </div>
+  </section>
+
+  <!-- Как строим · Г -->
+  <section class="var" id="h4">
+    <div class="var__h"><b>Г</b><div><span>Ползунок готовности</span><small>Тяните ползунок — растёт процент готовности дома, меняется этап. Как колесо у ПРОТЕКТОРа, только линейно.</small></div></div>
+    <div class="demo">
+      <h2 class="h2 cap">Шесть этапов<br>на ваших глазах</h2>
+      <div class="rd">
+        <div class="rd__pc"><b id="rd-pc">17<small>%</small></b><span class="lbl">готовность дома</span></div>
+        <div class="rd__bar" id="rd-bar"><div class="trk"></div><div class="fil" id="rd-fil"></div><div class="knob" id="rd-knob">01</div><input type="range" id="rd" min="0" max="5" step="1" value="0" aria-label="Этап"></div>
+        <div class="rd__lab"><span>Участок</span><span>Ключи</span></div>
+        <div class="rd__t" id="rd-t"></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="end">Цифры и сроки — заглушки в [скобках]. Фото появятся после генерации.</p>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog"><div class="grab"></div><div id="sheet-in"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var D = [
+    ['Коттеджи', 'Коттедж', 'Частные дома от 120 м² по готовому или вашему проекту.', [['Площадь', '[120–600] м²'], ['Срок', '[6–12] мес.'], ['Стоимость', 'от [—] ₽/м²']]],
+    ['Таунхаусы', 'Таунхаус', 'Блокированная застройка для посёлков и инвесторов.', [['Секций', 'от [2]'], ['Срок', '[8–14] мес.'], ['Стоимость', 'от [—] ₽/м²']]],
+    ['Жилые комплексы', 'Жилой комплекс', 'Малоэтажные ЖК: от концепции до ввода в эксплуатацию.', [['Этажность', '[3–9]'], ['Квартиры', 'от [—] ₽'], ['Сдача', '[квартал, год]']]],
+    ['Коммерция', 'Коммерция', 'Офисы, шоурумы и общественные здания.', [['Площадь', 'от [300] м²'], ['Срок', 'по ТЗ'], ['Стоимость', 'по смете']]]
+  ];
+  var sp = function (d) { return '<ul class="sp">' + d[3].map(function (x) { return '<li><span>' + x[0] + '</span><span>' + x[1] + '</span></li>'; }).join('') + '</ul>'; };
+
+  // ===== А. Стопка карт =====
+  var deck = $('#deck'), order = D.map(function (_, i) { return i; });
+  deck.innerHTML = D.map(function (d, i) { return '<article class="dk" data-i="' + i + '"><div class="ph" data-ph="' + d[1] + '"></div><div class="dk__n"><span class="lbl">' + pad(i + 1) + ' / 04</span><span class="lbl">' + d[3][1][1] + '</span></div><h3 class="cap">' + d[0] + '</h3><p>' + d[2] + '</p></article>'; }).join('');
+  var cards = $$('.dk', deck);
+  var lay = function () {
+    order.forEach(function (ci, pos) {
+      var c = cards[ci];
+      c.style.zIndex = 10 - pos;
+      c.style.transform = 'translateY(' + (pos * 12) + 'px) scale(' + (1 - pos * 0.04) + ')';
+      c.style.opacity = pos > 2 ? 0 : 1;
+    });
+  };
+  lay();
+  var next = function (dir) {
+    var top = cards[order[0]];
+    top.style.transform = 'translateX(' + (dir * 120) + '%) rotate(' + (dir * 14) + 'deg)';
+    top.style.opacity = 0;
+    setTimeout(function () { order.push(order.shift()); lay(); }, 260);
+  };
+  var prev = function () { order.unshift(order.pop()); lay(); };
+  $('#dk-next').onclick = function () { next(1); };
+  $('#dk-prev').onclick = prev;
+  // Перетаскивание верхней карты пальцем
+  var sx = 0, sy = 0, dx = 0, drag = false, lock = null;
+  deck.addEventListener('pointerdown', function (e) { var t = e.target.closest('.dk'); if (!t || +t.dataset.i !== order[0]) return; drag = true; lock = null; sx = e.clientX; sy = e.clientY; dx = 0; t.style.transition = 'none'; });
+  addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var mx = e.clientX - sx, my = e.clientY - sy;
+    if (lock === null && (Math.abs(mx) > 6 || Math.abs(my) > 6)) lock = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
+    if (lock !== 'x') return;
+    dx = mx; cards[order[0]].style.transform = 'translateX(' + dx + 'px) rotate(' + (dx / 18) + 'deg)';
+  });
+  var end = function () {
+    if (!drag) return; drag = false;
+    var top = cards[order[0]]; top.style.transition = '';
+    if (Math.abs(dx) > 80) next(dx > 0 ? 1 : -1); else lay();
+  };
+  addEventListener('pointerup', end); addEventListener('pointercancel', end);
+
+  // ===== Б. Бенто + карточка снизу =====
+  var bentoOrder = [2, 0, 1, 3];
+  $('#bento').innerHTML = bentoOrder.map(function (i) { var d = D[i]; return '<button class="bt" data-i="' + i + '"><div class="ph"></div><span class="bt__tag">' + d[1] + '</span><span class="bt__l"><span><i>' + pad(i + 1) + '</i><b>' + d[0] + '</b></span><span class="plus"></span></span></button>'; }).join('');
+  var sheet = function (on) { document.body.classList.toggle('sh-open', on); };
+  $$('.bt').forEach(function (b) { b.onclick = function () {
+    var d = D[+b.dataset.i];
+    $('#sheet-in').innerHTML = '<div class="ph" data-ph="' + d[1] + '"></div><span class="lbl" style="display:block;margin-top:16px">' + pad(+b.dataset.i + 1) + ' — направление</span><h3 class="cap">' + d[0] + '</h3><p>' + d[2] + '</p>' + sp(d) + '<a class="btn" href="#" onclick="return false">Рассчитать стоимость</a>';
+    sheet(true);
+  }; });
+  $('#scrim').onclick = function () { sheet(false); };
+
+  // ===== В. Лента с увеличением =====
+  var cf = $('#cf');
+  cf.innerHTML = '<span class="cf__sp"></span>' + D.map(function (d) { return '<div class="ph" data-ph="' + d[1] + '"></div>'; }).join('') + '<span class="cf__sp"></span>';
+  $('#cf-d').innerHTML = D.map(function () { return '<i></i>'; }).join('');
+  var cfP = $$('.ph', cf), cfI = -1;
+  var cfSet = function (i) {
+    if (i === cfI) return; cfI = i; var d = D[i];
+    $('#cf-t').innerHTML = '<span class="scr">' + ['первое', 'второе', 'третье', 'четвёртое'][i] + '</span><h3 class="cap">' + d[0] + '</h3><p>' + d[2] + '</p>';
+    $$('#cf-d i').forEach(function (x, k) { x.classList.toggle('on', k === i); });
+  };
+  var cfUpd = function () {
+    var r = cf.getBoundingClientRect(), mid = r.left + r.width / 2, best = 0, bd = 1e9;
+    cfP.forEach(function (p, i) {
+      var b = p.getBoundingClientRect(), c = b.left + b.width / 2, dist = Math.min(1, Math.abs(c - mid) / r.width);
+      p.style.transform = 'scale(' + (1 - dist * 0.42) + ')'; p.style.opacity = 1 - dist * 0.6;
+      if (Math.abs(c - mid) < bd) { bd = Math.abs(c - mid); best = i; }
+    });
+    cfSet(best);
+  };
+  cf.addEventListener('scroll', function () { requestAnimationFrame(cfUpd); }, { passive: true });
+  cfUpd();
+
+  // ===== Г. Этажи =====
+  var floors = [2, 1, 0, 3];
+  $('#bld').innerHTML = '<div class="roof"><span>Altitude</span></div>' + floors.map(function (i, k) {
+    var d = D[i];
+    return '<div class="fl"><button><span class="fl__e">' + (floors.length - k) + ' этаж</span><span class="fl__t cap">' + d[0] + '</span><span class="fl__w"><i></i><i></i><i></i></span></button><div class="fl__more"><div><div class="in"><div class="ph" data-ph="' + d[1] + '"></div><p>' + d[2] + '</p>' + sp(d) + '</div></div></div></div>';
+  }).join('') + '<div class="ground"></div><p>фундамент · одна команда</p>';
+  $$('.fl > button').forEach(function (b) { b.onclick = function () {
+    var f = b.parentNode, was = f.classList.contains('open');
+    $$('.fl').forEach(function (x) { x.classList.remove('open'); });
+    if (!was) f.classList.add('open');
+  }; });
+
+  // Этапы
+  var S = [['Участок и проект', 'Инженер бесплатно смотрит участок и грунт, подбираем проект.', 0, 1, '[1] мес.'], ['Фундамент', 'Плита, лента или сваи. Армирование фотографируем до заливки.', 1, 1.5, '[1,5] мес.'], ['Коробка', 'Газобетон, кирпич или монолит — своя бригада.', 2.5, 2, '[2] мес.'], ['Перекрытия и кровля', 'Принимаем по акту, платите только после приёмки.', 4.5, 1.5, '[1,5] мес.'], ['Окна и фасад', 'Утепление и гидроизоляция — на фото до закрытия.', 6, 1.5, '[1,5] мес.'], ['Инженерия и ключи', 'Сети, отделка, сдача. Гарантия на конструктив [5] лет.', 7.5, 3, '[3] мес.']];
+
+  // ===== А. График =====
+  $('#gt').innerHTML = '<div class="gt__m"><span></span>' + Array.apply(null, Array(12)).map(function (_, i) { return '<span>' + (i + 1) + '</span>'; }).join('') + '</div>' +
+    S.map(function (s, i) { return '<div class="gt__r"><button><span class="nm">' + s[0] + '<small>' + s[4] + '</small></span><span class="gt__tr"><i class="gt__bar" style="left:' + (s[2] / 12 * 100) + '%;width:' + (s[3] / 12 * 100) + '%"></i></span></button><div class="gt__more"><div><p>' + s[1] + '</p></div></div></div>'; }).join('') +
+    '<div class="gt__sum"><span class="lbl">Под ключ</span><b>[10–12] мес.</b></div>';
+  $$('.gt__r > button').forEach(function (b) { b.onclick = function () { b.parentNode.classList.toggle('open'); }; });
+
+  // ===== Б. Лестница =====
+  var stairs = $('#stairs'), stD = $('#st-d');
+  stairs.innerHTML = S.map(function (s, i) { return '<button style="height:' + (22 + i * 15.6) + '%" aria-label="' + s[0] + '"><span>' + pad(i + 1) + '</span></button>'; }).join('');
+  var stSet = function (i) {
+    $$('button', stairs).forEach(function (b, k) { b.classList.toggle('on', k === i); b.classList.toggle('done', k < i); });
+    stD.classList.add('swap');
+    setTimeout(function () { var s = S[i]; stD.innerHTML = '<div class="pc">' + Math.round((i + 1) / S.length * 100) + '<small>%</small></div><b>' + s[0] + '</b><p>' + s[1] + '</p><i>Этап ' + pad(i + 1) + ' · ' + s[4] + '</i>'; stD.classList.remove('swap'); }, 160);
+  };
+  $$('button', stairs).forEach(function (b, i) { b.onclick = function () { stSet(i); }; });
+  stSet(0);
+
+  // ===== В. Иконки =====
+  var IC = [
+    '<path d="M10 70h64"/><path d="M22 70V24"/><path d="M22 26l20 6-20 6"/><path d="M46 70l6-12h16l6 12" stroke-dasharray="3 3"/><circle cx="60" cy="40" r="5"/>',
+    '<path d="M8 62h68v10H8z"/><path d="M14 62V44M26 62V44M38 62V44M50 62V44M62 62V44M70 62V44"/><path d="M10 50h64" stroke-dasharray="2 3"/><path d="M4 74h76"/>',
+    '<path d="M12 72V28h60v44"/><path d="M12 39h60M12 50h60M12 61h60"/><path d="M27 28v11M47 28v11M37 39v11M57 39v11M27 50v11M47 50v11M37 61v11M57 61v11"/><path d="M6 72h72"/>',
+    '<path d="M8 44L42 16l34 28"/><path d="M14 40v32h56V40"/><path d="M14 52h56"/><path d="M56 26V14h8v19"/><path d="M4 72h76"/>',
+    '<rect x="18" y="16" width="48" height="56"/><path d="M42 16v56M18 44h48"/><path d="M24 22l12 12M48 50l12 12"/><path d="M10 72h64"/>',
+    '<circle cx="28" cy="42" r="12"/><circle cx="28" cy="42" r="4"/><path d="M40 42h34M64 42v10M72 42v7"/><path d="M14 74h56" stroke-dasharray="3 3"/>'
+  ];
+  $('#icons').innerHTML = S.map(function (s, i) { return '<article class="ic"><svg viewBox="0 0 84 84" aria-hidden="true">' + IC[i] + '</svg><i>Этап ' + pad(i + 1) + ' · ' + s[4] + '</i><b>' + s[0] + '</b><p>' + s[1] + '</p></article>'; }).join('');
+  var icT = $('#icons');
+  var icUpd = function () { var items = icT.children, max = icT.scrollWidth - icT.clientWidth, i = max > 1 ? Math.round(icT.scrollLeft / max * (items.length - 1)) : 0; $('#ic-bar').style.width = ((i + 1) / items.length * 100) + '%'; $('#ic-n').textContent = pad(i + 1) + ' / ' + pad(items.length); };
+  icT.addEventListener('scroll', function () { requestAnimationFrame(icUpd); }, { passive: true }); icUpd();
+
+  // ===== Г. Ползунок =====
+  var rd = $('#rd'), bar = $('#rd-bar');
+  bar.insertAdjacentHTML('beforeend', S.map(function (_, i) { return '<i class="tk" style="left:' + (i / 5 * 100) + '%"></i>'; }).join(''));
+  var rdSet = function () {
+    var i = +rd.value, pc = Math.round((i + 1) / S.length * 100), s = S[i], x = i / 5 * 100;
+    $('#rd-fil').style.width = x + '%'; $('#rd-knob').style.left = x + '%'; $('#rd-knob').textContent = pad(i + 1);
+    $('#rd-t').innerHTML = '<b>' + s[0] + '</b><p>' + s[1] + '</p><i>Этап ' + pad(i + 1) + ' из 06 · ' + s[4] + '</i>';
+    var o = { v: parseInt($('#rd-pc').textContent, 10) || 0 };
+    if (reduce || !window.gsap) { $('#rd-pc').innerHTML = pc + '<small>%</small>'; return; }
+    gsap.to(o, { v: pc, duration: 0.5, ease: 'power2.out', onUpdate: function () { $('#rd-pc').innerHTML = Math.round(o.v) + '<small>%</small>'; } });
+  };
+  rd.addEventListener('input', rdSet); rdSet();
+
+  // Прокрутка: полосы графика заполняются
+  if (reduce || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.fromTo('.gt__bar', { scaleX: 0 }, { scaleX: 1, ease: 'none', stagger: 0.3, scrollTrigger: { trigger: '#gt', start: 'top 80%', end: 'bottom 55%', scrub: true } });
+  gsap.fromTo('#stairs button', { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, ease: 'none', stagger: 0.15, scrollTrigger: { trigger: '#stairs', start: 'top 90%', end: 'bottom 70%', scrub: true } });
+})();
+</script>
+</body>
+</html>
