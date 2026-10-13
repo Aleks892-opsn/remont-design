@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="a" data-bg="fog" data-hero="a" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="d">
+<html lang="ru" data-font="a" data-bg="fog" data-house="color" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="d">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,7 +7,7 @@
 <meta name="description" content="Мобильное демо сайта строительной компании: структура, чёрно-белый стиль, варианты оформления.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12);
@@ -28,7 +28,7 @@
   a { color: inherit; text-decoration: none; }
   button, input { font: inherit; color: inherit; }
   button { cursor: pointer; background: none; border: 0; padding: 0; }
-  .wrap { max-width: 480px; margin: 0 auto; position: relative; overflow: hidden; }
+  .wrap { max-width: 480px; margin: 0 auto; position: relative; overflow: hidden; overflow: clip; }
 
   /* Шрифтовая система */
   .cap { font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; line-height: 1.12; }
@@ -77,6 +77,29 @@
   html[data-hero="b"] .hero__s { margin-left: 0; }
   html[data-hero="b"] .hero__nav { justify-content: flex-start; }
   html[data-hero="b"] .hero__frame { display: block; position: relative; margin-top: 28px; height: 46svh; border-radius: 200px 200px 0 0; }
+
+
+  /* Главный экран: слои */
+  .hx { position: relative; height: 330svh; }
+  .hx__st { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .hx__st > * { position: absolute; }
+  .hx__sky { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hx__cb { width: 230%; left: 50%; bottom: 30%; margin-left: -115%; opacity: .95; }
+  .hx__head { left: var(--pad); right: var(--pad); top: 96px; text-align: center; z-index: 2; }
+  .hx__head .hero__s { margin-top: 12px; }
+  .hx__house { width: 150%; left: 50%; margin-left: -75%; bottom: 22%; transform-origin: 50% 85%; will-change: transform; }
+  html[data-house="mono"] .hx__house { filter: grayscale(1) contrast(1.05); }
+  .hx__cf { width: 230%; left: 50%; margin-left: -115%; will-change: transform; }
+  .hx__cf1 { bottom: -21%; }
+  .hx__cf2 { bottom: -31%; transform: scaleX(-1); }
+  .hx__logo { left: 0; right: 0; top: 40%; text-align: center; z-index: 4; opacity: 0; }
+  .hx__logo b { display: block; font: 700 clamp(38px, 12vw, 60px)/1 'Unbounded', sans-serif; letter-spacing: -.02em; white-space: nowrap; text-transform: uppercase; color: transparent; background: url(hero/facade.webp) center / cover; -webkit-background-clip: text; background-clip: text; -webkit-text-stroke: .6px rgba(20, 20, 20, .35); }
+  .hx__logo span { display: block; margin-top: 12px; font: 500 10px var(--fb); letter-spacing: .32em; text-transform: uppercase; color: var(--ink2); }
+  .hx__fog { width: 300%; left: 50%; margin-left: -150%; top: 30%; opacity: 0; z-index: 5; }
+  .hx__white { inset: 0; background: var(--bg); opacity: 0; z-index: 6; }
+  .hx__nav { left: 0; right: 0; bottom: calc(76px + env(safe-area-inset-bottom)); margin: 0; z-index: 3; text-shadow: 0 0 12px #fff; }
+  .hx__hint { left: 0; right: 0; bottom: calc(118px + env(safe-area-inset-bottom)); text-align: center; z-index: 3; font: 500 9px var(--fb); letter-spacing: .3em; text-transform: uppercase; color: var(--ink2); }
+  .hx__hint::after { content: ''; display: block; width: 1px; height: 22px; margin: 8px auto 0; background: var(--ink); opacity: .5; }
 
   /* Секция */
   .sec { position: relative; padding: 84px var(--pad) 0; }
@@ -395,16 +418,25 @@
     <a class="rbtn glass" href="#form" aria-label="Позвонить"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
   </header>
 
-  <!-- 0. Главный экран (анимация с облаками и логотипом будет позже) -->
-  <section class="hero">
-    <div class="hero__note">Здесь будет анимация: дом в облаках → логотип</div>
-    <h1 class="hero__t cap">Дома, которые<br>строят выше</h1>
-    <span class="hero__scr scr">ожиданий</span>
-    <p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p>
-    <nav class="hero__nav"><a href="#dirs">Коттеджи</a><a href="#dirs">Таунхаусы</a><a href="#dirs">ЖК</a><a href="#dirs">Коммерция</a></nav>
-    <div class="hero__frame ph" data-ph="Фото / рендер дома"></div>
-    <img class="cl c1" data-cloud="0" alt="">
-    <img class="cl c2" data-cloud="1" alt="">
+  <!-- 0. Главный экран: дом в облаках → логотип. Двигается только от прокрутки -->
+  <section class="hx" id="hx">
+    <div class="hx__st">
+      <img class="hx__sky" src="hero/sky.webp" alt="" fetchpriority="high">
+      <img class="hx__cb" src="hero/cloud-soft.webp" alt="">
+      <div class="hx__head">
+        <h1 class="hero__t cap">Дома, которые<br>строят выше</h1>
+        <span class="hero__scr scr">ожиданий</span>
+        <p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p>
+      </div>
+      <img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией">
+      <img class="hx__cf hx__cf1" src="hero/cloud-dense.webp" alt="">
+      <img class="hx__cf hx__cf2" src="hero/cloud-dense.webp" alt="">
+      <div class="hx__logo"><b data-logo>Altitude</b><span>Development · с [2014]</span></div>
+      <img class="hx__fog" src="hero/fog.webp" alt="">
+      <div class="hx__white"></div>
+      <nav class="hero__nav hx__nav"><a href="#dirs">Коттеджи</a><a href="#dirs">Таунхаусы</a><a href="#dirs">ЖК</a><a href="#dirs">Коммерция</a></nav>
+      <span class="hx__hint">Листайте</span>
+    </div>
   </section>
 
   <!-- 1. Манифест в тумане -->
@@ -680,10 +712,10 @@
       <button data-v="white">Белый<small>чистый</small></button>
       <button data-v="warm">Тёплый<small>слоновая кость</small></button>
     </div></div>
-  <div class="vg"><span class="lbl">Главный экран</span>
-    <div class="seg" data-k="hero">
-      <button data-v="a">По центру<small>заголовок в облаках</small></button>
-      <button data-v="b">Арка<small>заголовок + окно под фото</small></button>
+  <div class="vg"><span class="lbl">Дом на главном экране</span>
+    <div class="seg" data-k="house">
+      <button data-v="color">Цветной<small>тёплый закат</small></button>
+      <button data-v="mono">Чёрно-белый<small>в тон сайту</small></button>
     </div></div>
   <div class="vg"><span class="lbl">Блок «Почему мы»</span>
     <div class="seg" data-k="why">
@@ -708,33 +740,13 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var NAMES = ['Altitude', 'Northline', 'Monolith', 'Nimbus'];
 
-  // ---------- Облака рисуются один раз на canvas (потом заменим на ваши картинки) ----------
-  var seed = 7, rnd = function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
-  var cloud = function (w, h, n, band) {
-    var c = document.createElement('canvas'); c.width = w; c.height = h;
-    var x = c.getContext('2d'), P = [];
-    for (var i = 0; i < n; i++) {
-      var px = w * 0.12 + rnd() * w * 0.76, edge = Math.min(px - w * 0.12, w * 0.88 - px) / (w * 0.38);
-      var r = (40 + rnd() * 100) * (0.45 + edge * 0.75);
-      var py = h * band + (rnd() - 0.5) * h * 0.24 - edge * h * 0.08;
-      r = Math.min(r, py - 4, h - py - 4); // клуб целиком внутри холста
-      if (r > 8) P.push([px, py, r]);
-    }
-    var puff = function (cx, cy, r, c0, c1) { // круг с мягким краем, без прямоугольников
-      var g = x.createRadialGradient(cx, cy, 0, cx, cy, r);
-      g.addColorStop(0, c0); g.addColorStop(.55, c1); g.addColorStop(1, 'rgba(255,255,255,0)');
-      x.fillStyle = g; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill();
-    };
-    P.forEach(function (p) { var rr = Math.min(p[2], h - p[1] - p[2] * 0.3 - 2); if (rr > 8) puff(p[0], p[1] + p[2] * 0.3, rr, 'rgba(150,158,170,.14)', 'rgba(150,158,170,.06)'); });
-    P.forEach(function (p) { puff(p[0], p[1], p[2], 'rgba(255,255,255,.95)', 'rgba(255,255,255,.5)'); });
-    return c.toDataURL('image/png');
-  };
-  var CL = [cloud(1000, 420, 70, 0.6), cloud(1000, 380, 55, 0.55), cloud(1000, 460, 80, 0.5)];
-  $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; });
+  // ---------- Облака: сгенерированные картинки ----------
+  var CL = ['hero/cloud-dense.webp', 'hero/cloud-soft.webp', 'hero/fog.webp'];
+  $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; i.loading = 'lazy'; i.decoding = 'async'; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'a', bg: 'fog', hero: 'a', why: 'a', fill: 'on', dirs: 'b', how: 'd' };
-  try { var s = JSON.parse(localStorage.getItem('alt-demo2') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'a', bg: 'fog', house: 'color', why: 'a', fill: 'on', dirs: 'b', how: 'd' };
+  try { var s = JSON.parse(localStorage.getItem('alt-demo3') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
@@ -742,7 +754,7 @@
     $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' · с [2014]'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-demo2', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-demo3', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
@@ -890,10 +902,22 @@
   $$('.draw').forEach(function (d) {
     gsap.fromTo(d, { clipPath: 'inset(-20% 100% -20% 0)' }, { clipPath: 'inset(-20% 0% -20% 0)', ease: 'none', scrollTrigger: sc(d, 'top 92%', 'top 60%') });
   });
-  // Облака главного экрана расходятся при прокрутке
-  gsap.to('.hero .c1', { yPercent: 18, ease: 'none', scrollTrigger: sc('.hero', 'top top', 'bottom top') });
-  gsap.to('.hero .c2', { yPercent: -16, xPercent: 6, ease: 'none', scrollTrigger: sc('.hero', 'top top', 'bottom top') });
-  gsap.to('.hero__t, .hero__scr, .hero__s, .hero__nav', { y: -50, opacity: 0.2, ease: 'none', scrollTrigger: sc('.hero', 'top top', 'bottom 20%') });
+  // Главный экран: дом уходит в облака, из облаков проявляется логотип, затем белый туман
+  var hx = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#hx', start: 'top top', end: 'bottom bottom', scrub: 0.6 } });
+  hx.to('.hx__head', { y: -70, opacity: 0, duration: 0.25 }, 0)
+    .to('.hx__nav, .hx__hint', { opacity: 0, duration: 0.12 }, 0)
+    .to('.hx__house', { scale: 1.55, yPercent: 22, duration: 0.5 }, 0)
+    .to('.hx__cb', { yPercent: -30, scale: 1.15, duration: 0.5 }, 0)
+    .to('.hx__cf1', { yPercent: -70, scale: 1.25, duration: 0.5 }, 0)
+    .to('.hx__cf2', { yPercent: -95, scaleX: -1.35, scaleY: 1.35, duration: 0.5 }, 0)
+    .to('.hx__sky', { scale: 1.12, duration: 0.6 }, 0)
+    .fromTo('.hx__logo', { opacity: 0, scale: 0.82, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.25 }, 0.3)
+    .fromTo('.hx__logo b', { letterSpacing: '.2em' }, { letterSpacing: '-.02em', duration: 0.3 }, 0.28)
+    .to('.hx__house', { opacity: 0, duration: 0.18 }, 0.34)
+    .to('.hx__logo', { y: -40, opacity: 0, duration: 0.2 }, 0.68)
+    .fromTo('.hx__fog', { opacity: 0, yPercent: 30 }, { opacity: 1, yPercent: -20, duration: 0.3 }, 0.6)
+    .to('.hx__white', { opacity: 1, duration: 0.2 }, 0.75)
+    .to({}, { duration: 0.08 });
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
     var sp = +el.dataset.sp;
