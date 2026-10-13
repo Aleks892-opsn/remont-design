@@ -123,17 +123,18 @@
   .tabbar svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.3; }
   body { padding-bottom: 76px; }
   /* Цифры компании: стеклянные плашки лесенкой на облаках */
-  .gfx { display: none; position: relative; z-index: 5; height: 520px; margin-top: calc(-57svh + 70px); }
+  .gfx { display: none; position: relative; z-index: 5; height: 670px; margin-top: calc(-57svh + 70px); }
   html[data-hx="g"] .gfx { display: block; }
   .gfx__cl { position: absolute; width: 230%; left: -65%; top: -6%; max-width: none; pointer-events: none; }
   .gfx__cl.b { top: 34%; left: -50%; width: 210%; opacity: .9; transform: scaleX(-1); }
   .gp { position: absolute; width: 42%; aspect-ratio: 1 / .92; padding: 16px 15px 14px; border-radius: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; background: rgba(255, 255, 255, .28); -webkit-backdrop-filter: blur(12px) saturate(1.1); backdrop-filter: blur(12px) saturate(1.1); border: 1px solid rgba(255, 255, 255, .85); box-shadow: 0 18px 36px rgba(20, 20, 20, .08), inset 0 1px 0 rgba(255, 255, 255, .9); will-change: transform; }
-  .gp b { font: 700 46px/1 'Unbounded', sans-serif; letter-spacing: -.03em; color: var(--ink); }
+  .gp b i { font-style: normal; font-variant-numeric: tabular-nums; }
+  .gp b { font: 700 42px/1 'Unbounded', sans-serif; white-space: nowrap; letter-spacing: -.03em; color: var(--ink); }
   .gp span { font: 700 12.5px/1.3 var(--fb); letter-spacing: .07em; text-transform: uppercase; color: var(--ink); }
   .gp.p1 { left: 6%; top: 30px; }
   .gp.p2 { right: 6%; top: 176px; }
-  .gp.p3 { left: 6%; top: 196px; }
-  .gp.p4 { right: 6%; top: 342px; }
+  .gp.p3 { left: 6%; top: 322px; }
+  .gp.p4 { right: 6%; top: 468px; }
   /* Главный экран, вариант Г: обычная прокрутка, слои с разной скоростью */
   .gx, .hx { display: none; }
   html[data-hx="g"] .gx, html[data-hx="a"] .hx { display: block; }
@@ -481,10 +482,10 @@
   <section class="gfx" id="gfx" aria-label="Компания в цифрах">
     <img class="gfx__cl" src="hero/cloud-dense.webp" alt="" loading="lazy">
     <img class="gfx__cl b" src="hero/cloud-soft.webp" alt="" loading="lazy">
-    <div class="gp p1" data-sp="1.15"><b>12</b><span>лет<br>строим</span></div>
-    <div class="gp p2" data-sp="0.95"><b>140</b><span>домов<br>под ключ</span></div>
-    <div class="gp p3" data-sp="1.15"><b>3</b><span>ЖК<br>в работе</span></div>
-    <div class="gp p4" data-sp="1"><b>5</b><span>лет<br>гарантии</span></div>
+    <div class="gp p1" data-sp="1.15"><b><i class="cnt-n" data-to="12">12</i>+</b><span>лет<br>строим</span></div>
+    <div class="gp p2" data-sp="0.95"><b><i class="cnt-n" data-to="140">140</i>+</b><span>домов<br>под ключ</span></div>
+    <div class="gp p3" data-sp="1.15"><b><i class="cnt-n" data-to="3">3</i></b><span>ЖК<br>в работе</span></div>
+    <div class="gp p4" data-sp="1"><b><i class="cnt-n" data-to="5">5</i></b><span>лет<br>гарантии</span></div>
   </section>
   <section class="hx" id="hx">
     <div class="hx__st">
@@ -1003,7 +1004,13 @@
   gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
   gsap.to('.gx__logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '15% top', end: '55% top', scrub: true } });
   // Цифры: плашки плывут с разной скоростью, облака — навстречу
-  $$('.gp').forEach(function (g) { gsap.fromTo(g, { y: 24 * +g.dataset.sp }, { y: -24 * +g.dataset.sp, ease: 'none', scrollTrigger: { trigger: '#gfx', start: 'top bottom', end: 'bottom top', scrub: true } }); });
+  // Плашки по очереди всплывают, затем цифры отсчитываются от нуля
+  $$('.gp').forEach(function (g, i) {
+    var n = g.querySelector('.cnt-n'), to = +n.dataset.to, o = { v: 0 };
+    gsap.timeline({ scrollTrigger: { trigger: g, start: 'top 88%', once: true } })
+      .from(g, { y: 50, opacity: 0, scale: 0.92, duration: 0.8, ease: 'power3.out', delay: (i % 2) * 0.12 })
+      .fromTo(o, { v: 0 }, { v: to, duration: to > 20 ? 1.6 : 1.1, ease: 'power2.out', onUpdate: function () { n.textContent = Math.round(o.v); } }, '-=0.4');
+  });
   gsap.fromTo('.gfx__cl', { x: -20 }, { x: 20, ease: 'none', scrollTrigger: { trigger: '#gfx', start: 'top bottom', end: 'bottom top', scrub: true } });
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
