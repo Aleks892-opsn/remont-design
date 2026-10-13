@@ -118,6 +118,36 @@
   .side a.on { background: var(--ink); color: #fff; }
   .gx.side-on .gx__head { left: 52px; }
 
+
+  /* Меню сверху (в демо ниже на 110px — сверху панель просмотрщика; на сайте будет у края) */
+  .gx.tm .gx__head { top: 200px; }
+  .tp { left: 12px; right: 12px; top: 110px; z-index: 6; }
+  .t1 { display: flex; align-items: center; justify-content: space-between; height: 52px; padding: 6px; border-radius: 999px; background: rgba(255, 255, 255, .88); border: 1px solid rgba(255, 255, 255, .95); box-shadow: 0 10px 30px rgba(20, 20, 20, .08); }
+  .t1 button, .t1 a.r { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; }
+  .t1 button { background: var(--ink); }
+  .t1 button i { display: block; width: 16px; height: 6px; border-top: 1.3px solid #fff; border-bottom: 1.3px solid #fff; }
+  .t1 a.r { border: 1px solid var(--line); }
+  .t1 svg { width: 16px; height: 16px; fill: none; stroke: var(--ink); stroke-width: 1.4; }
+  .t1 b, .t3 b, .t2 b, .t4 b { font: 500 12px var(--fb); letter-spacing: .42em; text-transform: uppercase; padding-left: .42em; }
+  .t2 { left: 0; right: 0; padding: 0; }
+  .t2 .r1 { display: flex; justify-content: space-between; align-items: center; padding: 0 var(--pad) 12px; }
+  .t2 .r1 a { font: 500 10px var(--fb); letter-spacing: .2em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px; background: var(--ink); color: #fff; }
+  .t2 nav { display: flex; gap: 22px; overflow-x: auto; padding: 0 var(--pad); scrollbar-width: none; border-bottom: 1px solid rgba(20, 20, 20, .18); }
+  .t2 nav::-webkit-scrollbar { display: none; }
+  .t2 nav a { flex: none; padding: 10px 0; font: 500 10px var(--fb); letter-spacing: .16em; text-transform: uppercase; color: var(--ink2); border-bottom: 1.5px solid transparent; margin-bottom: -1px; }
+  .t2 nav a.on { color: var(--ink); border-color: var(--ink); }
+  .t3 { left: var(--pad); right: var(--pad); display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(20, 20, 20, .3); }
+  .t3 b { padding-left: 0; font-size: 13px; }
+  .t3 button { display: inline-flex; align-items: center; gap: 10px; font: 500 10px var(--fb); letter-spacing: .22em; text-transform: uppercase; }
+  .t3 button i { display: block; width: 22px; height: 7px; border-top: 1.2px solid var(--ink); border-bottom: 1.2px solid var(--ink); }
+  .t4 { background: rgba(255, 255, 255, .92); border: 1px solid rgba(255, 255, 255, .95); border-radius: 22px; box-shadow: 0 12px 34px rgba(20, 20, 20, .1); overflow: hidden; }
+  .t4 .r1 { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; }
+  .t4 .r1 button { display: inline-flex; gap: 8px; align-items: center; font: 500 10px var(--fb); letter-spacing: .2em; text-transform: uppercase; }
+  .t4 .r1 button i { display: block; width: 18px; height: 6px; border-top: 1.2px solid var(--ink); border-bottom: 1.2px solid var(--ink); }
+  .t4 .r2 { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+  .t4 .r2 a { padding: 12px 0; text-align: center; font: 500 10px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+  .t4 .r2 a + a { background: var(--ink); color: #fff; }
+
   /* Меню-шторка */
   .scrim { position: fixed; inset: 0; z-index: 45; background: rgba(20, 20, 20, .25); opacity: 0; visibility: hidden; transition: .3s; }
   .sheet { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; max-width: 480px; margin: 0 auto; padding: 10px var(--pad) calc(22px + env(safe-area-inset-bottom)); background: #fff; border-radius: 20px 20px 0 0; transform: translateY(105%); transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
@@ -137,7 +167,7 @@
     <span class="lbl">Altitude · главный экран</span>
     <h1 class="cap">Место под логотипом<br>и меню</h1>
     <p>Сверху — 4 варианта, чем заполнить пустоту под логотипом (листайте каждый). Ниже — 4 варианта, где поставить меню, чтобы его было видно сразу.</p>
-    <nav class="jump"><a href="#f1">Цифры</a><a href="#f2">Направления</a><a href="#f3">Объекты</a><a href="#f4">Форма</a><a href="#m1">Панель</a><a href="#m2">Разделы</a><a href="#m3">Кнопка</a><a href="#m4">Край</a></nav>
+    <nav class="jump"><a href="#f1">Цифры</a><a href="#f2">Направления</a><a href="#f3">Объекты</a><a href="#f4">Форма</a><a href="#m1">Панель</a><a href="#m2">Разделы</a><a href="#m3">Кнопка</a><a href="#m4">Край</a><a href="#t1">Сверху 1</a><a href="#t2">Сверху 2</a><a href="#t3">Сверху 3</a><a href="#t4">Сверху 4</a></nav>
   </header>
 
   <div class="grp"><span class="scr">под логотипом</span></div>
@@ -168,6 +198,20 @@
   <div class="var__h" id="m4"><b>4</b><div><span>Индекс у края</span><small>Вертикальные вкладки разделов у левого края — как закладки в журнале. Необычно и видно сразу.</small></div></div>
   <section class="gx one side-on" data-menu="side"></section>
 
+  <div class="grp"><span class="scr">меню сверху</span></div>
+
+  <div class="var__h" id="t1"><b>1</b><div><span>Капсула</span><small>Одна стеклянная капсула: кнопка меню, название по центру, звонок. Аккуратно и узнаваемо.</small></div></div>
+  <section class="gx one tm" data-menu="t1"></section>
+
+  <div class="var__h" id="t2"><b>2</b><div><span>Строка разделов</span><small>Название и «Заявка» сверху, под ними строка разделов — листается пальцем вбок. Меню всегда раскрыто.</small></div></div>
+  <section class="gx one tm" data-menu="t2"></section>
+
+  <div class="var__h" id="t3"><b>3</b><div><span>Журнальная линия</span><small>Название слева, «Меню» справа, под ними тонкая линия. Без фона — самый лёгкий и строгий.</small></div></div>
+  <section class="gx one tm" data-menu="t3"></section>
+
+  <div class="var__h" id="t4"><b>4</b><div><span>Карточка с двумя кнопками</span><small>Белая карточка: меню и название, а под ними «Позвонить» и «Заявка» — главные действия всегда под рукой.</small></div></div>
+  <section class="gx one tm" data-menu="t4"></section>
+
   <p class="end">Выберите по одному варианту: что под логотипом и где меню — поставлю в основное демо.</p>
 </div>
 
@@ -187,6 +231,10 @@
     tabbar: '<nav class="tabbar"><button data-open><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Меню</button><a href="#"><svg viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10z"/></svg>Объекты</a><a class="on" href="#"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>Расчёт</a><a href="#">' + TEL + 'Звонок</a></nav>',
     chips: '<div class="chips"><a href="#">Коттеджи</a><a href="#">Таунхаусы</a><a href="#">ЖК</a><a href="#">Коммерция</a><a class="all" href="#" data-open><i></i>Все разделы</a></div>',
     fab: '<a class="fab t" href="#" aria-label="Позвонить">' + TEL + '</a><span class="fab-l">меню</span><button class="fab m" data-open aria-label="Меню"><i></i></button>',
+    t1: '<div class="tp t1"><button data-open aria-label="Меню"><i></i></button><b>Altitude</b><a class="r" href="#" aria-label="Позвонить">' + TEL + '</a></div>',
+    t2: '<div class="tp t2"><div class="r1"><b>Altitude</b><a href="#">Заявка</a></div><nav><a class="on" href="#">Главная</a><a href="#">Коттеджи</a><a href="#">ЖК</a><a href="#">Объекты</a><a href="#">Как строим</a><a href="#">Контакты</a></nav></div>',
+    t3: '<div class="tp t3"><b>Altitude</b><button data-open>Меню<i></i></button></div>',
+    t4: '<div class="tp t4"><div class="r1"><button data-open><i></i>Меню</button><b>Altitude</b><span style="width:56px"></span></div><div class="r2"><a href="#">Позвонить</a><a href="#">Заявка</a></div></div>',
     side: '<nav class="side"><a class="on" href="#">Главная</a><a href="#">Объекты</a><a href="#">Расчёт</a><a href="#" data-open>Ещё</a></nav>'
   };
   // Общая сцена: небо, заголовок, дом в облаках, логотип
