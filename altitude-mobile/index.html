@@ -1007,19 +1007,31 @@
   gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
   gsap.to('.gx__logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '15% top', end: '55% top', scrub: true } });
   // Цифры: плашки плывут с разной скоростью, облака — навстречу
-  // Плашки появляются только после того, как логотип проявился полностью, и когда до них долистали
+  // Плашки появляются только после того, как логотип проявился полностью, и когда до них долистали.
+  // Вернулся к началу страницы — плашки сбрасываются, при новой прокрутке анимация повторится.
   var logoDone = false, queue = 0;
   var showPlate = function (g) {
     if (g._shown || !logoDone || !g._seen) return;
     g._shown = true;
     var n = g.querySelector('.cnt-n'), to = +n.dataset.to, o = { v: 0 }; n.textContent = '0';
-    gsap.timeline({ delay: (queue++) * 0.15, onComplete: function () { queue = Math.max(0, queue - 1); } })
+    g._tl = gsap.timeline({ delay: (queue++) * 0.15, onComplete: function () { queue = Math.max(0, queue - 1); } })
       .fromTo(g, { y: 50, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' })
       .fromTo(o, { v: 0 }, { v: to, duration: to > 20 ? 1.6 : 1.1, ease: 'power2.out', onUpdate: function () { n.textContent = Math.round(o.v); } }, '-=0.4');
   };
   var plates = $$('.gp');
-  plates.forEach(function (g) { ScrollTrigger.create({ trigger: g, start: 'top 92%', once: true, onEnter: function () { g._seen = true; showPlate(g); } }); });
-  ScrollTrigger.create({ trigger: '#gx', start: '55% top', once: true, onEnter: function () { logoDone = true; plates.forEach(showPlate); } });
+  var resetPlates = function () {
+    logoDone = false; queue = 0;
+    plates.forEach(function (g) {
+      if (g._tl) g._tl.kill();
+      g._shown = false; g._seen = false;
+      gsap.set(g, { opacity: 0, y: 50, scale: 0.92 });
+      g.querySelector('.cnt-n').textContent = '0';
+    });
+  };
+  plates.forEach(function (g) { ScrollTrigger.create({ trigger: g, start: 'top 92%', onEnter: function () { g._seen = true; showPlate(g); } }); });
+  ScrollTrigger.create({ trigger: '#gx', start: '55% top', onEnter: function () { logoDone = true; plates.forEach(showPlate); } });
+  // Сброс — только когда вернулись к самому главному экрану
+  ScrollTrigger.create({ trigger: '#gx', start: '12% top', onLeaveBack: resetPlates });
   gsap.fromTo('.gfx__cl', { x: -20 }, { x: 20, ease: 'none', scrollTrigger: { trigger: '#gfx', start: 'top bottom', end: 'bottom top', scrub: true } });
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
