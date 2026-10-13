@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="a" data-bg="fog" data-house="color" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="d">
+<html lang="ru" data-font="a" data-bg="fog" data-house="color" data-hx="g" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="d">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -109,6 +109,19 @@
   .hx__nav { left: 0; right: 0; bottom: calc(76px + env(safe-area-inset-bottom)); margin: 0; z-index: 3; text-shadow: 0 0 12px #fff; }
   .hx__hint { left: 0; right: 0; bottom: calc(118px + env(safe-area-inset-bottom)); text-align: center; z-index: 3; font: 500 9px var(--fb); letter-spacing: .3em; text-transform: uppercase; color: var(--ink2); }
   .hx__hint::after { content: ''; display: block; width: 1px; height: 22px; margin: 8px auto 0; background: var(--ink); opacity: .5; }
+
+  /* Главный экран, вариант Г: обычная прокрутка, слои с разной скоростью */
+  .gx, .hx { display: none; }
+  html[data-hx="g"] .gx, html[data-hx="a"] .hx { display: block; }
+  .gx { position: relative; height: 160vh; height: 160svh; max-height: 1500px; overflow: hidden; }
+  .gx > * { position: absolute; }
+  .gx__bg { left: 0; top: 0; width: 100%; height: 62%; object-fit: cover; }
+  .gx__head { left: var(--pad); right: var(--pad); top: 96px; text-align: center; z-index: 3; }
+  .gx__head .hero__s { margin-top: 12px; }
+  .gx__scene { left: -10%; width: 120%; top: 24%; z-index: 1; }
+  .gx__logo { left: 0; right: 0; top: 64%; z-index: 4; opacity: 0; }
+  .gx__logo img { display: block; width: 112%; margin-left: -6%; }
+  .gx__head, .gx__scene, .gx__scene .hx__clouds, .gx__logo { will-change: transform, opacity; }
 
   /* Секция */
   .sec { position: relative; padding: 84px var(--pad) 0; }
@@ -428,6 +441,12 @@
   </header>
 
   <!-- 0. Главный экран: дом в облаках → логотип. Двигается только от прокрутки -->
+  <section class="gx" id="gx">
+    <img class="gx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
+    <div class="gx__head"><h1 class="hero__t cap">Дома, которые<br>строят выше</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p></div>
+    <div class="gx__scene"><img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией"><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
+    <div class="gx__logo"><img src="hero/logo.webp" alt="Altitude"></div>
+  </section>
   <section class="hx" id="hx">
     <div class="hx__st">
       <img class="hx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
@@ -719,6 +738,11 @@
       <button data-v="white">Белый<small>чистый</small></button>
       <button data-v="warm">Тёплый<small>слоновая кость</small></button>
     </div></div>
+  <div class="vg"><span class="lbl">Главный экран</span>
+    <div class="seg" data-k="hx">
+      <button data-v="g">Г · Параллакс<small>обычная прокрутка</small></button>
+      <button data-v="a">А · Свайп<small>превращение в логотип</small></button>
+    </div></div>
   <div class="vg"><span class="lbl">Блок «Почему мы»</span>
     <div class="seg" data-k="why">
       <button data-v="a">Карточки<small>свайп</small></button>
@@ -747,8 +771,8 @@
   $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; i.loading = 'lazy'; i.decoding = 'async'; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'a', bg: 'fog', house: 'color', why: 'a', fill: 'on', dirs: 'b', how: 'd' };
-  try { var s = JSON.parse(localStorage.getItem('alt-demo3') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'a', bg: 'fog', house: 'color', hx: 'g', why: 'a', fill: 'on', dirs: 'b', how: 'd' };
+  try { var s = JSON.parse(localStorage.getItem('alt-demo4') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
@@ -756,7 +780,7 @@
     $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' · с [2014]'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-demo3', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-demo4', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
@@ -908,7 +932,7 @@
     if (hxDone || hxHold) return;
     hxHold = true; hxTl.play();
   };
-  var atTop = function () { return scrollY < 8; };
+  var atTop = function () { return scrollY < 8 && root.dataset.hx === 'a'; };
   $('#hx-go').onclick = hxPlay;
   var hy0 = 0;
   addEventListener('touchstart', function (e) { hy0 = e.touches[0].clientY; }, { passive: true });
@@ -939,6 +963,12 @@
   });
   // Главный экран: дом уходит в облака, из облаков проявляется логотип, затем белый туман
   ScrollTrigger.config({ ignoreMobileResize: true });
+  // Главный экран, вариант Г: облака едут быстрее дома и накрывают его, ниже проступает логотип
+  var gst = { trigger: '#gx', start: 'top top', end: 'bottom top', scrub: true };
+  gsap.to('.gx__head', { y: 120, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '30% top', scrub: true } });
+  gsap.to('.gx__scene', { y: 160, ease: 'none', scrollTrigger: gst });
+  gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
+  gsap.to('.gx__logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '15% top', end: '55% top', scrub: true } });
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
     var sp = +el.dataset.sp;
