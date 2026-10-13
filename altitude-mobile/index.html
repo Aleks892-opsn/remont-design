@@ -134,6 +134,10 @@
   .gx__logo { left: 0; right: 0; top: 64%; z-index: 4; opacity: 0; }
   .gx__logo { display: flex; justify-content: center; }
   .gx__logo img { display: block; width: 84%; max-width: 400px; height: auto; }
+  .gx__facts { left: var(--pad); right: var(--pad); top: 75%; z-index: 4; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; opacity: 0; will-change: transform, opacity; }
+  .gf { padding: 16px 16px 14px; border-radius: 18px; background: rgba(255, 255, 255, .55); border: 1px solid rgba(255, 255, 255, .95); box-shadow: 0 10px 30px rgba(20, 20, 20, .05), inset 0 1px 0 rgba(255, 255, 255, .9); }
+  .gf b { display: block; font-family: var(--fh); font-weight: var(--fhw); font-size: 34px; line-height: 1; letter-spacing: 0; }
+  .gf span { display: block; margin-top: 10px; font-size: 11.5px; line-height: 1.35; color: var(--ink2); }
   .gx__head, .gx__scene, .gx__scene .hx__clouds, .gx__logo { will-change: transform, opacity; }
 
   /* Секция */
@@ -461,6 +465,12 @@
     <div class="gx__head"><h1 class="hero__t cap">Дома, которые<br>строят выше</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p></div>
     <div class="gx__scene"><img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией"><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
     <div class="gx__logo"><img src="hero/logo-mark.webp" alt="Altitude"></div>
+    <div class="gx__facts">
+      <div class="gf"><b>[12]</b><span>лет строим<br>в [регионе]</span></div>
+      <div class="gf"><b>[140]</b><span>домов сдано<br>под ключ</span></div>
+      <div class="gf"><b>[3]</b><span>жилых комплекса<br>в работе</span></div>
+      <div class="gf"><b>[5]</b><span>лет гарантии<br>на конструктив</span></div>
+    </div>
   </section>
   <section class="hx" id="hx">
     <div class="hx__st">
@@ -497,13 +507,6 @@
     <img class="cl c2" data-cloud="0" data-sp="-1.6" alt="">
   </section>
 
-  <!-- Факты -->
-  <div class="facts">
-    <div class="fact"><b>[12]</b><span>лет строим<br>в [регионе]</span></div>
-    <div class="fact"><b>[140]</b><span>домов сдано<br>под ключ</span></div>
-    <div class="fact"><b>[3]</b><span>жилых комплекса<br>в работе</span></div>
-    <div class="fact"><b>[5]</b><span>лет гарантии<br>на конструктив</span></div>
-  </div>
 
   <!-- 01 Что строим -->
   <section class="sec" id="dirs">
@@ -985,6 +988,7 @@
   gsap.to('.gx__scene', { y: 160, ease: 'none', scrollTrigger: gst });
   gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
   gsap.to('.gx__logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '15% top', end: '55% top', scrub: true } });
+  gsap.fromTo('.gx__facts', { opacity: 0, y: 40 }, { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '22% top', end: '60% top', scrub: true } });
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
     var sp = +el.dataset.sp;
