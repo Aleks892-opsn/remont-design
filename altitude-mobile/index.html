@@ -80,22 +80,27 @@
 
 
   /* Главный экран: слои */
-  .hx { position: relative; height: 330svh; }
-  .hx__st { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .hx { position: relative; height: 260vh; }
+  .hx__st { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
   .hx__st > * { position: absolute; }
   .hx__sky { inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .hx__cb { width: 230%; left: 50%; bottom: 30%; margin-left: -115%; opacity: .95; }
+  .hx__cb { width: 230%; left: -65%; top: 30%; opacity: .95; }
   .hx__head { left: var(--pad); right: var(--pad); top: 96px; text-align: center; z-index: 2; }
   .hx__head .hero__s { margin-top: 12px; }
-  .hx__house { width: 150%; left: 50%; margin-left: -75%; bottom: 22%; transform-origin: 50% 85%; will-change: transform; }
+  /* Дом и облака — одна группа, размеры от ширины экрана: дом всегда стоит на облаках */
+  .hx__scene { left: -25%; width: 150%; top: 34%; z-index: 1; }
+  .hx__house { display: block; width: 100%; height: auto; transform-origin: 50% 85%; will-change: transform; }
   html[data-house="mono"] .hx__house { filter: grayscale(1) contrast(1.05); }
-  .hx__cf { width: 230%; left: 50%; margin-left: -115%; will-change: transform; }
-  .hx__cf1 { bottom: -21%; }
-  .hx__cf2 { bottom: -31%; transform: scaleX(-1); }
+  .hx__clouds { position: absolute; left: 0; right: 0; top: 52%; height: 0; will-change: transform; }
+  .hx__cf { position: absolute; width: 150%; left: -25%; max-width: none; }
+  .hx__cf1 { top: 1vw; }
+  .hx__cf2 { top: 15vw; transform: scaleX(-1); }
+  .hx__floor { position: absolute; left: -40%; right: -40%; top: 62vw; height: 220vh; background: linear-gradient(rgba(244, 245, 247, 0), #f4f5f7 18%); }
+  @media (min-width: 481px) { .hx__cf1 { top: 5px; } .hx__cf2 { top: 72px; } .hx__floor { top: 298px; } }
   .hx__logo { left: 0; right: 0; top: 40%; text-align: center; z-index: 4; opacity: 0; }
-  .hx__logo b { display: block; font: 700 clamp(38px, 12vw, 60px)/1 'Unbounded', sans-serif; letter-spacing: -.02em; white-space: nowrap; text-transform: uppercase; color: transparent; background: url(hero/facade.webp) center / cover; -webkit-background-clip: text; background-clip: text; -webkit-text-stroke: .6px rgba(20, 20, 20, .35); }
+  .hx__logo b { display: block; font: 700 clamp(38px, 12vw, 60px)/1 'Unbounded', sans-serif; letter-spacing: -.02em; white-space: nowrap; text-transform: uppercase; color: transparent; background: url(hero/facade.webp) center / cover; -webkit-background-clip: text; background-clip: text; -webkit-text-stroke: .5px rgba(20, 20, 20, .5); }
   .hx__logo span { display: block; margin-top: 12px; font: 500 10px var(--fb); letter-spacing: .32em; text-transform: uppercase; color: var(--ink2); }
-  .hx__fog { width: 300%; left: 50%; margin-left: -150%; top: 30%; opacity: 0; z-index: 5; }
+  .hx__fog { width: 300%; left: -100%; top: 30%; opacity: 0; z-index: 5; }
   .hx__white { inset: 0; background: var(--bg); opacity: 0; z-index: 6; }
   .hx__nav { left: 0; right: 0; bottom: calc(76px + env(safe-area-inset-bottom)); margin: 0; z-index: 3; text-shadow: 0 0 12px #fff; }
   .hx__hint { left: 0; right: 0; bottom: calc(118px + env(safe-area-inset-bottom)); text-align: center; z-index: 3; font: 500 9px var(--fb); letter-spacing: .3em; text-transform: uppercase; color: var(--ink2); }
@@ -428,9 +433,14 @@
         <span class="hero__scr scr">ожиданий</span>
         <p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p>
       </div>
-      <img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией">
-      <img class="hx__cf hx__cf1" src="hero/cloud-dense.webp" alt="">
-      <img class="hx__cf hx__cf2" src="hero/cloud-dense.webp" alt="">
+      <div class="hx__scene">
+        <img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией">
+        <div class="hx__clouds">
+          <img class="hx__cf hx__cf1" src="hero/cloud-dense.webp" alt="">
+          <img class="hx__cf hx__cf2" src="hero/cloud-dense.webp" alt="">
+          <i class="hx__floor"></i>
+        </div>
+      </div>
       <div class="hx__logo"><b data-logo>Altitude</b><span>Development · с [2014]</span></div>
       <img class="hx__fog" src="hero/fog.webp" alt="">
       <div class="hx__white"></div>
@@ -903,21 +913,21 @@
     gsap.fromTo(d, { clipPath: 'inset(-20% 100% -20% 0)' }, { clipPath: 'inset(-20% 0% -20% 0)', ease: 'none', scrollTrigger: sc(d, 'top 92%', 'top 60%') });
   });
   // Главный экран: дом уходит в облака, из облаков проявляется логотип, затем белый туман
-  var hx = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#hx', start: 'top top', end: 'bottom bottom', scrub: 0.6 } });
+  var vh = function (k) { return function () { return innerHeight * k; }; };
+  var hx = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#hx', start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true } });
   hx.to('.hx__head', { y: -70, opacity: 0, duration: 0.25 }, 0)
     .to('.hx__nav, .hx__hint', { opacity: 0, duration: 0.12 }, 0)
-    .to('.hx__house', { scale: 1.55, yPercent: 22, duration: 0.5 }, 0)
-    .to('.hx__cb', { yPercent: -30, scale: 1.15, duration: 0.5 }, 0)
-    .to('.hx__cf1', { yPercent: -70, scale: 1.25, duration: 0.5 }, 0)
-    .to('.hx__cf2', { yPercent: -95, scaleX: -1.35, scaleY: 1.35, duration: 0.5 }, 0)
+    .to('.hx__house', { scale: 1.45, y: vh(0.1), duration: 0.5 }, 0)
+    .to('.hx__clouds', { y: vh(-0.42), duration: 0.5 }, 0)
+    .to('.hx__cf2', { y: vh(-0.12), scaleX: -1.3, scaleY: 1.3, duration: 0.5 }, 0)
+    .to('.hx__cb', { y: vh(-0.2), scale: 1.15, duration: 0.5 }, 0)
     .to('.hx__sky', { scale: 1.12, duration: 0.6 }, 0)
-    .fromTo('.hx__logo', { opacity: 0, scale: 0.82, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.25 }, 0.3)
-    .fromTo('.hx__logo b', { letterSpacing: '.2em' }, { letterSpacing: '-.02em', duration: 0.3 }, 0.28)
-    .to('.hx__house', { opacity: 0, duration: 0.18 }, 0.34)
-    .to('.hx__logo', { y: -40, opacity: 0, duration: 0.2 }, 0.68)
-    .fromTo('.hx__fog', { opacity: 0, yPercent: 30 }, { opacity: 1, yPercent: -20, duration: 0.3 }, 0.6)
-    .to('.hx__white', { opacity: 1, duration: 0.2 }, 0.75)
-    .to({}, { duration: 0.08 });
+    .to('.hx__house', { opacity: 0, duration: 0.15 }, 0.36)
+    .fromTo('.hx__logo', { opacity: 0, scale: 0.82, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.22 }, 0.32)
+    .fromTo('.hx__logo b', { letterSpacing: '.2em' }, { letterSpacing: '-.02em', duration: 0.28 }, 0.3)
+    .to('.hx__logo', { y: -40, opacity: 0, duration: 0.18 }, 0.7)
+    .fromTo('.hx__fog', { opacity: 0, yPercent: 30 }, { opacity: 1, yPercent: -20, duration: 0.25 }, 0.66)
+    .to('.hx__white', { opacity: 1, duration: 0.14 }, 0.82);
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
     var sp = +el.dataset.sp;
