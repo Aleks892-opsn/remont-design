@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Цифры: варианты</title>
+<meta name="description" content="Шесть вариантов оформления блока с цифрами компании под логотипом.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@300;400;500;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .14); --pad: 20px; --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Great Vibes', cursive; --fh: 'Unbounded', sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 300 15px/1.6 var(--fb); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .lbl { font: 500 10px/1 var(--fb); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+  .top { padding: 150px var(--pad) 10px; }
+  .top h1 { margin: 10px 0 8px; font: 200 22px/1.15 var(--fh); text-transform: uppercase; }
+  .top p { margin: 0; color: var(--ink2); font-size: 13px; }
+  .jump { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .14em; text-transform: uppercase; background: var(--paper); }
+
+  .var__h { display: flex; align-items: baseline; gap: 12px; margin: 60px var(--pad) 0; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .var__h b { font: 200 40px/1 var(--fh); }
+  .var__h div { flex: 1; }
+  .var__h span { display: block; font: 500 10px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+  .var__h small { display: block; margin-top: 4px; font-size: 12px; color: var(--mute); line-height: 1.45; }
+
+  /* Сцена: облака + логотип */
+  .sc { position: relative; padding: 40px 0 46px; overflow: hidden; background: linear-gradient(#e9ecef, #f4f5f7 40%); }
+  .sc > .cl { position: absolute; width: 230%; left: -65%; top: 18%; max-width: none; pointer-events: none; opacity: .95; }
+  .sc > .cl.b { top: 58%; left: -45%; width: 210%; transform: scaleX(-1); opacity: .85; }
+  .logo { position: relative; z-index: 2; display: block; width: 84%; max-width: 400px; margin: 0 auto 34px; }
+  .re { position: absolute; z-index: 6; right: 14px; top: 12px; height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .9); border: 1px solid var(--line); font: 500 9px var(--fb); letter-spacing: .16em; text-transform: uppercase; }
+  .box { position: relative; z-index: 3; padding: 0 var(--pad); }
+  .n { font-variant-numeric: tabular-nums; font-style: normal; }
+  .glass { background: rgba(255, 255, 255, .3); -webkit-backdrop-filter: blur(12px) saturate(1.1); backdrop-filter: blur(12px) saturate(1.1); border: 1px solid rgba(255, 255, 255, .85); box-shadow: 0 18px 36px rgba(20, 20, 20, .08), inset 0 1px 0 rgba(255, 255, 255, .9); }
+
+  /* А: как сейчас */
+  .va { position: relative; height: 560px; }
+  .va .gp { position: absolute; width: 44%; aspect-ratio: 1 / .92; border-radius: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; }
+  .va .gp:nth-child(1) { left: 0; top: 0; } .va .gp:nth-child(2) { right: 0; top: 146px; } .va .gp:nth-child(3) { left: 0; top: 292px; } .va .gp:nth-child(4) { right: 0; top: 438px; }
+  .va b { display: flex; align-items: baseline; gap: 6px; font: 700 36px/1 var(--fh); letter-spacing: -.03em; }
+  .va b em, .vd em { font: normal 800 12px/1 var(--fb); letter-spacing: .06em; text-transform: uppercase; }
+  .va span { font: 700 12.5px/1.3 var(--fb); letter-spacing: .07em; text-transform: uppercase; }
+
+  /* Б: без плашек — строки с линиями */
+  .vb .row { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 16px; padding: 18px 0 16px; position: relative; }
+  .vb .row::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink); transform-origin: left; transform: scaleX(var(--ln, 1)); }
+  .vb .row:first-child::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--ink); transform-origin: left; transform: scaleX(var(--ln, 1)); }
+  .vb b { font: 700 58px/.85 var(--fh); letter-spacing: -.04em; min-width: 3ch; }
+  .vb .t { padding-bottom: 4px; }
+  .vb .t i { display: block; font: normal 800 13px/1.2 var(--fb); letter-spacing: .08em; text-transform: uppercase; }
+  .vb .t span { display: block; margin-top: 3px; font-size: 13px; color: var(--ink2); }
+
+  /* В: одна стеклянная панель 2×2 */
+  .vc { border-radius: 28px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+  .vc > div { padding: 24px 18px 22px; text-align: center; }
+  .vc > div:nth-child(1), .vc > div:nth-child(2) { border-bottom: 1px solid rgba(20, 20, 20, .12); }
+  .vc > div:nth-child(odd) { border-right: 1px solid rgba(20, 20, 20, .12); }
+  .vc b { display: block; font: 700 40px/1 var(--fh); letter-spacing: -.03em; }
+  .vc span { display: block; margin-top: 10px; font: 700 11px/1.3 var(--fb); letter-spacing: .08em; text-transform: uppercase; }
+
+  /* Г: кольца */
+  .vd { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; }
+  .ring { position: relative; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 50%; }
+  .ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke-width: 1.4; }
+  .ring .bgc { stroke: rgba(20, 20, 20, .1); }
+  .ring .fg { stroke: var(--ink); stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 289; }
+  .ring b { position: relative; display: flex; align-items: baseline; gap: 5px; font: 700 34px/1 var(--fh); letter-spacing: -.03em; }
+  .ring span { position: relative; margin-top: 6px; font: 700 10.5px/1.25 var(--fb); letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); }
+
+  /* Д: огромные контурные цифры */
+  .ve .it { position: relative; height: 120px; display: flex; align-items: center; }
+  .ve .it:nth-child(even) { justify-content: flex-end; text-align: right; }
+  .ve .big { position: absolute; top: 50%; transform: translateY(-50%); font: 700 104px/1 var(--fh); letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1.2px rgba(20, 20, 20, .35); }
+  .ve .it:nth-child(odd) .big { left: -6px; } .ve .it:nth-child(even) .big { right: -6px; }
+  .ve .cap { position: relative; padding: 10px 14px; border-radius: 14px; }
+  .ve .cap i { display: block; font: normal 800 13px/1.2 var(--fb); letter-spacing: .08em; text-transform: uppercase; }
+  .ve .cap span { display: block; font-size: 12.5px; color: var(--ink2); }
+  .ve .it:nth-child(odd) .cap { margin-left: 36%; } .ve .it:nth-child(even) .cap { margin-right: 36%; }
+
+  /* Е: тонкая строка под логотипом + кнопка */
+  .vf .line { display: grid; grid-template-columns: repeat(4, 1fr); border-radius: 20px; overflow: hidden; }
+  .vf .line > div { padding: 16px 4px 14px; text-align: center; }
+  .vf .line > div + div { border-left: 1px solid rgba(20, 20, 20, .12); }
+  .vf b { display: block; font: 700 26px/1 var(--fh); letter-spacing: -.03em; }
+  .vf .line span { display: block; margin-top: 8px; font: 700 8.5px/1.3 var(--fb); letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); }
+  .vf .scr { display: block; text-align: center; font: 400 40px/1 var(--fs); color: var(--ink2); margin: 26px 0 14px; transform: rotate(-3deg); }
+  .btn { display: flex; align-items: center; justify-content: center; height: 52px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10.5px var(--fb); letter-spacing: .22em; text-transform: uppercase; }
+
+  .end { padding: 70px var(--pad) 80px; text-align: center; color: var(--mute); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="lbl">Altitude · блок с цифрами</span>
+    <h1>Шесть вариантов<br>под логотипом</h1>
+    <p>Анимация в каждом варианте запускается, когда вы до него долистали. Кнопка «↺» справа сверху — посмотреть ещё раз.</p>
+    <nav class="jump"><a href="#a">А · Как сейчас</a><a href="#b">Б · Линии</a><a href="#c">В · Панель</a><a href="#d">Г · Кольца</a><a href="#e">Д · Контур</a><a href="#f">Е · Строка</a></nav>
+  </header>
+
+  <div class="var__h" id="a"><b>А</b><div><span>Как сейчас</span><small>Стеклянные плашки лесенкой — для сравнения.</small></div></div>
+  <section class="sc" data-v="a"><div class="box"><div class="va">
+    <div class="gp glass"><b><i class="n" data-to="12">0</i><em>лет</em></b><span>строим</span></div>
+    <div class="gp glass"><b><i class="n" data-to="140">0</i><em>домов</em></b><span>под ключ</span></div>
+    <div class="gp glass"><b><i class="n" data-to="3">0</i><em>ЖК</em></b><span>в работе</span></div>
+    <div class="gp glass"><b><i class="n" data-to="5">0</i><em>лет</em></b><span>гарантии</span></div>
+  </div></div></section>
+
+  <div class="var__h" id="b"><b>Б</b><div><span>Без плашек: линии</span><small>Крупные жирные цифры в столбик, подпись справа, тонкие линии прорисовываются слева направо. Строго и по-журнальному.</small></div></div>
+  <section class="sc" data-v="b"><div class="box vb">
+    <div class="row"><b class="n" data-to="12">0</b><div class="t"><i>лет</i><span>строим дома под ключ</span></div></div>
+    <div class="row"><b class="n" data-to="140">0</b><div class="t"><i>домов</i><span>сдали владельцам</span></div></div>
+    <div class="row"><b class="n" data-to="3">0</b><div class="t"><i>ЖК</i><span>сейчас в работе</span></div></div>
+    <div class="row"><b class="n" data-to="5">0</b><div class="t"><i>лет гарантии</i><span>на конструктив дома</span></div></div>
+  </div></section>
+
+  <div class="var__h" id="c"><b>В</b><div><span>Одна стеклянная панель</span><small>Одна большая стеклянная карточка, внутри 4 ячейки с тонкими разделителями. Компактно и спокойно.</small></div></div>
+  <section class="sc" data-v="c"><div class="box"><div class="vc glass">
+    <div><b class="n" data-to="12">0</b><span>лет строим</span></div>
+    <div><b class="n" data-to="140">0</b><span>домов под ключ</span></div>
+    <div><b class="n" data-to="3">0</b><span>ЖК в работе</span></div>
+    <div><b class="n" data-to="5">0</b><span>лет гарантии</span></div>
+  </div></div></section>
+
+  <div class="var__h" id="d"><b>Г</b><div><span>Кольца</span><small>Каждая цифра в тонком круге. Круг дорисовывается, пока бежит отсчёт, — как печать или шкала.</small></div></div>
+  <section class="sc" data-v="d"><div class="box vd">
+    <div class="ring glass"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="46"/><circle class="fg" cx="50" cy="50" r="46"/></svg><b><i class="n" data-to="12">0</i><em>лет</em></b><span>строим</span></div>
+    <div class="ring glass"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="46"/><circle class="fg" cx="50" cy="50" r="46"/></svg><b><i class="n" data-to="140">0</i></b><span>домов<br>под ключ</span></div>
+    <div class="ring glass"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="46"/><circle class="fg" cx="50" cy="50" r="46"/></svg><b><i class="n" data-to="3">0</i><em>ЖК</em></b><span>в работе</span></div>
+    <div class="ring glass"><svg viewBox="0 0 100 100"><circle class="bgc" cx="50" cy="50" r="46"/><circle class="fg" cx="50" cy="50" r="46"/></svg><b><i class="n" data-to="5">0</i><em>лет</em></b><span>гарантии</span></div>
+  </div></section>
+
+  <div class="var__h" id="e"><b>Д</b><div><span>Огромные контурные цифры</span><small>Цифры во всю ширину тонким контуром, поверх — маленькая стеклянная подпись. Слева, справа, слева, справа.</small></div></div>
+  <section class="sc" data-v="e"><div class="box ve">
+    <div class="it"><span class="big n" data-to="12">0</span><div class="cap glass"><i>лет</i><span>строим</span></div></div>
+    <div class="it"><span class="big n" data-to="140">0</span><div class="cap glass"><i>домов</i><span>под ключ</span></div></div>
+    <div class="it"><span class="big n" data-to="3">0</span><div class="cap glass"><i>ЖК</i><span>в работе</span></div></div>
+    <div class="it"><span class="big n" data-to="5">0</span><div class="cap glass"><i>лет</i><span>гарантии</span></div></div>
+  </div></section>
+
+  <div class="var__h" id="f"><b>Е</b><div><span>Тонкая строка + кнопка</span><small>Все 4 цифры одной строкой в стеклянной полосе, ниже рукописная фраза и кнопка расчёта. Меньше всего места.</small></div></div>
+  <section class="sc" data-v="f"><div class="box vf">
+    <div class="line glass">
+      <div><b class="n" data-to="12">0</b><span>лет<br>строим</span></div>
+      <div><b class="n" data-to="140">0</b><span>домов<br>под ключ</span></div>
+      <div><b class="n" data-to="3">0</b><span>ЖК<br>в работе</span></div>
+      <div><b class="n" data-to="5">0</b><span>лет<br>гарантии</span></div>
+    </div>
+    <span class="scr">дом вашей мечты — ближе, чем кажется</span>
+    <a class="btn" href="#">Рассчитать стоимость</a>
+  </div></section>
+
+  <p class="end">Выберите вариант — поставлю его под логотип в основном демо.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function () {
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Облака, логотип и кнопка повтора в каждой сцене
+  $$('.sc').forEach(function (sc) {
+    sc.insertAdjacentHTML('afterbegin', '<img class="cl" src="hero/cloud-dense.webp" alt=""><img class="cl b" src="hero/cloud-soft.webp" alt=""><button class="re">↺ Ещё раз</button><img class="logo" src="hero/logo-mark.webp" alt="Altitude">');
+  });
+  var count = function (el, d, delay) { var to = +el.dataset.to, o = { v: 0 }; el.textContent = '0'; return gsap.to(o, { v: to, duration: d || (to > 20 ? 1.6 : 1.1), delay: delay || 0, ease: 'power2.out', onUpdate: function () { el.textContent = Math.round(o.v); } }); };
+  var items = { a: '.gp', b: '.row', c: '.vc > div', d: '.ring', e: '.it', f: '.line > div' };
+  var play = function (sc) {
+    var v = sc.dataset.v, its = $$(items[v], sc);
+    if (sc._tl) sc._tl.kill();
+    var tl = sc._tl = gsap.timeline();
+    tl.fromTo(sc.querySelector('.logo'), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+    if (v === 'b') {
+      its.forEach(function (r, i) { gsap.set(r, { '--ln': 0 }); tl.fromTo(r, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.5 + i * 0.15).to(r, { '--ln': 1, duration: 0.8, ease: 'power2.inOut' }, 0.55 + i * 0.15); });
+    } else if (v === 'c') {
+      tl.fromTo(sc.querySelector('.vc'), { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 0.45);
+    } else if (v === 'f') {
+      tl.fromTo(sc.querySelector('.line'), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.45)
+        .fromTo(sc.querySelectorAll('.scr, .btn'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12 }, 1.0);
+    } else {
+      its.forEach(function (g, i) { tl.fromTo(g, { opacity: 0, y: 50, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 0.45 + i * 0.15); });
+    }
+    $$('.n', sc).forEach(function (n, i) { tl.add(count(n), 0.75 + i * 0.15); });
+    if (v === 'd') $$('.fg', sc).forEach(function (c, i) { tl.fromTo(c, { strokeDashoffset: 289 }, { strokeDashoffset: 0, duration: 1.5, ease: 'power2.out' }, 0.75 + i * 0.15); });
+  };
+  $$('.sc').forEach(function (sc) {
+    sc.querySelector('.re').onclick = function () { play(sc); };
+    if (reduce) { $$('.n', sc).forEach(function (n) { n.textContent = n.dataset.to; }); $$('.fg', sc).forEach(function (c) { c.style.strokeDashoffset = 0; }); return; }
+    gsap.set(sc.querySelector('.logo'), { opacity: 0 });
+    if ('abde'.indexOf(sc.dataset.v) > -1) $$(items[sc.dataset.v], sc).forEach(function (g) { gsap.set(g, { opacity: 0 }); });
+    if (sc.querySelector('.vc')) gsap.set(sc.querySelector('.vc'), { opacity: 0 });
+    if (sc.querySelector('.line')) gsap.set([sc.querySelector('.line')].concat($$('.scr, .btn', sc)), { opacity: 0 });
+  });
+  if (reduce) return;
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !e.target._done) { e.target._done = true; play(e.target); } }); }, { threshold: 0.35 });
+  $$('.sc').forEach(function (sc) { io.observe(sc); });
+})();
+</script>
+</body>
+</html>
