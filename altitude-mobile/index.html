@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="a" data-bg="fog" data-hero="a" data-why="a" data-fill="on" data-name="0">
+<html lang="ru" data-font="a" data-bg="fog" data-hero="a" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="d">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -41,7 +41,7 @@
   .ph::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(20, 20, 20, .025) 14px 15px); }
 
   /* Облака */
-  .cl { position: absolute; pointer-events: none; opacity: var(--cloud); width: 160%; left: -30%; user-select: none; }
+  .cl { position: absolute; pointer-events: none; opacity: var(--cloud); width: 160%; left: -30%; user-select: none; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, transparent 100%); }
 
   /* Шапка */
   .hdr { position: fixed; z-index: 30; top: 0; left: 0; right: 0; max-width: 480px; margin: 0 auto; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; }
@@ -150,14 +150,14 @@
   .obj__nav { position: absolute; top: 14%; left: 0; right: 0; text-align: center; z-index: 2; }
 
   /* 03 Лента лет */
-  .tl { position: relative; margin-top: 34px; padding-left: 64px; }
-  .tl::before { content: ''; position: absolute; left: 22px; top: 0; bottom: 0; width: 1px; background: var(--line); }
-  .tli { position: relative; padding-bottom: 34px; }
-  .tli::before { content: ''; position: absolute; left: -46px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--ink); }
-  .tli__y { position: absolute; left: -64px; top: 26px; writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--fh); font-weight: var(--fhw); font-size: 13px; letter-spacing: .14em; color: var(--mute); }
-  .tli .ph { aspect-ratio: 4/3; transform-origin: 0 50%; }
-  .tli b { display: block; margin-top: 12px; font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 13px; }
-  .tli span { font-size: 12px; color: var(--mute); }
+  .tl { position: relative; margin-top: 40px; padding-bottom: 6vh; }
+  .tl::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--ink); opacity: .35; }
+  .tl__fill { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; margin-left: 0; background: var(--ink); transform-origin: top; transform: scaleY(0); }
+  .tli { position: relative; margin: 0 auto 12vh; padding: 0 30px; text-align: center; }
+  .tli__y { position: relative; z-index: 1; display: inline-block; margin-bottom: 14px; padding: 6px 14px; border: 1px solid var(--ink); border-radius: 999px; background: var(--bg); font-family: var(--fh); font-weight: var(--fhw); font-size: 12px; letter-spacing: .14em; }
+  .tli .ph { position: relative; z-index: 1; aspect-ratio: 4/3; transform-origin: center; box-shadow: 0 20px 40px rgba(20, 20, 20, .06); }
+  .tli b { position: relative; z-index: 1; display: inline-block; margin-top: 14px; padding: 0 10px; background: var(--bg); font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 14px; }
+  .tli > span:last-child { position: relative; z-index: 1; display: block; width: max-content; margin: 4px auto 0; padding: 0 10px; background: var(--bg); font-size: 12px; color: var(--mute); }
 
   /* Свайп-ленты */
   .swipe { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); padding: 0 var(--pad) 4px; margin: 0 calc(var(--pad) * -1); scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
@@ -206,6 +206,77 @@
   .acc.open .dir__more { grid-template-rows: 1fr; }
   .acc p { margin: 0 0 18px 36px; font-size: 13px; color: var(--ink2); }
 
+
+
+  /* Варианты «Что строим» */
+  .dv { display: none; }
+  html[data-dirs="a"] .dv-a, html[data-dirs="b"] .dv-b, html[data-dirs="c"] .dv-c, html[data-dirs="d"] .dv-d { display: block; }
+  .idx { margin-top: 30px; border-top: 1px solid var(--ink); }
+  .idx__r { border-bottom: 1px solid var(--line); }
+  .idx__r > button { width: 100%; display: flex; align-items: center; gap: 14px; padding: 22px 0; text-align: left; }
+  .idx__r .n { font: 500 10px var(--fb); letter-spacing: .2em; color: var(--mute); width: 24px; align-self: flex-start; padding-top: 8px; }
+  .idx__r .t { flex: 1; font-size: calc(22px * var(--fhk)); transition: transform .4s; }
+  html[data-font="a"] .idx__r .t { font-size: 18px; }
+  .idx__r.open .t { transform: translateX(6px); }
+  .idx__r.open .plus { transform: rotate(45deg); }
+  .idx__r .dir__more { grid-column: auto; }
+  .idx__r.open .dir__more { grid-template-rows: 1fr; }
+  .idx__r .ph { aspect-ratio: 16/10; margin-bottom: 14px; }
+  .idx__r p { margin: 0 0 6px; font-size: 13px; color: var(--ink2); }
+  .idx__r ul { margin-bottom: 20px !important; }
+  .arch { background: var(--paper); border: 1px solid var(--line); padding: 12px 12px 18px; }
+  .arch .ph { aspect-ratio: 3/4; border-radius: 999px 999px 0 0; }
+  .arch .dir__n { display: block; margin-top: 16px; }
+  .arch h3 { margin: 8px 0 6px; font-size: calc(17px * var(--fhk)); }
+  html[data-font="a"] .arch h3 { font-size: 15px; }
+  .arch p { margin: 0; font-size: 12.5px; color: var(--ink2); }
+  .arch ul, .tabp ul { list-style: none; margin: 12px 0 0; padding: 0; }
+  .arch li, .tabp li { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px dashed var(--line); font-size: 12.5px; }
+  .arch li span:last-child, .tabp li span:last-child { color: var(--mute); }
+  .tabs { display: flex; gap: 6px; margin: 28px calc(var(--pad) * -1) 18px; padding: 0 var(--pad); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button { flex: none; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .16em; text-transform: uppercase; transition: .25s; }
+  .tabs button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .tabp .ph { aspect-ratio: 4/3; border-radius: 160px 160px 0 0; }
+  .tabp h3 { margin: 18px 0 6px; font-size: calc(22px * var(--fhk)); }
+  html[data-font="a"] .tabp h3 { font-size: 19px; }
+  .tabp p { margin: 0; font-size: 13px; color: var(--ink2); }
+  .tabp > * { transition: opacity .3s, transform .3s; }
+  .tabp.swap > * { opacity: 0; transform: translateY(8px); }
+
+  /* Варианты «Как строим» */
+  .hv { display: none; }
+  html[data-how="a"] .hv-a, html[data-how="b"] .hv-b, html[data-how="c"] .hv-c, html[data-how="d"] .hv-d { display: block; }
+  .bp { position: relative; margin: 26px calc(var(--pad) * -1) 0; padding: 18px var(--pad) 6px; background: var(--paper); background-image: linear-gradient(rgba(20, 20, 20, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 20, 20, .045) 1px, transparent 1px); background-size: 18px 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .bp svg { display: block; width: 100%; overflow: visible; }
+  .bp svg * { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .bp svg .thin { stroke-width: .7; stroke: var(--mute); }
+  .bp svg text { fill: var(--mute); stroke: none; font: 500 8px var(--fb); letter-spacing: .14em; }
+  .bp__head { display: flex; justify-content: space-between; align-items: baseline; }
+  .bp__n { font-family: var(--fh); font-weight: var(--fhw); font-size: 30px; line-height: 1; }
+  .bp__n small { font-size: 13px; color: var(--mute); }
+  .bpl { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; margin-top: 18px; }
+  .bpl div { padding: 12px 0; border-top: 1px solid var(--line); opacity: .35; transition: opacity .35s; }
+  .bpl div.on { opacity: 1; border-top-color: var(--ink); }
+  .bpl span { font: 500 9px var(--fb); letter-spacing: .2em; color: var(--mute); }
+  .bpl b { display: block; margin: 6px 0 4px; font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 12px; line-height: 1.3; }
+  .bpl p { margin: 0; font-size: 11.5px; color: var(--ink2); line-height: 1.45; }
+  .vline { position: relative; list-style: none; margin: 30px 0 0; padding: 0 0 0 44px; }
+  .vline::before, .vline__fill { content: ''; position: absolute; left: 11px; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+  .vline__fill { background: var(--ink); transform-origin: top; transform: scaleY(0); }
+  .vline li { position: relative; padding-bottom: 34px; opacity: .3; transition: opacity .4s; }
+  .vline li.on { opacity: 1; }
+  .vline li::before { content: ''; position: absolute; left: -38px; top: 4px; width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--ink); background: var(--bg); transition: background .3s; }
+  .vline li.on::before { background: var(--ink); }
+  .vline .n { font-family: var(--fh); font-weight: var(--fhw); font-size: 40px; line-height: 1; color: var(--ink); }
+  .vline b { display: block; margin: 8px 0 6px; font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 15px; }
+  .vline p { margin: 0; font-size: 13px; color: var(--ink2); }
+  .vline small { display: inline-block; margin-top: 10px; font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .bign { position: relative; padding: 18px 16px 20px; min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+  .bign > span { position: absolute; top: -18px; right: -6px; font-family: var(--fh); font-weight: var(--fhw); font-size: 150px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(20, 20, 20, .22); }
+  .bign i { font: normal 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
+  .bign b { display: block; margin: 8px 0 6px; font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 16px; line-height: 1.25; }
+  .bign p { margin: 0; font-size: 13px; color: var(--ink2); }
 
   /* Смета-документ */
   .doc { position: relative; margin: 30px 4px 0; padding: 22px 18px 20px; background: var(--paper); box-shadow: 0 30px 60px rgba(20, 20, 20, .09), 0 2px 6px rgba(20, 20, 20, .04); transform: rotate(-1.4deg); }
@@ -366,7 +437,7 @@
     <div class="sh"><span class="lbl">01 — Что строим</span></div>
     <h2 class="h2 cap"><span>Четыре</span><span>направления</span></h2>
     <span class="accent scr draw">одна команда</span>
-    <div class="dirs">
+    <div class="dirs dv dv-a">
       <article class="dir"><div class="ph" data-ph="Коттедж"></div><div><span class="dir__n">01</span><h3 class="dir__t cap">Коттеджи</h3><p class="dir__s">Частные дома от 120 м² по готовому или вашему проекту.</p><span class="dir__p"><span class="plus"></span>Подробнее</span></div>
         <div class="dir__more"><div><ul><li><span>Площадь</span><span>[120–600] м²</span></li><li><span>Срок</span><span>[6–12] мес.</span></li><li><span>Стоимость</span><span>от [—] ₽/м²</span></li></ul></div></div></article>
       <article class="dir"><div class="ph" data-ph="Таунхаус"></div><div><span class="dir__n">02</span><h3 class="dir__t cap">Таунхаусы</h3><p class="dir__s">Блокированная застройка для посёлков и инвесторов.</p><span class="dir__p"><span class="plus"></span>Подробнее</span></div>
@@ -376,6 +447,9 @@
       <article class="dir"><div class="ph" data-ph="Коммерция"></div><div><span class="dir__n">04</span><h3 class="dir__t cap">Коммерция</h3><p class="dir__s">Офисы, шоурумы и общественные здания.</p><span class="dir__p"><span class="plus"></span>Подробнее</span></div>
         <div class="dir__more"><div><ul><li><span>Площадь</span><span>от [300] м²</span></li><li><span>Срок</span><span>по ТЗ</span></li><li><span>Стоимость</span><span>по смете</span></li></ul></div></div></article>
     </div>
+    <div class="dv dv-b"><div class="idx" id="idx"></div></div>
+    <div class="dv dv-c"><div class="swipe" id="arches" style="margin-top:28px"></div><div class="nav"><span class="cnt" id="ar-n">01 / 04</span><div class="prog"><i id="ar-bar"></i></div></div></div>
+    <div class="dv dv-d"><div class="tabs" id="tabs"></div><div class="tabp" id="tabp"></div></div>
   </section>
 
   <!-- 02 Объект: карточка раскрывается на весь экран -->
@@ -400,7 +474,7 @@
     <div class="sh"><span class="lbl">03 — Сданные дома</span></div>
     <h2 class="h2 cap"><span>[140] домов</span><span>за [12] лет</span></h2>
     <span class="accent scr draw">и каждый помним</span>
-    <div class="tl">
+    <div class="tl"><i class="tl__fill"></i>
       <div class="tli"><span class="tli__y">[2014]</span><div class="ph" data-ph="Первый дом"></div><b>Первый дом</b><span>[Посёлок] · [180] м²</span></div>
       <div class="tli"><span class="tli__y">[2017]</span><div class="ph" data-ph="Посёлок"></div><b>Первый посёлок</b><span>[24] коттеджа</span></div>
       <div class="tli"><span class="tli__y">[2020]</span><div class="ph" data-ph="Таунхаусы"></div><b>Таунхаусы</b><span>[4] квартала</span></div>
@@ -413,6 +487,31 @@
   <section class="sec" id="how">
     <div class="sh"><span class="lbl">04 — Как строим</span></div>
     <h2 class="h2 cap"><span>Шесть этапов</span><span>на ваших глазах</span></h2>
+    <div class="hv hv-d">
+      <p class="lead">Прокручивайте — чертёж дома собирается по этапам.</p>
+      <div class="bp" id="bp">
+        <div class="bp__head"><div class="bp__n"><span id="bp-n">01</span><small> / 06</small></div><span class="lbl">Проект · [150 м²]</span></div>
+        <svg viewBox="0 0 360 300" aria-hidden="true">
+          <g class="st st1"><line x1="10" y1="252" x2="350" y2="252"/><rect x="48" y="238" width="264" height="14"/><line class="thin" x1="48" y1="246" x2="312" y2="246"/></g>
+          <g class="st st2"><polyline points="60,238 60,128 300,128 300,238"/><line class="thin" x1="70" y1="238" x2="70" y2="128"/><line class="thin" x1="290" y1="238" x2="290" y2="128"/></g>
+          <g class="st st3"><line x1="60" y1="184" x2="300" y2="184"/><line class="thin" x1="60" y1="190" x2="300" y2="190"/><line class="thin" x1="60" y1="134" x2="300" y2="134"/></g>
+          <g class="st st4"><polyline points="40,130 180,46 320,130"/><polyline class="thin" points="56,128 180,56 304,128"/><polyline points="236,80 236,54 258,54 258,93"/></g>
+          <g class="st st5"><rect x="88" y="146" width="40" height="26"/><rect x="232" y="146" width="40" height="26"/><rect x="88" y="200" width="40" height="28"/><rect x="232" y="200" width="40" height="28"/><rect x="160" y="196" width="40" height="42"/><line class="thin" x1="108" y1="146" x2="108" y2="172"/><line class="thin" x1="252" y1="146" x2="252" y2="172"/><circle cx="194" cy="218" r="1.5"/></g>
+          <g class="st st6"><line class="thin" x1="60" y1="276" x2="300" y2="276"/><line class="thin" x1="60" y1="270" x2="60" y2="282"/><line class="thin" x1="300" y1="270" x2="300" y2="282"/><line class="thin" x1="330" y1="252" x2="330" y2="46"/><line class="thin" x1="324" y1="46" x2="336" y2="46"/><line class="thin" x1="324" y1="252" x2="336" y2="252"/><text x="150" y="292">[12 000]</text><text x="338" y="150" transform="rotate(90 338 150)">[8 400]</text></g>
+        </svg>
+      </div>
+      <div class="bpl" id="bpl">
+        <div class="on"><span>01</span><b>Участок и проект</b><p>Инженер смотрит участок и грунт.</p></div>
+        <div><span>02</span><b>Фундамент</b><p>Армирование — на фото до заливки.</p></div>
+        <div><span>03</span><b>Коробка</b><p>Газобетон, кирпич или монолит.</p></div>
+        <div><span>04</span><b>Перекрытия и кровля</b><p>Принимаем по акту.</p></div>
+        <div><span>05</span><b>Окна и фасад</b><p>Утепление — на фото до закрытия.</p></div>
+        <div><span>06</span><b>Инженерия и ключи</b><p>Сети, отделка, гарантия [5] лет.</p></div>
+      </div>
+    </div>
+    <div class="hv hv-b"><ol class="vline" id="vline"><i class="vline__fill"></i></ol></div>
+    <div class="hv hv-c"><div class="swipe" id="bign" style="margin-top:28px"></div><div class="nav"><span class="cnt" id="bg-n">01 / 06</span><div class="prog"><i id="bg-bar"></i></div></div></div>
+    <div class="hv hv-a">
     <p class="lead">Листайте этапы — кран достраивает дом.</p>
     <div class="crane">
       <div class="crane__n"><span id="cr-n">01</span><small> / 06</small></div>
@@ -429,6 +528,7 @@
         <article class="stepc"><i>Этап 06</i><b>Инженерия и ключи</b><p>Сети, отделка, сдача. Гарантия на конструктив [5] лет.</p></article>
       </div>
       <div class="nav"><button class="arr" id="st-prev" aria-label="Предыдущий этап">‹</button><button class="arr" id="st-next" aria-label="Следующий этап">›</button><div class="prog"><i id="st-bar"></i></div></div>
+    </div>
     </div>
   </section>
 
@@ -560,6 +660,20 @@
       <button data-v="c"><span class="fC">ДОМ ВЫШЕ</span><small>Антиква, премиум</small></button>
       <button data-v="d"><span class="fD">ДОМ ВЫШЕ</span><small>Классический гротеск</small></button>
     </div></div>
+  <div class="vg"><span class="lbl">Блок «Что строим»</span>
+    <div class="seg" data-k="dirs">
+      <button data-v="b">Индекс<small>крупный список, раскрывается</small></button>
+      <button data-v="c">Арки<small>свайп-карточки</small></button>
+      <button data-v="d">Вкладки<small>одна большая карточка</small></button>
+      <button data-v="a">Шахматка<small>как было</small></button>
+    </div></div>
+  <div class="vg"><span class="lbl">Блок «Как строим»</span>
+    <div class="seg" data-k="how">
+      <button data-v="d">Чертёж<small>дом рисуется при прокрутке</small></button>
+      <button data-v="b">Линия<small>этапы по вертикали</small></button>
+      <button data-v="c">Цифры<small>свайп, большие номера</small></button>
+      <button data-v="a">Кран<small>как было</small></button>
+    </div></div>
   <div class="vg"><span class="lbl">Фон</span>
     <div class="seg" data-k="bg" style="grid-template-columns:repeat(3,1fr)">
       <button data-v="fog">Туман<small>серо-голубой</small></button>
@@ -600,28 +714,27 @@
     var c = document.createElement('canvas'); c.width = w; c.height = h;
     var x = c.getContext('2d'), P = [];
     for (var i = 0; i < n; i++) {
-      var px = rnd() * w, edge = Math.min(px, w - px) / (w / 2);
-      var r = (40 + rnd() * 110) * (0.5 + edge * 0.7);
-      P.push([px, h * band + (rnd() - 0.5) * h * 0.28 - edge * h * 0.1, r]);
+      var px = w * 0.12 + rnd() * w * 0.76, edge = Math.min(px - w * 0.12, w * 0.88 - px) / (w * 0.38);
+      var r = (40 + rnd() * 100) * (0.45 + edge * 0.75);
+      var py = h * band + (rnd() - 0.5) * h * 0.24 - edge * h * 0.08;
+      r = Math.min(r, py - 4, h - py - 4); // клуб целиком внутри холста
+      if (r > 8) P.push([px, py, r]);
     }
-    P.forEach(function (p) { // тень снизу
-      var g = x.createRadialGradient(p[0], p[1] + p[2] * 0.35, 0, p[0], p[1] + p[2] * 0.35, p[2]);
-      g.addColorStop(0, 'rgba(150,158,170,.16)'); g.addColorStop(1, 'rgba(150,158,170,0)');
-      x.fillStyle = g; x.fillRect(p[0] - p[2], p[1] - p[2] * 0.65, p[2] * 2, p[2] * 2);
-    });
-    P.forEach(function (p) { // белые клубы
-      var g = x.createRadialGradient(p[0], p[1] - p[2] * 0.1, 0, p[0], p[1], p[2]);
-      g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.55, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-      x.fillStyle = g; x.fillRect(p[0] - p[2], p[1] - p[2], p[2] * 2, p[2] * 2);
-    });
+    var puff = function (cx, cy, r, c0, c1) { // круг с мягким краем, без прямоугольников
+      var g = x.createRadialGradient(cx, cy, 0, cx, cy, r);
+      g.addColorStop(0, c0); g.addColorStop(.55, c1); g.addColorStop(1, 'rgba(255,255,255,0)');
+      x.fillStyle = g; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill();
+    };
+    P.forEach(function (p) { var rr = Math.min(p[2], h - p[1] - p[2] * 0.3 - 2); if (rr > 8) puff(p[0], p[1] + p[2] * 0.3, rr, 'rgba(150,158,170,.14)', 'rgba(150,158,170,.06)'); });
+    P.forEach(function (p) { puff(p[0], p[1], p[2], 'rgba(255,255,255,.95)', 'rgba(255,255,255,.5)'); });
     return c.toDataURL('image/png');
   };
   var CL = [cloud(1000, 420, 70, 0.6), cloud(1000, 380, 55, 0.55), cloud(1000, 460, 80, 0.5)];
   $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'a', bg: 'fog', hero: 'a', why: 'a', fill: 'on' };
-  try { var s = JSON.parse(localStorage.getItem('alt-demo') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'a', bg: 'fog', hero: 'a', why: 'a', fill: 'on', dirs: 'b', how: 'd' };
+  try { var s = JSON.parse(localStorage.getItem('alt-demo2') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
@@ -629,7 +742,7 @@
     $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' · с [2014]'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-demo', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-demo2', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
@@ -669,6 +782,42 @@
     upd();
   };
   bindProg($('#why-track'), $('#why-bar'), $('#why-n'));
+
+
+  // ---------- Данные направлений и этапов для вариантов ----------
+  var D = [
+    ['Коттеджи', 'Коттедж', 'Частные дома от 120 м² по готовому или вашему проекту.', [['Площадь', '[120–600] м²'], ['Срок', '[6–12] мес.'], ['Стоимость', 'от [—] ₽/м²']]],
+    ['Таунхаусы', 'Таунхаус', 'Блокированная застройка для посёлков и инвесторов.', [['Секций', 'от [2]'], ['Срок', '[8–14] мес.'], ['Стоимость', 'от [—] ₽/м²']]],
+    ['Жилые комплексы', 'Жилой комплекс', 'Малоэтажные ЖК: от концепции до ввода в эксплуатацию.', [['Этажность', '[3–9]'], ['Квартиры', 'от [—] ₽'], ['Сдача', '[квартал, год]']]],
+    ['Коммерция', 'Коммерция', 'Офисы, шоурумы и общественные здания.', [['Площадь', 'от [300] м²'], ['Срок', 'по ТЗ'], ['Стоимость', 'по смете']]]
+  ];
+  var specs = function (d) { return '<ul>' + d[3].map(function (x) { return '<li><span>' + x[0] + '</span><span>' + x[1] + '</span></li>'; }).join('') + '</ul>'; };
+  // Индекс
+  $('#idx').innerHTML = D.map(function (d, i) {
+    return '<div class="idx__r' + (i === 0 ? ' open' : '') + '"><button><span class="n">' + pad(i + 1) + '</span><span class="t cap">' + d[0] + '</span><span class="plus"></span></button><div class="dir__more"><div><div class="ph" data-ph="' + d[1] + '"></div><p>' + d[2] + '</p>' + specs(d) + '</div></div></div>';
+  }).join('');
+  $$('.idx__r > button').forEach(function (b) { b.onclick = function () {
+    var r = b.parentNode, was = r.classList.contains('open');
+    $$('.idx__r').forEach(function (x) { x.classList.remove('open'); });
+    if (!was) r.classList.add('open');
+    if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 500);
+  }; });
+  // Арки
+  $('#arches').innerHTML = D.map(function (d, i) { return '<article class="arch"><div class="ph" data-ph="' + d[1] + '"></div><span class="dir__n">' + pad(i + 1) + '</span><h3 class="cap">' + d[0] + '</h3><p>' + d[2] + '</p>' + specs(d) + '</article>'; }).join('');
+  bindProg($('#arches'), $('#ar-bar'), $('#ar-n'));
+  // Вкладки
+  $('#tabs').innerHTML = D.map(function (d, i) { return '<button' + (i === 0 ? ' class="on"' : '') + '>' + d[0] + '</button>'; }).join('');
+  var tabp = $('#tabp'), showTab = function (i) { var d = D[i]; tabp.innerHTML = '<div class="ph" data-ph="' + d[1] + '"></div><h3 class="cap">' + d[0] + '</h3><p>' + d[2] + '</p>' + specs(d); };
+  showTab(0);
+  $$('#tabs button').forEach(function (b, i) { b.onclick = function () {
+    $$('#tabs button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    tabp.classList.add('swap'); setTimeout(function () { showTab(i); tabp.classList.remove('swap'); }, 220);
+  }; });
+
+  var S = [['Участок и проект', 'Инженер бесплатно смотрит участок и грунт, подбираем проект.', '[1–2] недели'], ['Фундамент', 'Плита, лента или сваи. Армирование фотографируем до заливки.', '[3–4] недели'], ['Коробка', 'Газобетон, кирпич или монолит — своя бригада.', '[1–2] месяца'], ['Перекрытия и кровля', 'Принимаем по акту, платите только после приёмки.', '[1] месяц'], ['Окна и фасад', 'Утепление и гидроизоляция — на фото до закрытия.', '[1] месяц'], ['Инженерия и ключи', 'Сети, отделка, сдача. Гарантия на конструктив [5] лет.', '[2–3] месяца']];
+  $('#vline').insertAdjacentHTML('beforeend', S.map(function (x, i) { return '<li><span class="n">' + pad(i + 1) + '</span><b>' + x[0] + '</b><p>' + x[1] + '</p><small>Срок · ' + x[2] + '</small></li>'; }).join(''));
+  $('#bign').innerHTML = S.map(function (x, i) { return '<article class="bign"><span>' + pad(i + 1) + '</span><i>Этап ' + pad(i + 1) + ' · ' + x[2] + '</i><b>' + x[0] + '</b><p>' + x[1] + '</p></article>'; }).join('');
+  bindProg($('#bign'), $('#bg-bar'), $('#bg-n'));
 
   // ---------- Кран (чёрно-белый): управляется свайпом этапов ----------
   var K = '#141414';
@@ -729,7 +878,7 @@
   $('#area').oninput = function () { $('#area-v').textContent = this.value + ' м²'; };
   $('#lead').onsubmit = function (e) { e.preventDefault(); $('#lead-box').classList.add('sent'); };
 
-  if (reduce || !window.ScrollTrigger) { crane.progress(1 / depth.length); $$('#doc .doc__r').forEach(function (r) { r.classList.add('ok'); }); $('.stamp').style.opacity = 1; return; }
+  if (reduce || !window.ScrollTrigger) { crane.progress(1 / depth.length); $$('#doc .doc__r').forEach(function (r) { r.classList.add('ok'); }); $('.stamp').style.opacity = 1; $$('#vline li, #bpl div').forEach(function (x) { x.classList.add('on'); }); return; }
   gsap.registerPlugin(ScrollTrigger);
   var sc = function (trigger, start, end) { return { trigger: trigger, start: start || 'top bottom', end: end || 'bottom top', scrub: true }; };
 
@@ -769,6 +918,25 @@
   ScrollTrigger.create({ trigger: '#doc', start: 'top 72%', end: 'bottom 55%', scrub: true, onUpdate: function (st) { var n = Math.floor(st.progress * (rows.length + 0.99)); rows.forEach(function (r, i) { r.classList.toggle('ok', i < n); }); } });
   gsap.fromTo('.stamp', { opacity: 0, scale: 1.5, rotation: -24 }, { opacity: 1, scale: 1, rotation: -12, ease: 'back.out(2.5)', scrollTrigger: sc('#doc', 'bottom 68%', 'bottom 52%') });
   gsap.fromTo('#doc', { rotation: 2, y: 40 }, { rotation: -1.4, y: 0, ease: 'none', scrollTrigger: sc('#doc', 'top bottom', 'top 50%') });
+  // Лента лет: центральная линия прорисовывается по прокрутке
+  gsap.to('.tl__fill', { scaleY: 1, ease: 'none', scrollTrigger: sc('.tl', 'top 70%', 'bottom 60%') });
+  // Чертёж: линии дома прорисовываются по этапам
+  var bpG = $$('#bp .st'), bpL = $$('#bpl div'), bpTl = gsap.timeline({ paused: true });
+  bpG.forEach(function (g, i) {
+    var els = $$('line, rect, polyline, circle', g);
+    els.forEach(function (e) { var L = e.getTotalLength ? e.getTotalLength() : 400; e.style.strokeDasharray = L; e.style.strokeDashoffset = L; });
+    bpTl.to(els, { strokeDashoffset: 0, duration: 1, ease: 'none', stagger: 0.08 }, i);
+    bpTl.fromTo($$('text', g), { opacity: 0 }, { opacity: 1, duration: 0.4 }, i + 0.6);
+  });
+  ScrollTrigger.create({ trigger: '#bp', start: 'top 80%', end: 'bottom 25%', scrub: 0.6, onUpdate: function (st) {
+    bpTl.progress(st.progress);
+    var k = Math.min(bpG.length - 1, Math.floor(st.progress * bpG.length));
+    $('#bp-n').textContent = pad(k + 1);
+    bpL.forEach(function (d, i) { d.classList.toggle('on', i <= k); });
+  } });
+  // Линия этапов
+  gsap.to('.vline__fill', { scaleY: 1, ease: 'none', scrollTrigger: sc('#vline', 'top 60%', 'bottom 60%') });
+  $$('#vline li').forEach(function (li) { ScrollTrigger.create({ trigger: li, start: 'top 62%', end: 'max', toggleClass: 'on' }); });
   // Кран показывает первый этап, когда блок появляется
   ScrollTrigger.create({ trigger: '.crane', start: 'top 75%', once: true, onEnter: function () { goCrane(cur); } });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
