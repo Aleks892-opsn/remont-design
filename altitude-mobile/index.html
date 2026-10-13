@@ -206,6 +206,32 @@
   .acc.open .dir__more { grid-template-rows: 1fr; }
   .acc p { margin: 0 0 18px 36px; font-size: 13px; color: var(--ink2); }
 
+
+  /* Смета-документ */
+  .doc { position: relative; margin: 30px 4px 0; padding: 22px 18px 20px; background: var(--paper); box-shadow: 0 30px 60px rgba(20, 20, 20, .09), 0 2px 6px rgba(20, 20, 20, .04); transform: rotate(-1.4deg); }
+  .doc__h { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .doc__h b { font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 14px; }
+  .doc__r { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .doc__r span:nth-child(2) { flex: 1; }
+  .doc__r span:last-child { color: var(--mute); font-size: 12.5px; }
+  .tick { position: relative; width: 18px; height: 18px; flex: none; border-radius: 50%; border: 1px solid var(--line); transition: background .3s, border-color .3s; }
+  .tick::after { content: ''; position: absolute; left: 6px; top: 3px; width: 4px; height: 8px; border: solid #fff; border-width: 0 1.2px 1.2px 0; transform: rotate(45deg) scale(0); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+  .doc__r.ok .tick { background: var(--ink); border-color: var(--ink); }
+  .doc__r.ok .tick::after { transform: rotate(45deg) scale(1); }
+  .doc__r.ok span:last-child { color: var(--ink); }
+  .doc__sum { display: flex; justify-content: space-between; align-items: baseline; padding-top: 16px; }
+  .doc__sum span:first-child { font: 500 10px var(--fb); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+  .doc__sum b { font-family: var(--fh); font-weight: var(--fhw); font-size: 24px; }
+  .doc__sign { margin-top: 18px; max-width: 55%; }
+  .doc__sign div { border-bottom: 1px solid var(--ink); padding-bottom: 2px; margin-bottom: 6px; }
+  .doc__sign .scr { display: block; font-size: 34px; color: var(--ink); }
+  .doc__sign small { font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .stamp { position: absolute; right: -6px; bottom: -30px; background: rgba(255, 255, 255, .55); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); width: 104px; height: 104px; border-radius: 50%; border: 1px solid var(--ink); display: grid; place-items: center; text-align: center; color: var(--ink); opacity: 0; }
+  .stamp::before { content: ''; position: absolute; inset: 5px; border-radius: 50%; border: 1px dashed rgba(20, 20, 20, .35); }
+  .stamp b { font: 500 7px/1.6 var(--fb); letter-spacing: .1em; text-transform: uppercase; }
+  .stamp i { display: block; font: normal 400 22px/1 var(--fs); letter-spacing: 0; text-transform: none; }
+  .doc-btn { margin-top: 50px; }
+
   /* 06 Поставщики — стекло в тумане */
   .glassb { position: relative; margin-top: 30px; height: 112svh; overflow: hidden; }
   .glassb > .ph { position: absolute; inset: -10% 0; }
@@ -410,7 +436,20 @@
   <section class="sec" id="why">
     <div class="sh"><span class="lbl">05 — Почему мы</span></div>
     <h2 class="h2 cap"><span>Смета</span><span>не меняется</span></h2>
-    <div class="zero"><b>0 ₽</b><span>доплат после подписания договора</span></div>
+    <p class="lead">Цена фиксируется в договоре до начала работ. Платите только за принятый этап.</p>
+    <div class="doc" id="doc">
+      <div class="doc__h"><b>Смета · 150 м²</b><span class="lbl">к договору</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Фундамент</span><span>[сумма]</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Коробка</span><span>[сумма]</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Кровля и фасад</span><span>[сумма]</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Инженерия</span><span>[сумма]</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Отделка</span><span>[сумма]</span></div>
+      <div class="doc__sum"><span>Итого</span><b>[сумма]</b></div>
+      <div class="doc__sign"><div><span class="scr draw" data-logo>Altitude</span></div><small>подпись</small></div>
+      <div class="stamp"><div><b>Зафиксировано</b><i>в договоре</i><b>0 ₽ доплат</b></div></div>
+    </div>
+    <a class="btn doc-btn" href="#form">Получить смету на свой дом</a>
+    <div class="sh" style="margin:56px 0 0"><span class="lbl">И ещё четыре гарантии</span></div>
     <div class="why-cards">
       <div class="swipe" id="why-track" style="margin-top:20px">
         <article class="why"><div class="ph" data-ph="Смета и чертёж"></div><div class="why__b"><span class="why__n">01</span><b>Фиксированная смета</b><p>Считаем по проекту и вписываем в договор.</p></div></article>
@@ -690,7 +729,7 @@
   $('#area').oninput = function () { $('#area-v').textContent = this.value + ' м²'; };
   $('#lead').onsubmit = function (e) { e.preventDefault(); $('#lead-box').classList.add('sent'); };
 
-  if (reduce || !window.ScrollTrigger) { crane.progress(1 / depth.length); return; }
+  if (reduce || !window.ScrollTrigger) { crane.progress(1 / depth.length); $$('#doc .doc__r').forEach(function (r) { r.classList.add('ok'); }); $('.stamp').style.opacity = 1; return; }
   gsap.registerPlugin(ScrollTrigger);
   var sc = function (trigger, start, end) { return { trigger: trigger, start: start || 'top bottom', end: end || 'bottom top', scrub: true }; };
 
@@ -725,6 +764,11 @@
   gsap.fromTo('.glassb .c1', { xPercent: -6 }, { xPercent: 6, ease: 'none', scrollTrigger: sc('.glassb') });
   gsap.fromTo('.glassb .c2', { xPercent: 6, yPercent: 10 }, { xPercent: -6, yPercent: -10, ease: 'none', scrollTrigger: sc('.glassb') });
   gsap.fromTo('.ft .c1', { yPercent: 20 }, { yPercent: -10, ease: 'none', scrollTrigger: sc('.ft', 'top bottom', 'bottom bottom') });
+  // Смета: этапы отмечаются по мере прокрутки, в конце ставится печать
+  var rows = $$('#doc .doc__r');
+  ScrollTrigger.create({ trigger: '#doc', start: 'top 72%', end: 'bottom 55%', scrub: true, onUpdate: function (st) { var n = Math.floor(st.progress * (rows.length + 0.99)); rows.forEach(function (r, i) { r.classList.toggle('ok', i < n); }); } });
+  gsap.fromTo('.stamp', { opacity: 0, scale: 1.5, rotation: -24 }, { opacity: 1, scale: 1, rotation: -12, ease: 'back.out(2.5)', scrollTrigger: sc('#doc', 'bottom 68%', 'bottom 52%') });
+  gsap.fromTo('#doc', { rotation: 2, y: 40 }, { rotation: -1.4, y: 0, ease: 'none', scrollTrigger: sc('#doc', 'top bottom', 'top 50%') });
   // Кран показывает первый этап, когда блок появляется
   ScrollTrigger.create({ trigger: '.crane', start: 'top 75%', once: true, onEnter: function () { goCrane(cur); } });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
