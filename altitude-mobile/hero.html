@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Главный экран: варианты</title>
+<meta name="description" content="Четыре варианта анимации главного экрана, которые не лагают на телефоне.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12); --pad: 20px; --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Great Vibes', cursive; --fh: 'Unbounded', sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 300 15px/1.6 var(--fb); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .cap { font-family: var(--fh); font-weight: 200; letter-spacing: .02em; text-transform: uppercase; line-height: 1.12; }
+  .scr { font-family: var(--fs); line-height: 1; color: var(--ink2); }
+  .lbl { font: 500 10px/1 var(--fb); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+
+  .top { padding: 34px var(--pad) 6px; }
+  .top h1 { margin: 10px 0 8px; font-size: 22px; }
+  .top p { margin: 0 0 6px; color: var(--ink2); font-size: 13px; }
+  .jump { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .14em; text-transform: uppercase; color: inherit; text-decoration: none; background: var(--paper); }
+
+  .var__h { display: flex; align-items: baseline; gap: 12px; margin: 64px var(--pad) 14px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .var__h b { font-family: var(--fh); font-weight: 200; font-size: 40px; line-height: 1; }
+  .var__h div { flex: 1; }
+  .var__h span { display: block; font: 500 10px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+  .var__h small { display: block; margin-top: 4px; font-size: 12px; color: var(--mute); line-height: 1.45; }
+
+  /* Экран варианта */
+  .scr-box { position: relative; height: 100vh; height: 100svh; min-height: 600px; max-height: 920px; overflow: hidden; background: #dfe3e8; }
+  .scr-box > * { position: absolute; }
+  .bg { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .head { left: var(--pad); right: var(--pad); top: 70px; text-align: center; z-index: 4; }
+  .head h2 { margin: 0; font-size: 26px; }
+  .head .scr { display: block; font-size: 58px; margin-top: -6px; transform: rotate(-4deg); }
+  .head p { margin: 12px auto 0; max-width: 300px; font-size: 14px; color: var(--ink2); }
+  .scene { left: -10%; width: 120%; top: 36%; z-index: 1; transform-origin: 50% 70%; }
+  .house { display: block; width: 100%; height: auto; position: relative; }
+  .clouds { position: absolute; left: 0; right: 0; top: 52%; height: 0; }
+  .cl { position: absolute; left: -25%; width: 150%; max-width: none; top: 1vw; }
+  .floor { position: absolute; left: -40%; right: -40%; top: 50vw; height: 200vh; background: linear-gradient(rgba(244, 245, 247, 0), #f4f5f7 18%); }
+  @media (min-width: 481px) { .cl { top: 5px; } .floor { top: 240px; } }
+  .mark { position: absolute; inset: 0; }
+  .mark img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .logo, .ol { opacity: 0; }
+  .scene, .clouds, .house, .mark, .logo, .ol, .head { will-change: transform, opacity; }
+  .cta { left: 0; right: 0; bottom: 34px; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10px var(--fb); letter-spacing: .22em; text-transform: uppercase; }
+  .pill.light { background: rgba(255, 255, 255, .9); color: var(--ink); border: 1px solid var(--line); }
+  .note { font: 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; color: var(--ink2); }
+  .again { right: 14px; top: 14px; z-index: 6; height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .9); border: 1px solid var(--line); font: 500 9px var(--fb); letter-spacing: .16em; text-transform: uppercase; }
+
+  /* А: строки заголовка выезжают из-под маски */
+  .ln { display: block; overflow: hidden; }
+  .ln > span { display: block; }
+
+  /* В: видео */
+  .vid { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .scr-box.played .cta-v { opacity: 0; pointer-events: none; }
+  .cta-v { transition: opacity .3s; }
+
+  /* Г: обычная прокрутка без закрепления */
+  .scr-box.tall { height: auto; max-height: none; min-height: 0; }
+  .g-wrap { position: relative; height: 160vh; height: 160svh; max-height: 1400px; overflow: hidden; }
+  .g-wrap > * { position: absolute; }
+  .g-logo { left: 0; right: 0; top: 66%; z-index: 4; text-align: center; opacity: 0; }
+  .g-logo img { width: 112%; margin-left: -6%; display: block; }
+
+  .tail { padding: 30px var(--pad); background: var(--bg); }
+  .tail p { margin: 0; font-size: 13px; color: var(--ink2); }
+  .end { padding: 70px var(--pad) 70px; text-align: center; color: var(--mute); font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="lbl">Altitude · главный экран</span>
+    <h1 class="cap">Четыре способа<br>без лагов</h1>
+    <p>Во всех вариантах нет «прилипания» экрана к прокрутке. Анимация или проигрывается сама по нажатию, или едет вместе с обычной прокруткой. Телефон двигает только готовые картинки.</p>
+    <nav class="jump"><a href="#a">А · Свайп</a><a href="#b">Б · Подъём</a><a href="#c">В · Видео</a><a href="#d">Г · Параллакс</a></nav>
+  </header>
+
+  <!-- А -->
+  <div class="var__h" id="a"><b>А</b><div><span>Превращение по свайпу</span><small>Тот же эффект, что на видео: дом → контур букв → дом внутри букв. Запускается свайпом вверх или кнопкой и проигрывается сам за 2 секунды — не зависит от прокрутки, поэтому плавно.</small></div></div>
+  <section class="scr-box" id="sa">
+    <img class="bg" src="hero/bg.webp" alt="">
+    <div class="head"><h2 class="cap">Дома, которые<br>строят выше</h2><span class="scr">ожиданий</span></div>
+    <div class="scene"><img class="house" src="hero/house.webp" alt="Дом"><div class="clouds"><img class="cl" src="hero/clouds.webp" alt=""><i class="floor"></i></div><div class="mark"><img class="logo" src="hero/logo.webp" alt="Altitude"><img class="ol" src="hero/outline.webp" alt=""></div></div>
+    <div class="cta"><span class="note">свайп вверх</span><button class="pill" id="a-go">Войти ↑</button></div>
+    <button class="again" id="a-re">↺ Ещё раз</button>
+  </section>
+
+  <!-- Б -->
+  <div class="var__h" id="b"><b>Б</b><div><span>Подъём из облаков</span><small>Когда экран открывается, дом поднимается из облаков, строки заголовка выезжают по очереди. Один раз, 1,8 секунды. Дальше всё стоит.</small></div></div>
+  <section class="scr-box" id="sb">
+    <img class="bg" src="hero/bg.webp" alt="">
+    <div class="head"><h2 class="cap"><span class="ln"><span>Дома, которые</span></span><span class="ln"><span>строят выше</span></span></h2><span class="scr">ожиданий</span><p>Коттеджи, таунхаусы и ЖК под ключ — по фиксированной смете.</p></div>
+    <div class="scene"><img class="house" src="hero/house.webp" alt="Дом"><div class="clouds"><img class="cl" src="hero/clouds.webp" alt=""><i class="floor"></i></div></div>
+    <div class="cta"><a class="pill" href="#d" style="text-decoration:none">Рассчитать дом</a></div>
+    <button class="again" id="b-re">↺ Ещё раз</button>
+  </section>
+
+  <!-- В -->
+  <div class="var__h" id="c"><b>В</b><div><span>Видео по нажатию</span><small>Превращение дома в логотип — готовый ролик. Видео телефон проигрывает «железом», поэтому это самый плавный способ. Нажмите на экран.</small></div></div>
+  <section class="scr-box" id="sc">
+    <video class="vid" id="c-vid" src="hero/v/morph.mp4" poster="hero/v/poster.webp" muted playsinline preload="auto"></video>
+    <div class="head cta-v"><h2 class="cap">Дома, которые<br>строят выше</h2><span class="scr">ожиданий</span></div>
+    <div class="cta cta-v"><span class="note">нажмите</span><button class="pill" id="c-go">Смотреть ▶</button></div>
+    <button class="again" id="c-re">↺ Ещё раз</button>
+  </section>
+
+  <!-- Г -->
+  <div class="var__h" id="d"><b>Г</b><div><span>Параллакс при прокрутке</span><small>Экран не прилипает — страница листается как обычно. Облака едут быстрее дома и накрывают его, а из облаков проступает логотип. Только сдвиг слоёв.</small></div></div>
+  <section class="scr-box tall" id="sd">
+    <div class="g-wrap" id="g">
+      <img class="bg" src="hero/bg.webp" alt="" style="height:62%;object-fit:cover">
+      <div class="head"><h2 class="cap">Дома, которые<br>строят выше</h2><span class="scr">ожиданий</span></div>
+      <div class="scene" style="top:22%"><img class="house" src="hero/house.webp" alt="Дом"><div class="clouds"><img class="cl" src="hero/clouds.webp" alt=""><i class="floor"></i></div></div>
+      <div class="g-logo" id="g-logo"><img src="hero/logo.webp" alt="Altitude"></div>
+    </div>
+    <div class="tail"><p>Дальше начинается сайт — блок «в тумане».</p></div>
+  </section>
+
+  <p class="end">Выберите вариант — поставлю его в основное демо. В каждом можно оставить ваши картинки как есть.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ===== А: превращение по свайпу / кнопке (по времени, не по прокрутке) =====
+  var A = $('#sa'), q = function (s) { return A.querySelector(s); };
+  var ta = gsap.timeline({ paused: true, defaults: { ease: 'power2.inOut' } })
+    .to(q('.head'), { y: -50, opacity: 0, duration: 0.5 }, 0)
+    .to(q('.cta'), { opacity: 0, duration: 0.3 }, 0)
+    .to(q('.scene'), { scale: 1.16, y: -30, duration: 1.8, ease: 'power2.out' }, 0)
+    .to(q('.clouds'), { y: -40, duration: 1.4 }, 0)
+    .to(q('.ol'), { opacity: 1, duration: 0.45, ease: 'none' }, 0.45)
+    .to(q('.logo'), { opacity: 1, duration: 0.2, ease: 'none' }, 0.85)
+    .to(q('.house'), { opacity: 0, duration: 0.6, ease: 'none' }, 0.95)
+    .to(q('.ol'), { opacity: 0.25, duration: 0.6, ease: 'none' }, 1.1);
+  var playA = function () { if (ta.progress() === 0 || ta.reversed()) ta.timeScale(1).play(); };
+  q('#a-go').onclick = playA;
+  q('#a-re').onclick = function () { ta.pause(0); };
+  var y0 = 0;
+  A.addEventListener('touchstart', function (e) { y0 = e.touches[0].clientY; }, { passive: true });
+  A.addEventListener('touchend', function (e) { if (y0 - e.changedTouches[0].clientY > 40) playA(); }, { passive: true });
+
+  // ===== Б: подъём из облаков, когда экран появился =====
+  var B = $('#sb'), qb = function (s) { return B.querySelectorAll(s); };
+  var tb = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } })
+    .from(qb('.scene'), { y: 160, scale: 0.94, duration: 1.6 }, 0)
+    .from(qb('.house'), { opacity: 0, duration: 0.8, ease: 'none' }, 0)
+    .from(qb('.clouds'), { y: 60, duration: 1.6 }, 0)
+    .from(qb('.ln > span'), { yPercent: 110, duration: 0.9, stagger: 0.12 }, 0.35)
+    .from(qb('.head .scr, .head p'), { opacity: 0, y: 14, duration: 0.7, stagger: 0.1 }, 0.75)
+    .from(qb('.cta'), { opacity: 0, y: 14, duration: 0.6 }, 1.1);
+  new IntersectionObserver(function (es, o) { es.forEach(function (e) { if (e.isIntersecting) { tb.play(0); o.disconnect(); } }); }, { threshold: 0.45 }).observe(B);
+  $('#b-re').onclick = function () { tb.play(0); };
+
+  // ===== В: видео по нажатию =====
+  var C = $('#sc'), v = $('#c-vid');
+  var playC = function () { C.classList.add('played'); v.currentTime = 0; var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+  $('#c-go').onclick = playC; v.onclick = playC;
+  $('#c-re').onclick = function () { C.classList.remove('played'); v.pause(); v.currentTime = 0; };
+
+  if (reduce) { ta.progress(1); tb.progress(1); return; }
+
+  // ===== Г: обычная прокрутка, слои с разной скоростью (без закрепления) =====
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  var st = { trigger: '#g', start: 'top top', end: 'bottom top', scrub: true };
+  gsap.to('#g .head', { y: 120, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#g', start: 'top top', end: '30% top', scrub: true } });
+  gsap.to('#g .scene', { y: 160, ease: 'none', scrollTrigger: st });
+  gsap.to('#g .clouds', { y: -260, ease: 'none', scrollTrigger: st });
+  gsap.to('#g-logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#g', start: '15% top', end: '55% top', scrub: true } });
+})();
+</script>
+</body>
+</html>
