@@ -80,8 +80,8 @@
 
 
   /* Главный экран: слои */
-  .hx { position: relative; height: 300vh; }
-  .hx__st { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .hx { position: relative; height: 100vh; height: 100svh; min-height: 600px; max-height: 960px; }
+  .hx__st { position: relative; height: 100%; overflow: hidden; }
   .hx__st > * { position: absolute; }
   /* Слои: двигаются только transform и opacity — это делает видеокарта */
   .hx__bg { inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -99,6 +99,11 @@
   .hx__fog { width: 300%; left: -100%; top: 30%; opacity: 0; z-index: 5; }
   .hx__white { inset: 0; background: var(--bg); opacity: 0; z-index: 6; }
   .hx__scene, .hx__clouds, .hx__house, .hx__mark, .hx__logo, .hx__ol, .hx__fog, .hx__white, .hx__head { will-change: transform, opacity; }
+  .hx__cta { left: 0; right: 0; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .hx__note { font: 500 9px var(--fb); letter-spacing: .24em; text-transform: uppercase; color: var(--ink2); }
+  .hx__go { height: 46px; padding: 0 24px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10px var(--fb); letter-spacing: .22em; text-transform: uppercase; }
+  .hx__after { left: 0; right: 0; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 4; text-align: center; opacity: 0; pointer-events: none; }
+  .hx__after i { display: block; width: 1px; height: 26px; margin: 8px auto 0; background: var(--ink); opacity: .5; }
   .hx__nav { left: 0; right: 0; bottom: calc(76px + env(safe-area-inset-bottom)); margin: 0; z-index: 3; text-shadow: 0 0 12px #fff; }
   .hx__hint { left: 0; right: 0; bottom: calc(118px + env(safe-area-inset-bottom)); text-align: center; z-index: 3; font: 500 9px var(--fb); letter-spacing: .3em; text-transform: uppercase; color: var(--ink2); }
   .hx__hint::after { content: ''; display: block; width: 1px; height: 22px; margin: 8px auto 0; background: var(--ink); opacity: .5; }
@@ -434,10 +439,8 @@
         <div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div>
         <div class="hx__mark"><img class="hx__logo" src="hero/logo.webp" alt="Altitude"><img class="hx__ol" src="hero/outline.webp" alt=""></div>
       </div>
-      <img class="hx__fog" src="hero/fog.webp" alt="">
-      <div class="hx__white"></div>
-      <nav class="hero__nav hx__nav"><a href="#dirs">Коттеджи</a><a href="#dirs">Таунхаусы</a><a href="#dirs">ЖК</a><a href="#dirs">Коммерция</a></nav>
-      <span class="hx__hint">Листайте</span>
+      <div class="hx__cta"><span class="hx__note">свайп вверх</span><button class="hx__go" id="hx-go">Войти ↑</button></div>
+      <div class="hx__after"><span class="hx__note">листайте</span><i></i></div>
     </div>
   </section>
 
@@ -882,6 +885,26 @@
     r.addEventListener('touchstart', stop, { passive: true }); r.addEventListener('touchend', go); r.addEventListener('touchcancel', go);
   });
 
+
+  // ---------- Главный экран: превращение дома в логотип по свайпу или кнопке (по времени, не по прокрутке) ----------
+  var HX = $('#hx'), hq = function (x) { return HX.querySelector(x); };
+  var hxTl = gsap.timeline({ paused: true, defaults: { ease: 'power2.inOut' } })
+    .to(hq('.hx__head'), { y: -50, opacity: 0, duration: 0.5 }, 0)
+    .to(hq('.hx__cta'), { opacity: 0, duration: 0.3 }, 0)
+    .to(hq('.hx__scene'), { scale: 1.16, y: -30, duration: 1.8, ease: 'power2.out' }, 0)
+    .to(hq('.hx__clouds'), { y: -40, duration: 1.4 }, 0)
+    .to(hq('.hx__ol'), { opacity: 1, duration: 0.45, ease: 'none' }, 0.45)
+    .to(hq('.hx__logo'), { opacity: 1, duration: 0.2, ease: 'none' }, 0.85)
+    .to(hq('.hx__house'), { opacity: 0, duration: 0.6, ease: 'none' }, 0.95)
+    .to(hq('.hx__ol'), { opacity: 0.25, duration: 0.6, ease: 'none' }, 1.1)
+    .to(hq('.hx__after'), { opacity: 1, duration: 0.5 }, 1.6);
+  var hxPlay = function () { if (!hxTl.isActive() && hxTl.progress() === 0) { if (reduce) hxTl.progress(1); else hxTl.play(); } };
+  $('#hx-go').onclick = hxPlay;
+  var hy0 = 0;
+  HX.addEventListener('touchstart', function (e) { hy0 = e.touches[0].clientY; }, { passive: true });
+  HX.addEventListener('touchend', function (e) { if (hy0 - e.changedTouches[0].clientY > 40) hxPlay(); }, { passive: true });
+  HX.addEventListener('wheel', function (e) { if (e.deltaY > 0) hxPlay(); }, { passive: true });
+
   // Заявка
   $$('#kind button').forEach(function (b) { b.onclick = function () { $$('#kind button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; });
   $('#area').oninput = function () { $('#area-v').textContent = this.value + ' м²'; };
@@ -901,21 +924,6 @@
   });
   // Главный экран: дом уходит в облака, из облаков проявляется логотип, затем белый туман
   ScrollTrigger.config({ ignoreMobileResize: true });
-  // Главный экран: дом в облаках → контур букв → дом внутри букв → облака, туман, белый
-  var vh = function (k) { return function () { return innerHeight * k; }; };
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#hx', start: 'top top', end: 'bottom bottom', scrub: 0.4, invalidateOnRefresh: true } })
-    .to('.hx__head', { y: -60, opacity: 0, duration: 0.18 }, 0)
-    .to('.hx__nav, .hx__hint', { opacity: 0, duration: 0.08 }, 0)
-    .to('.hx__scene', { scale: 1.16, y: vh(-0.05), duration: 0.6 }, 0)
-    .to('.hx__clouds', { y: vh(-0.06), duration: 0.45 }, 0)
-    .to('.hx__ol', { opacity: 1, duration: 0.12 }, 0.16)
-    .to('.hx__logo', { opacity: 1, duration: 0.06 }, 0.26)
-    .to('.hx__house', { opacity: 0, duration: 0.16 }, 0.3)
-    .to('.hx__ol', { opacity: 0.25, duration: 0.16 }, 0.34)
-    .to('.hx__clouds', { y: vh(-0.75), duration: 0.3 }, 0.6)
-    .to('.hx__mark', { opacity: 0, y: vh(-0.04), duration: 0.16 }, 0.68)
-    .fromTo('.hx__fog', { opacity: 0, yPercent: 30 }, { opacity: 1, yPercent: -20, duration: 0.24 }, 0.66)
-    .to('.hx__white', { opacity: 1, duration: 0.12 }, 0.86);
   // Туман: фото и облака плывут с разной скоростью
   $$('.mist [data-sp]').forEach(function (el) {
     var sp = +el.dataset.sp;
