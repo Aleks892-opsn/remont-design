@@ -104,6 +104,8 @@
   .hx__go { height: 46px; padding: 0 24px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10px var(--fb); letter-spacing: .22em; text-transform: uppercase; }
   .hx__after { left: 0; right: 0; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 4; text-align: center; opacity: 0; pointer-events: none; }
   .hx__after i { display: block; width: 1px; height: 26px; margin: 8px auto 0; background: var(--ink); opacity: .5; }
+  .ln { display: block; overflow: hidden; }
+  .ln > span { display: block; }
   .hx__nav { left: 0; right: 0; bottom: calc(76px + env(safe-area-inset-bottom)); margin: 0; z-index: 3; text-shadow: 0 0 12px #fff; }
   .hx__hint { left: 0; right: 0; bottom: calc(118px + env(safe-area-inset-bottom)); text-align: center; z-index: 3; font: 500 9px var(--fb); letter-spacing: .3em; text-transform: uppercase; color: var(--ink2); }
   .hx__hint::after { content: ''; display: block; width: 1px; height: 22px; margin: 8px auto 0; background: var(--ink); opacity: .5; }
@@ -430,7 +432,7 @@
     <div class="hx__st">
       <img class="hx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
       <div class="hx__head">
-        <h1 class="hero__t cap">Дома, которые<br>строят выше</h1>
+        <h1 class="hero__t cap"><span class="ln"><span>Дома, которые</span></span><span class="ln"><span>строят выше</span></span></h1>
         <span class="hero__scr scr">ожиданий</span>
         <p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p>
       </div>
@@ -898,13 +900,36 @@
     .to(hq('.hx__house'), { opacity: 0, duration: 0.45, ease: 'none' }, 0.35)
     .to(hq('.hx__ol'), { opacity: 0.25, duration: 0.45, ease: 'none' }, 0.5)
     .to(hq('.hx__after'), { opacity: 1, duration: 0.4 }, 1.0);
-  var hxPlay = function () { if (!hxTl.isActive() && hxTl.progress() === 0) { if (reduce) hxTl.progress(1); else hxTl.play(); } };
+  // Вступление (вариант Б): дом поднимается из облаков, строки заголовка выезжают
+  var hxIntro = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } })
+    .from(hq('.hx__scene'), { y: 160, scale: 0.94, duration: 1.5 }, 0)
+    .from(hq('.hx__house'), { opacity: 0, duration: 0.7, ease: 'none' }, 0)
+    .from(hq('.hx__clouds'), { y: 60, duration: 1.5 }, 0)
+    .from(HX.querySelectorAll('.ln > span'), { yPercent: 110, duration: 0.8, stagger: 0.12 }, 0.3)
+    .from(HX.querySelectorAll('.hero__scr, .hero__s'), { opacity: 0, y: 14, duration: 0.6, stagger: 0.1 }, 0.65)
+    .from(hq('.hx__cta'), { opacity: 0, y: 14, duration: 0.5 }, 0.95);
+  // Пока логотип не сложился, экран держится: первый свайп не листает страницу, а запускает превращение
+  var hxDone = reduce, hxHold = false;
+  var unlock = function () { hxDone = true; hxHold = false; };
+  hxTl.eventCallback('onComplete', function () { setTimeout(unlock, 500); });
+  var hxPlay = function () {
+    if (hxDone || hxHold) return;
+    hxHold = true; hxIntro.progress(1); hxTl.play();
+  };
+  var atTop = function () { return scrollY < 8; };
   $('#hx-go').onclick = hxPlay;
   var hy0 = 0;
-  HX.addEventListener('touchstart', function (e) { hy0 = e.touches[0].clientY; }, { passive: true });
-  HX.addEventListener('touchend', function (e) { if (hy0 - e.changedTouches[0].clientY > 40) hxPlay(); }, { passive: true });
-  HX.addEventListener('wheel', function (e) { if (e.deltaY > 0) hxPlay(); }, { passive: true });
-
+  addEventListener('touchstart', function (e) { hy0 = e.touches[0].clientY; }, { passive: true });
+  addEventListener('touchmove', function (e) {
+    if (hxDone || !atTop()) return;
+    if (hy0 - e.touches[0].clientY > 0) { e.preventDefault(); if (hy0 - e.touches[0].clientY > 25) hxPlay(); }
+  }, { passive: false });
+  addEventListener('wheel', function (e) { if (hxDone || !atTop() || e.deltaY <= 0) return; e.preventDefault(); hxPlay(); }, { passive: false });
+  // Если страницу открыли не с начала — сразу показываем логотип и ничего не держим
+  if (scrollY > innerHeight * 0.5) { hxTl.progress(1); unlock(); }
+  if (reduce) hxTl.progress(1);
+  else if (!hxDone) addEventListener('load', function () { hxIntro.play(0); });
+  if (document.readyState === 'complete' && !reduce && !hxDone) hxIntro.play(0);
   // Заявка
   $$('#kind button').forEach(function (b) { b.onclick = function () { $$('#kind button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; });
   $('#area').oninput = function () { $('#area-v').textContent = this.value + ' м²'; };
