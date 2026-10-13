@@ -1016,6 +1016,16 @@
   // Кран показывает первый этап, когда блок появляется
   ScrollTrigger.create({ trigger: '.crane', start: 'top 75%', once: true, onEnter: function () { goCrane(cur); } });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
+  // Шрифты на iPhone догружаются позже и меняют высоту страницы — пересчитываем точки запуска анимаций
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+  if (window.ResizeObserver) {
+    var lastH = 0, rt;
+    new ResizeObserver(function () {
+      var h = document.body.scrollHeight;
+      if (Math.abs(h - lastH) < 4) return;
+      lastH = h; clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+    }).observe(document.body);
+  }
 })();
 </script>
 </body>
