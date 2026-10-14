@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Первый экран: варианты</title>
+<meta name="description" content="Варианты первого экрана Altitude Airlines: оранжевые кнопки под облачной надписью и крупный самолёт.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --blue: #1f5bff; --blue-l: #dfe9ff; --or: #ff7a1a; --or2: #ff9d3d; --f: 'Montserrat', system-ui, sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; color: inherit; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .top { margin: 120px 8px 0; padding: 26px 18px 28px; background: #fff; border-radius: 34px; }
+  .tag { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px/1 var(--f); }
+  .top h1 { margin: 16px 0 10px; font: 700 30px/1 var(--f); letter-spacing: -.04em; }
+  .top h1 span { color: var(--blue); display: block; }
+  .top p { margin: 0; color: var(--ink2); font-size: 14px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 12px var(--f); text-decoration: none; }
+  .v { margin: 14px 8px 0; background: #fff; border-radius: 34px; overflow: hidden; }
+  .v__h { padding: 22px 18px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .v__h b { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 800 16px var(--f); }
+  .v__h div span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .v__h div small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+
+  /* Сцена — как первый экран сайта */
+  .stage { position: relative; height: 700px; margin: 0 8px 8px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 26%, #3d86ff 46%, #8fc3ff 62%, #d6e8ff 74%, var(--bg) 86%); }
+  .stage > * { position: absolute; }
+  .nav { left: 10px; right: 10px; top: 10px; z-index: 6; height: 48px; display: flex; align-items: center; gap: 6px; padding: 4px 4px 4px 16px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .14); }
+  .nav b { flex: 1; font: 800 19px/1 var(--f); letter-spacing: -.06em; color: var(--blue); }
+  .nav i { font-style: normal; height: 38px; padding: 0 14px; display: grid; place-items: center; border-radius: 999px; background: var(--blue); color: #fff; font: 600 12px var(--f); }
+  .nav s { width: 38px; height: 38px; border-radius: 50%; background: var(--blue-l); }
+  .ttl { left: 0; right: 0; top: 96px; z-index: 4; text-align: center; }
+  .ttl img { display: block; width: 280px; height: auto; margin: 0 auto; }
+  .cl { max-width: none; pointer-events: none; }
+  .cl.a { width: 240%; left: -70%; bottom: -40%; z-index: 3; }
+  .cl.b { width: 220%; left: -50%; bottom: -20%; z-index: 1; transform: scaleX(-1); opacity: .9; }
+  .jet { width: 310px; left: 50%; top: 300px; margin-left: -155px; z-index: 2; }
+  .jet img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px rgba(6, 30, 110, .25)); animation: bob 4s ease-in-out infinite alternate; }
+  @keyframes bob { to { transform: translate3d(-14px, -10px, 0) rotate(1.5deg); } }
+
+  /* Оранжевые элементы */
+  .cta { position: relative; z-index: 5; margin-top: 18px; }
+  .ob { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 8px 0 24px; border-radius: 999px; background: linear-gradient(135deg, var(--or2), var(--or) 55%, #f25c00); color: #fff; font: 700 15px var(--f); box-shadow: 0 14px 30px rgba(255, 110, 20, .45), inset 0 1px 0 rgba(255, 255, 255, .35); }
+  .ob em { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .22); font-style: normal; font-size: 17px; }
+  .oc { width: 62px; height: 62px; border-radius: 50%; display: inline-grid; place-items: center; background: linear-gradient(135deg, var(--or2), var(--or) 60%, #f25c00); box-shadow: 0 14px 30px rgba(255, 110, 20, .45), 0 0 0 8px rgba(255, 255, 255, .16); }
+  .oc svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .cap { display: block; margin-top: 12px; font: 600 12px var(--f); color: rgba(255, 255, 255, .9); letter-spacing: .02em; }
+  .srch { display: flex; align-items: center; width: 300px; height: 56px; margin: 0 auto; padding: 4px 4px 4px 20px; border-radius: 999px; background: #fff; box-shadow: 0 16px 34px rgba(6, 30, 110, .22); text-align: left; }
+  .srch span { flex: 1; font: 600 14px var(--f); color: var(--ink); }
+  .srch span small { display: block; font: 500 11px var(--f); color: var(--mute); }
+  .srch i { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--or2), var(--or) 60%, #f25c00); box-shadow: 0 8px 18px rgba(255, 110, 20, .4); }
+  .srch i svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; }
+  .chips { display: flex; justify-content: center; gap: 6px; margin-top: 16px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .18); border: 1px solid rgba(255, 255, 255, .35); color: #fff; font: 600 12px var(--f); }
+  .chip.o { background: var(--or); border-color: var(--or); box-shadow: 0 10px 22px rgba(255, 110, 20, .4); }
+
+  /* Крупный самолёт */
+  .big .jet { width: 500px; left: 6px; margin-left: 0; top: 250px; }
+  .big2 .jet { width: 600px; left: -6px; margin-left: 0; top: 330px; z-index: 4; }
+  .big2 .cl.a { z-index: 3; }
+
+  .end { padding: 50px 18px 80px; text-align: center; font-size: 12px; color: var(--mute); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="tag">altitude · первый экран</span>
+    <h1><span>Кнопка или самолёт</span>под надписью</h1>
+    <p>Шесть вариантов: оранжевые кнопки и значки под облачной надписью «Выше ожиданий» и крупный самолёт. Оранжевый — единственный тёплый акцент на синем, поэтому сразу бросается в глаза.</p>
+    <nav class="jump"><a href="#v1">1 · Кнопка</a><a href="#v2">2 · Круглый значок</a><a href="#v3">3 · Поиск</a><a href="#v4">4 · Чипы</a><a href="#v5">5 · Большой самолёт</a><a href="#v6">6 · Самолёт + кнопка</a></nav>
+  </header>
+
+  <section class="v" id="v1"><div class="v__h"><b>1</b><div><span>Оранжевая кнопка «Купить билет»</span><small>Крупная оранжевая кнопка-таблетка со стрелкой прямо под надписью. Ведёт к бронированию.</small></div></div>
+    <div class="stage" data-v="1"><div class="ttl"><img src="hero/cloud-title.webp" alt="Выше ожиданий"><div class="cta"><button class="ob">Купить билет<em>→</em></button></div></div></div></section>
+
+  <section class="v" id="v2"><div class="v__h"><b>2</b><div><span>Круглый значок-самолётик</span><small>Оранжевый круг с самолётиком и тонкой подписью «Выбрать рейс». Минималистично, не спорит с надписью.</small></div></div>
+    <div class="stage" data-v="2"><div class="ttl"><img src="hero/cloud-title.webp" alt="Выше ожиданий"><div class="cta"><button class="oc" aria-label="Выбрать рейс"><svg viewBox="0 0 24 24"><path d="M3 13.5 21 6l-4.5 15-4-6.5z"/><path d="M12.5 14.5 21 6"/></svg></button><span class="cap">Выбрать рейс</span></div></div></div></section>
+
+  <section class="v" id="v3"><div class="v__h"><b>3</b><div><span>Мини-поиск рейса</span><small>Белая строка «Куда летим?» с оранжевой кнопкой поиска. Сразу понятно, что здесь покупают билеты.</small></div></div>
+    <div class="stage" data-v="3"><div class="ttl"><img src="hero/cloud-title.webp" alt="Выше ожиданий"><div class="cta"><button class="srch"><span>Куда летим?<small>Москва → любой город</small></span><i><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg></i></button></div></div></div></section>
+
+  <section class="v" id="v4"><div class="v__h"><b>4</b><div><span>Оранжевая кнопка + стеклянные чипы</span><small>Главная кнопка оранжевая, рядом прозрачные чипы «Рейсы» и «Частный джет».</small></div></div>
+    <div class="stage" data-v="4"><div class="ttl"><img src="hero/cloud-title.webp" alt="Выше ожиданий"><div class="chips"><button class="chip o">✈ Купить билет</button><button class="chip">Рейсы</button><button class="chip">Частный джет</button></div></div></div></section>
+
+  <section class="v" id="v5"><div class="v__h"><b>5</b><div><span>Большой самолёт</span><small>Самолёт заметно крупнее: нос виден, а крыло и хвост уходят за край экрана, будто он пролетает рядом. Без кнопки.</small></div></div>
+    <div class="stage big" data-v="5"><div class="ttl"><img src="hero/cloud-title.webp" alt="Выше ожиданий"></div></div></section>
+
+  <section class="v" id="v6"><div class="v__h"><b>6</b><div><span>Огромный самолёт + оранжевая кнопка</span><small>Самолёт ещё крупнее, низко над облаками, хвост уходит за край. Под надписью оранжевая кнопка.</small></div></div>
+    <div class="stage big2" data-v="6"><div class="ttl"><img src="hero/cloud-title.webp" alt="Выше ожиданий"><div class="cta"><button class="ob">Купить билет<em>→</em></button></div></div></div></section>
+
+  <p class="end">Выберите номер — поставлю на сайт. Можно смешивать, например «3 + большой самолёт».</p>
+</div>
+<script>
+  // общие слои сцены: шапка, самолёт, облака
+  document.querySelectorAll('.stage').forEach(function (st) {
+    st.insertAdjacentHTML('afterbegin', '<div class="nav"><b>altitude</b><i>Купить билет</i><s></s></div>');
+    st.insertAdjacentHTML('beforeend', '<div class="jet"><img src="hero/plane.webp" alt=""></div><img class="cl b" src="hero/cloud-dense.webp" alt=""><img class="cl a" src="hero/cloud-dense.webp" alt="">');
+  });
+</script>
+</body>
+</html>
