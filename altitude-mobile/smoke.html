@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Дымный заголовок</title>
+<meta name="description" content="Пять вариантов заголовка из белого дыма на первом экране Altitude Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --blue: #1f5bff; --blue-l: #dfe9ff; --f: 'Montserrat', system-ui, sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .top { margin: 120px 8px 0; padding: 26px 18px 28px; background: #fff; border-radius: 34px; }
+  .tag { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px/1 var(--f); }
+  .top h1 { margin: 16px 0 10px; font: 700 30px/1 var(--f); letter-spacing: -.04em; }
+  .top h1 span { color: var(--blue); display: block; }
+  .top p { margin: 0; color: var(--ink2); font-size: 14px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 12px var(--f); text-decoration: none; }
+  .v { margin: 14px 8px 0; background: #fff; border-radius: 34px; overflow: hidden; }
+  .v__h { padding: 22px 18px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .v__h b { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 800 16px var(--f); }
+  .v__h div span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .v__h div small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+
+  /* Сцена — как первый экран сайта */
+  .stage, .scrollv { position: relative; margin: 0 8px 8px; border-radius: 28px; overflow: hidden; }
+  .stage { height: 640px; background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 26%, #3d86ff 46%, #8fc3ff 62%, #d6e8ff 74%, var(--bg) 86%); }
+  .scrollv { height: 1100px; background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 16%, #3d86ff 30%, #8fc3ff 42%, #d6e8ff 52%, var(--bg) 62%); }
+  .stage > *, .scrollv > * { position: absolute; }
+  .cl { max-width: none; pointer-events: none; }
+  .cl.a { width: 240%; left: -70%; bottom: -44%; z-index: 3; }
+  .cl.b { width: 220%; left: -50%; bottom: -22%; z-index: 1; transform: scaleX(-1); opacity: .9; }
+  .scrollv .cl.a { bottom: auto; top: 480px; } .scrollv .cl.b { bottom: auto; top: 400px; }
+  .jet { width: 320px; left: 50%; top: 270px; margin-left: -160px; z-index: 2; }
+  .jet img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px rgba(6, 30, 110, .25)); animation: bob 4s ease-in-out infinite alternate; }
+  @keyframes bob { to { transform: translate3d(-14px, -10px, 0) rotate(1.5deg); } }
+  .re { position: absolute; z-index: 20; right: 12px; bottom: 12px; height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .92); color: var(--blue); font: 600 12px var(--f); }
+
+  /* Заголовок: только крупный текст */
+  .head { left: 12px; right: 12px; top: 74px; z-index: 4; text-align: center; }
+  .h { margin: 0; font: 700 40px/1.02 var(--f); letter-spacing: -.045em; color: #fff; }
+  .h .ln { display: block; }
+  .h .ln.alt { color: #d6ecff; }
+  .ch { display: inline-block; white-space: pre; will-change: transform, opacity, filter; }
+
+  /* 1. Проявление из дыма */
+  [data-a="1"] .h { text-shadow: 0 0 18px rgba(255, 255, 255, .45); }
+
+  /* 2. Дымчатые края — svg-фильтр + мягкое белое свечение */
+  .smk { filter: url(#smk2); }
+  .glow { position: absolute; inset: 0; filter: blur(14px); opacity: .55; pointer-events: none; }
+
+  /* 3. Небесная надпись */
+  [data-a="3"] .h { filter: url(#puff); text-shadow: 0 0 10px rgba(255, 255, 255, .9), 0 0 26px rgba(255, 255, 255, .55); }
+  [data-a="3"] .h .ln.alt { color: #fff; }
+  [data-a="3"] .ln { -webkit-mask-image: linear-gradient(90deg, #000 45%, transparent 55%); mask-image: linear-gradient(90deg, #000 45%, transparent 55%); -webkit-mask-size: 300% 100%; mask-size: 300% 100%; -webkit-mask-position: 100% 0; mask-position: 100% 0; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+
+  /* 5. Частицы */
+  .cv { inset: 0; z-index: 5; width: 100%; height: 100%; pointer-events: none; }
+
+  .after { left: 18px; right: 18px; top: 860px; z-index: 5; text-align: center; font: 700 22px/1.1 var(--f); letter-spacing: -.03em; color: var(--ink); }
+  .after span { color: var(--blue); display: block; }
+  .end { padding: 50px 18px 80px; text-align: center; font-size: 12px; color: var(--mute); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="smk2" x="-20%" y="-30%" width="140%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.018 0.05" numOctaves="3" seed="4" result="n"/>
+    <feDisplacementMap id="smk2d" in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="puff" x="-10%" y="-30%" width="120%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="0.8"/>
+  </filter>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <span class="tag">altitude · заголовок</span>
+    <h1><span>Текст из дыма</span>на первом экране</h1>
+    <p>Пять вариантов белого «дымного» заголовка. На первом экране остаётся только крупный текст — без подзаголовка и подсказки «листайте».</p>
+    <nav class="jump"><a href="#v1">1 · Из дымки</a><a href="#v2">2 · Дымчатые края</a><a href="#v3">3 · Небесная надпись</a><a href="#v4">4 · Тает при прокрутке</a><a href="#v5">5 · Собирается из дыма</a></nav>
+  </header>
+
+  <section class="v" id="v1"><div class="v__h"><b>1</b><div><span>Проявляется из дымки</span><small>Буквы выплывают из размытого белого облака вразнобой и собираются в чёткий текст. Потом всё стоит спокойно.</small></div></div>
+    <div class="stage" data-a="1"></div></section>
+
+  <section class="v" id="v2"><div class="v__h"><b>2</b><div><span>Дымчатые края</span><small>Текст проступает из клубящегося марева: края букв сначала сильно «плывут», затем успокаиваются, оставляя лёгкую дымчатость и белое свечение.</small></div></div>
+    <div class="stage" data-a="2"></div></section>
+
+  <section class="v" id="v3"><div class="v__h"><b>3</b><div><span>Небесная надпись</span><small>Как надпись, которую самолёт пишет в небе: пушистые белые буквы появляются строка за строкой слева направо.</small></div></div>
+    <div class="stage" data-a="3"></div></section>
+
+  <section class="v" id="v4"><div class="v__h"><b>4</b><div><span>Тает при прокрутке</span><small>Сначала текст обычный. Листаете вниз — буквы рассеиваются вверх, как дым, каждая по-своему. Листайте этот блок.</small></div></div>
+    <div class="scrollv" id="sv"></div></section>
+
+  <section class="v" id="v5"><div class="v__h"><b>5</b><div><span>Собирается из дыма</span><small>Тысячи белых частиц поднимаются струйками дыма и складываются в заголовок, потом дым рассеивается и остаётся чёткий текст. Самый эффектный.</small></div></div>
+    <div class="stage" data-a="5"></div></section>
+
+  <p class="end">Выберите вариант — поставлю на первый экран сайта.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var R = function (a, b) { return a + Math.random() * (b - a); };
+  var LINES = [['Летайте выше', ''], ['своих', ''], ['ожиданий', 'alt']];
+  var head = function (split) {
+    return '<div class="head"><h2 class="h">' + LINES.map(function (l) {
+      var t = split ? l[0].split('').map(function (c) { return '<span class="ch">' + c + '</span>'; }).join('') : l[0];
+      return '<span class="ln ' + l[1] + '">' + t + '</span>';
+    }).join('') + '</h2></div>';
+  };
+  var CL = '<img class="cl b" src="hero/cloud-dense.webp" alt=""><img class="cl a" src="hero/cloud-dense.webp" alt="">';
+  var JET = '<div class="jet"><img src="hero/plane.webp" alt="Самолёт Altitude"></div>';
+
+  var build = {
+    1: function (st) {
+      st.innerHTML = head(true) + JET + CL;
+      var ch = $$('.ch', st);
+      var tl = gsap.timeline({ onComplete: function () { gsap.set(ch, { clearProps: 'filter' }); } });
+      tl.fromTo(ch, {
+        opacity: 0, filter: 'blur(16px)', scale: function () { return R(1.4, 2.2); },
+        x: function () { return R(-30, 30); }, y: function () { return R(-26, 18); }, rotation: function () { return R(-20, 20); }
+      }, { opacity: 1, filter: 'blur(0px)', scale: 1, x: 0, y: 0, rotation: 0, duration: 1.8, ease: 'power3.out', stagger: { each: 0.05, from: 'random' } });
+      return tl;
+    },
+    2: function (st) {
+      st.innerHTML = head(false).replace('<h2 class="h">', '<h2 class="h smk">') + JET + CL;
+      var h = $('.h', st); h.insertAdjacentHTML('afterend', '');
+      var glow = h.cloneNode(true); glow.className = 'h glow'; glow.setAttribute('aria-hidden', 'true'); h.parentNode.appendChild(glow);
+      var dm = document.getElementById('smk2d'), o = { s: 90 };
+      var tl = gsap.timeline();
+      tl.fromTo(h, { opacity: 0, filter: 'url(#smk2) blur(8px)' }, { opacity: 1, filter: 'url(#smk2) blur(0px)', duration: 2.4, ease: 'power2.out' }, 0)
+        .to(o, { s: 4, duration: 3, ease: 'power3.out', onUpdate: function () { dm.setAttribute('scale', o.s.toFixed(1)); } }, 0)
+        .fromTo(glow, { opacity: 0, scale: 1.25 }, { opacity: 0.55, scale: 1, duration: 3, ease: 'power2.out' }, 0);
+      return tl;
+    },
+    3: function (st) {
+      st.innerHTML = head(false) + JET + CL;
+      var ln = $$('.ln', st), tl = gsap.timeline();
+      gsap.set(ln, { webkitMaskPosition: '100% 0', maskPosition: '100% 0' });
+      ln.forEach(function (l, i) {
+        tl.to(l, { webkitMaskPosition: '0% 0', maskPosition: '0% 0', duration: 1.1, ease: 'power1.inOut' }, i * 0.85);
+      });
+      tl.fromTo($('.h', st), { y: 6 }, { y: 0, duration: 3, ease: 'power2.out' }, 0);
+      return tl;
+    },
+    5: function (st) {
+      st.innerHTML = head(false) + JET + CL + '<canvas class="cv"></canvas>';
+      var h = $('.h', st), cv = $('.cv', st), ctx = cv.getContext('2d');
+      var W = st.clientWidth, H = st.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+      cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
+      // Снимаем точки с текста той же разметки
+      var off = document.createElement('canvas'); off.width = W; off.height = H; var oc = off.getContext('2d');
+      var sr = st.getBoundingClientRect(), cs = getComputedStyle(h);
+      oc.fillStyle = '#fff'; oc.textAlign = 'center'; oc.textBaseline = 'middle';
+      oc.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      $$('.ln', st).forEach(function (l) {
+        var r = document.createRange(); r.selectNodeContents(l); var b = r.getBoundingClientRect();
+        oc.save(); oc.translate(b.left - sr.left + b.width / 2, b.top - sr.top + b.height / 2 + 1);
+        try { oc.letterSpacing = cs.letterSpacing; } catch (e) {}
+        oc.fillText(l.textContent, 0, 0); oc.restore();
+      });
+      var img = oc.getImageData(0, 0, W, H).data, pts = [], step = 3;
+      for (var y = 0; y < H; y += step) for (var x = 0; x < W; x += step) if (img[(y * W + x) * 4 + 3] > 140) pts.push([x, y]);
+      // мягкая точка дыма
+      var spr = document.createElement('canvas'); spr.width = spr.height = 32; var sc = spr.getContext('2d');
+      var g = sc.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, 'rgba(255,255,255,.9)'); g.addColorStop(.35, 'rgba(255,255,255,.45)'); g.addColorStop(.7, 'rgba(255,255,255,.12)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      sc.fillStyle = g; sc.fillRect(0, 0, 32, 32);
+      var P = pts.map(function (p) {
+        return { tx: p[0], ty: p[1], sx: W / 2 + R(-W * .6, W * .6), sy: H * R(.6, 1.05), d: (p[0] / W) * 0.9 + R(0, .5), w: R(2, 6), ph: R(0, 6.28) };
+      });
+      var DUR = 2.4, T0 = performance.now(), raf, done = false;
+      gsap.set(h, { opacity: 0 });
+      var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
+      var frame = function (now) {
+        var t = (now - T0) / 1000; ctx.clearRect(0, 0, W, H);
+        var all = true;
+        for (var i = 0; i < P.length; i++) {
+          var p = P[i], k = Math.max(0, Math.min(1, (t - p.d) / DUR));
+          if (k < 1) all = false;
+          if (k <= 0) continue;
+          var e = ease(k), sw = Math.sin(p.ph + t * 2.2 + p.sy * 0.02) * (1 - e) * 34 * p.w / 4;
+          var x = p.sx + (p.tx - p.sx) * e + sw, y = p.sy + (p.ty - p.sy) * e;
+          var s = 46 * (1 - e) + 11, a = Math.min(1, k * 3) * (0.12 + 0.3 * e);
+          ctx.globalAlpha = a; ctx.drawImage(spr, x - s / 2, y - s / 2, s, s);
+        }
+        if (!done && t > 1.6 + DUR * 0.7) { done = true; gsap.to(h, { opacity: 1, duration: 1.2, ease: 'power1.out' }); gsap.to(cv, { opacity: 0, filter: 'blur(6px)', y: -14, duration: 1.8, delay: 0.2, ease: 'power1.out' }); }
+        if (!all || t < 6) raf = requestAnimationFrame(frame);
+      };
+      raf = requestAnimationFrame(frame);
+      return { progress: function () { cancelAnimationFrame(raf); cv.remove(); gsap.set(h, { opacity: 1 }); } };
+    }
+  };
+
+  var start = function () {
+    $$('.stage').forEach(function (st) {
+      var run = function () { gsap.killTweensOf(st.querySelectorAll('*')); var tl = build[st.dataset.a](st); if (reduce) tl.progress(1); st.insertAdjacentHTML('beforeend', '<button class="re">↺ ещё раз</button>'); $('.re', st).onclick = run; };
+      st._run = run;
+    });
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !e.target._done) { e.target._done = true; e.target._run(); } }); }, { threshold: 0.5 });
+    $$('.stage').forEach(function (st) { io.observe(st); });
+
+    // ===== Вариант 4: тает при прокрутке =====
+    var sv = document.getElementById('sv');
+    sv.innerHTML = head(true) + JET + CL + '<div class="after">Дальше начинается сайт<span>цифры и классы</span></div>';
+    if (reduce || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    var ch = $$('.ch', sv);
+    var tl = gsap.timeline({ scrollTrigger: { trigger: sv, start: 'top 15%', end: '40% top', scrub: 0.6 } });
+    tl.to(ch, {
+      opacity: 0, filter: 'blur(12px)', ease: 'power1.in', duration: 1,
+      y: function () { return R(-140, -60); }, x: function () { return R(-40, 40); }, scale: function () { return R(1.3, 2); }, rotation: function () { return R(-25, 25); },
+      stagger: { each: 0.03, from: 'random' }
+    });
+    gsap.to($('.jet', sv), { x: -150, y: -260, scale: 0.25, rotation: -10, ease: 'power1.in', scrollTrigger: { trigger: sv, start: 'top 15%', end: '70% top', scrub: true } });
+  };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+})();
+</script>
+</body>
+</html>
