@@ -607,9 +607,25 @@
   .menu { background: rgba(234, 241, 255, .96); }
   .menu a.m { text-transform: none; font-family: var(--fb); font-weight: 700; letter-spacing: -.03em; font-size: 22px; }
   .menu a.m small { color: var(--blue); }
+
+  /* Загрузка: иллюминатор */
+  .ldr { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); }
+  .ldr__win { position: relative; width: 170px; height: 240px; border-radius: 90px; overflow: hidden; background: #cfe0ff; box-shadow: 0 0 0 14px #fff, 0 0 0 16px #cdd9f3, 0 30px 60px rgba(20, 60, 180, .2); will-change: transform; }
+  .ldr__win img { position: absolute; width: 520px; max-width: none; top: 60px; left: 0; will-change: transform; }
+  .ldr__shut { position: absolute; inset: 0; background: #f2f6ff; border-bottom: 2px solid #cdd9f3; will-change: transform; }
+  .ldr__t { margin-top: 44px; font: 600 11px var(--fb); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+  /* Самолёт на главном экране: летит на зрителя */
+  .gx__pl { left: 50%; top: calc(var(--ht, 12px) + 300px); width: 200px; margin-left: -100px; z-index: 2; }
+  .gx__plw { will-change: transform, opacity; }
+  .tplane { display: block; width: 100%; height: auto; overflow: visible; }
+  .tplane .b { fill: #fff; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; }
+  .tplane .w { fill: var(--blue-l); stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; }
+  .tplane .d { fill: var(--blue); }
+  .gx__sh { position: absolute; left: 20px; right: 20px; top: 240px; height: 22px; border-radius: 50%; background: radial-gradient(rgba(20, 50, 140, .22), transparent 70%); will-change: transform, opacity; }
 </style>
 </head>
 <body>
+<div class="ldr" id="ldr" aria-hidden="true"><div class="ldr__win"><img src="hero/cloud-soft.webp" alt=""><i class="ldr__shut"></i></div><span class="ldr__t">добро пожаловать на борт</span></div>
 <div class="wrap" id="top">
 
   <!-- Меню: нижняя панель под большим пальцем -->
@@ -625,6 +641,7 @@
     <img class="gx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
     <div class="gx__head"><h1 class="hero__t cap">Летайте выше<br>своих</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Регулярные рейсы и частные перелёты по России и миру — по честной цене без доплат.</p></div>
     <div class="gx__scene"><i class="hx__house hx__void"></i><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
+    <div class="gx__pl"><i class="gx__sh"></i><div class="gx__plw"><svg class="tplane" viewBox="0 0 200 200" aria-hidden="true"><path class="w" d="M100 70 L10 112 L10 124 L100 104 L190 124 L190 112 Z"/><path class="w" d="M100 160 L66 178 L66 186 L100 178 L134 186 L134 178 Z"/><rect class="w" x="44" y="104" width="12" height="22" rx="6"/><rect class="w" x="144" y="104" width="12" height="22" rx="6"/><path class="b" d="M100 8 C108 8 112 22 112 40 L112 170 C112 182 106 192 100 194 C94 192 88 182 88 170 L88 40 C88 22 92 8 100 8 Z"/><path class="d" d="M100 16 C104 16 106 22 106 28 L94 28 C94 22 96 16 100 16 Z"/></svg></div></div>
     <div class="gx__logo"><div class="tlogo"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div></div>
   </section>
   <section class="gfx" id="gfx" aria-label="Компания в цифрах">
@@ -1093,6 +1110,30 @@
     upd();
   })();
 
+
+  // ---------- Загрузка «иллюминатор» → самолёт летит на зрителя ----------
+  (function () {
+    var ldr = $('#ldr'), plane = $('.gx__plw'), sh = $('.gx__sh');
+    var fly = function () {
+      if (reduce) return;
+      gsap.timeline()
+        .fromTo(plane, { scale: 0.08, y: -120, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 2.2, ease: 'power2.in' }, 0)
+        .fromTo(sh, { scale: 0.1, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.2, ease: 'power2.in' }, 0)
+        .to(plane, { rotation: 3, duration: 1.8, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 2.2);
+    };
+    if (!ldr) { fly(); return; }
+    if (reduce) { ldr.remove(); return; }
+    gsap.set(plane, { opacity: 0 }); gsap.set(sh, { opacity: 0 });
+    document.documentElement.style.overflow = 'hidden';
+    var done = function () { ldr.remove(); document.documentElement.style.overflow = ''; fly(); if (window.ScrollTrigger) ScrollTrigger.refresh(); };
+    gsap.timeline({ delay: 0.15, onComplete: done })
+      .to('.ldr__shut', { yPercent: -100, duration: 0.9, ease: 'power2.inOut' }, 0.2)
+      .to('.ldr__win img', { x: -340, duration: 2.6, ease: 'none' }, 0)
+      .to('.ldr__t', { opacity: 0, duration: 0.3 }, 1.6)
+      .to('.ldr__win', { scale: 7, duration: 0.9, ease: 'power3.in' }, 1.7)
+      .to(ldr, { opacity: 0, duration: 0.4 }, 2.3);
+  })();
+
   // Заявка
   $$('#kind button').forEach(function (b) { b.onclick = function () { $$('#kind button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; });
   $('#area').oninput = function () { $('#area-v').textContent = this.value + ' пасс.'; };
@@ -1116,6 +1157,7 @@
   var gst = { trigger: '#gx', start: 'top top', end: 'bottom top', scrub: true };
   gsap.to('.gx__head', { y: 120, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '30% top', scrub: true } });
   gsap.to('.gx__scene', { y: 160, ease: 'none', scrollTrigger: gst });
+  gsap.to('.gx__pl', { y: -220, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '45% top', scrub: true } });
   gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
   gsap.to('.gx__logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '15% top', end: '55% top', scrub: true } });
   // Цифры: плашки плывут с разной скоростью, облака — навстречу
