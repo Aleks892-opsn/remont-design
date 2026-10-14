@@ -752,6 +752,9 @@
   .hb--o { background: linear-gradient(135deg, #ff9d3d, #ff7a1a 55%, #f25c00); border-color: transparent; box-shadow: 0 12px 26px rgba(255, 110, 20, .42), inset 0 1px 0 rgba(255, 255, 255, .3); }
   .hb svg { width: 17px; height: 17px; fill: #fff; transform: rotate(45deg); }
   .gx__jet { top: calc(var(--ht, 12px) + 330px); }
+  /* Шторка для переходов по ссылкам внутри страницы */
+  .curtain { position: fixed; inset: 0; z-index: 60; background: var(--bg); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s ease, visibility 0s .3s; will-change: opacity; }
+  .curtain.on { opacity: 1; visibility: visible; transition: opacity .16s ease; }
 </style>
 </head>
 <body>
@@ -1121,18 +1124,37 @@ document.addEventListener('DOMContentLoaded', function () {
   // Меню
   var menu = function (on) { document.body.classList.toggle('menu-open', on); };
   $('#menu-x').onclick = function () { menu(false); };
-  // Переход из меню: прыгаем к разделу, пока меню ещё закрывает экран, и только потом быстро его убираем
-  $$('.menu a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var t = document.querySelector(a.getAttribute('href'));
-      if (!t) { menu(false); return; }
-      e.preventDefault();
-      window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 10, behavior: 'instant' });
-      requestAnimationFrame(function () { requestAnimationFrame(function () {
+  // Переход по любой ссылке на раздел (#...): экран на миг закрывается шторкой, страница мгновенно
+  // перескакивает, браузер спокойно дорисовывает новый раздел — и шторка растворяется. Без рывков.
+  var curtain = document.createElement('div'); curtain.className = 'curtain'; document.body.appendChild(curtain);
+  var busy = false;
+  var jumpTo = function (t) {
+    var y = Math.max(0, t.getBoundingClientRect().top + window.pageYOffset - 10);
+    window.scrollTo({ top: y, behavior: 'instant' });
+    if (window.ScrollTrigger) ScrollTrigger.update();
+  };
+  var reveal = function (done) {
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      setTimeout(function () { done(); busy = false; }, 120);
+    }); });
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href'); if (id.length < 2) return;
+    var t = document.querySelector(id); if (!t) return;
+    e.preventDefault(); if (busy) return; busy = true;
+    if (document.body.classList.contains('menu-open')) {
+      // меню само служит шторкой
+      jumpTo(t);
+      reveal(function () {
         document.body.classList.add('menu-fast'); menu(false);
         setTimeout(function () { document.body.classList.remove('menu-fast'); }, 260);
-      }); });
-    });
+      });
+      return;
+    }
+    curtain.classList.add('on');
+    setTimeout(function () { jumpTo(t); reveal(function () { curtain.classList.remove('on'); }); }, 160);
   });
 
 
