@@ -740,6 +740,11 @@
   .menu { -webkit-backdrop-filter: none; backdrop-filter: none; will-change: opacity; }
   body.menu-fast .menu { transition: opacity .22s, visibility 0s .22s; }
   body.menu-fast .menu a.m { transition: none; }
+  /* Заголовок из облаков */
+  .vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .gx__head { left: 10px; right: 10px; top: calc(var(--ht, 12px) + 78px); }
+  .gx__ctitle { display: block; width: 100%; max-width: 400px; height: auto; margin: 0 auto; will-change: transform, opacity; }
+  .gx__jet { top: calc(var(--ht, 12px) + 420px); }
 </style>
 </head>
 <body>
@@ -751,7 +756,7 @@
   <!-- 0. Главный экран: дом в облаках → логотип. Двигается только от прокрутки -->
   <section class="gx" id="gx">
     <img class="gx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
-    <div class="gx__head"><h1 class="hero__t cap">Летайте выше<br>своих</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Регулярные рейсы и частные перелёты по России и миру — по честной цене без доплат.</p></div>
+    <div class="gx__head"><h1 class="vh">Выше ожиданий — авиакомпания Altitude Airlines</h1><img class="gx__ctitle" src="hero/cloud-title.webp" alt="" width="1080" height="909" fetchpriority="high"></div>
     <div class="gx__scene"><i class="hx__house hx__void"></i><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
     <div class="gx__jet"><div class="gx__jetin"><i class="smoke s1"></i><i class="smoke s2"></i><i class="smoke s3"></i><img src="hero/plane.webp" alt="Самолёт Altitude Airlines" fetchpriority="high"></div></div>
     <div class="gx__pl"><i class="gx__sh"></i><div class="gx__plw"><svg class="tplane" viewBox="0 0 200 200" aria-hidden="true"><path class="w" d="M100 70 L10 112 L10 124 L100 104 L190 124 L190 112 Z"/><path class="w" d="M100 160 L66 178 L66 186 L100 178 L134 186 L134 178 Z"/><rect class="w" x="44" y="104" width="12" height="22" rx="6"/><rect class="w" x="144" y="104" width="12" height="22" rx="6"/><path class="b" d="M100 8 C108 8 112 22 112 40 L112 170 C112 182 106 192 100 194 C94 192 88 182 88 170 L88 40 C88 22 92 8 100 8 Z"/><path class="d" d="M100 16 C104 16 106 22 106 28 L94 28 C94 22 96 16 100 16 Z"/></svg></div></div>
@@ -1296,6 +1301,8 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     var jetIn = function () {
       var j = $('.gx__jetin'); if (!j || reduce) return;
+      // облачная надпись проступает из дымки
+      gsap.fromTo('.gx__ctitle', { opacity: 0, scale: 1.06, filter: 'blur(14px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.5, ease: 'power2.out', clearProps: 'filter,scale' });
       gsap.fromTo(j, { opacity: 0, scale: 0.94, rotation: -4 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.9, ease: 'power2.out', onComplete: function () {
         // сам по себе: плывёт по «восьмёрке» и покачивает крыльями
         gsap.to(j, { x: 26, duration: 3.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
@@ -1305,9 +1312,9 @@ document.addEventListener('DOMContentLoaded', function () {
       } });
     };
     var fly = function () { jetIn(); if (reduce || root.dataset.pl === '0') return; if (root.dataset.pl === '3') fly3(); else fly4(); };
-    gsap.set('.gx__jetin', { opacity: 0 });
+    gsap.set('.gx__jetin, .gx__ctitle', { opacity: 0 });
     gsap.set([plane, sh], { opacity: 0 }); gsap.set(p3, { x: -260 }); gsap.set(l3, { clipPath: 'inset(0 100% 0 0)' });
-    if (reduce) { gsap.set('.gx__jetin', { opacity: 1 }); gsap.set([plane, sh], { opacity: 1 }); gsap.set(p3, { opacity: 0 }); gsap.set(l3, { clipPath: 'none' }); if (ldr) ldr.remove(); return; }
+    if (reduce) { gsap.set('.gx__jetin, .gx__ctitle', { opacity: 1 }); gsap.set([plane, sh], { opacity: 1 }); gsap.set(p3, { opacity: 0 }); gsap.set(l3, { clipPath: 'none' }); if (ldr) ldr.remove(); return; }
     if (!ldr) { fly(); return; }
     var done = function () { if (!ldr.parentNode) return; ldr.remove(); fly(); if (window.ScrollTrigger) ScrollTrigger.refresh(); };
     ldr.addEventListener('animationend', function (e) { if (e.animationName === 'ldrOut') done(); });
