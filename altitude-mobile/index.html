@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="rw" data-bg="fog" data-house="color" data-hx="g" data-why="a" data-fill="off" data-name="0" data-dirs="b" data-how="c">
+<html lang="ru" data-font="rw" data-bg="fog" data-house="color" data-hx="g" data-ldr="3" data-pl="3" data-why="a" data-fill="off" data-name="0" data-dirs="b" data-how="c">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -622,10 +622,34 @@
   .tplane .w { fill: var(--blue-l); stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; }
   .tplane .d { fill: var(--blue); }
   .gx__sh { position: absolute; left: 20px; right: 20px; top: 240px; height: 22px; border-radius: 50%; background: radial-gradient(rgba(20, 50, 140, .22), transparent 70%); will-change: transform, opacity; }
+
+  /* Выбор вариантов загрузки и самолёта */
+  .ldr__bp, .gx__p3 { display: none; }
+  html[data-ldr="3"] .ldr__bp { display: block; }
+  html[data-ldr="3"] .ldr__win, html[data-ldr="3"] .ldr__t { display: none; }
+  html[data-pl="3"] .gx__pl, html[data-pl="3"] .gx__logo { display: none; }
+  html[data-pl="3"] .gx__p3 { display: block; }
+  .ldr__bp { width: 290px; border-radius: 24px; background: #fff; box-shadow: 0 24px 50px rgba(20, 60, 180, .18); overflow: hidden; position: relative; will-change: transform; }
+  .bp__top { padding: 16px 18px; background: var(--blue); color: #fff; display: flex; justify-content: space-between; font: 700 13px var(--fb); }
+  .bp__r { display: flex; justify-content: space-between; align-items: center; padding: 18px; }
+  .bp__r b { display: block; font: 800 34px/1 var(--fb); letter-spacing: -.04em; color: var(--ink); }
+  .bp__r small { font: 500 11px var(--fb); color: var(--mute); }
+  .bp__ic { color: var(--blue); font-size: 22px; }
+  .bp__cut { border-top: 2px dashed #cdd9f3; margin: 0 14px; }
+  .bp__low { display: grid; grid-template-columns: repeat(3, 1fr); padding: 14px 18px 18px; font: 500 10px var(--fb); color: var(--mute); text-transform: uppercase; letter-spacing: .1em; }
+  .bp__low b { display: block; margin-top: 3px; font: 700 15px var(--fb); color: var(--ink); letter-spacing: 0; text-transform: none; }
+  .bp__stamp { position: absolute; right: 18px; top: 66px; width: 92px; height: 92px; border-radius: 50%; border: 2px solid var(--blue); color: var(--blue); display: grid; place-items: center; font: 800 12px/1.2 var(--fb); text-align: center; letter-spacing: .1em; opacity: 0; background: rgba(255, 255, 255, .6); }
+  .gx__p3 { left: 0; right: 0; top: calc(var(--ht, 12px) + 300px); z-index: 3; height: 160px; }
+  .gx__p3l { position: absolute; left: 0; right: 0; top: 30px; will-change: clip-path; }
+  .gx__p3p { position: absolute; left: 0; top: 0; width: 220px; will-change: transform; }
+  .splane { display: block; width: 100%; height: auto; overflow: visible; }
+  .splane .b { fill: #fff; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; }
+  .splane .w { fill: var(--blue-l); stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; }
+  .splane .d { fill: var(--blue); }
 </style>
 </head>
 <body>
-<div class="ldr" id="ldr" aria-hidden="true"><div class="ldr__win"><img src="hero/cloud-soft.webp" alt=""><i class="ldr__shut"></i></div><span class="ldr__t">добро пожаловать на борт</span></div>
+<div class="ldr" id="ldr" aria-hidden="true"><div class="ldr__bp"><div class="bp__top"><span>altitude airlines</span><span>посадочный</span></div><div class="bp__r"><div><b>MOW</b><small>Москва</small></div><div class="bp__ic">✈</div><div style="text-align:right"><b>AER</b><small>Сочи</small></div></div><div class="bp__cut"></div><div class="bp__low"><div>рейс<b>AL 001</b></div><div>место<b>12A</b></div><div>выход<b>B7</b></div></div><div class="bp__stamp">ПОСАДКА<br>✓</div></div><div class="ldr__win"><img src="hero/cloud-soft.webp" alt=""><i class="ldr__shut"></i></div><span class="ldr__t">добро пожаловать на борт</span></div>
 <div class="wrap" id="top">
 
   <!-- Меню: нижняя панель под большим пальцем -->
@@ -642,6 +666,7 @@
     <div class="gx__head"><h1 class="hero__t cap">Летайте выше<br>своих</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Регулярные рейсы и частные перелёты по России и миру — по честной цене без доплат.</p></div>
     <div class="gx__scene"><i class="hx__house hx__void"></i><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
     <div class="gx__pl"><i class="gx__sh"></i><div class="gx__plw"><svg class="tplane" viewBox="0 0 200 200" aria-hidden="true"><path class="w" d="M100 70 L10 112 L10 124 L100 104 L190 124 L190 112 Z"/><path class="w" d="M100 160 L66 178 L66 186 L100 178 L134 186 L134 178 Z"/><rect class="w" x="44" y="104" width="12" height="22" rx="6"/><rect class="w" x="144" y="104" width="12" height="22" rx="6"/><path class="b" d="M100 8 C108 8 112 22 112 40 L112 170 C112 182 106 192 100 194 C94 192 88 182 88 170 L88 40 C88 22 92 8 100 8 Z"/><path class="d" d="M100 16 C104 16 106 22 106 28 L94 28 C94 22 96 16 100 16 Z"/></svg></div></div>
+    <div class="gx__p3"><div class="tlogo gx__p3l"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div><div class="gx__p3p"><svg class="splane" viewBox="0 0 240 80" aria-hidden="true"><path class="w" d="M120 46 L78 76 L94 76 L146 48 Z"/><path class="b" d="M14 40 C14 32 30 28 52 28 L196 28 C214 28 230 34 234 42 C230 48 214 52 196 52 L52 52 C30 52 14 48 14 40 Z"/><path class="w" d="M34 30 L18 6 L32 6 L60 28 Z"/><path class="w" d="M30 40 L8 46 L16 48 L44 44 Z"/><path class="w" d="M112 40 L72 58 L88 60 L144 42 Z"/><rect class="w" x="104" y="50" width="26" height="10" rx="5"/><g class="d"><rect x="70" y="35" width="6" height="6" rx="2"/><rect x="82" y="35" width="6" height="6" rx="2"/><rect x="94" y="35" width="6" height="6" rx="2"/><rect x="106" y="35" width="6" height="6" rx="2"/><rect x="118" y="35" width="6" height="6" rx="2"/><rect x="130" y="35" width="6" height="6" rx="2"/><rect x="142" y="35" width="6" height="6" rx="2"/><rect x="154" y="35" width="6" height="6" rx="2"/><rect x="166" y="35" width="6" height="6" rx="2"/><rect x="178" y="35" width="6" height="6" rx="2"/><path d="M208 34 C216 34 224 37 228 41 L210 41 Z"/></g></svg></div></div>
     <div class="gx__logo"><div class="tlogo"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div></div>
   </section>
   <section class="gfx" id="gfx" aria-label="Компания в цифрах">
@@ -910,6 +935,16 @@
       <button data-v="c">Цифры<small>свайп, большие номера</small></button>
       <button data-v="b">Линия<small>шаги по вертикали</small></button>
     </div></div>
+  <div class="vg"><span class="lbl">Загрузка</span>
+    <div class="seg" data-k="ldr">
+      <button data-v="3">Талон<small>печать «посадка»</small></button>
+      <button data-v="4">Иллюминатор<small>шторка и облака</small></button>
+    </div></div>
+  <div class="vg"><span class="lbl">Самолёт на главном</span>
+    <div class="seg" data-k="pl">
+      <button data-v="3">Над логотипом<small>пролёт, логотип за ним</small></button>
+      <button data-v="4">На вас<small>вид сверху</small></button>
+    </div></div>
   <div class="vg"><span class="lbl">Главный экран</span>
     <div class="seg" data-k="hx">
       <button data-v="g">Г · Параллакс<small>обычная прокрутка</small></button>
@@ -944,8 +979,8 @@
   $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; i.loading = 'lazy'; i.decoding = 'async'; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'rw', bg: 'fog', house: 'color', hx: 'g', why: 'a', fill: 'off', dirs: 'b', how: 'c' };
-  try { var s = JSON.parse(localStorage.getItem('alt-air2') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'rw', bg: 'fog', house: 'color', hx: 'g', ldr: '3', pl: '3', why: 'a', fill: 'off', dirs: 'b', how: 'c' };
+  try { var s = JSON.parse(localStorage.getItem('alt-air3') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
@@ -953,7 +988,7 @@
     $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' Airlines · с 2014'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-air2', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-air3', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
@@ -1111,29 +1146,44 @@
   })();
 
 
-  // ---------- Загрузка «иллюминатор» → самолёт летит на зрителя ----------
+  // ---------- Загрузка (талон / иллюминатор) → появление самолёта (над логотипом / на вас) ----------
   (function () {
-    var ldr = $('#ldr'), plane = $('.gx__plw'), sh = $('.gx__sh');
-    var fly = function () {
-      if (reduce) return;
+    var ldr = $('#ldr'), plane = $('.gx__plw'), sh = $('.gx__sh'), p3 = $('.gx__p3p'), l3 = $('.gx__p3l');
+    var fly4 = function () {
       gsap.timeline()
         .fromTo(plane, { scale: 0.08, y: -120, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 2.2, ease: 'power2.in' }, 0)
         .fromTo(sh, { scale: 0.1, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.2, ease: 'power2.in' }, 0)
         .to(plane, { rotation: 3, duration: 1.8, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 2.2);
     };
+    var fly3 = function () {
+      var W = $('#gx').clientWidth;
+      gsap.set(l3, { clipPath: 'inset(0 100% 0 0)' });
+      gsap.timeline()
+        .fromTo(p3, { x: -240, y: 20, rotation: -3 }, { x: W + 20, y: -10, rotation: 2, duration: 2, ease: 'power1.inOut' }, 0)
+        .to(l3, { clipPath: 'inset(0 0% 0 0)', duration: 1.6, ease: 'power1.inOut' }, 0.25);
+    };
+    var fly = function () { if (reduce) return; if (root.dataset.pl === '3') fly3(); else fly4(); };
+    gsap.set([plane, sh], { opacity: 0 }); gsap.set(p3, { x: -260 }); gsap.set(l3, { clipPath: 'inset(0 100% 0 0)' });
+    if (reduce) { gsap.set([plane, sh], { opacity: 1 }); gsap.set(p3, { opacity: 0 }); gsap.set(l3, { clipPath: 'none' }); if (ldr) ldr.remove(); return; }
     if (!ldr) { fly(); return; }
-    if (reduce) { ldr.remove(); return; }
-    gsap.set(plane, { opacity: 0 }); gsap.set(sh, { opacity: 0 });
     document.documentElement.style.overflow = 'hidden';
     var done = function () { ldr.remove(); document.documentElement.style.overflow = ''; fly(); if (window.ScrollTrigger) ScrollTrigger.refresh(); };
-    gsap.timeline({ delay: 0.15, onComplete: done })
-      .to('.ldr__shut', { yPercent: -100, duration: 0.9, ease: 'power2.inOut' }, 0.2)
-      .to('.ldr__win img', { x: -340, duration: 2.6, ease: 'none' }, 0)
-      .to('.ldr__t', { opacity: 0, duration: 0.3 }, 1.6)
-      .to('.ldr__win', { scale: 7, duration: 0.9, ease: 'power3.in' }, 1.7)
-      .to(ldr, { opacity: 0, duration: 0.4 }, 2.3);
+    var tl = gsap.timeline({ delay: 0.15, onComplete: done });
+    if (root.dataset.ldr === '3') {
+      tl.fromTo('.ldr__bp', { y: 300, rotation: 6, opacity: 0 }, { y: 0, rotation: -2, opacity: 1, duration: 0.8, ease: 'power3.out' })
+        .fromTo('.bp__stamp', { opacity: 0, scale: 1.8, rotation: -30 }, { opacity: 1, scale: 1, rotation: -12, duration: 0.35, ease: 'back.out(2.5)' }, 1.0)
+        .to('.ldr__bp', { y: 520, rotation: 8, duration: 0.7, ease: 'power3.in' }, 1.8)
+        .to(ldr, { opacity: 0, duration: 0.4 }, 2.2);
+    } else {
+      tl.to('.ldr__shut', { yPercent: -100, duration: 0.9, ease: 'power2.inOut' }, 0.2)
+        .to('.ldr__win img', { x: -340, duration: 2.6, ease: 'none' }, 0)
+        .to('.ldr__t', { opacity: 0, duration: 0.3 }, 1.6)
+        .to('.ldr__win', { scale: 7, duration: 0.9, ease: 'power3.in' }, 1.7)
+        .to(ldr, { opacity: 0, duration: 0.4 }, 2.3);
+    }
+    // переключили вариант в панели — показать заново
+    $$('.seg[data-k="pl"] button').forEach(function (b) { b.addEventListener('click', function () { setTimeout(fly, 50); }); });
   })();
-
   // Заявка
   $$('#kind button').forEach(function (b) { b.onclick = function () { $$('#kind button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; });
   $('#area').oninput = function () { $('#area-v').textContent = this.value + ' пасс.'; };
@@ -1157,6 +1207,7 @@
   var gst = { trigger: '#gx', start: 'top top', end: 'bottom top', scrub: true };
   gsap.to('.gx__head', { y: 120, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '30% top', scrub: true } });
   gsap.to('.gx__scene', { y: 160, ease: 'none', scrollTrigger: gst });
+  gsap.to('.gx__p3', { y: -220, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '45% top', scrub: true } });
   gsap.to('.gx__pl', { y: -220, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '45% top', scrub: true } });
   gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
   gsap.to('.gx__logo', { opacity: 1, y: -60, ease: 'none', scrollTrigger: { trigger: '#gx', start: '15% top', end: '55% top', scrub: true } });
