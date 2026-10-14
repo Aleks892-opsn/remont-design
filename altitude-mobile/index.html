@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ru" data-font="a" data-bg="fog" data-house="color" data-hx="g" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="d">
+<html lang="ru" data-font="a" data-bg="fog" data-house="color" data-hx="g" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="c">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Altitude — демо</title>
-<meta name="description" content="Мобильное демо сайта строительной компании: структура, чёрно-белый стиль, варианты оформления.">
+<meta name="description" content="Мобильное демо сайта авиакомпании Altitude: рейсы, классы обслуживания, бронирование.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@200;300;400;500&family=Bad+Script&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
@@ -189,6 +189,11 @@
   .ph.img { background-size: cover; background-position: center; }
   .ph.img::before, .ph.img::after { display: none; }
   .tli .ph.img { aspect-ratio: 4 / 5; }
+  .hx__void { display: block; aspect-ratio: 1408 / 768; }
+  .tlogo { text-align: center; }
+  .tlogo b { display: block; font: 700 clamp(44px, 14vw, 66px)/1 'Unbounded', sans-serif; letter-spacing: -.02em; text-transform: uppercase; color: var(--ink); }
+  .tlogo span { display: block; margin-top: 10px; font: 500 10px var(--fb); letter-spacing: .34em; text-transform: uppercase; color: var(--ink2); }
+  .hx__mark .tlogo { position: absolute; left: 0; right: 0; top: 40%; }
   /* Секция */
   .sec { position: relative; padding: 84px var(--pad) 0; }
   .sh { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
@@ -505,38 +510,38 @@
   <!-- Меню: нижняя панель под большим пальцем -->
   <nav class="tabbar" aria-label="Меню">
     <button id="menu-btn"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Меню</button>
-    <a href="#object"><svg viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10z"/></svg>Объекты</a>
-    <a class="on" href="#form"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>Расчёт</a>
+    <a href="#object"><svg viewBox="0 0 24 24"><path d="M3 13l18-7-7 18-2-8z"/></svg>Рейсы</a>
+    <a class="on" href="#form"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>Билеты</a>
     <a href="tel:+70000000000"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Звонок</a>
   </nav>
 
   <!-- 0. Главный экран: дом в облаках → логотип. Двигается только от прокрутки -->
   <section class="gx" id="gx">
     <img class="gx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
-    <div class="gx__head"><h1 class="hero__t cap">Дома, которые<br>строят выше</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p></div>
-    <div class="gx__scene"><img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией"><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
-    <div class="gx__logo"><img src="hero/logo-mark.webp" alt="Altitude"></div>
+    <div class="gx__head"><h1 class="hero__t cap">Летайте выше<br>своих</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Регулярные рейсы и частные перелёты по России и миру — по честной цене без доплат.</p></div>
+    <div class="gx__scene"><i class="hx__house hx__void"></i><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
+    <div class="gx__logo"><div class="tlogo"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div></div>
   </section>
   <section class="gfx" id="gfx" aria-label="Компания в цифрах">
     <img class="gfx__cl" src="hero/cloud-dense.webp" alt="" loading="lazy">
     <img class="gfx__cl b" src="hero/cloud-soft.webp" alt="" loading="lazy">
-    <div class="gp p1" data-sp="1.15"><b><i class="cnt-n" data-to="12">12</i><em>лет</em></b><span>строим</span></div>
-    <div class="gp p2 stk" data-sp="0.95"><b><i class="cnt-n" data-to="140">140</i><em>домов</em></b><span>под ключ</span></div>
-    <div class="gp p3" data-sp="1.15"><b><i class="cnt-n" data-to="3">3</i><em>ЖК</em></b><span>в работе</span></div>
-    <div class="gp p4" data-sp="1"><b><i class="cnt-n" data-to="5">5</i><em>лет</em></b><span>гарантии</span></div>
+    <div class="gp p1" data-sp="1.15"><b><i class="cnt-n" data-to="12">12</i><em>лет</em></b><span>в небе</span></div>
+    <div class="gp p2 stk" data-sp="0.95"><b><i class="cnt-n" data-to="140">140</i><em>направлений</em></b><span>по миру</span></div>
+    <div class="gp p3" data-sp="1.15"><b><i class="cnt-n" data-to="42">42</i><em>самолёта</em></b><span>во флоте</span></div>
+    <div class="gp p4" data-sp="1"><b><i class="cnt-n" data-to="98">98</i><em>%</em></b><span>рейсов вовремя</span></div>
   </section>
   <section class="hx" id="hx">
     <div class="hx__st">
       <img class="hx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
       <div class="hx__head">
-        <h1 class="hero__t cap"><span class="ln"><span>Дома, которые</span></span><span class="ln"><span>строят выше</span></span></h1>
+        <h1 class="hero__t cap"><span class="ln"><span>Летайте выше</span></span><span class="ln"><span>своих</span></span></h1>
         <span class="hero__scr scr">ожиданий</span>
-        <p class="hero__s">Коттеджи, таунхаусы и жилые комплексы под ключ — по фиксированной смете.</p>
+        <p class="hero__s">Регулярные рейсы и частные перелёты по России и миру — по честной цене без доплат.</p>
       </div>
       <div class="hx__scene">
-        <img class="hx__house" src="hero/house.webp" alt="Дом, построенный компанией" fetchpriority="high">
+        <i class="hx__house hx__void"></i>
         <div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div>
-        <div class="hx__mark"><img class="hx__logo" src="hero/logo.webp" alt="Altitude"><img class="hx__ol" src="hero/outline.webp" alt=""></div>
+        <div class="hx__mark"><div class="hx__logo tlogo"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div><i class="hx__ol"></i></div>
       </div>
       <div class="hx__cta"><span class="hx__note">свайп вверх</span><button class="hx__go" id="hx-go">Войти ↑</button></div>
       <div class="hx__after"><span class="hx__note">листайте</span><i></i></div>
@@ -545,14 +550,14 @@
 
   <!-- 01 Что строим: листающиеся карточки -->
   <section class="sec" id="dirs">
-    <div class="sh"><span class="lbl">01 — Что строим</span></div>
-    <div class="dc-head"><h2 class="h2 cap"><span>Четыре</span><span>направления</span></h2><div class="dc-n"><b id="dc-n">01</b><small>/04</small></div></div>
-    <span class="accent scr draw">одна команда</span>
+    <div class="sh"><span class="lbl">01 — Как летаем</span></div>
+    <div class="dc-head"><h2 class="h2 cap"><span>Четыре</span><span>класса</span></h2><div class="dc-n"><b id="dc-n">01</b><small>/04</small></div></div>
+    <span class="accent scr draw">один сервис</span>
     <div class="dc" id="dc">
-      <article class="dcc on"><div class="ph img" data-ph="Фото коттеджа" style="background-image:url(img2/dir-cottage.webp)"></div><div class="dcc__b"><span class="dcc__k">01 · Самое частое</span><h3 class="cap">Коттеджи</h3><p>Частные дома от 120 м² по готовому или вашему проекту — под ключ.</p><span class="dcc__tag">Срок — 6–12 месяцев · от 45 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать коттедж</a></div></article>
-      <article class="dcc"><div class="ph img" data-ph="Фото таунхауса" style="background-image:url(img2/dir-townhouse.webp)"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Таунхаусы</h3><p>Блокированная застройка для посёлков и инвесторов.</p><span class="dcc__tag">От 2 секций · от 40 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать таунхаус</a></div></article>
-      <article class="dcc"><div class="ph img" data-ph="Фото ЖК" style="background-image:url(img2/dir-complex.webp)"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Жилые комплексы</h3><p>Малоэтажные ЖК: от концепции до ввода в эксплуатацию.</p><span class="dcc__tag">3–9 этажей · квартиры от 6,9 млн ₽</span><a class="dcc__btn" href="#form">Узнать о квартирах</a></div></article>
-      <article class="dcc"><div class="ph img" data-ph="Фото коммерции" style="background-image:url(img2/dir-commercial.webp)"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Коммерция</h3><p>Офисы, шоурумы и общественные здания.</p><span class="dcc__tag">От 300 м² · от 52 000 ₽/м²</span><a class="dcc__btn" href="#form">Обсудить проект</a></div></article>
+      <article class="dcc on"><div class="ph" data-ph="Салон эконом"></div><div class="dcc__b"><span class="dcc__k">01 · Самый популярный</span><h3 class="cap">Эконом</h3><p>Ручная кладь и багаж 23 кг включены. Место у окна — бесплатно.</p><span class="dcc__tag">Москва — Сочи · от 4 900 ₽</span><a class="dcc__btn" href="#form">Выбрать эконом</a></div></article>
+      <article class="dcc"><div class="ph" data-ph="Салон комфорт"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Комфорт</h3><p>Больше места для ног, приоритетная посадка и горячее питание.</p><span class="dcc__tag">Москва — Сочи · от 9 900 ₽</span><a class="dcc__btn" href="#form">Выбрать комфорт</a></div></article>
+      <article class="dcc"><div class="ph" data-ph="Бизнес-класс"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Бизнес</h3><p>Кресло-кровать, бизнес-зал в аэропорту и меню от шефа.</p><span class="dcc__tag">Москва — Дубай · от 89 000 ₽</span><a class="dcc__btn" href="#form">Выбрать бизнес</a></div></article>
+      <article class="dcc"><div class="ph" data-ph="Частный джет"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Частный джет</h3><p>Свой самолёт и своё расписание. Вылет через 4 часа после заявки.</p><span class="dcc__tag">До 12 пассажиров · от 390 000 ₽</span><a class="dcc__btn" href="#form">Заказать джет</a></div></article>
     </div>
     <div class="dc-nav"><div class="dc-seg" id="dc-seg"><i class="on"></i><i></i><i></i><i></i></div><button class="arr" id="dc-prev" aria-label="Назад">‹</button><button class="arr dark" id="dc-next" aria-label="Дальше">›</button></div>
   </section>
@@ -560,16 +565,16 @@
   <!-- 1. Манифест в тумане -->
   <section class="mist" id="about">
     <img class="cl c1" data-cloud="2" data-sp="-1" alt="">
-    <div class="fl f1 ph img" data-sp="1.4" data-ph="Интерьер" style="background-image:url(img2/mist-interior.webp)"></div>
-    <div class="fl f2 ph img" data-sp="2.2" data-ph="Деталь" style="background-image:url(img2/mist-detail.webp)"></div>
-    <div class="fl f3 ph img" data-sp="1.8" data-ph="Фасад" style="background-image:url(img2/mist-facade.webp)"></div>
-    <div class="fl f4 ph img" data-sp="2.6" data-ph="Терраса" style="background-image:url(img2/mist-terrace.webp)"></div>
+    <div class="fl f1 ph" data-sp="1.4" data-ph="Салон"></div>
+    <div class="fl f2 ph" data-sp="2.2" data-ph="Иллюминатор"></div>
+    <div class="fl f3 ph" data-sp="1.8" data-ph="Крыло"></div>
+    <div class="fl f4 ph" data-sp="2.6" data-ph="Бизнес-зал"></div>
     <img class="cl c3" data-cloud="1" data-sp="1.2" alt="">
     <div class="mist__in">
       <span class="lbl" data-logo-sub>Altitude · с 2014</span>
-      <h2 class="mist__t cap" style="margin-top:18px">Шагните в дом,<br>который вырос<br>из чертежа в</h2>
-      <span class="mist__scr scr draw">реальность</span>
-      <p>Проектируем, строим и сдаём под ключ. Одна команда от участка до ключей — без субподрядчиков и сюрпризов в смете.</p>
+      <h2 class="mist__t cap" style="margin-top:18px">Шагните на борт,<br>где дорога<br>становится частью</h2>
+      <span class="mist__scr scr draw">путешествия</span>
+      <p>Летаем с 2014 года. Свой флот, свои экипажи и свой сервис — от онлайн-регистрации до выдачи багажа.</p>
     </div>
     <img class="cl c2" data-cloud="0" data-sp="-1.6" alt="">
   </section>
@@ -579,42 +584,42 @@
   <!-- 02 Объект: карточка раскрывается на весь экран -->
   <section class="sec" id="object" style="padding-left:0;padding-right:0">
     <div style="padding:0 var(--pad)">
-      <div class="sh"><span class="lbl">02 — Избранный объект</span></div>
-      <h2 class="h2 cap"><span>Жилой комплекс</span><span>«Северный берег»</span></h2>
+      <div class="sh"><span class="lbl">02 — Новый маршрут</span></div>
+      <h2 class="h2 cap"><span>Москва —</span><span>Мальдивы</span></h2>
     </div>
     <div class="obj">
-      <div class="obj__card"><div class="ph img" data-ph="Панорама ЖК / посёлка — раскрывается на весь экран" style="background-image:url(img2/object-complex.webp)"></div></div>
+      <div class="obj__card"><div class="ph" data-ph="Панорама: самолёт над океаном — раскрывается на весь экран"></div></div>
       <div class="obj__plate">
-        <span class="lbl">Сдача IV кв. 2026</span>
-        <h3 class="cap">Тишина у воды</h3>
-        <p>Три клубных дома на 48 квартир у Истринского водохранилища: своя набережная, подземный паркинг, двор без машин.</p>
-        <div class="obj__specs"><div><b>48</b>квартир</div><div><b>3</b>этажа</div><div><b>70%</b>готовность</div></div>
+        <span class="lbl">Первый рейс · 15 декабря 2026</span>
+        <h3 class="cap">Над облаками к океану</h3>
+        <p>Прямой рейс без пересадок на широкофюзеляжном лайнере. Бизнес-класс с кроватями, эконом с багажом 23 кг.</p>
+        <div class="obj__specs"><div><b>9 ч</b>в пути</div><div><b>3</b>рейса в неделю</div><div><b>70%</b>мест продано</div></div>
       </div>
     </div>
   </section>
 
   <!-- 03 Лента лет -->
   <section class="sec" id="homes">
-    <div class="sh"><span class="lbl">03 — Сданные дома</span></div>
-    <h2 class="h2 cap"><span>140 домов</span><span>за 12 лет</span></h2>
-    <span class="accent scr draw">и каждый помним</span>
+    <div class="sh"><span class="lbl">03 — История</span></div>
+    <h2 class="h2 cap"><span>140 направлений</span><span>за 12 лет</span></h2>
+    <span class="accent scr draw">и каждое любим</span>
     <div class="tl"><i class="tl__fill"></i>
-      <div class="tli"><span class="tli__y">2014</span><div class="ph img" data-ph="Первый дом" style="background-image:url(img2/year-2014.webp)"></div><b>Первый дом</b><span>Посёлок «Лесная поляна» · 180 м²</span></div>
-      <div class="tli"><span class="tli__y">2017</span><div class="ph img" data-ph="Посёлок" style="background-image:url(img2/year-2017.webp)"></div><b>Первый посёлок</b><span>24 коттеджа</span></div>
-      <div class="tli"><span class="tli__y">2020</span><div class="ph img" data-ph="Таунхаусы" style="background-image:url(img2/year-2020.webp)"></div><b>Таунхаусы</b><span>4 квартала</span></div>
-      <div class="tli"><span class="tli__y">2023</span><div class="ph img" data-ph="Первый ЖК" style="background-image:url(img2/year-2023.webp)"></div><b>Первый ЖК</b><span>96 квартир</span></div>
-      <div class="tli"><span class="tli__y">2026</span><div class="ph img" data-ph="Сейчас" style="background-image:url(img2/year-2026.webp)"></div><b>Сейчас</b><span>3 ЖК и 12 домов в работе</span></div>
+      <div class="tli"><span class="tli__y">2014</span><div class="ph" data-ph="Первый самолёт"></div><b>Первый рейс</b><span>Москва — Сочи · 1 самолёт</span></div>
+      <div class="tli"><span class="tli__y">2017</span><div class="ph" data-ph="Зарубежный рейс"></div><b>Выход за рубеж</b><span>12 направлений</span></div>
+      <div class="tli"><span class="tli__y">2020</span><div class="ph" data-ph="Бизнес-класс"></div><b>Новый бизнес-класс</b><span>Кресла-кровати на всех дальних рейсах</span></div>
+      <div class="tli"><span class="tli__y">2023</span><div class="ph" data-ph="Частный джет"></div><b>Частные перелёты</b><span>6 бизнес-джетов</span></div>
+      <div class="tli"><span class="tli__y">2026</span><div class="ph" data-ph="Флот сегодня"></div><b>Сейчас</b><span>42 самолёта и 140 направлений</span></div>
     </div>
   </section>
 
   <!-- 04 Как строим: кран -->
   <section class="sec" id="how">
-    <div class="sh"><span class="lbl">04 — Как строим</span></div>
-    <h2 class="h2 cap"><span>Шесть этапов</span><span>на ваших глазах</span></h2>
+    <div class="sh"><span class="lbl">04 — Путь пассажира</span></div>
+    <h2 class="h2 cap"><span>Шесть шагов</span><span>до посадки</span></h2>
     <div class="hv hv-d">
-      <p class="lead">Прокручивайте — чертёж дома собирается по этапам.</p>
+      <p class="lead">Прокручивайте — маршрут собирается по шагам.</p>
       <div class="bp" id="bp">
-        <div class="bp__head"><div class="bp__n"><span id="bp-n">01</span><small> / 06</small></div><span class="lbl">Проект · 150 м²</span></div>
+        <div class="bp__head"><div class="bp__n"><span id="bp-n">01</span><small> / 06</small></div><span class="lbl">Рейс · Москва — Сочи</span></div>
         <svg viewBox="0 0 360 300" aria-hidden="true">
           <g class="st st1"><line x1="10" y1="252" x2="350" y2="252"/><rect x="48" y="238" width="264" height="14"/><line class="thin" x1="48" y1="246" x2="312" y2="246"/></g>
           <g class="st st2"><polyline points="60,238 60,128 300,128 300,238"/><line class="thin" x1="70" y1="238" x2="70" y2="128"/><line class="thin" x1="290" y1="238" x2="290" y2="128"/></g>
@@ -625,31 +630,31 @@
         </svg>
       </div>
       <div class="bpl" id="bpl">
-        <div class="on"><span>01</span><b>Участок и проект</b><p>Инженер смотрит участок и грунт.</p></div>
-        <div><span>02</span><b>Фундамент</b><p>Армирование — на фото до заливки.</p></div>
-        <div><span>03</span><b>Коробка</b><p>Газобетон, кирпич или монолит.</p></div>
-        <div><span>04</span><b>Перекрытия и кровля</b><p>Принимаем по акту.</p></div>
-        <div><span>05</span><b>Окна и фасад</b><p>Утепление — на фото до закрытия.</p></div>
-        <div><span>06</span><b>Инженерия и ключи</b><p>Сети, отделка, гарантия 5 лет.</p></div>
+        <div class="on"><span>01</span><b>Бронирование</b><p>Билет за пару минут.</p></div>
+        <div><span>02</span><b>Регистрация</b><p>Онлайн за 30 часов.</p></div>
+        <div><span>03</span><b>Багаж</b><p>23 кг уже в тарифе.</p></div>
+        <div><span>04</span><b>Посадка</b><p>Без очередей у выхода.</p></div>
+        <div><span>05</span><b>В полёте</b><p>Wi-Fi и горячее питание.</p></div>
+        <div><span>06</span><b>Прилёт</b><p>Багаж — за 15 минут.</p></div>
       </div>
     </div>
     <div class="hv hv-b"><ol class="vline" id="vline"><i class="vline__fill"></i></ol></div>
     <div class="hv hv-c"><div class="swipe" id="bign" style="margin-top:28px"></div><div class="nav"><span class="cnt" id="bg-n">01 / 06</span><div class="prog"><i id="bg-bar"></i></div></div></div>
     <div class="hv hv-a">
-    <p class="lead">Листайте этапы — кран достраивает дом.</p>
+    <p class="lead">Листайте шаги маршрута.</p>
     <div class="crane">
       <div class="crane__n"><span id="cr-n">01</span><small> / 06</small></div>
-      <span class="crane__cam"><i></i>Камера на объекте</span>
+      <span class="crane__cam"><i></i>Онлайн-табло</span>
       <svg viewBox="0 0 800 560" aria-hidden="true" id="crane-svg"></svg>
     </div>
     <div class="steps-wrap">
       <div class="swipe" id="steps">
-        <article class="stepc on"><i>Этап 01</i><b>Участок и проект</b><p>Инженер бесплатно смотрит участок и грунт, подбираем проект.</p></article>
-        <article class="stepc"><i>Этап 02</i><b>Фундамент</b><p>Плита, лента или сваи. Армирование фотографируем до заливки.</p></article>
-        <article class="stepc"><i>Этап 03</i><b>Коробка</b><p>Газобетон, кирпич или монолит — своя бригада.</p></article>
-        <article class="stepc"><i>Этап 04</i><b>Перекрытия</b><p>Принимаем по акту, платите только после приёмки.</p></article>
-        <article class="stepc"><i>Этап 05</i><b>Кровля и фасад</b><p>Утепление и гидроизоляция — на фото до закрытия.</p></article>
-        <article class="stepc"><i>Этап 06</i><b>Инженерия и ключи</b><p>Сети, отделка, сдача. Гарантия на конструктив 5 лет.</p></article>
+        <article class="stepc on"><i>Этап 01</i><b>Бронирование</b><p>Выбираете рейс и тариф на сайте — билет приходит на почту.</p></article>
+        <article class="stepc"><i>Этап 02</i><b>Регистрация</b><p>Онлайн за 30 часов до вылета, место у окна — бесплатно.</p></article>
+        <article class="stepc"><i>Этап 03</i><b>Багаж</b><p>23 кг включены в тариф, сдача за 5 минут.</p></article>
+        <article class="stepc"><i>Этап 04</i><b>Посадка</b><p>Отдельная очередь для семей с детьми и бизнес-класса.</p></article>
+        <article class="stepc"><i>Этап 05</i><b>В полёте</b><p>Wi-Fi, горячее питание и фильмы на борту.</p></article>
+        <article class="stepc"><i>Этап 06</i><b>Прилёт</b><p>Багаж на ленте за 15 минут после посадки.</p></article>
       </div>
       <div class="nav"><button class="arr" id="st-prev" aria-label="Предыдущий этап">‹</button><button class="arr" id="st-next" aria-label="Следующий этап">›</button><div class="prog"><i id="st-bar"></i></div></div>
     </div>
@@ -659,95 +664,96 @@
   <!-- 05 Почему мы -->
   <section class="sec" id="why">
     <div class="sh"><span class="lbl">05 — Почему мы</span></div>
-    <h2 class="h2 cap"><span>Смета</span><span>не меняется</span></h2>
-    <p class="lead">Цена фиксируется в договоре до начала работ. Платите только за принятый этап.</p>
+    <h2 class="h2 cap"><span>Цена</span><span>не меняется</span></h2>
+    <p class="lead">Цена фиксируется в момент покупки. Никаких скрытых сборов за багаж и выбор места.</p>
     <div class="doc" id="doc">
-      <div class="doc__h"><b>Смета · 150 м²</b><span class="lbl">к договору</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Фундамент</span><span>1 150 000 ₽</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Коробка</span><span>2 400 000 ₽</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Кровля и фасад</span><span>1 600 000 ₽</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Инженерия</span><span>1 050 000 ₽</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Отделка</span><span>1 300 000 ₽</span></div>
-      <div class="doc__sum"><span>Итого</span><b>7 500 000 ₽</b></div>
+      <div class="doc__h"><b>Билет · Москва — Сочи</b><span class="lbl">к оплате</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Тариф «Эконом»</span><span>6 900 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Багаж 23 кг</span><span>0 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Выбор места</span><span>0 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Питание на борту</span><span>0 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Сборы аэропорта</span><span>1 200 ₽</span></div>
+      <div class="doc__sum"><span>Итого</span><b>8 100 ₽</b></div>
       <div class="doc__sign"><div><span class="scr draw" data-logo>Altitude</span></div><small>подпись</small></div>
-      <div class="stamp"><div><b>Зафиксировано</b><i>в договоре</i><b>0 ₽ доплат</b></div></div>
+      <div class="stamp"><div><b>Зафиксировано</b><i>в билете</i><b>0 ₽ доплат</b></div></div>
     </div>
-    <a class="btn doc-btn" href="#form">Получить смету на свой дом</a>
-    <div class="sh" style="margin:56px 0 0"><span class="lbl">И ещё четыре гарантии</span></div>
+    <a class="btn doc-btn" href="#form">Найти билет</a>
+    <div class="sh" style="margin:56px 0 0"><span class="lbl">И ещё четыре обещания</span></div>
     <div class="why-cards">
       <div class="swipe" id="why-track" style="margin-top:20px">
-        <article class="why"><div class="ph" data-ph="Смета и чертёж"></div><div class="why__b"><span class="why__n">01</span><b>Фиксированная смета</b><p>Считаем по проекту и вписываем в договор.</p></div></article>
-        <article class="why"><div class="ph" data-ph="Акт этапа"></div><div class="why__b"><span class="why__n">02</span><b>Оплата по этапам</b><p>Платите после того, как этап принят.</p></div></article>
-        <article class="why"><div class="ph" data-ph="Камера на объекте"></div><div class="why__b"><span class="why__n">03</span><b>Камера и фотоотчёт</b><p>Онлайн-камера и отчёт каждую неделю.</p></div></article>
-        <article class="why"><div class="ph" data-ph="Готовый дом"></div><div class="why__b"><span class="why__n">04</span><b>Гарантия 5 лет</b><p>На конструктив. Своя бригада, без субподряда.</p></div></article>
+        <article class="why"><div class="ph" data-ph="Билет"></div><div class="why__b"><span class="why__n">01</span><b>Цена без сюрпризов</b><p>Что видите при покупке — то и платите.</p></div></article>
+        <article class="why"><div class="ph" data-ph="Багаж"></div><div class="why__b"><span class="why__n">02</span><b>Багаж включён</b><p>23 кг в каждом тарифе, даже в эконом.</p></div></article>
+        <article class="why"><div class="ph" data-ph="Табло вылетов"></div><div class="why__b"><span class="why__n">03</span><b>98% вовремя</b><p>Один из самых пунктуальных перевозчиков.</p></div></article>
+        <article class="why"><div class="ph" data-ph="Возврат"></div><div class="why__b"><span class="why__n">04</span><b>Возврат за 24 часа</b><p>Отмена без штрафа в первые сутки.</p></div></article>
       </div>
       <div class="nav"><span class="cnt" id="why-n">01 / 04</span><div class="prog"><i id="why-bar"></i></div></div>
     </div>
     <div class="why-list">
-      <div class="acc"><button><span>01</span><b>Фиксированная смета</b><span class="plus"></span></button><div class="dir__more"><div><p>Считаем по проекту и вписываем сумму в договор. Она не меняется в процессе стройки.</p></div></div></div>
-      <div class="acc"><button><span>02</span><b>Оплата по этапам</b><span class="plus"></span></button><div class="dir__more"><div><p>Платите по факту выполненных работ — только после приёмки этапа по акту.</p></div></div></div>
-      <div class="acc"><button><span>03</span><b>Камера и фотоотчёт</b><span class="plus"></span></button><div class="dir__more"><div><p>Онлайн-камера на объекте и фотоотчёт каждую неделю — видно даже скрытые работы.</p></div></div></div>
-      <div class="acc"><button><span>04</span><b>Гарантия 5 лет</b><span class="plus"></span></button><div class="dir__more"><div><p>На конструктив дома. Строит своя бригада, без субподрядчиков.</p></div></div></div>
+      <div class="acc"><button><span>01</span><b>Цена без сюрпризов</b><span class="plus"></span></button><div class="dir__more"><div><p>Все сборы показаны сразу. Что видите при покупке — то и платите.</p></div></div></div>
+      <div class="acc"><button><span>02</span><b>Багаж включён</b><span class="plus"></span></button><div class="dir__more"><div><p>23 кг багажа и 10 кг ручной клади в каждом тарифе.</p></div></div></div>
+      <div class="acc"><button><span>03</span><b>98% вовремя</b><span class="plus"></span></button><div class="dir__more"><div><p>Свой резервный самолёт в каждом базовом аэропорту.</p></div></div></div>
+      <div class="acc"><button><span>04</span><b>Возврат за 24 часа</b><span class="plus"></span></button><div class="dir__more"><div><p>Отмена без штрафа в первые сутки после покупки.</p></div></div></div>
     </div>
   </section>
 
   <!-- 06 Поставщики -->
   <section class="sec" id="partners" style="padding-bottom:0">
-    <div class="sh"><span class="lbl">06 — Материалы</span></div>
-    <h2 class="h2 cap"><span>Работаем</span><span>с заводами</span></h2>
-    <p class="lead">Берём материалы напрямую — без наценки посредников и с паспортами качества.</p>
+    <div class="sh"><span class="lbl">06 — Партнёры</span></div>
+    <h2 class="h2 cap"><span>Летаем</span><span>с лучшими</span></h2>
+    <p class="lead">Современный флот, надёжное обслуживание и лучшие аэропорты страны.</p>
   </section>
   <div class="glassb">
-    <div class="ph" data-ph="Фон: фасад или стройка"></div>
+    <div class="ph" data-ph="Фон: крыло самолёта и небо"></div>
     <img class="cl c1" data-cloud="2" alt="">
-    <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Газобетон</small><b>Bonolit</b></div>
-    <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Кирпич</small><b>Wienerberger</b></div>
-    <div class="gl" data-sp="2.2" style="left:12%;top:31%"><small>Кровля</small><b>ТехноНИКОЛЬ</b></div>
-    <div class="glassb__t"><span class="scr">только проверенные</span></div>
-    <div class="gl" data-sp="1.2" style="right:9%;top:60%"><small>Окна</small><b>Rehau</b></div>
-    <div class="gl" data-sp="2" style="left:6%;top:70%"><small>Утеплитель</small><b>Rockwool</b></div>
-    <div class="gl" data-sp="0.9" style="right:14%;top:83%"><small>Фасад</small><b>Grand Line</b></div>
+    <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Самолёты</small><b>Airbus</b></div>
+    <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Двигатели</small><b>CFM</b></div>
+    <div class="gl" data-sp="2.2" style="left:12%;top:31%"><small>Хаб</small><b>Шереметьево</b></div>
+    <div class="glassb__t"><span class="scr">только надёжные</span></div>
+    <div class="gl" data-sp="1.2" style="right:9%;top:60%"><small>Техобслуживание</small><b>Lufthansa Technik</b></div>
+    <div class="gl" data-sp="2" style="left:6%;top:70%"><small>Питание</small><b>Шеф-кухня</b></div>
+    <div class="gl" data-sp="0.9" style="right:14%;top:83%"><small>Лаунжи</small><b>Plaza Premium</b></div>
     <img class="cl c2" data-cloud="0" alt="">
   </div>
 
   <!-- 07 Отзывы -->
   <section class="sec" id="reviews">
     <div class="sh"><span class="lbl">07 — Отзывы</span></div>
-    <h2 class="h2 cap"><span>Говорят</span><span>хозяева</span></h2>
+    <h2 class="h2 cap"><span>Говорят</span><span>пассажиры</span></h2>
     <div class="rv" id="rv1"><div class="rv__in"></div></div>
     <div class="rv rev" id="rv2"><div class="rv__in"></div></div>
   </section>
 
   <!-- 08 Заявка -->
   <section class="sec" id="form">
-    <div class="sh"><span class="lbl">08 — Расчёт</span></div>
-    <h2 class="h2 cap"><span>Посчитаем</span><span>ваш дом</span></h2>
-    <span class="accent scr draw">за один день</span>
+    <div class="sh"><span class="lbl">08 — Бронирование</span></div>
+    <h2 class="h2 cap"><span>Подберём</span><span>ваш рейс</span></h2>
+    <span class="accent scr draw">за пару минут</span>
     <div class="form" id="lead-box">
       <form id="lead">
-        <span class="lbl">Что строим</span>
-        <div class="chips" id="kind"><button type="button" class="on">Коттедж</button><button type="button">Таунхаус</button><button type="button">Квартира в ЖК</button><button type="button">Коммерция</button></div>
-        <div class="area"><span class="lbl" style="margin:0">Площадь</span><b id="area-v">160 м²</b></div>
-        <input type="range" id="area" min="60" max="600" step="10" value="160" aria-label="Площадь">
+        <span class="lbl">Класс</span>
+        <div class="chips" id="kind"><button type="button" class="on">Эконом</button><button type="button">Комфорт</button><button type="button">Бизнес</button><button type="button">Частный джет</button></div>
+        <div class="area"><span class="lbl" style="margin:0">Пассажиры</span><b id="area-v">2 пасс.</b></div>
+        <input type="range" id="area" min="1" max="12" step="1" value="2" aria-label="Пассажиры">
+        <input class="fld" type="text" placeholder="Куда летим? Например, Сочи">
         <input class="fld" type="text" placeholder="Имя" autocomplete="name">
         <input class="fld" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
-        <button class="btn" type="submit">Получить расчёт</button>
+        <button class="btn" type="submit">Подобрать рейс</button>
         <p class="note">Перезвоним в течение 15 минут в рабочее время</p>
       </form>
-      <div class="done"><span class="scr">Спасибо</span><p class="note">В демо ничего не отправилось. Здесь будет звонок менеджера.</p></div>
+      <div class="done"><span class="scr">Спасибо</span><p class="note">В демо ничего не отправилось. Здесь будет звонок менеджера по бронированию.</p></div>
     </div>
   </section>
 
   <!-- Футер -->
   <footer class="ft">
     <img class="cl c1" data-cloud="1" alt="">
-    <span class="ft__scr scr">ждём в гостях</span>
+    <span class="ft__scr scr">до встречи на борту</span>
     <div class="ft__word" data-logo>Altitude</div>
     <div class="ft__cols">
-      <div><span class="lbl">Офис</span>Москва, Пресненская наб., 12</div>
+      <div><span class="lbl">Офис</span>Москва, Ленинградский пр., 37</div>
       <div><span class="lbl">Телефон</span>+7 (000) 000-00-00</div>
-      <div><span class="lbl">Часы</span>Пн–Сб, 9:00–20:00</div>
-      <div><span class="lbl">Почта</span>hello@altitude.ru</div>
+      <div><span class="lbl">Поддержка</span>24/7</div>
+      <div><span class="lbl">Почта</span>hello@altitude.aero</div>
     </div>
     <div class="ft__base"><span>© <span data-logo>Altitude</span></span><a href="#top">Наверх ↑</a></div>
     <div style="height:60px"></div>
@@ -756,14 +762,14 @@
 
 <nav class="menu" aria-label="Меню">
   <button class="rbtn glass x" id="menu-x" aria-label="Закрыть">✕</button>
-  <a class="m" href="#dirs">Что строим<small>01</small></a>
-  <a class="m" href="#object">Объект<small>02</small></a>
-  <a class="m" href="#homes">Дома<small>03</small></a>
-  <a class="m" href="#how">Как строим<small>04</small></a>
+  <a class="m" href="#dirs">Классы<small>01</small></a>
+  <a class="m" href="#object">Новый маршрут<small>02</small></a>
+  <a class="m" href="#homes">История<small>03</small></a>
+  <a class="m" href="#how">Путь пассажира<small>04</small></a>
   <a class="m" href="#why">Гарантии<small>05</small></a>
   <a class="m" href="#reviews">Отзывы<small>07</small></a>
-  <a class="m" href="#form">Расчёт<small>08</small></a>
-  <span class="scr">до встречи на объекте</span>
+  <a class="m" href="#form">Бронирование<small>08</small></a>
+  <span class="scr">до встречи на борту</span>
 </nav>
 
 <button class="vbtn glass" id="vbtn"><i></i>Варианты</button>
@@ -773,23 +779,21 @@
   <div class="vg" style="border:0"><span class="lbl">Название компании</span>
     <div class="seg" data-k="name">
       <button data-v="0">Altitude<small>высота</small></button>
-      <button data-v="1">Northline<small>строгая линия</small></button>
-      <button data-v="2">Monolith<small>монолит</small></button>
+      <button data-v="1">Northline<small>северный путь</small></button>
+      <button data-v="2">Aerion<small>воздух</small></button>
       <button data-v="3">Nimbus<small>облако</small></button>
     </div></div>
   <div class="vg"><span class="lbl">Шрифт заголовков</span>
     <div class="seg" data-k="font">
-      <button data-v="a"><span class="fA">ДОМ ВЫШЕ</span><small>Широкий, как на видео</small></button>
-      <button data-v="b"><span class="fB">ДОМ ВЫШЕ</span><small>Тонкий разреженный</small></button>
-      <button data-v="c"><span class="fC">ДОМ ВЫШЕ</span><small>Антиква, премиум</small></button>
-      <button data-v="d"><span class="fD">ДОМ ВЫШЕ</span><small>Классический гротеск</small></button>
+      <button data-v="a"><span class="fA">ЛЕТАЙТЕ ВЫШЕ</span><small>Широкий, как на видео</small></button>
+      <button data-v="b"><span class="fB">ЛЕТАЙТЕ ВЫШЕ</span><small>Тонкий разреженный</small></button>
+      <button data-v="c"><span class="fC">ЛЕТАЙТЕ ВЫШЕ</span><small>Антиква, премиум</small></button>
+      <button data-v="d"><span class="fD">ЛЕТАЙТЕ ВЫШЕ</span><small>Классический гротеск</small></button>
     </div></div>
-  <div class="vg"><span class="lbl">Блок «Как строим»</span>
+  <div class="vg"><span class="lbl">Блок «Путь пассажира»</span>
     <div class="seg" data-k="how">
-      <button data-v="d">Чертёж<small>дом рисуется при прокрутке</small></button>
-      <button data-v="b">Линия<small>этапы по вертикали</small></button>
       <button data-v="c">Цифры<small>свайп, большие номера</small></button>
-      <button data-v="a">Кран<small>как было</small></button>
+      <button data-v="b">Линия<small>шаги по вертикали</small></button>
     </div></div>
   <div class="vg"><span class="lbl">Фон</span>
     <div class="seg" data-k="bg" style="grid-template-columns:repeat(3,1fr)">
@@ -824,23 +828,23 @@
   var root = document.documentElement;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   try { if (window.self !== window.top) root.style.setProperty('--ht', '70px'); } catch (e) { root.style.setProperty('--ht', '70px'); }
-  var NAMES = ['Altitude', 'Northline', 'Monolith', 'Nimbus'];
+  var NAMES = ['Altitude', 'Northline', 'Aerion', 'Nimbus'];
 
   // ---------- Облака: сгенерированные картинки ----------
   var CL = ['hero/cloud-dense.webp', 'hero/cloud-soft.webp', 'hero/fog.webp'];
   $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; i.loading = 'lazy'; i.decoding = 'async'; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'a', bg: 'fog', house: 'color', hx: 'g', why: 'a', fill: 'on', dirs: 'b', how: 'd' };
-  try { var s = JSON.parse(localStorage.getItem('alt-demo5') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'a', bg: 'fog', house: 'color', hx: 'g', why: 'a', fill: 'on', dirs: 'b', how: 'c' };
+  try { var s = JSON.parse(localStorage.getItem('alt-air1') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
     $$('[data-logo]').forEach(function (e) { e.textContent = nm; });
-    $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' · с 2014'; });
+    $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' Airlines · с 2014'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-demo5', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-air1', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
@@ -884,13 +888,13 @@
 
   // ---------- Данные направлений и этапов для вариантов ----------
   var D = [
-    ['Коттеджи', 'Коттедж', 'Частные дома от 120 м² по готовому или вашему проекту.', [['Площадь', '120–600 м²'], ['Срок', '6–12 мес.'], ['Стоимость', 'от 45 000 ₽/м²']]],
-    ['Таунхаусы', 'Таунхаус', 'Блокированная застройка для посёлков и инвесторов.', [['Секций', 'от 2'], ['Срок', '8–14 мес.'], ['Стоимость', 'от 40 000 ₽/м²']]],
-    ['Жилые комплексы', 'Жилой комплекс', 'Малоэтажные ЖК: от концепции до ввода в эксплуатацию.', [['Этажность', '3–9'], ['Квартиры', 'от 6,9 млн ₽'], ['Сдача', 'IV кв. 2026']]],
-    ['Коммерция', 'Коммерция', 'Офисы, шоурумы и общественные здания.', [['Площадь', 'от 300 м²'], ['Срок', 'по ТЗ'], ['Стоимость', 'по смете']]]
+    ['Эконом', 'Эконом', 'Багаж 23 кг и место у окна включены.', [['Багаж', '23 кг'], ['Питание', 'есть'], ['Цена', 'от 4 900 ₽']]],
+    ['Комфорт', 'Комфорт', 'Больше места и приоритетная посадка.', [['Багаж', '23 кг'], ['Место', '+15 см'], ['Цена', 'от 9 900 ₽']]],
+    ['Бизнес', 'Бизнес', 'Кресло-кровать и бизнес-зал.', [['Багаж', '2 × 32 кг'], ['Зал', 'есть'], ['Цена', 'от 89 000 ₽']]],
+    ['Частный джет', 'Джет', 'Свой самолёт и расписание.', [['Пассажиры', 'до 12'], ['Вылет', 'через 4 ч'], ['Цена', 'от 390 000 ₽']]]
   ];
   var specs = function (d) { return '<ul>' + d[3].map(function (x) { return '<li><span>' + x[0] + '</span><span>' + x[1] + '</span></li>'; }).join('') + '</ul>'; };
-  var S = [['Участок и проект', 'Инженер бесплатно смотрит участок и грунт, подбираем проект.', '1–2 недели'], ['Фундамент', 'Плита, лента или сваи. Армирование фотографируем до заливки.', '3–4 недели'], ['Коробка', 'Газобетон, кирпич или монолит — своя бригада.', '1–2 месяца'], ['Перекрытия и кровля', 'Принимаем по акту, платите только после приёмки.', '[1] месяц'], ['Окна и фасад', 'Утепление и гидроизоляция — на фото до закрытия.', '[1] месяц'], ['Инженерия и ключи', 'Сети, отделка, сдача. Гарантия на конструктив 5 лет.', '2–3 месяца']];
+  var S = [['Бронирование', 'Выбираете рейс и тариф на сайте — билет приходит на почту за минуту.', '2 минуты'], ['Регистрация', 'Онлайн за 30 часов до вылета. Место у окна — бесплатно.', 'за 30 часов'], ['Багаж', '23 кг включены в тариф, сдача на стойке за 5 минут.', '5 минут'], ['Посадка', 'Отдельная очередь для семей с детьми и бизнес-класса.', 'за 40 минут'], ['В полёте', 'Wi-Fi, горячее питание и фильмы на каждом рейсе.', 'весь полёт'], ['Прилёт', 'Багаж на ленте через 15 минут после посадки.', '15 минут']];
   $('#vline').insertAdjacentHTML('beforeend', S.map(function (x, i) { return '<li><span class="n">' + pad(i + 1) + '</span><b>' + x[0] + '</b><p>' + x[1] + '</p><small>Срок · ' + x[2] + '</small></li>'; }).join(''));
   $('#bign').innerHTML = S.map(function (x, i) { return '<article class="bign"><span>' + pad(i + 1) + '</span><i>Этап ' + pad(i + 1) + ' · ' + x[2] + '</i><b>' + x[0] + '</b><p>' + x[1] + '</p></article>'; }).join('');
   bindProg($('#bign'), $('#bg-bar'), $('#bg-n'));
@@ -939,7 +943,7 @@
   stepCards.forEach(function (s, k) { s.addEventListener('click', function () { toStep(k); }); });
 
   // ---------- Отзывы: едут сами, касание ставит на паузу ----------
-  var R = [['Анна', 'Смета не выросла, хотя меняли окна по ходу — пересчитали заранее.', 'Коттедж'], ['Игорь', 'Смотрел стройку по камере из другого города. Приехал только на приёмку.', 'Коттедж'], ['Мария', 'Квартиру в ЖК сдали в срок, отделка без замечаний.', 'ЖК'], ['Олег', 'Фото арматуры прислали до заливки. Спокойно, когда видишь скрытые работы.', 'Таунхаус'], ['Елена', 'Одна команда от фундамента до ключей, никто ни на кого не кивал.', 'Коттедж'], ['Дмитрий', 'Платили по этапам после акта, сроки совпали с графиком.', 'Коммерция']];
+  var R = [['Анна', 'Цена не выросла при оплате — багаж и место действительно включены.', 'Москва — Сочи'], ['Игорь', 'Летел бизнесом в Дубай: кровать, тишина, выспался перед встречей.', 'Бизнес'], ['Мария', 'Рейс вылетел минута в минуту, багаж получили через 10 минут.', 'Эконом'], ['Олег', 'Заказали джет на семью за 4 часа до вылета — всё чётко.', 'Частный джет'], ['Елена', 'С ребёнком посадили первыми, экипаж очень внимательный.', 'Комфорт'], ['Дмитрий', 'Вернули деньги за билет в тот же день без вопросов.', 'Москва — Казань']];
   var card = function (r) { return '<article class="rc"><q>«' + r[1] + '»</q><footer><b>' + r[0] + '</b><small>' + r[2] + '</small></footer></article>'; };
   var a = R.map(card).join(''), b = R.slice().reverse().map(card).join('');
   $('#rv1 .rv__in').innerHTML = a + a; $('#rv2 .rv__in').innerHTML = b + b;
@@ -999,7 +1003,7 @@
 
   // Заявка
   $$('#kind button').forEach(function (b) { b.onclick = function () { $$('#kind button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; });
-  $('#area').oninput = function () { $('#area-v').textContent = this.value + ' м²'; };
+  $('#area').oninput = function () { $('#area-v').textContent = this.value + ' пасс.'; };
   $('#lead').onsubmit = function (e) { e.preventDefault(); $('#lead-box').classList.add('sent'); };
 
   if (reduce || !window.ScrollTrigger) { crane.progress(1 / depth.length); $$('#doc .doc__r').forEach(function (r) { r.classList.add('ok'); }); $('.stamp').style.opacity = 1; $$('#vline li, #bpl div').forEach(function (x) { x.classList.add('on'); }); $$('.gp').forEach(function (g) { g.style.opacity = 1; }); return; }
@@ -1079,7 +1083,7 @@
   var bpG = $$('#bp .st'), bpL = $$('#bpl div'), bpTl = gsap.timeline({ paused: true });
   bpG.forEach(function (g, i) {
     var els = $$('line, rect, polyline, circle', g);
-    els.forEach(function (e) { var L = e.getTotalLength ? e.getTotalLength() : 400; e.style.strokeDasharray = L; e.style.strokeDashoffset = L; });
+    els.forEach(function (e) { var L = 400; try { L = e.getTotalLength(); } catch (x) {} e.style.strokeDasharray = L; e.style.strokeDashoffset = L; });
     bpTl.to(els, { strokeDashoffset: 0, duration: 1, ease: 'none', stagger: 0.08 }, i);
     bpTl.fromTo($$('text', g), { opacity: 0 }, { opacity: 1, duration: 0.4 }, i + 0.6);
   });
