@@ -668,6 +668,14 @@
   @keyframes fadeOut { to { opacity: 0; } }
   @keyframes winZoom { to { transform: scale(7); } }
   @media (prefers-reduced-motion: reduce) { .ldr { display: none; } }
+
+  /* Первый экран: насыщенное голубое небо, белый текст */
+  .gx { background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 22%, #3d86ff 40%, #8fc3ff 56%, #d6e8ff 66%, var(--bg) 76%); }
+  .gx .gx__bg { display: none; }
+  .gx__head .hero__t { color: #fff; text-shadow: 0 6px 30px rgba(6, 30, 110, .35); }
+  .gx__head .hero__scr { color: #bfe3ff; text-shadow: 0 6px 30px rgba(6, 30, 110, .35); }
+  .gx__head .hero__s { color: rgba(255, 255, 255, .88); }
+  .gx .cl, .gx .hx__cl { filter: none; }
 </style>
 </head>
 <body>
