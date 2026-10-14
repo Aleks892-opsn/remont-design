@@ -691,11 +691,38 @@
   .smoke.s3 { left: 84%; top: 76%; width: 200px; height: 5px; transform: rotate(-14deg); animation-delay: -.6s; }
   @keyframes smk { from { opacity: .4; } to { opacity: .7; } }
   @media (prefers-reduced-motion: reduce) { .smoke { animation: none; } }
+
+  /* Верхняя капсула (вариант 1) */
+  .tnav { position: fixed; z-index: 35; top: var(--ht, 12px); left: 0; right: 0; width: calc(100% - 24px); max-width: 456px; margin: 0 auto; display: flex; align-items: center; gap: 6px; height: 52px; padding: 5px 5px 5px 18px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .18); }
+  .tnav__logo { flex: 1; font: 800 22px/1 var(--fb); letter-spacing: -.06em; text-transform: lowercase; color: var(--blue); }
+  .tnav__buy { height: 42px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; background: var(--blue); color: #fff; font: 600 13px var(--fb); letter-spacing: -.02em; }
+  .tnav__burg { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-l); color: var(--blue); }
+  .tnav__burg i { display: block; width: 16px; height: 6px; border-top: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor; }
+  .vbtn { top: auto; bottom: calc(88px + env(safe-area-inset-bottom)); right: 12px; height: 32px; padding: 0 12px; opacity: .85; }
+  .gx__head, .hx__head { top: calc(var(--ht, 12px) + 104px); }
+  .menu { z-index: 40; padding-top: calc(var(--ht, 12px) + 80px); }
+  .menu .x { top: calc(var(--ht, 12px) + 6px); }
+  .menu__auth { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+  .ma { height: 50px; border-radius: 999px; font: 600 15px var(--fb); letter-spacing: -.02em; }
+  .ma--l { background: var(--blue-l); color: var(--blue); }
+  .ma--b { background: var(--blue); color: #fff; box-shadow: 0 10px 24px rgba(31, 91, 255, .28); }
+  /* Вход / регистрация — шторка снизу */
+  .auth { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; max-width: 480px; margin: 0 auto; padding: 10px 18px calc(24px + env(safe-area-inset-bottom)); background: #fff; border-radius: 28px 28px 0 0; box-shadow: 0 -20px 60px rgba(6, 30, 110, .2); transform: translateY(105%); transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  body.auth-open .auth { transform: none; }
+  body.auth-open .scrim { opacity: 1; visibility: visible; z-index: 55; }
+  .auth__grab { width: 36px; height: 4px; border-radius: 4px; background: #d5def3; margin: 0 auto 14px; }
+  .auth__tabs { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--blue-l); margin-bottom: 14px; }
+  .auth__tabs button { height: 42px; border-radius: 999px; font: 600 14px var(--fb); color: var(--blue); }
+  .auth__tabs button.on { background: #fff; box-shadow: 0 4px 12px rgba(31, 91, 255, .15); }
+  .auth .note { text-align: center; }
+  .auth__ok { display: none; margin: 12px 0 0; text-align: center; font-size: 13px; color: var(--blue); }
+  .auth.sent .auth__ok { display: block; }
 </style>
 </head>
 <body>
 <div class="ldr" id="ldr" aria-hidden="true"><div class="ldr__out"><div class="ldr__bp"><div class="bp__top"><span>altitude airlines</span><span>посадочный</span></div><div class="bp__r"><div><b>MOW</b><small>Москва</small></div><div class="bp__ic">✈</div><div style="text-align:right"><b>AER</b><small>Сочи</small></div></div><div class="bp__cut"></div><div class="bp__low"><div>рейс<b>AL 001</b></div><div>место<b>12A</b></div><div>выход<b>B7</b></div></div><div class="bp__stamp">ПОСАДКА<br>✓</div></div></div><div class="ldr__win"><img src="hero/cloud-soft.webp" alt=""><i class="ldr__shut"></i></div><span class="ldr__t">добро пожаловать на борт</span></div>
 <div class="wrap" id="top">
+  <header class="tnav" aria-label="Шапка"><a class="tnav__logo" href="#top" data-logo>Altitude</a><a class="tnav__buy" href="#form">Купить билет</a><button class="tnav__burg" id="menu-top" aria-label="Меню"><i></i></button></header>
 
   <!-- Меню: нижняя панель под большим пальцем -->
   <nav class="tabbar" aria-label="Меню">
@@ -962,8 +989,27 @@
   <a class="m" href="#why">Гарантии<small>05</small></a>
   <a class="m" href="#reviews">Отзывы<small>07</small></a>
   <a class="m" href="#form">Бронирование<small>08</small></a>
+  <div class="menu__auth"><button class="ma ma--l" data-auth="in">Войти</button><button class="ma ma--b" data-auth="up">Регистрация</button></div>
   <span class="scr">до встречи на борту</span>
 </nav>
+<div class="auth" id="auth" role="dialog" aria-label="Вход и регистрация">
+  <div class="auth__grab"></div>
+  <div class="auth__tabs"><button data-t="in" class="on">Вход</button><button data-t="up">Регистрация</button></div>
+  <form class="auth__f" data-f="in" onsubmit="return false">
+    <input class="fld" type="text" placeholder="Телефон или e-mail" autocomplete="username">
+    <input class="fld" type="password" placeholder="Пароль" autocomplete="current-password">
+    <button class="btn" type="submit">Войти</button>
+    <p class="note">Забыли пароль? Пришлём код по SMS</p>
+  </form>
+  <form class="auth__f" data-f="up" onsubmit="return false" hidden>
+    <input class="fld" type="text" placeholder="Имя и фамилия как в паспорте" autocomplete="name">
+    <input class="fld" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+    <input class="fld" type="email" placeholder="E-mail" autocomplete="email">
+    <button class="btn" type="submit">Создать аккаунт</button>
+    <p class="note">Бонусные мили начисляются с первого полёта</p>
+  </form>
+  <p class="auth__ok">В демо вход не выполняется — здесь будет личный кабинет.</p>
+</div>
 
 <button class="vbtn glass" id="vbtn"><i></i>Варианты</button>
 <div class="scrim" id="scrim"></div>
@@ -1048,6 +1094,22 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#menu-btn').onclick = function () { menu(true); };
   $('#menu-x').onclick = function () { menu(false); };
   $$('.menu a').forEach(function (a) { a.addEventListener('click', function () { menu(false); }); });
+
+
+  // ---------- Верхнее меню, вход и регистрация ----------
+  $('#menu-top').onclick = function () { menu(true); };
+  var auth = function (on, tab) {
+    document.body.classList.toggle('auth-open', on);
+    if (on) { menu(false); setTab(tab || 'in'); $('#auth').classList.remove('sent'); }
+  };
+  var setTab = function (t) {
+    $$('.auth__tabs button').forEach(function (b) { b.classList.toggle('on', b.dataset.t === t); });
+    $$('.auth__f').forEach(function (f) { f.hidden = f.dataset.f !== t; });
+  };
+  $$('[data-auth]').forEach(function (b) { b.onclick = function () { auth(true, b.dataset.auth); }; });
+  $$('.auth__tabs button').forEach(function (b) { b.onclick = function () { setTab(b.dataset.t); }; });
+  $$('.auth__f').forEach(function (f) { f.addEventListener('submit', function () { $('#auth').classList.add('sent'); }); });
+  $('#scrim').addEventListener('click', function () { auth(false); });
 
   // Направления и список «Почему мы»: раскрываются нажатием
   $$('.dir').forEach(function (d) { d.addEventListener('click', function () { d.classList.toggle('open'); }); });
