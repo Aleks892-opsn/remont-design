@@ -678,7 +678,7 @@
   .gx .cl, .gx .hx__cl { filter: none; }
 
   /* Самолёт на первом экране: плывёт сам и улетает при прокрутке */
-  .gx__jet { left: 50%; top: calc(var(--ht, 12px) + 290px); width: 310px; margin-left: -155px; z-index: 2; will-change: transform; }
+  .gx__jet { left: 50%; top: calc(var(--ht, 12px) + 270px); width: 310px; margin-left: -155px; z-index: 2; will-change: transform; }
   .gx__jetin { will-change: transform; }
   .gx__jetin img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px rgba(6, 30, 110, .25)); }
 
@@ -693,13 +693,13 @@
   @media (prefers-reduced-motion: reduce) { .smoke { animation: none; } }
 
   /* Верхняя капсула (вариант 1) */
-  .tnav { position: fixed; z-index: 35; top: var(--ht, 12px); left: 0; right: 0; width: calc(100% - 24px); max-width: 456px; margin: 0 auto; display: flex; align-items: center; gap: 6px; height: 52px; padding: 5px 5px 5px 18px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .18); }
+  .tnav { position: absolute; z-index: 35; top: var(--ht, 12px); left: 0; right: 0; width: calc(100% - 24px); max-width: 456px; margin: 0 auto; display: flex; align-items: center; gap: 6px; height: 52px; padding: 5px 5px 5px 18px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .18); }
   .tnav__logo { flex: 1; font: 800 22px/1 var(--fb); letter-spacing: -.06em; text-transform: lowercase; color: var(--blue); }
   .tnav__buy { height: 42px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; background: var(--blue); color: #fff; font: 600 13px var(--fb); letter-spacing: -.02em; }
   .tnav__burg { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-l); color: var(--blue); }
   .tnav__burg i { display: block; width: 16px; height: 6px; border-top: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor; }
   .vbtn { top: auto; bottom: calc(88px + env(safe-area-inset-bottom)); right: 12px; height: 32px; padding: 0 12px; opacity: .85; }
-  .gx__head, .hx__head { top: calc(var(--ht, 12px) + 104px); }
+  .gx__head, .hx__head { top: calc(var(--ht, 12px) + 84px); }
   .menu { z-index: 40; padding-top: calc(var(--ht, 12px) + 80px); }
   .menu .x { top: calc(var(--ht, 12px) + 6px); }
   .menu__auth { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
@@ -1087,7 +1087,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   var root = document.documentElement;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  try { if (window.self !== window.top) root.style.setProperty('--ht', '70px'); } catch (e) { root.style.setProperty('--ht', '70px'); }
+  try { if (window.self !== window.top) root.style.setProperty('--ht', '14px'); } catch (e) { root.style.setProperty('--ht', '14px'); }
   var NAMES = ['Altitude', 'Northline', 'Aerion', 'Nimbus'];
 
   // ---------- Облака: сгенерированные картинки ----------
