@@ -717,6 +717,32 @@
   .auth .note { text-align: center; }
   .auth__ok { display: none; margin: 12px 0 0; text-align: center; font-size: 13px; color: var(--blue); }
   .auth.sent .auth__ok { display: block; }
+
+  /* Меню: синие карточки */
+  .menu { padding: calc(var(--ht, 12px)) 12px calc(24px + env(safe-area-inset-bottom)); background: var(--bg); overflow-y: auto; }
+  .menu__top { display: flex; align-items: center; justify-content: space-between; height: 52px; padding: 5px 5px 5px 18px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .12); }
+  .menu__logo { font: 800 22px/1 var(--fb); letter-spacing: -.06em; text-transform: lowercase; color: var(--blue); }
+  .menu__x { width: 42px; height: 42px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 15px; }
+  .menu .x { display: none; }
+  .menu__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .menu a.m { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 112px; padding: 14px 16px 16px; border: 0; border-radius: 26px; color: #fff; background: linear-gradient(150deg, #5a96ff, #1f5bff 62%, #1745dc); box-shadow: 0 14px 30px rgba(31, 91, 255, .22); overflow: hidden; text-transform: none; font-size: 0; opacity: 0; transform: translate3d(0, 18px, 0) scale(.97); transition: opacity .45s, transform .45s cubic-bezier(.2, .8, .2, 1); }
+  .menu a.m:nth-child(3n+2) { background: linear-gradient(150deg, #4a8bff, #2e68ff 60%, #1b4fe8); }
+  .menu a.m:nth-child(3n) { background: linear-gradient(150deg, #7fb3ff, #3a78ff 60%, #2157f0); }
+  .menu a.m::before { content: ''; position: absolute; right: -30px; top: -40px; width: 120px; height: 120px; border-radius: 50%; background: rgba(255, 255, 255, .12); }
+  .menu a.m::after { content: '↗'; position: absolute; right: 12px; top: 12px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .2); font: 600 15px var(--fb); color: #fff; }
+  .menu a.m small { position: absolute; left: 14px; top: 14px; padding: 5px 10px; border-radius: 999px; background: rgba(255, 255, 255, .2); font: 600 11px/1 var(--fb); color: #fff; letter-spacing: .02em; }
+  .menu a.m b { font: 700 18px/1.1 var(--fb); letter-spacing: -.03em; }
+  .menu a.m span { margin-top: 6px; font: 500 13px/1.35 var(--fb); color: rgba(255, 255, 255, .85); max-width: 230px; }
+  .menu a.m--wide { grid-column: 1 / -1; min-height: 140px; background: linear-gradient(140deg, #0f45d8, #1f5bff 45%, #5a96ff); }
+  .menu a.m--wide b { font-size: 26px; }
+  body.menu-open .menu a.m { opacity: 1; transform: none; }
+  body.menu-open .menu a.m:nth-child(2) { transition-delay: .05s; } body.menu-open .menu a.m:nth-child(3) { transition-delay: .09s; }
+  body.menu-open .menu a.m:nth-child(4) { transition-delay: .13s; } body.menu-open .menu a.m:nth-child(5) { transition-delay: .17s; }
+  body.menu-open .menu a.m:nth-child(6) { transition-delay: .21s; } body.menu-open .menu a.m:nth-child(7) { transition-delay: .25s; }
+  .menu__auth { margin-top: 14px; }
+  .ma--l { background: #fff; box-shadow: 0 8px 20px rgba(6, 30, 110, .08); }
+  .menu__help { margin: 16px 0 0; text-align: center; font: 500 13px var(--fb); color: var(--ink2); }
+  .menu__help a { color: var(--blue); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -981,16 +1007,18 @@
 </div>
 
 <nav class="menu" aria-label="Меню">
-  <button class="rbtn glass x" id="menu-x" aria-label="Закрыть">✕</button>
-  <a class="m" href="#dirs">Классы<small>01</small></a>
-  <a class="m" href="#object">Новый маршрут<small>02</small></a>
-  <a class="m" href="#homes">История<small>03</small></a>
-  <a class="m" href="#how">Путь пассажира<small>04</small></a>
-  <a class="m" href="#why">Гарантии<small>05</small></a>
-  <a class="m" href="#reviews">Отзывы<small>07</small></a>
-  <a class="m" href="#form">Бронирование<small>08</small></a>
+  <div class="menu__top"><span class="menu__logo" data-logo>Altitude</span><button class="menu__x" id="menu-x" aria-label="Закрыть">✕</button></div>
+  <div class="menu__grid">
+    <a class="m m--wide" href="#form"><small>08</small><b>Бронирование</b><span>Найти и купить билет за пару минут</span></a>
+    <a class="m" href="#dirs"><small>01</small><b>Классы</b></a>
+    <a class="m" href="#object"><small>02</small><b>Новый маршрут</b></a>
+    <a class="m" href="#how"><small>04</small><b>Путь пассажира</b></a>
+    <a class="m" href="#why"><small>05</small><b>Гарантии</b></a>
+    <a class="m" href="#homes"><small>03</small><b>История</b></a>
+    <a class="m" href="#reviews"><small>07</small><b>Отзывы</b></a>
+  </div>
   <div class="menu__auth"><button class="ma ma--l" data-auth="in">Войти</button><button class="ma ma--b" data-auth="up">Регистрация</button></div>
-  <span class="scr">до встречи на борту</span>
+  <p class="menu__help">Поддержка 24/7 · <a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
 </nav>
 <div class="auth" id="auth" role="dialog" aria-label="Вход и регистрация">
   <div class="auth__grab"></div>
