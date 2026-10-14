@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Меню сверху</title>
+<meta name="description" content="Пять вариантов верхнего меню для Altitude Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --blue: #1f5bff; --blue-l: #dfe9ff; --f: 'Montserrat', system-ui, sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .top { margin: 120px 8px 0; padding: 26px 18px 28px; background: #fff; border-radius: 34px; }
+  .tag { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px/1 var(--f); }
+  .top h1 { margin: 16px 0 10px; font: 700 30px/1 var(--f); letter-spacing: -.04em; }
+  .top h1 span { color: var(--blue); display: block; }
+  .top p { margin: 0; color: var(--ink2); font-size: 14px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 12px var(--f); }
+  .v { margin: 14px 8px 0; background: #fff; border-radius: 34px; overflow: hidden; }
+  .v__h { padding: 22px 18px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .v__h b { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 800 16px var(--f); }
+  .v__h div span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .v__h div small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+
+  /* Сцена — первый экран */
+  .st { position: relative; height: 560px; margin: 0 8px 8px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 26%, #3d86ff 48%, #8fc3ff 66%, #d6e8ff 80%, var(--bg) 92%); }
+  .st > * { position: absolute; }
+  .st .h { left: 18px; right: 18px; top: 150px; text-align: center; }
+  .st .h h2 { margin: 0; font: 700 32px/1 var(--f); letter-spacing: -.04em; color: #fff; text-shadow: 0 6px 30px rgba(6, 30, 110, .35); }
+  .st .h h2 i { font-style: normal; display: block; color: #bfe3ff; }
+  .st .jet { left: 50%; width: 290px; margin-left: -145px; top: 300px; filter: drop-shadow(0 18px 24px rgba(6, 30, 110, .25)); animation: bob 4s ease-in-out infinite alternate; }
+  .st .cl { width: 240%; left: -70%; bottom: -40%; max-width: none; }
+  @keyframes bob { from { transform: translate3d(-8px, 0, 0) rotate(-4deg); } to { transform: translate3d(10px, -14px, 0) rotate(-1deg); } }
+  .nav { left: 12px; right: 12px; top: 14px; z-index: 5; }
+  .logo { font: 800 22px/1 var(--f); letter-spacing: -.06em; }
+  .burg { display: grid; place-items: center; }
+  .burg i { display: block; width: 16px; height: 6px; border-top: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor; }
+
+  /* 1. Капсула realweb */
+  .n1 { display: flex; align-items: center; gap: 6px; height: 56px; padding: 6px 6px 6px 18px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .18); }
+  .n1 .logo { color: var(--blue); flex: 1; }
+  .n1 .p { height: 44px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; font: 600 13px var(--f); letter-spacing: -.02em; }
+  .n1 .p.l { background: var(--blue-l); color: var(--blue); }
+  .n1 .p.b { background: var(--blue); color: #fff; }
+  .n1 .burg { width: 44px; height: 44px; border-radius: 50%; background: var(--blue-l); color: var(--blue); }
+
+  /* 2. Стекло на небе */
+  .n2 { display: flex; align-items: center; justify-content: space-between; }
+  .n2 .logo { color: #fff; padding: 12px 16px; border-radius: 999px; background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .35); }
+  .n2 .r { display: flex; gap: 6px; padding: 5px; border-radius: 999px; background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .35); }
+  .n2 .r a { height: 38px; padding: 0 14px; border-radius: 999px; display: inline-flex; align-items: center; font: 600 13px var(--f); color: #fff; }
+  .n2 .r a.on { background: #fff; color: var(--blue); }
+  .n2 .burg { width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--blue); }
+
+  /* 3. Табло сверху */
+  .n3 { display: flex; flex-direction: column; gap: 8px; }
+  .n3 .tick { overflow: hidden; height: 30px; border-radius: 999px; background: rgba(6, 25, 90, .45); color: #fff; font: 600 11px/30px var(--f); letter-spacing: .06em; white-space: nowrap; }
+  .n3 .tick span { display: inline-block; padding-left: 100%; animation: tick 16s linear infinite; }
+  .n3 .tick b { color: #9fe0a8; font-weight: 700; }
+  .n3 .tick em { font-style: normal; color: #bfe3ff; }
+  @keyframes tick { to { transform: translate3d(-100%, 0, 0); } }
+  .n3 .row { display: flex; align-items: center; justify-content: space-between; height: 54px; padding: 6px 6px 6px 18px; border-radius: 999px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .18); }
+  .n3 .logo { color: var(--blue); }
+  .n3 .row div { display: flex; gap: 6px; }
+  .n3 .s { width: 42px; height: 42px; border-radius: 50%; background: var(--blue-l); color: var(--blue); display: grid; place-items: center; }
+  .n3 .s svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+  .n3 .burg { width: 42px; height: 42px; border-radius: 50%; background: var(--blue); color: #fff; }
+
+  /* 4. Посадочный талон */
+  .n4 { display: flex; align-items: stretch; height: 58px; border-radius: 18px; background: #fff; box-shadow: 0 14px 34px rgba(6, 30, 110, .18); position: relative; }
+  .n4::before, .n4::after { content: ''; position: absolute; left: 62%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: #0b3dc8; }
+  .n4::before { top: -8px; } .n4::after { bottom: -8px; background: #1049dc; }
+  .n4 .a { flex: 0 0 62%; display: flex; align-items: center; gap: 12px; padding: 0 16px; border-right: 2px dashed #cdd9f3; }
+  .n4 .logo { color: var(--blue); }
+  .n4 .rt { font: 700 12px/1.15 var(--f); color: var(--ink); letter-spacing: .02em; }
+  .n4 .rt small { display: block; font: 500 10px var(--f); color: var(--mute); letter-spacing: .08em; text-transform: uppercase; }
+  .n4 .b { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font: 700 13px var(--f); color: var(--blue); }
+  .n4 .b .burg { width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: #fff; }
+
+  /* 5. Раздельные элементы + большой CTA */
+  .n5 { display: flex; align-items: center; gap: 8px; }
+  .n5 .logo { color: #fff; flex: 1; font-size: 26px; text-shadow: 0 4px 18px rgba(6, 30, 110, .3); }
+  .n5 .logo small { display: block; font: 600 9px var(--f); letter-spacing: .3em; text-transform: uppercase; opacity: .8; margin-top: 4px; }
+  .n5 .cta { height: 46px; padding: 0 18px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--blue); font: 700 13px var(--f); box-shadow: 0 10px 24px rgba(6, 30, 110, .2); }
+  .n5 .cta i { width: 8px; height: 8px; border-radius: 50%; background: #2bd47b; box-shadow: 0 0 0 4px rgba(43, 212, 123, .25); }
+  .n5 .burg { width: 46px; height: 46px; border-radius: 50%; background: var(--blue); color: #fff; box-shadow: 0 10px 24px rgba(6, 30, 110, .3); }
+
+  /* Шторка меню */
+  .scrim { position: fixed; inset: 0; z-index: 45; background: rgba(6, 20, 70, .35); opacity: 0; visibility: hidden; transition: .3s; }
+  .sheet { position: fixed; z-index: 50; left: 0; right: 0; top: 0; max-width: 480px; margin: 0 auto; padding: 120px 18px 22px; background: #fff; border-radius: 0 0 30px 30px; transform: translateY(-105%); transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  body.sh .scrim { opacity: 1; visibility: visible; }
+  body.sh .sheet { transform: none; }
+  .sheet a.m { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(31, 91, 255, .12); font: 700 22px var(--f); letter-spacing: -.03em; }
+  .sheet a.m small { font: 600 11px var(--f); color: var(--blue); }
+  .sheet .btn { display: flex; align-items: center; justify-content: center; height: 52px; margin-top: 18px; border-radius: 999px; background: var(--blue); color: #fff; font: 600 15px var(--f); }
+  .end { padding: 50px 18px 80px; text-align: center; font-size: 12px; color: var(--mute); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="tag">altitude · меню сверху</span>
+    <h1><span>Пять вариантов</span>верхнего меню</h1>
+    <p>Каждое меню — прямо на нашем первом экране. Кнопки меню открывают шторку сверху.</p>
+    <nav class="jump"><a href="#m1">Капсула</a><a href="#m2">Стекло</a><a href="#m3">Табло</a><a href="#m4">Талон</a><a href="#m5">Раздельно</a></nav>
+  </header>
+
+  <section class="v" id="m1"><div class="v__h"><b>1</b><div><span>Капсула как у realweb</span><small>Белая капсула: логотип, светлая таблетка «рейсы», синяя «купить билет» и круглое меню.</small></div></div>
+    <div class="st"><nav class="nav n1"><span class="logo">altitude</span><a class="p b" href="#">Купить билет</a><button class="burg" data-open aria-label="Меню"><i></i></button></nav></div></section>
+
+  <section class="v" id="m2"><div class="v__h"><b>2</b><div><span>Стекло на небе</span><small>Прозрачные таблетки прямо на небе: логотип отдельно, справа разделы и меню. Сайт «дышит», меню не перекрывает небо.</small></div></div>
+    <div class="st"><nav class="nav n2"><span class="logo">altitude</span><div class="r"><a class="on" href="#">Рейсы</a><a href="#">Билеты</a><button class="burg" data-open aria-label="Меню"><i></i></button></div></nav></div></section>
+
+  <section class="v" id="m3"><div class="v__h"><b>3</b><div><span>Табло вылетов</span><small>Над капсулой бежит строка, как табло: рейсы, время, «вовремя». Справа поиск билета и меню.</small></div></div>
+    <div class="st"><nav class="nav n3"><div class="tick"><span>AL 001 · Москва → Сочи · <em>14:20</em> · <b>вовремя</b> &nbsp;&nbsp;·&nbsp;&nbsp; AL 014 · Москва → Дубай · <em>16:05</em> · <b>посадка</b> &nbsp;&nbsp;·&nbsp;&nbsp; AL 230 · Москва → Мальдивы · <em>23:40</em> · <b>по расписанию</b></span></div><div class="row"><span class="logo">altitude</span><div><button class="s" aria-label="Найти билет"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button><button class="burg" data-open aria-label="Меню"><i></i></button></div></div></nav></div></section>
+
+  <section class="v" id="m4"><div class="v__h"><b>4</b><div><span>Посадочный талон</span><small>Меню в виде отрывного талона: слева логотип и ближайший рейс, справа за пунктиром — кнопка меню. Вырезы по краям как у билета.</small></div></div>
+    <div class="st"><nav class="nav n4"><div class="a"><span class="logo">altitude</span><span class="rt">MOW → AER<small>от 4 900 ₽</small></span></div><button class="b" data-open>Меню <span class="burg"><i></i></span></button></nav></div></section>
+
+  <section class="v" id="m5"><div class="v__h"><b>5</b><div><span>Раздельно, без плашки</span><small>Белый логотип прямо на небе, справа белая таблетка «онлайн-регистрация» с зелёной точкой и синее круглое меню.</small></div></div>
+    <div class="st"><nav class="nav n5"><span class="logo">altitude<small>airlines</small></span><a class="cta" href="#"><i></i>Регистрация</a><button class="burg" data-open aria-label="Меню"><i></i></button></nav></div></section>
+
+  <p class="end">Выберите меню — поставлю на сайт. Нижнюю панель (Меню, Рейсы, Билеты, Звонок) можно оставить или убрать.</p>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<nav class="sheet" aria-label="Меню">
+  <a class="m" href="#">Классы<small>01</small></a><a class="m" href="#">Новый маршрут<small>02</small></a><a class="m" href="#">История<small>03</small></a><a class="m" href="#">Путь пассажира<small>04</small></a><a class="m" href="#">Бронирование<small>08</small></a>
+  <a class="btn" href="#">Купить билет</a>
+</nav>
+
+<script>
+(function () {
+  var sts = document.querySelectorAll('.st');
+  sts.forEach(function (st) { st.insertAdjacentHTML('beforeend', '<div class="h"><h2>Летайте выше своих<i>ожиданий</i></h2></div><img class="jet" src="hero/plane.webp" alt=""><img class="cl" src="hero/cloud-dense.webp" alt="">'); });
+  var sh = function (on) { document.body.classList.toggle('sh', on); };
+  document.querySelectorAll('[data-open]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); sh(true); }); });
+  document.getElementById('scrim').onclick = function () { sh(false); };
+  document.querySelectorAll('.sheet a').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); sh(false); }); });
+})();
+</script>
+</body>
+</html>
