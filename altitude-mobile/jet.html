@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Самолёт на главном</title>
+<meta name="description" content="Три варианта анимации самолёта на первом экране Altitude Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --blue: #1f5bff; --blue-l: #dfe9ff; --f: 'Montserrat', system-ui, sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .top { margin: 120px 8px 0; padding: 26px 18px 28px; background: #fff; border-radius: 34px; }
+  .tag { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px/1 var(--f); }
+  .top h1 { margin: 16px 0 10px; font: 700 30px/1 var(--f); letter-spacing: -.04em; }
+  .top h1 span { color: var(--blue); display: block; }
+  .top p { margin: 0; color: var(--ink2); font-size: 14px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 12px var(--f); text-decoration: none; }
+  .v { margin: 14px 8px 0; background: #fff; border-radius: 34px; overflow: hidden; }
+  .v__h { padding: 22px 18px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .v__h b { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 800 16px var(--f); }
+  .v__h div span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .v__h div small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+
+  /* Сцена — как первый экран сайта */
+  .stage { position: relative; height: 640px; margin: 0 8px 8px; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 26%, #3d86ff 46%, #8fc3ff 62%, #d6e8ff 74%, var(--bg) 86%); }
+  .stage > * { position: absolute; }
+  .head { left: 18px; right: 18px; top: 70px; text-align: center; z-index: 4; }
+  .head h2 { margin: 0; font: 700 34px/1 var(--f); letter-spacing: -.04em; color: #fff; text-shadow: 0 6px 30px rgba(6, 30, 110, .35); }
+  .head h2 i { font-style: normal; display: block; color: #bfe3ff; }
+  .head p { margin: 12px auto 0; max-width: 280px; font-size: 13px; color: rgba(255, 255, 255, .88); }
+  .cl { max-width: none; pointer-events: none; will-change: transform; }
+  .cl.a { width: 240%; left: -70%; bottom: -44%; z-index: 3; }
+  .cl.b { width: 220%; left: -50%; bottom: -22%; z-index: 1; transform: scaleX(-1); opacity: .9; }
+  .jet { width: 320px; left: 50%; top: 260px; margin-left: -160px; z-index: 2; will-change: transform, opacity; }
+  .jet img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px rgba(6, 30, 110, .25)); }
+  .trail { inset: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; pointer-events: none; }
+  .trail path { fill: none; stroke: rgba(255, 255, 255, .85); stroke-width: 3; stroke-linecap: round; }
+  .shade { inset: 0; z-index: 3; background: rgba(6, 25, 90, .35); opacity: 0; pointer-events: none; }
+  .re { position: absolute; z-index: 20; right: 12px; top: 12px; height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .92); color: var(--blue); font: 600 12px var(--f); }
+  .hint { left: 0; right: 0; bottom: 18px; z-index: 5; text-align: center; font: 600 11px var(--f); letter-spacing: .14em; text-transform: uppercase; color: var(--ink2); }
+  /* вариант 2 — по прокрутке: высокая секция без прилипания */
+  .scrollv { height: 1100px; margin: 0 8px 8px; border-radius: 28px; overflow: hidden; position: relative; background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 16%, #3d86ff 30%, #8fc3ff 42%, #d6e8ff 52%, var(--bg) 62%); }
+  .scrollv > * { position: absolute; }
+  .scrollv .head { top: 70px; }
+  .scrollv .jet { top: 290px; }
+  .scrollv .cl.a { bottom: auto; top: 480px; }
+  .scrollv .cl.b { bottom: auto; top: 400px; }
+  .scrollv .after { left: 18px; right: 18px; top: 860px; z-index: 5; text-align: center; font: 700 22px/1.1 var(--f); letter-spacing: -.03em; color: var(--ink); }
+  .scrollv .after span { color: var(--blue); display: block; }
+  .end { padding: 50px 18px 80px; text-align: center; font-size: 12px; color: var(--mute); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="tag">altitude · самолёт</span>
+    <h1><span>Самолёт</span>на первом экране</h1>
+    <p>Ваш самолёт после улучшения качества и вырезки фона. Три варианта анимации — всё лёгкое (сдвиг и масштаб картинки), без прилипания экрана.</p>
+    <nav class="jump"><a href="#v1">1 · Из облаков</a><a href="#v2">2 · При прокрутке</a><a href="#v3">3 · Близкий пролёт</a></nav>
+  </header>
+
+  <section class="v" id="v1"><div class="v__h"><b>1</b><div><span>Взлёт из облаков</span><small>После загрузки самолёт поднимается из-за облаков справа, оставляя белый след, и зависает под заголовком, мягко покачиваясь.</small></div></div>
+    <div class="stage" data-a="1"></div></section>
+
+  <section class="v" id="v2"><div class="v__h"><b>2</b><div><span>Улетает при прокрутке</span><small>Самолёт висит над облаками и покачивается. Листаете вниз — он уходит вдаль влево-вверх и уменьшается, облака поднимаются навстречу. Листайте этот блок.</small></div></div>
+    <div class="scrollv" id="sv"></div></section>
+
+  <section class="v" id="v3"><div class="v__h"><b>3</b><div><span>Близкий пролёт</span><small>Огромный самолёт проносится через экран почти у камеры, заголовок на миг уходит в тень, затем самолёт отдаляется и остаётся над облаками.</small></div></div>
+    <div class="stage" data-a="3"></div></section>
+
+  <p class="end">Выберите вариант — поставлю на первый экран сайта.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var HEAD = '<div class="head"><h2>Летайте выше своих<i>ожиданий</i></h2><p>Регулярные рейсы и частные перелёты по честной цене.</p></div>';
+  var CL = '<img class="cl b" src="hero/cloud-dense.webp" alt=""><img class="cl a" src="hero/cloud-dense.webp" alt="">';
+  var JET = '<div class="jet"><img src="hero/plane.webp" alt="Самолёт Altitude"></div>';
+
+  var build = {
+    1: function (st) {
+      st.innerHTML = HEAD + '<svg class="trail" viewBox="0 0 400 640" preserveAspectRatio="none"><path d="M430 600 C 380 520, 330 420, 260 360"/><path d="M440 590 C 392 512, 344 414, 276 352"/></svg>' + JET + CL;
+      var jet = st.querySelector('.jet'), tr = $$('.trail path', st), tl = gsap.timeline();
+      tr.forEach(function (p) { var L = p.getTotalLength(); gsap.set(p, { strokeDasharray: L, strokeDashoffset: L, opacity: 1 }); });
+      tl.fromTo(jet, { x: 230, y: 320, scale: 0.55, rotation: -14 }, { x: 0, y: 0, scale: 1, rotation: -6, duration: 2.4, ease: 'power3.out' }, 0)
+        .to(tr, { strokeDashoffset: 0, duration: 2, ease: 'power2.out' }, 0.1)
+        .to(tr, { opacity: 0, duration: 1.4 }, 2.2)
+        .fromTo(st.querySelector('.cl.a'), { x: 0 }, { x: -60, duration: 2.6, ease: 'power2.out' }, 0)
+        .fromTo(st.querySelector('.head'), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8 }, 0.9)
+        .to(jet, { y: -10, rotation: -4, duration: 2, yoyo: true, repeat: -1, ease: 'sine.inOut' }, 2.4);
+      return tl;
+    },
+    3: function (st) {
+      st.innerHTML = HEAD + JET + CL + '<div class="shade"></div>';
+      var jet = st.querySelector('.jet'), tl = gsap.timeline();
+      tl.fromTo(jet, { x: 420, y: -40, scale: 3.4, rotation: -4, zIndex: 6 }, { x: -60, y: 40, scale: 2.6, rotation: -6, duration: 0.9, ease: 'none' }, 0)
+        .to(st.querySelector('.shade'), { opacity: 1, duration: 0.25, yoyo: true, repeat: 1 }, 0.2)
+        .to(jet, { x: -40, y: 10, scale: 0.42, rotation: -8, duration: 1.6, ease: 'power3.out' }, 0.9)
+        .set(jet, { zIndex: 2 }, 1.2)
+        .fromTo(st.querySelector('.head'), { opacity: 0 }, { opacity: 1, duration: 0.6 }, 1.0)
+        .to(jet, { x: -60, y: 0, duration: 3, yoyo: true, repeat: -1, ease: 'sine.inOut' }, 2.5);
+      return tl;
+    }
+  };
+  $$('.stage').forEach(function (st) {
+    var run = function () { gsap.killTweensOf(st.querySelectorAll('*')); var tl = build[st.dataset.a](st); if (reduce) tl.progress(1); st.insertAdjacentHTML('beforeend', '<button class="re">↺ ещё раз</button>'); st.querySelector('.re').onclick = run; };
+    st._run = run;
+  });
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !e.target._done) { e.target._done = true; e.target._run(); } }); }, { threshold: 0.5 });
+  $$('.stage').forEach(function (st) { io.observe(st); });
+
+  // ===== Вариант 2: по прокрутке =====
+  var sv = document.getElementById('sv');
+  sv.innerHTML = HEAD + JET + CL + '<div class="after">Дальше начинается сайт<span>цифры и классы</span></div>';
+  var jet2 = sv.querySelector('.jet');
+  if (reduce || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var bob = gsap.to(jet2.querySelector('img'), { y: -10, rotation: 2, duration: 2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  var st = { trigger: sv, start: 'top 20%', end: '70% top', scrub: true };
+  gsap.to(jet2, { x: -150, y: -260, scale: 0.25, rotation: -10, ease: 'power1.in', scrollTrigger: st });
+  gsap.to(sv.querySelector('.cl.a'), { y: -240, ease: 'none', scrollTrigger: st });
+  gsap.to(sv.querySelector('.cl.b'), { y: -120, ease: 'none', scrollTrigger: st });
+  gsap.to(sv.querySelector('.head'), { y: -80, opacity: 0, ease: 'none', scrollTrigger: { trigger: sv, start: 'top 20%', end: '35% top', scrub: true } });
+})();
+</script>
+</body>
+</html>
