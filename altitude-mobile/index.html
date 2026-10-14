@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="a" data-bg="fog" data-house="color" data-hx="g" data-why="a" data-fill="on" data-name="0" data-dirs="b" data-how="c">
+<html lang="ru" data-font="rw" data-bg="fog" data-house="color" data-hx="g" data-why="a" data-fill="off" data-name="0" data-dirs="b" data-how="c">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,7 +7,7 @@
 <meta name="description" content="Мобильное демо сайта авиакомпании Altitude: рейсы, классы обслуживания, бронирование.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@200;300;400;500&family=Bad+Script&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@300;400;500;600;700;800&family=Bad+Script&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12);
@@ -502,6 +502,111 @@
   .seg .fD { font: 400 13px 'Tenor Sans'; letter-spacing: .09em; }
 
   @media (prefers-reduced-motion: reduce) { .rv__in { animation: none; } * { transition: none !important; } }
+
+  /* ================= Стиль в духе realweb, голубая гамма ================= */
+  :root {
+    --bg: #eaf1ff; --paper: #fff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --line: rgba(31, 86, 255, .12);
+    --blue: #1f5bff; --blue2: #4d8dff; --blue-l: #dfe9ff; --sky: #8fc2ff;
+    --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Montserrat', sans-serif;
+    --fh: 'Montserrat', sans-serif; --fhw: 700; --fhls: -.035em; --fhk: 1.18; --ph1: #dfe9ff; --ph2: #f2f6ff;
+  }
+  body { font-weight: 400; color: var(--ink); }
+  .cap { text-transform: none; letter-spacing: var(--fhls); line-height: 1.02; }
+  /* Заголовки: первая строка голубая, дальше тёмная */
+  .h2 { font-size: 30px; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  .h2 span:first-child { color: var(--blue); }
+  html[data-fill="on"] .h2 span:first-child { background-image: linear-gradient(90deg, var(--blue) 50%, #b9c8f2 50%); }
+  .hero__t, .mist__t { text-transform: none; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  .gx__head .hero__t, .hx__head .hero__t { font-size: 36px; color: var(--ink); }
+  .mist__t { font-size: 26px; }
+  /* «Рукописные» акценты → жирный голубой текст */
+  .scr { font-family: var(--fb); font-weight: 700; letter-spacing: -.04em; color: var(--blue); }
+  .hero__scr { font-size: 36px; margin-top: 0; }
+  .mist__scr { font-size: 26px; margin-top: 2px; }
+  .accent { font-size: 18px; font-weight: 600; letter-spacing: -.02em; color: var(--mute); margin-top: 10px; }
+  .ft__scr, .glassb__t .scr, .done .scr, .menu .scr { font-size: 26px; }
+  .rc b { font-family: var(--fb); font-weight: 700; font-size: 16px; letter-spacing: -.02em; }
+  .doc__sign .scr { font-size: 22px; color: var(--ink); }
+  /* Ярлыки секций — вкладки-таблетки */
+  .sh { margin-bottom: 20px; }
+  .sh::after { display: none; }
+  .sh .lbl { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px/1 var(--fb); letter-spacing: -.01em; text-transform: lowercase; }
+  .lbl { letter-spacing: .02em; }
+  /* Секции — белые карточки со скруглением на голубом фоне */
+  .sec { margin: 14px 8px 0; padding: 30px 18px 34px; background: var(--paper); border-radius: 34px; --pad: 18px; }
+  #object.sec { padding-bottom: 8px; }
+  #partners.sec { border-radius: 34px 34px 0 0; padding-bottom: 26px; }
+  /* Кнопки — таблетки */
+  .btn, .dcc__btn, .hx__go, .doc-btn { border-radius: 999px; background: var(--blue); color: #fff; font: 600 15px var(--fb); letter-spacing: -.02em; text-transform: none; box-shadow: 0 10px 24px rgba(31, 91, 255, .28); }
+  .btn.ghost { background: var(--blue-l); color: var(--blue); box-shadow: none; border: 0; }
+  .arr { border: 0; background: var(--blue-l); color: var(--blue); }
+  .arr.dark { background: var(--blue); color: #fff; }
+  .chips button { border: 0; background: var(--blue-l); color: var(--blue); font-weight: 600; letter-spacing: -.01em; }
+  .chips button.on { background: var(--blue); color: #fff; }
+  .tabbar .on { background: var(--blue); }
+  .tabbar a, .tabbar button { letter-spacing: 0; text-transform: none; font: 600 10.5px var(--fb); }
+  .vbtn { text-transform: lowercase; letter-spacing: 0; font: 600 12px var(--fb); }
+  .vbtn i { background: var(--blue); }
+  /* Карточки */
+  .dcc, .why, .rc, .stepc, .bign, .form, .doc { border: 0; border-radius: 28px; box-shadow: 0 16px 40px rgba(20, 60, 180, .10); }
+  .dcc { background: #f4f7ff; }
+  .dcc .ph, .why .ph { border-radius: 22px; margin: 8px 8px 0; }
+  .dcc h3 { font-family: var(--fb); font-weight: 700; letter-spacing: -.04em; font-size: 28px; text-transform: none; }
+  .dcc__k { color: var(--blue); }
+  .dcc__tag { border-radius: 999px; background: var(--blue-l); color: var(--blue); padding: 8px 14px; }
+  .dcc.on { background: linear-gradient(150deg, var(--blue2), var(--blue) 60%, #1640d8); border: 0; }
+  .dcc.on .ph { --ph1: rgba(255, 255, 255, .22); --ph2: rgba(255, 255, 255, .08); }
+  .dcc.on .dcc__tag { background: rgba(255, 255, 255, .18); color: #fff; }
+  .dcc.on .dcc__btn { background: #fff; color: var(--blue); box-shadow: none; }
+  .dc-n, .dc-n b { color: var(--blue); }
+  .dc-seg i.on { background: var(--blue); }
+  .why b, .stepc b, .bign b, .vline b, .acc button b { text-transform: none; letter-spacing: -.03em; font-family: var(--fb); font-weight: 700; font-size: 18px; }
+  .why__n, .stepc i, .bign i { color: var(--blue); letter-spacing: .02em; }
+  .bign > span { -webkit-text-stroke: 1px rgba(31, 91, 255, .35); font-family: var(--fb); font-weight: 800; }
+  .rc { background: #fff; }
+  .rc small { color: var(--blue); letter-spacing: .04em; }
+  /* Цифры на облаках */
+  .gp { background: rgba(255, 255, 255, .42); border-color: rgba(255, 255, 255, .95); box-shadow: 0 18px 36px rgba(20, 70, 200, .12), inset 0 1px 0 #fff; border-radius: 28px; }
+  .gp b, .gp b i { font-family: var(--fb); font-weight: 800; letter-spacing: -.05em; color: var(--blue); }
+  .gp b em { color: var(--ink); text-transform: lowercase; letter-spacing: -.01em; font-weight: 700; font-size: 14px; }
+  .gp span { text-transform: lowercase; letter-spacing: -.01em; font-weight: 600; font-size: 13px; color: var(--ink2); }
+  .tlogo b { font-family: var(--fb); font-weight: 800; letter-spacing: -.06em; text-transform: lowercase; color: var(--blue); font-size: clamp(56px, 18vw, 84px); }
+  .tlogo span { letter-spacing: .2em; color: var(--ink2); }
+  /* Объект, лента, смета */
+  .obj__plate { background: linear-gradient(150deg, rgba(77, 141, 255, .92), rgba(31, 91, 255, .95)); border-radius: 26px; }
+  .obj__plate h3 { font-family: var(--fb); text-transform: none; font-weight: 700; letter-spacing: -.03em; font-size: 22px; }
+  .obj__specs b { font-family: var(--fb); font-weight: 800; letter-spacing: -.04em; }
+  .obj__card { clip-path: inset(10% 14% 10% 14% round 40px); }
+  .tli__y { border: 0; background: var(--blue); color: #fff; font-family: var(--fb); font-weight: 700; letter-spacing: 0; }
+  .tli::before { border-color: var(--blue); }
+  .tl::before { background: var(--blue); opacity: .2; }
+  .tl__fill, .vline__fill { background: var(--blue); }
+  .tli .ph { border-radius: 26px; }
+  .tli b { text-transform: none; font-family: var(--fb); font-weight: 700; letter-spacing: -.03em; font-size: 18px; background: var(--paper); }
+  .tli > span:last-child { background: var(--paper); }
+  .doc { transform: rotate(-1deg); }
+  .doc__h b { font-family: var(--fb); text-transform: none; font-weight: 700; letter-spacing: -.02em; }
+  .doc__h { border-color: var(--blue); }
+  .doc__r.ok .tick { background: var(--blue); border-color: var(--blue); }
+  .doc__sum b { font-family: var(--fb); font-weight: 800; letter-spacing: -.04em; color: var(--blue); }
+  .stamp { border-color: var(--blue); color: var(--blue); }
+  .stamp::before { border-color: rgba(31, 91, 255, .4); }
+  .stamp i { font-family: var(--fb); font-weight: 700; font-size: 15px; }
+  .gl { border-radius: 22px; }
+  .gl b { text-transform: none; font-family: var(--fb); font-weight: 700; letter-spacing: -.02em; font-size: 15px; }
+  .area b, .zero b, .crane__n, .bp__n { font-family: var(--fb); font-weight: 800; letter-spacing: -.04em; color: var(--blue); }
+  input[type=range] { accent-color: var(--blue); }
+  .fld:focus { border-color: var(--blue); }
+  /* Футер и меню */
+  .ft { margin: 14px 8px 0; border-radius: 34px 34px 0 0; background: linear-gradient(170deg, var(--blue2), var(--blue) 55%, #1236c4); color: #fff; }
+  .ft .cl { opacity: .35; }
+  .ft__scr { color: #fff; }
+  .ft__word { font-family: var(--fb); font-weight: 800; letter-spacing: -.06em; text-transform: lowercase; color: #fff; }
+  .ft__cols { border-color: rgba(255, 255, 255, .25); }
+  .ft__cols .lbl, .ft__base { color: rgba(255, 255, 255, .7); }
+  .menu { background: rgba(234, 241, 255, .96); }
+  .menu a.m { text-transform: none; font-family: var(--fb); font-weight: 700; letter-spacing: -.03em; font-size: 22px; }
+  .menu a.m small { color: var(--blue); }
 </style>
 </head>
 <body>
@@ -783,23 +888,10 @@
       <button data-v="2">Aerion<small>воздух</small></button>
       <button data-v="3">Nimbus<small>облако</small></button>
     </div></div>
-  <div class="vg"><span class="lbl">Шрифт заголовков</span>
-    <div class="seg" data-k="font">
-      <button data-v="a"><span class="fA">ЛЕТАЙТЕ ВЫШЕ</span><small>Широкий, как на видео</small></button>
-      <button data-v="b"><span class="fB">ЛЕТАЙТЕ ВЫШЕ</span><small>Тонкий разреженный</small></button>
-      <button data-v="c"><span class="fC">ЛЕТАЙТЕ ВЫШЕ</span><small>Антиква, премиум</small></button>
-      <button data-v="d"><span class="fD">ЛЕТАЙТЕ ВЫШЕ</span><small>Классический гротеск</small></button>
-    </div></div>
   <div class="vg"><span class="lbl">Блок «Путь пассажира»</span>
     <div class="seg" data-k="how">
       <button data-v="c">Цифры<small>свайп, большие номера</small></button>
       <button data-v="b">Линия<small>шаги по вертикали</small></button>
-    </div></div>
-  <div class="vg"><span class="lbl">Фон</span>
-    <div class="seg" data-k="bg" style="grid-template-columns:repeat(3,1fr)">
-      <button data-v="fog">Туман<small>серо-голубой</small></button>
-      <button data-v="white">Белый<small>чистый</small></button>
-      <button data-v="warm">Тёплый<small>слоновая кость</small></button>
     </div></div>
   <div class="vg"><span class="lbl">Главный экран</span>
     <div class="seg" data-k="hx">
@@ -835,8 +927,8 @@
   $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; i.loading = 'lazy'; i.decoding = 'async'; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'a', bg: 'fog', house: 'color', hx: 'g', why: 'a', fill: 'on', dirs: 'b', how: 'c' };
-  try { var s = JSON.parse(localStorage.getItem('alt-air1') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'rw', bg: 'fog', house: 'color', hx: 'g', why: 'a', fill: 'off', dirs: 'b', how: 'c' };
+  try { var s = JSON.parse(localStorage.getItem('alt-air2') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
@@ -844,7 +936,7 @@
     $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' Airlines · с 2014'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-air1', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-air2', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
