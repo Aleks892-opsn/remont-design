@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Этапы: варианты</title>
+<meta name="description" content="Пять вариантов оформления блока «Шесть этапов на ваших глазах».">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;700&family=Montserrat:wght@400;500;600;800&family=Bad+Script&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12); --pad: 20px; --fh: 'Unbounded', sans-serif; --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Bad Script', cursive; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.6 var(--fb); -webkit-text-size-adjust: 100%; }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; padding: 0; cursor: pointer; }
+  .wrap { max-width: 480px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .lbl { font: 500 10px/1 var(--fb); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+  .top { padding: 140px var(--pad) 10px; }
+  .top h1 { margin: 10px 0 8px; font: 200 22px/1.15 var(--fh); text-transform: uppercase; }
+  .top p { margin: 0; color: var(--ink2); font-size: 13px; }
+  .jump { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .jump a { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .14em; text-transform: uppercase; background: var(--paper); color: inherit; text-decoration: none; }
+  .var__h { display: flex; align-items: baseline; gap: 12px; margin: 70px var(--pad) 0; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .var__h b { font: 200 40px/1 var(--fh); }
+  .var__h div { flex: 1; }
+  .var__h span { display: block; font: 500 10px var(--fb); letter-spacing: .18em; text-transform: uppercase; }
+  .var__h small { display: block; margin-top: 4px; font-size: 12px; color: var(--mute); line-height: 1.45; }
+  .demo { position: relative; padding: 34px var(--pad) 10px; }
+  .h2 { margin: 0; font: 200 23px/1.12 var(--fh); text-transform: uppercase; }
+  .accent { display: block; margin-top: 8px; font: 400 30px/1.15 var(--fs); color: var(--ink2); }
+  .ph { position: relative; background: linear-gradient(160deg, #e3e6e9, #f4f5f6 70%); overflow: hidden; }
+  .ph::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(20, 20, 20, .025) 14px 15px); }
+  .ph::after { content: attr(data-ph); position: absolute; left: 12px; bottom: 10px; font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .glass { background: rgba(255, 255, 255, .5); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, .9); box-shadow: 0 16px 34px rgba(20, 20, 20, .07); }
+  .num { font: 700 1em/1 var(--fh); letter-spacing: -.03em; }
+  .tag { display: inline-block; padding: 6px 10px; border-radius: 9px; background: var(--bg); font: 600 11.5px var(--fb); }
+  .arr { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: var(--paper); font-size: 16px; }
+  .arr.dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* ===== А. Аккордеон с фото ===== */
+  .acc { margin-top: 26px; border-top: 1px solid var(--ink); }
+  .ac { border-bottom: 1px solid var(--line); }
+  .ac > button { width: 100%; display: flex; align-items: center; gap: 14px; padding: 18px 0; text-align: left; }
+  .ac .n { font: 700 28px/1 var(--fh); letter-spacing: -.03em; width: 50px; color: rgba(20, 20, 20, .25); transition: color .3s; }
+  .ac.open .n { color: var(--ink); }
+  .ac .t { flex: 1; }
+  .ac .t b { display: block; font: 800 14px/1.25 var(--fb); letter-spacing: .05em; text-transform: uppercase; }
+  .ac .t small { font-size: 12px; color: var(--mute); }
+  .pl { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--ink); position: relative; transition: transform .35s, background .3s; flex: none; }
+  .pl::before, .pl::after { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 1px; background: var(--ink); transform: translate(-50%, -50%); }
+  .pl::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .ac.open .pl { transform: rotate(45deg); background: var(--ink); }
+  .ac.open .pl::before, .ac.open .pl::after { background: #fff; }
+  .ac__m { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.2, .7, .2, 1); }
+  .ac.open .ac__m { grid-template-rows: 1fr; }
+  .ac__m > div { overflow: hidden; }
+  .ac__in { padding: 0 0 20px 64px; }
+  .ac__in .ph { aspect-ratio: 16 / 10; border-radius: 14px; }
+  .ac__in p { margin: 12px 0 10px; font-size: 13.5px; color: var(--ink2); }
+
+  /* ===== Б. Карусель тёмной карточки ===== */
+  .hd { display: flex; align-items: flex-end; justify-content: space-between; }
+  .ctr { font: 700 40px/1 var(--fh); letter-spacing: -.03em; white-space: nowrap; }
+  .ctr small { font-size: 15px; color: var(--mute); }
+  .car { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); margin: 24px calc(var(--pad) * -1) 0; padding: 0 var(--pad) 6px; scrollbar-width: none; }
+  .car::-webkit-scrollbar { display: none; }
+  .cc { flex: 0 0 84%; scroll-snap-align: start; border-radius: 22px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; transition: background .35s, color .35s; }
+  .cc .ph { aspect-ratio: 4 / 3; }
+  .cc__b { padding: 18px; }
+  .cc__k { font: 700 11px var(--fb); letter-spacing: .06em; color: var(--mute); }
+  .cc h3 { margin: 8px 0; font: 700 22px/1.08 var(--fh); text-transform: uppercase; }
+  .cc p { margin: 0 0 14px; font-size: 13.5px; color: var(--ink2); }
+  .cc.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .cc.on .cc__k { color: rgba(255, 255, 255, .55); }
+  .cc.on p { color: rgba(255, 255, 255, .78); }
+  .cc.on .tag { background: rgba(255, 255, 255, .12); }
+  .cc.on .ph { background: linear-gradient(160deg, #2c2e31, #3a3d41); }
+  .cnav { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+  .seg { flex: 1; display: flex; gap: 6px; }
+  .seg i { flex: 1; max-width: 40px; height: 3px; border-radius: 2px; background: rgba(20, 20, 20, .14); transition: background .3s; }
+  .seg i.on { background: var(--ink); }
+
+  /* ===== В. Дом в разрезе ===== */
+  .cut { margin-top: 24px; display: grid; grid-template-columns: 46% 1fr; gap: 16px; align-items: center; }
+  .cut svg { width: 100%; display: block; overflow: visible; }
+  .cut .z { cursor: pointer; }
+  .cut .z path, .cut .z rect, .cut .z polygon { fill: #fff; stroke: var(--ink); stroke-width: 1.2; transition: fill .3s; }
+  .cut .z.done path, .cut .z.done rect, .cut .z.done polygon { fill: #d9dcdf; }
+  .cut .z.on path, .cut .z.on rect, .cut .z.on polygon { fill: var(--ink); }
+  .cut .z text { font: 700 11px var(--fh); fill: var(--ink); pointer-events: none; }
+  .cut .z.on text { fill: #fff; }
+  .cut__t .n { font-size: 46px; }
+  .cut__t b { display: block; margin: 8px 0 6px; font: 800 14px/1.25 var(--fb); letter-spacing: .05em; text-transform: uppercase; }
+  .cut__t p { margin: 0 0 10px; font-size: 13px; color: var(--ink2); }
+  .cut__t { min-height: 220px; }
+  .cut__t > * { transition: opacity .25s; }
+  .cut__t.swap > * { opacity: 0; }
+  .cut__hint { margin-top: 14px; text-align: center; }
+
+  /* ===== Г. Ползунок + чертёж ===== */
+  .bp { margin-top: 24px; padding: 18px 16px 16px; border-radius: 22px; background: var(--paper); background-image: linear-gradient(rgba(20, 20, 20, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(20, 20, 20, .04) 1px, transparent 1px); background-size: 18px 18px; border: 1px solid var(--line); }
+  .bp__top { display: flex; justify-content: space-between; align-items: baseline; }
+  .bp__pc { font-size: 54px; }
+  .bp__pc small { font-size: 22px; }
+  .bp svg { width: 100%; display: block; margin: 6px 0; }
+  .bp svg * { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .bp .g { opacity: .1; transition: opacity .4s; }
+  .bp .g.on { opacity: 1; }
+  .rng { position: relative; height: 44px; }
+  .rng .trk { position: absolute; left: 0; right: 0; top: 21px; height: 2px; background: var(--line); border-radius: 2px; }
+  .rng .fil { position: absolute; left: 0; top: 21px; height: 2px; background: var(--ink); transition: width .3s; }
+  .rng .kn { position: absolute; top: 6px; width: 32px; height: 32px; margin-left: -16px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 700 10px var(--fh); pointer-events: none; transition: left .3s; box-shadow: 0 6px 16px rgba(20, 20, 20, .25); }
+  .rng input { position: absolute; inset: 0; width: 100%; margin: 0; opacity: 0; cursor: grab; }
+  .bp__t { padding-top: 12px; border-top: 1px solid var(--line); min-height: 104px; }
+  .bp__t b { display: block; font: 800 14px/1.25 var(--fb); letter-spacing: .05em; text-transform: uppercase; }
+  .bp__t p { margin: 6px 0 8px; font-size: 13px; color: var(--ink2); }
+
+  /* ===== Д. Стекло на облаках ===== */
+  .sky { position: relative; margin: 24px calc(var(--pad) * -1) 0; padding: 20px var(--pad) 30px; overflow: hidden; background: linear-gradient(#e9ecef, #f4f5f7); }
+  .sky > img { position: absolute; width: 230%; left: -65%; max-width: none; pointer-events: none; opacity: .9; }
+  .sky > img.a { top: 6%; } .sky > img.b { top: 52%; left: -45%; transform: scaleX(-1); }
+  .gs { position: relative; display: flex; align-items: center; gap: 14px; width: 82%; padding: 16px; border-radius: 20px; margin-bottom: 14px; }
+  .gs:nth-of-type(even) { margin-left: auto; }
+  .gs .n { font-size: 40px; color: transparent; -webkit-text-stroke: 1.2px var(--ink); min-width: 62px; }
+  .gs b { display: block; font: 800 13px/1.25 var(--fb); letter-spacing: .05em; text-transform: uppercase; }
+  .gs span { display: block; margin-top: 3px; font-size: 12px; color: var(--ink2); }
+  .gs i { display: block; margin-top: 6px; font: normal 600 11px var(--fb); color: var(--mute); }
+
+  .end { padding: 70px var(--pad) 90px; text-align: center; color: var(--mute); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="lbl">Altitude · блок «Как строим»</span>
+    <h1>Пять вариантов<br>«Шесть этапов»</h1>
+    <p>Всё управляется вами: нажатие, свайп, ползунок. В «Д» карточки появляются при прокрутке.</p>
+    <nav class="jump"><a href="#a">А · Аккордеон</a><a href="#b">Б · Карусель</a><a href="#c">В · Дом в разрезе</a><a href="#d">Г · Ползунок</a><a href="#e">Д · Облака</a></nav>
+  </header>
+
+  <div class="var__h" id="a"><b>А</b><div><span>Аккордеон с фото</span><small>Список этапов с крупными номерами. Нажали — раскрываются фото этапа, описание и срок. Открыт один этап.</small></div></div>
+  <section class="demo"><h2 class="h2">Шесть этапов<br>на ваших глазах</h2><span class="accent">от участка до ключей</span><div class="acc" id="acc"></div></section>
+
+  <div class="var__h" id="b"><b>Б</b><div><span>Карусель, как «Что строим»</span><small>Те же карточки, что в блоке направлений: фото, этап, срок. Активная — чёрная. Единый стиль сайта.</small></div></div>
+  <section class="demo"><div class="hd"><h2 class="h2">Шесть этапов<br>на ваших глазах</h2><div class="ctr"><span id="b-n">01</span><small>/06</small></div></div><span class="accent">от участка до ключей</span>
+    <div class="car" id="car"></div>
+    <div class="cnav"><div class="seg" id="b-seg"></div><button class="arr" id="b-prev" aria-label="Назад">‹</button><button class="arr dark" id="b-next" aria-label="Дальше">›</button></div></section>
+
+  <div class="var__h" id="c"><b>В</b><div><span>Дом в разрезе</span><small>Дом поделён на 6 частей — от фундамента до инженерии. Нажмите на часть дома: она закрашивается, справа этап.</small></div></div>
+  <section class="demo"><h2 class="h2">Шесть этапов<br>на ваших глазах</h2><span class="accent">нажмите на часть дома</span>
+    <div class="cut">
+      <svg viewBox="0 0 180 236" id="cut">
+        <g class="z" data-i="5"><rect x="122" y="34" width="14" height="34"/><text x="129" y="28" text-anchor="middle">06</text></g>
+        <g class="z" data-i="3"><polygon points="12,86 90,22 168,86"/><text x="90" y="72" text-anchor="middle">04</text></g>
+        <g class="z" data-i="2"><rect x="22" y="86" width="136" height="88"/><text x="90" y="134" text-anchor="middle">03</text></g>
+        <g class="z" data-i="4"><rect x="36" y="98" width="24" height="22"/><rect x="120" y="98" width="24" height="22"/><rect x="36" y="140" width="24" height="22"/><rect x="120" y="140" width="24" height="22"/></g>
+        <g class="z" data-i="1"><rect x="14" y="174" width="152" height="20"/><text x="90" y="188" text-anchor="middle">02</text></g>
+        <g class="z" data-i="0"><rect x="0" y="194" width="180" height="22"/><text x="90" y="209" text-anchor="middle">01</text></g>
+        <text x="90" y="234" text-anchor="middle" style="font:500 8px Montserrat;letter-spacing:.12em;fill:#8b8e92">05 — ОКНА · 06 — ТРУБА</text>
+      </svg>
+      <div class="cut__t" id="cut-t"></div>
+    </div>
+    <p class="cut__hint lbl">01 участок → 06 ключи</p></section>
+
+  <div class="var__h" id="d"><b>Г</b><div><span>Ползунок готовности</span><small>Тянете ползунок — процент растёт, на чертеже дорисовывается дом, ниже этап. Как колесо у ПРОТЕКТОРа, только по прямой.</small></div></div>
+  <section class="demo"><h2 class="h2">Шесть этапов<br>на ваших глазах</h2><span class="accent">тяните ползунок</span>
+    <div class="bp">
+      <div class="bp__top"><span class="lbl">Готовность дома</span><span class="num bp__pc" id="d-pc">17<small>%</small></span></div>
+      <svg viewBox="0 0 300 170" aria-hidden="true">
+        <g class="g" data-g="0"><line x1="10" y1="150" x2="290" y2="150"/><line x1="40" y1="140" x2="260" y2="140"/></g>
+        <g class="g" data-g="1"><rect x="40" y="128" width="220" height="12"/></g>
+        <g class="g" data-g="2"><polyline points="52,128 52,62 248,62 248,128"/><line x1="52" y1="95" x2="248" y2="95"/></g>
+        <g class="g" data-g="3"><polyline points="32,64 150,14 268,64"/></g>
+        <g class="g" data-g="4"><rect x="74" y="72" width="34" height="16"/><rect x="192" y="72" width="34" height="16"/><rect x="74" y="104" width="34" height="18"/><rect x="134" y="102" width="32" height="26"/><rect x="192" y="104" width="34" height="18"/></g>
+        <g class="g" data-g="5"><line x1="210" y1="34" x2="210" y2="14"/><line x1="226" y1="40" x2="226" y2="14"/><line x1="210" y1="14" x2="226" y2="14"/><circle cx="150" cy="114" r="1.5"/></g>
+      </svg>
+      <div class="rng"><div class="trk"></div><div class="fil" id="d-fil"></div><div class="kn" id="d-kn">01</div><input type="range" id="d-r" min="0" max="5" step="1" value="0" aria-label="Этап"></div>
+      <div class="bp__t" id="d-t"></div>
+    </div></section>
+
+  <div class="var__h" id="e"><b>Д</b><div><span>Стекло на облаках</span><small>Как цифры под логотипом: стеклянные полосы на облаках, слева-справа. Каждая выезжает со своей стороны при прокрутке.</small></div></div>
+  <section class="demo"><h2 class="h2">Шесть этапов<br>на ваших глазах</h2><span class="accent">от участка до ключей</span>
+    <div class="sky" id="sky"><img class="a" src="hero/cloud-dense.webp" alt=""><img class="b" src="hero/cloud-soft.webp" alt=""></div></section>
+
+  <p class="end">Выберите вариант — поставлю его в основное демо вместо нынешнего блока.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var S = [
+    ['Участок и проект', 'Инженер бесплатно выезжает на участок, смотрит грунт и перепады. Подбираем или дорабатываем проект.', '1–2 недели', 'Фото участка'],
+    ['Фундамент', 'Плита, лента или сваи — по геологии. Армирование фотографируем до заливки бетона.', '3–4 недели', 'Фото арматуры'],
+    ['Коробка', 'Стены из газобетона, кирпича или монолита. Своя бригада, без субподрядчиков.', '1–2 месяца', 'Фото кладки'],
+    ['Перекрытия и кровля', 'Перекрытия и кровлю принимаем по акту. Платите только после приёмки этапа.', '1 месяц', 'Фото кровли'],
+    ['Окна и фасад', 'Окна Rehau, утепление Rockwool. Скрытые работы — на фото до закрытия.', '1 месяц', 'Фото фасада'],
+    ['Инженерия и ключи', 'Электрика, вода, отопление, отделка. Сдаём дом с гарантией 5 лет на конструктив.', '2–3 месяца', 'Сдача дома']
+  ];
+
+  // ===== А =====
+  $('#acc').innerHTML = S.map(function (s, i) {
+    return '<div class="ac' + (i === 0 ? ' open' : '') + '"><button><span class="n">' + pad(i + 1) + '</span><span class="t"><b>' + s[0] + '</b><small>' + s[2] + '</small></span><span class="pl"></span></button><div class="ac__m"><div><div class="ac__in"><div class="ph" data-ph="' + s[3] + '"></div><p>' + s[1] + '</p><span class="tag">Срок — ' + s[2] + '</span></div></div></div></div>';
+  }).join('');
+  $$('.ac > button').forEach(function (b) { b.onclick = function () { var a = b.parentNode, was = a.classList.contains('open'); $$('.ac').forEach(function (x) { x.classList.remove('open'); }); if (!was) a.classList.add('open'); }; });
+
+  // ===== Б =====
+  var car = $('#car');
+  car.innerHTML = S.map(function (s, i) { return '<article class="cc' + (i === 0 ? ' on' : '') + '"><div class="ph" data-ph="' + s[3] + '"></div><div class="cc__b"><span class="cc__k">Этап ' + pad(i + 1) + '</span><h3>' + s[0] + '</h3><p>' + s[1] + '</p><span class="tag">Срок — ' + s[2] + '</span></div></article>'; }).join('');
+  $('#b-seg').innerHTML = S.map(function (_, i) { return '<i' + (i === 0 ? ' class="on"' : '') + '></i>'; }).join('');
+  var cc = $$('.cc', car), bi = 0;
+  var bset = function () { var max = car.scrollWidth - car.clientWidth, i = max > 1 ? Math.round(car.scrollLeft / max * (cc.length - 1)) : 0; if (i === bi && cc[i].classList.contains('on')) return; bi = i; cc.forEach(function (c, k) { c.classList.toggle('on', k === i); }); $$('#b-seg i').forEach(function (g, k) { g.classList.toggle('on', k === i); }); $('#b-n').textContent = pad(i + 1); };
+  car.addEventListener('scroll', function () { requestAnimationFrame(bset); }, { passive: true });
+  var bgo = function (i) { i = Math.max(0, Math.min(cc.length - 1, i)); car.scrollTo({ left: cc[i].offsetLeft - 20, behavior: 'smooth' }); };
+  $('#b-prev').onclick = function () { bgo(bi - 1); }; $('#b-next').onclick = function () { bgo(bi + 1); };
+
+  // ===== В =====
+  var ct = $('#cut-t');
+  var cset = function (i) {
+    $$('#cut .z').forEach(function (z) { var k = +z.dataset.i; z.classList.toggle('on', k === i); z.classList.toggle('done', k < i); });
+    ct.classList.add('swap');
+    setTimeout(function () { var s = S[i]; ct.innerHTML = '<span class="num n">' + pad(i + 1) + '</span><b>' + s[0] + '</b><p>' + s[1] + '</p><span class="tag">' + s[2] + '</span>'; ct.classList.remove('swap'); }, 160);
+  };
+  $$('#cut .z').forEach(function (z) { z.addEventListener('click', function () { cset(+z.dataset.i); }); });
+  cset(0);
+
+  // ===== Г =====
+  var r = $('#d-r');
+  var dset = function () {
+    var i = +r.value, x = i / 5 * 100, pc = Math.round((i + 1) / 6 * 100), s = S[i];
+    $('#d-fil').style.width = x + '%'; $('#d-kn').style.left = x + '%'; $('#d-kn').textContent = pad(i + 1);
+    $$('.bp .g').forEach(function (g) { g.classList.toggle('on', +g.dataset.g <= i); });
+    $('#d-t').innerHTML = '<b>' + s[0] + '</b><p>' + s[1] + '</p><span class="tag">Этап ' + pad(i + 1) + ' из 06 · ' + s[2] + '</span>';
+    var el = $('#d-pc'), o = { v: parseInt(el.textContent, 10) || 0 };
+    if (reduce) { el.innerHTML = pc + '<small>%</small>'; return; }
+    gsap.to(o, { v: pc, duration: 0.5, ease: 'power2.out', onUpdate: function () { el.innerHTML = Math.round(o.v) + '<small>%</small>'; } });
+  };
+  r.addEventListener('input', dset); dset();
+
+  // ===== Д =====
+  $('#sky').insertAdjacentHTML('beforeend', S.map(function (s, i) { return '<div class="gs glass"><span class="num n">' + pad(i + 1) + '</span><div><b>' + s[0] + '</b><span>' + s[1].split('. ')[0] + '.</span><i>' + s[2] + '</i></div></div>'; }).join(''));
+  if (reduce || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  $$('.gs').forEach(function (g, i) {
+    gsap.fromTo(g, { x: i % 2 ? 90 : -90, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: g, start: 'top 88%', toggleActions: 'play none none reverse' } });
+  });
+})();
+</script>
+</body>
+</html>
