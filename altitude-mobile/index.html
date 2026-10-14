@@ -186,6 +186,9 @@
   .gf span { display: block; margin-top: 10px; font-size: 11.5px; line-height: 1.35; color: var(--ink2); }
   .gx__head, .gx__scene, .gx__scene .hx__clouds, .gx__logo { will-change: transform, opacity; }
 
+  .ph.img { background-size: cover; background-position: center; }
+  .ph.img::before, .ph.img::after { display: none; }
+  .tli .ph.img { aspect-ratio: 4 / 5; }
   /* Секция */
   .sec { position: relative; padding: 84px var(--pad) 0; }
   .sh { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
@@ -546,10 +549,10 @@
     <div class="dc-head"><h2 class="h2 cap"><span>Четыре</span><span>направления</span></h2><div class="dc-n"><b id="dc-n">01</b><small>/04</small></div></div>
     <span class="accent scr draw">одна команда</span>
     <div class="dc" id="dc">
-      <article class="dcc on"><div class="ph" data-ph="Фото коттеджа"></div><div class="dcc__b"><span class="dcc__k">01 · Самое частое</span><h3 class="cap">Коттеджи</h3><p>Частные дома от 120 м² по готовому или вашему проекту — под ключ.</p><span class="dcc__tag">Срок — 6–12 месяцев · от 45 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать коттедж</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Фото таунхауса"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Таунхаусы</h3><p>Блокированная застройка для посёлков и инвесторов.</p><span class="dcc__tag">От 2 секций · от 40 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать таунхаус</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Фото ЖК"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Жилые комплексы</h3><p>Малоэтажные ЖК: от концепции до ввода в эксплуатацию.</p><span class="dcc__tag">3–9 этажей · квартиры от 6,9 млн ₽</span><a class="dcc__btn" href="#form">Узнать о квартирах</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Фото коммерции"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Коммерция</h3><p>Офисы, шоурумы и общественные здания.</p><span class="dcc__tag">От 300 м² · от 52 000 ₽/м²</span><a class="dcc__btn" href="#form">Обсудить проект</a></div></article>
+      <article class="dcc on"><div class="ph img" data-ph="Фото коттеджа" style="background-image:url(img2/dir-cottage.webp)"></div><div class="dcc__b"><span class="dcc__k">01 · Самое частое</span><h3 class="cap">Коттеджи</h3><p>Частные дома от 120 м² по готовому или вашему проекту — под ключ.</p><span class="dcc__tag">Срок — 6–12 месяцев · от 45 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать коттедж</a></div></article>
+      <article class="dcc"><div class="ph img" data-ph="Фото таунхауса" style="background-image:url(img2/dir-townhouse.webp)"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Таунхаусы</h3><p>Блокированная застройка для посёлков и инвесторов.</p><span class="dcc__tag">От 2 секций · от 40 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать таунхаус</a></div></article>
+      <article class="dcc"><div class="ph img" data-ph="Фото ЖК" style="background-image:url(img2/dir-complex.webp)"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Жилые комплексы</h3><p>Малоэтажные ЖК: от концепции до ввода в эксплуатацию.</p><span class="dcc__tag">3–9 этажей · квартиры от 6,9 млн ₽</span><a class="dcc__btn" href="#form">Узнать о квартирах</a></div></article>
+      <article class="dcc"><div class="ph img" data-ph="Фото коммерции" style="background-image:url(img2/dir-commercial.webp)"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Коммерция</h3><p>Офисы, шоурумы и общественные здания.</p><span class="dcc__tag">От 300 м² · от 52 000 ₽/м²</span><a class="dcc__btn" href="#form">Обсудить проект</a></div></article>
     </div>
     <div class="dc-nav"><div class="dc-seg" id="dc-seg"><i class="on"></i><i></i><i></i><i></i></div><button class="arr" id="dc-prev" aria-label="Назад">‹</button><button class="arr dark" id="dc-next" aria-label="Дальше">›</button></div>
   </section>
@@ -557,10 +560,10 @@
   <!-- 1. Манифест в тумане -->
   <section class="mist" id="about">
     <img class="cl c1" data-cloud="2" data-sp="-1" alt="">
-    <div class="fl f1 ph" data-sp="1.4" data-ph="Интерьер"></div>
-    <div class="fl f2 ph" data-sp="2.2" data-ph="Деталь"></div>
-    <div class="fl f3 ph" data-sp="1.8" data-ph="Фасад"></div>
-    <div class="fl f4 ph" data-sp="2.6" data-ph="Терраса"></div>
+    <div class="fl f1 ph img" data-sp="1.4" data-ph="Интерьер" style="background-image:url(img2/mist-interior.webp)"></div>
+    <div class="fl f2 ph img" data-sp="2.2" data-ph="Деталь" style="background-image:url(img2/mist-detail.webp)"></div>
+    <div class="fl f3 ph img" data-sp="1.8" data-ph="Фасад" style="background-image:url(img2/mist-facade.webp)"></div>
+    <div class="fl f4 ph img" data-sp="2.6" data-ph="Терраса" style="background-image:url(img2/mist-terrace.webp)"></div>
     <img class="cl c3" data-cloud="1" data-sp="1.2" alt="">
     <div class="mist__in">
       <span class="lbl" data-logo-sub>Altitude · с 2014</span>
@@ -580,7 +583,7 @@
       <h2 class="h2 cap"><span>Жилой комплекс</span><span>«Северный берег»</span></h2>
     </div>
     <div class="obj">
-      <div class="obj__card"><div class="ph" data-ph="Панорама ЖК / посёлка — раскрывается на весь экран"></div></div>
+      <div class="obj__card"><div class="ph img" data-ph="Панорама ЖК / посёлка — раскрывается на весь экран" style="background-image:url(img2/object-complex.webp)"></div></div>
       <div class="obj__plate">
         <span class="lbl">Сдача IV кв. 2026</span>
         <h3 class="cap">Тишина у воды</h3>
@@ -596,11 +599,11 @@
     <h2 class="h2 cap"><span>140 домов</span><span>за 12 лет</span></h2>
     <span class="accent scr draw">и каждый помним</span>
     <div class="tl"><i class="tl__fill"></i>
-      <div class="tli"><span class="tli__y">2014</span><div class="ph" data-ph="Первый дом"></div><b>Первый дом</b><span>Посёлок «Лесная поляна» · 180 м²</span></div>
-      <div class="tli"><span class="tli__y">2017</span><div class="ph" data-ph="Посёлок"></div><b>Первый посёлок</b><span>24 коттеджа</span></div>
-      <div class="tli"><span class="tli__y">2020</span><div class="ph" data-ph="Таунхаусы"></div><b>Таунхаусы</b><span>4 квартала</span></div>
-      <div class="tli"><span class="tli__y">2023</span><div class="ph" data-ph="Первый ЖК"></div><b>Первый ЖК</b><span>96 квартир</span></div>
-      <div class="tli"><span class="tli__y">2026</span><div class="ph" data-ph="Сейчас"></div><b>Сейчас</b><span>3 ЖК и 12 домов в работе</span></div>
+      <div class="tli"><span class="tli__y">2014</span><div class="ph img" data-ph="Первый дом" style="background-image:url(img2/year-2014.webp)"></div><b>Первый дом</b><span>Посёлок «Лесная поляна» · 180 м²</span></div>
+      <div class="tli"><span class="tli__y">2017</span><div class="ph img" data-ph="Посёлок" style="background-image:url(img2/year-2017.webp)"></div><b>Первый посёлок</b><span>24 коттеджа</span></div>
+      <div class="tli"><span class="tli__y">2020</span><div class="ph img" data-ph="Таунхаусы" style="background-image:url(img2/year-2020.webp)"></div><b>Таунхаусы</b><span>4 квартала</span></div>
+      <div class="tli"><span class="tli__y">2023</span><div class="ph img" data-ph="Первый ЖК" style="background-image:url(img2/year-2023.webp)"></div><b>Первый ЖК</b><span>96 квартир</span></div>
+      <div class="tli"><span class="tli__y">2026</span><div class="ph img" data-ph="Сейчас" style="background-image:url(img2/year-2026.webp)"></div><b>Сейчас</b><span>3 ЖК и 12 домов в работе</span></div>
     </div>
   </section>
 
@@ -1056,8 +1059,8 @@
   gsap.fromTo('.obj__plate', { y: 60, opacity: 0 }, { y: 0, opacity: 1, ease: 'none', scrollTrigger: sc('.obj', 'top 30%', 'top 0%') });
   // Лента лет: карточка в центре экрана крупная, соседние меньше
   $$('.tli .ph').forEach(function (p) {
-    gsap.fromTo(p, { scale: 0.72, opacity: 0.5 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: sc(p, 'top bottom', 'center center') });
-    gsap.to(p, { scale: 0.72, opacity: 0.5, ease: 'none', immediateRender: false, scrollTrigger: sc(p, 'center center', 'bottom top') });
+    gsap.fromTo(p, { scale: 0.72 }, { scale: 1, ease: 'none', scrollTrigger: sc(p, 'top bottom', 'center center') });
+    gsap.to(p, { scale: 0.72, ease: 'none', immediateRender: false, scrollTrigger: sc(p, 'center center', 'bottom top') });
   });
   // Поставщики: стеклянные плашки и облака на разной глубине
   gsap.to('.glassb > .ph', { yPercent: 8, ease: 'none', scrollTrigger: sc('.glassb') });
