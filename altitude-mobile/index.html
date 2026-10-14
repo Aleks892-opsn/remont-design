@@ -7,12 +7,12 @@
 <meta name="description" content="Мобильное демо сайта строительной компании: структура, чёрно-белый стиль, варианты оформления.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;700&family=Montserrat:wght@200;300;400;500&family=Bad+Script&family=Cormorant+Garamond:wght@300;400&family=Tenor+Sans&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f1f3f5; --paper: #fff; --ink: #141414; --ink2: #3c3c3c; --mute: #8b8e92; --line: rgba(20, 20, 20, .12);
     --ph1: #e3e6e9; --ph2: #f4f5f6; --cloud: 1; --pad: 20px;
-    --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Great Vibes', cursive;
+    --fb: 'Montserrat', system-ui, sans-serif; --fs: 'Bad Script', cursive;
     --fh: 'Unbounded', sans-serif; --fhw: 200; --fhls: .02em; --fhk: 1;
     color-scheme: light;
   }
@@ -68,7 +68,7 @@
   .hero__t { font-size: calc(30px * var(--fhk)); margin: 0; }
   html[data-font="a"] .hero__t { font-size: 26px; }
   .hero__s { margin: 18px auto 0; max-width: 300px; color: var(--ink2); font-size: 14px; }
-  .hero__scr { font-size: 58px; margin: -6px 0 0; display: block; transform: rotate(-4deg); }
+  .hero__scr { font-size: 38px; margin: 8px 0 0; display: block; }
   .hero__nav { display: flex; justify-content: center; gap: 18px; margin-top: 34px; flex-wrap: wrap; }
   .hero__nav a { font: 500 10px/1 var(--fb); letter-spacing: .2em; text-transform: uppercase; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
   .hero__note { position: absolute; left: var(--pad); right: var(--pad); top: 70px; margin: 0 auto; max-width: 300px; padding: 7px 10px; border: 1px dashed rgba(20, 20, 20, .25); border-radius: 999px; font: 500 9px/1.3 var(--fb); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
@@ -194,7 +194,7 @@
   html[data-font="a"] .h2 { font-size: 23px; }
   .h2 span { display: block; }
   html[data-fill="on"] .h2 span { background: linear-gradient(90deg, var(--ink) 50%, #c5c8cc 50%) 100% 0 / 200% 100% no-repeat; -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .accent { display: block; white-space: nowrap; font-size: 50px; margin: -2px 0 0 14%; transform: rotate(-5deg); transform-origin: left; }
+  .accent { display: block; font-size: 32px; line-height: 1.15; margin: 10px 0 0; }
   .lead { color: var(--ink2); margin: 18px 0 0; max-width: 340px; }
 
   /* Манифест в тумане */
@@ -212,7 +212,7 @@
   .mist__in { position: relative; z-index: 2; padding: 40px 0; }
   .mist__t { font-size: calc(22px * var(--fhk)); margin: 0; }
   html[data-font="a"] .mist__t { font-size: 19px; }
-  .mist__scr { display: block; font-size: 70px; margin: -14px 0 0; }
+  .mist__scr { display: block; font-size: 44px; margin: 8px 0 0; }
   .mist p { max-width: 290px; margin: 22px auto 0; color: var(--ink2); font-size: 14px; }
 
   /* Факты */
@@ -405,7 +405,7 @@
   .doc__sum b { font-family: var(--fh); font-weight: var(--fhw); font-size: 24px; }
   .doc__sign { margin-top: 18px; max-width: 55%; }
   .doc__sign div { border-bottom: 1px solid var(--ink); padding-bottom: 2px; margin-bottom: 6px; }
-  .doc__sign .scr { display: block; font-size: 34px; color: var(--ink); }
+  .doc__sign .scr { display: block; font-size: 26px; color: var(--ink); }
   .doc__sign small { font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
   .stamp { position: absolute; right: -6px; bottom: -30px; background: rgba(255, 255, 255, .55); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); width: 104px; height: 104px; border-radius: 50%; border: 1px solid var(--ink); display: grid; place-items: center; text-align: center; color: var(--ink); opacity: 0; }
   .stamp::before { content: ''; position: absolute; inset: 5px; border-radius: 50%; border: 1px dashed rgba(20, 20, 20, .35); }
@@ -419,7 +419,7 @@
   .glassb .cl.c1 { top: 18%; }
   .glassb .cl.c2 { bottom: -6%; }
   .glassb__t { position: absolute; z-index: 3; left: 0; right: 0; top: 44%; text-align: center; }
-  .glassb__t .scr { font-size: 46px; }
+  .glassb__t .scr { font-size: 34px; }
   .gl { position: absolute; z-index: 2; padding: 14px 16px; border-radius: 4px; background: rgba(255, 255, 255, .42); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, .85); box-shadow: 0 12px 30px rgba(20, 20, 20, .06); }
   .gl small { display: block; font: 500 9px var(--fb); letter-spacing: .2em; text-transform: uppercase; color: var(--mute); }
   .gl b { display: block; margin-top: 6px; font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 13px; }
@@ -427,14 +427,14 @@
   /* 07 Отзывы — едут сами */
   .rv { margin: 26px calc(var(--pad) * -1) 0; overflow: hidden; }
   .rv + .rv { margin-top: 12px; }
-  .rv__in { display: flex; gap: 12px; width: max-content; animation: marq 46s linear infinite; padding-left: 12px; }
+  .rv__in { display: flex; gap: 12px; width: max-content; animation: marq 46s linear infinite; padding-left: 12px; will-change: transform; transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
   .rv.rev .rv__in { animation-direction: reverse; animation-duration: 54s; }
   .rv.paused .rv__in { animation-play-state: paused; }
-  @keyframes marq { to { transform: translateX(-50%); } }
+  @keyframes marq { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
   .rc { width: 260px; flex: none; padding: 18px 16px; background: var(--paper); border: 1px solid var(--line); }
   .rc q { display: block; font-size: 13px; line-height: 1.55; color: var(--ink2); quotes: none; }
   .rc footer { display: flex; align-items: baseline; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
-  .rc b { font-family: var(--fs); font-weight: 400; font-size: 26px; line-height: 1; }
+  .rc b { font-family: var(--fs); font-weight: 400; font-size: 20px; line-height: 1; }
   .rc small { font: 500 9px var(--fb); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
 
   /* 08 Заявка */
@@ -453,12 +453,12 @@
   .done { display: none; text-align: center; padding: 20px 0; }
   .form.sent form { display: none; }
   .form.sent .done { display: block; }
-  .done .scr { font-size: 54px; }
+  .done .scr { font-size: 38px; }
 
   /* Футер */
   .ft { position: relative; margin-top: 90px; padding: 70px var(--pad) 24px; text-align: center; overflow: hidden; }
   .ft .cl.c1 { top: -70px; }
-  .ft__scr { font-size: 54px; position: relative; z-index: 2; }
+  .ft__scr { font-size: 36px; position: relative; z-index: 2; }
   .ft__word { position: relative; z-index: 2; margin: 14px 0 34px; font-family: var(--fh); font-weight: var(--fhw); text-transform: uppercase; font-size: 12.5vw; letter-spacing: .06em; line-height: 1; white-space: nowrap; }
   html[data-font="b"] .ft__word { letter-spacing: .12em; font-size: 11vw; }
   .ft__cols { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; text-align: left; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 13px; }
@@ -472,7 +472,7 @@
   .menu a.m { display: flex; align-items: baseline; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--line); font-family: var(--fh); font-weight: var(--fhw); letter-spacing: var(--fhls); text-transform: uppercase; font-size: 18px; }
   .menu a.m small { font: 500 10px var(--fb); letter-spacing: .14em; color: var(--mute); }
   .menu .x { position: absolute; top: 12px; right: 14px; }
-  .menu .scr { font-size: 46px; margin-top: auto; text-align: center; }
+  .menu .scr { font-size: 32px; margin-top: auto; text-align: center; }
 
   /* Панель вариантов */
   .vbtn { position: fixed; z-index: 35; right: 12px; top: var(--ht, 12px); height: 34px; padding: 0 18px; border-radius: 999px; font: 500 10px var(--fb); letter-spacing: .2em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; }
@@ -546,10 +546,10 @@
     <div class="dc-head"><h2 class="h2 cap"><span>Четыре</span><span>направления</span></h2><div class="dc-n"><b id="dc-n">01</b><small>/04</small></div></div>
     <span class="accent scr draw">одна команда</span>
     <div class="dc" id="dc">
-      <article class="dcc on"><div class="ph" data-ph="Фото коттеджа"></div><div class="dcc__b"><span class="dcc__k">01 · Самое частое</span><h3 class="cap">Коттеджи</h3><p>Частные дома от 120 м² по готовому или вашему проекту — под ключ.</p><span class="dcc__tag">Срок — [6–12] месяцев</span><a class="dcc__btn" href="#form">Рассчитать коттедж</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Фото таунхауса"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Таунхаусы</h3><p>Блокированная застройка для посёлков и инвесторов.</p><span class="dcc__tag">От [2] секций</span><a class="dcc__btn" href="#form">Рассчитать таунхаус</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Фото ЖК"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Жилые комплексы</h3><p>Малоэтажные ЖК: от концепции до ввода в эксплуатацию.</p><span class="dcc__tag">[3–9] этажей</span><a class="dcc__btn" href="#form">Узнать о квартирах</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Фото коммерции"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Коммерция</h3><p>Офисы, шоурумы и общественные здания.</p><span class="dcc__tag">От [300] м²</span><a class="dcc__btn" href="#form">Обсудить проект</a></div></article>
+      <article class="dcc on"><div class="ph" data-ph="Фото коттеджа"></div><div class="dcc__b"><span class="dcc__k">01 · Самое частое</span><h3 class="cap">Коттеджи</h3><p>Частные дома от 120 м² по готовому или вашему проекту — под ключ.</p><span class="dcc__tag">Срок — 6–12 месяцев · от 45 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать коттедж</a></div></article>
+      <article class="dcc"><div class="ph" data-ph="Фото таунхауса"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Таунхаусы</h3><p>Блокированная застройка для посёлков и инвесторов.</p><span class="dcc__tag">От 2 секций · от 40 000 ₽/м²</span><a class="dcc__btn" href="#form">Рассчитать таунхаус</a></div></article>
+      <article class="dcc"><div class="ph" data-ph="Фото ЖК"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Жилые комплексы</h3><p>Малоэтажные ЖК: от концепции до ввода в эксплуатацию.</p><span class="dcc__tag">3–9 этажей · квартиры от 6,9 млн ₽</span><a class="dcc__btn" href="#form">Узнать о квартирах</a></div></article>
+      <article class="dcc"><div class="ph" data-ph="Фото коммерции"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Коммерция</h3><p>Офисы, шоурумы и общественные здания.</p><span class="dcc__tag">От 300 м² · от 52 000 ₽/м²</span><a class="dcc__btn" href="#form">Обсудить проект</a></div></article>
     </div>
     <div class="dc-nav"><div class="dc-seg" id="dc-seg"><i class="on"></i><i></i><i></i><i></i></div><button class="arr" id="dc-prev" aria-label="Назад">‹</button><button class="arr dark" id="dc-next" aria-label="Дальше">›</button></div>
   </section>
@@ -563,7 +563,7 @@
     <div class="fl f4 ph" data-sp="2.6" data-ph="Терраса"></div>
     <img class="cl c3" data-cloud="1" data-sp="1.2" alt="">
     <div class="mist__in">
-      <span class="lbl" data-logo-sub>Altitude · с [2014]</span>
+      <span class="lbl" data-logo-sub>Altitude · с 2014</span>
       <h2 class="mist__t cap" style="margin-top:18px">Шагните в дом,<br>который вырос<br>из чертежа в</h2>
       <span class="mist__scr scr draw">реальность</span>
       <p>Проектируем, строим и сдаём под ключ. Одна команда от участка до ключей — без субподрядчиков и сюрпризов в смете.</p>
@@ -577,15 +577,15 @@
   <section class="sec" id="object" style="padding-left:0;padding-right:0">
     <div style="padding:0 var(--pad)">
       <div class="sh"><span class="lbl">02 — Избранный объект</span></div>
-      <h2 class="h2 cap"><span>Жилой комплекс</span><span>[Название]</span></h2>
+      <h2 class="h2 cap"><span>Жилой комплекс</span><span>«Северный берег»</span></h2>
     </div>
     <div class="obj">
       <div class="obj__card"><div class="ph" data-ph="Панорама ЖК / посёлка — раскрывается на весь экран"></div></div>
       <div class="obj__plate">
-        <span class="lbl">Сдача [IV кв. 2026]</span>
+        <span class="lbl">Сдача IV кв. 2026</span>
         <h3 class="cap">Тишина у воды</h3>
-        <p>[Короткое описание: где, сколько домов, чем особенный.]</p>
-        <div class="obj__specs"><div><b>[48]</b>квартир</div><div><b>[3]</b>этажа</div><div><b>[70%]</b>готовность</div></div>
+        <p>Три клубных дома на 48 квартир у Истринского водохранилища: своя набережная, подземный паркинг, двор без машин.</p>
+        <div class="obj__specs"><div><b>48</b>квартир</div><div><b>3</b>этажа</div><div><b>70%</b>готовность</div></div>
       </div>
     </div>
   </section>
@@ -593,14 +593,14 @@
   <!-- 03 Лента лет -->
   <section class="sec" id="homes">
     <div class="sh"><span class="lbl">03 — Сданные дома</span></div>
-    <h2 class="h2 cap"><span>[140] домов</span><span>за [12] лет</span></h2>
+    <h2 class="h2 cap"><span>140 домов</span><span>за 12 лет</span></h2>
     <span class="accent scr draw">и каждый помним</span>
     <div class="tl"><i class="tl__fill"></i>
-      <div class="tli"><span class="tli__y">[2014]</span><div class="ph" data-ph="Первый дом"></div><b>Первый дом</b><span>[Посёлок] · [180] м²</span></div>
-      <div class="tli"><span class="tli__y">[2017]</span><div class="ph" data-ph="Посёлок"></div><b>Первый посёлок</b><span>[24] коттеджа</span></div>
-      <div class="tli"><span class="tli__y">[2020]</span><div class="ph" data-ph="Таунхаусы"></div><b>Таунхаусы</b><span>[4] квартала</span></div>
-      <div class="tli"><span class="tli__y">[2023]</span><div class="ph" data-ph="Первый ЖК"></div><b>Первый ЖК</b><span>[96] квартир</span></div>
-      <div class="tli"><span class="tli__y">[2026]</span><div class="ph" data-ph="Сейчас"></div><b>Сейчас</b><span>[3] ЖК и [12] домов в работе</span></div>
+      <div class="tli"><span class="tli__y">2014</span><div class="ph" data-ph="Первый дом"></div><b>Первый дом</b><span>Посёлок «Лесная поляна» · 180 м²</span></div>
+      <div class="tli"><span class="tli__y">2017</span><div class="ph" data-ph="Посёлок"></div><b>Первый посёлок</b><span>24 коттеджа</span></div>
+      <div class="tli"><span class="tli__y">2020</span><div class="ph" data-ph="Таунхаусы"></div><b>Таунхаусы</b><span>4 квартала</span></div>
+      <div class="tli"><span class="tli__y">2023</span><div class="ph" data-ph="Первый ЖК"></div><b>Первый ЖК</b><span>96 квартир</span></div>
+      <div class="tli"><span class="tli__y">2026</span><div class="ph" data-ph="Сейчас"></div><b>Сейчас</b><span>3 ЖК и 12 домов в работе</span></div>
     </div>
   </section>
 
@@ -611,14 +611,14 @@
     <div class="hv hv-d">
       <p class="lead">Прокручивайте — чертёж дома собирается по этапам.</p>
       <div class="bp" id="bp">
-        <div class="bp__head"><div class="bp__n"><span id="bp-n">01</span><small> / 06</small></div><span class="lbl">Проект · [150 м²]</span></div>
+        <div class="bp__head"><div class="bp__n"><span id="bp-n">01</span><small> / 06</small></div><span class="lbl">Проект · 150 м²</span></div>
         <svg viewBox="0 0 360 300" aria-hidden="true">
           <g class="st st1"><line x1="10" y1="252" x2="350" y2="252"/><rect x="48" y="238" width="264" height="14"/><line class="thin" x1="48" y1="246" x2="312" y2="246"/></g>
           <g class="st st2"><polyline points="60,238 60,128 300,128 300,238"/><line class="thin" x1="70" y1="238" x2="70" y2="128"/><line class="thin" x1="290" y1="238" x2="290" y2="128"/></g>
           <g class="st st3"><line x1="60" y1="184" x2="300" y2="184"/><line class="thin" x1="60" y1="190" x2="300" y2="190"/><line class="thin" x1="60" y1="134" x2="300" y2="134"/></g>
           <g class="st st4"><polyline points="40,130 180,46 320,130"/><polyline class="thin" points="56,128 180,56 304,128"/><polyline points="236,80 236,54 258,54 258,93"/></g>
           <g class="st st5"><rect x="88" y="146" width="40" height="26"/><rect x="232" y="146" width="40" height="26"/><rect x="88" y="200" width="40" height="28"/><rect x="232" y="200" width="40" height="28"/><rect x="160" y="196" width="40" height="42"/><line class="thin" x1="108" y1="146" x2="108" y2="172"/><line class="thin" x1="252" y1="146" x2="252" y2="172"/><circle cx="194" cy="218" r="1.5"/></g>
-          <g class="st st6"><line class="thin" x1="60" y1="276" x2="300" y2="276"/><line class="thin" x1="60" y1="270" x2="60" y2="282"/><line class="thin" x1="300" y1="270" x2="300" y2="282"/><line class="thin" x1="330" y1="252" x2="330" y2="46"/><line class="thin" x1="324" y1="46" x2="336" y2="46"/><line class="thin" x1="324" y1="252" x2="336" y2="252"/><text x="150" y="292">[12 000]</text><text x="338" y="150" transform="rotate(90 338 150)">[8 400]</text></g>
+          <g class="st st6"><line class="thin" x1="60" y1="276" x2="300" y2="276"/><line class="thin" x1="60" y1="270" x2="60" y2="282"/><line class="thin" x1="300" y1="270" x2="300" y2="282"/><line class="thin" x1="330" y1="252" x2="330" y2="46"/><line class="thin" x1="324" y1="46" x2="336" y2="46"/><line class="thin" x1="324" y1="252" x2="336" y2="252"/><text x="150" y="292">12 000</text><text x="338" y="150" transform="rotate(90 338 150)">8 400</text></g>
         </svg>
       </div>
       <div class="bpl" id="bpl">
@@ -627,7 +627,7 @@
         <div><span>03</span><b>Коробка</b><p>Газобетон, кирпич или монолит.</p></div>
         <div><span>04</span><b>Перекрытия и кровля</b><p>Принимаем по акту.</p></div>
         <div><span>05</span><b>Окна и фасад</b><p>Утепление — на фото до закрытия.</p></div>
-        <div><span>06</span><b>Инженерия и ключи</b><p>Сети, отделка, гарантия [5] лет.</p></div>
+        <div><span>06</span><b>Инженерия и ключи</b><p>Сети, отделка, гарантия 5 лет.</p></div>
       </div>
     </div>
     <div class="hv hv-b"><ol class="vline" id="vline"><i class="vline__fill"></i></ol></div>
@@ -646,7 +646,7 @@
         <article class="stepc"><i>Этап 03</i><b>Коробка</b><p>Газобетон, кирпич или монолит — своя бригада.</p></article>
         <article class="stepc"><i>Этап 04</i><b>Перекрытия</b><p>Принимаем по акту, платите только после приёмки.</p></article>
         <article class="stepc"><i>Этап 05</i><b>Кровля и фасад</b><p>Утепление и гидроизоляция — на фото до закрытия.</p></article>
-        <article class="stepc"><i>Этап 06</i><b>Инженерия и ключи</b><p>Сети, отделка, сдача. Гарантия на конструктив [5] лет.</p></article>
+        <article class="stepc"><i>Этап 06</i><b>Инженерия и ключи</b><p>Сети, отделка, сдача. Гарантия на конструктив 5 лет.</p></article>
       </div>
       <div class="nav"><button class="arr" id="st-prev" aria-label="Предыдущий этап">‹</button><button class="arr" id="st-next" aria-label="Следующий этап">›</button><div class="prog"><i id="st-bar"></i></div></div>
     </div>
@@ -660,12 +660,12 @@
     <p class="lead">Цена фиксируется в договоре до начала работ. Платите только за принятый этап.</p>
     <div class="doc" id="doc">
       <div class="doc__h"><b>Смета · 150 м²</b><span class="lbl">к договору</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Фундамент</span><span>[сумма]</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Коробка</span><span>[сумма]</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Кровля и фасад</span><span>[сумма]</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Инженерия</span><span>[сумма]</span></div>
-      <div class="doc__r"><span class="tick"></span><span>Отделка</span><span>[сумма]</span></div>
-      <div class="doc__sum"><span>Итого</span><b>[сумма]</b></div>
+      <div class="doc__r"><span class="tick"></span><span>Фундамент</span><span>1 150 000 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Коробка</span><span>2 400 000 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Кровля и фасад</span><span>1 600 000 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Инженерия</span><span>1 050 000 ₽</span></div>
+      <div class="doc__r"><span class="tick"></span><span>Отделка</span><span>1 300 000 ₽</span></div>
+      <div class="doc__sum"><span>Итого</span><b>7 500 000 ₽</b></div>
       <div class="doc__sign"><div><span class="scr draw" data-logo>Altitude</span></div><small>подпись</small></div>
       <div class="stamp"><div><b>Зафиксировано</b><i>в договоре</i><b>0 ₽ доплат</b></div></div>
     </div>
@@ -676,7 +676,7 @@
         <article class="why"><div class="ph" data-ph="Смета и чертёж"></div><div class="why__b"><span class="why__n">01</span><b>Фиксированная смета</b><p>Считаем по проекту и вписываем в договор.</p></div></article>
         <article class="why"><div class="ph" data-ph="Акт этапа"></div><div class="why__b"><span class="why__n">02</span><b>Оплата по этапам</b><p>Платите после того, как этап принят.</p></div></article>
         <article class="why"><div class="ph" data-ph="Камера на объекте"></div><div class="why__b"><span class="why__n">03</span><b>Камера и фотоотчёт</b><p>Онлайн-камера и отчёт каждую неделю.</p></div></article>
-        <article class="why"><div class="ph" data-ph="Готовый дом"></div><div class="why__b"><span class="why__n">04</span><b>Гарантия [5] лет</b><p>На конструктив. Своя бригада, без субподряда.</p></div></article>
+        <article class="why"><div class="ph" data-ph="Готовый дом"></div><div class="why__b"><span class="why__n">04</span><b>Гарантия 5 лет</b><p>На конструктив. Своя бригада, без субподряда.</p></div></article>
       </div>
       <div class="nav"><span class="cnt" id="why-n">01 / 04</span><div class="prog"><i id="why-bar"></i></div></div>
     </div>
@@ -684,7 +684,7 @@
       <div class="acc"><button><span>01</span><b>Фиксированная смета</b><span class="plus"></span></button><div class="dir__more"><div><p>Считаем по проекту и вписываем сумму в договор. Она не меняется в процессе стройки.</p></div></div></div>
       <div class="acc"><button><span>02</span><b>Оплата по этапам</b><span class="plus"></span></button><div class="dir__more"><div><p>Платите по факту выполненных работ — только после приёмки этапа по акту.</p></div></div></div>
       <div class="acc"><button><span>03</span><b>Камера и фотоотчёт</b><span class="plus"></span></button><div class="dir__more"><div><p>Онлайн-камера на объекте и фотоотчёт каждую неделю — видно даже скрытые работы.</p></div></div></div>
-      <div class="acc"><button><span>04</span><b>Гарантия [5] лет</b><span class="plus"></span></button><div class="dir__more"><div><p>На конструктив дома. Строит своя бригада, без субподрядчиков.</p></div></div></div>
+      <div class="acc"><button><span>04</span><b>Гарантия 5 лет</b><span class="plus"></span></button><div class="dir__more"><div><p>На конструктив дома. Строит своя бригада, без субподрядчиков.</p></div></div></div>
     </div>
   </section>
 
@@ -697,13 +697,13 @@
   <div class="glassb">
     <div class="ph" data-ph="Фон: фасад или стройка"></div>
     <img class="cl c1" data-cloud="2" alt="">
-    <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Газобетон</small><b>[Бренд]</b></div>
-    <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Кирпич</small><b>[Бренд]</b></div>
-    <div class="gl" data-sp="2.2" style="left:12%;top:31%"><small>Кровля</small><b>[Бренд]</b></div>
+    <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Газобетон</small><b>Bonolit</b></div>
+    <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Кирпич</small><b>Wienerberger</b></div>
+    <div class="gl" data-sp="2.2" style="left:12%;top:31%"><small>Кровля</small><b>ТехноНИКОЛЬ</b></div>
     <div class="glassb__t"><span class="scr">только проверенные</span></div>
-    <div class="gl" data-sp="1.2" style="right:9%;top:60%"><small>Окна</small><b>[Бренд]</b></div>
-    <div class="gl" data-sp="2" style="left:6%;top:70%"><small>Утеплитель</small><b>[Бренд]</b></div>
-    <div class="gl" data-sp="0.9" style="right:14%;top:83%"><small>Фасад</small><b>[Бренд]</b></div>
+    <div class="gl" data-sp="1.2" style="right:9%;top:60%"><small>Окна</small><b>Rehau</b></div>
+    <div class="gl" data-sp="2" style="left:6%;top:70%"><small>Утеплитель</small><b>Rockwool</b></div>
+    <div class="gl" data-sp="0.9" style="right:14%;top:83%"><small>Фасад</small><b>Grand Line</b></div>
     <img class="cl c2" data-cloud="0" alt="">
   </div>
 
@@ -729,7 +729,7 @@
         <input class="fld" type="text" placeholder="Имя" autocomplete="name">
         <input class="fld" type="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel">
         <button class="btn" type="submit">Получить расчёт</button>
-        <p class="note">Перезвоним в течение [15 минут] в рабочее время</p>
+        <p class="note">Перезвоним в течение 15 минут в рабочее время</p>
       </form>
       <div class="done"><span class="scr">Спасибо</span><p class="note">В демо ничего не отправилось. Здесь будет звонок менеджера.</p></div>
     </div>
@@ -741,10 +741,10 @@
     <span class="ft__scr scr">ждём в гостях</span>
     <div class="ft__word" data-logo>Altitude</div>
     <div class="ft__cols">
-      <div><span class="lbl">Офис</span>[город], [адрес]</div>
+      <div><span class="lbl">Офис</span>Москва, Пресненская наб., 12</div>
       <div><span class="lbl">Телефон</span>+7 (000) 000-00-00</div>
-      <div><span class="lbl">Часы</span>Пн–Сб, [9:00–19:00]</div>
-      <div><span class="lbl">Почта</span>[hello@site.ru]</div>
+      <div><span class="lbl">Часы</span>Пн–Сб, 9:00–20:00</div>
+      <div><span class="lbl">Почта</span>hello@altitude.ru</div>
     </div>
     <div class="ft__base"><span>© <span data-logo>Altitude</span></span><a href="#top">Наверх ↑</a></div>
     <div style="height:60px"></div>
@@ -834,7 +834,7 @@
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
     $$('[data-logo]').forEach(function (e) { e.textContent = nm; });
-    $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' · с [2014]'; });
+    $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' · с 2014'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
     try { localStorage.setItem('alt-demo5', JSON.stringify(state)); } catch (e) {}
@@ -881,13 +881,13 @@
 
   // ---------- Данные направлений и этапов для вариантов ----------
   var D = [
-    ['Коттеджи', 'Коттедж', 'Частные дома от 120 м² по готовому или вашему проекту.', [['Площадь', '[120–600] м²'], ['Срок', '[6–12] мес.'], ['Стоимость', 'от [—] ₽/м²']]],
-    ['Таунхаусы', 'Таунхаус', 'Блокированная застройка для посёлков и инвесторов.', [['Секций', 'от [2]'], ['Срок', '[8–14] мес.'], ['Стоимость', 'от [—] ₽/м²']]],
-    ['Жилые комплексы', 'Жилой комплекс', 'Малоэтажные ЖК: от концепции до ввода в эксплуатацию.', [['Этажность', '[3–9]'], ['Квартиры', 'от [—] ₽'], ['Сдача', '[квартал, год]']]],
-    ['Коммерция', 'Коммерция', 'Офисы, шоурумы и общественные здания.', [['Площадь', 'от [300] м²'], ['Срок', 'по ТЗ'], ['Стоимость', 'по смете']]]
+    ['Коттеджи', 'Коттедж', 'Частные дома от 120 м² по готовому или вашему проекту.', [['Площадь', '120–600 м²'], ['Срок', '6–12 мес.'], ['Стоимость', 'от 45 000 ₽/м²']]],
+    ['Таунхаусы', 'Таунхаус', 'Блокированная застройка для посёлков и инвесторов.', [['Секций', 'от 2'], ['Срок', '8–14 мес.'], ['Стоимость', 'от 40 000 ₽/м²']]],
+    ['Жилые комплексы', 'Жилой комплекс', 'Малоэтажные ЖК: от концепции до ввода в эксплуатацию.', [['Этажность', '3–9'], ['Квартиры', 'от 6,9 млн ₽'], ['Сдача', 'IV кв. 2026']]],
+    ['Коммерция', 'Коммерция', 'Офисы, шоурумы и общественные здания.', [['Площадь', 'от 300 м²'], ['Срок', 'по ТЗ'], ['Стоимость', 'по смете']]]
   ];
   var specs = function (d) { return '<ul>' + d[3].map(function (x) { return '<li><span>' + x[0] + '</span><span>' + x[1] + '</span></li>'; }).join('') + '</ul>'; };
-  var S = [['Участок и проект', 'Инженер бесплатно смотрит участок и грунт, подбираем проект.', '[1–2] недели'], ['Фундамент', 'Плита, лента или сваи. Армирование фотографируем до заливки.', '[3–4] недели'], ['Коробка', 'Газобетон, кирпич или монолит — своя бригада.', '[1–2] месяца'], ['Перекрытия и кровля', 'Принимаем по акту, платите только после приёмки.', '[1] месяц'], ['Окна и фасад', 'Утепление и гидроизоляция — на фото до закрытия.', '[1] месяц'], ['Инженерия и ключи', 'Сети, отделка, сдача. Гарантия на конструктив [5] лет.', '[2–3] месяца']];
+  var S = [['Участок и проект', 'Инженер бесплатно смотрит участок и грунт, подбираем проект.', '1–2 недели'], ['Фундамент', 'Плита, лента или сваи. Армирование фотографируем до заливки.', '3–4 недели'], ['Коробка', 'Газобетон, кирпич или монолит — своя бригада.', '1–2 месяца'], ['Перекрытия и кровля', 'Принимаем по акту, платите только после приёмки.', '[1] месяц'], ['Окна и фасад', 'Утепление и гидроизоляция — на фото до закрытия.', '[1] месяц'], ['Инженерия и ключи', 'Сети, отделка, сдача. Гарантия на конструктив 5 лет.', '2–3 месяца']];
   $('#vline').insertAdjacentHTML('beforeend', S.map(function (x, i) { return '<li><span class="n">' + pad(i + 1) + '</span><b>' + x[0] + '</b><p>' + x[1] + '</p><small>Срок · ' + x[2] + '</small></li>'; }).join(''));
   $('#bign').innerHTML = S.map(function (x, i) { return '<article class="bign"><span>' + pad(i + 1) + '</span><i>Этап ' + pad(i + 1) + ' · ' + x[2] + '</i><b>' + x[0] + '</b><p>' + x[1] + '</p></article>'; }).join('');
   bindProg($('#bign'), $('#bg-bar'), $('#bg-n'));
@@ -937,7 +937,7 @@
 
   // ---------- Отзывы: едут сами, касание ставит на паузу ----------
   var R = [['Анна', 'Смета не выросла, хотя меняли окна по ходу — пересчитали заранее.', 'Коттедж'], ['Игорь', 'Смотрел стройку по камере из другого города. Приехал только на приёмку.', 'Коттедж'], ['Мария', 'Квартиру в ЖК сдали в срок, отделка без замечаний.', 'ЖК'], ['Олег', 'Фото арматуры прислали до заливки. Спокойно, когда видишь скрытые работы.', 'Таунхаус'], ['Елена', 'Одна команда от фундамента до ключей, никто ни на кого не кивал.', 'Коттедж'], ['Дмитрий', 'Платили по этапам после акта, сроки совпали с графиком.', 'Коммерция']];
-  var card = function (r) { return '<article class="rc"><q>«' + r[1] + '»</q><footer><b>' + r[0] + '</b><small>' + r[2] + ' · заглушка</small></footer></article>'; };
+  var card = function (r) { return '<article class="rc"><q>«' + r[1] + '»</q><footer><b>' + r[0] + '</b><small>' + r[2] + '</small></footer></article>'; };
   var a = R.map(card).join(''), b = R.slice().reverse().map(card).join('');
   $('#rv1 .rv__in').innerHTML = a + a; $('#rv2 .rv__in').innerHTML = b + b;
   $$('.rv').forEach(function (r) {
