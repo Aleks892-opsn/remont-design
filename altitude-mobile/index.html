@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="rw" data-bg="fog" data-house="color" data-hx="g" data-ldr="3" data-pl="3" data-why="a" data-fill="off" data-name="0" data-dirs="b" data-how="c">
+<html lang="ru" data-font="rw" data-bg="fog" data-house="color" data-hx="g" data-ldr="3" data-pl="0" data-why="a" data-fill="off" data-name="0" data-dirs="b" data-how="c">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -625,6 +625,7 @@
 
   /* Выбор вариантов загрузки и самолёта */
   .ldr__bp, .gx__p3 { display: none; }
+  html[data-pl="0"] .gx__pl, html[data-pl="0"] .gx__p3 { display: none !important; }
   html[data-ldr="3"] .ldr__bp { display: block; }
   html[data-ldr="3"] .ldr__win, html[data-ldr="3"] .ldr__t { display: none; }
   html[data-pl="3"] .gx__pl, html[data-pl="3"] .gx__logo { display: none; }
@@ -940,11 +941,6 @@
       <button data-v="3">Талон<small>печать «посадка»</small></button>
       <button data-v="4">Иллюминатор<small>шторка и облака</small></button>
     </div></div>
-  <div class="vg"><span class="lbl">Самолёт на главном</span>
-    <div class="seg" data-k="pl">
-      <button data-v="3">Над логотипом<small>пролёт, логотип за ним</small></button>
-      <button data-v="4">На вас<small>вид сверху</small></button>
-    </div></div>
   <div class="vg"><span class="lbl">Главный экран</span>
     <div class="seg" data-k="hx">
       <button data-v="g">Г · Параллакс<small>обычная прокрутка</small></button>
@@ -979,8 +975,8 @@
   $$('img[data-cloud]').forEach(function (i) { i.src = CL[+i.dataset.cloud]; i.loading = 'lazy'; i.decoding = 'async'; });
 
   // ---------- Варианты оформления ----------
-  var state = { name: '0', font: 'rw', bg: 'fog', house: 'color', hx: 'g', ldr: '3', pl: '3', why: 'a', fill: 'off', dirs: 'b', how: 'c' };
-  try { var s = JSON.parse(localStorage.getItem('alt-air3') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
+  var state = { name: '0', font: 'rw', bg: 'fog', house: 'color', hx: 'g', ldr: '3', pl: '0', why: 'a', fill: 'off', dirs: 'b', how: 'c' };
+  try { var s = JSON.parse(localStorage.getItem('alt-air4') || '{}'); for (var k in s) if (k in state) state[k] = s[k]; } catch (e) {}
   var apply = function () {
     for (var k in state) root.dataset[k] = state[k];
     var nm = NAMES[+state.name] || NAMES[0];
@@ -988,7 +984,7 @@
     $$('[data-logo-sub]').forEach(function (e) { e.textContent = nm + ' Airlines · с 2014'; });
     document.title = nm + ' — демо';
     $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.classList.toggle('on', b.dataset.v === state[g.dataset.k]); }); });
-    try { localStorage.setItem('alt-air3', JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem('alt-air4', JSON.stringify(state)); } catch (e) {}
     if (window.ScrollTrigger) setTimeout(function () { ScrollTrigger.refresh(); }, 60);
   };
   $$('.seg').forEach(function (g) { $$('button', g).forEach(function (b) { b.onclick = function () { state[g.dataset.k] = b.dataset.v; apply(); }; }); });
@@ -1162,7 +1158,7 @@
         .fromTo(p3, { x: -240, y: 20, rotation: -3 }, { x: W + 20, y: -10, rotation: 2, duration: 2, ease: 'power1.inOut' }, 0)
         .to(l3, { clipPath: 'inset(0 0% 0 0)', duration: 1.6, ease: 'power1.inOut' }, 0.25);
     };
-    var fly = function () { if (reduce) return; if (root.dataset.pl === '3') fly3(); else fly4(); };
+    var fly = function () { if (reduce || root.dataset.pl === '0') return; if (root.dataset.pl === '3') fly3(); else fly4(); };
     gsap.set([plane, sh], { opacity: 0 }); gsap.set(p3, { x: -260 }); gsap.set(l3, { clipPath: 'inset(0 100% 0 0)' });
     if (reduce) { gsap.set([plane, sh], { opacity: 1 }); gsap.set(p3, { opacity: 0 }); gsap.set(l3, { clipPath: 'none' }); if (ldr) ldr.remove(); return; }
     if (!ldr) { fly(); return; }
