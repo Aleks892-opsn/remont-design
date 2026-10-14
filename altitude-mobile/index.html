@@ -681,6 +681,16 @@
   .gx__jet { left: 50%; top: calc(var(--ht, 12px) + 290px); width: 310px; margin-left: -155px; z-index: 2; will-change: transform; }
   .gx__jetin { will-change: transform; }
   .gx__jetin img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px rgba(6, 30, 110, .25)); }
+
+  .gx__jetin { position: relative; }
+  .gx__jetin img { position: relative; z-index: 1; }
+  /* лёгкий белый дым за двигателями — уходит назад-вверх (нос смотрит влево) */
+  .smoke { position: absolute; z-index: 0; height: 7px; width: 240px; border-radius: 7px; transform-origin: 0 50%; background: linear-gradient(90deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .22) 40%, rgba(255, 255, 255, 0)); opacity: .55; animation: smk 2.4s ease-in-out infinite alternate; }
+  .smoke.s1 { left: 30%; top: 86%; width: 330px; transform: rotate(-17deg); }
+  .smoke.s2 { left: 66%; top: 58%; width: 260px; transform: rotate(-17deg); animation-delay: -1.2s; }
+  .smoke.s3 { left: 84%; top: 76%; width: 200px; height: 5px; transform: rotate(-14deg); animation-delay: -.6s; }
+  @keyframes smk { from { opacity: .4; } to { opacity: .7; } }
+  @media (prefers-reduced-motion: reduce) { .smoke { animation: none; } }
 </style>
 </head>
 <body>
@@ -700,7 +710,7 @@
     <img class="gx__bg" src="hero/bg.webp" alt="" fetchpriority="high">
     <div class="gx__head"><h1 class="hero__t cap">Летайте выше<br>своих</h1><span class="hero__scr scr">ожиданий</span><p class="hero__s">Регулярные рейсы и частные перелёты по России и миру — по честной цене без доплат.</p></div>
     <div class="gx__scene"><i class="hx__house hx__void"></i><div class="hx__clouds"><img class="hx__cl" src="hero/clouds.webp" alt=""><i class="hx__floor"></i></div></div>
-    <div class="gx__jet"><div class="gx__jetin"><img src="hero/plane.webp" alt="Самолёт Altitude Airlines" fetchpriority="high"></div></div>
+    <div class="gx__jet"><div class="gx__jetin"><i class="smoke s1"></i><i class="smoke s2"></i><i class="smoke s3"></i><img src="hero/plane.webp" alt="Самолёт Altitude Airlines" fetchpriority="high"></div></div>
     <div class="gx__pl"><i class="gx__sh"></i><div class="gx__plw"><svg class="tplane" viewBox="0 0 200 200" aria-hidden="true"><path class="w" d="M100 70 L10 112 L10 124 L100 104 L190 124 L190 112 Z"/><path class="w" d="M100 160 L66 178 L66 186 L100 178 L134 186 L134 178 Z"/><rect class="w" x="44" y="104" width="12" height="22" rx="6"/><rect class="w" x="144" y="104" width="12" height="22" rx="6"/><path class="b" d="M100 8 C108 8 112 22 112 40 L112 170 C112 182 106 192 100 194 C94 192 88 182 88 170 L88 40 C88 22 92 8 100 8 Z"/><path class="d" d="M100 16 C104 16 106 22 106 28 L94 28 C94 22 96 16 100 16 Z"/></svg></div></div>
     <div class="gx__p3"><div class="tlogo gx__p3l"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div><div class="gx__p3p"><svg class="splane" viewBox="0 0 240 80" aria-hidden="true"><path class="w" d="M120 46 L78 76 L94 76 L146 48 Z"/><path class="b" d="M14 40 C14 32 30 28 52 28 L196 28 C214 28 230 34 234 42 C230 48 214 52 196 52 L52 52 C30 52 14 48 14 40 Z"/><path class="w" d="M34 30 L18 6 L32 6 L60 28 Z"/><path class="w" d="M30 40 L8 46 L16 48 L44 44 Z"/><path class="w" d="M112 40 L72 58 L88 60 L144 42 Z"/><rect class="w" x="104" y="50" width="26" height="10" rx="5"/><g class="d"><rect x="70" y="35" width="6" height="6" rx="2"/><rect x="82" y="35" width="6" height="6" rx="2"/><rect x="94" y="35" width="6" height="6" rx="2"/><rect x="106" y="35" width="6" height="6" rx="2"/><rect x="118" y="35" width="6" height="6" rx="2"/><rect x="130" y="35" width="6" height="6" rx="2"/><rect x="142" y="35" width="6" height="6" rx="2"/><rect x="154" y="35" width="6" height="6" rx="2"/><rect x="166" y="35" width="6" height="6" rx="2"/><rect x="178" y="35" width="6" height="6" rx="2"/><path d="M208 34 C216 34 224 37 228 41 L210 41 Z"/></g></svg></div></div>
     <div class="gx__logo"><div class="tlogo"><b data-logo>Altitude</b><span>Airlines · Est. 2014</span></div></div>
@@ -1196,7 +1206,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     var jetIn = function () {
       var j = $('.gx__jetin'); if (!j || reduce) return;
-      gsap.fromTo(j, { x: 260, y: 90, scale: 0.6, rotation: -10, opacity: 0 }, { x: 0, y: 0, scale: 1, rotation: -4, opacity: 1, duration: 1.8, ease: 'power3.out', onComplete: function () {
+      gsap.fromTo(j, { opacity: 0, scale: 0.94, rotation: -4 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.9, ease: 'power2.out', onComplete: function () {
         // сам по себе: плывёт по «восьмёрке» и покачивает крыльями
         gsap.to(j, { x: 26, duration: 3.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
         gsap.to(j, { y: -18, duration: 2.1, yoyo: true, repeat: -1, ease: 'sine.inOut' });
@@ -1239,7 +1249,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var gst = { trigger: '#gx', start: 'top top', end: 'bottom top', scrub: true };
   gsap.to('.gx__head', { y: 120, opacity: 0, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '30% top', scrub: true } });
   gsap.to('.gx__scene', { y: 160, ease: 'none', scrollTrigger: gst });
-  gsap.to('.gx__jet', { x: -150, y: -280, scale: 0.25, rotation: -10, ease: 'power1.in', scrollTrigger: { trigger: '#gx', start: 'top top', end: '40% top', scrub: true } });
+  gsap.to('.gx__jet', { x: -150, y: -260, scale: 0.25, rotation: -10, ease: 'power1.in', scrollTrigger: { trigger: '#gx', start: 'top top', end: '45% top', scrub: true } });
   gsap.to('.gx__p3', { y: -220, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '45% top', scrub: true } });
   gsap.to('.gx__pl', { y: -220, ease: 'none', scrollTrigger: { trigger: '#gx', start: 'top top', end: '45% top', scrub: true } });
   gsap.to('.gx__scene .hx__clouds', { y: -260, ease: 'none', scrollTrigger: gst });
