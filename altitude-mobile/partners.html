@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Фон «Только надёжные»</title>
+<meta name="description" content="Четыре варианта фона для блока партнёров Altitude Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --blue: #1f5bff; --blue-l: #dfe9ff; --f: 'Montserrat', system-ui, sans-serif; color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-text-size-adjust: 100%; }
+  .wrap { max-width: 520px; margin: 0 auto; overflow: hidden; overflow: clip; }
+  .top { margin: 120px 8px 0; padding: 26px 18px 28px; background: #fff; border-radius: 34px; }
+  .tag { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px/1 var(--f); }
+  .top h1 { margin: 16px 0 10px; font: 700 30px/1 var(--f); letter-spacing: -.04em; }
+  .top h1 span { color: var(--blue); display: block; }
+  .top p { margin: 0; color: var(--ink2); font-size: 14px; }
+  .v { margin: 14px 8px 0; background: #fff; border-radius: 34px; overflow: hidden; }
+  .v__h { padding: 22px 18px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .v__h b { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 800 16px var(--f); }
+  .v__h div span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .v__h div small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+
+  /* Блок как на сайте */
+  .gb { position: relative; height: 720px; margin: 0 8px 8px; border-radius: 28px; overflow: hidden; }
+  .gb > * { position: absolute; }
+  .gl { z-index: 3; padding: 14px 16px; border-radius: 22px; background: rgba(255, 255, 255, .42); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, .85); box-shadow: 0 14px 30px rgba(10, 40, 140, .12); }
+  .gl small { display: block; font: 600 9.5px var(--f); letter-spacing: .14em; text-transform: uppercase; color: var(--ink2); opacity: .8; }
+  .gl b { display: block; margin-top: 4px; font: 700 15px var(--f); letter-spacing: -.02em; color: var(--ink); }
+  .gt { left: 0; right: 0; top: 44%; z-index: 2; text-align: center; font: 700 30px/1 var(--f); letter-spacing: -.04em; }
+  .cl { max-width: none; pointer-events: none; }
+
+  /* 1. Небо как на главной */
+  .v1 { background: linear-gradient(180deg, #0a3bc4 0%, #1658f0 30%, #3d86ff 55%, #8fc3ff 75%, #d6e8ff 100%); }
+  .v1 .gt { color: #fff; text-shadow: 0 6px 24px rgba(6, 30, 110, .35); }
+  .v1 .cl.a { width: 220%; left: -60%; bottom: -30%; z-index: 1; }
+  .v1 .cl.b { width: 180%; left: -40%; top: -16%; z-index: 1; opacity: .35; transform: scaleY(-1); }
+
+  /* 2. Светлые облака */
+  .v2 { background: linear-gradient(180deg, #dfe9ff, #f4f8ff 60%, #eaf1ff); }
+  .v2 .gt { color: var(--blue); }
+  .v2 .cl { width: 200%; left: -50%; z-index: 1; opacity: .9; }
+  .v2 .cl.a { top: -14%; }
+  .v2 .cl.b { bottom: -22%; transform: scaleX(-1); }
+  .v2 .gl { background: rgba(255, 255, 255, .7); }
+  .v2 .gl small { color: var(--blue); }
+
+  /* 3. Синий с самолётом */
+  .v3 { background: radial-gradient(120% 80% at 50% 0%, #2f74ff 0%, #1450e6 45%, #0b2f9c 100%); }
+  .v3 .gt { color: #fff; }
+  .v3 .jet { width: 210px; left: 6%; top: 50%; z-index: 1; transform: rotate(-6deg); filter: drop-shadow(0 18px 24px rgba(0, 10, 60, .35)); }
+  .v3 .trail { inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .v3 .gl { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .35); box-shadow: none; }
+  .v3 .gl small { color: rgba(255, 255, 255, .7); }
+  .v3 .gl b { color: #fff; }
+
+  /* 4. Инверсионные следы */
+  .v4 { background: linear-gradient(160deg, #1d5cf5 0%, #3d86ff 50%, #8fc3ff 100%); }
+  .v4 .gt { color: #fff; text-shadow: 0 6px 24px rgba(6, 30, 110, .3); }
+  .v4 .trails { inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .v4 .trails path { fill: none; stroke: #fff; stroke-linecap: round; }
+  .end { padding: 50px 18px 80px; text-align: center; font-size: 12px; color: var(--mute); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="tag">altitude · партнёры</span>
+    <h1><span>Фон для блока</span>«Только надёжные»</h1>
+    <p>Четыре варианта вместо фото с крылом. Плашки партнёров и надпись те же, меняется только фон.</p>
+  </header>
+
+  <section class="v"><div class="v__h"><b>1</b><div><span>Небо как на главной</span><small>Тот же синий градиент, что на первом экране, снизу пушистые облака. Сайт начинается и заканчивается одним небом.</small></div></div>
+    <div class="gb v1"><img class="cl b" src="hero/cloud-soft.webp" alt=""><img class="cl a" src="hero/cloud-dense.webp" alt=""></div></section>
+
+  <section class="v"><div class="v__h"><b>2</b><div><span>Светлые облака</span><small>Нежно-голубой фон, облака сверху и снизу, надпись синяя. Самый лёгкий и воздушный.</small></div></div>
+    <div class="gb v2"><img class="cl a" src="hero/cloud-soft.webp" alt=""><img class="cl b" src="hero/cloud-dense.webp" alt=""></div></section>
+
+  <section class="v"><div class="v__h"><b>3</b><div><span>Синий с самолётом</span><small>Глубокий синий, через блок пролетает наш самолёт с белым следом. Плашки прозрачные с белым текстом.</small></div></div>
+    <div class="gb v3"><svg class="trail" viewBox="0 0 400 720" preserveAspectRatio="none"><path d="M215 384 C 280 372, 350 352, 430 330" stroke="rgba(255,255,255,.6)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M215 396 C 280 384, 350 364, 430 342" stroke="rgba(255,255,255,.35)" stroke-width="2" fill="none" stroke-linecap="round"/></svg><img class="jet" src="hero/plane.webp" alt=""></div></section>
+
+  <section class="v"><div class="v__h"><b>4</b><div><span>Инверсионные следы</span><small>Яркое голубое небо, по нему тянутся белые следы от самолётов. Графично и без фото.</small></div></div>
+    <div class="gb v4"><svg class="trails" viewBox="0 0 400 720" preserveAspectRatio="none">
+      <path d="M-30 140 L 430 40" stroke-width="3" opacity=".55"/><path d="M-30 150 L 430 50" stroke-width="2" opacity=".35"/>
+      <path d="M-30 610 L 430 380" stroke-width="4" opacity=".6"/><path d="M-30 624 L 430 394" stroke-width="2.5" opacity=".35"/>
+      <path d="M120 760 L 380 -40" stroke-width="2" opacity=".3"/>
+    </svg></div></section>
+
+  <p class="end">Выберите номер — поставлю на сайт.</p>
+</div>
+<script>
+  var PL = '<div class="gl" style="left:7%;top:8%"><small>Самолёты</small><b>Airbus</b></div><div class="gl" style="right:6%;top:20%"><small>Двигатели</small><b>CFM</b></div><div class="gl" style="left:12%;top:31%"><small>Хаб</small><b>Шереметьево</b></div><div class="gt">только надёжные</div><div class="gl" style="right:9%;top:60%"><small>Техобслуживание</small><b>Lufthansa Technik</b></div><div class="gl" style="left:6%;top:70%"><small>Питание</small><b>Шеф-кухня</b></div><div class="gl" style="right:14%;top:83%"><small>Лаунжи</small><b>Plaza Premium</b></div>';
+  document.querySelectorAll('.gb').forEach(function (g) { g.insertAdjacentHTML('beforeend', PL); });
+</script>
+</body>
+</html>
