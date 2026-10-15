@@ -1466,7 +1466,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!q.trim()) { fsRes.innerHTML = '<div class="fs-hint"><b>Начните вводить город</b>Например: Москва, Сочи или «Москва Дубай»</div>'; return; }
       var list = searchFlights(q, day);
       if (list === null) { fsRes.innerHTML = '<div class="fs-hint"><b>Пока не летаем в «' + q.replace(/[<>&]/g, '') + '»</b>Попробуйте: Москва, Сочи, Казань, Дубай, Стамбул, Мальдивы</div>'; return; }
-      if (!list.length) { fsRes.innerHTML = '<div class="fs-hint"><b>На ' + (day ? dayLabel(day) : 'сегодня') + ' рейсов больше нет</b>Выберите другую дату выше</div>'; return; }
+      if (!list.length && day === 0) { day = 1; $$('button', fsDays).forEach(function (x, i) { x.classList.toggle('on', i === 1); }); return render(); }
+      if (!list.length) { fsRes.innerHTML = '<div class="fs-hint"><b>На ' + dayLabel(day) + ' рейсов нет</b>Выберите другую дату выше</div>'; return; }
       fsRes.innerHTML = list.slice(0, shown).map(function (f, i) {
         return '<article class="fl-c" style="animation-delay:' + (i * 40) + 'ms"><div class="fl-r"><div class="fl-t"><b>' + hm(f.dep) + '</b><small>' + CITIES[f.from] + '</small></div><div class="fl-line"><span>' + dur(f.dur) + '</span></div><div class="fl-t r"><b>' + hm(f.arr) + (f.arr >= 1440 ? '<sup>+1</sup>' : '') + '</b><small>' + CITIES[f.to] + '</small></div></div>' +
           '<div class="fl-m"><em>' + f.num + '</em><em>' + f.plane + '</em>' + (f.seats <= 5 ? '<em class="hot">Осталось ' + f.seats + ' ' + (f.seats === 1 ? 'место' : f.seats < 5 ? 'места' : 'мест') + '</em>' : '<em>' + f.seats + ' мест</em>') + '</div>' +
