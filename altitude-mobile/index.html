@@ -903,6 +903,13 @@
   .glassb .gl b { color: #fff; }
   .glassb__t .scr { color: #fff; text-shadow: none; }
   @media (min-width: 1024px) { .glassb { margin: 24px auto 0; border-radius: 44px; } }
+  /* Звёзды в отзывах */
+  .rc__st { display: flex; gap: 2px; margin-bottom: 10px; font-size: 15px; line-height: 1; }
+  .rc__st i { font-style: normal; color: #d3dcf2; }
+  .rc__st i.on { color: #ffb21a; }
+  /* «Летаем с лучшими»: воздух под текстом */
+  #partners.sec { padding-bottom: 34px !important; border-radius: 34px; }
+  @media (min-width: 1024px) { #partners.sec { padding-bottom: 72px !important; border-radius: 44px; } }
 </style>
 </head>
 <body>
@@ -1105,7 +1112,7 @@
     
     <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Самолёты</small><b>Airbus</b></div>
     <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Двигатели</small><b>CFM</b></div>
-    <div class="gl" data-sp="2.2" style="left:12%;top:31%"><small>Хаб</small><b>Шереметьево</b></div>
+    <div class="gl" data-sp="1.4" style="left:12%;top:26%"><small>Хаб</small><b>Шереметьево</b></div>
     <div class="glassb__t"><span class="scr">только надёжные</span></div>
     <div class="gl" data-sp="1.2" style="right:9%;top:60%"><small>Техобслуживание</small><b>Lufthansa Technik</b></div>
     <div class="gl" data-sp="2" style="left:6%;top:70%"><small>Питание</small><b>Шеф-кухня</b></div>
@@ -1405,7 +1412,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---------- Отзывы: едут сами, касание ставит на паузу ----------
   var R = [['Анна', 'Цена не выросла при оплате — багаж и место действительно включены.', 'Москва — Сочи'], ['Игорь', 'Летел бизнесом в Дубай: кровать, тишина, выспался перед встречей.', 'Бизнес'], ['Мария', 'Рейс вылетел минута в минуту, багаж получили через 10 минут.', 'Эконом'], ['Олег', 'Заказали джет на семью за 4 часа до вылета — всё чётко.', 'Частный джет'], ['Елена', 'С ребёнком посадили первыми, экипаж очень внимательный.', 'Комфорт'], ['Дмитрий', 'Вернули деньги за билет в тот же день без вопросов.', 'Москва — Казань']];
-  var card = function (r) { return '<article class="rc"><q>«' + r[1] + '»</q><footer><b>' + r[0] + '</b><small>' + r[2] + '</small></footer></article>'; };
+  var STARS = { 'Анна': 5, 'Игорь': 5, 'Мария': 4, 'Олег': 5, 'Елена': 5, 'Дмитрий': 4 };
+  var stars = function (n) { var h = ''; for (var i = 0; i < 5; i++) h += '<i' + (i < n ? ' class="on"' : '') + '>★</i>'; return '<span class="rc__st" aria-label="Оценка ' + n + ' из 5">' + h + '</span>'; };
+  var card = function (r) { return '<article class="rc">' + stars(STARS[r[0]] || 5) + '<q>«' + r[1] + '»</q><footer><b>' + r[0] + '</b><small>' + r[2] + '</small></footer></article>'; };
   var a = R.map(card).join(''), b = R.slice().reverse().map(card).join('');
   $('#rv1 .rv__in').innerHTML = a + a; $('#rv2 .rv__in').innerHTML = b + b;
   $$('.rv').forEach(function (r) {
