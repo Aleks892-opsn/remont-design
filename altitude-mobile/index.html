@@ -1645,7 +1645,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var specs = function (d) { return '<ul>' + d[3].map(function (x) { return '<li><span>' + x[0] + '</span><span>' + x[1] + '</span></li>'; }).join('') + '</ul>'; };
   var S = [['Бронирование', 'Выбираете рейс и тариф на сайте — билет приходит на почту за минуту.', '2 минуты'], ['Регистрация', 'Онлайн за 30 часов до вылета. Место у окна — бесплатно.', 'за 30 часов'], ['Багаж', '23 кг включены в тариф, сдача на стойке за 5 минут.', '5 минут'], ['Посадка', 'Отдельная очередь для семей с детьми и бизнес-класса.', 'за 40 минут'], ['В полёте', 'Wi-Fi, горячее питание и фильмы на каждом рейсе.', 'весь полёт'], ['Прилёт', 'Багаж на ленте через 15 минут после посадки.', '15 минут']];
   $('#vline').insertAdjacentHTML('beforeend', S.map(function (x, i) { return '<li><span class="n">' + pad(i + 1) + '</span><b>' + x[0] + '</b><p>' + x[1] + '</p><small>Срок · ' + x[2] + '</small></li>'; }).join(''));
-  var STEP_IMG = { 1: 'step1', 2: 'step2', 5: 'step5', 6: 'step6' };
+  var STEP_IMG = { 1: 'step1', 2: 'step2', 3: 'step3', 4: 'step4', 5: 'step5', 6: 'step6' };
   $('#bign').innerHTML = S.map(function (x, i) { var im = STEP_IMG[i + 1]; return '<article class="bign' + (im ? ' has-ph' : '') + '">' + (im ? '<div class="bign__ph"><img src="photos/' + im + '.webp" alt="' + x[0] + '" loading="lazy" decoding="async"></div>' : '') + '<span>' + pad(i + 1) + '</span><i>Этап ' + pad(i + 1) + ' · ' + x[2] + '</i><b>' + x[0] + '</b><p>' + x[1] + '</p></article>'; }).join('');
   bindProg($('#bign'), $('#bg-bar'), $('#bg-n'));
 
