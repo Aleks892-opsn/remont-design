@@ -29,12 +29,7 @@ def flat(im, x0, y0, x1, y1):
 for item in P:
     key, name, boxes, blurs = item[:4]; flats = item[4] if len(item) > 4 else []
     im = cv2.imread(U + key + '-image.jpg')
-    if boxes: im = ph.clean(im, boxes)
-    for x0, y0, x1, y1, sg in blurs:
-        im[y0:y1, x0:x1] = cv2.GaussianBlur(im, (0, 0), sg)[y0:y1, x0:x1]
-    for r in flats: im = flat(im, *r)
-    im = cv2.fastNlMeansDenoisingColored(im, None, 2, 2, 7, 21)
-    bl = cv2.GaussianBlur(im, (0, 0), 1.0); im = cv2.addWeighted(im, 1.25, bl, -0.25, 0)
-    cv2.imwrite(OUT + name + '.webp', im, [cv2.IMWRITE_WEBP_QUALITY, 86])
+    # по просьбе: без закраски и размытия — фото как есть
+    cv2.imwrite(OUT + name + '.webp', im, [cv2.IMWRITE_WEBP_QUALITY, 90])
     cv2.imwrite('photos/n_' + name + '.jpg', im, [cv2.IMWRITE_JPEG_QUALITY, 85])
 print('ok')
