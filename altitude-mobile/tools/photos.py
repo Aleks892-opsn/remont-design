@@ -13,18 +13,18 @@ P = [
  ('40c27b32', 'wing',     [(520, 382, 640, 409, 'text')]),
  ('c000aadd', 'lounge',   [(960, 355, 1040, 385, 'on_white')]),
  ('77843ab5', 'first',    [(626, 365, 742, 392, 'text'), (1026, 312, 1075, 368, 'text')]),
- ('73107e50', 'abroad',   [(395, 150, 670, 270, 'on_white'), (1030, 205, 1140, 330, 'on_white')]),
+ ('73107e50', 'abroad',   [((398, 151), (662, 226), (662, 272), (398, 225), 'col'), ((1080, 243), (1143, 243), (1128, 313), (1023, 313), 'col')]),
  ('2ad66a16', 'ticket',   [(578, 212, 676, 242, 'light')]),
  ('56e80125', 'baggage',  [(396, 388, 596, 425, 'text'), (268, 338, 318, 375, 'text'), (607, 358, 648, 383, 'text')]),
  ('8c2e4644', 'relax',    [((1022, 199), (1029, 174), (1147, 137), (1154, 161), 'navy'), (874, 214, 921, 237, 'navy')]),
 ]
-def fill(im, mask):
+def fill(im, mask, src_ok=None):
     # заливка дыры плавным фоном вокруг (нормализованное размытие) — без пятен
-    src = (~mask).astype(np.float32)[..., None]; f = im.astype(np.float32)
+    src = ((~mask) if src_ok is None else ((~mask) & src_ok)).astype(np.float32)[..., None]; f = im.astype(np.float32)
     out = f.copy()
-    for sg in (4, 9, 20):
+    for sg, th in ((4, .25), (9, .2), (20, .1), (40, .02)):
         num = cv2.GaussianBlur(f * src, (0, 0), sg); den = cv2.GaussianBlur(src[..., 0], (0, 0), sg)[..., None]
-        ok = (den > 0.25) & mask[..., None] & (out == f).all(axis=2, keepdims=True)
+        ok = (den > th) & mask[..., None] & (out == f).all(axis=2, keepdims=True)
         out = np.where(ok, num / np.maximum(den, 1e-3), out)
     noise = np.random.normal(0, 1.2, im.shape).astype(np.float32)
     out = np.where(mask[..., None], out + noise, f)
@@ -47,13 +47,16 @@ def clean(im, boxes):
         elif mode == 'text':
             bg = np.percentile(V[box], 85)
             m = box & (((bg - V) > 22) | (B - R > 25) | (R - B > 60))
+        elif mode == 'col':
+            m = box & (((B - R > 25) & (V < 185)) | (R - B > 50) | (B - R > 70))
         elif mode == 'navy':
             m = box & (V < 160) & (B - R > 15)
         else:
             m = box & (V > 150)
         mask |= m
     mask = cv2.dilate(mask.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
-    return fill(im, mask)
+    wsrc = ((V > 190) & (S < 45)) if any(b[-1] == 'col' for b in boxes) else None
+    return fill(im, mask, wsrc)
 BLUR = {'baggage': (0, 0, 700, 560, 2.2), 'relax': (745, 0, 1408, 560, 1.4)}
 import os; os.makedirs(OUT, exist_ok=True)
 for key, name, boxes in P:
@@ -63,7 +66,6 @@ for key, name, boxes in P:
         x0, y0, x1, y1, sg = BLUR[name]; im[y0:y1, x0:x1] = cv2.GaussianBlur(im, (0, 0), sg)[y0:y1, x0:x1]
     im = cv2.fastNlMeansDenoisingColored(im, None, 2, 2, 7, 21)
     bl = cv2.GaussianBlur(im, (0, 0), 1.0); im = cv2.addWeighted(im, 1.25, bl, -0.25, 0)
-    im = cv2.resize(im, (1200, round(im.shape[0] * 1200 / im.shape[1])), interpolation=cv2.INTER_AREA)
-    cv2.imwrite(OUT + name + '.webp', im, [cv2.IMWRITE_WEBP_QUALITY, 80])
+    cv2.imwrite(OUT + name + '.webp', im, [cv2.IMWRITE_WEBP_QUALITY, 82])
     cv2.imwrite('photos/chk_' + name + '.jpg', im, [cv2.IMWRITE_JPEG_QUALITY, 80])
 print('ok')
