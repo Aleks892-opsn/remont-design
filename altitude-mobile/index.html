@@ -757,6 +757,10 @@
   /* Шторка для переходов по ссылкам внутри страницы */
   .curtain { position: fixed; inset: 0; z-index: 60; background: var(--bg); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s ease, visibility 0s .3s; will-change: opacity; }
   .curtain.on { opacity: 1; visibility: visible; transition: opacity .16s ease; }
+  /* Фото вместо заглушек */
+  .ph.has-img::before, .ph.has-img::after { display: none; }
+  .ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .glassb__t .scr { color: #fff; text-shadow: 0 6px 24px rgba(6, 30, 110, .45); }
 </style>
 </head>
 <body>
@@ -807,10 +811,10 @@
     <div class="dc-head"><h2 class="h2 cap"><span>Четыре</span><span>класса</span></h2><div class="dc-n"><b id="dc-n">01</b><small>/04</small></div></div>
     <span class="accent scr draw">один сервис</span>
     <div class="dc" id="dc">
-      <article class="dcc on"><div class="ph" data-ph="Салон эконом"></div><div class="dcc__b"><span class="dcc__k">01 · Самый популярный</span><h3 class="cap">Эконом</h3><p>Ручная кладь и багаж 23 кг включены. Место у окна — бесплатно.</p><span class="dcc__tag">Москва — Сочи · от 4 900 ₽</span><a class="dcc__btn" href="#form">Выбрать эконом</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Салон комфорт"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Комфорт</h3><p>Больше места для ног, приоритетная посадка и горячее питание.</p><span class="dcc__tag">Москва — Сочи · от 9 900 ₽</span><a class="dcc__btn" href="#form">Выбрать комфорт</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Бизнес-класс"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Бизнес</h3><p>Кресло-кровать, бизнес-зал в аэропорту и меню от шефа.</p><span class="dcc__tag">Москва — Дубай · от 89 000 ₽</span><a class="dcc__btn" href="#form">Выбрать бизнес</a></div></article>
-      <article class="dcc"><div class="ph" data-ph="Частный джет"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Частный джет</h3><p>Свой самолёт и своё расписание. Вылет через 4 часа после заявки.</p><span class="dcc__tag">До 12 пассажиров · от 390 000 ₽</span><a class="dcc__btn" href="#form">Заказать джет</a></div></article>
+      <article class="dcc on"><div class="ph has-img" data-ph="Салон эконом"><img src="photos/economy.webp" alt="Салон эконом-класса" loading="lazy" decoding="async" style="object-position:30% 50%"></div><div class="dcc__b"><span class="dcc__k">01 · Самый популярный</span><h3 class="cap">Эконом</h3><p>Ручная кладь и багаж 23 кг включены. Место у окна — бесплатно.</p><span class="dcc__tag">Москва — Сочи · от 4 900 ₽</span><a class="dcc__btn" href="#form">Выбрать эконом</a></div></article>
+      <article class="dcc"><div class="ph has-img" data-ph="Салон комфорт"><img src="photos/comfort.webp" alt="Салон комфорт-класса" loading="lazy" decoding="async" style="object-position:68% 50%"></div><div class="dcc__b"><span class="dcc__k">02</span><h3 class="cap">Комфорт</h3><p>Больше места для ног, приоритетная посадка и горячее питание.</p><span class="dcc__tag">Москва — Сочи · от 9 900 ₽</span><a class="dcc__btn" href="#form">Выбрать комфорт</a></div></article>
+      <article class="dcc"><div class="ph has-img" data-ph="Бизнес-класс"><img src="photos/business.webp" alt="Кресло-кровать бизнес-класса" loading="lazy" decoding="async" style="object-position:58% 50%"></div><div class="dcc__b"><span class="dcc__k">03</span><h3 class="cap">Бизнес</h3><p>Кресло-кровать, бизнес-зал в аэропорту и меню от шефа.</p><span class="dcc__tag">Москва — Дубай · от 89 000 ₽</span><a class="dcc__btn" href="#form">Выбрать бизнес</a></div></article>
+      <article class="dcc"><div class="ph has-img" data-ph="Частный джет"><img src="photos/jet.webp" alt="Частный джет над облаками" loading="lazy" decoding="async" style="object-position:50% 50%"></div><div class="dcc__b"><span class="dcc__k">04</span><h3 class="cap">Частный джет</h3><p>Свой самолёт и своё расписание. Вылет через 4 часа после заявки.</p><span class="dcc__tag">До 12 пассажиров · от 390 000 ₽</span><a class="dcc__btn" href="#form">Заказать джет</a></div></article>
     </div>
     <div class="dc-nav"><div class="dc-seg" id="dc-seg"><i class="on"></i><i></i><i></i><i></i></div><button class="arr" id="dc-prev" aria-label="Назад">‹</button><button class="arr dark" id="dc-next" aria-label="Дальше">›</button></div>
   </section>
@@ -818,10 +822,10 @@
   <!-- 1. Манифест в тумане -->
   <section class="mist" id="about">
     <img class="cl c1" data-cloud="2" data-sp="-1" alt="">
-    <div class="fl f1 ph" data-sp="1.4" data-ph="Салон"></div>
-    <div class="fl f2 ph" data-sp="2.2" data-ph="Иллюминатор"></div>
-    <div class="fl f3 ph" data-sp="1.8" data-ph="Крыло"></div>
-    <div class="fl f4 ph" data-sp="2.6" data-ph="Бизнес-зал"></div>
+    <div class="fl f1 ph has-img" data-sp="1.4" data-ph="Салон"><img src="photos/cabin.webp" alt="Салон самолёта" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
+    <div class="fl f2 ph has-img" data-sp="2.2" data-ph="Иллюминатор"><img src="photos/window.webp" alt="Вид из иллюминатора на облака" loading="lazy" decoding="async" style="object-position:60% 50%"></div>
+    <div class="fl f3 ph has-img" data-sp="1.8" data-ph="Крыло"><img src="photos/wing.webp" alt="Крыло самолёта над облаками" loading="lazy" decoding="async" style="object-position:35% 50%"></div>
+    <div class="fl f4 ph has-img" data-sp="2.6" data-ph="Бизнес-зал"><img src="photos/lounge.webp" alt="Бизнес-зал аэропорта" loading="lazy" decoding="async" style="object-position:72% 50%"></div>
     <img class="cl c3" data-cloud="1" data-sp="1.2" alt="">
     <div class="mist__in">
       <span class="lbl" data-logo-sub>Altitude · с 2014</span>
@@ -857,10 +861,10 @@
     <h2 class="h2 cap"><span>140 направлений</span><span>за 12 лет</span></h2>
     <span class="accent scr draw">и каждое любим</span>
     <div class="tl"><i class="tl__fill"></i>
-      <div class="tli"><span class="tli__y">2014</span><div class="ph" data-ph="Первый самолёт"></div><b>Первый рейс</b><span>Москва — Сочи · 1 самолёт</span></div>
-      <div class="tli"><span class="tli__y">2017</span><div class="ph" data-ph="Зарубежный рейс"></div><b>Выход за рубеж</b><span>12 направлений</span></div>
-      <div class="tli"><span class="tli__y">2020</span><div class="ph" data-ph="Бизнес-класс"></div><b>Новый бизнес-класс</b><span>Кресла-кровати на всех дальних рейсах</span></div>
-      <div class="tli"><span class="tli__y">2023</span><div class="ph" data-ph="Частный джет"></div><b>Частные перелёты</b><span>6 бизнес-джетов</span></div>
+      <div class="tli"><span class="tli__y">2014</span><div class="ph has-img" data-ph="Первый самолёт"><img src="photos/first.webp" alt="Первый самолёт авиакомпании" loading="lazy" decoding="async" style="object-position:55% 50%"></div><b>Первый рейс</b><span>Москва — Сочи · 1 самолёт</span></div>
+      <div class="tli"><span class="tli__y">2017</span><div class="ph has-img" data-ph="Зарубежный рейс"><img src="photos/abroad.webp" alt="Взлёт над побережьем" loading="lazy" decoding="async" style="object-position:45% 50%"></div><b>Выход за рубеж</b><span>12 направлений</span></div>
+      <div class="tli"><span class="tli__y">2020</span><div class="ph has-img" data-ph="Бизнес-класс"><img src="photos/business.webp" alt="Кресло-кровать бизнес-класса" loading="lazy" decoding="async" style="object-position:58% 50%"></div><b>Новый бизнес-класс</b><span>Кресла-кровати на всех дальних рейсах</span></div>
+      <div class="tli"><span class="tli__y">2023</span><div class="ph has-img" data-ph="Частный джет"><img src="photos/jet.webp" alt="Частный джет над облаками" loading="lazy" decoding="async" style="object-position:50% 50%"></div><b>Частные перелёты</b><span>6 бизнес-джетов</span></div>
       <div class="tli"><span class="tli__y">2026</span><div class="ph" data-ph="Флот сегодня"></div><b>Сейчас</b><span>42 самолёта и 140 направлений</span></div>
     </div>
   </section>
@@ -934,10 +938,10 @@
     <div class="sh" style="margin:56px 0 0"><span class="lbl">И ещё четыре обещания</span></div>
     <div class="why-cards">
       <div class="swipe" id="why-track" style="margin-top:20px">
-        <article class="why"><div class="ph" data-ph="Билет"></div><div class="why__b"><span class="why__n">01</span><b>Цена без сюрпризов</b><p>Что видите при покупке — то и платите.</p></div></article>
-        <article class="why"><div class="ph" data-ph="Багаж"></div><div class="why__b"><span class="why__n">02</span><b>Багаж включён</b><p>23 кг в каждом тарифе, даже в эконом.</p></div></article>
+        <article class="why"><div class="ph has-img" data-ph="Билет"><img src="photos/ticket.webp" alt="Посадочный талон в телефоне" loading="lazy" decoding="async" style="object-position:45% 50%"></div><div class="why__b"><span class="why__n">01</span><b>Цена без сюрпризов</b><p>Что видите при покупке — то и платите.</p></div></article>
+        <article class="why"><div class="ph has-img" data-ph="Багаж"><img src="photos/baggage.webp" alt="Чемодан у окна терминала" loading="lazy" decoding="async" style="object-position:58% 50%"></div><div class="why__b"><span class="why__n">02</span><b>Багаж включён</b><p>23 кг в каждом тарифе, даже в эконом.</p></div></article>
         <article class="why"><div class="ph" data-ph="Табло вылетов"></div><div class="why__b"><span class="why__n">03</span><b>98% вовремя</b><p>Один из самых пунктуальных перевозчиков.</p></div></article>
-        <article class="why"><div class="ph" data-ph="Возврат"></div><div class="why__b"><span class="why__n">04</span><b>Возврат за 24 часа</b><p>Отмена без штрафа в первые сутки.</p></div></article>
+        <article class="why"><div class="ph has-img" data-ph="Возврат"><img src="photos/relax.webp" alt="Пассажир отдыхает в бизнес-зале" loading="lazy" decoding="async" style="object-position:45% 50%"></div><div class="why__b"><span class="why__n">04</span><b>Возврат за 24 часа</b><p>Отмена без штрафа в первые сутки.</p></div></article>
       </div>
       <div class="nav"><span class="cnt" id="why-n">01 / 04</span><div class="prog"><i id="why-bar"></i></div></div>
     </div>
@@ -956,7 +960,7 @@
     <p class="lead">Современный флот, надёжное обслуживание и лучшие аэропорты страны.</p>
   </section>
   <div class="glassb">
-    <div class="ph" data-ph="Фон: крыло самолёта и небо"></div>
+    <div class="ph has-img" data-ph="Фон: крыло самолёта и небо"><img src="photos/wing-bg.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
     <img class="cl c1" data-cloud="2" alt="">
     <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Самолёты</small><b>Airbus</b></div>
     <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Двигатели</small><b>CFM</b></div>
