@@ -761,12 +761,147 @@
   .ph.has-img::before, .ph.has-img::after { display: none; }
   .ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .glassb__t .scr { color: #fff; text-shadow: 0 6px 24px rgba(6, 30, 110, .45); }
+
+  .tnav__links { display: none; }
+  .ph > picture, .ph > picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ================= Компьютер (от 1024px) ================= */
+  @media (min-width: 1024px) {
+    .wrap { max-width: none; }
+    .sec { max-width: 1240px; margin: 24px auto 0; padding: 72px 72px 80px; border-radius: 44px; --pad: 72px; }
+    .h2 { font-size: 56px; }
+    .lead { max-width: 520px; font-size: 17px; }
+    .accent { font-size: 22px; }
+
+    /* Шапка: капсула шире, ссылки на разделы */
+    .tnav { max-width: 1240px; width: calc(100% - 48px); height: 60px; padding-left: 24px; top: 20px; }
+    .tnav__logo { flex: 0 0 auto; font-size: 26px; }
+    .tnav__links { display: flex; flex: 1; justify-content: center; gap: 4px; }
+    .tnav__links a { padding: 10px 14px; border-radius: 999px; font: 600 14px var(--fb); color: var(--ink); letter-spacing: -.01em; transition: background .2s, color .2s; }
+    .tnav__links a:hover { background: var(--blue-l); color: var(--blue); }
+    .tnav__buy { height: 48px; padding: 0 22px; font-size: 14px; }
+    .tnav__burg { width: 48px; height: 48px; }
+
+    /* Главный экран */
+    .gx { max-height: 1700px; }
+    .gx__head { top: 150px; }
+    .gx__ctitle { max-width: 560px; }
+    .gx__cta { margin-top: 30px; gap: 14px; }
+    .hb { height: 56px; padding: 0 28px; font-size: 16px; }
+    .gx__jet { width: 640px; margin-left: -320px; top: 470px; }
+    .gx__scene { left: 0; width: 100%; top: 34%; }
+
+    /* Цифры: четыре плашки в ряд лесенкой */
+    .gfx { max-width: 1240px; height: 440px; margin: calc(-57svh + 70px) auto 0; }
+    .gfx__cl { width: 150%; left: -25%; }
+    .gfx__cl.b { width: 140%; left: -20%; }
+    .gp { width: 22%; }
+    .gp.p1 { left: 1.5%; right: auto; top: 40px; }
+    .gp.p2 { left: 26.5%; right: auto; top: 130px; }
+    .gp.p3 { left: 51.5%; right: auto; top: 40px; }
+    .gp.p4 { left: 76.5%; right: auto; top: 130px; }
+    .gp b { font-size: 52px; }
+    .gp b em { font-size: 16px; }
+    .gp span { font-size: 15px; }
+
+    /* Классы: четыре карточки в ряд */
+    .dc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; overflow: visible; margin: 40px 0 0; padding: 0; }
+    .dcc { flex: none; cursor: default; }
+    .dcc h3 { font-size: 26px; }
+    .dc-nav, .dc-n { display: none; }
+
+    /* «Шагните на борт» */
+    .mist { max-width: 1240px; margin: 0 auto; min-height: 104vh; }
+    .fl.f1 { width: 24%; }
+    .fl.f2 { width: 15%; }
+    .fl.f3 { width: 19%; }
+    .fl.f4 { width: 14%; }
+    .mist__t { font-size: 48px; }
+    .mist__scr { font-size: 48px; }
+    .mist p { max-width: 460px; font-size: 17px; }
+
+    /* Новый маршрут */
+    .obj { height: 88vh; margin-top: 40px; }
+    .obj__plate { left: auto; right: 64px; bottom: 56px; width: 440px; border-radius: 24px; padding: 26px 26px; }
+    .obj__plate h3 { font-size: 26px; }
+
+    /* История: фото и текст по разные стороны линии */
+    .tl { max-width: 1000px; margin: 56px auto 0; }
+    .tli { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr; column-gap: 120px; align-items: start; text-align: left; padding: 0; margin-bottom: 110px; }
+    .tli .ph { grid-column: 1; grid-row: 1 / 4; }
+    .tli__y, .tli b, .tli > span:last-child { grid-column: 2; justify-self: start; }
+    .tli__y { align-self: end; margin: 60px 0 14px; }
+    .tli b { margin-top: 0; padding: 0; font-size: 28px; background: none; }
+    .tli > span:last-child { margin: 8px 0 0; padding: 0; font-size: 16px; background: none; }
+    .tli:nth-child(odd) .ph { grid-column: 2; }
+    .tli:nth-child(odd) .tli__y, .tli:nth-child(odd) b, .tli:nth-child(odd) > span:last-child { grid-column: 1; justify-self: end; text-align: right; }
+
+    /* Путь пассажира: шаги сеткой 3×2 */
+    .hv-c .swipe { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; overflow: visible; margin: 0; padding: 0; }
+    .hv-c .swipe > * { flex: none; }
+    .hv-c .nav { display: none; }
+    .bign { min-height: 280px; }
+
+    /* Почему мы: текст слева, билет справа, обещания в ряд */
+    #why { display: grid; grid-template-columns: 1fr 1fr; column-gap: 72px; align-items: start; }
+    #why > .sh:first-child, #why > .h2, #why > .lead, #why > .doc-btn { grid-column: 1; }
+    #why > .doc { grid-column: 2; grid-row: 1 / 6; margin: 0; }
+    #why > .doc-btn { justify-self: start; margin-top: 32px; padding: 0 40px; }
+    #why > .sh:not(:first-child), #why > .why-cards, #why > .why-list { grid-column: 1 / -1; }
+    .why-cards .swipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; overflow: visible; margin: 0; padding: 0; }
+    .why-cards .swipe > * { flex: none; }
+    .why-cards .nav { display: none; }
+
+    /* Партнёры */
+    .glassb { max-width: 1240px; margin: 24px auto 0; height: 92vh; border-radius: 44px; }
+    .glassb__t .scr { font-size: 48px; }
+    .gl { padding: 18px 22px; }
+    .gl b { font-size: 20px; }
+
+    /* Отзывы */
+    .rc { width: 360px; padding: 24px 22px; }
+    .rc q { font-size: 15px; }
+
+    /* Бронирование: заголовок слева, форма справа */
+    #form { display: grid; grid-template-columns: 1fr 1.1fr; column-gap: 72px; align-items: start; }
+    #form > .sh, #form > .h2, #form > .accent { grid-column: 1; }
+    #form > .form { grid-column: 2; grid-row: 1 / 5; margin: 0; padding: 32px 30px; }
+
+    /* Подвал */
+    .ft { max-width: 1240px; margin: 24px auto 0; padding: 90px 72px 32px; }
+    .ft__word { font-size: 160px !important; }
+    .ft__cols { grid-template-columns: repeat(4, 1fr); font-size: 15px; }
+    .ft__base { font-size: 11px; }
+
+    /* Меню и вход */
+    .menu { max-width: none; padding: 20px 24px 40px; }
+    .menu > * { width: 100%; max-width: 1000px; margin-left: auto; margin-right: auto; }
+    .menu__grid { grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .menu a.m { min-height: 150px; }
+    .menu a.m--wide { grid-column: 1 / -1; min-height: 170px; }
+    .menu__auth { display: flex; gap: 12px; }
+    .menu__auth .ma { flex: 1; }
+    .auth { left: 50%; right: auto; bottom: auto; top: 50%; width: 460px; max-width: calc(100% - 48px); border-radius: 28px; padding: 24px 28px 28px; transform: translate(-50%, -46%); opacity: 0; visibility: hidden; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .25s, visibility 0s .35s; }
+    body.auth-open .auth { transform: translate(-50%, -50%); opacity: 1; visibility: visible; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .25s; }
+    .auth__grab { display: none; }
+    /* поправки после проверки */
+    .gfx { height: 560px; clip-path: inset(-120vh -50vw 0 -50vw); }
+    .glassb .cl { width: 110%; left: -5%; }
+    .glassb .cl.c1 { top: 4%; opacity: .55; }
+    .glassb .cl.c2 { bottom: -18%; opacity: .7; }
+    .tli { margin-bottom: 64px; }
+    .dcc { transition: background .35s, color .35s, transform .35s; }
+  }
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .tnav__links a { padding: 10px 9px; font-size: 13px; }
+    .tnav__links a:nth-child(4) { display: none; }
+  }
 </style>
 </head>
 <body>
 <div class="ldr" id="ldr" aria-hidden="true"><div class="ldr__out"><div class="ldr__bp"><div class="bp__top"><span>altitude airlines</span><span>посадочный</span></div><div class="bp__r"><div><b>MOW</b><small>Москва</small></div><div class="bp__ic">✈</div><div style="text-align:right"><b>AER</b><small>Сочи</small></div></div><div class="bp__cut"></div><div class="bp__low"><div>рейс<b>AL 001</b></div><div>место<b>12A</b></div><div>выход<b>B7</b></div></div><div class="bp__stamp">ПОСАДКА<br>✓</div></div></div><div class="ldr__win"><img src="hero/cloud-soft.webp" alt=""><i class="ldr__shut"></i></div><span class="ldr__t">добро пожаловать на борт</span></div>
 <div class="wrap" id="top">
-  <header class="tnav" aria-label="Шапка"><a class="tnav__logo" href="#top" data-logo>Altitude</a><a class="tnav__buy" href="#form">Купить билет</a><button class="tnav__burg" id="menu-top" aria-label="Меню"><i></i></button></header>
+  <header class="tnav" aria-label="Шапка"><a class="tnav__logo" href="#top" data-logo>Altitude</a><nav class="tnav__links" aria-label="Разделы"><a href="#dirs">Классы</a><a href="#object">Маршруты</a><a href="#homes">История</a><a href="#how">Путь пассажира</a><a href="#why">Гарантии</a><a href="#reviews">Отзывы</a></nav><a class="tnav__buy" href="#form">Купить билет</a><button class="tnav__burg" id="menu-top" aria-label="Меню"><i></i></button></header>
 
 
   <!-- 0. Главный экран: дом в облаках → логотип. Двигается только от прокрутки -->
@@ -960,7 +1095,7 @@
     <p class="lead">Современный флот, надёжное обслуживание и лучшие аэропорты страны.</p>
   </section>
   <div class="glassb">
-    <div class="ph has-img" data-ph="Фон: крыло самолёта и небо"><img src="photos/wing-bg.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
+    <div class="ph has-img" data-ph="Фон: крыло самолёта и небо"><picture><source media="(min-width: 1024px)" srcset="photos/wing-wide.webp"><img src="photos/wing-bg.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></div>
     <img class="cl c1" data-cloud="2" alt="">
     <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Самолёты</small><b>Airbus</b></div>
     <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Двигатели</small><b>CFM</b></div>
@@ -1130,6 +1265,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Меню
   var menu = function (on) { document.body.classList.toggle('menu-open', on); };
   $('#menu-x').onclick = function () { menu(false); };
+
+  // Компьютер: карточка класса подсвечивается при наведении
+  if (matchMedia('(min-width: 1024px) and (hover: hover)').matches) {
+    $$('.dcc').forEach(function (c) { c.addEventListener('mouseenter', function () { $$('.dcc').forEach(function (x) { x.classList.toggle('on', x === c); }); }); });
+  }
   // Переход по любой ссылке на раздел (#...): экран на миг закрывается шторкой, страница мгновенно
   // перескакивает, браузер спокойно дорисовывает новый раздел — и шторка растворяется. Без рывков.
   var curtain = document.createElement('div'); curtain.className = 'curtain'; document.body.appendChild(curtain);
