@@ -896,6 +896,13 @@
     .tnav__links a { padding: 10px 9px; font-size: 13px; }
     .tnav__links a:nth-child(4) { display: none; }
   }
+  /* Партнёры: глубокий синий фон без фото */
+  .glassb { background: radial-gradient(120% 80% at 50% 0%, #2f74ff 0%, #1450e6 45%, #0b2f9c 100%); margin: 14px 8px 0; border-radius: 34px; }
+  .glassb .gl { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .35); box-shadow: none; }
+  .glassb .gl small { color: rgba(255, 255, 255, .7); }
+  .glassb .gl b { color: #fff; }
+  .glassb__t .scr { color: #fff; text-shadow: none; }
+  @media (min-width: 1024px) { .glassb { margin: 24px auto 0; border-radius: 44px; } }
 </style>
 </head>
 <body>
@@ -1095,8 +1102,7 @@
     <p class="lead">Современный флот, надёжное обслуживание и лучшие аэропорты страны.</p>
   </section>
   <div class="glassb">
-    <div class="ph has-img" data-ph="Фон: крыло самолёта и небо"><picture><source media="(min-width: 1024px)" srcset="photos/wing-wide.webp"><img src="photos/wing-bg.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></div>
-    <img class="cl c1" data-cloud="2" alt="">
+    
     <div class="gl" data-sp="1.6" style="left:7%;top:8%"><small>Самолёты</small><b>Airbus</b></div>
     <div class="gl" data-sp="0.8" style="right:6%;top:20%"><small>Двигатели</small><b>CFM</b></div>
     <div class="gl" data-sp="2.2" style="left:12%;top:31%"><small>Хаб</small><b>Шереметьево</b></div>
@@ -1104,7 +1110,6 @@
     <div class="gl" data-sp="1.2" style="right:9%;top:60%"><small>Техобслуживание</small><b>Lufthansa Technik</b></div>
     <div class="gl" data-sp="2" style="left:6%;top:70%"><small>Питание</small><b>Шеф-кухня</b></div>
     <div class="gl" data-sp="0.9" style="right:14%;top:83%"><small>Лаунжи</small><b>Plaza Premium</b></div>
-    <img class="cl c2" data-cloud="0" alt="">
   </div>
 
   <!-- 07 Отзывы -->
@@ -1568,10 +1573,7 @@ document.addEventListener('DOMContentLoaded', function () {
     gsap.to(p, { scale: 0.72, ease: 'none', immediateRender: false, scrollTrigger: sc(p, 'center center', 'bottom top') });
   });
   // Поставщики: стеклянные плашки и облака на разной глубине
-  gsap.to('.glassb > .ph', { yPercent: 8, ease: 'none', scrollTrigger: sc('.glassb') });
   $$('.gl').forEach(function (g) { gsap.fromTo(g, { y: 80 * +g.dataset.sp }, { y: -80 * +g.dataset.sp, ease: 'none', scrollTrigger: sc('.glassb') }); });
-  gsap.fromTo('.glassb .c1', { xPercent: -6 }, { xPercent: 6, ease: 'none', scrollTrigger: sc('.glassb') });
-  gsap.fromTo('.glassb .c2', { xPercent: 6, yPercent: 10 }, { xPercent: -6, yPercent: -10, ease: 'none', scrollTrigger: sc('.glassb') });
   gsap.fromTo('.ft .c1', { yPercent: 20 }, { yPercent: -10, ease: 'none', scrollTrigger: sc('.ft', 'top bottom', 'bottom bottom') });
   // Смета: этапы отмечаются по мере прокрутки, в конце ставится печать
   var rows = $$('#doc .doc__r');
