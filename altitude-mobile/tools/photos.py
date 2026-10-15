@@ -49,6 +49,12 @@ def clean(im, boxes):
             m = box & (((bg - V) > 22) | (B - R > 25) | (R - B > 60))
         elif mode == 'col':
             m = box & (((B - R > 25) & (V < 185)) | (R - B > 50) | (B - R > 70))
+        elif mode == 'all':
+            m = box
+        elif mode == 'dark':
+            m = box & (V < 110)
+        elif mode == 'sat':
+            m = box & (S > 55)
         elif mode == 'navy':
             m = box & (V < 160) & (B - R > 15)
         else:
