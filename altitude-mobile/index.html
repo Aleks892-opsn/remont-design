@@ -910,12 +910,97 @@
   /* «Летаем с лучшими»: воздух под текстом */
   #partners.sec { padding-bottom: 34px !important; border-radius: 34px; }
   @media (min-width: 1024px) { #partners.sec { padding-bottom: 72px !important; border-radius: 44px; } }
+
+  /* ===== Поиск рейсов ===== */
+  .fs { position: relative; display: flex; align-items: center; gap: 10px; margin-top: 22px; height: 58px; padding: 0 8px 0 18px; border-radius: 999px; background: #f2f6ff; box-shadow: inset 0 0 0 1.5px #d6e2ff; transition: box-shadow .2s; }
+  .fs:focus-within { box-shadow: inset 0 0 0 2px var(--blue), 0 10px 24px rgba(31, 91, 255, .14); }
+  .fs svg { flex: none; width: 20px; height: 20px; fill: none; stroke: var(--blue); stroke-width: 2.2; stroke-linecap: round; }
+  .fs input { flex: 1; min-width: 0; height: 100%; border: 0; background: none; font: 600 16px var(--fb); color: var(--ink); outline: none; -webkit-appearance: none; }
+  .fs input::placeholder { color: var(--mute); font-weight: 500; }
+  .fs input::-webkit-search-cancel-button { display: none; }
+  .fs button { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: var(--mute); font-size: 13px; visibility: hidden; }
+  .fs.has button { visibility: visible; }
+  .fs-pop { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .fs-pop button { height: 36px; padding: 0 14px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px var(--fb); }
+  .fs-days { display: flex; gap: 8px; margin: 18px calc(var(--pad) * -1) 0; padding: 0 var(--pad) 4px; overflow-x: auto; scrollbar-width: none; }
+  .fs-days::-webkit-scrollbar { display: none; }
+  .fs-days button { flex: none; min-width: 64px; padding: 9px 12px; border-radius: 16px; background: #f2f6ff; text-align: center; font: 600 13px/1.15 var(--fb); color: var(--ink); }
+  .fs-days button small { display: block; font-weight: 500; font-size: 11px; color: var(--mute); }
+  .fs-days button.on { background: var(--blue); color: #fff; box-shadow: 0 8px 18px rgba(31, 91, 255, .28); }
+  .fs-days button.on small { color: rgba(255, 255, 255, .75); }
+  .fs-res { margin-top: 16px; display: grid; gap: 10px; }
+  .fs-hint { padding: 22px 18px; border-radius: 22px; background: #f2f6ff; text-align: center; color: var(--ink2); font-size: 14px; }
+  .fs-hint b { display: block; color: var(--ink); font-size: 16px; margin-bottom: 4px; }
+  .fl-c { display: grid; grid-template-columns: 1fr auto; gap: 12px 10px; padding: 16px; border-radius: 22px; background: #fff; box-shadow: 0 10px 28px rgba(20, 60, 180, .09), inset 0 0 0 1px #e6edff; animation: flIn .35s both; }
+  @keyframes flIn { from { opacity: 0; transform: translate3d(0, 10px, 0); } }
+  .fl-r { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
+  .fl-t b { display: block; font: 700 22px/1 var(--fb); letter-spacing: -.03em; color: var(--ink); }
+  .fl-t small { display: block; margin-top: 4px; font: 500 12px var(--fb); color: var(--ink2); }
+  .fl-t.r { text-align: right; }
+  .fl-line { position: relative; height: 1px; background: #cfdcff; margin-top: -14px; }
+  .fl-line span { position: absolute; left: 50%; top: -9px; transform: translateX(-50%); padding: 0 6px; background: #fff; font: 600 11px var(--fb); color: var(--blue); white-space: nowrap; }
+  .fl-line::after { content: '✈'; position: absolute; right: -2px; top: -9px; font-size: 13px; color: var(--blue); }
+  .fl-m { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font: 500 12px var(--fb); color: var(--mute); }
+  .fl-m em { font-style: normal; padding: 4px 8px; border-radius: 999px; background: #f2f6ff; color: var(--ink2); }
+  .fl-m em.hot { background: #fff1e4; color: #e5640a; }
+  .fl-p { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .fl-p b { font: 800 19px/1 var(--fb); letter-spacing: -.03em; color: var(--ink); white-space: nowrap; }
+  .fl-p b small { font-size: 12px; font-weight: 600; color: var(--mute); }
+  .fl-p button { height: 38px; padding: 0 16px; border-radius: 999px; background: var(--blue); color: #fff; font: 600 13px var(--fb); }
+  .fs-more { justify-self: center; height: 42px; padding: 0 20px; border-radius: 999px; background: var(--blue-l); color: var(--blue); font: 600 13px var(--fb); }
+
+  /* ===== Онлайн-поддержка ===== */
+  .vbtn { right: auto; left: 12px; }
+  .sup-btn { position: fixed; z-index: 38; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff9d3d, #ff7a1a 55%, #f25c00); box-shadow: 0 14px 30px rgba(255, 110, 20, .45); transition: transform .25s, opacity .25s; }
+  .sup-btn svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 1.9; stroke-linejoin: round; stroke-linecap: round; }
+  .sup-btn i { position: absolute; right: 3px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: #2ed573; border: 2px solid #fff; }
+  .sup-btn:active { transform: scale(.94); }
+  body.sup-open .sup-btn, body.menu-open .sup-btn { opacity: 0; pointer-events: none; transform: scale(.8); }
+  .sup { position: fixed; z-index: 58; left: 8px; right: 8px; bottom: 8px; height: min(640px, calc(100svh - 70px)); display: flex; flex-direction: column; border-radius: 28px; background: #fff; box-shadow: 0 24px 60px rgba(6, 30, 110, .28); opacity: 0; visibility: hidden; transform: translate3d(0, 24px, 0) scale(.98); transform-origin: bottom right; transition: opacity .25s, transform .3s cubic-bezier(.2, .7, .2, 1), visibility 0s .3s; overflow: hidden; }
+  body.sup-open .sup { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .3s cubic-bezier(.2, .7, .2, 1); }
+  .sup__h { display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 16px; background: linear-gradient(140deg, #0f45d8, #1f5bff 55%, #5a96ff); color: #fff; }
+  .sup__av { flex: none; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--blue); font: 800 18px var(--fb); }
+  .sup__h > div:nth-child(2) { flex: 1; }
+  .sup__h b { display: block; font: 700 16px var(--fb); letter-spacing: -.02em; }
+  .sup__h small { display: flex; align-items: center; gap: 6px; font: 500 12px var(--fb); color: rgba(255, 255, 255, .85); }
+  .sup__h small i { width: 7px; height: 7px; border-radius: 50%; background: #2ed573; }
+  .sup__x { width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, .18); color: #fff; font-size: 14px; }
+  .sup__log { flex: 1; overflow-y: auto; padding: 16px 14px 8px; display: flex; flex-direction: column; gap: 10px; background: #f5f8ff; overscroll-behavior: contain; }
+  .msg { max-width: 86%; padding: 11px 14px; border-radius: 20px; font: 500 14px/1.45 var(--fb); white-space: pre-wrap; word-wrap: break-word; }
+  .msg.bot { align-self: flex-start; background: #fff; color: var(--ink); border-bottom-left-radius: 6px; box-shadow: 0 4px 12px rgba(20, 60, 180, .06); }
+  .msg.me { align-self: flex-end; background: var(--blue); color: #fff; border-bottom-right-radius: 6px; }
+  .msg.typing { color: var(--mute); }
+  .msg.typing::after { content: '…'; animation: dots 1s steps(3) infinite; }
+  @keyframes dots { 0% { content: '.'; } 33% { content: '..'; } 66% { content: '...'; } }
+  .msg a { color: inherit; font-weight: 700; }
+  .sup__q { display: flex; gap: 6px; padding: 8px 12px 0; overflow-x: auto; scrollbar-width: none; background: #f5f8ff; }
+  .sup__q::-webkit-scrollbar { display: none; }
+  .sup__q button { flex: none; height: 34px; padding: 0 12px; border-radius: 999px; background: #fff; color: var(--blue); font: 600 12.5px var(--fb); box-shadow: inset 0 0 0 1px #d6e2ff; }
+  .sup__f { display: flex; gap: 8px; padding: 10px 12px calc(12px + env(safe-area-inset-bottom)); background: #f5f8ff; }
+  .sup__f input { flex: 1; min-width: 0; height: 48px; padding: 0 16px; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px #d6e2ff; font: 500 15px var(--fb); color: var(--ink); outline: none; }
+  .sup__f input:focus { box-shadow: inset 0 0 0 2px var(--blue); }
+  .sup__f button { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); }
+  .sup__f button svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .sup__f button:disabled { opacity: .5; }
+
+  @media (min-width: 1024px) {
+    #search { display: grid; grid-template-columns: 1fr 1.25fr; column-gap: 72px; align-items: start; }
+    #search > .sh, #search > .h2, #search > .lead { grid-column: 1; }
+    #search > .fs, #search > .fs-pop, #search > .fs-days, #search > .fs-res { grid-column: 2; }
+    #search > .fs { grid-row: 1; margin-top: 0; height: 64px; }
+    #search > .fs-pop { grid-row: 2; }
+    #search > .fs-days { grid-row: 3; margin-left: 0; margin-right: 0; padding: 0 0 4px; }
+    #search > .fs-res { grid-row: 4 / span 4; }
+    .fl-c { grid-template-columns: 1fr auto; padding: 18px 22px; }
+    .sup { left: auto; right: 24px; bottom: 24px; width: 400px; height: min(640px, calc(100vh - 48px)); }
+    .sup-btn { right: 24px; bottom: 24px; width: 64px; height: 64px; }
+  }
 </style>
 </head>
 <body>
 <div class="ldr" id="ldr" aria-hidden="true"><div class="ldr__out"><div class="ldr__bp"><div class="bp__top"><span>altitude airlines</span><span>посадочный</span></div><div class="bp__r"><div><b>MOW</b><small>Москва</small></div><div class="bp__ic">✈</div><div style="text-align:right"><b>AER</b><small>Сочи</small></div></div><div class="bp__cut"></div><div class="bp__low"><div>рейс<b>AL 001</b></div><div>место<b>12A</b></div><div>выход<b>B7</b></div></div><div class="bp__stamp">ПОСАДКА<br>✓</div></div></div><div class="ldr__win"><img src="hero/cloud-soft.webp" alt=""><i class="ldr__shut"></i></div><span class="ldr__t">добро пожаловать на борт</span></div>
 <div class="wrap" id="top">
-  <header class="tnav" aria-label="Шапка"><a class="tnav__logo" href="#top" data-logo>Altitude</a><nav class="tnav__links" aria-label="Разделы"><a href="#dirs">Классы</a><a href="#object">Маршруты</a><a href="#homes">История</a><a href="#how">Путь пассажира</a><a href="#why">Гарантии</a><a href="#reviews">Отзывы</a></nav><a class="tnav__buy" href="#form">Купить билет</a><button class="tnav__burg" id="menu-top" aria-label="Меню"><i></i></button></header>
+  <header class="tnav" aria-label="Шапка"><a class="tnav__logo" href="#top" data-logo>Altitude</a><nav class="tnav__links" aria-label="Разделы"><a href="#search">Поиск</a><a href="#dirs">Классы</a><a href="#object">Маршруты</a><a href="#homes">История</a><a href="#how">Путь пассажира</a><a href="#why">Гарантии</a><a href="#reviews">Отзывы</a></nav><a class="tnav__buy" href="#search">Купить билет</a><button class="tnav__burg" id="menu-top" aria-label="Меню"><i></i></button></header>
 
 
   <!-- 0. Главный экран: дом в облаках → логотип. Двигается только от прокрутки -->
@@ -955,6 +1040,21 @@
   </section>
 
   <!-- 01 Что строим: листающиеся карточки -->
+  <!-- Поиск рейсов -->
+  <section class="sec" id="search">
+    <div class="sh"><span class="lbl">Поиск рейсов</span></div>
+    <h2 class="h2 cap"><span>Куда</span><span>летим?</span></h2>
+    <p class="lead">Введите город — покажем ближайшие рейсы, цены и свободные места.</p>
+    <form class="fs" id="fs" role="search" onsubmit="return false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg>
+      <input id="fs-q" type="search" placeholder="Например, Москва или Сочи" autocomplete="off" aria-label="Город отправления или прилёта">
+      <button type="button" id="fs-x" aria-label="Очистить">✕</button>
+    </form>
+    <div class="fs-pop" id="fs-pop"></div>
+    <div class="fs-days" id="fs-days" role="tablist" aria-label="Дата вылета"></div>
+    <div class="fs-res" id="fs-res" aria-live="polite"></div>
+  </section>
+
   <section class="sec" id="dirs">
     <div class="sh"><span class="lbl">01 — Как летаем</span></div>
     <div class="dc-head"><h2 class="h2 cap"><span>Четыре</span><span>класса</span></h2><div class="dc-n"><b id="dc-n">01</b><small>/04</small></div></div>
@@ -1163,10 +1263,17 @@
   </footer>
 </div>
 
+<button class="sup-btn" id="sup-btn" aria-label="Онлайн-поддержка"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg><i></i></button>
+<div class="sup" id="sup" role="dialog" aria-label="Онлайн-поддержка">
+  <div class="sup__h"><div class="sup__av">A</div><div><b>Поддержка Altitude</b><small><i></i>онлайн · отвечаем сразу</small></div><button class="sup__x" id="sup-x" aria-label="Закрыть">✕</button></div>
+  <div class="sup__log" id="sup-log" aria-live="polite"></div>
+  <div class="sup__q" id="sup-q"></div>
+  <form class="sup__f" id="sup-f"><input id="sup-in" type="text" placeholder="Напишите вопрос…" autocomplete="off" aria-label="Ваш вопрос"><button type="submit" aria-label="Отправить"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></form>
+</div>
 <nav class="menu" aria-label="Меню">
   <div class="menu__top"><span class="menu__logo" data-logo>Altitude</span><button class="menu__x" id="menu-x" aria-label="Закрыть">✕</button></div>
   <div class="menu__grid">
-    <a class="m m--wide" href="#form"><small>08</small><b>Бронирование</b><span>Найти и купить билет за пару минут</span></a>
+    <a class="m m--wide" href="#search"><small>✈</small><b>Найти рейс</b><span>Введите город — покажем ближайшие рейсы и цены</span></a>
     <a class="m" href="#dirs"><small>01</small><b>Классы</b></a>
     <a class="m" href="#object"><small>02</small><b>Новый маршрут</b></a>
     <a class="m" href="#how"><small>04</small><b>Путь пассажира</b></a>
@@ -1282,6 +1389,174 @@ document.addEventListener('DOMContentLoaded', function () {
   if (matchMedia('(min-width: 1024px) and (hover: hover)').matches) {
     $$('.dcc').forEach(function (c) { c.addEventListener('mouseenter', function () { $$('.dcc').forEach(function (x) { x.classList.toggle('on', x === c); }); }); });
   }
+
+  // ================= Поиск рейсов (демо-расписание, считается в браузере) =================
+  var CITIES = { MOW: 'Москва', LED: 'Санкт-Петербург', AER: 'Сочи', KZN: 'Казань', SVX: 'Екатеринбург', OVB: 'Новосибирск', KGD: 'Калининград', MRV: 'Минеральные Воды', VVO: 'Владивосток', DXB: 'Дубай', IST: 'Стамбул', EVN: 'Ереван', MLE: 'Мале, Мальдивы' };
+  var ALIAS = { 'мск': 'MOW', 'питер': 'LED', 'питера': 'LED', 'спб': 'LED', 'мальдивы': 'MLE', 'мальдив': 'MLE', 'мальдивах': 'MLE', 'екб': 'SVX', 'минводы': 'MRV' };
+  // маршрут: откуда, куда, время в пути (мин), цена эконома от, рейсов в день, самолёт
+  var ROUTES = [
+    ['MOW', 'AER', 150, 4900, 6, 'Airbus A321neo'], ['MOW', 'LED', 85, 3900, 8, 'Airbus A320neo'], ['MOW', 'KZN', 95, 3600, 4, 'Airbus A320neo'],
+    ['MOW', 'SVX', 140, 5400, 4, 'Airbus A321neo'], ['MOW', 'OVB', 245, 7900, 3, 'Airbus A321neo'], ['MOW', 'KGD', 130, 4700, 3, 'Airbus A320neo'],
+    ['MOW', 'MRV', 140, 4800, 2, 'Airbus A320neo'], ['MOW', 'VVO', 525, 16900, 1, 'Airbus A350'], ['MOW', 'DXB', 315, 18900, 2, 'Airbus A350'],
+    ['MOW', 'IST', 225, 12900, 2, 'Airbus A321neo'], ['MOW', 'EVN', 175, 8900, 2, 'Airbus A320neo'], ['MOW', 'MLE', 540, 39900, 1, 'Airbus A350'],
+    ['LED', 'AER', 200, 5900, 2, 'Airbus A321neo'], ['LED', 'KZN', 120, 4600, 1, 'Airbus A320neo'], ['KZN', 'AER', 165, 5200, 1, 'Airbus A320neo'],
+    ['SVX', 'AER', 225, 6900, 1, 'Airbus A321neo'], ['LED', 'DXB', 345, 19900, 1, 'Airbus A350']
+  ];
+  var rnd = function (seed) { var x = Math.sin(seed) * 10000; return x - Math.floor(x); };
+  var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+  var hm = function (m) { m = ((m % 1440) + 1440) % 1440; return pad2(Math.floor(m / 60)) + ':' + pad2(m % 60); };
+  var dur = function (m) { return Math.floor(m / 60) + ' ч' + (m % 60 ? ' ' + m % 60 + ' мин' : ''); };
+  var money = function (n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'; };
+  var DAYN = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'], MON = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+  var dayKey = function (d) { return d.getFullYear() * 400 + d.getMonth() * 32 + d.getDate(); };
+  var flightsFor = function (date) {
+    var out = [], k = dayKey(date);
+    ROUTES.forEach(function (r, ri) {
+      [[r[0], r[1]], [r[1], r[0]]].forEach(function (dir, di) {
+        for (var j = 0; j < r[4]; j++) {
+          var sd = ri * 131 + di * 17 + j * 7 + k;
+          var dep = 360 + Math.floor((j + rnd(sd) * .8) * (960 / r[4])); dep -= dep % 5;
+          var num = 'AL ' + (100 + ri * 20 + di * 10 + j);
+          var price = Math.round(r[3] * (0.9 + rnd(sd + 3) * .7) / 100) * 100;
+          var seats = 1 + Math.floor(rnd(sd + 5) * 40);
+          out.push({ num: num, from: dir[0], to: dir[1], dep: dep, arr: dep + r[2], dur: r[2], price: price, seats: seats, plane: r[5], date: date });
+        }
+      });
+    });
+    return out.sort(function (a, b) { return a.dep - b.dep; });
+  };
+  var codesFor = function (q) {
+    q = q.toLowerCase().replace(/ё/g, 'е').trim(); if (!q) return [];
+    if (ALIAS[q]) return [ALIAS[q]];
+    // падежи: «Москвы», «Казани», «в Дубае» — сравниваем по основе слова
+    var stem = q.length > 4 ? q.slice(0, q.length - (q.length > 6 ? 2 : 1)) : q;
+    if (ALIAS[stem]) return [ALIAS[stem]];
+    var hit = function (w) { return w && (w.indexOf(q) === 0 || (stem.length >= 4 && w.indexOf(stem) === 0)); };
+    return Object.keys(CITIES).filter(function (c) { var n = CITIES[c].toLowerCase().replace(/ё/g, 'е'); return c.toLowerCase() === q || hit(n) || n.split(/[ ,-]+/).some(hit); });
+  };
+  var searchFlights = function (query, dayOffset) {
+    var words = String(query || '').split(/[\s—–\-→>,]+/).filter(function (w) { return w.length > 1; });
+    var groups = words.map(codesFor).filter(function (g) { return g.length; });
+    if (!groups.length) return null;
+    var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + (dayOffset || 0));
+    var nowMin = dayOffset ? -1 : (new Date().getHours() * 60 + new Date().getMinutes() + 40);
+    return flightsFor(d).filter(function (f) {
+      if (f.dep < nowMin) return false;
+      if (groups.length === 1) return groups[0].indexOf(f.from) > -1 || groups[0].indexOf(f.to) > -1;
+      return groups[0].indexOf(f.from) > -1 && groups[1].indexOf(f.to) > -1;
+    });
+  };
+  var dayLabel = function (off) { var d = new Date(); d.setDate(d.getDate() + off); return d.getDate() + ' ' + MON[d.getMonth()]; };
+
+  var fsQ = $('#fs-q'), fsRes = $('#fs-res'), fsDays = $('#fs-days'), fsBox = $('#fs'), day = 0, shown = 5;
+  if (fsQ) {
+    for (var di = 0; di < 7; di++) {
+      var dd = new Date(); dd.setDate(dd.getDate() + di);
+      fsDays.insertAdjacentHTML('beforeend', '<button type="button" role="tab" data-d="' + di + '"' + (di ? '' : ' class="on"') + '>' + (di === 0 ? 'Сегодня' : di === 1 ? 'Завтра' : DAYN[dd.getDay()]) + '<small>' + dd.getDate() + ' ' + MON[dd.getMonth()] + '</small></button>');
+    }
+    ['Москва', 'Сочи', 'Санкт-Петербург', 'Дубай', 'Мальдивы'].forEach(function (c) { $('#fs-pop').insertAdjacentHTML('beforeend', '<button type="button">' + c + '</button>'); });
+    var render = function () {
+      var q = fsQ.value; fsBox.classList.toggle('has', !!q);
+      if (!q.trim()) { fsRes.innerHTML = '<div class="fs-hint"><b>Начните вводить город</b>Например: Москва, Сочи или «Москва Дубай»</div>'; return; }
+      var list = searchFlights(q, day);
+      if (list === null) { fsRes.innerHTML = '<div class="fs-hint"><b>Пока не летаем в «' + q.replace(/[<>&]/g, '') + '»</b>Попробуйте: Москва, Сочи, Казань, Дубай, Стамбул, Мальдивы</div>'; return; }
+      if (!list.length) { fsRes.innerHTML = '<div class="fs-hint"><b>На ' + (day ? dayLabel(day) : 'сегодня') + ' рейсов больше нет</b>Выберите другую дату выше</div>'; return; }
+      fsRes.innerHTML = list.slice(0, shown).map(function (f, i) {
+        return '<article class="fl-c" style="animation-delay:' + (i * 40) + 'ms"><div class="fl-r"><div class="fl-t"><b>' + hm(f.dep) + '</b><small>' + CITIES[f.from] + '</small></div><div class="fl-line"><span>' + dur(f.dur) + '</span></div><div class="fl-t r"><b>' + hm(f.arr) + (f.arr >= 1440 ? '<sup>+1</sup>' : '') + '</b><small>' + CITIES[f.to] + '</small></div></div>' +
+          '<div class="fl-m"><em>' + f.num + '</em><em>' + f.plane + '</em>' + (f.seats <= 5 ? '<em class="hot">Осталось ' + f.seats + ' ' + (f.seats === 1 ? 'место' : f.seats < 5 ? 'места' : 'мест') + '</em>' : '<em>' + f.seats + ' мест</em>') + '</div>' +
+          '<div class="fl-p"><b><small>от </small>' + money(f.price) + '</b><button type="button" data-pick="' + i + '">Выбрать</button></div></article>';
+      }).join('') + (list.length > shown ? '<button type="button" class="fs-more" id="fs-more">Показать ещё ' + Math.min(5, list.length - shown) + ' из ' + (list.length - shown) + '</button>' : '');
+      fsRes._list = list;
+    };
+    var t; fsQ.addEventListener('input', function () { clearTimeout(t); shown = 5; t = setTimeout(render, 120); });
+    $('#fs-x').onclick = function () { fsQ.value = ''; render(); fsQ.focus(); };
+    $('#fs-pop').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; fsQ.value = b.textContent; shown = 5; render(); });
+    fsDays.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; day = +b.dataset.d; shown = 5; $$('button', fsDays).forEach(function (x) { x.classList.toggle('on', x === b); }); render(); });
+    fsRes.addEventListener('click', function (e) {
+      if (e.target.id === 'fs-more') { shown += 5; render(); return; }
+      var b = e.target.closest('[data-pick]'); if (!b) return;
+      var f = fsRes._list[+b.dataset.pick];
+      var dest = $('#lead input.fld'); if (dest) dest.value = CITIES[f.from] + ' — ' + CITIES[f.to] + ', ' + (day ? dayLabel(day) : 'сегодня') + ', ' + hm(f.dep) + ', рейс ' + f.num;
+      var a = document.createElement('a'); a.href = '#form'; document.body.appendChild(a); a.click(); a.remove();
+    });
+    render();
+  }
+
+  // ================= Онлайн-поддержка =================
+  var KB = 'Ты — оператор онлайн-поддержки авиакомпании Altitude Airlines на её сайте. Отвечай по-русски, коротко (1–4 предложения), дружелюбно, без markdown, без списков со звёздочками. ' +
+    'Факты о компании: летаем с 2014 года, 140 направлений, 42 самолёта (Airbus A320neo, A321neo, A350 и 6 бизнес-джетов), 98% рейсов вовремя, хаб — Шереметьево. ' +
+    'Классы: Эконом от 4 900 ₽ (ручная кладь 10 кг и багаж 23 кг включены, место у окна бесплатно), Комфорт от 9 900 ₽ (больше места, приоритетная посадка, горячее питание), Бизнес от 89 000 ₽ (кресло-кровать, бизнес-зал, меню от шефа), Частный джет от 390 000 ₽ (до 12 пассажиров, вылет через 4 часа после заявки). ' +
+    'Правила: цена фиксируется при покупке, скрытых сборов нет; возврат без штрафа в первые 24 часа после покупки, позже — по правилам тарифа; онлайн-регистрация открывается за 30 часов до вылета; багаж выдают за 15 минут после посадки; на борту Wi-Fi и горячее питание; животных до 8 кг с переноской можно в салон, больше — в багажном отсеке по заявке за 48 часов; дети до 2 лет без места летят за 10% тарифа; детские кресла и коляски бесплатно. ' +
+    'Новый маршрут: Москва — Мальдивы с 15 декабря 2026, 3 рейса в неделю, 9 часов в пути. ' +
+    'Контакты: телефон +7 (000) 000-00-00, почта hello@altitude.aero, офис Москва, Ленинградский пр., 37, поддержка 24/7. ' +
+    'Для вопросов о рейсах, расписании и ценах обязательно используй инструмент search_flights. Если не знаешь точного ответа — не выдумывай, предложи позвонить или оставить заявку в форме бронирования на сайте. На посторонние вопросы можно ответить кратко и вернуть разговор к перелётам.';
+  var sup = $('#sup'), log = $('#sup-log'), sin = $('#sup-in'), hist = [], busy = false, samplePromise = null;
+  var addMsg = function (who, text) { var m = document.createElement('div'); m.className = 'msg ' + who; m.textContent = text; log.appendChild(m); log.scrollTop = log.scrollHeight; return m; };
+  var fmtFlights = function (list, q, off) {
+    if (list === null) return 'Пока не летаем в этот город. Есть рейсы в Сочи, Санкт-Петербург, Казань, Дубай, Стамбул, Ереван и на Мальдивы.';
+    if (!list.length) return 'На ' + (off ? dayLabel(off) : 'сегодня') + ' рейсов по этому направлению больше нет — посмотрите завтра в поиске выше.';
+    return 'Ближайшие рейсы ' + (off ? 'на ' + dayLabel(off) : 'сегодня') + ':\n' + list.slice(0, 4).map(function (f) { return '• ' + hm(f.dep) + ' ' + CITIES[f.from] + ' → ' + CITIES[f.to] + ', ' + f.num + ', от ' + money(f.price) + (f.seats <= 5 ? ' (осталось ' + f.seats + ')' : ''); }).join('\n') + '\nВыбрать и купить можно в поиске рейсов на сайте.';
+  };
+  // запасной бот: если Claude недоступен
+  var faq = function (q) {
+    var t = q.toLowerCase().replace(/ё/g, 'е');
+    var words = t.split(/[^а-яa-z-]+/).filter(function (w) { return w.length > 2; });
+    var cityWords = words.filter(function (w) { return codesFor(w).length; });
+    if (cityWords.length && /рейс|билет|лет|расписан|когда|сколько стоит|цен|есть ли|найд|покаж/.test(t) || cityWords.length && words.length <= 3) {
+      var off = /завтра/.test(t) ? 1 : 0; var r = searchFlights(cityWords.join(' '), off); if (r && !r.length && !off) { off = 1; r = searchFlights(cityWords.join(' '), 1); }
+      return fmtFlights(r, cityWords.join(' '), off);
+    }
+    if (/багаж|чемодан|кладь|кг/.test(t)) return 'В каждом тарифе уже есть 10 кг ручной клади и 23 кг багажа — доплачивать не нужно. Багаж выдаём за 15 минут после посадки.';
+    if (/возврат|вернуть|отмен|сдать билет/.test(t)) return 'В первые 24 часа после покупки билет можно вернуть без штрафа, деньги придут в тот же день. Позже — по правилам тарифа, поможем по телефону +7 (000) 000-00-00.';
+    if (/регистрац/.test(t)) return 'Онлайн-регистрация открывается за 30 часов до вылета. Место у окна при этом выбирается бесплатно.';
+    if (/живот|собак|кош|питом/.test(t)) return 'Питомца до 8 кг вместе с переноской можно взять в салон. Если больше — перевезём в багажном отсеке, оставьте заявку за 48 часов.';
+    if (/ребен|дет|младен|коляс/.test(t)) return 'Дети до 2 лет без отдельного места летят за 10% тарифа. Коляски и детские кресла перевозим бесплатно, семьи с детьми садятся первыми.';
+    if (/бизнес/.test(t)) return 'Бизнес-класс — от 89 000 ₽: кресло-кровать, бизнес-зал в аэропорту и меню от шефа.';
+    if (/джет|частн/.test(t)) return 'Частный джет — от 390 000 ₽, до 12 пассажиров, вылет уже через 4 часа после заявки.';
+    if (/комфорт/.test(t)) return 'Комфорт — от 9 900 ₽: больше места для ног, приоритетная посадка и горячее питание.';
+    if (/эконом|дешев|цена|стоим|сколько/.test(t)) return 'Эконом — от 4 900 ₽, багаж 23 кг и место у окна уже включены. Цена фиксируется в момент покупки, без скрытых сборов.';
+    if (/мальдив/.test(t)) return 'Москва — Мальдивы: первый рейс 15 декабря 2026, 3 рейса в неделю, 9 часов без пересадок.';
+    if (/wi-?fi|интернет|еда|питан|кормят/.test(t)) return 'На борту есть Wi-Fi и горячее питание, а в бизнес-классе — меню от шефа.';
+    if (/опозд|задерж|вовремя/.test(t)) return '98% наших рейсов вылетают вовремя: в каждом базовом аэропорту стоит резервный самолёт.';
+    if (/телефон|позвон|связ|оператор|человек|почт/.test(t)) return 'Мы на связи 24/7: +7 (000) 000-00-00, hello@altitude.aero.';
+    if (/привет|здравств|добр/.test(t)) return 'Здравствуйте! Подскажу по рейсам, багажу, возврату и всему остальному. Что интересует?';
+    if (/спасиб/.test(t)) return 'Пожалуйста! Хорошего полёта ✈';
+    return 'Хороший вопрос — уточню у коллег. Быстрее всего ответят по телефону +7 (000) 000-00-00 или оставьте заявку в форме бронирования, перезвоним за 15 минут.';
+  };
+  var ask = function (q) {
+    q = q.trim(); if (!q || busy) return;
+    addMsg('me', q); hist.push({ role: 'user', content: q }); sin.value = ''; busy = true; $('#sup-f button').disabled = true;
+    var typing = addMsg('bot typing', 'Печатает');
+    var done = function (text) { typing.classList.remove('typing'); typing.textContent = text; hist.push({ role: 'assistant', content: text }); busy = false; $('#sup-f button').disabled = false; log.scrollTop = log.scrollHeight; };
+    var useFaq = function () { setTimeout(function () { done(faq(q)); }, 450); };
+    if (!samplePromise) samplePromise = (window.claude && claude.use) ? claude.use('sample').catch(function () { return null; }) : Promise.resolve(null);
+    samplePromise.then(function (sample) {
+      if (!sample) return useFaq();
+      var turns = hist.slice(-10).map(function (m) { return { role: m.role, content: m.content }; });
+      turns[0] = { role: 'user', content: KB + '\n\nСегодня ' + new Date().toLocaleDateString('ru-RU') + '.\n\nВопрос клиента: ' + turns[0].content };
+      if (turns[0].role !== 'user') turns.shift();
+      var started = false;
+      sample(turns, {
+        modelTier: 'quick', cache: false,
+        onText: function (e) { started = true; typing.classList.remove('typing'); typing.textContent = e.text; log.scrollTop = log.scrollHeight; },
+        tools: [{ name: 'search_flights', description: 'Ищет рейсы Altitude по городу или паре городов. query — города по-русски, например «Москва» или «Москва Сочи» (откуда, куда). day — через сколько дней (0 = сегодня, до 6).',
+          inputSchema: { type: 'object', properties: { query: { type: 'string' }, day: { type: 'integer', minimum: 0, maximum: 6 } }, required: ['query'] },
+          execute: function (inp) { var off = Math.max(0, Math.min(6, inp.day | 0)); var r = searchFlights(inp.query, off); if (r === null) return { error: 'город не найден', cities: Object.keys(CITIES).map(function (c) { return CITIES[c]; }) }; return { date: off ? dayLabel(off) : 'сегодня', flights: r.slice(0, 6).map(function (f) { return { flight: f.num, from: CITIES[f.from], to: CITIES[f.to], departs: hm(f.dep), arrives: hm(f.arr), duration: dur(f.dur), price_from_rub: f.price, seats_left: f.seats }; }) }; } }]
+      }).then(function (res) { done(res.text.trim() || faq(q)); }, function (e) {
+        if (e && e.text && started) return done(e.text);
+        if (e && e.code === 'not_granted') samplePromise = Promise.resolve(null);
+        useFaq();
+      });
+    });
+  };
+  var QUICK = ['Рейсы из Москвы сегодня', 'Сколько багажа можно?', 'Как вернуть билет?', 'Можно с собакой?', 'Летите на Мальдивы?'];
+  QUICK.forEach(function (q) { $('#sup-q').insertAdjacentHTML('beforeend', '<button type="button">' + q + '</button>'); });
+  $('#sup-q').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
+  $('#sup-f').addEventListener('submit', function (e) { e.preventDefault(); ask(sin.value); });
+  var openSup = function (on) { document.body.classList.toggle('sup-open', on); if (on && !log.children.length) addMsg('bot', 'Здравствуйте! Я онлайн-помощник Altitude. Спросите про рейсы, цены, багаж, возврат — отвечу сразу.'); if (on && matchMedia('(min-width: 1024px)').matches) setTimeout(function () { sin.focus(); }, 300); };
+  $('#sup-btn').onclick = function () { openSup(true); };
+  $('#sup-x').onclick = function () { openSup(false); };
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') openSup(false); });
   // Переход по любой ссылке на раздел (#...): экран на миг закрывается шторкой, страница мгновенно
   // перескакивает, браузер спокойно дорисовывает новый раздел — и шторка растворяется. Без рывков.
   var curtain = document.createElement('div'); curtain.className = 'curtain'; document.body.appendChild(curtain);
