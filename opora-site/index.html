@@ -400,6 +400,30 @@
     *, *::before, *::after { transition: none !important; animation: none !important; }
     [data-r] { opacity: 1; transform: none; clip-path: none; }
   }
+
+  /* ===== Тёплое свечение на всех тёмных блоках ===== */
+  .dark.rounded, .cta { position: relative; overflow: hidden; isolation: isolate; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06); }
+  .dark.rounded::before, .cta::before, .dark.rounded::after, .cta::after { content: ''; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%; will-change: transform; }
+  /* основное пятно — сверху справа, мягкое, в три слоя */
+  .dark.rounded::before, .cta::before { width: 900px; height: 700px; right: -320px; top: -360px;
+    background: radial-gradient(closest-side, rgba(255, 140, 60, .42), rgba(255, 106, 26, .22) 38%, rgba(255, 90, 10, .08) 62%, transparent 100%);
+    animation: glowA 16s ease-in-out infinite alternate; }
+  /* второе пятно — снизу слева, слабее, для глубины */
+  .dark.rounded::after, .cta::after { width: 700px; height: 560px; left: -300px; bottom: -340px;
+    background: radial-gradient(closest-side, rgba(255, 110, 30, .22), rgba(255, 90, 10, .08) 55%, transparent 100%);
+    animation: glowB 20s ease-in-out infinite alternate; }
+  @keyframes glowA { to { transform: translate3d(-120px, 70px, 0) scale(1.12); } }
+  @keyframes glowB { to { transform: translate3d(110px, -60px, 0) scale(1.08); } }
+  @media (max-width: 899px) {
+    .dark.rounded::before, .cta::before { width: 560px; height: 480px; right: -240px; top: -250px; }
+    .dark.rounded::after, .cta::after { width: 460px; height: 400px; left: -230px; bottom: -230px; }
+  }
+  /* тёмные карточки внутри: еле заметный тёплый отсвет в углу */
+  .st::after, .bx::after { content: ''; position: absolute; right: -80px; top: -90px; width: 260px; height: 220px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(255, 106, 26, .16), transparent); }
+  .st, .bx { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+  .frm, .opt { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+  @media (prefers-reduced-motion: reduce) { .dark.rounded::before, .cta::before, .dark.rounded::after, .cta::after { animation: none; } }
 </style>
 </head>
 <body>
@@ -565,8 +589,7 @@
   </div>
 </section>
 <section class="sec dark rounded" style="padding-top:18px;position:relative;overflow:hidden">
-  <div class="glow" style="left:-160px;top:-120px"></div>
-  <div class="wrap prj" data-r>
+    <div class="wrap prj" data-r>
     <div class="prj__main" id="prjMain">
       <img src="img/dusk2.webp" alt="" id="prjImg">
       <div class="prj__glass"><div class="glass"><b id="prjA">210 м²</b><small>Площадь</small></div><div class="glass"><b id="prjT">7 мес</b><small>Срок</small></div></div>
@@ -606,7 +629,6 @@
 <section class="sec" id="contact" style="padding-top:0">
   <div class="wrap">
     <div class="cta" data-r>
-      <div class="glow"></div>
       <div class="cta__g">
         <div>
           <span class="tag"><i></i>Расчёт за 1 день</span>
