@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ОПОРА: первый экран</title>
+<meta name="description" content="Семь вариантов первого экрана ОПОРЫ для телефона.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3f0; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13, 13, 13, .09);
+    --or: #ff6a1a; --or2: #ff9248; --or-soft: #fff0e6;
+    --f: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(.2, .75, .2, 1); --spring: cubic-bezier(.34, 1.4, .64, 1);
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  h1 { margin: 0; font-weight: 700; letter-spacing: -.05em; line-height: .98; }
+  p { margin: 0; }
+
+  /* ===== Шапка демо ===== */
+  .top { max-width: 1320px; margin: 0 auto; padding: 22px 18px 6px; }
+  .top .lg { display: inline-flex; align-items: center; gap: 10px; font: 800 18px var(--f); letter-spacing: -.04em; }
+  .top .lg b, .nv .lg b { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--ink); }
+  .top .lg svg, .nv .lg svg { width: 18px; height: 18px; fill: var(--or); }
+  .top h2 { margin: 26px 0 10px; font: 700 clamp(30px, 8vw, 56px)/1 var(--f); letter-spacing: -.05em; }
+  .top h2 em { font-style: normal; color: var(--or); }
+  .top p { max-width: 560px; color: var(--ink2); font-size: 14.5px; }
+  .jump { display: flex; gap: 8px; overflow-x: auto; margin: 18px -18px 0; padding: 0 18px 6px; scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump a { flex: none; height: 38px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13px var(--f); }
+  .jump a b { color: var(--or); margin-right: 6px; }
+
+  .list { max-width: 1320px; margin: 0 auto; padding: 10px 0 40px; display: grid; gap: 34px; }
+  .it__h { padding: 0 18px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .it__h > b { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--or); color: #fff; font: 800 15px var(--f); }
+  .it__h span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .it__h small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+  .rp { margin-left: auto; flex: none; height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font: 600 12px var(--f); display: inline-flex; align-items: center; gap: 6px; }
+  .rp svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+  .end { padding: 10px 18px 70px; text-align: center; font-size: 13px; color: var(--mute); }
+
+  /* ===== Экран-телефон ===== */
+  .ph { position: relative; height: max(640px, min(880px, calc(var(--vh, 1vh) * 100 - 16px))); margin: 0 8px; border-radius: 30px; overflow: hidden; isolation: isolate; background: #fff; }
+  @media (min-width: 900px) {
+    .list { grid-template-columns: repeat(auto-fill, 400px); justify-content: center; gap: 56px 34px; }
+    .it__h { padding: 0 6px 14px; min-height: 118px; }
+    .ph { width: 390px; height: 820px; margin: 0 auto; border-radius: 44px; box-shadow: 0 0 0 10px #111, 0 0 0 11px #2a2a2a, 0 40px 80px rgba(0, 0, 0, .18); }
+    .list > .it { padding-top: 6px; }
+  }
+
+  /* Общие детали внутри экрана */
+  .nv { position: absolute; z-index: 20; left: 0; right: 0; top: 0; height: 70px; padding: 14px 14px 0 18px; display: flex; align-items: center; gap: 8px; }
+  .nv .lg { display: inline-flex; align-items: center; gap: 9px; font: 800 17px var(--f); letter-spacing: -.04em; }
+  .nv .sp { flex: 1; }
+  .nv .ci { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .08); }
+  .nv .ci svg { width: 19px; height: 19px; stroke: var(--ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .nv .bg { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); }
+  .nv .bg i, .nv .bg i::before { display: block; width: 16px; height: 2px; border-radius: 2px; background: #fff; }
+  .nv .bg i { position: relative; transform: translateY(-3px); }
+  .nv .bg i::before { content: ''; position: absolute; top: 6px; width: 11px; }
+  .nv--w .lg { color: #fff; }
+  .nv--w .lg b { background: #fff; }
+  .nv--w .bg { background: #fff; }
+  .nv--w .bg i, .nv--w .bg i::before { background: var(--ink); }
+
+  .btn { position: relative; display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; height: 58px; padding: 0 7px 0 24px; border-radius: 999px; background: var(--or); color: #fff; font: 700 15.5px var(--f); letter-spacing: -.01em; box-shadow: 0 14px 30px rgba(255, 106, 26, .35); transition: transform .2s; }
+  .btn:active { transform: scale(.97); }
+  .btn i { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #fff; }
+  .btn i svg { width: 18px; height: 18px; stroke: var(--or); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .btn--k { background: var(--ink); box-shadow: 0 14px 30px rgba(0, 0, 0, .25); }
+  .btn--k i svg { stroke: var(--ink); }
+  .btn--full { width: 100%; }
+  .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); justify-content: center; padding: 0 22px; }
+  em { font-style: normal; }
+
+  /* Появление: [data-a] поднимается, когда экран получает .go */
+  .ph [data-a] { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  .ph.go [data-a] { opacity: 1; transform: none; }
+  .ln { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+  .ln > span { display: block; transform: translate3d(0, 105%, 0); transition: transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  .go .ln > span { transform: none; }
+
+  /* ===== 1. Дом-окно ===== */
+  .v1 { background: #fff; }
+  .v1__win { position: absolute; left: 14px; right: 14px; top: 76px; height: 50%; clip-path: polygon(50% 0, 100% 30%, 100% 100%, 0 100%, 0 30%); transform: scale(.55); transform-origin: 50% 100%; transition: transform 1.4s var(--ease); }
+  .v1__win img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; transform: scale(1.35); transition: transform 2s var(--ease); }
+  .v1.go .v1__win, .v1.go .v1__win img { transform: none; }
+  .v1__chip { position: absolute; z-index: 2; left: 26px; top: calc(76px + 50% - 58px); display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px 0 6px; border-radius: 999px; background: #fff; font: 600 12.5px var(--f); box-shadow: 0 10px 24px rgba(0, 0, 0, .12); }
+  .v1__chip b { height: 32px; padding: 0 10px; display: grid; place-items: center; border-radius: 999px; background: var(--or-soft); color: var(--or); font: 800 14px var(--f); }
+  .v1__tx { position: absolute; left: 20px; right: 20px; bottom: 92px; }
+  .v1 h1 { font-size: clamp(36px, 10.8vw, 44px); }
+  .v1 h1 em { color: var(--or); }
+  .v1__tx p { margin-top: 14px; color: var(--ink2); font-size: 14.5px; max-width: 300px; }
+  .v1__bar { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; gap: 8px; }
+  .v1__bar .btn { flex: 1; }
+  .v1__bar .tel { flex: none; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); }
+  .v1__bar .tel svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ===== 2. От участка до ключей (истории) ===== */
+  .v2 { background: #111; color: #fff; }
+  .v2__s { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity .9s var(--ease); }
+  .v2__s img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+  .v2__s.on { opacity: 1; }
+  .v2__s.on img { transform: scale(1); transition: transform 5s linear; }
+  .v2::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, 0) 26%, rgba(0, 0, 0, .05) 45%, rgba(0, 0, 0, .82) 82%); pointer-events: none; }
+  .v2__pr { position: absolute; z-index: 21; left: 18px; right: 18px; top: 8px; display: flex; gap: 5px; }
+  .v2__pr i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .3); overflow: hidden; }
+  .v2__pr i b { display: block; height: 100%; background: #fff; transform: scaleX(0); transform-origin: left; }
+  .v2__pr i.done b { transform: scaleX(1); }
+  .v2__pr i.on b { animation: fillp var(--t, 4.5s) linear forwards; }
+  @keyframes fillp { to { transform: scaleX(1); } }
+  .v2 .nv { top: 6px; }
+  .v2__tap { position: absolute; inset: 80px 0 45%; z-index: 5; display: flex; }
+  .v2__tap button { flex: 1; }
+  .v2__bt { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 20px 18px; }
+  .v2__st { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px 0 6px; border-radius: 999px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .22); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 600 12.5px var(--f); }
+  .v2__st b { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--or); }
+  .v2__st b svg { width: 13px; height: 13px; stroke: #fff; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .v2__st span { display: inline-block; transition: opacity .3s, transform .3s; }
+  .v2__st span.sw { opacity: 0; transform: translateY(6px); }
+  .v2 h1 { margin-top: 14px; font-size: clamp(34px, 10.2vw, 42px); }
+  .v2 h1 em { color: var(--or2); }
+  .v2__bt p { margin-top: 12px; color: rgba(255, 255, 255, .78); font-size: 14px; max-width: 310px; }
+  .v2__bt .btn { margin-top: 20px; }
+
+  /* ===== 3. Чертёж оживает ===== */
+  .v3 { background: #fff; background-image: linear-gradient(rgba(13, 13, 13, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(13, 13, 13, .055) 1px, transparent 1px); background-size: 26px 26px; background-position: -1px -1px; }
+  .v3::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(120% 60% at 50% 40%, transparent 30%, #fff 85%); }
+  .v3__tx { position: absolute; left: 20px; right: 20px; top: 92px; }
+  .v3__tg { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--or-soft); color: var(--or); font: 700 11.5px var(--f); letter-spacing: .02em; }
+  .v3 h1 { margin-top: 14px; font-size: clamp(32px, 9.3vw, 40px); }
+  .v3 h1 em { color: var(--or); }
+  .v3__art { position: absolute; left: -6px; right: -6px; bottom: 122px; aspect-ratio: 300 / 230; }
+  .v3__art svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .v3__art .dr { fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease), stroke .8s 2.6s; transition-delay: var(--d, 0s), 2.6s; }
+  .v3__art .dm { stroke: var(--or); stroke-width: 1; }
+  .v3__art .gr { stroke-width: 1.8; }
+  .v3.go .dr { stroke-dashoffset: 0; }
+  .v3.go .dr.fade { stroke: rgba(255, 255, 255, .9); }
+  .v3__ph { position: absolute; inset: 0; clip-path: polygon(50% 8.7%, 90% 39.1%, 83.33% 39.1%, 83.33% 87%, 16.67% 87%, 16.67% 39.1%, 10% 39.1%); overflow: hidden; }
+  .v3__ph div { position: absolute; inset: 0; transform: translate3d(0, 101%, 0); transition: transform 1.3s var(--ease) 1.7s; }
+  .v3__ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; transform: scale(1.25) translate3d(0, -14%, 0); transition: transform 1.8s var(--ease) 1.7s; }
+  .v3.go .v3__ph div { transform: none; }
+  .v3.go .v3__ph img { transform: scale(1.25); }
+  .v3__bt { position: absolute; left: 14px; right: 14px; bottom: 14px; display: grid; gap: 10px; }
+  .v3__bt p { padding: 0 6px; font: 500 12.5px/1.45 var(--f); color: var(--ink2); }
+
+  /* ===== 4. Нижняя шторка ===== */
+  .v4 { background: #1b1a19; }
+  .v4__img { position: absolute; left: 0; right: 0; top: 0; height: 62%; z-index: -1; }
+  .v4__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; transform: scale(1.15); transition: transform 2.2s var(--ease); }
+  .v4.go .v4__img img { transform: scale(1.02); }
+  .v4__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .45), rgba(0, 0, 0, 0) 30%); }
+  .v4__sh { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 18px 16px; border-radius: 30px 30px 0 0; background: #fff; transform: translate3d(0, 100%, 0); transition: transform 1.1s var(--spring) .35s; touch-action: none; }
+  .v4.go .v4__sh { transform: translate3d(0, var(--dy, 0px), 0); }
+  .v4__sh.drag { transition: none; }
+  .v4__gr { width: 40px; height: 5px; border-radius: 5px; background: #dcd8d3; margin: 0 auto 16px; }
+  .v4 h1 { font-size: clamp(30px, 8.6vw, 36px); }
+  .v4 h1 em { color: var(--or); }
+  .v4__f { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .v4__f div { padding: 12px 10px; border-radius: 18px; background: var(--bg); }
+  .v4__f b { display: block; font: 700 16px/1.1 var(--f); letter-spacing: -.03em; }
+  .v4__f b small { font-size: 11px; font-weight: 600; }
+  .v4__f span { display: block; margin-top: 4px; font: 500 11px/1.3 var(--f); color: var(--mute); }
+  .v4__f div:first-child { background: var(--or); color: #fff; }
+  .v4__f div:first-child span { color: rgba(255, 255, 255, .8); }
+  .v4__bt { margin-top: 14px; display: grid; grid-template-columns: 1fr 58px; gap: 8px; }
+  .v4__bt .tel { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); }
+  .v4__bt .tel svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ===== 5. Оранжевый плакат ===== */
+  .v5 { background: var(--or); color: var(--ink); }
+  .v5::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(90% 60% at 100% 0%, #ff9a52 0%, transparent 60%), radial-gradient(80% 50% at 0% 100%, #f05400 0%, transparent 70%); }
+  .v5__w { position: absolute; left: 16px; right: 16px; top: 86px; font: 800 clamp(78px, 24.5vw, 104px)/.84 var(--f); letter-spacing: -.07em; text-transform: uppercase; }
+  .v5__w .ln:nth-child(2) { color: #fff; }
+  .v5__card { position: absolute; z-index: 2; right: 16px; top: 47%; width: 54%; aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 50px rgba(120, 40, 0, .35); transform: translate3d(40px, 40px, 0) rotate(14deg); opacity: 0; transition: transform 1.2s var(--spring) .55s, opacity .6s .55s; }
+  .v5.go .v5__card { transform: rotate(5deg); opacity: 1; }
+  .v5__card img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+  .v5__stk { position: absolute; z-index: 3; left: 22px; top: calc(47% + 22px); width: 112px; height: 112px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; transform: scale(0) rotate(-90deg); transition: transform .9s var(--spring) 1s; }
+  .v5.go .v5__stk { transform: none; }
+  .v5__stk svg.t { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 14s linear infinite; }
+  .v5__stk svg.t text { font: 700 10.5px var(--f); letter-spacing: .2em; fill: #fff; }
+  .v5__stk svg.a { width: 28px; height: 28px; stroke: var(--or); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .v5__bt { position: absolute; left: 16px; right: 16px; bottom: 16px; }
+  .v5__bt p { margin: 0 4px 14px; font: 600 14px/1.4 var(--f); max-width: 170px; }
+  .v5 .nv .ci { background: rgba(255, 255, 255, .9); }
+
+  /* ===== 6. Калькулятор сразу ===== */
+  .v6 { background: #121212; color: #fff; }
+  .v6__img { position: absolute; inset: 0 0 30% 0; z-index: -1; }
+  .v6__img img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; transform: scale(1.1); transition: transform 2.2s var(--ease); }
+  .v6.go .v6__img img { transform: none; }
+  .v6__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .1) 30%, rgba(18, 18, 18, .55) 62%, #121212 100%); }
+  .v6__tx { position: absolute; left: 20px; right: 20px; top: 96px; }
+  .v6 h1 { font-size: clamp(36px, 11vw, 46px); }
+  .v6 h1 em { color: var(--or2); }
+  .v6__tx p { margin-top: 12px; font-size: 14px; color: rgba(255, 255, 255, .8); max-width: 270px; }
+  .v6__c { position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 18px 16px 12px; border-radius: 26px; background: #fff; color: var(--ink); }
+  .v6__r { display: flex; justify-content: space-between; align-items: baseline; }
+  .v6__r small { font: 600 12px var(--f); color: var(--mute); }
+  .v6__r b { font: 700 22px var(--f); letter-spacing: -.04em; }
+  .v6__tabs { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 999px; background: var(--bg); position: relative; }
+  .v6__tabs button { position: relative; z-index: 1; height: 38px; border-radius: 999px; font: 600 12.5px var(--f); color: var(--ink2); transition: color .3s; }
+  .v6__tabs button.on { color: #fff; }
+  .v6__tabs i { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 16px) / 3); border-radius: 999px; background: var(--ink); transform: translateX(calc(var(--k, 0) * (100% + 4px))); transition: transform .45s var(--spring); }
+  .v6 input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 34px; margin: 10px 0 0; background: transparent; }
+  .v6 input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--or) var(--pc, 40%), #ece8e3 var(--pc, 40%)); }
+  .v6 input[type=range]::-moz-range-track { height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--or) var(--pc, 40%), #ece8e3 var(--pc, 40%)); }
+  .v6 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; margin-top: -12px; border-radius: 50%; background: #fff; border: 7px solid var(--or); box-shadow: 0 6px 16px rgba(255, 106, 26, .4); }
+  .v6 input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 7px solid var(--or); }
+  .v6__sum { margin-top: 6px; padding: 12px 14px; border-radius: 18px; background: var(--or-soft); display: flex; justify-content: space-between; align-items: center; }
+  .v6__sum small { font: 600 11.5px/1.3 var(--f); color: var(--ink2); }
+  .v6__sum b { font: 800 22px var(--f); letter-spacing: -.04em; color: var(--or); font-variant-numeric: tabular-nums; }
+  .v6__c .btn { margin-top: 10px; }
+  .v6__c .ft { margin-top: 8px; text-align: center; font: 500 11px var(--f); color: var(--mute); }
+
+  /* ===== 7. Буквы-окна ===== */
+  .v7 { background: #000; color: #fff; }
+  .v7__img { position: absolute; inset: 0; z-index: -2; }
+  .v7__img img { width: 100%; height: 100%; object-fit: cover; object-position: 46% 50%; transform: scale(1.25); transition: transform 2.6s var(--ease) .9s; }
+  .v7.go .v7__img img { transform: scale(1); }
+  .v7__mask { position: absolute; inset: 0; z-index: 3; background: #0b0b0b; mix-blend-mode: multiply; display: grid; place-items: center; transform-origin: 39% 50%; pointer-events: none; }
+  .v7__mask span { color: #fff; font: 800 clamp(96px, 30vw, 124px)/.85 var(--f); letter-spacing: -.07em; writing-mode: vertical-rl; transform: rotate(180deg); text-orientation: mixed; }
+  .v7.go .v7__mask { animation: zoomout 1.5s cubic-bezier(.7, 0, .2, 1) 1s forwards; }
+  @keyframes zoomout { 0% { transform: scale(1); opacity: 1; } 80% { opacity: 1; } 100% { transform: scale(9); opacity: 0; } }
+  .v7::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, .5) 0%, transparent 25%, transparent 45%, rgba(0, 0, 0, .85) 85%); }
+  .v7 .nv, .v7__bt { opacity: 0; transition: opacity .8s 2.2s; }
+  .v7.go .nv, .v7.go .v7__bt { opacity: 1; }
+  .v7__bt { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 20px 18px; }
+  .v7 h1 { font-size: clamp(34px, 10.2vw, 42px); }
+  .v7 h1 em { color: var(--or2); }
+  .v7__bt p { margin-top: 12px; color: rgba(255, 255, 255, .8); font-size: 14px; max-width: 300px; }
+  .v7__bt .row { margin-top: 20px; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .v7 .wb { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .25); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .v7 .wb svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ph *, .ph *::before, .ph *::after { transition: none !important; animation: none !important; }
+    .ph [data-a], .ln > span, .v1__win, .v1__win img, .v3__ph div, .v4__sh, .v5__card, .v5__stk { opacity: 1 !important; transform: none !important; }
+    .v3 .dr { stroke-dashoffset: 0 !important; }
+    .v7__mask { display: none; }
+    .v7 .nv, .v7__bt { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span>
+  <h2>Первый экран<br>для <em>телефона</em></h2>
+  <p>Семь разных подходов, каждый в реальном размере экрана. Анимация запускается, когда экран доходит до вас; кнопка «Ещё раз» повторит её. Кнопка «Рассчитать дом» всегда в зоне большого пальца.</p>
+  <nav class="jump"><a href="#v1"><b>1</b>Дом-окно</a><a href="#v2"><b>2</b>Истории</a><a href="#v3"><b>3</b>Чертёж</a><a href="#v4"><b>4</b>Шторка</a><a href="#v5"><b>5</b>Плакат</a><a href="#v6"><b>6</b>Калькулятор</a><a href="#v7"><b>7</b>Буквы-окна</a></nav>
+</header>
+
+<main class="list">
+  <!-- 1 -->
+  <section class="it" id="v1">
+    <div class="it__h"><b>1</b><div><span>Дом-окно</span><small>Светлый экран. Фото вырезано силуэтом дома (как в логотипе) и вырастает из земли. Снизу закреплены кнопка и звонок.</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v1">
+      <div class="nv"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <div class="v1__win"><img src="img/hero.webp" alt="Современный частный дом вечером"></div>
+      <div class="v1__chip" data-a style="--d:1.2s"><b>240+</b>домов сдали семьям</div>
+      <div class="v1__tx">
+        <h1><span class="ln"><span style="--d:.5s">Строим дома,</span></span><span class="ln"><span style="--d:.6s">в которых</span></span><span class="ln"><span style="--d:.7s"><em>хочется жить</em></span></span></h1>
+        <p data-a style="--d:.9s">Под ключ в Москве и области. Цена в договоре не меняется.</p>
+      </div>
+      <div class="v1__bar" data-a style="--d:1.05s"><a class="btn" href="#">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a><a class="tel" href="#" aria-label="Позвонить"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="it" id="v2">
+    <div class="it__h"><b>2</b><div><span>От участка до ключей</span><small>Как сторис в телефоне: участок, фундамент, готовый дом. Листаются сами, тапом влево и вправо можно переключать.</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v2">
+      <div class="v2__s on"><img src="img/plot.webp" alt="Пустой участок"></div>
+      <div class="v2__s"><img src="img/found.webp" alt="Готовый фундамент"></div>
+      <div class="v2__s"><img src="img/hero.webp" alt="Готовый дом"></div>
+      <div class="v2__pr"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+      <div class="nv nv--w"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <div class="v2__tap"><button aria-label="Назад" data-prev></button><button aria-label="Дальше" data-next></button></div>
+      <div class="v2__bt">
+        <span class="v2__st" data-a style="--d:.3s"><b><svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg></b><span data-stage>Участок</span></span>
+        <h1><span class="ln"><span style="--d:.4s">От пустого участка</span></span><span class="ln"><span style="--d:.5s">до <em>ключей</em></span></span></h1>
+        <p data-a style="--d:.7s">Проект, фундамент, коробка и отделка у одной команды. Фотоотчёт каждую неделю.</p>
+        <a class="btn btn--full" href="#" data-a style="--d:.85s">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="it" id="v3">
+    <div class="it__h"><b>3</b><div><span>Чертёж оживает</span><small>На миллиметровке сам рисуется чертёж дома, потом внутри него проявляется настоящее фото. Сразу понятно: от проекта до готового дома.</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v3">
+      <div class="nv"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <div class="v3__tx">
+        <span class="v3__tg" data-a style="--d:.2s">Проект, смета и стройка</span>
+        <h1><span class="ln"><span style="--d:.3s">Рисуем, считаем</span></span><span class="ln"><span style="--d:.4s">и <em>строим</em> ваш дом</span></span></h1>
+      </div>
+      <div class="v3__art">
+        <div class="v3__ph"><div><img src="img/hero.webp" alt="Дом по проекту"></div></div>
+        <svg viewBox="0 0 300 230" aria-hidden="true">
+          <path class="dr gr" pathLength="1" style="--d:.2s" d="M6 200H294"/>
+          <path class="dr fade" pathLength="1" style="--d:.45s" d="M50 200V90H250V200"/>
+          <path class="dr fade" pathLength="1" style="--d:.7s" d="M30 90 150 20 270 90"/>
+          <path class="dr fade" pathLength="1" style="--d:.95s" d="M72 112h42v34H72zM186 112h42v34h-42zM132 140h36v60h-36z"/>
+          <path class="dr fade" pathLength="1" style="--d:1.1s" d="M93 112v34M207 112v34M128 62h44v18h-44z"/>
+          <path class="dr dm" pathLength="1" style="--d:1.3s" d="M50 216H250M50 211v10M250 211v10"/>
+          <path class="dr dm" pathLength="1" style="--d:1.4s" d="M282 20V200M277 20h10M277 200h10"/>
+        </svg>
+      </div>
+      <div class="v3__bt">
+        <p data-a style="--d:1.8s">Смета за 1 день, построчно. Цена в договоре не меняется.</p>
+        <a class="btn btn--full" href="#" data-a style="--d:1.9s">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="it" id="v4">
+    <div class="it__h"><b>4</b><div><span>Нижняя шторка</span><small>Как в приложениях iPhone: фото дома сверху, снизу выезжает белая шторка с главным. Её можно потянуть пальцем, она пружинит.</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v4">
+      <div class="v4__img"><img src="img/dusk2.webp" alt="Дом с панорамными окнами вечером"></div>
+      <div class="nv nv--w"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <div class="v4__sh">
+        <div class="v4__gr"></div>
+        <h1><span class="ln"><span style="--d:.9s">Ваш дом под ключ</span></span><span class="ln"><span style="--d:1s">от <em>5 месяцев</em></span></span></h1>
+        <div class="v4__f" data-a style="--d:1.15s">
+          <div><b>38 000<small> ₽</small></b><span>от, за м²</span></div>
+          <div><b>10 лет</b><span>гарантии</span></div>
+          <div><b>240+</b><span>домов сдали</span></div>
+        </div>
+        <div class="v4__bt" data-a style="--d:1.25s"><a class="btn" href="#">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a><a class="tel" href="#" aria-label="Позвонить"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="it" id="v5">
+    <div class="it__h"><b>5</b><div><span>Оранжевый плакат</span><small>Смелый вариант: весь экран оранжевый, огромные буквы «Дом под ключ», фото на наклонной карточке и вращающийся значок «Смета за 1 день».</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v5">
+      <div class="nv"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <h1 class="v5__w"><span class="ln"><span style="--d:.2s">Дом</span></span><span class="ln"><span style="--d:.32s">под</span></span><span class="ln"><span style="--d:.44s">ключ</span></span></h1>
+      <div class="v5__card"><img src="img/forest.webp" alt="Дом среди деревьев"></div>
+      <div class="v5__stk"><svg class="t" viewBox="0 0 112 112" aria-hidden="true"><defs><path id="cp" d="M56 56m-40 0a40 40 0 1 1 80 0a40 40 0 1 1-80 0"/></defs><text><textPath href="#cp">СМЕТА ЗА 1 ДЕНЬ • СМЕТА ЗА 1 ДЕНЬ •</textPath></text></svg><svg class="a" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      <div class="v5__bt">
+        <p data-a style="--d:.9s">Москва и область. Цена в договоре не меняется.</p>
+        <a class="btn btn--k btn--full" href="#" data-a style="--d:1s">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="it" id="v6">
+    <div class="it__h"><b>6</b><div><span>Калькулятор сразу</span><small>Человек с первого экрана видит цену своего дома: выбирает этажность и двигает площадь, сумма считается от базовой цены за м².</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v6">
+      <div class="v6__img"><img src="img/villa.webp" alt="Одноэтажный дом с бассейном"></div>
+      <div class="nv nv--w"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <div class="v6__tx">
+        <h1><span class="ln"><span style="--d:.2s">Сколько стоит</span></span><span class="ln"><span style="--d:.3s">ваш <em>дом?</em></span></span></h1>
+        <p data-a style="--d:.5s">Посчитайте за 10 секунд. Точную смету инженер пришлёт за 1 день.</p>
+      </div>
+      <div class="v6__c" data-a style="--d:.6s">
+        <div class="v6__tabs" data-tabs><i></i><button class="on" data-k="0">1 этаж</button><button data-k="1">Мансарда</button><button data-k="2">2 этажа</button></div>
+        <div class="v6__r" style="margin-top:14px"><small>Площадь дома</small><b><span data-area>150</span> м²</b></div>
+        <input type="range" min="60" max="400" step="5" value="150" data-range aria-label="Площадь дома">
+        <div class="v6__sum"><small>Ориентировочно,<br>под ключ</small><b>от <span data-sum>5 700 000</span> ₽</b></div>
+        <a class="btn btn--full" href="#">Получить точную смету<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+        <p class="ft">Базовая цена от 38 000 ₽ за м²</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="it" id="v7">
+    <div class="it__h"><b>7</b><div><span>Буквы-окна</span><small>Сначала чёрный экран и слово ОПОРА, сквозь буквы виден дом. Потом камера «влетает» в буквы и открывается всё фото. Эффектный вход.</small></div><button class="rp" data-rp><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Ещё раз</button></div>
+    <div class="ph v7">
+      <div class="v7__img"><img src="img/dusk2.webp" alt="Дом вечером"></div>
+      <div class="v7__mask" aria-hidden="true"><span>ОПОРА</span></div>
+      <div class="nv nv--w"><span class="lg"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="sp"></span><span class="bg"><i></i></span></div>
+      <div class="v7__bt">
+        <h1>Строим дома,<br>в которых <em>хочется жить</em></h1>
+        <p>Частные дома под ключ в Москве и области. Цена в договоре не меняется.</p>
+        <div class="row"><a class="btn" href="#">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a><a class="wb" href="#" aria-label="Позвонить"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a></div>
+      </div>
+    </div>
+  </section>
+</main>
+<p class="end">Выберите номер, и я поставлю его на сайт. Можно смешивать, например «шторка из 4 + истории из 2».</p>
+
+<script>
+(function () {
+  // фиксируем высоту экрана, чтобы панель браузера не дёргала вёрстку
+  document.documentElement.style.setProperty('--vh', innerHeight * .01 + 'px');
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Истории (вариант 2)
+  var v2 = document.querySelector('.v2'), sl = $$('.v2__s', v2), bars = $$('.v2__pr i', v2), st = v2.querySelector('[data-stage]');
+  var names = ['Участок', 'Фундамент', 'Ваш дом'], cur = 0, tm = null, T = 4500;
+  function show(n) {
+    cur = (n + sl.length) % sl.length;
+    sl.forEach(function (s, i) { s.classList.toggle('on', i === cur); });
+    bars.forEach(function (b, i) { b.classList.remove('on'); b.classList.toggle('done', i < cur); });
+    void bars[cur].offsetWidth; bars[cur].classList.add('on');
+    st.classList.add('sw'); setTimeout(function () { st.textContent = names[cur]; st.classList.remove('sw'); }, 250);
+    clearTimeout(tm); if (!reduce) tm = setTimeout(function () { show(cur + 1); }, T);
+  }
+  v2.querySelector('[data-prev]').onclick = function () { show(cur - 1); };
+  v2.querySelector('[data-next]').onclick = function () { show(cur + 1); };
+
+  // Шторка (вариант 4): тянется пальцем и пружинит обратно
+  var sh = document.querySelector('.v4__sh'), y0 = null;
+  sh.addEventListener('pointerdown', function (e) { y0 = e.clientY; sh.classList.add('drag'); sh.setPointerCapture(e.pointerId); });
+  sh.addEventListener('pointermove', function (e) { if (y0 === null) return; var d = e.clientY - y0; d = d < 0 ? -Math.sqrt(-d) * 5 : Math.sqrt(d) * 6; sh.style.setProperty('--dy', d + 'px'); });
+  var up = function () { if (y0 === null) return; y0 = null; sh.classList.remove('drag'); sh.style.setProperty('--dy', '0px'); };
+  sh.addEventListener('pointerup', up); sh.addEventListener('pointercancel', up);
+
+  // Калькулятор (вариант 6)
+  var v6 = document.querySelector('.v6'), rg = v6.querySelector('[data-range]'), ar = v6.querySelector('[data-area]'), sm = v6.querySelector('[data-sum]');
+  var tabs = v6.querySelector('[data-tabs]'), k = [1, 1.06, 1.1], ki = 0, shown = 0, raf = null;
+  function fmt(n) { return Math.round(n / 10000) * 10000 + ''; }
+  function sp(n) { return n.replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  function calc(anim) {
+    var a = +rg.value, target = a * 38000 * k[ki];
+    ar.textContent = a; rg.style.setProperty('--pc', ((a - 60) / 340 * 100) + '%');
+    cancelAnimationFrame(raf);
+    if (!anim || reduce) { shown = target; sm.textContent = sp(fmt(target)); return; }
+    var from = shown, t0 = performance.now();
+    (function step(t) { var p = Math.min(1, (t - t0) / 500), e = 1 - Math.pow(1 - p, 3); shown = from + (target - from) * e; sm.textContent = sp(fmt(shown)); if (p < 1) raf = requestAnimationFrame(step); })(t0);
+  }
+  rg.addEventListener('input', function () { calc(true); });
+  $$('button', tabs).forEach(function (b) { b.onclick = function () { ki = +b.dataset.k; $$('button', tabs).forEach(function (x) { x.classList.toggle('on', x === b); }); tabs.style.setProperty('--k', ki); calc(true); }; });
+  calc(false);
+  function demoCalc() { rg.value = 60; calc(false); setTimeout(function () { rg.value = 150; calc(true); }, 1100); }
+
+  // Запуск, когда экран попадает в поле зрения
+  function start(ph) {
+    ph.classList.add('go');
+    if (ph === v2) show(0);
+    if (ph === v6) demoCalc();
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting) { if (!e.target.classList.contains('go')) start(e.target); }
+      else if (e.target === v2) clearTimeout(tm);
+      if (e.isIntersecting && e.target === v2 && v2.classList.contains('go') && !reduce) { clearTimeout(tm); tm = setTimeout(function () { show(cur + 1); }, T); }
+    });
+  }, { threshold: .35 });
+  $$('.ph').forEach(function (p) { io.observe(p); });
+
+  // «Ещё раз»
+  $$('[data-rp]').forEach(function (b) {
+    b.onclick = function () {
+      var ph = b.closest('.it').querySelector('.ph');
+      ph.classList.add('rs'); ph.classList.remove('go');
+      $$('*', ph).forEach(function (el) { el.style.transition = 'none'; });
+      void ph.offsetWidth;
+      $$('*', ph).forEach(function (el) { el.style.transition = ''; });
+      requestAnimationFrame(function () { requestAnimationFrame(function () { start(ph); }); });
+    };
+  });
+})();
+</script>
+</body>
+</html>
