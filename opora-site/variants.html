@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ОПОРА — варианты</title>
+<meta name="description" content="Варианты главного экрана, белых и тёмных блоков сайта строительной компании ОПОРА.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+  :root { --bg: #f5f3f0; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13,13,13,.09); --black: #0b0b0b; --card: #151515; --dline: rgba(255,255,255,.08); --dmute: rgba(255,255,255,.55); --or: #ff6a1a; --or2: #ff9248; --or-soft: #fff0e6; --f: 'Montserrat', system-ui, sans-serif; --ease: cubic-bezier(.2,.75,.2,1); color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.55 var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; color: inherit; }
+  button { background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -.045em; line-height: 1.02; }
+  p { margin: 0; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 16px; }
+  .prog { position: fixed; z-index: 99; left: 0; top: 0; height: 3px; width: 100%; background: var(--or); transform-origin: 0 50%; transform: scaleX(0); }
+
+  /* шапка страницы вариантов */
+  .intro { padding: 28px 16px 10px; max-width: 1320px; margin: 0 auto; }
+  .intro .chip { display: inline-flex; gap: 8px; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 12px var(--f); }
+  .intro .chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--or); }
+  .intro h1 { margin-top: 14px; font-size: clamp(32px, 8vw, 60px); }
+  .intro h1 em { font-style: normal; color: var(--or); }
+  .intro p { margin-top: 10px; color: var(--ink2); max-width: 640px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .jump a { height: 36px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 500 13px var(--f); }
+  .grp { max-width: 1320px; margin: 46px auto 0; padding: 0 16px; display: flex; align-items: baseline; gap: 12px; }
+  .grp b { font: 600 13px var(--f); color: var(--or); }
+  .grp h2 { font-size: clamp(26px, 6vw, 40px); }
+  .lbl { max-width: 1320px; margin: 22px auto 10px; padding: 0 16px; display: flex; gap: 10px; align-items: flex-start; }
+  .lbl > b { flex: none; min-width: 34px; height: 34px; padding: 0 8px; border-radius: 12px; display: grid; place-items: center; background: var(--or); color: #fff; font: 700 14px var(--f); }
+  .lbl span { display: block; font: 600 17px/1.2 var(--f); letter-spacing: -.02em; }
+  .lbl small { display: block; margin-top: 3px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+
+  /* общие детали */
+  .btn { display: inline-flex; align-items: center; gap: 12px; height: 54px; padding: 0 7px 0 22px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 14.5px var(--f); transition: transform .3s var(--ease); will-change: transform; }
+  .btn i { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--or); }
+  .btn i svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 2.2; fill: none; }
+  .btn--w { background: #fff; color: var(--ink); }
+  .btn--o { background: var(--or); } .btn--o i { background: rgba(0,0,0,.18); }
+  .tag { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.7); font: 500 12px var(--f); color: var(--ink2); }
+  .tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--or); }
+  .dk .tag { border-color: var(--dline); color: var(--dmute); background: rgba(255,255,255,.04); }
+  .glass { border-radius: 20px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+  .ico { width: 46px; height: 46px; flex: none; border-radius: 15px; display: grid; place-items: center; background: var(--or); box-shadow: 0 10px 24px rgba(255,106,26,.35); }
+  .ico svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 1.9; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .frame { max-width: 1320px; margin: 0 auto; padding: 0 10px; }
+  .box { border-radius: 32px; overflow: hidden; position: relative; }
+  .dk { background: var(--black); color: #fff; position: relative; overflow: hidden; isolation: isolate; }
+  .dk::before { content: ''; position: absolute; z-index: -1; width: 640px; height: 520px; right: -260px; top: -280px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,140,60,.4), rgba(255,106,26,.18) 40%, transparent); animation: gA 16s ease-in-out infinite alternate; pointer-events: none; }
+  .dk::after { content: ''; position: absolute; z-index: -1; width: 500px; height: 420px; left: -240px; bottom: -250px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,110,30,.2), transparent); animation: gB 20s ease-in-out infinite alternate; pointer-events: none; }
+  @keyframes gA { to { transform: translate3d(-100px, 60px, 0) scale(1.1); } }
+  @keyframes gB { to { transform: translate3d(90px, -50px, 0) scale(1.08); } }
+  .pad { padding: 26px 18px; }
+  .h { font-size: clamp(30px, 8vw, 56px); }
+  .h em { font-style: normal; color: var(--or); }
+  .sub { margin-top: 10px; color: var(--ink2); font-size: 14.5px; max-width: 460px; }
+  .dk .sub { color: var(--dmute); }
+
+  /* ===== ГЛАВНЫЙ ЭКРАН 1: Участок → Дом ===== */
+  .h1v { height: 720px; color: #fff; }
+  .ba { position: absolute; inset: 0; touch-action: pan-y; cursor: ew-resize; }
+  .ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ba .after { clip-path: inset(0 0 0 var(--x, 50%)); }
+  .ba__line { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,.3); }
+  .ba__knob { position: absolute; top: 50%; left: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: var(--or); display: grid; place-items: center; box-shadow: 0 0 0 8px rgba(255,106,26,.25), 0 10px 30px rgba(0,0,0,.35); }
+  .ba__knob svg { width: 24px; height: 24px; stroke: #fff; stroke-width: 2.2; fill: none; }
+  .ba__t { position: absolute; top: 76px; padding: 6px 12px; border-radius: 999px; background: rgba(0,0,0,.45); font: 600 12px var(--f); letter-spacing: .04em; text-transform: uppercase; }
+  .ba__t.l { left: 16px; } .ba__t.r { right: 16px; background: var(--or); }
+  .h1v::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45), transparent 26%, transparent 52%, rgba(0,0,0,.75)); pointer-events: none; }
+  .h1v__top { position: absolute; z-index: 2; left: 16px; right: 16px; top: 16px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 9px; font: 700 17px var(--f); letter-spacing: .08em; }
+  .logo b { width: 30px; height: 30px; border-radius: 10px; background: #fff; display: grid; place-items: center; }
+  .logo b svg { width: 18px; height: 18px; fill: var(--ink); }
+  .burg { width: 44px; height: 44px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
+  .burg i { width: 16px; height: 7px; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .h1v__b { position: absolute; z-index: 2; left: 18px; right: 18px; bottom: 20px; pointer-events: none; }
+  .h1v__b > * { pointer-events: auto; }
+  .h1v__b h3 { font-size: clamp(32px, 8.6vw, 70px); }
+  .h1v__b h3 em { font-style: normal; color: var(--or2); }
+  .h1v__b p { margin: 10px 0 16px; font-size: 14px; color: rgba(255,255,255,.85); max-width: 360px; }
+
+  /* ===== ГЛАВНЫЙ ЭКРАН 2: светлый, как Archvlp ===== */
+  .h2v { background: #fff; padding: 12px; }
+  .h2v__nav { display: flex; align-items: center; justify-content: space-between; height: 54px; padding: 0 6px 0 10px; }
+  .h2v__nav .logo b { background: var(--ink); } .h2v__nav .logo b svg { fill: var(--or); }
+  .h2v__nav .burg { background: var(--ink); } .h2v__nav .burg i { border-color: #fff; }
+  .h2v__h { padding: 22px 8px 0; font-size: clamp(40px, 12vw, 120px); letter-spacing: -.06em; line-height: .92; }
+  .h2v__h span { color: var(--mute); }
+  .h2v__h em { font-style: normal; color: var(--or); }
+  .h2v__ph { position: relative; margin-top: 18px; height: 420px; border-radius: 26px; overflow: hidden; }
+  .h2v__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .h2v__plq { position: absolute; left: 12px; bottom: 12px; right: 12px; display: flex; height: 54px; border-radius: 14px; overflow: hidden; background: var(--or); color: #fff; font: 600 13px var(--f); text-transform: uppercase; letter-spacing: .03em; align-items: center; }
+  .h2v__plq span { flex: 1; padding: 0 16px; line-height: 1.2; }
+  .h2v__plq i { width: 70px; height: 100%; background: repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 5px, transparent 5px 11px); }
+  .h2v__chip { position: absolute; right: 12px; top: 12px; padding: 12px 14px; color: #fff; }
+  .h2v__chip b { display: block; font: 600 22px var(--f); letter-spacing: -.03em; }
+  .h2v__chip small { font-size: 11px; color: rgba(255,255,255,.8); }
+  .qbar { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px; border-radius: 22px; background: var(--bg); }
+  .qbar label { display: grid; padding: 8px 12px; border-radius: 16px; background: #fff; font: 500 11px var(--f); color: var(--mute); }
+  .qbar select { border: 0; padding: 0; margin-top: 2px; background: none; font: 600 14px var(--f); color: var(--ink); -webkit-appearance: none; appearance: none; outline: none; }
+  .qbar .btn { grid-column: 1 / -1; justify-content: space-between; }
+
+  /* ===== ГЛАВНЫЙ ЭКРАН 3: тёмный, «стройка онлайн» ===== */
+  .h3v { min-height: 720px; padding: 16px; display: flex; flex-direction: column; }
+  .h3v__top { display: flex; justify-content: space-between; align-items: center; }
+  .h3v__top .logo b { background: #fff; }
+  .live { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid var(--dline); font: 500 12.5px var(--f); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #2ed573; box-shadow: 0 0 0 0 rgba(46,213,115,.6); animation: pulse 1.6s infinite; }
+  @keyframes pulse { to { box-shadow: 0 0 0 10px rgba(46,213,115,0); } }
+  .h3v__word { margin-top: 24px; font: 700 clamp(90px, 30vw, 300px)/.8 var(--f); letter-spacing: -.07em; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.22); white-space: nowrap; }
+  .h3v__img { position: relative; margin: -46px auto 0; width: 100%; max-width: 760px; }
+  .h3v__img img { width: 100%; height: 300px; object-fit: cover; border-radius: 26px; box-shadow: 0 40px 80px rgba(255,106,26,.22); }
+  .h3v__badge { position: absolute; right: 12px; top: -22px; padding: 12px 14px; }
+  .h3v__badge b { font: 600 26px var(--f); letter-spacing: -.04em; color: var(--or2); }
+  .h3v__badge small { display: block; font-size: 11px; color: rgba(255,255,255,.75); }
+  .h3v h3 { margin-top: 24px; font-size: clamp(30px, 8vw, 64px); }
+  .h3v h3 em { font-style: normal; color: var(--or); }
+  .stages { margin-top: 16px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .stages::-webkit-scrollbar { display: none; }
+  .stages span { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid var(--dline); font: 500 13px var(--f); color: rgba(255,255,255,.75); }
+  .stages span b { color: var(--or); font-weight: 700; }
+  .h3v .btn { margin-top: 18px; align-self: flex-start; }
+
+  /* ===== БЕЛЫЙ: Услуги-гармошка ===== */
+  .acc { display: flex; flex-direction: column; gap: 8px; }
+  .acc__i { position: relative; height: 92px; border-radius: 24px; overflow: hidden; color: #fff; transition: height .7s var(--ease), flex .7s var(--ease); cursor: pointer; }
+  .acc__i img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .acc__i::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.6), rgba(0,0,0,.1)); transition: background .5s; }
+  .acc__i.on { height: 380px; }
+  .acc__i.on img { transform: scale(1.04); }
+  .acc__h { position: absolute; z-index: 1; left: 18px; right: 18px; top: 0; height: 92px; display: flex; align-items: center; gap: 14px; }
+  .acc__h b { font: 600 13px var(--f); color: var(--or2); }
+  .acc__h h3 { flex: 1; font-size: 22px; }
+  .acc__h i { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.18); font-style: normal; transition: transform .5s var(--ease), background .3s; }
+  .acc__i.on .acc__h i { transform: rotate(45deg); background: var(--or); }
+  .acc__b { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 18px; opacity: 0; transform: translate3d(0, 16px, 0); transition: opacity .5s, transform .6s var(--ease); }
+  .acc__i.on .acc__b { opacity: 1; transform: none; transition-delay: .25s; }
+  .acc__b p { font-size: 14px; color: rgba(255,255,255,.88); max-width: 380px; }
+  .acc__b .row { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .acc__b .row span { height: 34px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); font: 500 12.5px var(--f); }
+  .acc__b .row span.o { background: var(--or); border-color: var(--or); }
+
+  /* ===== БЕЛЫЙ: Услуги-список ===== */
+  .lst { border-top: 1px solid var(--line); }
+  .lst__i { position: relative; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; padding: 18px 4px; border-bottom: 1px solid var(--line); }
+  .lst__i b { font: 600 13px var(--f); color: var(--mute); }
+  .lst__i h3 { font-size: 22px; transition: color .3s; }
+  .lst__i small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); }
+  .lst__i em { font-style: normal; font: 600 14px var(--f); white-space: nowrap; }
+  .lst__ph { grid-column: 1 / -1; height: 0; overflow: hidden; border-radius: 20px; transition: height .6s var(--ease), margin .6s var(--ease); }
+  .lst__ph img { width: 100%; height: 220px; object-fit: cover; }
+  .lst__i.on h3 { color: var(--or); }
+  .lst__i.on .lst__ph { height: 220px; margin-top: 4px; }
+
+  /* ===== БЕЛЫЙ: этапы с линией ===== */
+  .tl { position: relative; padding-left: 30px; }
+  .tl::before { content: ''; position: absolute; left: 11px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+  .tl__fill { position: absolute; left: 11px; top: 6px; width: 2px; height: calc(100% - 12px); background: var(--or); transform-origin: top; transform: scaleY(var(--p, 0)); }
+  .tl__i { position: relative; padding: 0 0 22px; }
+  .tl__i::before { content: ''; position: absolute; left: -26px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid #d9d4ce; transition: border-color .4s, background .4s; }
+  .tl__i.on::before { border-color: var(--or); background: var(--or); box-shadow: 0 0 0 5px rgba(255,106,26,.18); }
+  .tl__c { padding: 16px; border-radius: 22px; background: #fff; border: 1px solid var(--line); display: flex; gap: 14px; }
+  .tl__c h4 { font: 600 17px var(--f); letter-spacing: -.02em; }
+  .tl__c p { margin-top: 4px; font-size: 13.5px; color: var(--ink2); }
+  .tl__c .d { display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 999px; background: var(--or-soft); color: var(--or); font: 600 11.5px var(--f); }
+
+  /* ===== БЕЛЫЙ: светлое бенто с цифрами ===== */
+  .lb { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lb__c { padding: 16px; border-radius: 24px; background: #fff; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; min-height: 170px; }
+  .lb__c b { margin-top: auto; font: 600 38px/1 var(--f); letter-spacing: -.05em; }
+  .lb__c b small { font-size: 18px; color: var(--or); }
+  .lb__c > span:not(.ico) { font-size: 12.5px; color: var(--ink2); line-height: 1.35; }
+  .lb__c.w { grid-column: 1 / -1; background: var(--ink); color: #fff; flex-direction: row; align-items: center; min-height: 0; }
+  .lb__c.w span { color: var(--dmute); }
+  .lb__c.w b { margin: 0; }
+
+  /* ===== БЕЛЫЙ: отзыв-слайдер ===== */
+  .rq { display: grid; gap: 12px; }
+  .rq__ph { position: relative; height: 260px; border-radius: 26px; overflow: hidden; }
+  .rq__ph img { width: 100%; height: 100%; object-fit: cover; transition: opacity .5s; }
+  .rq__ph .glass { position: absolute; left: 12px; bottom: 12px; padding: 10px 14px; color: #fff; }
+  .rq__ph .glass b { display: block; font: 600 15px var(--f); }
+  .rq__ph .glass small { font-size: 11.5px; color: rgba(255,255,255,.85); }
+  .rq__q { padding: 22px; border-radius: 26px; background: #fff; border: 1px solid var(--line); }
+  .rq__st { color: var(--or); letter-spacing: 3px; } .rq__st i { font-style: normal; color: #ddd8d2; }
+  .rq__q q { display: block; margin-top: 10px; quotes: none; font: 500 19px/1.4 var(--f); letter-spacing: -.02em; transition: opacity .4s; }
+  .rq__nav { margin-top: 16px; display: flex; align-items: center; gap: 10px; }
+  .rq__nav span { flex: 1; font: 600 13px var(--f); color: var(--mute); }
+  .ar { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); }
+  .ar.f { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .ar svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+  /* ===== ТЁМНЫЙ: карточки с прожектором ===== */
+  .spot { display: grid; gap: 10px; }
+  .sp { position: relative; padding: 20px; min-height: 180px; border-radius: 24px; background: #121212; border: 1px solid var(--dline); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+  .sp::before { content: ''; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(255,106,26,.28), transparent 60%); opacity: var(--o, .35); transition: opacity .4s; pointer-events: none; }
+  .sp::after { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 0%), rgba(255,140,60,.9), transparent 60%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: var(--o, .35); pointer-events: none; }
+  .sp .ico { position: absolute; left: 20px; top: 20px; }
+  .sp h3 { position: relative; font-size: 20px; letter-spacing: -.03em; }
+  .sp p { position: relative; margin-top: 6px; font-size: 13.5px; color: var(--dmute); }
+
+  /* ===== ТЁМНЫЙ: ипотека ===== */
+  .mort { display: grid; gap: 12px; }
+  .mc { padding: 18px; border-radius: 24px; background: #141414; border: 1px solid var(--dline); }
+  .mc small { display: flex; justify-content: space-between; font: 500 12px var(--f); color: var(--dmute); }
+  .mc small b { color: #fff; font-weight: 600; font-size: 14px; }
+  .mc input { width: 100%; margin: 14px 0 6px; -webkit-appearance: none; appearance: none; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--or) var(--p, 30%), rgba(255,255,255,.15) var(--p, 30%)); outline: none; }
+  .mc input::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 6px solid var(--or); }
+  .mc input::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 5px solid var(--or); }
+  .mres { padding: 20px; border-radius: 24px; background: linear-gradient(140deg, #ff7a2a, #ff560a); color: #fff; }
+  .mres small { font: 500 12px var(--f); opacity: .85; }
+  .mres b { display: block; margin-top: 4px; font: 600 40px/1 var(--f); letter-spacing: -.05em; }
+  .mres .bars2 { margin-top: 16px; display: flex; height: 10px; border-radius: 6px; overflow: hidden; background: rgba(0,0,0,.2); }
+  .mres .bars2 i { display: block; height: 100%; background: #fff; transition: width .5s var(--ease); }
+  .mres .leg { margin-top: 8px; display: flex; justify-content: space-between; font: 500 11.5px var(--f); opacity: .9; }
+
+  /* ===== ТЁМНЫЙ: трекер стройки ===== */
+  .trk { display: grid; gap: 12px; }
+  .trk__c { padding: 18px; border-radius: 24px; background: #141414; border: 1px solid var(--dline); }
+  .trk__h { display: flex; justify-content: space-between; align-items: center; }
+  .trk__h b { font: 600 17px var(--f); }
+  .trk__bar { margin-top: 16px; height: 8px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .trk__bar i { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, var(--or), var(--or2)); transition: width 1.6s var(--ease); }
+  .in .trk__bar i { width: 62%; }
+  .trk__st { margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .trk__st span { text-align: center; font: 500 10.5px/1.25 var(--f); color: var(--dmute); }
+  .trk__st span::before { content: ''; display: block; width: 10px; height: 10px; margin: 0 auto 6px; border-radius: 50%; background: rgba(255,255,255,.15); }
+  .trk__st span.d { color: #fff; } .trk__st span.d::before { background: var(--or); }
+  .trk__st span.n::before { background: #fff; box-shadow: 0 0 0 4px rgba(255,106,26,.35); }
+  .feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 14px; }
+  .feed div { position: relative; height: 92px; border-radius: 14px; overflow: hidden; }
+  .feed img { width: 100%; height: 100%; object-fit: cover; }
+  .feed small { position: absolute; left: 6px; bottom: 6px; padding: 2px 7px; border-radius: 999px; background: rgba(0,0,0,.55); font: 600 10px var(--f); }
+
+  /* ===== ФИШКИ ===== */
+  .fx { display: grid; gap: 10px; }
+  .fx__c { padding: 18px; border-radius: 24px; background: #fff; border: 1px solid var(--line); display: flex; gap: 14px; align-items: flex-start; }
+  .fx__c h4 { font: 600 16px var(--f); letter-spacing: -.02em; }
+  .fx__c p { margin-top: 4px; font-size: 13px; color: var(--ink2); }
+  .fx__demo { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .cur { position: fixed; z-index: 98; left: 0; top: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--or); pointer-events: none; mix-blend-mode: multiply; transition: width .25s, height .25s, margin .25s; display: none; }
+  .cur.big { width: 54px; height: 54px; margin: -27px 0 0 -27px; background: rgba(255,106,26,.35); }
+  .split { display: inline-block; overflow: hidden; font: 600 28px var(--f); letter-spacing: -.04em; }
+  .split span { display: inline-block; transform: translate3d(0, 110%, 0); transition: transform .7s var(--ease); transition-delay: calc(var(--i) * .03s); }
+  .in .split span { transform: none; }
+
+  [data-r] { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+  [data-r].in { opacity: 1; transform: none; }
+
+  .end { padding: 50px 16px 80px; text-align: center; font-size: 13px; color: var(--mute); }
+
+  @media (min-width: 900px) {
+    .wrap { padding: 0 24px; }
+    .frame { padding: 0 24px; }
+    .pad { padding: 50px; }
+    .box { border-radius: 40px; }
+    .h1v, .h3v { min-height: 760px; height: 760px; }
+    .h1v__b { left: 40px; right: 40px; bottom: 36px; }
+    .h2v { padding: 20px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 20px; align-items: end; }
+    .h2v__nav { grid-column: 1 / -1; }
+    .h2v__h { padding: 10px 20px 20px; }
+    .h2v__ph { height: 560px; margin: 0; grid-row: 2 / 4; grid-column: 2; }
+    .qbar { grid-template-columns: 1fr 1fr 1fr; margin: 0 10px 10px; }
+    .qbar .btn { grid-column: auto; }
+    .h3v { padding: 30px 40px; }
+    .h3v__img img { height: 380px; }
+    .acc { flex-direction: row; height: 520px; }
+    .acc__i { height: auto !important; flex: 1; }
+    .acc__i.on { flex: 3.4; }
+    .acc__h { flex-direction: column; align-items: flex-start; height: auto; top: 20px; }
+    .acc__i:not(.on) .acc__h h3 { writing-mode: vertical-rl; transform: rotate(180deg); position: absolute; bottom: -420px; left: 6px; font-size: 24px; white-space: nowrap; }
+    .lst__i { grid-template-columns: 60px 1fr 1fr auto; padding: 24px 8px; }
+    .lst__i h3 { font-size: 34px; }
+    .lst__ph { grid-column: 3; grid-row: 1; height: 0 !important; margin: 0 !important; position: absolute; right: 180px; top: 50%; width: 280px; transform: translateY(-50%) rotate(-4deg) scale(.8); opacity: 0; transition: opacity .3s, transform .5s var(--ease); pointer-events: none; z-index: 2; }
+    .lst__i.on .lst__ph { height: 190px !important; opacity: 1; transform: translateY(-50%) rotate(-4deg); }
+    .lst__ph img { height: 190px; }
+    .tl { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 30px 0 0; }
+    .tl::before { left: 0; right: 0; top: 7px; bottom: auto; width: auto; height: 2px; }
+    .tl__fill { left: 0; top: 7px; width: 100%; height: 2px; transform-origin: left; transform: scaleX(var(--p, 0)); }
+    .tl__i { padding: 0; } .tl__i::before { left: 0; top: -30px; }
+    .tl__c { flex-direction: column; height: 100%; }
+    .lb { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .lb__c { min-height: 220px; } .lb__c b { font-size: 54px; }
+    .rq { grid-template-columns: 1fr 1.3fr; gap: 16px; }
+    .rq__ph { height: auto; min-height: 380px; }
+    .rq__q { padding: 40px; display: flex; flex-direction: column; } .rq__q q { font-size: 28px; } .rq__nav { margin-top: auto; }
+    .spot { grid-template-columns: repeat(3, 1fr); gap: 14px; } .sp { min-height: 260px; }
+    .mort, .trk { grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
+    .fx { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cur { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="cur" id="cur"></div>
+
+<header class="intro">
+  <span class="chip"><i></i>ОПОРА · варианты</span>
+  <h1>Варианты <em>переделки</em></h1>
+  <p>Три новых главных экрана, полная переделка белых блоков и доработка тёмных с фишками. Всё живое — нажимайте, тяните, листайте. Выбирайте номера, соберу из них сайт.</p>
+  <nav class="jump"><a href="#g1">Главный экран</a><a href="#g2">Белые блоки</a><a href="#g3">Тёмные блоки</a><a href="#g4">Фишки</a></nav>
+</header>
+
+<!-- ============ ГЛАВНЫЙ ЭКРАН ============ -->
+<div class="grp" id="g1"><b>01</b><h2>Главный экран</h2></div>
+
+<div class="lbl"><b>1</b><div><span>«Участок → Дом»</span><small>Весь экран — слайдер «до и после». Потяните оранжевый кружок: пустой участок превращается в готовый дом. Сразу показывает, что вы делаете.</small></div></div>
+<div class="frame"><div class="box h1v" data-r>
+  <div class="ba" id="ba"><img src="img/plot.webp" alt="Пустой участок"><img class="after" src="img/hero.webp" alt="Готовый дом"><span class="ba__t l">Участок</span><span class="ba__t r">Через 6 месяцев</span><div class="ba__line"><div class="ba__knob"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div></div></div>
+  <div class="h1v__top"><span class="logo" style="color:#fff"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="burg"><i></i></span></div>
+  <div class="h1v__b"><h3>От пустого участка<br>до <em>ключей</em></h3><p>Дома под ключ в Москве и области. Цена в договоре не меняется.</p><a class="btn btn--o mag" href="#">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
+</div></div>
+
+<div class="lbl"><b>2</b><div><span>Светлый, как Archvlp</span><small>Белый фон, огромный заголовок, фото дома с оранжевой плашкой. Внизу — мини-подбор: тип, площадь, бюджет → «Рассчитать».</small></div></div>
+<div class="frame"><div class="box h2v" data-r>
+  <div class="h2v__nav"><span class="logo"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="burg"><i></i></span></div>
+  <h3 class="h2v__h">Строим<br><span>дома,</span> где<br>хочется <em>жить</em></h3>
+  <div class="h2v__ph"><img src="img/dusk2.webp" alt="Дом вечером"><div class="glass h2v__chip"><b>240+</b><small>домов сдали</small></div><div class="h2v__plq"><span>Строим с 2011 года<br>без субподрядчиков</span><i></i></div></div>
+  <div class="qbar"><label>Тип<select><option>Дом под ключ</option><option>Коттедж</option><option>Тёплый контур</option></select></label><label>Площадь<select><option>до 150 м²</option><option>150–250 м²</option><option>от 250 м²</option></select></label><a class="btn btn--o mag" href="#">Рассчитать<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
+</div></div>
+
+<div class="lbl"><b>3</b><div><span>Тёмный «Стройка онлайн»</span><small>Чёрный фон с оранжевым светом, контурное слово ОПОРА, фото дома и живой индикатор «сейчас строим 18 домов». Внизу — этапы с количеством объектов.</small></div></div>
+<div class="frame"><div class="box dk h3v" data-r>
+  <div class="h3v__top"><span class="logo"><b><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><span class="live"><i></i>Сейчас строим 18 домов</span></div>
+  <div class="h3v__word" aria-hidden="true">ОПОРА</div>
+  <div class="h3v__img"><img src="img/hero.webp" alt="Дом вечером"><div class="glass h3v__badge"><b>10 лет</b><small>гарантии</small></div></div>
+  <h3>Дом под ключ.<br>Цена — <em>в договоре</em></h3>
+  <div class="stages"><span>Фундамент <b>4</b></span><span>Стены <b>6</b></span><span>Кровля <b>3</b></span><span>Отделка <b>5</b></span></div>
+  <a class="btn btn--w mag" href="#">Посмотреть стройки<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+</div></div>
+
+<!-- ============ БЕЛЫЕ БЛОКИ ============ -->
+<div class="grp" id="g2"><b>02</b><h2>Белые блоки — полная переделка</h2></div>
+
+<div class="lbl"><b>4</b><div><span>Услуги: гармошка из фото</span><small>Вместо сетки — полосы-фото. Нажали — полоса раскрывается с описанием, ценой и сроком. На компьютере полосы стоят вертикально, как на сайтах архитекторов.</small></div></div>
+<div class="wrap"><div class="acc" id="acc" data-r>
+  <div class="acc__i on"><img src="img/dusk2.webp" alt=""><div class="acc__h"><b>01</b><h3>Дом под ключ</h3><i>+</i></div><div class="acc__b"><p>Газобетон или кирпич, инженерия, отделка. Заезжаете с чемоданом.</p><div class="row"><span class="o">от 6,8 млн ₽</span><span>6 месяцев</span><span>Гарантия 10 лет</span></div></div></div>
+  <div class="acc__i"><img src="img/cottage.webp" alt=""><div class="acc__h"><b>02</b><h3>Коттеджи</h3><i>+</i></div><div class="acc__b"><p>Большие дома от 200 м² с панорамами, террасами и бассейном.</p><div class="row"><span class="o">от 12 млн ₽</span><span>9 месяцев</span></div></div></div>
+  <div class="acc__i"><img src="img/cube.webp" alt=""><div class="acc__h"><b>03</b><h3>Тёплый контур</h3><i>+</i></div><div class="acc__b"><p>Фундамент, стены, кровля, окна. Отделку делаете сами.</p><div class="row"><span class="o">от 3,9 млн ₽</span><span>4 месяца</span></div></div></div>
+  <div class="acc__i"><img src="img/comm.webp" alt=""><div class="acc__h"><b>04</b><h3>Коммерческие здания</h3><i>+</i></div><div class="acc__b"><p>Офисы, магазины, базы отдыха — с проектом и согласованиями.</p><div class="row"><span class="o">по проекту</span></div></div></div>
+</div></div>
+
+<div class="lbl"><b>5</b><div><span>Услуги: строгий список</span><small>Минимализм: крупные строки с номером и ценой. Нажали — под строкой раскрывается фото. На компьютере фото всплывает наклонённой карточкой при наведении.</small></div></div>
+<div class="wrap"><div class="lst" id="lst" data-r>
+  <div class="lst__i on"><b>01</b><div><h3>Дом под ключ</h3><small>Газобетон, кирпич · 6 мес</small></div><em>от 6,8 млн ₽</em><div class="lst__ph"><img src="img/dusk2.webp" alt=""></div></div>
+  <div class="lst__i"><b>02</b><div><h3>Коттеджи</h3><small>От 200 м² · 9 мес</small></div><em>от 12 млн ₽</em><div class="lst__ph"><img src="img/cottage.webp" alt=""></div></div>
+  <div class="lst__i"><b>03</b><div><h3>Тёплый контур</h3><small>Коробка с окнами · 4 мес</small></div><em>от 3,9 млн ₽</em><div class="lst__ph"><img src="img/cube.webp" alt=""></div></div>
+  <div class="lst__i"><b>04</b><div><h3>Коммерция</h3><small>Офисы, магазины</small></div><em>по проекту</em><div class="lst__ph"><img src="img/comm.webp" alt=""></div></div>
+</div></div>
+
+<div class="lbl"><b>6</b><div><span>Этапы: линия, которая заполняется</span><small>Пять этапов от выезда до ключей. Оранжевая линия растёт при прокрутке, этапы загораются по очереди. У каждого — срок.</small></div></div>
+<div class="wrap"><div class="tl" id="tl">
+  <i class="tl__fill" id="tlFill"></i>
+  <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><h4>Выезд на участок</h4><p>Инженер смотрит грунт и подъезды.</p><span class="d">1 день</span></div></div></div>
+  <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></span><div><h4>Проект и смета</h4><p>Каждая статья расходов построчно.</p><span class="d">1–3 дня</span></div></div></div>
+  <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="m9 14 2 2 4-4"/></svg></span><div><h4>Договор</h4><p>Цена и сроки не меняются.</p><span class="d">1 день</span></div></div></div>
+  <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Фотоотчёт каждую пятницу.</p><span class="d">4–9 мес</span></div></div></div>
+  <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg></span><div><h4>Ключи</h4><p>Приёмка с вами, гарантия 10 лет.</p><span class="d">1 день</span></div></div></div>
+</div></div>
+
+<div class="lbl"><b>7</b><div><span>Цифры: светлое бенто</span><small>Белые карточки с крупными цифрами, которые считаются при появлении, и оранжевыми иконками. Широкая чёрная плашка снизу — главный аргумент.</small></div></div>
+<div class="wrap"><div class="lb" data-r>
+  <div class="lb__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/></svg></span><b><span data-count="240">0</span><small>+</small></b><span>домов сдали семьям</span></div>
+  <div class="lb__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></span><b><span data-count="10">0</span><small> лет</small></b><span>гарантии на конструктив</span></div>
+  <div class="lb__c"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 11a3 3 0 1 0 0-6M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span><b><span data-count="60">0</span></b><span>мастеров в штате</span></div>
+  <div class="lb__c"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b><span data-count="98">0</span><small>%</small></b><span>объектов сданы в срок</span></div>
+  <div class="lb__c w"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M4 11h16M8 15h3"/></svg></span><div><b style="font-size:20px;letter-spacing:-.02em">Цена в договоре не меняется</b><span style="display:block;margin-top:4px">Подорожали материалы — это наш риск, не ваш.</span></div></div>
+</div></div>
+
+<div class="lbl"><b>8</b><div><span>Отзывы: один большой</span><small>Вместо трёх мелких карточек — одна крупная цитата и фото дома этой семьи. Листаются стрелками.</small></div></div>
+<div class="wrap"><div class="rq" data-r>
+  <div class="rq__ph"><img id="rqImg" src="img/dusk2.webp" alt=""><div class="glass"><b id="rqN">Марина и Олег</b><small id="rqH">Дом 180 м², Истра</small></div></div>
+  <div class="rq__q"><div class="rq__st" id="rqS">★★★★★</div><q id="rqQ">Цена в итоге совпала с договором до рубля. Фотоотчёты приходили по пятницам — мы ни разу не ездили на стройку зря.</q>
+    <div class="rq__nav"><span id="rqC">01 / 03</span><button class="ar" id="rqP" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="ar f" id="rqNx" aria-label="Дальше"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+</div></div>
+
+<!-- ============ ТЁМНЫЕ БЛОКИ ============ -->
+<div class="grp" id="g3"><b>03</b><h2>Тёмные блоки — доработка</h2></div>
+
+<div class="lbl"><b>9</b><div><span>Карточки с «прожектором»</span><small>Оранжевый свет и подсвеченная рамка следуют за пальцем или мышкой. Проведите по карточкам. Можно применить к «Почему ОПОРА» и «3 шага».</small></div></div>
+<div class="frame"><div class="box dk pad">
+  <div class="spot" id="spot">
+    <div class="sp"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M4 11h16"/></svg></span><h3>Цена не меняется</h3><p>Все работы и материалы в смете построчно.</p></div>
+    <div class="sp"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></span><h3>Гарантия 10 лет</h3><p>Приезжаем по гарантии за 48 часов.</p></div>
+    <div class="sp"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></span><h3>Фото каждую неделю</h3><p>Видите стройку, не выезжая на участок.</p></div>
+  </div>
+</div></div>
+
+<div class="lbl"><b>10</b><div><span>Новый блок: ипотека</span><small>Двигаете цену дома и первый взнос — сразу видно платёж в месяц и сколько берёт банк. Помогает решиться тем, кто считает бюджет.</small></div></div>
+<div class="frame"><div class="box dk pad">
+  <span class="tag"><i></i>Ипотека и рассрочка</span>
+  <h3 class="h" style="margin:14px 0 20px">Сколько в <em>месяц</em>?</h3>
+  <div class="mort">
+    <div style="display:grid;gap:10px">
+      <div class="mc"><small>Стоимость дома <b id="mPv">8,0 млн ₽</b></small><input type="range" id="mP" min="3" max="25" step=".5" value="8"></div>
+      <div class="mc"><small>Первый взнос <b id="mDv">20% · 1,6 млн ₽</b></small><input type="range" id="mD" min="10" max="70" step="5" value="20"></div>
+      <div class="mc"><small>Срок <b id="mYv">20 лет</b></small><input type="range" id="mY" min="5" max="30" step="1" value="20"></div>
+    </div>
+    <div class="mres"><small>Платёж в месяц · ставка 6% (семейная)</small><b id="mR">45 800 ₽</b><div class="bars2"><i id="mBar" style="width:20%"></i></div><div class="leg"><span>Ваш взнос</span><span id="mLoan">Кредит 6,4 млн ₽</span></div><a class="btn btn--w mag" href="#" style="margin-top:18px;width:100%;justify-content:space-between">Подобрать банк<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
+  </div>
+</div></div>
+
+<div class="lbl"><b>11</b><div><span>Новый блок: «Где сейчас ваш дом»</span><small>Пример личного кабинета: прогресс стройки, этапы и свежие фото с датами. Показывает клиенту, что он будет всё видеть.</small></div></div>
+<div class="frame"><div class="box dk pad">
+  <span class="tag"><i></i>Стройка онлайн</span>
+  <h3 class="h" style="margin:14px 0 20px">Вы видите <em>каждый</em><br>день стройки</h3>
+  <div class="trk" data-r>
+    <div class="trk__c"><div class="trk__h"><b>Дом 180 м², Истра</b><span class="live"><i></i>Идут работы</span></div>
+      <div class="trk__bar"><i></i></div>
+      <div class="trk__st"><span class="d">Фундамент</span><span class="d">Стены</span><span class="d n">Кровля</span><span>Окна</span><span>Отделка</span></div></div>
+    <div class="trk__c"><div class="trk__h"><b>Фотоотчёт</b><span style="font-size:12px;color:var(--dmute)">пятница, 14:20</span></div>
+      <div class="feed"><div><img src="img/found.webp" alt=""><small>3 окт</small></div><div><img src="img/site.webp" alt=""><small>10 окт</small></div><div><img src="img/terrace.webp" alt=""><small>17 окт</small></div></div></div>
+  </div>
+</div></div>
+
+<!-- ============ ФИШКИ ============ -->
+<div class="grp" id="g4"><b>04</b><h2>Фишки на весь сайт</h2></div>
+<div class="lbl"><b>12</b><div><span>Мелкие детали, которые делают сайт дорогим</span><small>Каждую можно включить отдельно.</small></div></div>
+<div class="wrap"><div class="fx">
+  <div class="fx__c" data-r><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 12h16"/></svg></span><div><h4>Полоса прогресса</h4><p>Тонкая оранжевая линия сверху показывает, сколько страницы прочитано. Она уже работает на этой странице — посмотрите вверх.</p></div></div>
+  <div class="fx__c" data-r><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></span><div><h4>Магнитные кнопки</h4><p>На компьютере кнопка слегка тянется к курсору. Наведите:</p><div class="fx__demo"><a class="btn mag" href="#">Наведите на меня<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div></div></div>
+  <div class="fx__c" data-r><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></svg></span><div><h4>Оранжевый курсор</h4><p>На компьютере за мышкой бегает оранжевая точка, над кнопками и фото — увеличивается.</p></div></div>
+  <div class="fx__c" data-r><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span><div><h4>Заголовки «выплывают» по буквам</h4><div class="fx__demo"><span class="split" id="split">Строим честно</span></div></div></div>
+</div></div>
+
+<p class="end">Напишите номера, например: «главный 1, белые 4 и 6, тёмные 9 и 11, фишки все» — соберу.</p>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // прогресс прочтения
+  var prog = $('#prog'), tl = $('#tl'), tlFill = $('#tlFill'), tick = false;
+  var onScroll = function () {
+    var h = document.documentElement.scrollHeight - innerHeight; prog.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+    var r = tl.getBoundingClientRect(), p = Math.max(0, Math.min(1, (innerHeight * .7 - r.top) / r.height));
+    tl.style.setProperty('--p', p.toFixed(3));
+    $$('.tl__i', tl).forEach(function (el, i, a) { el.classList.toggle('on', p >= (i + .2) / a.length); });
+    tick = false;
+  };
+  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, { passive: true }); onScroll();
+
+  // появление + счётчики
+  var count = function (el) { var to = +el.dataset.count, t0 = performance.now(); (function s(t) { var k = Math.min(1, (t - t0) / 1300); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(s); })(t0); };
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.add('in'); $$('[data-count]', e.target).forEach(count); io.unobserve(e.target); }); }, { threshold: .2 });
+  $$('[data-r]').forEach(function (el) { io.observe(el); });
+
+  // слайдер «участок → дом»
+  var ba = $('#ba'), drag = false;
+  var setX = function (cx) { var r = ba.getBoundingClientRect(); var x = Math.max(4, Math.min(96, (cx - r.left) / r.width * 100)); ba.style.setProperty('--x', x + '%'); };
+  ba.addEventListener('pointerdown', function (e) { drag = true; setX(e.clientX); });
+  addEventListener('pointermove', function (e) { if (drag) setX(e.clientX); });
+  addEventListener('pointerup', function () { drag = false; });
+  // подсказка: слайдер сам качнётся при первом показе
+  new IntersectionObserver(function (es, o) { if (!es[0].isIntersecting) return; o.disconnect(); var t0 = performance.now(); (function a(t) { var k = (t - t0) / 1600; if (k > 1 || drag) return; ba.style.setProperty('--x', (50 + Math.sin(k * Math.PI * 2) * 22) + '%'); requestAnimationFrame(a); })(t0); }, { threshold: .5 }).observe(ba);
+
+  // гармошка и список
+  $('#acc').addEventListener('click', function (e) { var i = e.target.closest('.acc__i'); if (!i) return; $$('.acc__i', this).forEach(function (x) { x.classList.toggle('on', x === i); }); });
+  $$('#lst .lst__i').forEach(function (i) {
+    i.addEventListener('click', function () { $$('#lst .lst__i').forEach(function (x) { x.classList.toggle('on', x === i); }); });
+    if (fine) i.addEventListener('mouseenter', function () { $$('#lst .lst__i').forEach(function (x) { x.classList.toggle('on', x === i); }); });
+  });
+
+  // отзывы
+  var RQ = [['img/dusk2.webp', 'Марина и Олег', 'Дом 180 м², Истра', 5, 'Цена в итоге совпала с договором до рубля. Фотоотчёты приходили по пятницам — мы ни разу не ездили на стройку зря.'],
+            ['img/cottage.webp', 'Дмитрий', 'Коттедж 260 м², Дмитров', 4, 'Сдали на две недели раньше срока. Одна звезда долой — долго согласовывали цвет фасада, но это скорее мы капризничали.'],
+            ['img/forest.webp', 'Елена', 'Дом 140 м², Красногорск', 5, 'Прораб Андрей звонил сам и предупреждал обо всём заранее. Через год приезжали по гарантии — за день всё поправили.']];
+  var rc = 0;
+  var rqShow = function (i) { rc = (i + RQ.length) % RQ.length; var r = RQ[rc]; $('#rqQ').style.opacity = 0; $('#rqImg').style.opacity = 0;
+    setTimeout(function () { $('#rqImg').src = r[0]; $('#rqN').textContent = r[1]; $('#rqH').textContent = r[2]; $('#rqS').innerHTML = '★★★★★'.slice(0, r[3]) + '<i>' + '★★★★★'.slice(r[3]) + '</i>'; $('#rqQ').textContent = r[4]; $('#rqC').textContent = '0' + (rc + 1) + ' / 03'; $('#rqQ').style.opacity = 1; $('#rqImg').style.opacity = 1; }, 300); };
+  $('#rqP').onclick = function () { rqShow(rc - 1); }; $('#rqNx').onclick = function () { rqShow(rc + 1); };
+
+  // прожектор
+  $$('.sp').forEach(function (c) {
+    var mv = function (x, y) { var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (x - r.left) + 'px'); c.style.setProperty('--my', (y - r.top) + 'px'); c.style.setProperty('--o', 1); };
+    c.addEventListener('pointermove', function (e) { mv(e.clientX, e.clientY); });
+    c.addEventListener('pointerdown', function (e) { mv(e.clientX, e.clientY); });
+    c.addEventListener('pointerleave', function () { c.style.setProperty('--o', .35); });
+  });
+
+  // ипотека
+  var mm = function (n) { return (n / 1e6).toFixed(1).replace('.', ',') + ' млн ₽'; };
+  var mort = function () {
+    var P = +$('#mP').value * 1e6, d = +$('#mD').value, y = +$('#mY').value, L = P * (1 - d / 100), r = .06 / 12, n = y * 12;
+    var pay = Math.round(L * r / (1 - Math.pow(1 + r, -n)) / 100) * 100;
+    $('#mPv').textContent = mm(P); $('#mDv').textContent = d + '% · ' + mm(P * d / 100); $('#mYv').textContent = y + ' лет';
+    $('#mR').textContent = pay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'; $('#mBar').style.width = d + '%'; $('#mLoan').textContent = 'Кредит ' + mm(L);
+    [['#mP', 3, 25], ['#mD', 10, 70], ['#mY', 5, 30]].forEach(function (a) { var el = $(a[0]); el.style.setProperty('--p', ((el.value - a[1]) / (a[2] - a[1]) * 100) + '%'); });
+  };
+  $$('.mc input').forEach(function (i) { i.addEventListener('input', mort); }); mort();
+
+  // разбивка заголовка по буквам
+  var sp = $('#split'); sp.innerHTML = sp.textContent.split('').map(function (c, i) { return '<span style="--i:' + i + '">' + (c === ' ' ? '&nbsp;' : c) + '</span>'; }).join('');
+  var spo = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { sp.parentNode.classList.add('in'); } else sp.parentNode.classList.remove('in'); }); }, { threshold: .6 }); spo.observe(sp);
+
+  // магнитные кнопки и курсор (только мышь)
+  if (fine) {
+    $$('.mag').forEach(function (b) {
+      b.addEventListener('pointermove', function (e) { var r = b.getBoundingClientRect(); b.style.transform = 'translate3d(' + ((e.clientX - r.left - r.width / 2) * .25) + 'px,' + ((e.clientY - r.top - r.height / 2) * .35) + 'px,0)'; });
+      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+    });
+    var cur = $('#cur'), cx = 0, cy = 0, tx = 0, ty = 0;
+    addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; cur.classList.toggle('big', !!e.target.closest('a, button, img, .acc__i, .lst__i')); }, { passive: true });
+    (function loop() { cx += (tx - cx) * .2; cy += (ty - cy) * .2; cur.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)'; requestAnimationFrame(loop); })();
+  }
+  $$('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+})();
+</script>
+</body>
+</html>
