@@ -471,6 +471,56 @@
     .trk__c { padding: 26px; }
     .feed div { height: 150px; }
   }
+
+  /* ===== Рёбра со светом, сетка и крестики на тёмных блоках (как INDUSTRIX) ===== */
+  .dark.rounded > .wrap, .cta > .cta__g { position: relative; z-index: 1; }
+  .dark.rounded .wrap::before { content: '+'; position: absolute; left: var(--pad); top: -34px; font: 300 22px/1 var(--f); color: var(--or); }
+  .dark.rounded .wrap::after { content: '+'; position: absolute; right: var(--pad); bottom: -34px; font: 300 22px/1 var(--f); color: var(--or); }
+  .ribs { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55;
+    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .0) 0 38px, rgba(255, 255, 255, .035) 38px 39px, rgba(0, 0, 0, .25) 39px 44px, rgba(255, 255, 255, .0) 44px 82px);
+    -webkit-mask-image: radial-gradient(120% 90% at 85% 0%, #000 0%, transparent 70%); mask-image: radial-gradient(120% 90% at 85% 0%, #000 0%, transparent 70%); }
+  .grid-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px); background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(80% 70% at 15% 100%, #000, transparent 75%); mask-image: radial-gradient(80% 70% at 15% 100%, #000, transparent 75%); }
+
+  /* ===== Масштаб ===== */
+  .scale { padding: 0 10px; margin-bottom: 14px; }
+  .scale__f { position: relative; max-width: 1400px; margin: 0 auto; min-height: 640px; border-radius: 34px; overflow: hidden; background: #0b0b0b; isolation: isolate; color: #fff; }
+  .scale__f > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; filter: grayscale(.3) contrast(1.08) brightness(.72); }
+  .scale__f::before { content: ''; position: absolute; inset: 0; z-index: -2; background: linear-gradient(180deg, rgba(11, 11, 11, .2), rgba(11, 11, 11, .55) 60%, #0b0b0b), radial-gradient(70% 60% at 50% 55%, rgba(255, 106, 26, .55), transparent 70%); mix-blend-mode: normal; }
+  .scale__word { position: absolute; left: 0; right: 0; top: 28px; z-index: -1; text-align: center; font: 700 clamp(44px, 14.5vw, 190px)/.86 var(--f); letter-spacing: -.05em; text-transform: uppercase; white-space: nowrap; }
+  .scale__word span { display: block; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .28); }
+  .scale__word span + span { color: rgba(255, 106, 26, .55); -webkit-text-stroke: 0; mix-blend-mode: screen; }
+  .px { position: absolute; width: 34px; height: 34px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); }
+  .px.s { width: 22px; height: 22px; background: rgba(255, 106, 26, .4); border-color: transparent; }
+  .scale__g { position: absolute; left: 16px; right: 16px; bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 14px; }
+  .fr { position: relative; padding: 16px 14px; background: rgba(11, 11, 11, .35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 1px solid rgba(255, 180, 120, .55); }
+  .fr i { position: absolute; width: 9px; height: 9px; background: #ffb07a; }
+  .fr i:nth-of-type(1) { left: -5px; top: -5px; } .fr i:nth-of-type(2) { right: -5px; top: -5px; }
+  .fr i:nth-of-type(3) { left: -5px; bottom: -5px; } .fr i:nth-of-type(4) { right: -5px; bottom: -5px; }
+  .fr b { display: block; font: 600 34px/1 var(--f); letter-spacing: -.04em; }
+  .fr small { display: block; margin-top: 6px; font: 500 12px/1.3 var(--f); color: rgba(255, 255, 255, .78); }
+
+  /* ===== Подвал с оранжевой полосой (как INDUSTRIX) ===== */
+  .ft__cta { display: grid; gap: 22px; padding: 10px 0 30px; }
+  .ft__cta .pl { font: 300 26px/1 var(--f); color: var(--or); }
+  .ft__cta p { font: 600 clamp(24px, 6vw, 44px)/1.08 var(--f); letter-spacing: -.035em; }
+  .ft__cta p em { font-style: normal; color: var(--or); }
+  .ft__link { display: inline-flex; align-items: flex-start; gap: 14px; font: 600 15px/1.25 var(--f); text-transform: uppercase; letter-spacing: .02em; }
+  .ft__link svg { width: 30px; height: 30px; flex: none; stroke: var(--ink); stroke-width: 2; fill: none; }
+  .ft__link { border-bottom: 2px solid var(--or); padding-bottom: 10px; justify-self: start; }
+  .ft__band { margin: 10px -16px 0; padding: 18px 16px 10px; border-radius: 26px; overflow: hidden; background: linear-gradient(90deg, #ff7a1a, #ff4d0a 45%, #c43a08); }
+  .ft__band .ft__big { color: #fff; font-size: clamp(70px, 24vw, 300px); text-align: center; }
+  @media (min-width: 900px) {
+    .scale { padding: 0 16px; margin-bottom: 24px; }
+    .scale__f { min-height: 760px; border-radius: 44px; }
+    .scale__word { top: 50px; }
+    .scale__g { left: 50%; right: auto; bottom: 90px; top: auto; transform: translateX(-50%); width: min(1060px, 90%); grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .scale__g .fr:nth-child(odd) { transform: translateY(-40px); }
+    .fr { padding: 22px 20px; } .fr b { font-size: 48px; }
+    .ft__cta { grid-template-columns: 40px 1fr auto; align-items: end; padding-bottom: 50px; }
+    .ft__band { margin: 10px 0 0; }
+  }
 </style>
 </head>
 <body>
@@ -539,8 +589,24 @@
   </div>
 </section>
 
+<!-- Масштаб: цифры в рамках поверх стройки -->
+<section class="scale" id="scale">
+  <div class="scale__f" data-r="clip">
+    <img src="img/crane.webp" alt="Башенный кран на стройке" loading="lazy">
+    <div class="scale__word" aria-hidden="true"><span>МАСШТАБ</span><span>ОПОРЫ</span></div>
+    <i class="px" style="left:6%;top:12%"></i><i class="px" style="right:8%;top:30%"></i><i class="px" style="left:12%;bottom:18%"></i><i class="px s" style="right:20%;bottom:10%"></i>
+    <div class="scale__g">
+      <div class="fr" data-r><b><span data-count="18">0</span></b><small>домов строим прямо сейчас</small><i></i><i></i><i></i><i></i></div>
+      <div class="fr" data-r style="--d:.08s"><b><span data-count="240">0</span>+</b><small>сдали за 15 лет</small><i></i><i></i><i></i><i></i></div>
+      <div class="fr" data-r style="--d:.16s"><b><span data-count="60">0</span></b><small>мастеров в штате</small><i></i><i></i><i></i><i></i></div>
+      <div class="fr" data-r style="--d:.24s"><b><span data-count="32">0</span></b><small>единицы своей техники</small><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
 <!-- Конфигуратор -->
 <section class="sec dark rounded" id="build">
+  <i class="ribs"></i><i class="grid-bg"></i>
   <div class="wrap">
     <div class="shead">
       <div><span class="tag" data-r><i></i>Конфигуратор</span><h2 class="h2" style="margin-top:16px" data-r>Соберите дом —<br>увидите <span class="u">цену сразу<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2></div>
@@ -591,6 +657,7 @@
 
 <!-- Стройка онлайн -->
 <section class="sec dark rounded" id="online">
+  <i class="ribs"></i>
   <div class="wrap">
     <div class="shead">
       <div><span class="tag" data-r><i></i>Стройка онлайн</span><h2 class="h2" style="margin-top:16px" data-r>Вы видите <em>каждый</em><br>день стройки</h2></div>
@@ -609,6 +676,7 @@
 
 <!-- Почему мы -->
 <section class="sec dark rounded" id="why">
+  <i class="ribs"></i><i class="grid-bg"></i>
   <div class="wrap">
     <div class="shead">
       <div><span class="tag" data-r><i></i>Почему ОПОРА</span><h2 class="h2" style="margin-top:16px" data-r>Строим <span class="u">честно<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span> —<br>и это видно в цифрах</h2></div>
@@ -644,7 +712,8 @@
     </div>
   </div>
 </section>
-<section class="sec dark rounded" style="padding-top:18px;position:relative;overflow:hidden">
+<section class="sec dark rounded" style="padding-top:18px">
+  <i class="ribs"></i>
     <div class="wrap prj" data-r>
     <div class="prj__main" id="prjMain">
       <img src="img/dusk2.webp" alt="" id="prjImg">
@@ -685,6 +754,7 @@
 <section class="sec" id="contact" style="padding-top:0">
   <div class="wrap">
     <div class="cta" data-r>
+      <i class="ribs"></i><i class="grid-bg"></i>
       <div class="cta__g">
         <div>
           <span class="tag"><i></i>Расчёт за 1 день</span>
@@ -706,7 +776,8 @@
 
 <footer class="ft">
   <div class="wrap">
-    <div class="ft__big" data-r>ОПОРА<em>.</em></div>
+    <div class="ft__cta" data-r><span class="pl">+</span><p>Иногда один правильный подрядчик экономит<br>год нервов и <em>миллионы рублей</em></p><a href="#contact" class="ft__link"><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 9v8H9"/></svg>Запросить<br>расчёт дома</a></div>
+    <div class="ft__band" data-r><div class="ft__big">ОПОРА</div></div>
     <div class="ft__g">
       <div><small>Телефон</small><a href="tel:+70000000000">+7 (000) 000-00-00</a></div>
       <div><small>Почта</small><a href="mailto:hello@opora.build">hello@opora.build</a></div>
@@ -761,7 +832,7 @@
       if (el.dataset.count) count(el);
     });
   }, { threshold: .18, rootMargin: '0px 0px -6% 0px' });
-  $$('[data-r], .u, .hero__stats [data-count]').forEach(function (el) { io.observe(el); });
+  $$('[data-r], .u, .hero__stats [data-count], .fr [data-count]').forEach(function (el) { io.observe(el); });
   if (reduce) $$('[data-r], .u').forEach(function (el) { el.classList.add('in', 'on'); });
 
 
