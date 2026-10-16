@@ -521,6 +521,23 @@
     .ft__cta { grid-template-columns: 40px 1fr auto; align-items: end; padding-bottom: 50px; }
     .ft__band { margin: 10px 0 0; }
   }
+
+  /* ===== Вопросы ===== */
+  .faq { display: grid; gap: 10px; }
+  .faq details { border-radius: 22px; background: #fff; border: 1px solid var(--line); overflow: hidden; transition: box-shadow .3s; }
+  .faq details[open] { box-shadow: 0 14px 30px rgba(0, 0, 0, .05); }
+  .faq summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 18px; font: 600 16px/1.3 var(--f); letter-spacing: -.02em; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary i { position: relative; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--or-soft); transition: background .3s, transform .4s var(--ease); }
+  .faq summary i::before, .faq summary i::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; background: var(--or); border-radius: 2px; }
+  .faq summary i::after { transform: rotate(90deg); }
+  .faq details[open] summary i { background: var(--or); transform: rotate(45deg); }
+  .faq details[open] summary i::before, .faq details[open] summary i::after { background: #fff; }
+  .faq p { padding: 0 18px 18px; color: var(--ink2); font-size: 14.5px; max-width: 720px; }
+  @media (min-width: 900px) { .faq { grid-template-columns: 1fr 1fr; align-items: start; gap: 14px; } .faq summary { padding: 22px 24px; font-size: 18px; } .faq p { padding: 0 24px 22px; } }
+  /* тёмные блоки никогда не слипаются */
+  .dark.rounded { margin-top: 14px; margin-bottom: 14px; }
+  @media (min-width: 900px) { .dark.rounded { margin-top: 24px; margin-bottom: 24px; } }
 </style>
 </head>
 <body>
@@ -604,6 +621,24 @@
   </div>
 </section>
 
+<!-- Как работаем: линия этапов -->
+<section class="sec" id="process">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="tag" data-r><i></i>Как работаем</span><h2 class="h2" style="margin-top:16px" data-r>От выезда<br>до <em>ключей</em></h2></div>
+      <p class="lead" data-r>Пять этапов без сюрпризов: вы знаете цену, срок и что происходит на участке — каждый день.</p>
+    </div>
+    <div class="tl" id="tl">
+      <i class="tl__fill"></i>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><h4>Выезд на участок</h4><p>Инженер бесплатно смотрит грунт и подъезды.</p><span class="d">1 день</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></span><div><h4>Проект и смета</h4><p>Каждая статья расходов — построчно.</p><span class="d">1–3 дня</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="m9 14 2 2 4-4"/></svg></span><div><h4>Договор</h4><p>Цена и сроки прописаны и не меняются.</p><span class="d">1 день</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Платите по этапам, фотоотчёт каждую пятницу.</p><span class="d">4–9 мес</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg></span><div><h4>Ключи</h4><p>Приёмка вместе с вами, гарантия 10 лет.</p><span class="d">1 день</span></div></div></div>
+    </div>
+  </div>
+</section>
+
 <!-- Конфигуратор -->
 <section class="sec dark rounded" id="build">
   <i class="ribs"></i><i class="grid-bg"></i>
@@ -637,20 +672,14 @@
   </div>
 </section>
 
-<!-- Как работаем: линия этапов -->
-<section class="sec" id="process">
-  <div class="wrap">
-    <div class="shead">
-      <div><span class="tag" data-r><i></i>Как работаем</span><h2 class="h2" style="margin-top:16px" data-r>От выезда<br>до <em>ключей</em></h2></div>
-      <p class="lead" data-r>Пять этапов без сюрпризов: вы знаете цену, срок и что происходит на участке — каждый день.</p>
-    </div>
-    <div class="tl" id="tl">
-      <i class="tl__fill"></i>
-      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><h4>Выезд на участок</h4><p>Инженер бесплатно смотрит грунт и подъезды.</p><span class="d">1 день</span></div></div></div>
-      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></span><div><h4>Проект и смета</h4><p>Каждая статья расходов — построчно.</p><span class="d">1–3 дня</span></div></div></div>
-      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="m9 14 2 2 4-4"/></svg></span><div><h4>Договор</h4><p>Цена и сроки прописаны и не меняются.</p><span class="d">1 день</span></div></div></div>
-      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Платите по этапам, фотоотчёт каждую пятницу.</p><span class="d">4–9 мес</span></div></div></div>
-      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg></span><div><h4>Ключи</h4><p>Приёмка вместе с вами, гарантия 10 лет.</p><span class="d">1 день</span></div></div></div>
+<!-- Доверие -->
+<section class="trust" id="trust">
+  <div class="wrap" style="position:relative">
+    <div class="trust__stage"><div class="trust__words" data-r><span class="g">Надёжный</span><span>Честный</span><span class="g r">Строитель</span></div>
+    <div class="trust__card"><div class="tc" data-r="scale" style="height:100%"><img src="img/plan.webp" alt="Прораб проверяет чертёж" loading="lazy"><div class="glass"><b>Андрей Котов</b><small>Главный прораб · 18 лет на стройке</small></div></div></div></div>
+    <div class="trust__badges">
+      <div class="circ" data-r><div><b><span data-count="100">0</span><em>%</em></b><small>домов сдали в срок по договору</small></div></div>
+      <div class="bubble" data-r style="--d:.08s"><b>#01</b><div><h4>Один прораб — от фундамента до ключей</h4><p>Он отвечает за объект лично <span>и всегда на связи в мессенджере.</span></p></div></div>
     </div>
   </div>
 </section>
@@ -670,6 +699,41 @@
         <div class="trk__m"><div><small>Готово</small><b>62%</b></div><div><small>До сдачи</small><b>11 недель</b></div><div><small>Прораб</small><b>Андрей К.</b></div></div></div>
       <div class="trk__c"><div class="trk__h"><b>Фотоотчёт</b><span class="trk__t">пятница, 14:20</span></div>
         <div class="feed"><div><img src="img/found.webp" alt="Фундамент" loading="lazy"><small>3 окт</small></div><div><img src="img/site.webp" alt="Стены и перекрытия" loading="lazy"><small>10 окт</small></div><div><img src="img/terrace.webp" alt="Терраса" loading="lazy"><small>17 окт</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Проекты -->
+<section class="sec" id="projects" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="tag" data-r><i></i>Проекты</span><h2 class="h2" style="margin-top:16px" data-r>Построили <em>240+</em> домов.<br>Вот некоторые</h2></div>
+      <p class="lead" data-r>Каждый — реальный объект с фотоотчётом. Покажем вживую в посёлке рядом с вами.</p>
+    </div>
+  </div>
+</section>
+<section class="sec dark rounded" style="padding-top:18px">
+  <i class="ribs"></i>
+    <div class="wrap prj" data-r>
+    <div class="prj__main" id="prjMain">
+      <img src="img/dusk2.webp" alt="" id="prjImg">
+      <div class="prj__glass"><div class="glass"><b id="prjA">210 м²</b><small>Площадь</small></div><div class="glass"><b id="prjT">7 мес</b><small>Срок</small></div></div>
+      <div class="prj__cap"><div><span class="tag" id="prjTag">Газобетон · 2 этажа</span><h3 id="prjH">Дом в «Лесных Далях»</h3><p id="prjP">Истра, 2025</p></div>
+        <div class="arrs"><button class="arr" id="prjPrev" aria-label="Предыдущий проект"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="arr f" id="prjNext" aria-label="Следующий проект"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
+      </div>
+    </div>
+    <div class="prj__th" id="prjTh"></div>
+  </div>
+</section>
+
+<!-- Отзывы -->
+<section class="sec" id="reviews" style="padding-top:20px">
+  <div class="wrap">
+    <div class="shead"><div><span class="tag" data-r><i></i>Отзывы</span><h2 class="h2" style="margin-top:16px" data-r>Говорят <span class="u">хозяева<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2></div></div>
+    <div class="rv">
+      <article class="rv__c" data-r><div class="rv__st">★★★★★</div><q>Цена в итоге совпала с договором до рубля. Фотоотчёты приходили по пятницам — мы ни разу не ездили на стройку зря.</q><div class="rv__w"><i>М</i><div><b>Марина и Олег</b><small>Дом 180 м², Истра</small></div></div></article>
+      <article class="rv__c" data-r style="--d:.08s"><div class="rv__st">★★★★<i>★</i></div><q>Сдали на две недели раньше срока. Одна звезда долой — долго согласовывали цвет фасада, но это скорее мы капризничали.</q><div class="rv__w"><i>Д</i><div><b>Дмитрий</b><small>Коттедж 260 м², Дмитров</small></div></div></article>
+      <article class="rv__c" data-r style="--d:.16s"><div class="rv__st">★★★★★</div><q>Прораб Андрей — отдельное спасибо. Звонил сам, предупреждал обо всём заранее. Через год приезжали по гарантии — за день всё поправили.</q><div class="rv__w"><i>Е</i><div><b>Елена</b><small>Дом 140 м², Красногорск</small></div></div></article>
     </div>
   </div>
 </section>
@@ -703,49 +767,19 @@
   </div>
 </section>
 
-<!-- Проекты -->
-<section class="sec" id="projects" style="padding-bottom:0">
+<!-- Вопросы -->
+<section class="sec" id="faq">
   <div class="wrap">
     <div class="shead">
-      <div><span class="tag" data-r><i></i>Проекты</span><h2 class="h2" style="margin-top:16px" data-r>Построили <em>240+</em> домов.<br>Вот некоторые</h2></div>
-      <p class="lead" data-r>Каждый — реальный объект с фотоотчётом. Покажем вживую в посёлке рядом с вами.</p>
+      <div><span class="tag" data-r><i></i>Вопросы</span><h2 class="h2" style="margin-top:16px" data-r>Коротко о <span class="u">главном<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2></div>
+      <p class="lead" data-r>Не нашли ответ — спросите в форме ниже, инженер перезвонит.</p>
     </div>
-  </div>
-</section>
-<section class="sec dark rounded" style="padding-top:18px">
-  <i class="ribs"></i>
-    <div class="wrap prj" data-r>
-    <div class="prj__main" id="prjMain">
-      <img src="img/dusk2.webp" alt="" id="prjImg">
-      <div class="prj__glass"><div class="glass"><b id="prjA">210 м²</b><small>Площадь</small></div><div class="glass"><b id="prjT">7 мес</b><small>Срок</small></div></div>
-      <div class="prj__cap"><div><span class="tag" id="prjTag">Газобетон · 2 этажа</span><h3 id="prjH">Дом в «Лесных Далях»</h3><p id="prjP">Истра, 2025</p></div>
-        <div class="arrs"><button class="arr" id="prjPrev" aria-label="Предыдущий проект"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="arr f" id="prjNext" aria-label="Следующий проект"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
-      </div>
-    </div>
-    <div class="prj__th" id="prjTh"></div>
-  </div>
-</section>
-
-<!-- Доверие -->
-<section class="trust" id="trust">
-  <div class="wrap" style="position:relative">
-    <div class="trust__stage"><div class="trust__words" data-r><span class="g">Надёжный</span><span>Честный</span><span class="g r">Строитель</span></div>
-    <div class="trust__card"><div class="tc" data-r="scale" style="height:100%"><img src="img/plan.webp" alt="Прораб проверяет чертёж" loading="lazy"><div class="glass"><b>Андрей Котов</b><small>Главный прораб · 18 лет на стройке</small></div></div></div></div>
-    <div class="trust__badges">
-      <div class="circ" data-r><div><b><span data-count="100">0</span><em>%</em></b><small>домов сдали в срок по договору</small></div></div>
-      <div class="bubble" data-r style="--d:.08s"><b>#01</b><div><h4>Один прораб — от фундамента до ключей</h4><p>Он отвечает за объект лично <span>и всегда на связи в мессенджере.</span></p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- Отзывы -->
-<section class="sec" id="reviews" style="padding-top:20px">
-  <div class="wrap">
-    <div class="shead"><div><span class="tag" data-r><i></i>Отзывы</span><h2 class="h2" style="margin-top:16px" data-r>Говорят <span class="u">хозяева<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2></div></div>
-    <div class="rv">
-      <article class="rv__c" data-r><div class="rv__st">★★★★★</div><q>Цена в итоге совпала с договором до рубля. Фотоотчёты приходили по пятницам — мы ни разу не ездили на стройку зря.</q><div class="rv__w"><i>М</i><div><b>Марина и Олег</b><small>Дом 180 м², Истра</small></div></div></article>
-      <article class="rv__c" data-r style="--d:.08s"><div class="rv__st">★★★★<i>★</i></div><q>Сдали на две недели раньше срока. Одна звезда долой — долго согласовывали цвет фасада, но это скорее мы капризничали.</q><div class="rv__w"><i>Д</i><div><b>Дмитрий</b><small>Коттедж 260 м², Дмитров</small></div></div></article>
-      <article class="rv__c" data-r style="--d:.16s"><div class="rv__st">★★★★★</div><q>Прораб Андрей — отдельное спасибо. Звонил сам, предупреждал обо всём заранее. Через год приезжали по гарантии — за день всё поправили.</q><div class="rv__w"><i>Е</i><div><b>Елена</b><small>Дом 140 м², Красногорск</small></div></div></article>
+    <div class="faq" data-r>
+      <details open><summary>Может ли цена вырасти во время стройки?<i></i></summary><p>Нет. Цена фиксируется в договоре. Если материалы дорожают — это наш риск. Меняется только если вы сами решите что-то добавить.</p></details>
+      <details><summary>Как платить?<i></i></summary><p>По этапам: фундамент, коробка, кровля, отделка. Платите только за готовый и принятый этап. Работаем с ипотекой и материнским капиталом.</p></details>
+      <details><summary>Можно строить зимой?<i></i></summary><p>Да. Фундамент и коробку возводим круглый год с прогревом бетона. Зимой даже проще с подъездом техники к участку.</p></details>
+      <details><summary>Что, если что-то сломается после сдачи?<i></i></summary><p>Гарантия 10 лет на фундамент, стены и кровлю, 2 года на инженерные системы. Приезжаем за 48 часов.</p></details>
+      <details><summary>У меня свой проект. Возьмётесь?<i></i></summary><p>Да. Проверим его и посчитаем смету. Если нужно — адаптируем под участок и бюджет.</p></details>
     </div>
   </div>
 </section>
@@ -790,7 +824,7 @@
 
 <div class="menu" id="menu" role="dialog" aria-label="Меню">
   <div class="menu__top"><span class="logo"><b><svg viewBox="0 0 24 24" style="fill:var(--ink)"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><button class="menu__x" data-close aria-label="Закрыть">✕</button></div>
-  <nav><a href="#services">Что строим<small>01</small></a><a href="#build">Конфигуратор<small>02</small></a><a href="#process">Как работаем<small>03</small></a><a href="#online">Стройка онлайн<small>04</small></a><a href="#why">Почему мы<small>04</small></a><a href="#projects">Проекты<small>05</small></a><a href="#contact">Контакты<small>06</small></a></nav>
+  <nav><a href="#services">Что строим<small>01</small></a><a href="#build">Конфигуратор<small>02</small></a><a href="#process">Как работаем<small>03</small></a><a href="#online">Стройка онлайн<small>04</small></a><a href="#why">Почему мы<small>04</small></a><a href="#projects">Проекты<small>05</small></a><a href="#faq">Вопросы<small>06</small></a><a href="#contact">Контакты<small>06</small></a></nav>
   <div class="menu__b"><a class="tel" href="tel:+70000000000">+7 (000) 000-00-00</a><a class="btn btn--o" href="#contact" style="justify-content:space-between">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
 </div>
 
