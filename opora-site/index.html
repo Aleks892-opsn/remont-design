@@ -424,6 +424,53 @@
   .st, .bx { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
   .frm, .opt { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
   @media (prefers-reduced-motion: reduce) { .dark.rounded::before, .cta::before, .dark.rounded::after, .cta::after { animation: none; } }
+
+  /* ===== Этапы: линия ===== */
+  .tl { position: relative; padding-left: 30px; }
+  .tl::before { content: ''; position: absolute; left: 11px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+  .tl__fill { position: absolute; left: 11px; top: 6px; width: 2px; height: calc(100% - 12px); background: var(--or); transform-origin: top; transform: scaleY(var(--p, 0)); }
+  .tl__i { position: relative; padding: 0 0 14px; }
+  .tl__i::before { content: ''; position: absolute; left: -26px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid #d9d4ce; transition: border-color .4s, background .4s, box-shadow .4s; }
+  .tl__i.on::before { border-color: var(--or); background: var(--or); box-shadow: 0 0 0 5px rgba(255, 106, 26, .18); }
+  .tl__c { padding: 16px; border-radius: 22px; background: #fff; border: 1px solid var(--line); display: flex; gap: 14px; transition: transform .5s var(--ease), box-shadow .5s; }
+  .tl__i.on .tl__c { box-shadow: 0 14px 30px rgba(0, 0, 0, .05); }
+  .tl__c h4 { margin: 0; font: 600 17px var(--f); letter-spacing: -.02em; }
+  .tl__c p { margin-top: 4px; font-size: 13.5px; color: var(--ink2); }
+  .tl__c .d { display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 999px; background: var(--or-soft); color: var(--or); font: 600 11.5px var(--f); }
+  /* ===== Стройка онлайн ===== */
+  .trk { display: grid; gap: 12px; }
+  .trk__c { padding: 18px; border-radius: 24px; background: #141414; border: 1px solid var(--dline); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+  .trk__h { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .trk__h b { font: 600 17px var(--f); letter-spacing: -.02em; }
+  .trk__t { font-size: 12px; color: var(--dmute); }
+  .live { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .06); border: 1px solid var(--dline); font: 500 12px var(--f); }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #2ed573; animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(46, 213, 115, .6); } 100% { box-shadow: 0 0 0 10px rgba(46, 213, 115, 0); } }
+  .trk__bar { margin-top: 16px; height: 8px; border-radius: 6px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+  .trk__bar i { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, var(--or), var(--or2)); transition: width 1.6s var(--ease) .2s; }
+  .trk.in .trk__bar i { width: 62%; }
+  .trk__st { margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .trk__st span { text-align: center; font: 500 10.5px/1.25 var(--f); color: var(--dmute); }
+  .trk__st span::before { content: ''; display: block; width: 10px; height: 10px; margin: 0 auto 6px; border-radius: 50%; background: rgba(255, 255, 255, .15); }
+  .trk__st span.d { color: #fff; } .trk__st span.d::before { background: var(--or); }
+  .trk__st span.n::before { background: #fff; box-shadow: 0 0 0 4px rgba(255, 106, 26, .4); }
+  .trk__m { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--dline); display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .trk__m small { display: block; font-size: 11px; color: var(--dmute); }
+  .trk__m b { font: 600 15px var(--f); letter-spacing: -.02em; }
+  .feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 14px; }
+  .feed div { position: relative; height: 96px; border-radius: 14px; overflow: hidden; }
+  .feed img { width: 100%; height: 100%; object-fit: cover; }
+  .feed small { position: absolute; left: 6px; bottom: 6px; padding: 2px 7px; border-radius: 999px; background: rgba(0, 0, 0, .55); font: 600 10px var(--f); color: #fff; }
+  @media (min-width: 900px) {
+    .tl { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; padding: 34px 0 0; }
+    .tl::before { left: 0; right: 0; top: 7px; bottom: auto; width: auto; height: 2px; }
+    .tl__fill { left: 0; top: 7px; width: 100%; height: 2px; transform-origin: left; transform: scaleX(var(--p, 0)); }
+    .tl__i { padding: 0; } .tl__i::before { left: 0; top: -34px; }
+    .tl__c { flex-direction: column; height: 100%; padding: 20px; }
+    .trk { grid-template-columns: 1.1fr 1fr; gap: 16px; }
+    .trk__c { padding: 26px; }
+    .feed div { height: 150px; }
+  }
 </style>
 </head>
 <body>
@@ -524,29 +571,38 @@
   </div>
 </section>
 
-<!-- Как работаем -->
+<!-- Как работаем: линия этапов -->
 <section class="sec" id="process">
   <div class="wrap">
     <div class="shead">
-      <div><span class="tag" data-r><i></i>Как работаем</span><h2 class="h2" style="margin-top:16px" data-r>Дом под ключ<br>за <em>3 шага</em></h2></div>
-      <p class="lead" data-r>Без сюрпризов: вы знаете цену, срок и что происходит на участке — каждый день.</p>
+      <div><span class="tag" data-r><i></i>Как работаем</span><h2 class="h2" style="margin-top:16px" data-r>От выезда<br>до <em>ключей</em></h2></div>
+      <p class="lead" data-r>Пять этапов без сюрпризов: вы знаете цену, срок и что происходит на участке — каждый день.</p>
     </div>
-    <div class="steps dark" style="background:none">
-      <article class="st" data-r>
-        <span class="st__n">01</span>
-        <div class="st__v"><div class="v-app"><svg viewBox="0 0 48 48"><path d="M8 40V20L24 8l16 12v20H30V28H18v12z"/><path d="M4 22 24 6l20 16"/></svg></div></div>
-        <h3>Выезд и смета</h3><p>Инженер бесплатно выезжает на участок. Через день — проект и смета по каждому этапу.</p>
-      </article>
-      <article class="st" data-r style="--d:.08s">
-        <span class="st__n">02</span>
-        <div class="st__v"><div class="v-doc"><small>ОПОРА<i>Договор №148</i></small><b>8 340 000 ₽</b><span>Цена зафиксирована · не меняется</span></div></div>
-        <h3>Договор с ценой</h3><p>Цена и сроки прописаны в договоре. Платите по этапам, только за готовое.</p>
-      </article>
-      <article class="st" data-r style="--d:.16s">
-        <span class="st__n">03</span>
-        <div class="st__v"><div class="v-ph"><div><img src="img/found.webp" alt="" loading="lazy"></div><div><img src="img/site.webp" alt="" loading="lazy"></div><div><img src="img/terrace.webp" alt="" loading="lazy"></div></div></div>
-        <h3>Строим и отчитываемся</h3><p>Фото и видео со стройки каждую неделю. Приёмка каждого этапа — с вами.</p>
-      </article>
+    <div class="tl" id="tl">
+      <i class="tl__fill"></i>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><h4>Выезд на участок</h4><p>Инженер бесплатно смотрит грунт и подъезды.</p><span class="d">1 день</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg></span><div><h4>Проект и смета</h4><p>Каждая статья расходов — построчно.</p><span class="d">1–3 дня</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="m9 14 2 2 4-4"/></svg></span><div><h4>Договор</h4><p>Цена и сроки прописаны и не меняются.</p><span class="d">1 день</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Платите по этапам, фотоотчёт каждую пятницу.</p><span class="d">4–9 мес</span></div></div></div>
+      <div class="tl__i"><div class="tl__c"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg></span><div><h4>Ключи</h4><p>Приёмка вместе с вами, гарантия 10 лет.</p><span class="d">1 день</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Стройка онлайн -->
+<section class="sec dark rounded" id="online">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="tag" data-r><i></i>Стройка онлайн</span><h2 class="h2" style="margin-top:16px" data-r>Вы видите <em>каждый</em><br>день стройки</h2></div>
+      <p class="lead" data-r>В личном кабинете — прогресс по этапам и свежие фото с датами. На участок можно не ездить.</p>
+    </div>
+    <div class="trk" data-r>
+      <div class="trk__c"><div class="trk__h"><b>Дом 180 м², Истра</b><span class="live"><i></i>Идут работы</span></div>
+        <div class="trk__bar"><i></i></div>
+        <div class="trk__st"><span class="d">Фундамент</span><span class="d">Стены</span><span class="d n">Кровля</span><span>Окна</span><span>Отделка</span></div>
+        <div class="trk__m"><div><small>Готово</small><b>62%</b></div><div><small>До сдачи</small><b>11 недель</b></div><div><small>Прораб</small><b>Андрей К.</b></div></div></div>
+      <div class="trk__c"><div class="trk__h"><b>Фотоотчёт</b><span class="trk__t">пятница, 14:20</span></div>
+        <div class="feed"><div><img src="img/found.webp" alt="Фундамент" loading="lazy"><small>3 окт</small></div><div><img src="img/site.webp" alt="Стены и перекрытия" loading="lazy"><small>10 окт</small></div><div><img src="img/terrace.webp" alt="Терраса" loading="lazy"><small>17 окт</small></div></div></div>
     </div>
   </div>
 </section>
@@ -663,7 +719,7 @@
 
 <div class="menu" id="menu" role="dialog" aria-label="Меню">
   <div class="menu__top"><span class="logo"><b><svg viewBox="0 0 24 24" style="fill:var(--ink)"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>ОПОРА</span><button class="menu__x" data-close aria-label="Закрыть">✕</button></div>
-  <nav><a href="#services">Что строим<small>01</small></a><a href="#build">Конфигуратор<small>02</small></a><a href="#process">Как работаем<small>03</small></a><a href="#why">Почему мы<small>04</small></a><a href="#projects">Проекты<small>05</small></a><a href="#contact">Контакты<small>06</small></a></nav>
+  <nav><a href="#services">Что строим<small>01</small></a><a href="#build">Конфигуратор<small>02</small></a><a href="#process">Как работаем<small>03</small></a><a href="#online">Стройка онлайн<small>04</small></a><a href="#why">Почему мы<small>04</small></a><a href="#projects">Проекты<small>05</small></a><a href="#contact">Контакты<small>06</small></a></nav>
   <div class="menu__b"><a class="tel" href="tel:+70000000000">+7 (000) 000-00-00</a><a class="btn btn--o" href="#contact" style="justify-content:space-between">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
 </div>
 
@@ -708,6 +764,21 @@
   $$('[data-r], .u, .hero__stats [data-count]').forEach(function (el) { io.observe(el); });
   if (reduce) $$('[data-r], .u').forEach(function (el) { el.classList.add('in', 'on'); });
 
+
+  // Этапы: линия заполняется при прокрутке
+  var tl = $('#tl');
+  if (tl) {
+    var tlItems = $$('.tl__i', tl), tlT = false;
+    var tlUpd = function () {
+      var r = tl.getBoundingClientRect(), wide = innerWidth >= 900;
+      var p = wide ? Math.max(0, Math.min(1, (innerHeight * .85 - r.top) / (innerHeight * .5))) : Math.max(0, Math.min(1, (innerHeight * .7 - r.top) / r.height));
+      tl.style.setProperty('--p', p.toFixed(3));
+      tlItems.forEach(function (el, i) { el.classList.toggle('on', p >= (i + .15) / tlItems.length); });
+      tlT = false;
+    };
+    addEventListener('scroll', function () { if (!tlT) { tlT = true; requestAnimationFrame(tlUpd); } }, { passive: true });
+    addEventListener('resize', tlUpd); tlUpd();
+  }
   // Меню
   var menu = function (on) { body.classList.toggle('mo', on); };
   $$('[data-menu]').forEach(function (b) { b.onclick = function () { menu(true); }; });
