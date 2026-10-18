@@ -607,7 +607,7 @@
   @media (min-width: 900px) { .dark.rounded { margin-top: 24px; margin-bottom: 24px; } }
 
   /* ===== Заставка загрузки: FORTE заливается, экран уезжает вверх шторкой ===== */
-  .pre { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; pointer-events: none; background: #0b0b0b; transition: transform 1s cubic-bezier(.76, 0, .24, 1); }
+  .pre { position: fixed; inset: -40vh 0 0; padding-top: 40vh; z-index: 1000; display: grid; place-items: center; pointer-events: none; background: #0b0b0b; transition: transform 1s cubic-bezier(.76, 0, .24, 1); }
   .pre.out { transform: translate3d(0, -100%, 0); }
   .pre__w { position: relative; z-index: 1; display: flex; font: 900 clamp(56px, 21vw, 150px)/.8 var(--f); letter-spacing: -.04em; color: #fff; transition: opacity .25s, transform .5s cubic-bezier(.76, 0, .24, 1); }
   .pre__w b { position: relative; display: block; overflow: hidden; padding-bottom: .06em; font-weight: inherit; }
@@ -615,7 +615,7 @@
   .pre__w b span::after { content: attr(data-c); position: absolute; inset: 0; color: var(--or); clip-path: inset(0 100% 0 0); animation: preSweep .55s cubic-bezier(.6, 0, .2, 1) forwards; animation-delay: calc(.9s + var(--i) * .1s); }
   @keyframes preUp { to { transform: none; } }
   @keyframes preSweep { to { clip-path: inset(0 0 0 0); } }
-  html.pre-on, html.pre-on body { overflow: hidden; }
+  html.pre-on, html.pre-on body { overflow: hidden; background: #0b0b0b; }
   @media (prefers-reduced-motion: reduce) { .pre__w b span, .pre__w b span::after { animation-duration: .01s; animation-delay: 0s; } }
 </style>
 </head>
