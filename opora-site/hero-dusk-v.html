@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FORTE: главная в сумерках</title>
+<meta name="description" content="Пять вариантов первого экрана FORTE для компьютера: фото на весь экран, текст поверх.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3f0; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13, 13, 13, .09);
+    --or: #ff6a1a; --or2: #ff9248; --k: #0b0b0b;
+    --f: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(.2, .75, .2, 1);
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #e6e2dd; color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, p { margin: 0; }
+  em { font-style: normal; }
+  .top { max-width: 1400px; margin: 0 auto; padding: 28px 24px 10px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .top h2 { font: 800 44px/1 var(--f); letter-spacing: -.05em; }
+  .top h2 em { color: var(--or); }
+  .top p { max-width: 540px; color: var(--ink2); font-size: 14.5px; }
+  .jump { display: flex; gap: 8px; flex-wrap: wrap; }
+  .jump a { height: 38px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13px var(--f); }
+  .jump a b { color: var(--or); margin-right: 6px; }
+  .it { max-width: 1400px; margin: 34px auto 0; padding: 0 24px; }
+  .it__h { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+  .it__h > b { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--or); color: #fff; font: 800 15px var(--f); }
+  .it__h span { font: 700 19px var(--f); letter-spacing: -.03em; }
+  .it__h small { color: var(--mute); font-size: 13px; margin-left: 6px; }
+  .end { text-align: center; color: var(--mute); padding: 40px 0 70px; font-size: 13px; }
+
+  .scr { position: relative; aspect-ratio: 16 / 9.4; border-radius: 28px; overflow: hidden; container-type: inline-size; isolation: isolate; color: #fff; background: #111; box-shadow: 0 30px 60px rgba(0, 0, 0, .12); }
+  .ph { position: absolute; inset: 0; z-index: -2; }
+  .ph img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 2.4s var(--ease); }
+  .go .ph img { transform: none; }
+  .sh { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  .nav { position: absolute; z-index: 10; left: 2cqw; right: 2cqw; top: 1.6cqw; height: 4.2cqw; display: flex; align-items: center; gap: .8cqw; padding: 0 .5cqw 0 1.4cqw; border-radius: 99cqw; background: rgba(15, 14, 13, .45); border: 1px solid rgba(255, 255, 255, .14); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+  .lg { display: inline-flex; align-items: center; gap: .7cqw; font: 800 1.35cqw var(--f); letter-spacing: .02em; }
+  .lg b { width: 2.3cqw; height: 2.3cqw; border-radius: .7cqw; display: grid; place-items: center; background: var(--or); }
+  .lg svg { width: 1.3cqw; height: 1.3cqw; fill: #fff; }
+  .links { display: flex; gap: .3cqw; margin-left: 2.4cqw; }
+  .links a { height: 2.8cqw; padding: 0 1.1cqw; display: inline-flex; align-items: center; border-radius: 99cqw; font: 500 .95cqw var(--f); opacity: .9; }
+  .links a.on { background: rgba(255, 255, 255, .16); opacity: 1; }
+  .sp { flex: 1; }
+  .tel { font: 600 .95cqw var(--f); margin-right: .6cqw; }
+  .cta { height: 3.2cqw; padding: 0 1.5cqw; display: inline-flex; align-items: center; border-radius: 99cqw; background: var(--or); color: #fff; font: 700 1cqw var(--f); }
+  .btn { display: inline-flex; align-items: center; gap: 1.2cqw; height: 4.2cqw; padding: 0 .45cqw 0 2cqw; border-radius: 99cqw; background: var(--or); color: #fff; font: 700 1.15cqw var(--f); box-shadow: 0 1.2cqw 2.4cqw rgba(255, 106, 26, .35); }
+  .btn i { width: 3.3cqw; height: 3.3cqw; border-radius: 50%; display: grid; place-items: center; background: #fff; }
+  .btn i svg { width: 1.3cqw; height: 1.3cqw; fill: none; stroke: var(--or); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .btn.gh { background: rgba(255, 255, 255, .12); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35); padding: 0 2cqw; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .h1 { font: 700 4.6cqw/1 var(--f); letter-spacing: -.05em; text-shadow: 0 .3cqw 2cqw rgba(0, 0, 0, .25); }
+  .h1 em { color: var(--or2); }
+  .sub { font: 500 1.15cqw/1.5 var(--f); color: rgba(255, 255, 255, .85); }
+  .tag { display: inline-flex; align-items: center; gap: .6cqw; height: 2.4cqw; padding: 0 1cqw; border-radius: 99cqw; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .22); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 600 .9cqw var(--f); }
+  .tag i { width: .5cqw; height: .5cqw; border-radius: 50%; background: var(--or); }
+  .stats { display: flex; }
+  .stats > div { padding: 1.3cqw 2cqw; }
+  .stats > div + div { border-left: 1px solid rgba(255, 255, 255, .2); }
+  .stats b { display: block; font: 800 2.2cqw/1 var(--f); letter-spacing: -.04em; }
+  .stats b small { font-size: .5em; color: var(--or2); margin-left: .2cqw; }
+  .stats span { display: block; margin-top: .4cqw; font: 500 .85cqw var(--f); opacity: .75; }
+  .glass { border-radius: 1.8cqw; background: rgba(15, 14, 13, .38); border: 1px solid rgba(255, 255, 255, .18); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+  .white { border-radius: 1.8cqw; background: #fff; color: var(--ink); }
+  .white > div + div { border-left-color: var(--line); }
+  .white b small { color: var(--or); }
+  .white span { color: var(--mute); opacity: 1; }
+  [data-a] { opacity: 0; transform: translate3d(0, 1.6cqw, 0); transition: opacity .9s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+  .go [data-a] { opacity: 1; transform: none; }
+
+
+  .scr { background: #0b1322; }
+  .shift .ph img { object-position: 100% 50%; }
+
+  /* 1 */
+  .v1 { --sx: 22cqw; }
+  .v1 .sh { background: linear-gradient(90deg, rgba(8, 12, 20, .55) 0%, rgba(8, 12, 20, 0) 40%), linear-gradient(180deg, rgba(0, 0, 0, .3), transparent 22%, transparent 75%, rgba(0, 0, 0, .35)); }
+  .v1 .tx { position: absolute; left: 4.5cqw; top: 11.5cqw; width: 33cqw; }
+  .v1 .h1 { margin-top: 1.6cqw; font-size: 3.9cqw; }
+  .v1 .sub { margin-top: 1.4cqw; font-size: 1.05cqw; }
+  .v1 .row { margin-top: 2.2cqw; display: flex; gap: .8cqw; }
+  .v1 .stats { position: absolute; left: 4.5cqw; bottom: 3cqw; }
+
+  /* 2 */
+  .v2 .sh { background: linear-gradient(180deg, rgba(0, 0, 0, .35), transparent 20%, transparent 55%, rgba(6, 10, 16, .82) 100%); }
+  .v2 .tx { position: absolute; left: 4.5cqw; top: 10.5cqw; width: 30cqw; }
+  .v2 .h1 { font-size: 3.6cqw; }
+  .v2 .sub { margin-top: 1.2cqw; font-size: 1cqw; }
+  .v2 .bar { position: absolute; left: 3cqw; right: 3cqw; bottom: 3cqw; display: flex; align-items: center; justify-content: space-between; padding: .8cqw .8cqw .8cqw 1.4cqw; }
+  .v2 .bar .stats > div { padding: .6cqw 2cqw; }
+  .v2 .bar .stats > div:first-child { padding-left: .6cqw; }
+  .v2 .bar .stats > div + div { border-left-color: var(--line); }
+  .v2 .bar .stats b small { color: var(--or); }
+  .v2 .bar .stats span { color: var(--mute); opacity: 1; }
+
+  /* 3 */
+  .v3 { background: #0d0d0f; }
+  .v3 .ph { left: 38cqw; }
+  .v3 .ph::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #0d0d0f 0%, rgba(13, 13, 15, 0) 18%); }
+  .v3 .sh { background: linear-gradient(180deg, rgba(0, 0, 0, .3), transparent 20%); }
+  .v3 .tx { position: absolute; left: 4.5cqw; top: 12cqw; width: 32cqw; }
+  .v3 .h1 { margin-top: 1.6cqw; font-size: 4cqw; text-shadow: none; }
+  .v3 .sub { margin-top: 1.4cqw; font-size: 1.05cqw; color: rgba(255, 255, 255, .65); }
+  .v3 .row { margin-top: 2.2cqw; display: flex; gap: .8cqw; }
+  .v3 .stats { position: absolute; left: 4.5cqw; bottom: 3cqw; }
+  .v3 .stats > div:first-child { padding-left: 0; }
+
+  /* 4 */
+  .v4 { --sx: 24cqw; }
+  .v4 .card { position: absolute; left: 3cqw; top: 8.5cqw; bottom: 3cqw; width: 34cqw; padding: 3cqw; border-radius: 2.2cqw; background: #fff; color: var(--ink); display: flex; flex-direction: column; }
+  .v4 .card .tag { background: var(--bg); border-color: var(--line); color: var(--ink2); -webkit-backdrop-filter: none; backdrop-filter: none; align-self: flex-start; }
+  .v4 .card .h1 { margin-top: 1.6cqw; font-size: 3.5cqw; text-shadow: none; }
+  .v4 .card .h1 em { color: var(--or); }
+  .v4 .card .sub { margin-top: 1.2cqw; color: var(--ink2); font-size: 1cqw; }
+  .v4 .card .row { margin-top: 1.8cqw; display: flex; gap: .8cqw; }
+  .v4 .card .btn.gh { color: var(--ink); background: var(--bg); box-shadow: none; }
+  .v4 .card .stats { margin-top: auto; padding-top: 1.4cqw; border-top: 1px solid var(--line); }
+  .v4 .card .stats > div { padding: 0 1.6cqw 0 0; }
+  .v4 .card .stats > div + div { padding-left: 1.6cqw; border-left-color: var(--line); }
+  .v4 .card .stats b small { color: var(--or); }
+  .v4 .card .stats span { color: var(--mute); opacity: 1; }
+
+  /* 5 */
+  .v5 { --sx: 14cqw; }
+  .v5 .sh { background: linear-gradient(180deg, rgba(0, 0, 0, .3), transparent 20%, transparent 50%, rgba(6, 10, 16, .85) 100%); }
+  .v5 .tx { position: absolute; left: 4.5cqw; bottom: 3.4cqw; width: 36cqw; }
+  .v5 .h1 { font-size: 3.8cqw; }
+  .v5 .row { margin-top: 1.8cqw; display: flex; gap: .8cqw; }
+  .v5 .stats { position: absolute; right: 3cqw; bottom: 3.4cqw; }
+
+  @media (prefers-reduced-motion: reduce) { [data-a], .ph img { opacity: 1 !important; transform: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+</svg>
+<header class="top">
+  <div><h2>Главная с домом в сумерках:<br><em>пять</em> вариантов</h2></div>
+  <p>Везде между текстом и домом есть воздух: я продлил фото влево тем же вечерним небом и газоном, поэтому дом стоит правее и не касается текста. Только для компьютера.</p>
+  <nav class="jump"><a href="#v1"><b>1</b>Белые цифры слева</a><a href="#v2"><b>2</b>Нижняя панель</a><a href="#v3"><b>3</b>Тёмная колонка</a><a href="#v4"><b>4</b>Белая карточка</a><a href="#v5"><b>5</b>Текст внизу</a></nav>
+</header>
+
+<section class="it" id="v1"><div class="it__h"><b>1</b><span>Белые цифры слева</span><small>Как сейчас, но дом сдвинут вправо, а текст компактнее. Белая плашка цифр под текстом.</small></div>
+  <div class="scr shift v1" data-scr><div class="ph"><img src="img/hero-dusk-w.webp" alt="Дом в сумерках"></div><i class="sh"></i><div data-nav></div><div class="tx"><span class="tag" data-a style="--d:.2s"><i></i>Частные дома под ключ · Москва и область</span><h1 class="h1" data-a style="--d:.3s">Строим дома,<br>в которых <em>хочется жить</em></h1><p class="sub" data-a style="--d:.4s">Цена в договоре не меняется. Смета за 1 день, фотоотчёт каждую неделю.</p><div class="row" data-a style="--d:.5s"><a class="btn" href="#">Рассчитать дом<i><svg><use href="#arr"/></svg></i></a><a class="btn gh" href="#">Проекты</a></div></div><div class="stats white" data-a style="--d:.6s" data-stats></div></div></section>
+
+<section class="it" id="v2"><div class="it__h"><b>2</b><span>Нижняя панель</span><small>Заголовок наверху слева на небе. Внизу во всю ширину белая панель: цифры слева, кнопка справа.</small></div>
+  <div class="scr shift v2" data-scr><div class="ph"><img src="img/hero-dusk-w.webp" alt="Дом в сумерках"></div><i class="sh"></i><div data-nav></div><div class="tx"><h1 class="h1" data-a style="--d:.3s">Строим дома,<br>в которых <em>хочется жить</em></h1><p class="sub" data-a style="--d:.4s">Цена в договоре не меняется. Смета за 1 день, фотоотчёт каждую неделю.</p></div><div class="bar white" data-a style="--d:.55s"><div class="stats" data-stats></div><a class="btn" href="#">Рассчитать дом<i><svg><use href="#arr"/></svg></i></a></div></div></section>
+
+<section class="it" id="v3"><div class="it__h"><b>3</b><span>Тёмная колонка</span><small>Слева спокойная тёмная колонка с текстом, справа фото, граница мягко растворяется. Дом и текст точно не пересекаются.</small></div>
+  <div class="scr v3" data-scr><div class="ph"><img src="img/hero-dusk.webp" alt="Дом в сумерках"></div><i class="sh"></i><div data-nav></div><div class="tx"><span class="tag" data-a style="--d:.2s"><i></i>Частные дома под ключ · Москва и область</span><h1 class="h1" data-a style="--d:.3s">Строим дома,<br>в которых <em>хочется жить</em></h1><p class="sub" data-a style="--d:.4s">Цена в договоре не меняется. Смета за 1 день, фотоотчёт каждую неделю.</p><div class="row" data-a style="--d:.5s"><a class="btn" href="#">Рассчитать дом<i><svg><use href="#arr"/></svg></i></a><a class="btn gh" href="#">Проекты</a></div></div><div class="stats" data-a style="--d:.6s" data-stats></div></div></section>
+
+<section class="it" id="v4"><div class="it__h"><b>4</b><span>Белая карточка</span><small>Весь текст и цифры в белой карточке слева, фото справа за ней. Чисто и читаемо.</small></div>
+  <div class="scr shift v4" data-scr><div class="ph"><img src="img/hero-dusk-w.webp" alt="Дом в сумерках"></div><i class="sh"></i><div data-nav></div><div class="card" data-a style="--d:.25s"><span class="tag"><i></i>Частные дома под ключ · Москва и область</span><h1 class="h1">Строим дома,<br>в которых <em>хочется жить</em></h1><p class="sub">Цена в договоре не меняется. Смета за 1 день, фотоотчёт каждую неделю.</p><div class="row"><a class="btn" href="#">Рассчитать дом<i><svg><use href="#arr"/></svg></i></a><a class="btn gh" href="#">Проекты</a></div><div class="stats" data-stats></div></div></div></section>
+
+<section class="it" id="v5"><div class="it__h"><b>5</b><span>Текст внизу</span><small>Небо и дом сверху свободны. Заголовок и кнопки внизу слева на газоне, белые цифры внизу справа.</small></div>
+  <div class="scr shift v5" data-scr><div class="ph"><img src="img/hero-dusk-w.webp" alt="Дом в сумерках"></div><i class="sh"></i><div data-nav></div><div class="tx"><h1 class="h1" data-a style="--d:.3s">Строим дома,<br>в которых <em>хочется жить</em></h1><div class="row" data-a style="--d:.5s"><a class="btn" href="#">Рассчитать дом<i><svg><use href="#arr"/></svg></i></a><a class="btn gh" href="#">Проекты</a></div></div><div class="stats white" data-a style="--d:.6s" data-stats></div></div></section>
+
+<p class="end">Выберите номер, поставлю на сайт только для компьютера.</p>
+
+<script>
+(function () {
+  var nav = '<nav class="nav" data-a style="--d:.05s"><a class="lg" href="#"><b><svg><use href="#logo"/></svg></b>FORTE</a><span class="links"><a class="on" href="#">Главная</a><a href="#">Что строим</a><a href="#">Конфигуратор</a><a href="#">Проекты</a><a href="#">Контакты</a></span><span class="sp"></span><a class="tel" href="#">+7 (000) 000-00-00</a><a class="cta" href="#">Расчёт</a></nav>';
+  var st = '<div><b>240<small>+</small></b><span>домов сдали семьям</span></div><div><b>10<small>лет</small></b><span>гарантии на дом</span></div><div><b>5<small>мес</small></b><span>срок стройки, от</span></div>';
+  document.querySelectorAll('[data-nav]').forEach(function (el) { el.outerHTML = nav; });
+  document.querySelectorAll('[data-stats]').forEach(function (el) { el.innerHTML = st; });
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('go'); io.unobserve(e.target); } }); }, { threshold: .3 });
+  document.querySelectorAll('[data-scr]').forEach(function (s) { io.observe(s); });
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+})();
+</script>
+</body>
+</html>
