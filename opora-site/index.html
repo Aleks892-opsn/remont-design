@@ -606,13 +606,10 @@
   .dark.rounded { margin-top: 14px; margin-bottom: 14px; }
   @media (min-width: 900px) { .dark.rounded { margin-top: 24px; margin-bottom: 24px; } }
 
-  /* ===== Заставка загрузки: FORTE заливается, фон уезжает колонками ===== */
-  .pre { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; pointer-events: none; }
-  .pre__cols { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
-  .pre__cols i { background: #0b0b0b; margin-right: -1px; transition: transform .8s cubic-bezier(.76, 0, .24, 1); transition-delay: calc(var(--i) * .07s); }
-  .pre.out .pre__cols i { transform: translate3d(0, -101%, 0); }
+  /* ===== Заставка загрузки: FORTE заливается, экран уезжает вверх шторкой ===== */
+  .pre { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; pointer-events: none; background: #0b0b0b; transition: transform 1s cubic-bezier(.76, 0, .24, 1); }
+  .pre.out { transform: translate3d(0, -100%, 0); }
   .pre__w { position: relative; z-index: 1; display: flex; font: 900 clamp(56px, 21vw, 150px)/.8 var(--f); letter-spacing: -.04em; color: #fff; transition: opacity .25s, transform .5s cubic-bezier(.76, 0, .24, 1); }
-  .pre.out .pre__w { opacity: 0; transform: translate3d(0, -30px, 0); }
   .pre__w b { position: relative; display: block; overflow: hidden; padding-bottom: .06em; font-weight: inherit; }
   .pre__w b span { display: block; color: rgba(255, 255, 255, .14); transform: translate3d(0, 105%, 0); animation: preUp .8s cubic-bezier(.2, .75, .2, 1) forwards; animation-delay: calc(.15s + var(--i) * .07s); }
   .pre__w b span::after { content: attr(data-c); position: absolute; inset: 0; color: var(--or); clip-path: inset(0 100% 0 0); animation: preSweep .55s cubic-bezier(.6, 0, .2, 1) forwards; animation-delay: calc(.9s + var(--i) * .1s); }
@@ -623,7 +620,7 @@
 </style>
 </head>
 <body>
-<div class="pre" id="pre" aria-hidden="true"><div class="pre__cols"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i></div><div class="pre__w"><b><span data-c="F" style="--i:0">F</span></b><b><span data-c="O" style="--i:1">O</span></b><b><span data-c="R" style="--i:2">R</span></b><b><span data-c="T" style="--i:3">T</span></b><b><span data-c="E" style="--i:4">E</span></b></div></div>
+<div class="pre" id="pre" aria-hidden="true"><div class="pre__w"><b><span data-c="F" style="--i:0">F</span></b><b><span data-c="O" style="--i:1">O</span></b><b><span data-c="R" style="--i:2">R</span></b><b><span data-c="T" style="--i:3">T</span></b><b><span data-c="E" style="--i:4">E</span></b></div></div>
 <script>document.documentElement.classList.add('pre-on');</script>
 
 <!-- Плавающая шапка (появляется после первого экрана) -->
