@@ -160,17 +160,6 @@
   .rounded { margin: 0 10px; border-radius: 34px; }
 
   /* Услуги */
-  .svc { display: grid; gap: 14px; }
-  .svc__c { position: relative; height: 420px; border-radius: var(--r); overflow: hidden; color: #fff; isolation: isolate; }
-  .svc__c img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1.2s var(--ease); }
-  .svc__c:hover img { transform: scale(1.05); }
-  .svc__c::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, .25), rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, .6)); }
-  .svc__t { position: absolute; left: 16px; right: 16px; top: 16px; display: flex; justify-content: space-between; align-items: flex-start; }
-  .svc__t .pill { height: 34px; font-size: 12px; }
-  .svc__n { font: 600 13px var(--f); color: rgba(255, 255, 255, .8); }
-  .svc__b { position: absolute; left: 16px; right: 16px; bottom: 16px; }
-  .svc__b h3 { font-size: 28px; }
-  .svc__b p { margin-top: 6px; font-size: 13.5px; color: rgba(255, 255, 255, .85); max-width: 360px; }
   .plq { margin-top: 14px; display: flex; align-items: center; height: 46px; border-radius: 12px; overflow: hidden; background: var(--or); font: 600 13px var(--f); letter-spacing: .02em; text-transform: uppercase; }
   .plq span { flex: 1; padding: 0 16px; }
   .plq i { width: 64px; height: 100%; background: repeating-linear-gradient(90deg, rgba(0, 0, 0, .28) 0 5px, transparent 5px 11px); }
@@ -437,10 +426,6 @@
     .hfm .btn { margin: 0 0 0 8px; }
     .facts div { padding: 16px 20px 0 0; }
     .facts div + div { padding-left: 20px; border-left: 1px solid rgba(255, 255, 255, .2); }
-    .svc { grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 16px; }
-    .svc__c { height: auto; }
-    .svc__c:first-child { grid-row: 1 / 3; }
-    .svc__c:nth-child(4) { grid-column: 2 / 4; }
     .cfg { grid-template-columns: 1.45fr 1fr; gap: 16px; align-items: stretch; }
     .cfg__view { height: auto; min-height: 560px; }
     .steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -609,6 +594,33 @@
   @keyframes preSweep { to { clip-path: inset(0 0 0 0); } }
   html.pre-on, html.pre-on body { overflow: hidden; background: #0b0b0b; }
   @media (prefers-reduced-motion: reduce) { .pre__w b span, .pre__w b span::after { animation-duration: .01s; animation-delay: 0s; } }
+
+  /* ===== Что строим: вкладки и большое фото ===== */
+  .svx__tabs { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+  .svx__tabs button { position: relative; z-index: 1; height: 42px; border-radius: 999px; font: 600 12.5px var(--f); color: var(--ink2); transition: color .3s; }
+  .svx__tabs button.on { color: #fff; }
+  .svx__tabs i { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 20px) / 4); border-radius: 999px; background: var(--ink); transform: translateX(calc(var(--k, 0) * (100% + 4px))); transition: transform .5s cubic-bezier(.34, 1.4, .64, 1); }
+  .svx__st { position: relative; margin-top: 10px; height: 460px; border-radius: var(--r); overflow: hidden; color: #fff; isolation: isolate; }
+  .svx__st img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 0; transform: scale(1.06); transition: opacity .7s, transform 1.4s var(--ease); }
+  .svx__st img.on { opacity: 1; transform: none; }
+  .svx__st::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, .8)); }
+  .svx__bar { position: absolute; left: 16px; right: 16px; top: 16px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .25); overflow: hidden; }
+  .svx__bar b { display: block; height: 100%; background: #fff; transform-origin: left; transform: scaleX(0); }
+  .svx__bar b.run { animation: svxBar 4.5s linear forwards; }
+  @keyframes svxBar { to { transform: scaleX(1); } }
+  .svx__b { position: absolute; left: 16px; right: 16px; bottom: 16px; }
+  .svx__b > * { transition: opacity .35s, transform .5s var(--ease); }
+  .svx__b.sw > * { opacity: 0; transform: translate3d(0, 10px, 0); }
+  .svx__b h3 { font-size: 28px; }
+  .svx__b p { margin-top: 6px; font-size: 13.5px; color: rgba(255, 255, 255, .86); max-width: 440px; }
+  .svx__row { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .svx__chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .svx__chips span { height: 30px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: 999px; background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .3); font: 600 12px var(--f); }
+  .svx__chips span:empty { display: none; }
+  .svx__go { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--or); color: #fff; }
+  .svx__go svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  @media (min-width: 900px) { .svx__tabs { max-width: 640px; } .svx__tabs button { font-size: 14px; height: 48px; } .svx__st { height: min(640px, 72vh); margin-top: 14px; } .svx__b { left: 32px; right: 32px; bottom: 30px; } .svx__b h3 { font-size: 48px; } .svx__b p { font-size: 15px; } .svx__bar { left: 32px; right: 32px; top: 26px; } }
+  @media (prefers-reduced-motion: reduce) { .svx__bar { display: none; } }
 </style>
 </head>
 <body>
@@ -670,11 +682,12 @@
       <div><span class="tag" data-r><i></i>Что строим</span><h2 class="h2" style="margin-top:16px" data-r style="--d:.05s">Четыре направления —<br><span class="u">одна команда<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2></div>
       <p class="lead" data-r>От фундамента до ключей — своими силами, без субподрядчиков, с одним ответственным прорабом.</p>
     </div>
-    <div class="svc">
-      <article class="svc__c" data-r="clip"><img src="img/dusk2.webp" alt="Двухэтажный дом с подсветкой" loading="lazy"><div class="svc__t"><span class="pill">Частный дом</span><span class="svc__n">01</span></div><div class="svc__b"><h3>Дом под ключ</h3><p>Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.</p><div class="plq"><span>от 6,8 млн ₽ · 6 мес</span><i></i><a href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
-      <article class="svc__c" data-r="clip" style="--d:.08s"><img src="img/cottage.webp" alt="Коттедж с панорамным остеклением" loading="lazy"><div class="svc__t"><span class="pill">Коттедж</span><span class="svc__n">02</span></div><div class="svc__b"><h3>Коттеджи</h3><div class="plq"><span>от 12 млн ₽</span><i></i><a href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
-      <article class="svc__c" data-r="clip" style="--d:.16s"><img src="img/cube.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"><div class="svc__t"><span class="pill">Коробка</span><span class="svc__n">03</span></div><div class="svc__b"><h3>Тёплый контур</h3><div class="plq"><span>от 3,9 млн ₽</span><i></i><a href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
-      <article class="svc__c" data-r="clip" style="--d:.24s"><img src="img/comm.webp" alt="Коммерческое здание" loading="lazy"><div class="svc__t"><span class="pill">Бизнес</span><span class="svc__n">04</span></div><div class="svc__b"><h3>Коммерческие здания</h3><p>Офисы, магазины, базы отдыха — с проектом и согласованиями.</p><div class="plq"><span>по проекту</span><i></i><a href="#contact" aria-label="Обсудить"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
+    <div class="svx" id="svx" data-r style="--d:.1s">
+      <div class="svx__tabs" role="tablist"><i></i><button class="on" role="tab">Дом</button><button role="tab">Коттедж</button><button role="tab">Контур</button><button role="tab">Бизнес</button></div>
+      <div class="svx__st"><img src="img/dusk2.webp" alt="Двухэтажный дом с подсветкой" loading="lazy" class="on"><img src="img/cottage.webp" alt="Коттедж с панорамным остеклением" loading="lazy"><img src="img/cube.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"><img src="img/comm.webp" alt="Коммерческое здание" loading="lazy"><span class="svx__bar"><b></b></span>
+        <div class="svx__b"><h3>Дом под ключ</h3><p>Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.</p><div class="svx__row"><div class="svx__chips"><span>от 6,8 млн ₽</span><span>6 мес</span></div><a class="svx__go" href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
+      </div>
+      <template data-svx>Дом под ключ|Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.|от 6,8 млн ₽|6 мес|#build</template><template data-svx>Коттеджи|Большие дома с панорамами и террасами, проект под ваш участок.|от 12 млн ₽||#build</template><template data-svx>Тёплый контур|Фундамент, стены, кровля и окна. Отделку делаете сами.|от 3,9 млн ₽||#build</template><template data-svx>Коммерческие здания|Офисы, магазины, базы отдыха, с проектом и согласованиями.|по проекту||#contact</template>
     </div>
   </div>
 </section>
@@ -976,6 +989,25 @@
     addEventListener('scroll', function () { if (!tlT) { tlT = true; requestAnimationFrame(tlUpd); } }, { passive: true });
     addEventListener('resize', tlUpd); tlUpd();
   }
+
+  // Что строим: вкладки, карточки листаются сами, пока блок на экране
+  (function () {
+    var box = $('#svx'); if (!box) return;
+    var D = $$('template[data-svx]', box).map(function (t) { return t.innerHTML.split('|'); });
+    var tabs = $('.svx__tabs', box), btns = $$('button', tabs), imgs = $$('.svx__st img', box), bar = $('.svx__bar b', box), bx = $('.svx__b', box), go = $('.svx__go', box);
+    var cur = 0, tm = null, vis = false;
+    var fill = function (i) { var d = D[i]; $('h3', bx).textContent = d[0]; $('p', bx).textContent = d[1]; var c = $$('.svx__chips span', bx); c[0].textContent = d[2]; c[1].textContent = d[3]; go.setAttribute('href', d[4]); };
+    var show = function (i) {
+      cur = i; tabs.style.setProperty('--k', i);
+      btns.forEach(function (b, k) { b.classList.toggle('on', k === i); b.setAttribute('aria-selected', k === i); });
+      imgs.forEach(function (im, k) { im.classList.toggle('on', k === i); });
+      bx.classList.add('sw'); setTimeout(function () { fill(i); bx.classList.remove('sw'); }, 300);
+      clearTimeout(tm); bar.classList.remove('run');
+      if (vis && !reduce) { void bar.offsetWidth; bar.classList.add('run'); tm = setTimeout(function () { show((cur + 1) % D.length); }, 4500); }
+    };
+    btns.forEach(function (b, i) { b.addEventListener('click', function () { show(i); }); });
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) show(cur); else { clearTimeout(tm); bar.classList.remove('run'); } }, { threshold: .35 }).observe(box);
+  })();
   // Меню
   var menu = function (on) { body.classList.toggle('mo', on); document.documentElement.classList.toggle('mo', on); };
   $$('[data-menu]').forEach(function (b) { b.onclick = function () { menu(true); }; });
