@@ -277,29 +277,6 @@
   .glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 26, .28), transparent 65%); pointer-events: none; }
 
   /* Доверие (стиль второй картинки) */
-  .trust { position: relative; padding: 70px 0 50px; overflow: hidden; }
-  .trust__words { position: relative; font: 600 clamp(52px, 15vw, 150px)/.92 var(--f); letter-spacing: -.055em; }
-  .trust__words span { display: block; }
-  .trust__words .g { color: #c4c0bb; }
-  .trust__words .r { text-align: right; }
-  .trust__stage { position: relative; }
-  .trust__card { position: absolute; z-index: 2; left: 50%; top: 50%; width: 38%; max-width: 250px; aspect-ratio: 3 / 4; border-radius: 30px; overflow: hidden; transform: translate(-50%, -48%) rotate(-7deg); box-shadow: 0 30px 60px rgba(0, 0, 0, .25); }
-  .trust__card img { width: 100%; height: 100%; object-fit: cover; }
-  .tc { position: relative; height: 100%; }
-  .trust__card .glass { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px 12px; color: #fff; }
-  .trust__card .glass b { display: block; font: 600 14px var(--f); }
-  .trust__card .glass small { font-size: 11px; color: rgba(255, 255, 255, .8); }
-  .trust__badges { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 40px; }
-  .trust__badges .bubble { width: 100%; }
-  .circ { width: 150px; height: 150px; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center; padding: 18px; box-shadow: 0 20px 40px rgba(0, 0, 0, .06); }
-  .circ b { display: block; font: 600 34px/1 var(--f); letter-spacing: -.04em; }
-  .circ b em { font-style: normal; color: var(--or); }
-  .circ small { display: block; margin-top: 6px; font: 500 11px/1.35 var(--f); color: var(--ink2); }
-  .bubble { position: relative; padding: 18px; border-radius: 26px; background: #fff; box-shadow: 0 20px 40px rgba(0, 0, 0, .06); display: flex; gap: 14px; }
-  .bubble b { font: 600 28px/1 var(--f); letter-spacing: -.04em; color: var(--or); }
-  .bubble h4 { margin: 0; font: 600 15px/1.25 var(--f); letter-spacing: -.02em; }
-  .bubble p { margin-top: 6px; font-size: 12.5px; color: var(--ink2); }
-  .bubble p span { color: var(--mute); }
 
   /* Отзывы */
   .rv { display: grid; gap: 12px; }
@@ -405,11 +382,6 @@
     .bars i { width: 40px; }
     .th { width: 220px; }
     .th div { height: 130px; }
-    .trust { padding: 120px 0 90px; }
-    .trust__card { width: 240px; }
-    .trust__badges { flex-direction: row; justify-content: space-between; align-items: center; margin-top: 50px; }
-    .trust__badges .bubble { width: 420px; }
-    .circ { width: 180px; height: 180px; }
     .rv { grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .cta { padding: 60px; border-radius: 44px; }
     .cta__g { grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: start; }
@@ -607,6 +579,26 @@
   .pst__nb button.f { background: var(--or); border-color: var(--or); color: #fff; box-shadow: 0 10px 24px rgba(255, 106, 26, .35); }
   @media (min-width: 900px) { .pst { grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: center; } .pst__stk { height: 520px; } .pst__c { height: 480px; right: 50px; } .pst__pnl { padding: 28px; } .pst__cnt { font-size: 64px; } .pst__inf h3 { font-size: 30px; } }
   @media (prefers-reduced-motion: reduce) { .pst__c, .pst__c.out, .pst__inf { transition-duration: .01s !important; } }
+
+  /* ===== Доверие: профиль прораба ===== */
+  .fmn { border-radius: var(--r); overflow: hidden; background: #fff; }
+  .fmn__ph { position: relative; height: 300px; }
+  .fmn__ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .fmn__ph span { position: absolute; left: 14px; top: 14px; display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .92); font: 700 11.5px var(--f); }
+  .fmn__ph span i { width: 7px; height: 7px; border-radius: 50%; background: #3ddc84; animation: fmnP 1.8s infinite; }
+  @keyframes fmnP { 0% { box-shadow: 0 0 0 0 rgba(61, 220, 132, .6); } 100% { box-shadow: 0 0 0 7px rgba(61, 220, 132, 0); } }
+  .fmn__bd { padding: 16px; }
+  .fmn__bd h3 { font-size: 22px; }
+  .fmn__role { margin-top: 3px; font: 500 13px var(--f); color: var(--mute); }
+  .fmn__st { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .fmn__st > div { padding: 12px 10px; border-radius: 16px; background: var(--bg); }
+  .fmn__st b { display: block; font: 800 20px/1 var(--f); letter-spacing: -.04em; }
+  .fmn__st b small { font-size: 12px; color: var(--or); }
+  .fmn__st > div > span { display: block; margin-top: 5px; font: 500 10.5px/1.3 var(--f); color: var(--mute); }
+  .fmn q { display: block; margin-top: 14px; padding-left: 14px; border-left: 3px solid var(--or); font: 500 14px/1.45 var(--f); color: var(--ink2); quotes: none; }
+  .fmn__btn { margin-top: 16px; width: 100%; justify-content: space-between; }
+  @media (min-width: 900px) { .fmn { display: grid; grid-template-columns: 1.1fr 1fr; } .fmn__ph { height: auto; min-height: 520px; } .fmn__bd { padding: 40px; display: flex; flex-direction: column; justify-content: center; } .fmn__bd h3 { font-size: 40px; } .fmn__st b { font-size: 34px; } .fmn__st > div { padding: 18px 16px; } .fmn q { font-size: 17px; margin-top: 24px; } .fmn__btn { width: auto; align-self: flex-start; min-width: 300px; margin-top: 28px; } }
+  @media (prefers-reduced-motion: reduce) { .fmn__ph span i { animation: none; } }
 </style>
 </head>
 <body>
@@ -738,13 +730,18 @@
   </div>
 </section>
 
-<section class="trust" id="trust">
-  <div class="wrap" style="position:relative">
-    <div class="trust__stage"><div class="trust__words" data-r><span class="g">Надёжный</span><span>Честный</span><span class="g r">Строитель</span></div>
-    <div class="trust__card"><div class="tc" data-r="scale" style="height:100%"><img src="img/plan.webp" alt="Прораб проверяет чертёж" loading="lazy"><div class="glass"><b>Андрей Котов</b><small>Главный прораб · 18 лет на стройке</small></div></div></div></div>
-    <div class="trust__badges">
-      <div class="circ" data-r><div><b><span data-count="100">0</span><em>%</em></b><small>домов сдали в срок по договору</small></div></div>
-      <div class="bubble" data-r style="--d:.08s"><b>#01</b><div><h4>Один прораб — от фундамента до ключей</h4><p>Он отвечает за объект лично <span>и всегда на связи в мессенджере.</span></p></div></div>
+<section class="sec" id="trust">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="tag" data-r><i></i>Кто отвечает за дом</span><h2 class="h2" style="margin-top:16px" data-r>Один человек<br>от фундамента <span class="u">до ключей<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2></div>
+    </div>
+    <div class="fmn" data-r>
+      <div class="fmn__ph"><img src="img/plan.webp" alt="Главный прораб проверяет чертёж" loading="lazy"><span><i></i>Сейчас на объекте</span></div>
+      <div class="fmn__bd"><h3>Андрей Котов</h3><div class="fmn__role">Главный прораб FORTE</div>
+        <div class="fmn__st"><div><b><span data-count="18">0</span><small> лет</small></b><span>на стройке</span></div><div><b><span data-count="100">0</span><small>%</small></b><span>домов сдали в срок</span></div><div><b>1</b><span>прораб на весь объект</span></div></div>
+        <q>Я отвечаю за ваш дом лично и всегда на связи в мессенджере.</q>
+        <a class="btn btn--o fmn__btn" href="#contact">Написать прорабу<i><svg viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg></i></a>
+      </div>
     </div>
   </div>
 </section>
