@@ -380,20 +380,31 @@
   .ft__b { display: flex; justify-content: space-between; margin-top: 26px; font-size: 12px; color: var(--mute); }
 
   /* Меню */
-  .menu { position: fixed; inset: 0; z-index: 60; background: var(--black); color: #fff; padding: 16px 18px 30px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .35s, visibility 0s .35s; }
+  /* ===== Меню: плитки ===== */
+  .menu { position: fixed; inset: 0; z-index: 60; background: rgba(11, 11, 11, .95); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); color: #fff; padding: 16px 12px max(14px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; }
   body.mo .menu { opacity: 1; visibility: visible; transition: opacity .35s; }
-  .menu__top { display: flex; align-items: center; justify-content: space-between; height: 58px; }
-  .menu__top .logo b { background: #fff; }
-  .menu__x { width: 44px; height: 44px; border-radius: 50%; background: var(--or); color: #fff; font-size: 16px; }
-  .menu nav { margin-top: 30px; display: grid; }
-  .menu nav a { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--dline); font: 600 30px var(--f); letter-spacing: -.04em; opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity .4s, transform .5s var(--ease); }
-  .menu nav a small { font: 500 12px var(--f); color: var(--or); letter-spacing: 0; }
-  body.mo .menu nav a { opacity: 1; transform: none; }
-  body.mo .menu nav a:nth-child(2) { transition-delay: .04s; } body.mo .menu nav a:nth-child(3) { transition-delay: .08s; }
-  body.mo .menu nav a:nth-child(4) { transition-delay: .12s; } body.mo .menu nav a:nth-child(5) { transition-delay: .16s; }
-  body.mo .menu nav a:nth-child(6) { transition-delay: .2s; }
-  .menu__b { margin-top: auto; display: grid; gap: 10px; }
-  .menu__b a.tel { font: 600 22px var(--f); }
+  body.mo { overflow: hidden; }
+  .menu__top { display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 6px; flex: none; }
+  .menu__top .logo { color: #fff; }
+  .menu__top .logo b { background: var(--or); }
+  .menu__top .logo b svg { fill: #fff !important; }
+  .menu__x { width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; }
+  .menu__x svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .menu__gr { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .menu__gr a { min-height: 92px; padding: 14px; border-radius: 20px; background: #1a1918; border: 1px solid rgba(255, 255, 255, .06); display: flex; flex-direction: column; justify-content: space-between; font: 700 15px/1.15 var(--f); letter-spacing: -.02em; opacity: 0; transform: scale(.9) translate3d(0, 14px, 0); transition: opacity .4s, transform .6s cubic-bezier(.34, 1.4, .64, 1), background .2s; transition-delay: calc(.08s + var(--i) * .045s); }
+  .menu__gr a:active { background: #262422; }
+  body.mo .menu__gr a { opacity: 1; transform: none; }
+  .menu__gr svg { width: 22px; height: 22px; fill: none; stroke: var(--or); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .menu__gr a.big { grid-column: 1 / -1; min-height: 104px; background: var(--or); border-color: var(--or); font-size: 19px; flex-direction: row; align-items: flex-end; }
+  .menu__gr a.big small { display: block; font: 500 12px var(--f); opacity: .85; margin-top: 4px; letter-spacing: 0; }
+  .menu__gr a.big i { flex: none; width: 46px; height: 46px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
+  .menu__gr a.big i svg { width: 18px; height: 18px; stroke-width: 2.4; }
+  .menu__b { margin-top: auto; padding-top: 14px; display: flex; gap: 8px; flex: none; opacity: 0; transition: opacity .5s .45s; }
+  body.mo .menu__b { opacity: 1; }
+  .menu__b a { flex: 1; height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 16px; background: #1a1918; border: 1px solid rgba(255, 255, 255, .06); font: 600 13px var(--f); }
+  .menu__b svg { width: 16px; height: 16px; fill: none; stroke: var(--or); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  @media (min-width: 700px) { .menu { padding: 24px 24px 24px; } .menu__gr { grid-template-columns: repeat(4, 1fr); max-width: 980px; width: 100%; margin: 24px auto 0; } .menu__b { max-width: 980px; width: 100%; margin: auto auto 0; } }
+  @media (prefers-reduced-motion: reduce) { .menu__gr a, .menu__b { transition: none; opacity: 1; transform: none; } }
 
   /* ===== Компьютер ===== */
   @media (min-width: 900px) {
@@ -904,9 +915,9 @@
 </footer>
 
 <div class="menu" id="menu" role="dialog" aria-label="Меню">
-  <div class="menu__top"><span class="logo"><b><svg viewBox="0 0 24 24" style="fill:var(--ink)"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>FORTE</span><button class="menu__x" data-close aria-label="Закрыть">✕</button></div>
-  <nav><a href="#services">Что строим<small>01</small></a><a href="#build">Конфигуратор<small>02</small></a><a href="#process">Как работаем<small>03</small></a><a href="#online">Стройка онлайн<small>04</small></a><a href="#why">Почему мы<small>04</small></a><a href="#projects">Проекты<small>05</small></a><a href="#faq">Вопросы<small>06</small></a><a href="#contact">Контакты<small>06</small></a></nav>
-  <div class="menu__b"><a class="tel" href="tel:+70000000000">+7 (000) 000-00-00</a><a class="btn btn--o" href="#contact" style="justify-content:space-between">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
+  <div class="menu__top"><span class="logo"><b><svg viewBox="0 0 24 24" style="fill:#fff"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>FORTE</span><button class="menu__x" data-close aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <nav class="menu__gr"><a class="big" href="#contact" style="--i:0"><span>Рассчитать дом<small>Смета за 1 день</small></span><i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a><a href="#services" style="--i:1"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>Что строим</a><a href="#build" style="--i:2"><svg viewBox="0 0 24 24"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg>Конфигуратор</a><a href="#process" style="--i:3"><svg viewBox="0 0 24 24"><path d="M4 20h4v-4h4v-4h4V8h4"/></svg>Как работаем</a><a href="#online" style="--i:4"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg>Стройка онлайн</a><a href="#why" style="--i:5"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Почему мы</a><a href="#projects" style="--i:6"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>Проекты</a><a href="#faq" style="--i:7"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6M12 17h.01"/></svg>Вопросы</a><a href="#contact" style="--i:8"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Контакты</a></nav>
+  <div class="menu__b"><a href="tel:+70000000000"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Позвонить</a><a href="#contact"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg>Telegram</a><a href="#contact"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.2z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg>WhatsApp</a></div>
 </div>
 
 <script>
