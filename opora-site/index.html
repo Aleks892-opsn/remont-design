@@ -115,14 +115,14 @@
   .pill { height: 40px; padding: 0 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .08); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font: 500 13px var(--f); transition: background .25s; }
   .pill:hover { background: rgba(255, 255, 255, .2); }
   .pill.on { background: #fff; color: var(--ink); border-color: #fff; }
-  .hero .burg { background: #fff; }
-  .hero .burg i { border-color: var(--ink); }
+  .hero__top .burg { background: #fff; }
+  .hero__top .burg i { border-color: var(--ink); }
   .glass { border-radius: 22px; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .28); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
-  .hero__top { z-index: 6; left: 10px; right: 10px; top: 10px; height: 58px; padding: 0 7px 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .13); -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3); }
+  .hero__top { position: fixed; z-index: 50; left: 10px; right: 10px; top: 10px; max-width: 1368px; margin: 0 auto; height: 58px; padding: 0 7px 0 14px; border-radius: 999px; background: rgba(22, 21, 20, .82); border: 1px solid rgba(255, 255, 255, .12); box-shadow: 0 12px 30px rgba(0, 0, 0, .18); color: #fff; -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3); }
   .hero__cta { height: 42px; padding: 0 16px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: var(--or); color: #fff; font: 700 13px var(--f); white-space: nowrap; transition: transform .2s; }
   .hero__cta:active { transform: scale(.96); }
   .hero__cta svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-  .hero .burg { width: 42px; height: 42px; }
+  .hero__top .burg { width: 42px; height: 42px; }
   .hero__top .logo b { background: var(--or); }
   .hero__tag { position: absolute; z-index: 5; left: 18px; top: 80px; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 6px; border-radius: 999px; font: 600 12px var(--f); background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
   .hero__tag i { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--or); }
@@ -139,13 +139,6 @@
   .hs b { display: flex; align-items: baseline; gap: 2px; font: 800 22px/1 var(--f); letter-spacing: -.04em; }
   .hs b small { font-size: 12px; font-weight: 700; color: var(--or); }
   .hs > span { display: block; margin-top: 6px; font: 500 10.5px/1.3 var(--f); color: var(--mute); }
-  /* быстрый расчёт под первым экраном */
-  .hfm { max-width: 1400px; margin: 10px auto 0; padding: 8px; border-radius: 26px; background: #fff; display: grid; gap: 4px; box-shadow: 0 20px 40px rgba(0, 0, 0, .06); }
-  .hfm__f { position: relative; display: block; padding: 10px 14px; border-radius: 18px; background: var(--bg); cursor: pointer; }
-  .hfm__f small { display: block; font: 600 11px var(--f); color: var(--mute); }
-  .hfm__f select { -webkit-appearance: none; appearance: none; width: 100%; margin-top: 2px; padding: 0 24px 0 0; border: 0; background: transparent; font: 700 15px var(--f); color: var(--ink); outline: none; cursor: pointer; }
-  .hfm__f::after { content: ''; position: absolute; right: 16px; bottom: 18px; width: 8px; height: 8px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); pointer-events: none; }
-  .hfm .btn { margin-top: 4px; justify-content: space-between; }
 
   /* ===== Бегущая строка доверия ===== */
   .ticker { overflow: hidden; padding: 26px 0; }
@@ -408,22 +401,17 @@
     .nav__links a { padding: 10px 14px; border-radius: 999px; font: 500 14px var(--f); transition: background .2s; }
     .nav__links a:hover { background: rgba(0, 0, 0, .06); }
     .hero { padding: 16px 16px 0; }
-    .hero__f { height: calc(var(--vh, 1vh) * 100 - 76px); min-height: 640px; border-radius: 38px; }
+    .hero__f { height: calc(var(--vh, 1vh) * 100 - 32px); min-height: 640px; border-radius: 38px; }
     .hero__top { left: 16px; right: 16px; top: 16px; height: 64px; padding: 0 8px 0 20px; }
     .hero__links { display: flex; gap: 6px; margin-left: 30px; }
     .hero__tag { left: 30px; top: 98px; }
     .hero__side.r { display: block; right: 32px; text-align: right; }
-    .hero__bot { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; padding: 0 30px 72px; }
+    .hero__bot { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; padding: 0 30px 30px; }
     .hero__stats { flex: none; width: 480px; margin: 0; }
     .hs { padding: 18px 18px 16px; }
     .hs b { font-size: 30px; }
     .hs b small { font-size: 14px; }
     .hs > span { font-size: 12px; }
-    .hfm { position: relative; z-index: 2; width: min(920px, calc(100% - 92px)); margin: -38px auto 0; grid-template-columns: 1fr 1fr 1fr auto; gap: 0; padding: 8px 8px 8px 10px; border-radius: 999px; }
-    .hfm__f { background: transparent; border-radius: 0; padding: 6px 22px; border-right: 1px solid var(--line); }
-    .hfm__f:nth-child(3) { border-right: 0; }
-    .hfm__f::after { bottom: 16px; right: 20px; }
-    .hfm .btn { margin: 0 0 0 8px; }
     .facts div { padding: 16px 20px 0 0; }
     .facts div + div { padding-left: 20px; border-left: 1px solid rgba(255, 255, 255, .2); }
     .cfg { grid-template-columns: 1.45fr 1fr; gap: 16px; align-items: stretch; }
@@ -616,6 +604,7 @@
   .svx__go { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--or); color: #fff; }
   .svx__go svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
   @media (min-width: 900px) { .svx__tabs { max-width: 640px; } .svx__tabs button { font-size: 14px; height: 48px; } .svx__st { height: min(640px, 72vh); margin-top: 14px; } .svx__b { left: 32px; right: 32px; bottom: 30px; } .svx__b h3 { font-size: 48px; } .svx__b p { font-size: 15px; } }
+  .nav { display: none !important; }
 </style>
 </head>
 <body>
@@ -632,6 +621,14 @@
 </header>
 
 <!-- Главный экран -->
+<header class="hero__top" aria-label="Навигация">
+    <a class="logo" href="#top"><b><svg style="fill:#fff" viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>FORTE</a>
+    <nav class="hero__links"><a class="pill on" href="#top">Главная</a><a class="pill" href="#services">Что строим</a><a class="pill" href="#build">Конфигуратор</a><a class="pill" href="#projects">Проекты</a><a class="pill" href="#contact">Контакты</a></nav>
+    <span class="hero__sp"></span>
+    <a class="pill" href="tel:+70000000000" style="display:none" id="heroTel">+7 (000) 000-00-00</a>
+    <a class="hero__cta" href="#contact">Расчёт<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <button class="burg" data-menu aria-label="Меню"><i></i></button>
+</header>
 <section class="hero" id="top">
   <div class="hero__f" id="heroSt">
     <div class="hero__art" id="heroArt">
@@ -639,14 +636,6 @@
         <div class="hero__wd" aria-hidden="true"><span class="w" id="heroWd"><span class="l" style="--i:0"><span><i class="g">F</i><i class="o">F</i><i class="k">F</i></span></span><span class="l" style="--i:1"><span><i class="g">O</i><i class="o">O</i><i class="k">O</i></span></span><span class="l r" style="--i:2"><span><i class="g">R</i><i class="o">R</i><i class="k">R</i></span></span><span class="l" style="--i:3"><span><i class="g">T</i><i class="o">T</i><i class="k">T</i></span></span><span class="l" style="--i:4"><span><i class="g">E</i><i class="o">E</i><i class="k">E</i></span></span></span></div>
         <img class="hero__house" id="heroImg" src="img/p_house2.webp" alt="Современные частные дома с панорамными окнами" fetchpriority="high">
       </div>
-    </div>
-    <div class="hero__top">
-      <a class="logo" href="#top"><b><svg style="fill:#fff" viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></b>FORTE</a>
-      <nav class="hero__links"><a class="pill on" href="#top">Главная</a><a class="pill" href="#services">Что строим</a><a class="pill" href="#build">Конфигуратор</a><a class="pill" href="#projects">Проекты</a><a class="pill" href="#contact">Контакты</a></nav>
-      <span class="hero__sp"></span>
-      <a class="pill" href="tel:+70000000000" style="display:none" id="heroTel">+7 (000) 000-00-00</a>
-      <a class="hero__cta" href="#contact">Расчёт<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-      <button class="burg" data-menu aria-label="Меню"><i></i></button>
     </div>
     <div class="hero__bot">
       <h1 class="hero__h" data-h style="--d:.7s">Строим дома,<br>в которых <em>хочется жить</em></h1>
@@ -657,12 +646,6 @@
       </div>
     </div>
   </div>
-  <form class="hfm" id="hfm" data-h style="--d:1.1s">
-    <label class="hfm__f"><small>Тип дома</small><select name="type"><option value="">Выберите</option><option>Одноэтажный</option><option>С мансардой</option><option>Двухэтажный</option></select></label>
-    <label class="hfm__f"><small>Площадь</small><select name="area"><option value="">Выберите</option><option>до 120 м²</option><option>120–200 м²</option><option>больше 200 м²</option></select></label>
-    <label class="hfm__f"><small>Материал</small><select name="mat"><option value="">Выберите</option><option>Газобетон</option><option>Кирпич</option><option>Каркас</option></select></label>
-    <button class="btn btn--o" type="submit">Рассчитать дом<i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></button>
-  </form>
 </section>
 
 <div class="ticker" aria-hidden="true"><div class="ticker__in">
@@ -933,13 +916,6 @@
   };
   heroFit(); if (document.fonts) document.fonts.ready.then(heroFit);
 
-  // Быстрый расчёт: переносим выбор в заявку и ведём к форме
-  $('#hfm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = e.target.elements, v = [f.type.value, f.area.value, f.mat.value].filter(Boolean);
-    if (v.length) $('#frmC').value = v.join(', ');
-    $('#contact').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-  });
 
   // Шапка появляется после первого экрана
   var heroH = $('.hero').offsetHeight, ticking = false, pl = $('#heroPl');
