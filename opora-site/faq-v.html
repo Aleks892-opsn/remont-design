@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FORTE: вопросы</title>
+<meta name="description" content="Пять вариантов блока «Коротко о главном» для телефона.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3f0; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13, 13, 13, .09);
+    --or: #ff6a1a; --or2: #ff9248; --or-soft: #fff0e6; --k: #0b0b0b;
+    --f: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(.2, .75, .2, 1); --spring: cubic-bezier(.34, 1.4, .64, 1);
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #e9e6e2; color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; text-align: left; }
+  h2, h3 { margin: 0; letter-spacing: -.045em; line-height: 1.04; }
+  p { margin: 0; }
+  svg.i { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .top { max-width: 1320px; margin: 0 auto; padding: 22px 18px 4px; }
+  .top h1 { margin: 0 0 10px; font: 800 clamp(30px, 8vw, 54px)/1 var(--f); letter-spacing: -.05em; }
+  .top h1 em { font-style: normal; color: var(--or); }
+  .top p { max-width: 560px; color: var(--ink2); font-size: 14.5px; }
+  .jump { display: flex; gap: 8px; overflow-x: auto; margin: 16px -18px 0; padding: 0 18px 6px; scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump a { flex: none; height: 38px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13px var(--f); }
+  .jump a b { color: var(--or); margin-right: 6px; }
+  .list { max-width: 1320px; margin: 0 auto; padding: 14px 0 30px; display: grid; gap: 40px; }
+  @media (min-width: 900px) { .list { grid-template-columns: repeat(auto-fill, 410px); justify-content: center; align-items: start; gap: 56px 30px; } }
+  .vh { padding: 0 18px 12px; display: flex; gap: 12px; align-items: flex-start; }
+  .vh > b { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--or); color: #fff; font: 800 15px var(--f); }
+  .vh span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .vh small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+  .end { padding: 0 18px 70px; text-align: center; font-size: 13px; color: var(--mute); }
+
+  .sec { max-width: 410px; margin: 0 auto; padding: 34px 18px 30px; background: var(--bg); border-radius: 28px; overflow: hidden; position: relative; }
+  @media (max-width: 899px) { .sec { margin: 0 8px; } }
+  .tag { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); font: 500 12px var(--f); color: var(--ink2); background: rgba(255, 255, 255, .6); }
+  .tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--or); }
+  .h2 { margin-top: 16px; font: 600 clamp(31px, 8.4vw, 36px)/1.04 var(--f); }
+  .u { position: relative; white-space: nowrap; display: inline-block; }
+  .u svg { position: absolute; left: -2%; bottom: -.12em; width: 104%; height: .32em; overflow: visible; }
+  .u path { fill: none; stroke: var(--or); stroke-width: 5; stroke-linecap: round; }
+  .lead { margin-top: 12px; color: var(--ink2); font-size: 14.5px; }
+  .body { margin-top: 22px; }
+  .btn { display: flex; align-items: center; justify-content: space-between; height: 54px; padding: 0 7px 0 20px; border-radius: 999px; background: var(--or); color: #fff; font: 700 14.5px var(--f); }
+  .btn i { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--or); }
+  .btn i svg { width: 16px; height: 16px; }
+  .btn.k { background: var(--ink); }
+  .btn.k i { color: var(--ink); }
+
+  /* плавное раскрытие ответа */
+  .ans { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
+  .ans > div { overflow: hidden; }
+  .on > .ans { grid-template-rows: 1fr; }
+
+  /* ===== 1. Номера ===== */
+  .n1 article { border-top: 1px solid var(--line); }
+  .n1 article:last-child { border-bottom: 1px solid var(--line); }
+  .n1 .q { width: 100%; display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; }
+  .n1 .q small { flex: none; width: 34px; font: 800 22px/1.1 var(--f); letter-spacing: -.04em; color: rgba(13, 13, 13, .18); transition: color .4s; }
+  .n1 .on .q small { color: var(--or); }
+  .n1 .q span { flex: 1; font: 700 17px/1.25 var(--f); letter-spacing: -.02em; }
+  .n1 .q i { flex: none; position: relative; width: 22px; height: 22px; margin-top: 2px; }
+  .n1 .q i::before, .n1 .q i::after { content: ''; position: absolute; left: 3px; right: 3px; top: 10px; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .45s var(--ease); }
+  .n1 .q i::after { transform: rotate(90deg); }
+  .n1 .on .q i::after { transform: rotate(0); }
+  .n1 .ans p { margin: -4px 0 18px 48px; padding-left: 14px; border-left: 2px solid var(--or); font: 500 14px/1.5 var(--f); color: var(--ink2); }
+
+  /* ===== 2. Чипы и карточка ответа ===== */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips button { min-height: 42px; padding: 9px 16px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13px/1.25 var(--f); transition: background .3s, color .3s, border-color .3s, transform .15s; }
+  .chips button:active { transform: scale(.96); }
+  .chips button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .card2 { margin-top: 14px; padding: 18px; border-radius: 24px; background: #fff; min-height: 190px; }
+  .card2 .ic { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--or); color: #fff; }
+  .card2 .ic svg { width: 22px; height: 22px; }
+  .card2 h3 { margin-top: 14px; font: 700 20px/1.2 var(--f); letter-spacing: -.03em; }
+  .card2 p { margin-top: 8px; font: 500 14px/1.5 var(--f); color: var(--ink2); }
+  .card2 > * { transition: opacity .3s, transform .45s var(--ease); }
+  .card2.sw > * { opacity: 0; transform: translate3d(0, 8px, 0); }
+
+  /* ===== 3. Чат ===== */
+  .chat { border-radius: 26px; background: #fff; overflow: hidden; }
+  .chat .hd { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .chat .hd span { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--or); color: #fff; font: 800 15px var(--f); }
+  .chat .hd b { display: block; font: 700 14px var(--f); }
+  .chat .hd small { display: flex; align-items: center; gap: 6px; font: 500 11.5px var(--f); color: #2fb36c; }
+  .chat .hd small::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #3ddc84; }
+  .chat .ms { padding: 14px; min-height: 230px; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; background: linear-gradient(180deg, #faf8f6, #f3f0ec); }
+  .chat .m { max-width: 84%; padding: 10px 12px; border-radius: 18px 18px 18px 6px; background: #fff; font: 500 13.5px/1.45 var(--f); box-shadow: 0 1px 2px rgba(0, 0, 0, .05); animation: msg .45s var(--spring) both; transform-origin: left bottom; }
+  .chat .m.me { align-self: flex-end; border-radius: 18px 18px 6px 18px; background: var(--or); color: #fff; transform-origin: right bottom; }
+  @keyframes msg { from { opacity: 0; transform: translate3d(0, 10px, 0) scale(.95); } }
+  .chat .ty { display: inline-flex; gap: 4px; padding: 12px 14px; border-radius: 18px; background: #fff; width: max-content; }
+  .chat .ty i { width: 6px; height: 6px; border-radius: 50%; background: var(--mute); animation: dot 1s infinite; }
+  .chat .ty i:nth-child(2) { animation-delay: .15s; } .chat .ty i:nth-child(3) { animation-delay: .3s; }
+  @keyframes dot { 50% { transform: translateY(-4px); opacity: .5; } }
+  .chat .qs { padding: 12px 14px 14px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--line); }
+  .chat .qs::-webkit-scrollbar { display: none; }
+  .chat .qs button { flex: none; height: 38px; padding: 0 14px; border-radius: 999px; background: var(--or-soft); color: var(--or); font: 700 12.5px var(--f); white-space: nowrap; }
+  .chat .qs button.used { background: var(--bg); color: var(--mute); }
+
+  /* ===== 4. Листалка карточек ===== */
+  .rail { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -18px; padding: 0 18px 4px; scrollbar-width: none; }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail article { flex: none; width: 78%; min-height: 270px; scroll-snap-align: center; padding: 18px; border-radius: 24px; background: #fff; display: flex; flex-direction: column; }
+  .rail article:nth-child(odd) { background: var(--k); color: #fff; }
+  .rail article:nth-child(odd) p { color: rgba(255, 255, 255, .7); }
+  .rail .qm { display: flex; justify-content: space-between; align-items: center; }
+  .rail .qm b { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--or); color: #fff; font: 900 22px var(--f); }
+  .rail .qm small { font: 700 12px var(--f); color: var(--mute); }
+  .rail h3 { margin-top: 18px; font: 700 20px/1.2 var(--f); letter-spacing: -.03em; }
+  .rail p { margin-top: auto; padding-top: 14px; font: 500 13.5px/1.5 var(--f); color: var(--ink2); }
+  .dots { margin-top: 14px; display: flex; gap: 6px; }
+  .dots i { width: 8px; height: 8px; border-radius: 8px; background: rgba(13, 13, 13, .15); transition: width .35s var(--ease), background .35s; }
+  .dots i.on { width: 26px; background: var(--or); }
+
+  /* ===== 5. Иконки и помощь ===== */
+  .n5 { display: grid; gap: 8px; }
+  .n5 article { border-radius: 20px; background: #fff; overflow: hidden; transition: box-shadow .3s; }
+  .n5 article.on { box-shadow: 0 0 0 2px var(--or) inset; }
+  .n5 .q { width: 100%; display: flex; gap: 12px; align-items: center; padding: 14px; }
+  .n5 .q > span:first-child { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--or-soft); color: var(--or); transition: background .3s, color .3s; }
+  .n5 .on .q > span:first-child { background: var(--or); color: #fff; }
+  .n5 .q > span:first-child svg { width: 19px; height: 19px; }
+  .n5 .q b { flex: 1; font: 700 15px/1.25 var(--f); letter-spacing: -.02em; }
+  .n5 .q i { flex: none; width: 26px; height: 26px; display: grid; place-items: center; color: var(--mute); transition: transform .45s var(--ease); }
+  .n5 .q i svg { width: 16px; height: 16px; }
+  .n5 .on .q i { transform: rotate(180deg); color: var(--or); }
+  .n5 .ans p { padding: 0 14px 16px 66px; font: 500 13.5px/1.5 var(--f); color: var(--ink2); }
+  .help { margin-top: 12px; padding: 18px; border-radius: 24px; background: var(--k); color: #fff; }
+  .help b { display: block; font: 700 18px/1.2 var(--f); letter-spacing: -.03em; }
+  .help small { display: block; margin-top: 4px; font: 500 12.5px var(--f); color: rgba(255, 255, 255, .6); }
+  .help .row { margin-top: 14px; display: grid; grid-template-columns: 1fr 54px; gap: 8px; }
+  .help .tel { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .15); }
+  .help .tel svg { width: 20px; height: 20px; }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01s !important; animation-duration: .01s !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="rub" viewBox="0 0 24 24"><path d="M8 20V4h6a4 4 0 0 1 0 8H6M6 16h9"/></symbol>
+  <symbol id="card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h4"/></symbol>
+  <symbol id="snow" viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 4.5l3 2 3-2M9 19.5l3-2 3 2"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="tel" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+</svg>
+
+<header class="top">
+  <h1>«Вопросы»:<br><em>пять</em> вариантов</h1>
+  <p>Блок «Коротко о главном» в ширину телефона. Вопросы и ответы те же, что на сайте. Блок остаётся светлым, потому что стоит между тёмными «Почему FORTE» и заявкой.</p>
+  <nav class="jump"><a href="#v1"><b>1</b>Номера</a><a href="#v2"><b>2</b>Чипы</a><a href="#v3"><b>3</b>Чат</a><a href="#v4"><b>4</b>Карточки</a><a href="#v5"><b>5</b>Иконки</a></nav>
+</header>
+
+<main class="list">
+  <section id="v1"><div class="vh"><b>1</b><div><span>Крупные номера</span><small>Строгий список без рамок: номер 01–05, вопрос и плюс. Открытый вопрос подсвечивает номер оранжевым, ответ с оранжевой линией слева. Плюс превращается в минус.</small></div></div>
+    <div class="sec"><div data-head></div><div class="body n1" data-acc data-k="1"></div></div></section>
+
+  <section id="v2"><div class="vh"><b>2</b><div><span>Чипы и карточка ответа</span><small>Все вопросы видны сразу таблетками. Нажимаешь на любую, и ниже в белой карточке с иконкой меняется ответ.</small></div></div>
+    <div class="sec"><div data-head></div><div class="body"><div class="chips" data-chips></div><div class="card2" data-card><span class="ic"></span><h3></h3><p></p></div></div></div></section>
+
+  <section id="v3"><div class="vh"><b>3</b><div><span>Чат с инженером</span><small>Как переписка: внизу вопросы-кнопки, нажимаешь, и вопрос улетает в чат, инженер «печатает» и отвечает. Живо и понятно.</small></div></div>
+    <div class="sec"><div data-head></div><div class="body"><div class="chat"><div class="hd"><span>F</span><div><b>Инженер FORTE</b><small>онлайн</small></div></div><div class="ms" data-ms><div class="m">Здравствуйте! Выберите вопрос ниже, отвечу сразу.</div></div><div class="qs" data-qs></div></div></div></div></section>
+
+  <section id="v4"><div class="vh"><b>4</b><div><span>Листалка карточек</span><small>Каждый вопрос с ответом на своей карточке, карточки чередуются тёмная и белая и листаются вбок. Ничего не нужно открывать.</small></div></div>
+    <div class="sec"><div data-head></div><div class="body"><div class="rail" data-rail></div><div class="dots" data-dots></div></div></div></section>
+
+  <section id="v5"><div class="vh"><b>5</b><div><span>Иконки и помощь</span><small>Белые карточки с иконкой у каждого вопроса, открытая обводится оранжевым. Внизу тёмная плашка «Не нашли ответ?» с кнопками.</small></div></div>
+    <div class="sec"><div data-head></div><div class="body"><div class="n5" data-acc data-k="5"></div>
+      <div class="help"><b>Не нашли ответ?</b><small>Инженер перезвонит и ответит на любой вопрос.</small><div class="row"><a class="btn" href="#">Задать вопрос<i><svg class="i"><use href="#arr"/></svg></i></a><a class="tel" href="#" aria-label="Позвонить"><svg class="i"><use href="#tel"/></svg></a></div></div>
+    </div></div></section>
+</main>
+<p class="end">Выберите номер, поставлю на сайт.</p>
+
+<script>
+(function () {
+  var Q = [
+    ['Может ли цена вырасти во время стройки?', 'Нет. Цена фиксируется в договоре. Если материалы дорожают, это наш риск. Меняется, только если вы сами решите что-то добавить.', 'rub'],
+    ['Как платить?', 'По этапам: фундамент, коробка, кровля, отделка. Платите только за готовый и принятый этап. Работаем с ипотекой и материнским капиталом.', 'card'],
+    ['Можно строить зимой?', 'Да. Фундамент и коробку возводим круглый год с прогревом бетона. Зимой даже проще с подъездом техники к участку.', 'snow'],
+    ['Что, если что-то сломается после сдачи?', 'Гарантия 10 лет на фундамент, стены и кровлю, 2 года на инженерные системы. Приезжаем за 48 часов.', 'shield'],
+    ['У меня свой проект. Возьмётесь?', 'Да. Проверим его и посчитаем смету. Если нужно, адаптируем под участок и бюджет.', 'doc']
+  ];
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var ic = function (n) { return '<svg class="i"><use href="#' + n + '"/></svg>'; };
+  var head = '<span class="tag"><i></i>Вопросы</span><h2 class="h2">Коротко о <span class="u">главном<svg viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></h2><p class="lead">Не нашли ответ? Спросите в форме ниже, инженер перезвонит.</p>';
+  $$('[data-head]').forEach(function (el) { el.innerHTML = head; });
+
+  // 1 и 5: аккордеон, открыт один
+  $$('[data-acc]').forEach(function (box) {
+    var k = box.dataset.k;
+    box.innerHTML = Q.map(function (q, i) {
+      var head = k === '1' ? '<small>0' + (i + 1) + '</small><span>' + q[0] + '</span><i></i>' : '<span>' + ic(q[2]) + '</span><b>' + q[0] + '</b><i>' + ic('down') + '</i>';
+      return '<article' + (i ? '' : ' class="on"') + '><button class="q" aria-expanded="' + (i ? 'false' : 'true') + '">' + head + '</button><div class="ans"><div><p>' + q[1] + '</p></div></div></article>';
+    }).join('');
+    var arts = $$('article', box);
+    arts.forEach(function (a) { a.querySelector('.q').onclick = function () { var open = !a.classList.contains('on'); arts.forEach(function (x) { x.classList.remove('on'); x.querySelector('.q').setAttribute('aria-expanded', 'false'); }); if (open) { a.classList.add('on'); a.querySelector('.q').setAttribute('aria-expanded', 'true'); } }; });
+  });
+
+  // 2: чипы
+  var chips = document.querySelector('[data-chips]'), card = document.querySelector('[data-card]');
+  var short = ['Цена вырастет?', 'Как платить?', 'Зимой можно?', 'Если сломается?', 'Свой проект'];
+  chips.innerHTML = short.map(function (s, i) { return '<button' + (i ? '' : ' class="on"') + '>' + s + '</button>'; }).join('');
+  var fill2 = function (i) { card.querySelector('.ic').innerHTML = ic(Q[i][2]); card.querySelector('h3').textContent = Q[i][0]; card.querySelector('p').textContent = Q[i][1]; };
+  $$('button', chips).forEach(function (b, i) { b.onclick = function () { $$('button', chips).forEach(function (x) { x.classList.toggle('on', x === b); }); card.classList.add('sw'); setTimeout(function () { fill2(i); card.classList.remove('sw'); }, 250); }; });
+  fill2(0);
+
+  // 3: чат
+  var ms = document.querySelector('[data-ms]'), qs = document.querySelector('[data-qs]'), busy = false;
+  qs.innerHTML = short.map(function (s, i) { return '<button data-i="' + i + '">' + s + '</button>'; }).join('');
+  $$('button', qs).forEach(function (b) {
+    b.onclick = function () {
+      if (busy) return; busy = true; var i = +b.dataset.i; b.classList.add('used');
+      ms.insertAdjacentHTML('beforeend', '<div class="m me">' + Q[i][0] + '</div>');
+      setTimeout(function () { ms.insertAdjacentHTML('beforeend', '<span class="ty"><i></i><i></i><i></i></span>'); }, 400);
+      setTimeout(function () { var t = ms.querySelector('.ty'); if (t) t.remove(); ms.insertAdjacentHTML('beforeend', '<div class="m">' + Q[i][1] + '</div>'); while (ms.children.length > 4) ms.firstElementChild.remove(); busy = false; }, 1500);
+    };
+  });
+
+  // 4: листалка
+  var rail = document.querySelector('[data-rail]'), dots = document.querySelector('[data-dots]');
+  rail.innerHTML = Q.map(function (q, i) { return '<article><div class="qm"><b>?</b><small>0' + (i + 1) + ' / 05</small></div><h3>' + q[0] + '</h3><p>' + q[1] + '</p></article>'; }).join('');
+  dots.innerHTML = Q.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('');
+  rail.addEventListener('scroll', function () { var c = rail.scrollLeft + rail.clientWidth / 2, k = 0, best = 1e9; $$('article', rail).forEach(function (a, i) { var d = Math.abs(a.offsetLeft + a.offsetWidth / 2 - c); if (d < best) { best = d; k = i; } }); $$('i', dots).forEach(function (d, i) { d.classList.toggle('on', i === k); }); }, { passive: true });
+
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+})();
+</script>
+</body>
+</html>
