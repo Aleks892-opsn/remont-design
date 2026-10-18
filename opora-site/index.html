@@ -269,31 +269,11 @@
   @keyframes blobDrift { to { transform: translate3d(-18px, 12px, 0) scale(1.08); } }
 
   /* Проекты */
-  .prj { position: relative; }
-  .prj__main { position: relative; height: 470px; border-radius: 30px; overflow: hidden; isolation: isolate; }
-  .prj__main img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: opacity .6s, transform 1.2s var(--ease); }
-  .prj__main::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .7)); }
-  .prj__glass { position: absolute; left: 14px; top: 14px; display: grid; gap: 8px; }
-  .prj__glass .glass { padding: 12px 16px; min-width: 120px; color: #fff; }
-  .prj__glass b { display: block; font: 600 26px/1 var(--f); letter-spacing: -.04em; }
-  .prj__glass small { font: 500 10.5px var(--f); letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, .75); }
-  .prj__cap { position: absolute; left: 18px; right: 18px; bottom: 18px; color: #fff; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
-  .prj__cap .tag { color: #fff; border-color: rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .1); }
-  .prj__cap h3 { margin-top: 10px; font-size: 26px; }
-  .prj__cap p { font-size: 13px; color: rgba(255, 255, 255, .78); }
   .arrs { display: flex; gap: 8px; }
   .arr { width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, .35); color: #fff; transition: background .25s, transform .2s; }
   .arr svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; }
   .arr.f { background: #fff; color: var(--ink); border-color: #fff; }
   .arr:active { transform: scale(.94); }
-  .prj__th { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
-  .prj__th::-webkit-scrollbar { display: none; }
-  .th { flex: 0 0 auto; width: 150px; text-align: left; }
-  .th div { height: 96px; border-radius: 18px; overflow: hidden; opacity: .55; transition: opacity .3s, outline-color .3s; outline: 2px solid transparent; outline-offset: 2px; }
-  .th img { width: 100%; height: 100%; object-fit: cover; }
-  .th small { display: block; margin-top: 8px; font: 500 12px/1.3 var(--f); color: var(--dmute); }
-  .th.on div { opacity: 1; outline-color: var(--or); }
-  .th.on small { color: #fff; }
   .glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 106, 26, .28), transparent 65%); pointer-events: none; }
 
   /* Доверие (стиль второй картинки) */
@@ -423,12 +403,6 @@
     .bx--price { grid-column: 2 / 4; }
     .bars { right: 30px; top: 30px; height: 190px; }
     .bars i { width: 40px; }
-    .prj__main { height: 640px; border-radius: 40px; }
-    .prj__glass { left: 26px; top: 26px; }
-    .prj__glass .glass { min-width: 170px; padding: 16px 20px; }
-    .prj__glass b { font-size: 36px; }
-    .prj__cap { left: 30px; right: 30px; bottom: 30px; }
-    .prj__cap h3 { font-size: 40px; }
     .th { width: 220px; }
     .th div { height: 130px; }
     .trust { padding: 120px 0 90px; }
@@ -605,6 +579,34 @@
   .svx__go svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
   @media (min-width: 900px) { .svx__tabs { max-width: 640px; } .svx__tabs button { font-size: 14px; height: 48px; } .svx__st { height: min(640px, 72vh); margin-top: 14px; } .svx__b { left: 32px; right: 32px; bottom: 30px; } .svx__b h3 { font-size: 48px; } .svx__b p { font-size: 15px; } }
   .nav { display: none !important; }
+
+  /* ===== Проекты: стопка карточек и белая панель ===== */
+  .pst { display: grid; gap: 4px; }
+  .pst__stk { position: relative; height: 330px; user-select: none; -webkit-user-select: none; }
+  .pst__c { position: absolute; top: 0; left: 0; right: 30px; height: 300px; border-radius: 26px; overflow: hidden; pointer-events: none; z-index: calc(10 - var(--pos, 0)); transform: translate3d(calc(var(--pos, 0) * 15px), calc(var(--pos, 0) * 6px), 0) scale(calc(1 - var(--pos, 0) * .06)); transform-origin: 100% 50%; filter: brightness(calc(1 - var(--pos, 0) * .25)); opacity: calc(1 - (var(--pos, 0) - 2.5) * 2); transition: transform .7s cubic-bezier(.34, 1.3, .64, 1), opacity .45s, filter .5s; will-change: transform; }
+  .pst__c img { width: 100%; height: 100%; object-fit: cover; }
+  .pst__c.out { transform: translate3d(-120%, 0, 0) rotate(-8deg); opacity: 0; transition: transform .6s cubic-bezier(.65, 0, .35, 1), opacity .5s; }
+  .pst__pnl { padding: 16px; border-radius: 24px; background: #fff; color: var(--ink); }
+  .pst__cnt { display: flex; align-items: baseline; gap: 8px; font: 900 40px/1 var(--f); letter-spacing: -.05em; color: var(--or); font-variant-numeric: tabular-nums; }
+  .pst__cnt small { font: 700 14px var(--f); color: var(--mute); letter-spacing: 0; }
+  .pst__bar { margin-top: 10px; height: 3px; border-radius: 3px; background: var(--bg); overflow: hidden; }
+  .pst__bar i { display: block; height: 100%; background: var(--or); transform-origin: left; transform: scaleX(var(--p, .2)); transition: transform .6s var(--ease); }
+  .pst__inf { margin-top: 14px; transition: opacity .3s, transform .45s var(--ease); }
+  .pst__inf.sw { opacity: 0; transform: translate3d(0, 8px, 0); }
+  .pst__inf h3 { font-size: 21px; }
+  .pst__inf p { margin-top: 3px; font: 500 12.5px var(--f); color: var(--mute); }
+  .pst__ch { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .pst__ch span { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--bg); font: 600 12px var(--f); color: var(--ink2); }
+  .pst__ctl { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .pst__ctl a { font: 700 13px var(--f); display: inline-flex; align-items: center; gap: 6px; }
+  .pst__ctl a svg { width: 15px; height: 15px; fill: none; stroke: var(--or); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .pst__nb { display: flex; gap: 8px; }
+  .pst__nb button { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: #fff; color: var(--ink); transition: transform .15s; }
+  .pst__nb button:active { transform: scale(.92); }
+  .pst__nb button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .pst__nb button.f { background: var(--or); border-color: var(--or); color: #fff; box-shadow: 0 10px 24px rgba(255, 106, 26, .35); }
+  @media (min-width: 900px) { .pst { grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: center; } .pst__stk { height: 520px; } .pst__c { height: 480px; right: 50px; } .pst__pnl { padding: 28px; } .pst__cnt { font-size: 64px; } .pst__inf h3 { font-size: 30px; } }
+  @media (prefers-reduced-motion: reduce) { .pst__c, .pst__c.out, .pst__inf { transition-duration: .01s !important; } }
 </style>
 </head>
 <body>
@@ -666,6 +668,26 @@
         <div class="svx__b"><h3>Дом под ключ</h3><p>Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.</p><div class="svx__row"><div class="svx__chips"><span>от 6,8 млн ₽</span><span>6 мес</span></div><a class="svx__go" href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
       </div>
       <template data-svx>Дом под ключ|Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.|от 6,8 млн ₽|6 мес|#build</template><template data-svx>Коттеджи|Большие дома с панорамами и террасами, проект под ваш участок.|от 12 млн ₽||#build</template><template data-svx>Тёплый контур|Фундамент, стены, кровля и окна. Отделку делаете сами.|от 3,9 млн ₽||#build</template><template data-svx>Коммерческие здания|Офисы, магазины, базы отдыха, с проектом и согласованиями.|по проекту||#contact</template>
+    </div>
+  </div>
+</section>
+
+<!-- Проекты: стопка и белая панель -->
+<section class="sec dark rounded" id="projects">
+  <i class="ribs"></i>
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="tag" data-r><i></i>Проекты</span><h2 class="h2" style="margin-top:16px" data-r>Построили <em>240+</em> домов.<br>Вот некоторые</h2></div>
+      <p class="lead" data-r>Каждый — реальный объект с фотоотчётом. Покажем вживую в посёлке рядом с вами.</p>
+    </div>
+    <div class="pst" id="pst" data-r>
+      <div class="pst__stk"><div class="pst__c" data-a="210 м²" data-t="7 мес" data-tag="Газобетон · 2 этажа" data-h="Дом в «Лесных Далях»" data-p="Истра, 2025"><img src="img/dusk2.webp" alt="Дом в «Лесных Далях»" loading="lazy"></div><div class="pst__c" data-a="260 м²" data-t="9 мес" data-tag="Кирпич · панорамы" data-h="Коттедж у озера" data-p="Дмитров, 2024"><img src="img/cottage.webp" alt="Коттедж у озера" loading="lazy"></div><div class="pst__c" data-a="180 м²" data-t="6 мес" data-tag="Плоская кровля" data-h="Вилла с бассейном" data-p="Одинцово, 2025"><img src="img/villa.webp" alt="Вилла с бассейном" loading="lazy"></div><div class="pst__c" data-a="160 м²" data-t="6 мес" data-tag="Фахверк · стекло" data-h="Дом в соснах" data-p="Красногорск, 2024"><img src="img/forest.webp" alt="Дом в соснах" loading="lazy"></div><div class="pst__c" data-a="4 × 140 м²" data-t="11 мес" data-tag="Таунхаусы" data-h="Квартал «Грин»" data-p="Мытищи, 2023"><img src="img/town.webp" alt="Квартал «Грин»" loading="lazy"></div></div>
+      <div class="pst__pnl">
+        <div class="pst__cnt"><span id="pstN">01</span> <small>/ 05</small></div>
+        <div class="pst__bar"><i id="pstBar"></i></div>
+        <div class="pst__inf" id="pstInf"><h3>Дом в «Лесных Далях»</h3><p>Истра, 2025 · Газобетон · 2 этажа</p><div class="pst__ch"><span>210 м²</span><span>7 мес</span></div></div>
+        <div class="pst__ctl"><a href="#contact">Показать вживую<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a><div class="pst__nb"><button id="pstPrev" aria-label="Предыдущий проект"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="f" id="pstNext" aria-label="Следующий проект"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -749,29 +771,6 @@
       <div class="trk__c"><div class="trk__h"><b>Фотоотчёт</b><span class="trk__t">пятница, 14:20</span></div>
         <div class="feed"><div><img src="img/found.webp" alt="Фундамент" loading="lazy"><small>3 окт</small></div><div><img src="img/site.webp" alt="Стены и перекрытия" loading="lazy"><small>10 окт</small></div><div><img src="img/terrace.webp" alt="Терраса" loading="lazy"><small>17 окт</small></div></div></div>
     </div>
-  </div>
-</section>
-
-<!-- Проекты -->
-<section class="sec" id="projects" style="padding-bottom:0">
-  <div class="wrap">
-    <div class="shead">
-      <div><span class="tag" data-r><i></i>Проекты</span><h2 class="h2" style="margin-top:16px" data-r>Построили <em>240+</em> домов.<br>Вот некоторые</h2></div>
-      <p class="lead" data-r>Каждый — реальный объект с фотоотчётом. Покажем вживую в посёлке рядом с вами.</p>
-    </div>
-  </div>
-</section>
-<section class="sec dark rounded" style="padding-top:18px">
-  <i class="ribs"></i>
-    <div class="wrap prj" data-r>
-    <div class="prj__main" id="prjMain">
-      <img src="img/dusk2.webp" alt="" id="prjImg">
-      <div class="prj__glass"><div class="glass"><b id="prjA">210 м²</b><small>Площадь</small></div><div class="glass"><b id="prjT">7 мес</b><small>Срок</small></div></div>
-      <div class="prj__cap"><div><span class="tag" id="prjTag">Газобетон · 2 этажа</span><h3 id="prjH">Дом в «Лесных Далях»</h3><p id="prjP">Истра, 2025</p></div>
-        <div class="arrs"><button class="arr" id="prjPrev" aria-label="Предыдущий проект"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="arr f" id="prjNext" aria-label="Следующий проект"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
-      </div>
-    </div>
-    <div class="prj__th" id="prjTh"></div>
   </div>
 </section>
 
@@ -999,27 +998,26 @@
     tk.innerHTML = t;
   })();
 
-  // Проекты
-  var P = [
-    { img: 'img/dusk2.webp', a: '210 м²', t: '7 мес', tag: 'Газобетон · 2 этажа', h: 'Дом в «Лесных Далях»', p: 'Истра, 2025', s: 'Лесные Дали · 210 м²' },
-    { img: 'img/cottage.webp', a: '260 м²', t: '9 мес', tag: 'Кирпич · панорамы', h: 'Коттедж у озера', p: 'Дмитров, 2024', s: 'Коттедж у озера · 260 м²' },
-    { img: 'img/villa.webp', a: '180 м²', t: '6 мес', tag: 'Плоская кровля', h: 'Вилла с бассейном', p: 'Одинцово, 2025', s: 'Вилла с бассейном · 180 м²' },
-    { img: 'img/forest.webp', a: '160 м²', t: '6 мес', tag: 'Фахверк · стекло', h: 'Дом в соснах', p: 'Красногорск, 2024', s: 'Дом в соснах · 160 м²' },
-    { img: 'img/town.webp', a: '4 × 140 м²', t: '11 мес', tag: 'Таунхаусы', h: 'Квартал «Грин»', p: 'Мытищи, 2023', s: 'Квартал «Грин» · таунхаусы' }
-  ];
-  var cur = 0, th = $('#prjTh');
-  th.innerHTML = P.map(function (p, i) { return '<button class="th' + (i ? '' : ' on') + '" data-i="' + i + '"><div><img src="' + p.img + '" alt="" loading="lazy"></div><small>' + p.s + '</small></button>'; }).join('');
-  var show = function (i) {
-    cur = (i + P.length) % P.length; var p = P[cur], im = $('#prjImg');
-    im.style.opacity = 0;
-    setTimeout(function () { im.src = p.img; im.onload = function () { im.style.opacity = 1; }; if (im.complete) im.style.opacity = 1; }, 250);
-    $('#prjA').textContent = p.a; $('#prjT').textContent = p.t; $('#prjTag').textContent = p.tag; $('#prjH').textContent = p.h; $('#prjP').textContent = p.p;
-    $$('.th', th).forEach(function (b, k) { b.classList.toggle('on', k === cur); });
-    var b = $$('.th', th)[cur]; th.scrollTo({ left: b.offsetLeft - 20, behavior: 'smooth' });
-  };
-  th.addEventListener('click', function (e) { var b = e.target.closest('.th'); if (b) show(+b.dataset.i); });
-  $('#prjPrev').onclick = function () { show(cur - 1); };
-  $('#prjNext').onclick = function () { show(cur + 1); };
+  // Проекты: стопка, листается только кнопками
+  (function () {
+    var cs = $$('.pst__c'); if (!cs.length) return;
+    var order = cs.map(function (_, i) { return i; }), busy = false, inf = $('#pstInf');
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var info = function () {
+      var c = cs[order[0]], d = c.dataset;
+      $('#pstN').textContent = pad(order[0] + 1); $('#pstBar').style.setProperty('--p', (order[0] + 1) / cs.length);
+      inf.classList.add('sw');
+      setTimeout(function () { $('h3', inf).textContent = d.h; $('p', inf).textContent = d.p + ' · ' + d.tag; $('.pst__ch', inf).innerHTML = '<span>' + d.a + '</span><span>' + d.t + '</span>'; inf.classList.remove('sw'); }, 220);
+    };
+    var lay = function () { order.forEach(function (i, pos) { cs[i].style.setProperty('--pos', Math.min(pos, 4)); }); info(); };
+    $('#pstNext').onclick = function () {
+      if (busy) return; busy = true; var top = cs[order[0]]; top.classList.add('out');
+      setTimeout(function () { order.push(order.shift()); top.classList.remove('out'); lay(); busy = false; }, reduce ? 0 : 480);
+    };
+    $('#pstPrev').onclick = function () { if (busy) return; order.unshift(order.pop()); lay(); };
+    order.forEach(function (i, pos) { cs[i].style.setProperty('--pos', Math.min(pos, 4)); });
+    $('#pstBar').style.setProperty('--p', 1 / cs.length);
+  })();
 
   // Форма
   $('#frm').addEventListener('submit', function (e) {
