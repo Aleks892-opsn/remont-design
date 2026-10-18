@@ -544,15 +544,15 @@
   /* ===== Проекты: стопка карточек и белая панель ===== */
   .pst { display: grid; gap: 4px; }
   .pst__stk { position: relative; height: 330px; user-select: none; -webkit-user-select: none; }
-  .pst__c { position: absolute; top: 0; left: 0; right: 30px; height: 300px; border-radius: 26px; overflow: hidden; pointer-events: none; z-index: calc(10 - var(--pos, 0)); transform: translate3d(calc(var(--pos, 0) * 15px), calc(var(--pos, 0) * 6px), 0) scale(calc(1 - var(--pos, 0) * .06)); transform-origin: 100% 50%; filter: brightness(calc(1 - var(--pos, 0) * .25)); opacity: calc(1 - (var(--pos, 0) - 2.5) * 2); transition: transform .38s cubic-bezier(.3, 1.15, .5, 1), opacity .25s, filter .3s; will-change: transform; }
+  .pst__c { position: absolute; top: 0; left: 0; right: 30px; height: 300px; border-radius: 26px; overflow: hidden; pointer-events: none; z-index: calc(10 - var(--pos, 0)); transform: translate3d(calc(var(--pos, 0) * 15px), calc(var(--pos, 0) * 6px), 0) scale(calc(1 - var(--pos, 0) * .06)); transform-origin: 100% 50%; filter: brightness(calc(1 - var(--pos, 0) * .25)); opacity: calc(1 - (var(--pos, 0) - 2.5) * 2); transition: transform .55s cubic-bezier(.3, 1.2, .5, 1), opacity .35s, filter .4s; will-change: transform; }
   .pst__c img { width: 100%; height: 100%; object-fit: cover; }
-  .pst__c.out { transform: translate3d(-115%, 0, 0) rotate(-7deg); opacity: 0; transition: transform .26s cubic-bezier(.5, 0, .75, .4), opacity .22s; }
+  .pst__c.out { transform: translate3d(-115%, 0, 0) rotate(-7deg); opacity: 0; transition: transform .42s cubic-bezier(.55, 0, .7, .45), opacity .36s .06s; }
   .pst__pnl { padding: 16px; border-radius: 24px; background: #fff; color: var(--ink); }
   .pst__cnt { display: flex; align-items: baseline; gap: 8px; font: 900 40px/1 var(--f); letter-spacing: -.05em; color: var(--or); font-variant-numeric: tabular-nums; }
   .pst__cnt small { font: 700 14px var(--f); color: var(--mute); letter-spacing: 0; }
   .pst__bar { margin-top: 10px; height: 3px; border-radius: 3px; background: var(--bg); overflow: hidden; }
   .pst__bar i { display: block; height: 100%; background: var(--or); transform-origin: left; transform: scaleX(var(--p, .2)); transition: transform .3s var(--ease); }
-  .pst__inf { margin-top: 14px; transition: opacity .15s, transform .2s var(--ease); }
+  .pst__inf { margin-top: 14px; transition: opacity .22s, transform .3s var(--ease); }
   .pst__inf.sw { opacity: 0; transform: translate3d(0, 8px, 0); }
   .pst__inf h3 { font-size: 21px; }
   .pst__inf p { margin-top: 3px; font: 500 12.5px var(--f); color: var(--mute); }
@@ -1007,7 +1007,7 @@
       var d = cs[order[0]].dataset;
       $('#pstN').textContent = pad(order[0] + 1); $('#pstBar').style.setProperty('--p', (order[0] + 1) / cs.length);
       inf.classList.add('sw'); clearTimeout(it);
-      it = setTimeout(function () { $('h3', inf).textContent = d.h; $('p', inf).textContent = d.p + ' · ' + d.tag; $('.pst__ch', inf).innerHTML = '<span>' + d.a + '</span><span>' + d.t + '</span>'; inf.classList.remove('sw'); }, 120);
+      it = setTimeout(function () { $('h3', inf).textContent = d.h; $('p', inf).textContent = d.p + ' · ' + d.tag; $('.pst__ch', inf).innerHTML = '<span>' + d.a + '</span><span>' + d.t + '</span>'; inf.classList.remove('sw'); }, 180);
     };
     var lay = function () { order.forEach(function (i, pos) { cs[i].style.setProperty('--pos', Math.min(pos, 4)); }); };
     var flush = function () { if (!pend) return; clearTimeout(pend.t); pend.c.classList.remove('out'); pend = null; lay(); };
@@ -1018,7 +1018,7 @@
       top.classList.add('out');
       // остальные карточки сразу подтягиваются вперёд, ушедшая встаёт в конец
       order.forEach(function (i, pos) { if (cs[i] !== top) cs[i].style.setProperty('--pos', Math.min(pos, 4)); });
-      pend = { c: top, t: setTimeout(function () { top.style.transition = 'none'; top.classList.remove('out'); top.style.setProperty('--pos', Math.min(order.length - 1, 4)); void top.offsetWidth; top.style.transition = ''; pend = null; }, reduce ? 0 : 260) };
+      pend = { c: top, t: setTimeout(function () { top.style.transition = 'none'; top.classList.remove('out'); top.style.setProperty('--pos', Math.min(order.length - 1, 4)); void top.offsetWidth; top.style.transition = ''; pend = null; }, reduce ? 0 : 420) };
     };
     $('#pstPrev').onclick = function () { flush(); order.unshift(order.pop()); lay(); info(); };
     lay(); $('#pstBar').style.setProperty('--p', 1 / cs.length);
