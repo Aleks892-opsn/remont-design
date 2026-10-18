@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FORTE: проекты</title>
+<meta name="description" content="Шесть вариантов блока «Построили 240+ домов» для телефона.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3f0; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13, 13, 13, .09);
+    --or: #ff6a1a; --or2: #ff9248; --or-soft: #fff0e6; --k: #0b0b0b;
+    --f: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(.2, .75, .2, 1); --spring: cubic-bezier(.34, 1.4, .64, 1);
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #e9e6e2; color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  h2, h3 { margin: 0; letter-spacing: -.045em; line-height: 1.02; }
+  p { margin: 0; }
+  em { font-style: normal; }
+  svg.i { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .top { max-width: 1320px; margin: 0 auto; padding: 22px 18px 4px; }
+  .top h1 { margin: 0 0 10px; font: 800 clamp(30px, 8vw, 54px)/1 var(--f); letter-spacing: -.05em; }
+  .top h1 em { color: var(--or); }
+  .top p { max-width: 560px; color: var(--ink2); font-size: 14.5px; }
+  .jump { display: flex; gap: 8px; overflow-x: auto; margin: 16px -18px 0; padding: 0 18px 6px; scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump a { flex: none; height: 38px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13px var(--f); }
+  .jump a b { color: var(--or); margin-right: 6px; }
+  .list { max-width: 1320px; margin: 0 auto; padding: 14px 0 30px; display: grid; gap: 40px; }
+  @media (min-width: 900px) { .list { grid-template-columns: repeat(auto-fill, 410px); justify-content: center; align-items: start; gap: 56px 30px; } }
+  .vh { padding: 0 18px 12px; display: flex; gap: 12px; align-items: flex-start; }
+  .vh > b { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--or); color: #fff; font: 800 15px var(--f); }
+  .vh span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .vh small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+  .end { padding: 0 18px 70px; text-align: center; font-size: 13px; color: var(--mute); }
+
+  .sec { max-width: 410px; margin: 0 auto; padding: 34px 18px 30px; background: var(--bg); border-radius: 28px; overflow: hidden; position: relative; }
+  @media (max-width: 899px) { .sec { margin: 0 8px; } }
+  .sec.dk { background: var(--k); color: #fff; }
+  .tag { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); font: 500 12px var(--f); color: var(--ink2); background: rgba(255, 255, 255, .6); }
+  .tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--or); }
+  .dk .tag { border-color: rgba(255, 255, 255, .12); color: rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .04); }
+  .h2 { margin-top: 16px; font: 600 clamp(31px, 8.4vw, 36px)/1.04 var(--f); letter-spacing: -.045em; }
+  .h2 em { color: var(--or); }
+  .lead { margin-top: 12px; color: var(--ink2); font-size: 14.5px; }
+  .dk .lead { color: rgba(255, 255, 255, .6); }
+  .body { margin-top: 22px; }
+  [data-r] { opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  .in [data-r] { opacity: 1; transform: none; }
+  .arr { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--or); color: #fff; }
+  .arr svg { width: 18px; height: 18px; }
+  .chip { display: inline-flex; align-items: center; height: 28px; padding: 0 11px; border-radius: 999px; background: var(--bg); font: 600 11.5px var(--f); color: var(--ink2); white-space: nowrap; }
+  .more { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 7px 0 22px; border-radius: 999px; background: var(--ink); color: #fff; font: 700 14.5px var(--f); }
+  .more i { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--or); }
+  .more i svg { width: 17px; height: 17px; }
+  .dk .more { background: #fff; color: var(--ink); }
+  .nav2 { display: flex; gap: 8px; }
+  .nav2 button { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: #fff; }
+  .nav2 button svg { width: 18px; height: 18px; }
+  .nav2 button.f { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  /* ===== 1. Светлые карточки-каталог ===== */
+  .cards { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -18px; padding: 0 18px 4px; scrollbar-width: none; }
+  .cards::-webkit-scrollbar { display: none; }
+  .cards article { flex: none; width: 80%; scroll-snap-align: center; border-radius: 24px; background: #fff; overflow: hidden; }
+  .cards .ph { position: relative; height: 230px; }
+  .cards .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .cards .ph span { position: absolute; left: 12px; top: 12px; height: 28px; padding: 0 11px; display: inline-flex; align-items: center; border-radius: 999px; background: rgba(255, 255, 255, .9); font: 700 11px var(--f); }
+  .cards .tx { padding: 14px 14px 14px; }
+  .cards h3 { font: 700 19px/1.1 var(--f); }
+  .cards .pl { margin-top: 4px; font: 500 12.5px var(--f); color: var(--mute); }
+  .cards .ch { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .cards .ft { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .cards .ft b { font: 700 13px var(--f); }
+  .cards .ft .arr { width: 40px; height: 40px; }
+  .ctr { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .ctr b { font: 700 13px var(--f); color: var(--mute); }
+  .ctr b em { color: var(--ink); }
+
+  /* ===== 2. Тёмный блок с большой цифрой ===== */
+  .big240 { margin-top: 6px; font: 900 clamp(96px, 31vw, 124px)/.8 var(--f); letter-spacing: -.07em; padding-right: .07em; background: linear-gradient(180deg, #ffb27a, var(--or) 55%, #c24500); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .big240 + p { margin-top: 10px; font: 600 15px/1.35 var(--f); color: rgba(255, 255, 255, .85); }
+  .dk2 .tall { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 22px -18px 0; padding: 0 18px 4px; scrollbar-width: none; }
+  .dk2 .tall::-webkit-scrollbar { display: none; }
+  .dk2 .tall article { position: relative; flex: none; width: 70%; height: 380px; border-radius: 24px; overflow: hidden; scroll-snap-align: start; isolation: isolate; }
+  .dk2 .tall img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .dk2 .tall article::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .85)); }
+  .dk2 .tall .tx { position: absolute; left: 14px; right: 14px; bottom: 14px; }
+  .dk2 .tall h3 { font: 700 20px/1.08 var(--f); }
+  .dk2 .tall p { margin-top: 4px; font: 500 12px var(--f); color: rgba(255, 255, 255, .7); }
+  .dk2 .tall .nums { margin-top: 10px; display: flex; gap: 14px; }
+  .dk2 .tall .nums b { display: block; font: 800 17px var(--f); letter-spacing: -.03em; }
+  .dk2 .tall .nums small { display: block; font: 600 10px var(--f); color: rgba(255, 255, 255, .55); letter-spacing: .08em; text-transform: uppercase; }
+
+  /* ===== 3. Большое фото и миниатюры ===== */
+  .stage { position: relative; height: 420px; border-radius: 26px; overflow: hidden; color: #fff; isolation: isolate; }
+  .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 0; transform: scale(1.05); transition: opacity .6s, transform 1.2s var(--ease); }
+  .stage img.on { opacity: 1; transform: none; }
+  .stage::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, .25), rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .8)); }
+  .seg { position: absolute; left: 14px; right: 14px; top: 14px; display: flex; gap: 4px; }
+  .seg i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .3); transition: background .3s; }
+  .seg i.on { background: #fff; }
+  .stage .tap { position: absolute; inset: 30px 0 40%; display: flex; }
+  .stage .tap button { flex: 1; }
+  .stage .tx { position: absolute; left: 14px; right: 14px; bottom: 14px; }
+  .stage .tx > * { transition: opacity .3s, transform .45s var(--ease); }
+  .stage .tx.sw > * { opacity: 0; transform: translate3d(0, 8px, 0); }
+  .stage h3 { font: 700 26px/1.04 var(--f); }
+  .stage p { margin-top: 4px; font: 500 12.5px var(--f); color: rgba(255, 255, 255, .78); }
+  .stage .gl { margin-top: 12px; display: grid; grid-template-columns: repeat(3, 1fr); border-radius: 16px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .25); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .stage .gl div { padding: 10px 12px; }
+  .stage .gl div + div { border-left: 1px solid rgba(255, 255, 255, .2); }
+  .stage .gl b { display: block; font: 800 15px var(--f); letter-spacing: -.02em; }
+  .stage .gl small { display: block; font: 600 10px var(--f); opacity: .7; letter-spacing: .06em; text-transform: uppercase; }
+  .thr { margin-top: 10px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .thr::-webkit-scrollbar { display: none; }
+  .thr button { flex: none; width: 74px; height: 58px; border-radius: 14px; overflow: hidden; opacity: .5; outline: 2px solid transparent; outline-offset: 2px; transition: opacity .3s, outline-color .3s; }
+  .thr button.on { opacity: 1; outline-color: var(--or); }
+  .thr img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ===== 4. Журнальная раскладка ===== */
+  .mag { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mag a { position: relative; border-radius: 22px; overflow: hidden; color: #fff; isolation: isolate; min-height: 200px; }
+  .mag a.w { grid-column: 1 / -1; min-height: 300px; }
+  .mag img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s var(--ease); }
+  .mag a:hover img { transform: scale(1.05); }
+  .mag a::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, .8)); }
+  .mag .tx { position: absolute; left: 12px; right: 12px; bottom: 12px; }
+  .mag h3 { font: 700 16px/1.1 var(--f); }
+  .mag .w h3 { font-size: 24px; }
+  .mag p { margin-top: 3px; font: 500 11.5px var(--f); color: rgba(255, 255, 255, .75); }
+  .mag .badge { position: absolute; left: 12px; top: 12px; height: 28px; padding: 0 11px; display: inline-flex; align-items: center; border-radius: 999px; background: var(--or); font: 700 11px var(--f); }
+  .mag .w .tx { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+  .mag .cnt { background: var(--or); min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 14px; }
+  .mag .cnt::after { display: none; }
+  .mag .cnt b { font: 900 46px/.9 var(--f); letter-spacing: -.06em; }
+  .mag .cnt span { font: 700 14px/1.2 var(--f); }
+  .mag .cnt i { width: 40px; height: 40px; border-radius: 50%; background: #fff; color: var(--or); display: grid; place-items: center; }
+  .mag .cnt i svg { width: 16px; height: 16px; }
+
+  /* ===== 5. Список с раскрытием ===== */
+  .rows { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .rows article { border-bottom: 1px solid var(--line); }
+  .rows .hd { width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px 2px; text-align: left; }
+  .rows .hd small { flex: none; width: 26px; font: 700 12px var(--f); color: var(--or); }
+  .rows .hd span { flex: 1; }
+  .rows .hd b { display: block; font: 700 17px/1.15 var(--f); letter-spacing: -.02em; }
+  .rows .hd em { display: block; margin-top: 2px; font: 500 12px var(--f); color: var(--mute); }
+  .rows .hd i { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #fff; transition: transform .45s var(--ease), background .3s, color .3s; }
+  .rows .hd i svg { width: 15px; height: 15px; }
+  .rows article.on .hd i { transform: rotate(45deg); background: var(--or); color: #fff; }
+  .rows .bd { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+  .rows article.on .bd { grid-template-rows: 1fr; }
+  .rows .bd > div { overflow: hidden; }
+  .rows .bd .ph { position: relative; height: 220px; border-radius: 20px; overflow: hidden; margin-bottom: 10px; }
+  .rows .bd .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .rows .bd .ch { display: flex; gap: 6px; flex-wrap: wrap; padding-bottom: 16px; }
+  .rows .bd .ch .chip { background: #fff; }
+
+  /* ===== 6. Стопка карточек, листается свайпом ===== */
+  .stk { position: relative; height: 510px; margin-top: 4px; }
+  .stk article { position: absolute; left: 0; right: 0; top: 0; height: 420px; border-radius: 26px; overflow: hidden; color: #fff; isolation: isolate; transform-origin: 50% 100%; transition: transform .6s var(--spring), opacity .5s, filter .5s; touch-action: pan-y; }
+  .stk img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; pointer-events: none; }
+  .stk article::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .82)); }
+  .stk .tx { position: absolute; left: 16px; right: 16px; bottom: 16px; }
+  .stk h3 { font: 700 24px/1.05 var(--f); }
+  .stk p { margin-top: 4px; font: 500 12.5px var(--f); color: rgba(255, 255, 255, .78); }
+  .stk .ch { margin-top: 10px; display: flex; gap: 6px; }
+  .stk .ch span { height: 28px; padding: 0 11px; display: inline-flex; align-items: center; border-radius: 999px; background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .3); font: 600 11.5px var(--f); }
+  .stk .hint { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: space-between; }
+  .stk .hint span { font: 600 12px var(--f); color: var(--mute); }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01s !important; animation-duration: .01s !important; } [data-r] { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<header class="top">
+  <h1>«Проекты»:<br><em>шесть</em> вариантов</h1>
+  <p>Блок «Построили 240+ домов» в ширину телефона. Проекты и цифры те же, что на сайте. Ничего не листается само, всё только пальцем или кнопками.</p>
+  <nav class="jump"><a href="#v1"><b>1</b>Каталог</a><a href="#v2"><b>2</b>Большая цифра</a><a href="#v3"><b>3</b>Фото и миниатюры</a><a href="#v4"><b>4</b>Журнал</a><a href="#v5"><b>5</b>Список</a><a href="#v6"><b>6</b>Стопка</a></nav>
+</header>
+
+<main class="list">
+  <section id="v1">
+    <div class="vh"><b>1</b><div><span>Светлый каталог</span><small>Без тёмного блока. Белые карточки листаются вбок: фото сверху, снизу название, место, площадь, срок и материал.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="body" data-r style="--d:.15s"><div class="cards" data-cards></div>
+        <div class="ctr"><b data-ctr><em>1</em> / 5</b><div class="nav2"><button data-p aria-label="Назад"><svg class="i"><use href="#l"/></svg></button><button class="f" data-n aria-label="Дальше"><svg class="i"><use href="#r"/></svg></button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="v2">
+    <div class="vh"><b>2</b><div><span>Тёмный блок с большой цифрой</span><small>Весь блок тёмный. Огромная оранжевая «240+» вместо обычного заголовка, под ней высокие карточки домов листаются вбок.</small></div></div>
+    <div class="sec dk dk2" data-sec>
+      <span class="tag" data-r><i></i>Проекты</span>
+      <div class="big240" data-r style="--d:.05s">240+</div><p data-r style="--d:.1s">домов уже построили.<br>Вот некоторые из них.</p>
+      <div class="tall" data-r style="--d:.15s" data-tall></div>
+      <a class="more" href="#" data-r style="--d:.2s">Показать дом вживую<i><svg class="i"><use href="#arr"/></svg></i></a>
+    </div>
+  </section>
+
+  <section id="v3">
+    <div class="vh"><b>3</b><div><span>Большое фото и миниатюры</span><small>Одно большое фото, тапом слева или справа листаешь проекты, сверху полоски показывают, какой по счёту. Цифры в стеклянной плашке, снизу миниатюры.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="body" data-r style="--d:.15s"><div class="stage" data-stage></div><div class="thr" data-thr></div></div>
+    </div>
+  </section>
+
+  <section id="v4">
+    <div class="vh"><b>4</b><div><span>Журнальная раскладка</span><small>Главный проект большой картой, ниже плитки разного размера и оранжевая плитка «240+ домов», которая ведёт ко всем проектам.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="body mag" data-r style="--d:.15s" data-mag></div>
+    </div>
+  </section>
+
+  <section id="v5">
+    <div class="vh"><b>5</b><div><span>Список с раскрытием</span><small>Строгий список: номер, название, место и площадь. Нажимаешь, и строка раскрывается с фото и параметрами. Компактно и аккуратно.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="body rows" data-r style="--d:.15s" data-rows></div>
+    </div>
+  </section>
+
+  <section id="v6">
+    <div class="vh"><b>6</b><div><span>Стопка карточек</span><small>Проекты лежат стопкой. Смахиваешь верхнюю карточку в сторону, она уходит назад, и показывается следующая. Как карты в приложении.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="body" data-r style="--d:.15s"><div class="stk" data-stk><div class="hint"><span>Смахните карточку</span><div class="nav2"><button data-sp aria-label="Назад"><svg class="i"><use href="#l"/></svg></button><button class="f" data-sn aria-label="Дальше"><svg class="i"><use href="#r"/></svg></button></div></div></div></div>
+    </div>
+  </section>
+</main>
+<p class="end">Выберите номер, поставлю на сайт.</p>
+
+<script>
+(function () {
+  var P = [
+    { img: 'img/dusk2.webp', a: '210 м²', t: '7 мес', tag: 'Газобетон · 2 этажа', h: 'Дом в «Лесных Далях»', p: 'Истра, 2025' },
+    { img: 'img/cottage.webp', a: '260 м²', t: '9 мес', tag: 'Кирпич · панорамы', h: 'Коттедж у озера', p: 'Дмитров, 2024' },
+    { img: 'img/villa.webp', a: '180 м²', t: '6 мес', tag: 'Плоская кровля', h: 'Вилла с бассейном', p: 'Одинцово, 2025' },
+    { img: 'img/forest.webp', a: '160 м²', t: '6 мес', tag: 'Фахверк · стекло', h: 'Дом в соснах', p: 'Красногорск, 2024' },
+    { img: 'img/town.webp', a: '4 × 140 м²', t: '11 мес', tag: 'Таунхаусы', h: 'Квартал «Грин»', p: 'Мытищи, 2023' }
+  ];
+  var A = '<svg class="i"><use href="#arr"/></svg>', $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var head = '<span class="tag" data-r><i></i>Проекты</span><h2 class="h2" data-r style="--d:.05s">Построили <em>240+</em> домов.<br>Вот некоторые</h2><p class="lead" data-r style="--d:.1s">Каждый реальный объект с фотоотчётом. Покажем вживую в посёлке рядом с вами.</p>';
+  $$('[data-head]').forEach(function (el) { el.innerHTML = head; });
+
+  // 1
+  var cards = document.querySelector('[data-cards]');
+  cards.innerHTML = P.map(function (p) { return '<article><div class="ph"><img src="' + p.img + '" alt="' + p.h + '" loading="lazy"><span>' + p.p + '</span></div><div class="tx"><h3>' + p.h + '</h3><div class="ch"><span class="chip">' + p.a + '</span><span class="chip">' + p.t + '</span><span class="chip">' + p.tag + '</span></div><div class="ft"><b>Смотреть фотоотчёт</b><a class="arr" href="#">' + A + '</a></div></div></article>'; }).join('');
+  var k1 = 0, ctr = document.querySelector('[data-ctr]');
+  var idx = function () { var c = cards.scrollLeft + cards.clientWidth / 2, best = 1e9, k = 0; $$('article', cards).forEach(function (a, i) { var d = Math.abs(a.offsetLeft + a.offsetWidth / 2 - c); if (d < best) { best = d; k = i; } }); return k; };
+  cards.addEventListener('scroll', function () { k1 = idx(); ctr.innerHTML = '<em>' + (k1 + 1) + '</em> / 5'; }, { passive: true });
+  var go1 = function (k) { var a = cards.children[Math.max(0, Math.min(4, k))]; cards.scrollTo({ left: a.offsetLeft - (cards.clientWidth - a.offsetWidth) / 2, behavior: 'smooth' }); };
+  document.querySelector('[data-p]').onclick = function () { go1(k1 - 1); };
+  document.querySelector('[data-n]').onclick = function () { go1(k1 + 1); };
+
+  // 2
+  document.querySelector('[data-tall]').innerHTML = P.map(function (p) { return '<article><img src="' + p.img + '" alt="' + p.h + '" loading="lazy"><div class="tx"><h3>' + p.h + '</h3><p>' + p.p + ' · ' + p.tag + '</p><div class="nums"><div><b>' + p.a + '</b><small>площадь</small></div><div><b>' + p.t + '</b><small>срок</small></div></div></div></article>'; }).join('');
+
+  // 3
+  var st = document.querySelector('[data-stage]'), thr = document.querySelector('[data-thr]'), k3 = 0;
+  st.innerHTML = P.map(function (p, i) { return '<img src="' + p.img + '" alt="' + p.h + '"' + (i ? '' : ' class="on"') + ' loading="lazy">'; }).join('') + '<div class="seg">' + P.map(function (p, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div><div class="tap"><button aria-label="Назад" data-a="-1"></button><button aria-label="Дальше" data-a="1"></button></div><div class="tx"><h3></h3><p></p><div class="gl"><div><b data-f="a"></b><small>площадь</small></div><div><b data-f="t"></b><small>срок</small></div><div><b data-f="y"></b><small>год</small></div></div></div>';
+  thr.innerHTML = P.map(function (p, i) { return '<button' + (i ? '' : ' class="on"') + ' data-i="' + i + '" aria-label="' + p.h + '"><img src="' + p.img + '" alt="" loading="lazy"></button>'; }).join('');
+  var tx = st.querySelector('.tx');
+  var fill3 = function (i) { var p = P[i]; tx.querySelector('h3').textContent = p.h; tx.querySelector('p').textContent = p.p.split(',')[0] + ' · ' + p.tag; tx.querySelector('[data-f=a]').textContent = p.a; tx.querySelector('[data-f=t]').textContent = p.t; tx.querySelector('[data-f=y]').textContent = p.p.split(', ')[1]; };
+  var go3 = function (i) { k3 = (i + 5) % 5; $$('img', st).forEach(function (im, k) { im.classList.toggle('on', k === k3); }); $$('.seg i', st).forEach(function (s, k) { s.classList.toggle('on', k <= k3); }); $$('button', thr).forEach(function (b, k) { b.classList.toggle('on', k === k3); }); tx.classList.add('sw'); setTimeout(function () { fill3(k3); tx.classList.remove('sw'); }, 250); };
+  $$('.tap button', st).forEach(function (b) { b.onclick = function () { go3(k3 + +b.dataset.a); }; });
+  $$('button', thr).forEach(function (b) { b.onclick = function () { go3(+b.dataset.i); }; });
+  fill3(0);
+
+  // 4
+  document.querySelector('[data-mag]').innerHTML =
+    '<a class="w" href="#"><img src="' + P[0].img + '" alt="" loading="lazy"><span class="badge">Новый · 2025</span><div class="tx"><div><h3>' + P[0].h + '</h3><p>' + P[0].p + ' · ' + P[0].a + ' · ' + P[0].t + '</p></div><span class="arr">' + A + '</span></div></a>' +
+    [1, 2].map(function (i) { var p = P[i]; return '<a href="#"><img src="' + p.img + '" alt="" loading="lazy"><div class="tx"><h3>' + p.h + '</h3><p>' + p.p.split(',')[0] + ' · ' + p.a + '</p></div></a>'; }).join('') +
+    '<a href="#"><img src="' + P[3].img + '" alt="" loading="lazy"><div class="tx"><h3>' + P[3].h + '</h3><p>' + P[3].p.split(',')[0] + ' · ' + P[3].a + '</p></div></a>' +
+    '<a class="cnt" href="#"><b>240+</b><span>Смотреть все проекты</span><i>' + A + '</i></a>';
+
+  // 5
+  var rows = document.querySelector('[data-rows]');
+  rows.innerHTML = P.map(function (p, i) { return '<article' + (i ? '' : ' class="on"') + '><button class="hd"><small>0' + (i + 1) + '</small><span><b>' + p.h + '</b><em>' + p.p + ' · ' + p.a + '</em></span><i><svg class="i"><use href="#plus"/></svg></i></button><div class="bd"><div><div class="ph"><img src="' + p.img + '" alt="' + p.h + '" loading="lazy"></div><div class="ch"><span class="chip">' + p.a + '</span><span class="chip">' + p.t + '</span><span class="chip">' + p.tag + '</span></div></div></div></article>'; }).join('');
+  $$('article', rows).forEach(function (a) { a.querySelector('.hd').onclick = function () { var on = !a.classList.contains('on'); $$('article', rows).forEach(function (x) { x.classList.remove('on'); }); a.classList.toggle('on', on); }; });
+
+  // 6: стопка, свайп
+  var stk = document.querySelector('[data-stk]'), order = [0, 1, 2, 3, 4];
+  stk.insertAdjacentHTML('afterbegin', P.map(function (p, i) { return '<article data-i="' + i + '"><img src="' + p.img + '" alt="' + p.h + '" loading="lazy"><div class="tx"><h3>' + p.h + '</h3><p>' + p.p + '</p><div class="ch"><span>' + p.a + '</span><span>' + p.t + '</span></div></div></article>'; }).join(''));
+  var arts = $$('article', stk);
+  var lay = function () { order.forEach(function (i, pos) { var a = arts[i]; a.style.zIndex = 10 - pos; a.style.transform = 'translate3d(0,' + (pos * 14) + 'px,0) scale(' + (1 - pos * .05) + ')'; a.style.opacity = pos > 2 ? 0 : 1; a.style.filter = pos ? 'brightness(' + (1 - pos * .18) + ')' : 'none'; }); };
+  var next = function (dir) { var top = arts[order[0]]; top.style.transform = 'translate3d(' + (dir * 120) + '%,0,0) rotate(' + (dir * 12) + 'deg)'; top.style.opacity = 0; setTimeout(function () { order.push(order.shift()); lay(); }, 300); };
+  var prev = function () { order.unshift(order.pop()); lay(); };
+  lay();
+  document.querySelector('[data-sn]').onclick = function () { next(1); };
+  document.querySelector('[data-sp]').onclick = prev;
+  var x0 = null, dx = 0;
+  stk.addEventListener('pointerdown', function (e) { if (!e.target.closest('article')) return; x0 = e.clientX; dx = 0; arts[order[0]].style.transition = 'none'; });
+  addEventListener('pointermove', function (e) { if (x0 === null) return; dx = e.clientX - x0; arts[order[0]].style.transform = 'translate3d(' + dx + 'px,0,0) rotate(' + dx / 20 + 'deg)'; });
+  addEventListener('pointerup', function () { if (x0 === null) return; x0 = null; var t = arts[order[0]]; t.style.transition = ''; if (Math.abs(dx) > 70) next(dx > 0 ? 1 : -1); else lay(); });
+
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .15 });
+  $$('[data-sec]').forEach(function (s) { io.observe(s); });
+})();
+</script>
+</body>
+</html>
