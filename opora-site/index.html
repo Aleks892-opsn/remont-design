@@ -563,22 +563,8 @@
     -webkit-mask-image: radial-gradient(80% 70% at 15% 100%, #000, transparent 75%); mask-image: radial-gradient(80% 70% at 15% 100%, #000, transparent 75%); }
 
   /* ===== Масштаб ===== */
-  .scale { padding: 0 10px; margin-bottom: 14px; }
-  .scale__f { position: relative; max-width: 1400px; margin: 0 auto; min-height: 640px; border-radius: 34px; overflow: hidden; background: #0b0b0b; isolation: isolate; color: #fff; }
-  .scale__f > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; filter: grayscale(.3) contrast(1.08) brightness(.72); }
-  .scale__f::before { content: ''; position: absolute; inset: 0; z-index: -2; background: linear-gradient(180deg, rgba(11, 11, 11, .2), rgba(11, 11, 11, .55) 60%, #0b0b0b), radial-gradient(70% 60% at 50% 55%, rgba(255, 106, 26, .55), transparent 70%); mix-blend-mode: normal; }
-  .scale__word { position: absolute; left: 0; right: 0; top: 28px; z-index: -1; text-align: center; font: 700 clamp(44px, 14.5vw, 190px)/.86 var(--f); letter-spacing: -.05em; text-transform: uppercase; white-space: nowrap; }
-  .scale__word span { display: block; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .28); }
-  .scale__word span + span { color: rgba(255, 106, 26, .55); -webkit-text-stroke: 0; mix-blend-mode: screen; }
   .px { position: absolute; width: 34px; height: 34px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); }
   .px.s { width: 22px; height: 22px; background: rgba(255, 106, 26, .4); border-color: transparent; }
-  .scale__g { position: absolute; left: 16px; right: 16px; bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 14px; }
-  .fr { position: relative; padding: 16px 14px; background: rgba(11, 11, 11, .35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 1px solid rgba(255, 180, 120, .55); }
-  .fr i { position: absolute; width: 9px; height: 9px; background: #ffb07a; }
-  .fr i:nth-of-type(1) { left: -5px; top: -5px; } .fr i:nth-of-type(2) { right: -5px; top: -5px; }
-  .fr i:nth-of-type(3) { left: -5px; bottom: -5px; } .fr i:nth-of-type(4) { right: -5px; bottom: -5px; }
-  .fr b { display: block; font: 600 34px/1 var(--f); letter-spacing: -.04em; }
-  .fr small { display: block; margin-top: 6px; font: 500 12px/1.3 var(--f); color: rgba(255, 255, 255, .78); }
 
   /* ===== Подвал с оранжевой полосой (как INDUSTRIX) ===== */
   .ft__cta { display: grid; gap: 22px; padding: 10px 0 30px; }
@@ -591,12 +577,6 @@
   .ft__band { margin: 10px -16px 0; padding: 18px 16px 10px; border-radius: 26px; overflow: hidden; background: linear-gradient(90deg, #ff7a1a, #ff4d0a 45%, #c43a08); }
   .ft__band .ft__big { color: #fff; font-size: clamp(70px, 24vw, 300px); text-align: center; }
   @media (min-width: 900px) {
-    .scale { padding: 0 16px; margin-bottom: 24px; }
-    .scale__f { min-height: 760px; border-radius: 44px; }
-    .scale__word { top: 50px; }
-    .scale__g { left: 50%; right: auto; bottom: 90px; top: auto; transform: translateX(-50%); width: min(1060px, 90%); grid-template-columns: repeat(4, 1fr); gap: 24px; }
-    .scale__g .fr:nth-child(odd) { transform: translateY(-40px); }
-    .fr { padding: 22px 20px; } .fr b { font-size: 48px; }
     .ft__cta { grid-template-columns: 40px 1fr auto; align-items: end; padding-bottom: 50px; }
     .ft__band { margin: 10px 0 0; }
   }
@@ -695,21 +675,6 @@
       <article class="svc__c" data-r="clip" style="--d:.08s"><img src="img/cottage.webp" alt="Коттедж с панорамным остеклением" loading="lazy"><div class="svc__t"><span class="pill">Коттедж</span><span class="svc__n">02</span></div><div class="svc__b"><h3>Коттеджи</h3><div class="plq"><span>от 12 млн ₽</span><i></i><a href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
       <article class="svc__c" data-r="clip" style="--d:.16s"><img src="img/cube.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"><div class="svc__t"><span class="pill">Коробка</span><span class="svc__n">03</span></div><div class="svc__b"><h3>Тёплый контур</h3><div class="plq"><span>от 3,9 млн ₽</span><i></i><a href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
       <article class="svc__c" data-r="clip" style="--d:.24s"><img src="img/comm.webp" alt="Коммерческое здание" loading="lazy"><div class="svc__t"><span class="pill">Бизнес</span><span class="svc__n">04</span></div><div class="svc__b"><h3>Коммерческие здания</h3><p>Офисы, магазины, базы отдыха — с проектом и согласованиями.</p><div class="plq"><span>по проекту</span><i></i><a href="#contact" aria-label="Обсудить"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div></article>
-    </div>
-  </div>
-</section>
-
-<!-- Масштаб: цифры в рамках поверх стройки -->
-<section class="scale" id="scale">
-  <div class="scale__f" data-r="clip">
-    <img src="img/crane.webp" alt="Башенный кран на стройке" loading="lazy">
-    <div class="scale__word" aria-hidden="true"><span>МАСШТАБ</span><span>FORTE</span></div>
-    <i class="px" style="left:6%;top:12%"></i><i class="px" style="right:8%;top:30%"></i><i class="px" style="left:12%;bottom:18%"></i><i class="px s" style="right:20%;bottom:10%"></i>
-    <div class="scale__g">
-      <div class="fr" data-r><b><span data-count="18">0</span></b><small>домов строим прямо сейчас</small><i></i><i></i><i></i><i></i></div>
-      <div class="fr" data-r style="--d:.08s"><b><span data-count="240">0</span>+</b><small>сдали за 15 лет</small><i></i><i></i><i></i><i></i></div>
-      <div class="fr" data-r style="--d:.16s"><b><span data-count="60">0</span></b><small>мастеров в штате</small><i></i><i></i><i></i><i></i></div>
-      <div class="fr" data-r style="--d:.24s"><b><span data-count="32">0</span></b><small>единицы своей техники</small><i></i><i></i><i></i><i></i></div>
     </div>
   </div>
 </section>
@@ -993,7 +958,7 @@
       if (el.dataset.count) count(el);
     });
   }, { threshold: .18, rootMargin: '0px 0px -6% 0px' });
-  $$('[data-r], .u, .fr [data-count]').forEach(function (el) { io.observe(el); });
+  $$('[data-r], .u').forEach(function (el) { io.observe(el); });
   if (reduce) $$('[data-r], .u').forEach(function (el) { el.classList.add('in', 'on'); });
 
 
