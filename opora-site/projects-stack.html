@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FORTE: стопка проектов</title>
+<meta name="description" content="Четыре доработанных варианта стопки карточек для блока «Проекты».">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3f0; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13, 13, 13, .09);
+    --or: #ff6a1a; --or2: #ff9248; --or-soft: #fff0e6; --k: #0b0b0b;
+    --f: 'Montserrat', system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(.2, .75, .2, 1); --io: cubic-bezier(.65, 0, .35, 1); --spring: cubic-bezier(.34, 1.3, .64, 1);
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #e9e6e2; color: var(--ink); font: 400 15px/1.5 var(--f); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  h2, h3 { margin: 0; letter-spacing: -.045em; line-height: 1.02; }
+  p { margin: 0; }
+  em { font-style: normal; }
+  svg.i { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .top { max-width: 1320px; margin: 0 auto; padding: 22px 18px 4px; }
+  .top h1 { margin: 0 0 10px; font: 800 clamp(30px, 8vw, 54px)/1 var(--f); letter-spacing: -.05em; }
+  .top h1 em { color: var(--or); }
+  .top p { max-width: 560px; color: var(--ink2); font-size: 14.5px; }
+  .jump { display: flex; gap: 8px; overflow-x: auto; margin: 16px -18px 0; padding: 0 18px 6px; scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump a { flex: none; height: 38px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13px var(--f); }
+  .jump a b { color: var(--or); margin-right: 6px; }
+  .list { max-width: 1320px; margin: 0 auto; padding: 14px 0 30px; display: grid; gap: 40px; }
+  @media (min-width: 900px) { .list { grid-template-columns: repeat(auto-fill, 410px); justify-content: center; align-items: start; gap: 56px 30px; } }
+  .vh { padding: 0 18px 12px; display: flex; gap: 12px; align-items: flex-start; }
+  .vh > b { flex: none; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--or); color: #fff; font: 800 15px var(--f); }
+  .vh span { display: block; font: 700 18px/1.15 var(--f); letter-spacing: -.03em; }
+  .vh small { display: block; margin-top: 4px; font-size: 12.5px; color: var(--mute); line-height: 1.45; }
+  .end { padding: 0 18px 70px; text-align: center; font-size: 13px; color: var(--mute); }
+
+  .sec { max-width: 410px; margin: 0 auto; padding: 34px 18px 26px; background: var(--bg); border-radius: 28px; overflow: hidden; position: relative; }
+  @media (max-width: 899px) { .sec { margin: 0 8px; } }
+  .sec.dk { background: var(--k); color: #fff; }
+  .tag { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); font: 500 12px var(--f); color: var(--ink2); background: rgba(255, 255, 255, .6); }
+  .tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--or); }
+  .dk .tag { border-color: rgba(255, 255, 255, .12); color: rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .04); }
+  .h2 { margin-top: 16px; font: 600 clamp(31px, 8.4vw, 36px)/1.04 var(--f); letter-spacing: -.045em; }
+  .h2 em { color: var(--or); }
+  .lead { margin-top: 12px; color: var(--ink2); font-size: 14.5px; }
+  .dk .lead { color: rgba(255, 255, 255, .6); }
+
+  .ctl { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .ctl .num { font: 800 14px var(--f); letter-spacing: -.01em; color: var(--mute); font-variant-numeric: tabular-nums; }
+  .ctl .num b { color: var(--ink); }
+  .dk .ctl .num b { color: #fff; }
+  .nb { display: flex; gap: 8px; }
+  .nb button { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: #fff; color: var(--ink); transition: transform .15s; }
+  .nb button:active { transform: scale(.92); }
+  .nb button svg { width: 18px; height: 18px; }
+  .nb button.f { background: var(--or); border-color: var(--or); color: #fff; box-shadow: 0 10px 24px rgba(255, 106, 26, .35); }
+  .dk .nb button:not(.f) { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .14); color: #fff; }
+  .chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--bg); font: 600 12px var(--f); color: var(--ink2); white-space: nowrap; }
+
+  /* Общая стопка: карточки не реагируют на касание и не двигаются пальцем */
+  .stk { position: relative; touch-action: auto; user-select: none; -webkit-user-select: none; }
+  .stk .c { position: absolute; left: 0; right: 0; border-radius: 26px; overflow: hidden; color: #fff; isolation: isolate; pointer-events: none; z-index: calc(10 - var(--pos)); transition: transform .7s var(--spring), opacity .45s, filter .5s; will-change: transform; }
+  .stk .c img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .stk .c.ov::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .82)); }
+  .stk .c .tx { position: absolute; left: 16px; right: 16px; bottom: 16px; transition: opacity .3s; }
+  .stk .c h3 { font: 700 24px/1.05 var(--f); }
+  .stk .c p { margin-top: 4px; font: 500 12.5px var(--f); color: rgba(255, 255, 255, .8); }
+  .stk .c .ch { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .stk .c .ch span { height: 28px; padding: 0 11px; display: inline-flex; align-items: center; border-radius: 999px; background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .3); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font: 600 11.5px var(--f); }
+  .stk .c:not(.top) .tx { opacity: 0; }
+
+  /* ===== 1. Как кошелёк: карточки выглядывают сверху ===== */
+  .s1 { height: 440px; margin-top: 24px; }
+  .s1 .c { top: 40px; height: 400px; transform: translate3d(0, calc(var(--pos) * -15px), 0) scale(calc(1 - var(--pos) * .055)); transform-origin: 50% 0; filter: brightness(calc(1 - var(--pos) * .16)); opacity: calc(1 - (var(--pos) - 2.5) * 2); }
+  .s1 .c.out { transform: translate3d(0, 115%, 0) rotate(-3deg); opacity: 0; transition: transform .55s var(--io), opacity .45s .1s; }
+  .s1 .c.in { transform: translate3d(0, -60px, 0) scale(.8); opacity: 0; transition: none; }
+
+  /* ===== 2. Веер ===== */
+  .s2 { height: 430px; margin-top: 26px; }
+  .s2 .c { top: 10px; height: 390px; left: 8%; right: 8%; transform-origin: 50% 110%; transform: rotate(calc(var(--pos) * 4.5deg)) translate3d(calc(var(--pos) * 6px), 0, 0) scale(calc(1 - var(--pos) * .03)); filter: brightness(calc(1 - var(--pos) * .14)); opacity: calc(1 - (var(--pos) - 2.5) * 2); box-shadow: 0 20px 40px rgba(60, 30, 10, .18); }
+  .s2 .c.out { transform: translate3d(-140%, 20px, 0) rotate(-22deg); transition: transform .6s var(--io); }
+
+  /* ===== 3. Стопка и миниатюры ===== */
+  .s3 { height: 432px; margin-top: 24px; }
+  .s3 .c { top: 0; height: 390px; transform: translate3d(0, calc(var(--pos) * 14px), 0) scale(calc(1 - var(--pos) * .05)); transform-origin: 50% 100%; filter: brightness(calc(1 - var(--pos) * .18)); opacity: calc(1 - (var(--pos) - 2.5) * 2); }
+  .s3 .c.pop { animation: pop .6s var(--spring); }
+  @keyframes pop { 0% { transform: translate3d(0, 30px, 0) scale(.92); opacity: .4; } 100% { transform: none; opacity: 1; } }
+  .thm { margin-top: 8px; display: flex; gap: 8px; }
+  .thm button { flex: 1; height: 58px; border-radius: 14px; overflow: hidden; opacity: .45; outline: 2px solid transparent; outline-offset: 2px; transition: opacity .3s, outline-color .3s, transform .2s; }
+  .thm button.on { opacity: 1; outline-color: var(--or); }
+  .thm button:active { transform: scale(.94); }
+  .thm img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ===== 4. Тёмный блок и белая панель ===== */
+  .s4 { height: 330px; margin-top: 24px; }
+  .s4 .c { top: 0; height: 300px; right: 30px; transform: translate3d(calc(var(--pos) * 15px), calc(var(--pos) * 6px), 0) scale(calc(1 - var(--pos) * .06)); transform-origin: 100% 50%; filter: brightness(calc(1 - var(--pos) * .25)); opacity: calc(1 - (var(--pos) - 2.5) * 2); }
+  .s4 .c.out { transform: translate3d(-120%, 0, 0) rotate(-8deg); opacity: 0; transition: transform .6s var(--io), opacity .5s; }
+  .pnl { position: relative; margin-top: 4px; padding: 16px; border-radius: 24px; background: #fff; color: var(--ink); }
+  .pnl .cnt { display: flex; align-items: baseline; gap: 8px; font: 900 40px/1 var(--f); letter-spacing: -.05em; color: var(--or); font-variant-numeric: tabular-nums; }
+  .pnl .cnt small { font: 700 14px var(--f); color: var(--mute); letter-spacing: 0; }
+  .pnl .bar { margin-top: 10px; height: 3px; border-radius: 3px; background: var(--bg); overflow: hidden; }
+  .pnl .bar i { display: block; height: 100%; background: var(--or); transform-origin: left; transform: scaleX(var(--p, .2)); transition: transform .6s var(--ease); }
+  .pnl .inf { margin-top: 14px; transition: opacity .3s, transform .45s var(--ease); }
+  .pnl .inf.sw { opacity: 0; transform: translate3d(0, 8px, 0); }
+  .pnl h3 { font: 700 21px/1.1 var(--f); }
+  .pnl p { margin-top: 3px; font: 500 12.5px var(--f); color: var(--mute); }
+  .pnl .ch { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .pnl .ctl { margin-top: 16px; }
+  .pnl .ctl a { font: 700 13px var(--f); display: inline-flex; align-items: center; gap: 6px; }
+  .pnl .ctl a svg { width: 15px; height: 15px; color: var(--or); }
+
+  @media (prefers-reduced-motion: reduce) { .stk .c, .stk .c.out, .pnl * { transition-duration: .01s !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+</svg>
+
+<header class="top">
+  <h1>Стопка проектов:<br><em>четыре</em> варианта</h1>
+  <p>Карточки больше не двигаются пальцем. При касании ничего не уезжает, листание только кнопками (в третьем варианте ещё миниатюрами). Переход сделан плавнее и с пружинкой.</p>
+  <nav class="jump"><a href="#v1"><b>1</b>Кошелёк</a><a href="#v2"><b>2</b>Веер</a><a href="#v3"><b>3</b>С миниатюрами</a><a href="#v4"><b>4</b>Тёмный с панелью</a></nav>
+</header>
+
+<main class="list">
+  <section id="v1">
+    <div class="vh"><b>1</b><div><span>Кошелёк</span><small>Как карты в Apple Wallet: следующие проекты выглядывают сверху. «Дальше» уводит карточку вниз, и выезжает следующая.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="stk s1" data-stk data-ov></div>
+      <div class="ctl" style="margin-top:16px"><span class="num" data-num><b>01</b> / 05</span><div class="nb"><button data-prev aria-label="Назад"><svg class="i"><use href="#l"/></svg></button><button class="f" data-next aria-label="Дальше"><svg class="i"><use href="#r"/></svg></button></div></div>
+    </div>
+  </section>
+
+  <section id="v2">
+    <div class="vh"><b>2</b><div><span>Веер</span><small>Карточки лежат веером с небольшим поворотом. «Дальше» отбрасывает верхнюю влево, она уходит в конец стопки.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="stk s2" data-stk data-ov></div>
+      <div class="ctl" style="margin-top:14px"><span class="num" data-num><b>01</b> / 05</span><div class="nb"><button data-prev aria-label="Назад"><svg class="i"><use href="#l"/></svg></button><button class="f" data-next aria-label="Дальше"><svg class="i"><use href="#r"/></svg></button></div></div>
+    </div>
+  </section>
+
+  <section id="v3">
+    <div class="vh"><b>3</b><div><span>Стопка и миниатюры</span><small>Стопка, а под ней миниатюры всех проектов. Нажимаешь на любую, и этот дом выходит наверх стопки.</small></div></div>
+    <div class="sec" data-sec><div data-head></div>
+      <div class="stk s3" data-stk data-ov data-thumbs></div>
+      <div class="thm" data-thm></div>
+    </div>
+  </section>
+
+  <section id="v4">
+    <div class="vh"><b>4</b><div><span>Тёмный блок и белая панель</span><small>Блок тёмный, карточки только с фото уходят вправо стопкой. Под ними белая панель: большой номер, полоска прогресса, название, параметры и кнопки.</small></div></div>
+    <div class="sec dk" data-sec><div data-head></div>
+      <div class="stk s4" data-stk></div>
+      <div class="pnl"><div class="cnt" data-cnt>01 <small>/ 05</small></div><div class="bar"><i></i></div>
+        <div class="inf" data-inf><h3></h3><p></p><div class="ch"></div></div>
+        <div class="ctl"><a href="#">Фотоотчёт<svg class="i"><use href="#arr"/></svg></a><div class="nb"><button data-prev aria-label="Назад"><svg class="i"><use href="#l"/></svg></button><button class="f" data-next aria-label="Дальше"><svg class="i"><use href="#r"/></svg></button></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<p class="end">Выберите номер, поставлю на сайт.</p>
+
+<script>
+(function () {
+  var P = [
+    { img: 'img/dusk2.webp', a: '210 м²', t: '7 мес', tag: 'Газобетон · 2 этажа', h: 'Дом в «Лесных Далях»', p: 'Истра, 2025' },
+    { img: 'img/cottage.webp', a: '260 м²', t: '9 мес', tag: 'Кирпич · панорамы', h: 'Коттедж у озера', p: 'Дмитров, 2024' },
+    { img: 'img/villa.webp', a: '180 м²', t: '6 мес', tag: 'Плоская кровля', h: 'Вилла с бассейном', p: 'Одинцово, 2025' },
+    { img: 'img/forest.webp', a: '160 м²', t: '6 мес', tag: 'Фахверк · стекло', h: 'Дом в соснах', p: 'Красногорск, 2024' },
+    { img: 'img/town.webp', a: '4 × 140 м²', t: '11 мес', tag: 'Таунхаусы', h: 'Квартал «Грин»', p: 'Мытищи, 2023' }
+  ];
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  var head = '<span class="tag"><i></i>Проекты</span><h2 class="h2">Построили <em>240+</em> домов.<br>Вот некоторые</h2><p class="lead">Каждый реальный объект с фотоотчётом. Покажем вживую в посёлке рядом с вами.</p>';
+  $$('[data-head]').forEach(function (el) { el.innerHTML = head; });
+
+  $$('[data-sec]').forEach(function (sec) {
+    var stk = sec.querySelector('[data-stk]'), ov = stk.hasAttribute('data-ov');
+    stk.innerHTML = P.map(function (p, i) { return '<div class="c' + (ov ? ' ov' : '') + '"><img src="' + p.img + '" alt="' + p.h + '" loading="lazy">' + (ov ? '<div class="tx"><h3>' + p.h + '</h3><p>' + p.p + '</p><div class="ch"><span>' + p.a + '</span><span>' + p.t + '</span><span>' + p.tag.split(' · ')[0] + '</span></div></div>' : '') + '</div>'; }).join('');
+    var cs = $$('.c', stk), order = P.map(function (_, i) { return i; }), busy = false;
+    var num = sec.querySelector('[data-num]'), cnt = sec.querySelector('[data-cnt]'), inf = sec.querySelector('[data-inf]'), bar = sec.querySelector('.pnl .bar i'), thm = sec.querySelector('[data-thm]');
+    if (thm) thm.innerHTML = P.map(function (p, i) { return '<button' + (i ? '' : ' class="on"') + ' aria-label="' + p.h + '"><img src="' + p.img + '" alt="" loading="lazy"></button>'; }).join('');
+    var info = function () {
+      var k = order[0], p = P[k];
+      if (num) num.innerHTML = '<b>' + pad(k + 1) + '</b> / ' + pad(P.length);
+      if (cnt) cnt.innerHTML = pad(k + 1) + ' <small>/ ' + pad(P.length) + '</small>';
+      if (bar) bar.style.setProperty('--p', (k + 1) / P.length);
+      if (thm) $$('button', thm).forEach(function (b, i) { b.classList.toggle('on', i === k); });
+      if (inf) { inf.classList.add('sw'); setTimeout(function () { inf.querySelector('h3').textContent = p.h; inf.querySelector('p').textContent = p.p + ' · ' + p.tag; inf.querySelector('.ch').innerHTML = '<span class="chip">' + p.a + '</span><span class="chip">' + p.t + '</span>'; inf.classList.remove('sw'); }, 220); }
+    };
+    var lay = function () { order.forEach(function (i, pos) { cs[i].style.setProperty('--pos', Math.min(pos, 4)); cs[i].classList.toggle('top', pos === 0); }); info(); };
+    var next = function () {
+      if (busy) return; busy = true; var top = cs[order[0]];
+      top.classList.add('out');
+      setTimeout(function () { order.push(order.shift()); top.classList.remove('out'); lay(); busy = false; }, 480);
+    };
+    var prev = function () {
+      if (busy) return; busy = true; var last = cs[order[order.length - 1]];
+      if (stk.classList.contains('s1')) { last.classList.add('in'); order.unshift(order.pop()); lay(); void last.offsetWidth; last.classList.remove('in'); }
+      else { order.unshift(order.pop()); lay(); }
+      setTimeout(function () { busy = false; }, 350);
+    };
+    var bring = function (k) {
+      if (order[0] === k) return; order.splice(order.indexOf(k), 1); order.unshift(k); lay();
+      var c = cs[k]; c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop');
+    };
+    lay(); if (inf) { inf.classList.remove('sw'); }
+    var nb = sec.querySelector('[data-next]'), pb = sec.querySelector('[data-prev]');
+    if (nb) nb.onclick = next; if (pb) pb.onclick = prev;
+    if (thm) $$('button', thm).forEach(function (b, i) { b.onclick = function () { bring(i); }; });
+  });
+  document.querySelectorAll('a[href="#"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+})();
+</script>
+</body>
+</html>
