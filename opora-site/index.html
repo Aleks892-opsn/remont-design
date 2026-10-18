@@ -381,9 +381,10 @@
 
   /* Меню */
   /* ===== Меню: плитки ===== */
-  .menu { position: fixed; inset: 0; z-index: 60; background: rgba(11, 11, 11, .95); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); color: #fff; padding: 16px 12px max(14px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; }
+  .menu { position: fixed; inset: -40vh 0 0; z-index: 60; background: rgba(11, 11, 11, .95); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); color: #fff; padding: calc(40vh + 16px) 12px max(14px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; }
   body.mo .menu { opacity: 1; visibility: visible; transition: opacity .35s; }
-  body.mo { overflow: hidden; }
+  body.mo { overflow: hidden; background: #0b0b0b; }
+  html.mo { background: #0b0b0b; }
   .menu__top { display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 6px; flex: none; }
   .menu__top .logo { color: #fff; }
   .menu__top .logo b { background: var(--or); }
@@ -403,7 +404,7 @@
   body.mo .menu__b { opacity: 1; }
   .menu__b a { flex: 1; height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 16px; background: #1a1918; border: 1px solid rgba(255, 255, 255, .06); font: 600 13px var(--f); }
   .menu__b svg { width: 16px; height: 16px; fill: none; stroke: var(--or); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  @media (min-width: 700px) { .menu { padding: 24px 24px 24px; } .menu__gr { grid-template-columns: repeat(4, 1fr); max-width: 980px; width: 100%; margin: 24px auto 0; } .menu__b { max-width: 980px; width: 100%; margin: auto auto 0; } }
+  @media (min-width: 700px) { .menu { padding: calc(40vh + 24px) 24px 24px; } .menu__gr { grid-template-columns: repeat(4, 1fr); max-width: 980px; width: 100%; margin: 24px auto 0; } .menu__b { max-width: 980px; width: 100%; margin: auto auto 0; } }
   @media (prefers-reduced-motion: reduce) { .menu__gr a, .menu__b { transition: none; opacity: 1; transform: none; } }
 
   /* ===== Компьютер ===== */
@@ -1011,7 +1012,7 @@
     addEventListener('resize', tlUpd); tlUpd();
   }
   // Меню
-  var menu = function (on) { body.classList.toggle('mo', on); };
+  var menu = function (on) { body.classList.toggle('mo', on); document.documentElement.classList.toggle('mo', on); };
   $$('[data-menu]').forEach(function (b) { b.onclick = function () { menu(true); }; });
   $('[data-close]').onclick = function () { menu(false); };
   $$('.menu a').forEach(function (a) { a.addEventListener('click', function () { menu(false); }); });
