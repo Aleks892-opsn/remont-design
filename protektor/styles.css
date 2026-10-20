@@ -1679,3 +1679,9 @@ main { overflow-x: clip; }
   .book__back { border: 0; background: none; color: var(--steel); font: 500 15px var(--text); cursor: pointer; transition: color 0.2s; }
   .book__back:hover { color: var(--chalk); }
 }
+
+/* Компьютер: вопрос в красной плашке — ровные строки и место для точек над Ё */
+@media (min-width: 1081px) {
+  .faq__card { padding-right: 48px; }
+  .faq__card-q { max-width: 100%; font-size: 29px; line-height: 1.24; text-wrap: balance; overflow-wrap: normal; }
+}
