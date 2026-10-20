@@ -1615,3 +1615,35 @@ main { overflow-x: clip; }
   .visit__title { transform-origin: center bottom; }
   .mtl { justify-self: center; width: 100%; max-width: 720px; }
 }
+
+/* Компьютер: «25 минут» ёлочкой — линия посередине, этапы по очереди слева и справа, внизу красная плашка с таймером */
+@media (min-width: 1081px) {
+  .visit { padding: 120px 0 140px; }
+  .visit__inner { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; row-gap: 0; }
+  .br-1 { display: none; }
+  .visit__head { grid-column: 1; grid-row: 1; display: block; text-align: center; }
+  .visit__title { font-size: 64px; white-space: nowrap; transform-origin: center bottom; }
+  .visit__note { display: block; max-width: 460px; margin: 24px auto 0; font-size: 17px; line-height: 1.6; text-align: center; }
+  .mtl { grid-column: 1; grid-row: 2; justify-self: stretch; max-width: none; margin-top: 64px; }
+  .mtl__start { display: none; }
+  .mtl__line { left: 50%; top: 0; bottom: 0; }
+  .mtl__step { grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 0; min-height: 118px; padding-bottom: 0; }
+  .mtl__step:last-child { min-height: 0; }
+  .mtl__step::before { left: 50%; top: 32px; }
+  .mtl__step .mtl__n { grid-row: 1; text-align: inherit; padding: 0; }
+  .mtl__step > div { grid-row: 2; max-width: 440px; }
+  .mtl__step > div span { max-width: none; }
+  .mtl__step:nth-child(odd) { text-align: right; }
+  .mtl__step:nth-child(odd) .mtl__n, .mtl__step:nth-child(odd) > div { grid-column: 1; justify-self: end; }
+  .mtl__step:nth-child(even) { text-align: left; }
+  .mtl__step:nth-child(even) .mtl__n, .mtl__step:nth-child(even) > div { grid-column: 3; justify-self: start; }
+  .mtl__step b { font-size: 22px; }
+  .mtl__step div span { font-size: 16px; }
+  .visit__bar {
+    display: flex; grid-column: 1; grid-row: 3; position: static; justify-self: center; flex-direction: row; align-items: center; gap: 40px;
+    width: min(760px, 100%); margin-top: 72px; padding: 34px 48px;
+  }
+  .visit__bar .visit__timer { font-size: 96px; }
+  .visit__bar-t { margin: 0; max-width: 320px; font-size: 17px; }
+  .visit__bar-go { display: none; }
+}
