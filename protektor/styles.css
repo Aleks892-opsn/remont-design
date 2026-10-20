@@ -1597,3 +1597,14 @@ main { overflow-x: clip; }
   .mtl { grid-column: 1; grid-row: 2; padding-top: 0; }
   .visit__bar { grid-column: 2; grid-row: 2; margin-top: 0; }
 }
+
+/* Компьютер: «25 минут» — только заголовок в три строки и этапы под ним, без красной плашки и подписи */
+.br-desk { display: none; }
+@media (min-width: 1081px) {
+  .br-desk { display: inline; }
+  .visit { padding-top: 110px; }
+  .visit__inner { grid-template-columns: minmax(0, 1fr); row-gap: 56px; }
+  .visit__note, .visit__bar { display: none; }
+  .visit__head { grid-column: 1; }
+  .mtl { grid-column: 1; max-width: 820px; }
+}
