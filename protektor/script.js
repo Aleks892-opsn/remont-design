@@ -89,8 +89,7 @@
   // На телефоне колесо — готовые картинки-слои: крутим их через transform (это делает видеокарта, без перерисовки SVG)
   var setRot = function (wrap, deg) {
     if (!wrap) return;
-    // Колесо в блоке гарантий — картинками и на компьютере
-    if (isPhone() || wrap === bigWheel) {
+    if (isPhone()) {
       var imgs = wrap.querySelectorAll('.mwheel__rot');
       for (var i = 0; i < imgs.length; i++) imgs[i].style.transform = 'rotate(' + deg + 'deg)';
       return;
@@ -118,6 +117,11 @@
     if (!motion) return;
 
     setRot(heroWheel, y * degPerPx * 2.2);
+
+    if (bigWheel) {
+      var r = bigWheel.getBoundingClientRect();
+      setRot(bigWheel, (innerHeight - r.top) * 0.18);
+    }
 
     // Закреплённый блок визита: прогресс от 0 до 1 → таймер 00:00…25:00 и шаги по очереди
     var vr = visit.getBoundingClientRect();
@@ -702,13 +706,15 @@
       };
     };
     phoneJobs.push(wheelJob);
-    deskJobs.push(wheelJob);
     track.addEventListener('scroll', requestScroll, { passive: true });
     cards.forEach(function (c, k) {
       c.addEventListener('click', function () {
+        if (!isPhone()) return;
         track.scrollTo({ left: c.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft), behavior: motion ? 'smooth' : 'auto' });
       });
     });
+    // На компьютере подсветка и счётчик не нужны
+    phoneMQ.addEventListener('change', function () { if (!isPhone()) { cards.forEach(function (c) { c.classList.remove('is-now'); }); cur = -1; } });
   })();
 
   // Фото первого экрана на телефоне: если файла пока нет — прячем пустое место
