@@ -206,7 +206,7 @@
     { what: 'Ремонт прокола', name: 'Ремонт бокового пореза', note: 'после осмотра', price: 1500, photo: 'porez', from: true },
     { what: 'Правка дисков', name: 'Правка литого диска', note: 'за диск', price: 1500, photo: 'disk', from: true },
     { what: 'Хранение шин', name: 'Сезонное хранение', note: 'за комплект', price: 3500, photo: 'hranenie', key: 'storage' },
-    { what: 'Переобувка', mobile: true, name: 'Выезд к клиенту', note: 'по [город]', price: 3000, photo: 'vyezd', from: true },
+    { what: 'Переобувка', mobile: true, name: 'Выезд к клиенту', note: 'по Москве', price: 3000, photo: 'vyezd', from: true },
     { what: 'Переобувка', name: 'Азот в шины', note: 'для всех клиентов', free: true, photo: 'azot' }
   ];
   var rub = function (n) { return n.toLocaleString('ru-RU') + ' ₽'; };
