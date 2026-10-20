@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТЕКТОР: компьютер как телефон</title>
+<link rel="stylesheet" href="../protektor/assets/fonts.css">
+<style>
+  :root {
+    --rubber: #0f0f12; --asphalt: #18181d; --graphite: #26262d; --line: #34343c;
+    --chalk: #eeece7; --steel: #8d9099; --signal: #e3261c; --ok: #35c46a;
+    --D: "Unbounded", "Arial Black", sans-serif; --T: "Onest", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: #09090b; color: var(--chalk); font: 16px/1.5 var(--T); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
+
+  /* ---------- Страница демо ---------- */
+  .intro { max-width: 1480px; margin: 0 auto; padding: 56px 16px 24px; }
+  .intro h1 { font: 900 clamp(30px, 4.4vw, 60px)/.95 var(--D); text-transform: uppercase; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .intro h1 em { font-style: normal; color: var(--signal); }
+  .intro p { max-width: 760px; margin-top: 20px; color: var(--steel); font-size: 17px; }
+  .jump { display: flex; max-width: 100%; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .jump a { padding: 9px 14px; color: var(--chalk); text-decoration: none; font-weight: 600; font-size: 14px; background: var(--graphite); clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .jump a:hover { background: var(--signal); }
+
+  .blk { max-width: 1480px; margin: 0 auto; padding: 56px 16px 8px; scroll-margin-top: 8px; }
+  .blk__h { display: flex; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--signal); }
+  .blk__h b { font: 900 34px/1 var(--D); color: var(--signal); }
+  .blk__h h2 { font: 900 clamp(22px, 2.6vw, 34px)/1 var(--D); text-transform: uppercase; letter-spacing: -.03em; transform: skewX(-9deg); }
+  .blk__h span { margin-left: auto; color: var(--steel); font-size: 14px; text-align: right; }
+
+  @media (max-width: 700px) { .blk__h span { display: none; } .intro h1 { font-size: 27px; } }
+  .var { margin-top: 30px; }
+  .var__h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 12px; }
+  .var__h b { display: inline-grid; place-items: center; min-width: 40px; height: 34px; padding: 0 10px; font: 900 16px var(--D); background: var(--signal); color: #fff; clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .var__h strong { font-size: 18px; }
+  .var__h span { color: var(--steel); font-size: 15px; flex-basis: 100%; }
+  @media (min-width: 900px) { .var__h span { flex-basis: auto; } }
+
+  /* Кадр 1440 px, уменьшается под ширину экрана */
+  .fr { overflow: hidden; border-radius: 12px; outline: 1px solid #222228; background: var(--rubber); }
+  .s { position: relative; width: 1440px; zoom: var(--z, 1); background: var(--rubber); overflow: hidden; }
+  .s::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; background-image: url("../protektor/assets/grain.svg"); z-index: 50; }
+  .pad { padding: 104px 64px; }
+  .note { max-width: 1480px; margin: 40px auto 0; padding: 0 16px 80px; color: var(--steel); }
+  .note b { color: var(--chalk); }
+
+  /* ---------- Общие элементы сайта ---------- */
+  .d { font-family: var(--D); font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .c { --k: 14px; clip-path: polygon(var(--k) 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%, 0 var(--k)); }
+  .btn { --k: 12px; display: inline-flex; align-items: center; justify-content: center; height: 58px; padding: 0 32px; font: 600 16px var(--T); color: #fff; background: var(--signal); white-space: nowrap; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
+  .btn--ink { background: var(--rubber); }
+  .btn--gr { background: var(--graphite); color: var(--chalk); }
+  .btn--lg { height: 68px; padding: 0 44px; font-size: 17px; }
+  .red { color: var(--signal); }
+  .mut { color: var(--steel); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(53, 196, 106, .18); }
+  .tread { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: url("../protektor/assets/tread-white.svg") 0 50% / auto 30px repeat-x; opacity: .95; }
+  .arr { display: grid; place-items: center; width: 56px; height: 56px; flex: none; background: var(--signal); --k: 10px; }
+  .arr::after { content: ""; width: 12px; height: 12px; margin-left: -4px; border-top: 2.5px solid #fff; border-right: 2.5px solid #fff; transform: rotate(45deg); }
+  .chip { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; font: 600 15px var(--T); background: rgba(0, 0, 0, .22); color: #fff; --k: 8px; }
+  .chip.on { background: var(--chalk); color: var(--rubber); }
+  .lead { font-size: 17px; color: var(--steel); line-height: 1.5; }
+  .lead b { color: var(--chalk); font-weight: 600; }
+  .sec-t { font-size: 104px; }
+
+  /* Шапка сайта */
+  .hd { position: absolute; left: 0; right: 0; top: 0; z-index: 5; display: flex; align-items: center; gap: 32px; height: 84px; padding: 0 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 900 20px var(--D); text-transform: uppercase; letter-spacing: -.02em; transform: skewX(-9deg); }
+  .mark { width: 20px; height: 22px; background: var(--signal); transform: skewX(-12deg); }
+  .hd__where { font-size: 14px; line-height: 1.35; color: var(--steel); }
+  .hd__where span { display: flex; align-items: center; gap: 8px; color: var(--chalk); }
+  .hd nav { display: flex; gap: 28px; margin-left: auto; font-size: 15px; color: var(--steel); }
+  .hd__ph { font-weight: 600; }
+  .hd .btn { height: 46px; padding: 0 22px; font-size: 15px; }
+
+  /* Машина с фарами и дымом */
+  .car { position: absolute; aspect-ratio: 1536 / 1240; }
+  .car img { width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); mask-composite: intersect; }
+  .car::before { content: ""; position: absolute; left: 6%; bottom: 4%; width: 70%; height: 38%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .55), rgba(255, 255, 255, .18) 55%, transparent); filter: blur(18px); z-index: 1; mix-blend-mode: screen; }
+  .car::after { content: ""; position: absolute; left: -6%; bottom: 0; width: 46%; height: 30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent); filter: blur(24px); mix-blend-mode: screen; }
+
+  /* Три факта, как под машиной на телефоне */
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .facts li { padding: 18px 22px 0 0; font-size: 14px; color: var(--steel); line-height: 1.35; }
+  .facts li + li { padding-left: 22px; border-left: 1px solid var(--line); }
+  .facts b { display: block; margin-bottom: 4px; font: 900 24px var(--D); color: var(--chalk); letter-spacing: -.02em; }
+
+  /* Карточки услуг (карусель с телефона) */
+  .sv { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-height: 470px; padding: 36px 34px 32px; overflow: hidden; background: var(--asphalt); --k: 16px; }
+  .sv__n { font: 700 14px var(--D); color: var(--steel); }
+  .sv__t { position: relative; z-index: 1; margin-top: 18px; font-size: 32px; line-height: 1; }
+  .sv__x { position: relative; z-index: 1; max-width: 300px; margin-top: 18px; color: var(--steel); }
+  .sv__f { position: relative; z-index: 1; margin-top: 16px; padding: 7px 12px; font-size: 14px; font-weight: 600; background: var(--graphite); --k: 6px; }
+  .sv .btn { position: relative; z-index: 1; margin-top: auto; background: var(--graphite); color: var(--chalk); height: 54px; padding: 0 24px; font-size: 15px; }
+  .sv__tire { position: absolute; right: -110px; bottom: -60px; width: 300px; opacity: .3; }
+  .sv.now { background: var(--signal); color: #fff; }
+  .sv.now .sv__n { color: rgba(255, 255, 255, .75); }
+  .sv.now .sv__x { color: rgba(255, 255, 255, .92); }
+  .sv.now .sv__f { background: rgba(0, 0, 0, .22); }
+  .sv.now .btn { background: var(--rubber); }
+  .sv.now .sv__tire { opacity: .9; }
+  .ticks { display: flex; flex: 1; gap: 6px; margin-right: 12px; }
+  .ticks i { flex: 1; height: 6px; background: var(--graphite); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+  .ticks i.on { background: var(--signal); }
+  .nb { display: grid; place-items: center; width: 56px; height: 56px; background: var(--graphite); font-size: 28px; --k: 10px; }
+  .nb.r { background: var(--signal); }
+  .count { font: 700 16px var(--D); color: var(--steel); }
+  .count b { font-weight: 900; font-size: 48px; letter-spacing: -.03em; color: var(--chalk); }
+
+  /* Карточки цен с фото */
+  .pc { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; align-items: end; gap: 20px 12px; min-height: 230px; padding: 28px; background: var(--asphalt); --k: 20px; clip-path: polygon(0 0, calc(100% - var(--k)) 0, 100% var(--k), 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
+  .pc__ph { position: absolute; inset: 0; background: center right / cover no-repeat; filter: grayscale(1); -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); }
+  .pc__ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 15, 18, .55), transparent 50%); }
+  .pc b { position: relative; grid-column: 1 / -1; align-self: start; max-width: 78%; font: 900 22px/1.1 var(--D); letter-spacing: -.02em; }
+  .pc small { display: block; margin-top: 8px; font: 400 14px/1.4 var(--T); color: var(--steel); letter-spacing: 0; }
+  .pc .arr { position: relative; grid-column: 1; grid-row: 2; }
+  .pc span { position: relative; grid-column: 2; grid-row: 2; font: 900 28px var(--D); letter-spacing: -.02em; text-align: right; }
+  .redhead { position: relative; color: #fff; background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal); }
+
+  /* Лента времени */
+  .tl { position: relative; }
+  .tl__s { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; padding-bottom: 32px; position: relative; }
+  .tl__s::before { content: ""; position: absolute; left: 62px; top: 9px; z-index: 1; width: 13px; height: 13px; margin-left: -6.5px; background: var(--graphite); transform: rotate(45deg); }
+  .tl__n { padding-top: 2px; font: 700 15px var(--D); color: var(--line); text-align: right; }
+  .tl__s b { display: block; font: 700 20px/1.2 var(--D); letter-spacing: -.015em; color: var(--steel); }
+  .tl__s p { margin-top: 6px; color: var(--steel); opacity: .55; }
+  .tl__s.on .tl__n { color: var(--signal); }
+  .tl__s.on::before { background: var(--signal); }
+  .tl__s.on b { color: var(--chalk); }
+  .tl__s.on p { opacity: 1; }
+  .tl__line { position: absolute; left: 62px; top: 10px; bottom: 30px; width: 4px; margin-left: -2px; background: var(--graphite); }
+  .tl__line i { position: absolute; left: 0; top: 0; width: 100%; background: var(--signal); }
+  .tl__wh { position: absolute; left: 50%; width: 38px; height: 38px; max-width: none; margin: -19px 0 0 -19px; transform: rotate(40deg); filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .8)); }
+  .tl__start { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; align-items: center; margin-bottom: 20px; }
+  .tl__start b { font: 700 15px var(--D); color: var(--signal); text-align: right; }
+  .tl__start span { font-size: 14px; color: var(--steel); }
+  .endcard { padding: 36px 40px; background: var(--signal); color: #fff; --k: 18px; }
+  .endcard .d { font-size: 96px; }
+  .endcard p:last-child { margin-top: 14px; font-size: 17px; color: rgba(255, 255, 255, .92); }
+
+  /* Плашки колеса */
+  .tag { position: relative; display: grid; align-content: start; gap: 8px; padding: 26px 28px; min-height: 160px; background: var(--asphalt); border-left: 3px solid var(--signal); --k: 12px; }
+  .tag b { font: 900 22px/1.05 var(--D); letter-spacing: -.02em; }
+  .tag span { color: var(--steel); font-size: 15px; }
+  .tag.big { background: var(--signal); color: #fff; border-left: 0; }
+  .tag.big b { font-size: 38px; transform: skewX(-9deg); transform-origin: left bottom; }
+  .tag.big span { color: rgba(255, 255, 255, .9); }
+  .wh { position: relative; }
+  .wh img { width: 100%; }
+  .wh::before { content: ""; position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(227, 38, 28, .35), transparent 75%); filter: blur(30px); }
+  .pin { position: absolute; left: 50%; top: -18px; width: 22px; height: 16px; margin-left: -11px; background: var(--signal); clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 2; }
+
+  /* Красные панели «Без сюрпризов» */
+  .rp { position: relative; overflow: hidden; padding: 44px 34px 52px; color: #fff; --k: 18px; background: repeating-linear-gradient(-63deg, transparent 0 56px, rgba(0, 0, 0, .11) 56px 112px), radial-gradient(90% 60% at 0 0, #ff4b33 0, transparent 70%), var(--signal); }
+  .rp__big { font-size: 54px; line-height: .95; }
+  .rp h3 { margin: 16px 0 26px; font: 600 18px var(--T); color: rgba(255, 255, 255, .9); }
+  .note-card { position: relative; display: grid; gap: 12px; padding: 24px 24px 24px 22px; background: var(--rubber); box-shadow: 0 0 0 6px rgba(255, 255, 255, .92), 0 20px 40px rgba(0, 0, 0, .35); transform: rotate(-2.5deg); }
+  .note-card li { position: relative; padding-left: 22px; font-size: 15px; color: #c9cbd1; }
+  .note-card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 12px; background: var(--signal); transform: skewX(-14deg); }
+  .rot2 { transform: rotate(2deg); }
+
+  /* Вопросы */
+  .fq { border-top: 1px solid var(--line); }
+  .fq li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); font: 700 21px/1.25 var(--D); letter-spacing: -.015em; }
+  .fq li::after { content: "+"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open { display: block; }
+  .fq li.open::after { display: none; }
+  .fq li.open > div { display: flex; justify-content: space-between; gap: 24px; }
+  .fq li.open > div::after { content: "−"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open p { max-width: 640px; margin-top: 14px; font: 400 17px/1.55 var(--T); color: var(--steel); letter-spacing: 0; }
+
+  /* Запись */
+  .bk { padding: 32px; background: var(--asphalt); --k: 18px; }
+  .bk__kick { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--steel); }
+  .bk__time { margin-top: 10px; font-size: 150px; line-height: .9; }
+  .bk__day { margin-top: 14px; font-size: 17px; }
+  .bk__day b { font-weight: 600; }
+  .bk__day span { margin-left: 10px; color: var(--steel); }
+  .bk__other { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-weight: 600; }
+  .bk__other::after { content: ""; width: 10px; height: 10px; margin-top: -6px; border-right: 2px solid var(--signal); border-bottom: 2px solid var(--signal); transform: rotate(45deg); }
+  .fld { display: grid; gap: 8px; margin-top: 20px; font-size: 15px; color: var(--steel); }
+  .fld i { display: flex; align-items: center; height: 58px; padding: 0 18px; font-style: normal; color: #6e717a; border: 1px solid var(--line); background: var(--rubber); }
+  .cons { display: flex; gap: 12px; margin-top: 20px; font-size: 14px; color: var(--steel); }
+  .cons::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 1px; border: 1.5px solid var(--steel); }
+  .cons u { color: var(--chalk); }
+  .day { display: grid; place-items: center; gap: 2px; width: 72px; height: 76px; background: var(--graphite); font-size: 13px; color: var(--steel); --k: 10px; }
+  .day b { font: 900 24px var(--D); color: var(--chalk); }
+  .day.on { background: var(--signal); color: #fff; }
+  .day.on b { color: #fff; }
+  .slot { display: grid; place-items: center; height: 50px; font: 600 15px var(--T); background: var(--graphite); --k: 8px; }
+  .slot.off { background: transparent; color: #4a4c54; box-shadow: inset 0 0 0 1px #2b2b32; }
+  .slot.on { background: var(--chalk); color: var(--rubber); }
+
+  /* Карта-схема */
+  .map { position: relative; overflow: hidden; background: #1d1d23; --k: 20px; }
+  .map::before { content: ""; position: absolute; inset: 0; background:
+      linear-gradient(90deg, transparent 0 22%, #2a2a31 22% 25%, transparent 25% 61%, #2a2a31 61% 64%, transparent 64%),
+      linear-gradient(0deg, transparent 0 30%, #2a2a31 30% 35%, transparent 35% 72%, #2a2a31 72% 77%, transparent 77%); }
+  .map::after { content: ""; position: absolute; inset: 0; background:
+      repeating-linear-gradient(90deg, transparent 0 9%, rgba(255, 255, 255, .02) 9% 18%),
+      repeating-linear-gradient(0deg, transparent 0 11%, rgba(255, 255, 255, .02) 11% 22%); }
+  .map__pin { position: absolute; z-index: 2; width: 40px; height: 52px; margin: -52px 0 0 -20px; }
+  .map__path { position: absolute; z-index: 1; border-left: 3px dotted var(--signal); border-top: 3px dotted var(--signal); }
+  .map__cap { position: absolute; left: 24px; bottom: 22px; z-index: 2; padding: 8px 12px; font-size: 13px; color: var(--steel); background: rgba(15, 15, 18, .85); }
+  .rows li { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .rows li b { font-weight: 600; }
+  .rows li span { color: var(--steel); }
+  .msg { display: grid; place-items: center; width: 44px; height: 44px; background: var(--graphite); --k: 8px; }
+  .msg svg { width: 20px; height: 20px; fill: var(--chalk); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="pin" viewBox="0 0 40 52"><path d="M20 0C9 0 0 8.6 0 19.3 0 33.8 20 52 20 52s20-18.2 20-32.7C40 8.6 31 0 20 0z" fill="#e3261c"/><path d="M14 23l3-9h10l-3 9z" fill="#0f0f12"/></symbol>
+  <symbol id="tg" viewBox="0 0 24 24"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></symbol>
+</svg>
+
+<header class="intro">
+  <h1>ПРОТЕКТОР на компьютере<br><em>как на телефоне</em></h1>
+  <p>Взял оформление телефонной версии (машина в дыму, красные плашки, фото в ценах, лента времени, крупное «ближайшее время») и разложил его на широкий экран. По каждому блоку 2–3 варианта. Кадры показаны в ширину компьютера 1440 px. Живой сайт не трогал.</p>
+  <nav class="jump">
+    <a href="#b1">1 Главный экран</a><a href="#b2">2 Что делаем</a><a href="#b3">3 Цены</a><a href="#b4">4 25 минут</a><a href="#b5">5 Колесо</a><a href="#b6">6 Без сюрпризов</a><a href="#b7">7 Вопросы</a><a href="#b8">8 Запись</a><a href="#b9">9 Как доехать</a>
+  </nav>
+</header>
+
+<!-- ============ 1. Главный экран ============ -->
+<section class="blk" id="b1">
+  <div class="blk__h"><b>1</b><h2>Главный экран</h2><span>на телефоне: машина в дыму,<br>три факта и большая красная кнопка</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Как телефон, вширь</strong><span>Текст слева, машина справа. Под заголовком три факта, как на телефоне, и большая кнопка.</span></div>
+    <div class="fr"><div class="s" style="height:900px">
+      <div class="hd" data-hd></div>
+      <div class="car" style="right:-110px;bottom:50px;width:860px"><img src="../protektor/assets/hero-photo.webp" alt=""></div>
+      <div style="position:absolute;left:64px;top:190px;width:640px;z-index:2">
+        <p class="lead"><b>Шиномонтаж на две линии.</b> Запишитесь на своё время — и не стойте в очереди.</p>
+        <h1 class="d" style="margin-top:30px;font-size:84px;white-space:nowrap">Переобуем<br><span class="red">за 25 минут</span></h1>
+        <ul class="facts" style="margin-top:52px"><li><b>2 линии</b>без очереди</li><li><b>R13–R22</b>легковые и кроссоверы</li><li><b>8–22</b>без выходных</li></ul>
+        <div style="display:flex;align-items:center;gap:28px;margin-top:40px"><span class="btn btn--lg">Выбрать время</span><span class="mut" style="font-size:15px">Или позвоните:<br><b style="color:var(--chalk)">+7 (000) 000-00-00</b></span></div>
+      </div>
+      <i class="tread"></i>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Машина крупно в центре</strong><span>Заголовок во всю ширину сверху, машина под ним, факты и кнопка внизу по краям.</span></div>
+    <div class="fr"><div class="s" style="height:900px">
+      <div class="hd" data-hd></div>
+      <h1 class="d" style="position:absolute;left:64px;right:64px;top:140px;font-size:112px;text-align:center;transform-origin:center bottom;z-index:2;white-space:nowrap">Переобуем<br><span class="red">за 25 минут</span></h1>
+      <div class="car" style="left:50%;margin-left:-400px;bottom:10px;width:800px"><img src="../protektor/assets/hero-photo.webp" alt=""></div>
+      <div style="position:absolute;left:64px;bottom:96px;width:340px;z-index:2">
+        <p class="lead"><b>Шиномонтаж на две линии.</b> Запишитесь на своё время — и не стойте в очереди.</p>
+        <span class="btn btn--lg" style="margin-top:26px">Выбрать время</span>
+      </div>
+      <ul style="position:absolute;right:64px;bottom:96px;width:260px;z-index:2;display:grid;gap:0;border-top:1px solid var(--line)">
+        <li style="padding:16px 0;border-bottom:1px solid var(--line)"><b style="font:900 24px var(--D)">2 линии</b> <span class="mut" style="font-size:14px">без очереди</span></li>
+        <li style="padding:16px 0;border-bottom:1px solid var(--line)"><b style="font:900 24px var(--D)">R13–R22</b> <span class="mut" style="font-size:14px">легковые</span></li>
+        <li style="padding:16px 0;border-bottom:1px solid var(--line)"><b style="font:900 24px var(--D)">8–22</b> <span class="mut" style="font-size:14px">без выходных</span></li>
+      </ul>
+      <i class="tread"></i>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>В</b><strong>Красная плашка с заголовком</strong><span>Слева красная плашка со срезанным углом, как «Цены» на телефоне. Справа машина в дыму.</span></div>
+    <div class="fr"><div class="s" style="height:900px">
+      <div class="hd" data-hd></div>
+      <div class="car" style="right:-60px;bottom:70px;width:840px"><img src="../protektor/assets/hero-photo.webp" alt=""></div>
+      <div class="redhead" style="position:absolute;left:64px;top:140px;width:680px;padding:52px 52px 48px;clip-path:polygon(0 0,calc(100% - 40px) 0,100% 40px,100% 100%,40px 100%,0 calc(100% - 40px));z-index:2">
+        <p style="font-size:17px;color:rgba(255,255,255,.9)"><b style="color:#fff">Шиномонтаж на две линии.</b> Запишитесь на своё время — и не стойте в очереди.</p>
+        <h1 class="d" style="margin-top:28px;font-size:68px;white-space:nowrap">Переобуем<br><span style="color:var(--rubber)">за 25 минут</span></h1>
+        <div style="display:flex;gap:8px;margin-top:36px"><span class="chip c">2 линии · без очереди</span><span class="chip c">R13–R22</span><span class="chip c">8–22 без выходных</span></div>
+        <span class="btn btn--ink btn--lg" style="margin-top:28px;width:100%">Выбрать время</span>
+      </div>
+      <p class="mut" style="position:absolute;left:64px;bottom:66px;font-size:15px;z-index:2">Или позвоните: <b style="color:var(--chalk)">+7 (000) 000-00-00</b></p>
+      <i class="tread"></i>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 2. Что делаем ============ -->
+<section class="blk" id="b2">
+  <div class="blk__h"><b>2</b><h2>Что делаем</h2><span>на телефоне: карусель,<br>карточка в центре красная</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Карусель как на телефоне</strong><span>Карточки листаются стрелками, активная красная, сверху счётчик 01/06. Так сейчас в коде, на живом сайте этого ещё нет.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end"><h2 class="d sec-t">Что делаем</h2><p class="count"><b>01</b>/06</p></div>
+      <div data-sv="row" style="display:flex;gap:16px;margin-top:48px;margin-right:-64px"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:26px"><div class="ticks"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div><span class="nb c" style="opacity:.4">‹</span><span class="nb c r">›</span></div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Все шесть сеткой</strong><span>Те же карточки с колесом, но сразу все: три в ряд. Красная та, на которую навели мышь.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d sec-t">Что делаем</h2>
+      <div data-sv="grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px"></div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>В</b><strong>Главная услуга и список</strong><span>Слева большая красная «Сезонная переобувка», справа остальные услуги строками со стрелкой.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d sec-t">Что делаем</h2>
+      <div style="display:grid;grid-template-columns:560px 1fr;gap:16px;margin-top:48px">
+        <div data-sv="big"></div>
+        <ul data-sv="list" style="display:grid;gap:12px"></ul>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 3. Цены ============ -->
+<section class="blk" id="b3">
+  <div class="blk__h"><b>3</b><h2>Цены</h2><span>на телефоне: красная шапка с размерами,<br>карточки с фото и стрелкой</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Красная шапка и фото-карточки</strong><span>Как на телефоне, только карточки в три колонки. Так сейчас в коде.</span></div>
+    <div class="fr"><div class="s pad">
+      <div data-prh></div>
+      <div data-pc="3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px"></div>
+      <p class="mut" style="margin-top:22px;font-size:14px">Цены для дисков R16. Точную сумму за ремонт и правку назовём после осмотра.</p>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Красная колонка сбоку</strong><span>Красная плашка с размерами стоит слева и едет вместе с прокруткой, карточки справа в две колонки.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:grid;grid-template-columns:420px 1fr;gap:16px;align-items:start">
+        <div class="redhead" style="padding:44px 36px 36px;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,32px 100%,0 calc(100% - 32px))">
+          <h2 class="d" style="font-size:96px">Цены</h2>
+          <p style="margin-top:22px;color:rgba(255,255,255,.9)">Выберите размер дисков — покажем цены за комплект из четырёх колёс. Без доплат за «сложную» резину по ходу работы.</p>
+          <div data-rad style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:28px"></div>
+          <span class="btn btn--ink" style="width:100%;margin-top:24px">Записаться на время</span>
+        </div>
+        <div data-pc="2" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px"></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>В</b><strong>Длинные строки, как на телефоне</strong><span>Каждая услуга — широкая полоса: фото справа растворяется в фоне, цена крупно.</span></div>
+    <div class="fr"><div class="s pad">
+      <div data-prh></div>
+      <div data-pc="1" style="display:grid;gap:12px;margin-top:16px"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 4. 25 минут ============ -->
+<section class="blk" id="b4">
+  <div class="blk__h"><b>4</b><h2>25 минут</h2><span>на телефоне: лента времени с колесом<br>и красная плашка «25:00» в конце</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Лента справа, «25:00» слева</strong><span>При прокрутке красная линия с колесом едет вниз по шагам, слева заголовок и красная плашка.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:grid;grid-template-columns:560px 1fr;gap:96px">
+        <div>
+          <h2 class="d" style="font-size:76px">25 минут<br>от заезда<br>до выезда</h2>
+          <p class="lead" style="margin-top:28px;max-width:420px">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p>
+          <div class="endcard c" style="margin-top:56px"><p class="d">25:00</p><p>Вы уже едете. А в следующий сезон — снова на своё время.</p></div>
+        </div>
+        <div data-tl></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Лента поперёк экрана</strong><span>Шесть шагов в одну линию, колесо катится слева направо, в конце красная полоса «25:00».</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px"><h2 class="d" style="font-size:84px">25 минут<br>от заезда до выезда</h2><p class="lead" style="max-width:360px">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p></div>
+      <div data-htl style="margin-top:80px"></div>
+      <div class="endcard c" style="display:flex;align-items:center;gap:48px;margin-top:56px"><p class="d" style="font-size:110px">25:00</p><p style="margin:0;font-size:19px;max-width:420px">Вы уже едете. А в следующий сезон — снова на своё время.</p><span class="btn btn--ink btn--lg" style="margin-left:auto">Выбрать время</span></div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>В</b><strong>Таймер и шаги карточками</strong><span>Слева красная плашка, в ней тикает таймер от 00:00 до 25:00. Справа шесть карточек, текущая подсвечена.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d" style="font-size:84px">25 минут от заезда<br>до выезда</h2>
+      <div style="display:grid;grid-template-columns:480px 1fr;gap:16px;margin-top:56px">
+        <div class="endcard c" style="display:flex;flex-direction:column;padding:44px">
+          <p style="font-size:15px;color:rgba(255,255,255,.8)">Сейчас: шаг 04 · балансируем</p>
+          <p class="d" style="font-size:132px;margin-top:auto">11:22</p>
+          <div style="height:6px;margin-top:22px;background:rgba(0,0,0,.25)"><i style="display:block;width:45%;height:100%;background:#fff"></i></div>
+          <p style="margin-top:20px">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p>
+        </div>
+        <div data-stc style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px"></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 5. Колесо ============ -->
+<section class="blk" id="b5">
+  <div class="blk__h"><b>5</b><h2>Колесо вернётся целым</h2><span>на телефоне: колесо крутится,<br>под ним листаются плашки</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Колесо и лента плашек</strong><span>Колесо слева крутится, плашки справа листаются, активная красная. Так сейчас в коде.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d sec-t">Колесо вернётся<br>целым</h2>
+      <div style="display:grid;grid-template-columns:540px 1fr;gap:56px;align-items:center;margin-top:56px">
+        <div class="wh"><i class="pin"></i><img src="../protektor/assets/wheel/full.webp" alt=""></div>
+        <div style="overflow:hidden;margin-right:-64px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin:0 64px 20px 0"><p class="count"><b>01</b>/06</p><span class="mut" style="font-size:14px">листайте плашки →</span></div>
+          <div data-tags="row" style="display:flex;gap:14px"></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Колесо в центре, плашки вокруг</strong><span>Крупное колесо посередине, шесть плашек по бокам. Плашки загораются красным по очереди, пока колесо крутится.</span></div>
+    <div class="fr"><div class="s pad" style="height:1140px">
+      <h2 class="d sec-t" style="text-align:center;transform-origin:center bottom;font-size:74px;white-space:nowrap">Колесо вернётся целым</h2>
+      <div class="wh" style="position:absolute;left:50%;top:340px;width:600px;margin-left:-300px"><i class="pin"></i><img src="../protektor/assets/wheel/full.webp" alt=""></div>
+      <div data-tags="around"></div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>В</b><strong>Колесо и плашки сеткой</strong><span>Без листания: все шесть плашек сразу, две колонки. Первая большая красная.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:grid;grid-template-columns:600px 1fr;gap:64px;align-items:center">
+        <div><h2 class="d" style="font-size:84px">Колесо<br>вернётся<br>целым</h2><div class="wh" style="width:480px;margin-top:40px"><i class="pin"></i><img src="../protektor/assets/wheel/full.webp" alt=""></div></div>
+        <div data-tags="grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px"></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 6. Без сюрпризов ============ -->
+<section class="blk" id="b6">
+  <div class="blk__h"><b>6</b><h2>Без сюрпризов</h2><span>на телефоне: красные панели<br>с наклонной чёрной карточкой</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Три красные панели в ряд</strong><span>Как на телефоне, только рядом. Так сейчас в коде.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d sec-t">Без сюрпризов</h2>
+      <div data-rp="row" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:48px"></div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Одна панель с вкладками</strong><span>Вкладки сверху, под ними одна широкая красная панель: слева огромное слово, справа наклонная карточка.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px"><h2 class="d sec-t" style="font-size:70px;white-space:nowrap">Без сюрпризов</h2>
+        <div style="display:flex;gap:8px;white-space:nowrap"><span class="chip c on" style="height:48px;padding:0 18px">Как бережём диски</span><span class="chip c" style="height:48px;padding:0 18px;background:var(--graphite)">Гарантия</span><span class="chip c" style="height:48px;padding:0 18px;background:var(--graphite)">Хранение шин</span></div></div>
+      <div class="rp c" style="display:grid;grid-template-columns:minmax(0,1fr) 540px;gap:48px;align-items:center;margin-top:40px;padding:72px 64px 80px">
+        <div><p class="d rp__big" style="font-size:88px">Без<br>царапин</p><h3 style="font-size:20px">Как бережём диски</h3></div>
+        <ul class="note-card" style="padding:34px 34px 34px 30px"><li style="font-size:17px">На монтажном станке — пластиковые насадки, металл не касается обода.</li><li style="font-size:17px">Грузики подбираем под цвет диска и клеим с внутренней стороны.</li><li style="font-size:17px">Перед установкой чистим посадочное место, колёса затягиваем с нужным моментом.</li></ul>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>В</b><strong>Лесенкой</strong><span>Панели идут ступеньками вниз, чёрные карточки выглядывают за край панели.</span></div>
+    <div class="fr"><div class="s pad" style="padding-bottom:150px">
+      <h2 class="d sec-t">Без сюрпризов</h2>
+      <div data-rp="stair" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:48px;align-items:start"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 7. Вопросы ============ -->
+<section class="blk" id="b7">
+  <div class="blk__h"><b>7</b><h2>Вопросы</h2><span>на телефоне: крупные вопросы<br>с красным плюсом</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Как на телефоне, в две колонки</strong><span>Заголовок слева, вопросы справа, крупным шрифтом заголовков. Один вопрос открыт.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:grid;grid-template-columns:460px 1fr;gap:64px;align-items:start">
+        <div><h2 class="d sec-t" style="font-size:66px">Вопросы</h2><p class="lead" style="margin-top:28px;max-width:360px">Не нашли ответ? Позвоните: <b>+7 (000) 000-00-00</b></p></div>
+        <ul class="fq" data-fq="a"></ul>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Ответ в красной плашке</strong><span>Слева список вопросов, справа ответ на выбранный в красной плашке с кнопкой записи.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d sec-t">Вопросы</h2>
+      <div style="display:grid;grid-template-columns:1fr 560px;gap:48px;margin-top:48px;align-items:start">
+        <ul data-fq="b" style="border-top:1px solid var(--line)"></ul>
+        <div class="redhead c" style="--k:22px;padding:44px;min-height:440px;display:flex;flex-direction:column">
+          <p class="d" style="font-size:20px;opacity:.8">03 / 06</p>
+          <h3 class="d" style="margin-top:22px;font-size:46px">Сколько длится переобувка?</h3>
+          <p style="margin-top:22px;font-size:18px;color:rgba(255,255,255,.92)">Одна машина полностью — около 25 минут: снять, перебортовать, отбалансировать, поставить и накачать.</p>
+          <span class="btn btn--ink btn--lg" style="margin-top:auto;align-self:flex-start">Выбрать время</span>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 8. Запись ============ -->
+<section class="blk" id="b8">
+  <div class="blk__h"><b>8</b><h2>Своё время</h2><span>на телефоне: сразу ближайшее свободное<br>время огромными цифрами</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Ближайшее время, как на телефоне</strong><span>Слева карточка «Ближайшее свободное 16:30», справа имя, телефон и кнопка «Записаться на 16:30». Другое время раскрывается по кнопке.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end"><h2 class="d sec-t">Своё время</h2><p class="lead" style="max-width:380px">Выберите день и время — две линии, поэтому свободных окон обычно хватает. Работаем с 8:00 до 22:00 без выходных.</p></div>
+      <div class="bk c" style="display:grid;grid-template-columns:1fr 480px;gap:64px;margin-top:48px;padding:48px">
+        <div>
+          <p class="bk__kick"><i class="dot"></i>Ближайшее свободное</p>
+          <p class="d bk__time" style="font-size:190px">16:30</p>
+          <p class="bk__day"><b>Сегодня, 20 октября</b><span>переобувка · R16</span></p>
+          <p class="bk__other">Выбрать другое время</p>
+        </div>
+        <div>
+          <div class="fld" style="margin-top:0">Имя<i>Как к вам обращаться</i></div>
+          <div class="fld">Телефон<i>+7 (___) ___-__-__</i></div>
+          <p class="cons"><span>Согласен на обработку персональных данных по&nbsp;<u>политике конфиденциальности</u></span></p>
+          <span class="btn btn--lg" style="width:100%;margin-top:28px">Записаться на 16:30</span>
+          <p class="mut" style="margin-top:20px;text-align:center;font-size:15px">Удобнее голосом? <b style="color:var(--chalk)">+7 (000) 000-00-00</b></p>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Красное время и сетка окон</strong><span>Слева красная плашка с ближайшим временем, справа дни и свободные окна. Контакты одной строкой внизу.</span></div>
+    <div class="fr"><div class="s pad">
+      <h2 class="d sec-t">Своё время</h2>
+      <div style="display:grid;grid-template-columns:440px 1fr;gap:16px;margin-top:48px">
+        <div class="redhead c" style="--k:22px;padding:40px">
+          <p style="display:flex;align-items:center;gap:10px;font-size:15px"><i class="dot" style="background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)"></i>Ближайшее свободное</p>
+          <p class="d" style="font-size:112px;margin-top:14px">16:30</p>
+          <p style="margin-top:16px;font-size:17px"><b>Сегодня, 20 октября</b></p>
+          <p style="color:rgba(255,255,255,.85)">переобувка · R16 · линия 2</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:30px"><span class="chip c on">R16</span><span class="chip c">Переобувка</span><span class="chip c">+ Балансировка</span></div>
+        </div>
+        <div class="bk c" style="padding:36px">
+          <p style="font-weight:600">День</p>
+          <div data-days style="display:flex;gap:8px;margin-top:14px"></div>
+          <p style="font-weight:600;margin-top:28px">Время <span class="mut" style="font-weight:400">свободно 9</span></p>
+          <div data-slots style="display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:14px"></div>
+        </div>
+      </div>
+      <div class="bk c" style="display:grid;grid-template-columns:1fr 1fr 1fr 300px;gap:16px;align-items:end;margin-top:16px;padding:28px 32px">
+        <div class="fld" style="margin:0">Имя<i>Как к вам обращаться</i></div>
+        <div class="fld" style="margin:0">Телефон<i>+7 (___) ___-__-__</i></div>
+        <p class="cons" style="margin:0 0 8px"><span>Согласен на обработку данных по&nbsp;<u>политике</u></span></p>
+        <span class="btn btn--lg">Записаться на 16:30</span>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 9. Как доехать ============ -->
+<section class="blk" id="b9">
+  <div class="blk__h"><b>9</b><h2>Как доехать</h2><span>на телефоне: адрес, ориентиры,<br>красная кнопка «Яндекс Карты»</span></div>
+
+  <div class="var"><div class="var__h"><b>А</b><strong>Адрес слева, схема справа</strong><span>Как на телефоне, только рядом. Кнопки «Яндекс Карты» и «2ГИС» во всю ширину колонки.</span></div>
+    <div class="fr"><div class="s pad">
+      <div style="display:grid;grid-template-columns:520px 1fr;gap:56px;align-items:stretch">
+        <div data-where></div>
+        <div class="map c" style="min-height:620px"><svg class="map__pin" style="left:58%;top:52%"><use href="#pin"/></svg><i class="map__path" style="left:23.5%;top:calc(52% + 0px);width:34.5%;height:24%;border-top:0;border-left:3px dotted var(--signal);border-bottom:3px dotted var(--signal)"></i><p class="map__cap">Схема-заглушка. Сюда встанет карта с вашим адресом.</p></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="var"><div class="var__h"><b>Б</b><strong>Карта во всю ширину, красная карточка поверх</strong><span>Схема на весь блок, адрес и кнопки в красной плашке слева.</span></div>
+    <div class="fr"><div class="s" style="height:860px">
+      <div class="map" style="position:absolute;inset:0;clip-path:none"><svg class="map__pin" style="left:68%;top:50%"><use href="#pin"/></svg><i class="map__path" style="left:63.5%;top:50%;width:4.5%;height:27%;border-top:0;border-right:3px dotted var(--signal);border-left:0;border-bottom:0"></i></div>
+      <div class="redhead" style="position:absolute;left:64px;top:96px;bottom:96px;width:560px;padding:52px 48px;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,32px 100%,0 calc(100% - 32px));display:flex;flex-direction:column">
+        <h2 class="d" style="font-size:80px">Как<br>доехать</h2>
+        <p class="d" style="margin-top:26px;font-size:24px;transform:none">[город], [адрес]</p>
+        <ul class="rows" style="margin-top:20px"><li style="border-color:rgba(255,255,255,.25)"><b>Ориентир</b><span style="color:rgba(255,255,255,.85)">[например: за заправкой, въезд со двора]</span></li><li style="border-color:rgba(255,255,255,.25)"><b>Парковка</b><span style="color:rgba(255,255,255,.85)">[где оставить машину]</span></li><li style="border-color:rgba(255,255,255,.25)"><b>Часы</b><span style="color:rgba(255,255,255,.85)">Каждый день с 8:00 до 22:00</span></li></ul>
+        <div style="display:flex;gap:10px;margin-top:auto"><span class="btn btn--ink" style="flex:1">Открыть в Яндекс Картах</span><span class="btn" style="background:rgba(0,0,0,.25)">2ГИС</span></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<p class="note"><b>Как выбирать:</b> напишите номер блока и букву, например «1А, 2Б, 3А, 4В…». Можно смешивать: «как 4А, но лента поперёк». Собираю только выбранное и только для компьютера, телефонную версию не меняю. На живой сайт выкладываю после вашего разрешения.</p>
+
+<script>
+  // Кадры 1440 px уменьшаются под ширину экрана
+  const fit = () => document.querySelectorAll('.fr').forEach(f => f.style.setProperty('--z', f.clientWidth / 1440));
+  addEventListener('resize', fit);
+
+  const $$ = (s) => document.querySelectorAll(s);
+  const HD = '<span class="logo"><i class="mark"></i>Протектор</span><div class="hd__where">[город], [адрес]<span><i class="dot"></i>Открыто до 22:00, без выходных</span></div><nav><span>Услуги</span><span>Цены</span><span>Гарантии</span><span>Вопросы</span><span>Запись</span></nav><span class="hd__ph">+7 (000) 000-00-00</span><span class="btn">Записаться</span>';
+  $$('[data-hd]').forEach(e => e.innerHTML = HD);
+
+  const SV = [
+    ['01 · Самое частое', 'Сезонная переобувка R13–R22', 'Легковые и кроссоверы. Снимаем, меняем резину, балансируем, ставим обратно.', 'Одна машина — 25 минут', 'Записаться на переобувку'],
+    ['02', 'Балансировка', 'На станке и финишная — прямо на вашем автомобиле, если руль бьёт даже после обычной.', 'Станок + на машине', 'Записаться на балансировку'],
+    ['03', 'Проколы и боковые порезы', 'Ремонтируем изнутри. Не только проколы — боковые порезы тоже.', 'Гарантия на прокол 12 месяцев', 'Записаться на ремонт'],
+    ['04', 'Сезонное хранение', 'Оставьте комплект у нас и заберите его к следующему сезону.', 'С дисками и без', 'Сдать на хранение'],
+    ['05', 'Правка литых дисков', 'Поймали яму? Выправим диск, чтобы колесо снова держало давление и не било.', 'После ям и бордюров', 'Записаться на правку'],
+    ['06', 'Выезд к клиенту', 'Не получается приехать — приедем сами. Отметьте выезд при записи и оставьте адрес.', 'Приедем к вам', 'Вызвать мастера']
+  ];
+  const svCard = (v, now, style = '') => `<article class="sv c${now ? ' now' : ''}" style="${style}"><span class="sv__n">${v[0]}</span><h3 class="d sv__t">${v[1]}</h3><p class="sv__x">${v[2]}</p><span class="sv__f c">${v[3]}</span><span class="btn">${v[4]}</span><img class="sv__tire" src="../protektor/assets/wheel/full.webp" alt=""></article>`;
+  $$('[data-sv="row"]').forEach(e => e.innerHTML = SV.slice(0, 4).map((v, i) => svCard(v, i === 0, 'flex:0 0 400px')).join(''));
+  $$('[data-sv="grid"]').forEach(e => e.innerHTML = SV.map((v, i) => svCard(v, i === 0, 'min-height:400px')).join(''));
+  $$('[data-sv="big"]').forEach(e => e.innerHTML = svCard(SV[0], true, 'height:100%;min-height:600px').replace('sv__t"', 'sv__t" style="font-size:52px"').replace('sv__tire"', 'sv__tire" style="width:440px;right:-120px;bottom:-90px"'));
+  $$('[data-sv="list"]').forEach(e => e.innerHTML = SV.slice(1).map(v => `<li class="c" style="--k:12px;display:grid;grid-template-columns:60px 1fr auto;gap:24px;align-items:center;padding:24px 28px;background:var(--asphalt)"><span class="sv__n" style="font-size:16px">${v[0]}</span><div><h3 class="d" style="font-size:26px;line-height:1">${v[1]}</h3><p class="mut" style="margin-top:8px;font-size:15px">${v[2]}</p></div><span class="arr c"></span></li>`).join(''));
+
+  const PR = [
+    ['montazh', 'Шиномонтаж комплекта', 'снять, перебортовать, отбалансировать, поставить', '2 800 ₽'],
+    ['balans', 'Балансировка четырёх колёс', 'на станке', '1 100 ₽'],
+    ['finish', 'Финишная балансировка', 'на автомобиле, если бьёт руль', '2 000 ₽'],
+    ['prokol', 'Ремонт прокола', 'за колесо, гарантия 12 месяцев', '600 ₽'],
+    ['porez', 'Ремонт бокового пореза', 'после осмотра', 'от 1 500 ₽'],
+    ['disk', 'Правка литого диска', 'за диск', 'от 1 500 ₽'],
+    ['hranenie', 'Сезонное хранение', 'за комплект', '3 500 ₽'],
+    ['vyezd', 'Выезд к клиенту', 'по [город]', 'от 3 000 ₽'],
+    ['azot', 'Азот в шины', 'для всех клиентов', 'Бесплатно']
+  ];
+  const RAD = ['R13', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20', 'R21', 'R22'];
+  const rad = (st = '') => RAD.map(r => `<span class="chip c${r === 'R16' ? ' on' : ''}" style="${st}">${r}</span>`).join('');
+  $$('[data-rad]').forEach(e => e.innerHTML = rad('padding:0'));
+  $$('[data-prh]').forEach(e => e.innerHTML = `<div class="redhead" style="padding:48px 48px 40px;clip-path:polygon(0 0,calc(100% - 36px) 0,100% 36px,100% 100%,36px 100%,0 calc(100% - 36px))"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px"><h2 class="d sec-t">Цены</h2><p style="max-width:440px;color:rgba(255,255,255,.9)">Выберите размер дисков — покажем цены за комплект из четырёх колёс. Без доплат за «сложную» резину по ходу работы.</p></div><div style="display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-top:30px">${rad('padding:0')}</div><span class="btn btn--ink btn--lg" style="width:100%;margin-top:20px">Записаться на время</span></div>`);
+  $$('[data-pc]').forEach(e => {
+    const n = +e.dataset.pc;
+    e.innerHTML = PR.map((p, i) => {
+      if (n === 1) return `<div class="pc" style="--k:16px;min-height:0;grid-template-columns:420px 1fr auto auto;grid-template-rows:auto;align-items:center;gap:32px;padding:26px 28px"><i class="pc__ph" style="background-image:url(../protektor/assets/prices/${p[0]}.webp);left:40%;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 60%);mask-image:linear-gradient(to right,transparent 0,#000 60%)"></i><b style="grid-column:1;max-width:none">${p[1]}<small>${p[2]}</small></b><i></i><span style="grid-column:3;grid-row:1">${p[3]}</span><span class="arr c" style="grid-column:4;grid-row:1"></span></div>`;
+      const wide = n === 2 && i === 8 ? 'grid-column:1/-1;' : '';
+      return `<div class="pc" style="${wide}${n === 2 ? 'min-height:210px' : ''}"><i class="pc__ph" style="background-image:url(../protektor/assets/prices/${p[0]}.webp)"></i><b>${p[1]}<small>${p[2]}</small></b><span class="arr c"></span><span>${p[3]}</span></div>`;
+    }).join('');
+  });
+
+  const ST = [
+    ['Приезжаете к своему времени', 'Записались на 14:30 — в 14:30 машина уже на подъёмнике.'],
+    ['Ждёте с кофе', 'В комнате ожидания тепло, есть кофе и видно, как идёт работа.'],
+    ['Меняем шины', 'Снимаем колёса, перебортовываем резину, проверяем диски.'],
+    ['Балансируем', 'Каждое колесо — на станке. Если нужно, добиваем финишной балансировкой на машине.'],
+    ['Накачиваем азотом', 'Бесплатно. Затягиваем колёса и проверяем давление.'],
+    ['Выезжаете', 'Через 25 минут после того, как заехали.']
+  ];
+  $$('[data-tl]').forEach(e => e.innerHTML = `<div class="tl"><p class="tl__start"><b>00:00</b><span>заезд</span></p><div style="position:relative"><div class="tl__line"><i style="height:58%"></i><img class="tl__wh" src="../protektor/assets/tire.svg" style="top:58%" alt=""></div>${ST.map((s, i) => `<div class="tl__s${i < 4 ? ' on' : ''}"><span class="tl__n">0${i + 1}</span><div><b>${s[0]}</b><p>${s[1]}</p></div></div>`).join('')}</div></div>`);
+  $$('[data-htl]').forEach(e => e.innerHTML = `<div style="position:relative"><div style="position:absolute;left:0;right:0;top:46px;height:4px;background:var(--graphite)"><i style="position:absolute;left:0;top:0;height:100%;width:60%;background:var(--signal)"></i><img src="../protektor/assets/tire.svg" alt="" style="position:absolute;left:60%;top:50%;width:44px;height:44px;max-width:none;margin:-22px 0 0 -22px;transform:rotate(80deg);filter:drop-shadow(0 4px 10px rgba(0,0,0,.8))"></div><div style="display:grid;grid-template-columns:repeat(6,1fr);gap:28px">${ST.map((s, i) => `<div style="position:relative;padding-top:86px"><span style="position:absolute;top:0;font:700 15px var(--D);color:${i < 4 ? 'var(--signal)' : 'var(--line)'}">0${i + 1}</span><i style="position:absolute;left:0;top:41px;width:14px;height:14px;background:${i < 4 ? 'var(--signal)' : 'var(--graphite)'};transform:rotate(45deg)"></i><b style="display:block;font:700 19px/1.2 var(--D);letter-spacing:-.015em;color:${i < 4 ? 'var(--chalk)' : 'var(--steel)'}">${s[0]}</b><p style="margin-top:8px;font-size:15px;color:var(--steel);opacity:${i < 4 ? 1 : .55}">${s[1]}</p></div>`).join('')}</div></div>`);
+  $$('[data-stc]').forEach(e => e.innerHTML = ST.map((s, i) => `<div class="c" style="--k:14px;padding:28px;min-height:240px;background:${i === 3 ? 'var(--graphite)' : 'var(--asphalt)'};${i === 3 ? 'box-shadow:inset 0 0 0 2px var(--signal);' : ''}opacity:${i > 3 ? .55 : 1}"><span style="font:900 40px var(--D);color:${i <= 3 ? 'var(--signal)' : 'var(--line)'}">0${i + 1}</span><b style="display:block;margin-top:22px;font:700 20px/1.2 var(--D)">${s[0]}</b><p class="mut" style="margin-top:10px;font-size:15px">${s[1]}</p></div>`).join(''));
+
+  const TG = [['12 месяцев', 'гарантия на ремонт прокола'], ['Финишная балансировка', 'прямо на автомобиле'], ['Правим литые диски', 'после ям и бордюров'], ['Азот в шины', 'бесплатно для всех'], ['Ремонт боковых порезов', 'не только проколов'], ['Комната ожидания', 'с кофе, пока меняем шины']];
+  const tag = (t, i, st = '') => `<div class="tag c${i === 0 ? ' big' : ''}" style="${st}"><b>${t[0]}</b><span>${t[1]}</span></div>`;
+  $$('[data-tags="row"]').forEach(e => e.innerHTML = TG.map((t, i) => tag(t, i, 'flex:0 0 320px')).join(''));
+  $$('[data-tags="grid"]').forEach(e => e.innerHTML = TG.map((t, i) => tag(t, i, i === 0 ? 'grid-column:1/-1;min-height:150px' : '')).join(''));
+  const POS = [[64, 380], [64, 610], [64, 840], [1056, 380], [1056, 610], [1056, 840]];
+  $$('[data-tags="around"]').forEach(e => e.innerHTML = [0, 4, 5, 1, 2, 3].map((k, j) => tag(TG[k], k, `position:absolute;left:${POS[j][0]}px;top:${POS[j][1]}px;width:320px;min-height:0`)).join(''));
+
+  const RP = [['Без<br>царапин', 'Как бережём диски', ['На монтажном станке — пластиковые насадки, металл не касается обода.', 'Грузики подбираем под цвет диска и клеим с внутренней стороны.', 'Перед установкой чистим посадочное место, колёса затягиваем с нужным моментом.']],
+    ['12<br>месяцев', 'Гарантия 12 месяцев', ['Действует на ремонт прокола: если колесо начнёт спускать в этом месте — переделаем бесплатно.', 'Достаточно назвать номер телефона, на который была запись.', 'Боковые порезы ремонтируем тоже — про гарантию на них скажем после осмотра.']],
+    ['До<br>сезона', 'Хранение шин', ['Принимаем комплект с дисками и без. Сдаёте при переобувке — забираете при следующей.', 'Каждое колесо подписываем, комплект храним в отдельном мешке.', 'Стоимость сезона — 3 500 ₽ за комплект.']]];
+  $$('[data-rp="row"]').forEach(e => e.innerHTML = RP.map((r, i) => `<article class="rp c"><p class="d rp__big">${r[0]}</p><h3>${r[1]}</h3><ul class="note-card${i === 1 ? ' rot2' : ''}">${r[2].map(l => `<li>${l}</li>`).join('')}</ul></article>`).join(''));
+  $$('[data-rp="stair"]').forEach(e => e.innerHTML = RP.map((r, i) => `<article style="margin-top:${i * 70}px;position:relative"><div class="rp c" style="padding-bottom:150px"><p class="d rp__big" style="font-size:56px">${r[0]}</p><h3>${r[1]}</h3></div><ul class="note-card${i === 1 ? ' rot2' : ''}" style="margin:-120px 18px 0">${r[2].map(l => `<li>${l}</li>`).join('')}</ul></article>`).join(''));
+
+  const FQ = [['Обязательно записываться?', 'Нет, можно приехать и так. Но по записи машина встаёт на подъёмник ровно в ваше время, а без записи придётся ждать свободную линию.'], ['Сколько ждать без записи?', ''], ['Сколько длится переобувка?', ''], ['Какие колёса берёте?', ''], ['Можно оплатить картой?', ''], ['Где подождать?', '']];
+  $$('[data-fq="a"]').forEach(e => e.innerHTML = FQ.map((q, i) => i === 0 ? `<li class="open"><div>${q[0]}</div><p>${q[1]}</p></li>` : `<li>${q[0]}</li>`).join(''));
+  $$('[data-fq="b"]').forEach(e => e.innerHTML = FQ.map((q, i) => `<li style="display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:16px;padding:24px 0 24px ${i === 2 ? '20px' : '0'};border-bottom:1px solid var(--line);${i === 2 ? 'background:var(--asphalt);box-shadow:inset 4px 0 0 var(--signal);' : ''}"><span style="font:700 15px var(--D);color:${i === 2 ? 'var(--signal)' : 'var(--line)'}">0${i + 1}</span><b style="font:700 21px/1.25 var(--D);letter-spacing:-.015em;color:${i === 2 ? 'var(--chalk)' : 'var(--steel)'}">${q[0]}</b><span class="arr c" style="width:44px;height:44px;margin-right:16px;${i === 2 ? '' : 'background:var(--graphite)'}"></span></li>`).join(''));
+
+  const DAYS = [['сегодня', 20], ['завтра', 21], ['чт', 22], ['пт', 23], ['сб', 24], ['вс', 25], ['пн', 26]];
+  $$('[data-days]').forEach(e => e.innerHTML = DAYS.map((d, i) => `<span class="day c${i === 0 ? ' on' : ''}" style="flex:1;width:auto">${d[0]}<b>${d[1]}</b></span>`).join(''));
+  const SL = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30'];
+  const FREE = ['16:30', '17:00', '17:30', '18:00', '19:30', '15:30', '18:30', '19:00', '16:00'];
+  $$('[data-slots]').forEach(e => e.innerHTML = SL.map(s => `<span class="slot c${s === '16:30' ? ' on' : FREE.includes(s) ? '' : ' off'}">${s}</span>`).join(''));
+
+  $$('[data-where]').forEach(e => e.innerHTML = `<h2 class="d sec-t" style="font-size:80px">Как<br>доехать</h2><p class="d" style="margin-top:26px;font-size:24px;transform:none">[город], [адрес]</p><ul class="rows" style="margin-top:22px;border-top:1px solid var(--line)"><li><b>Ориентир</b><span>[например: за заправкой, въезд со двора]</span></li><li><b>Парковка</b><span>[где оставить машину, если приехали заранее]</span></li><li><b>Часы</b><span>Каждый день с 8:00 до 22:00</span></li></ul><span class="btn btn--lg" style="width:100%;margin-top:30px">Открыть в Яндекс Картах</span><span class="btn btn--gr btn--lg" style="width:100%;margin-top:10px">2ГИС</span><div style="display:flex;align-items:center;gap:10px;margin-top:24px"><span class="mut" style="margin-right:6px">Удобнее написать?</span><span class="msg c"><svg><use href="#tg"/></svg></span><span class="msg c"><svg><use href="#wa"/></svg></span></div>`);
+
+  fit();
+</script>
+</body>
+</html>
