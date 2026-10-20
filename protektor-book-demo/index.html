@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТЕКТОР: своё время</title>
+<link rel="stylesheet" href="../protektor/assets/fonts.css">
+<style>
+  :root {
+    --rubber: #0f0f12; --asphalt: #18181d; --graphite: #26262d; --line: #34343c;
+    --chalk: #eeece7; --steel: #8d9099; --signal: #e3261c; --ok: #35c46a;
+    --D: "Unbounded", "Arial Black", sans-serif; --T: "Onest", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: #09090b; color: var(--chalk); font: 16px/1.5 var(--T); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
+
+  /* ---------- Страница демо ---------- */
+  .intro { max-width: 1480px; margin: 0 auto; padding: 56px 16px 24px; }
+  .intro h1 { font: 900 clamp(30px, 4.4vw, 60px)/.95 var(--D); text-transform: uppercase; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .intro h1 em { font-style: normal; color: var(--signal); }
+  .intro p { max-width: 760px; margin-top: 20px; color: var(--steel); font-size: 17px; }
+  .jump { display: flex; max-width: 100%; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .jump a { padding: 9px 14px; color: var(--chalk); text-decoration: none; font-weight: 600; font-size: 14px; background: var(--graphite); clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .jump a:hover { background: var(--signal); }
+
+  .blk { max-width: 1480px; margin: 0 auto; padding: 56px 16px 8px; scroll-margin-top: 8px; }
+  .blk__h { display: flex; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--signal); }
+  .blk__h b { font: 900 34px/1 var(--D); color: var(--signal); }
+  .blk__h h2 { font: 900 clamp(22px, 2.6vw, 34px)/1 var(--D); text-transform: uppercase; letter-spacing: -.03em; transform: skewX(-9deg); }
+  .blk__h span { margin-left: auto; color: var(--steel); font-size: 14px; text-align: right; }
+
+  @media (max-width: 700px) { .blk__h span { display: none; } .intro h1 { font-size: 27px; } }
+  .var { margin-top: 30px; }
+  .var__h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 12px; }
+  .var__h b { display: inline-grid; place-items: center; min-width: 40px; height: 34px; padding: 0 10px; font: 900 16px var(--D); background: var(--signal); color: #fff; clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .var__h strong { font-size: 18px; }
+  .var__h span { color: var(--steel); font-size: 15px; flex-basis: 100%; }
+  @media (min-width: 900px) { .var__h span { flex-basis: auto; } }
+
+  /* Кадр 1440 px, уменьшается под ширину экрана */
+  .fr { overflow: hidden; border-radius: 12px; outline: 1px solid #222228; background: var(--rubber); }
+  .s { position: relative; width: 1440px; zoom: var(--z, 1); background: var(--rubber); overflow: hidden; }
+  .s::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; background-image: url("../protektor/assets/grain.svg"); z-index: 50; }
+  .pad { padding: 104px 64px; }
+  .note { max-width: 1480px; margin: 40px auto 0; padding: 0 16px 80px; color: var(--steel); }
+  .note b { color: var(--chalk); }
+
+  /* ---------- Общие элементы сайта ---------- */
+  .d { font-family: var(--D); font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .c { --k: 14px; clip-path: polygon(var(--k) 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%, 0 var(--k)); }
+  .btn { --k: 12px; display: inline-flex; align-items: center; justify-content: center; height: 58px; padding: 0 32px; font: 600 16px var(--T); color: #fff; background: var(--signal); white-space: nowrap; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
+  .btn--ink { background: var(--rubber); }
+  .btn--gr { background: var(--graphite); color: var(--chalk); }
+  .btn--lg { height: 68px; padding: 0 44px; font-size: 17px; }
+  .red { color: var(--signal); }
+  .mut { color: var(--steel); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(53, 196, 106, .18); }
+  .tread { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: url("../protektor/assets/tread-white.svg") 0 50% / auto 30px repeat-x; opacity: .95; }
+  .arr { display: grid; place-items: center; width: 56px; height: 56px; flex: none; background: var(--signal); --k: 10px; }
+  .arr::after { content: ""; width: 12px; height: 12px; margin-left: -4px; border-top: 2.5px solid #fff; border-right: 2.5px solid #fff; transform: rotate(45deg); }
+  .chip { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; font: 600 15px var(--T); background: rgba(0, 0, 0, .22); color: #fff; --k: 8px; }
+  .chip.on { background: var(--chalk); color: var(--rubber); }
+  .lead { font-size: 17px; color: var(--steel); line-height: 1.5; }
+  .lead b { color: var(--chalk); font-weight: 600; }
+  .sec-t { font-size: 104px; }
+
+  /* Шапка сайта */
+  .hd { position: absolute; left: 0; right: 0; top: 0; z-index: 5; display: flex; align-items: center; gap: 32px; height: 84px; padding: 0 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 900 20px var(--D); text-transform: uppercase; letter-spacing: -.02em; transform: skewX(-9deg); }
+  .mark { width: 20px; height: 22px; background: var(--signal); transform: skewX(-12deg); }
+  .hd__where { font-size: 14px; line-height: 1.35; color: var(--steel); }
+  .hd__where span { display: flex; align-items: center; gap: 8px; color: var(--chalk); }
+  .hd nav { display: flex; gap: 28px; margin-left: auto; font-size: 15px; color: var(--steel); }
+  .hd__ph { font-weight: 600; }
+  .hd .btn { height: 46px; padding: 0 22px; font-size: 15px; }
+
+  /* Машина с фарами и дымом */
+  .car { position: absolute; aspect-ratio: 1536 / 1240; }
+  .car img { width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); mask-composite: intersect; }
+  .car::before { content: ""; position: absolute; left: 6%; bottom: 4%; width: 70%; height: 38%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .55), rgba(255, 255, 255, .18) 55%, transparent); filter: blur(18px); z-index: 1; mix-blend-mode: screen; }
+  .car::after { content: ""; position: absolute; left: -6%; bottom: 0; width: 46%; height: 30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent); filter: blur(24px); mix-blend-mode: screen; }
+
+  /* Три факта, как под машиной на телефоне */
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .facts li { padding: 18px 22px 0 0; font-size: 14px; color: var(--steel); line-height: 1.35; }
+  .facts li + li { padding-left: 22px; border-left: 1px solid var(--line); }
+  .facts b { display: block; margin-bottom: 4px; font: 900 24px var(--D); color: var(--chalk); letter-spacing: -.02em; }
+
+  /* Карточки услуг (карусель с телефона) */
+  .sv { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-height: 470px; padding: 36px 34px 32px; overflow: hidden; background: var(--asphalt); --k: 16px; }
+  .sv__n { font: 700 14px var(--D); color: var(--steel); }
+  .sv__t { position: relative; z-index: 1; margin-top: 18px; font-size: 32px; line-height: 1; }
+  .sv__x { position: relative; z-index: 1; max-width: 300px; margin-top: 18px; color: var(--steel); }
+  .sv__f { position: relative; z-index: 1; margin-top: 16px; padding: 7px 12px; font-size: 14px; font-weight: 600; background: var(--graphite); --k: 6px; }
+  .sv .btn { position: relative; z-index: 1; margin-top: auto; background: var(--graphite); color: var(--chalk); height: 54px; padding: 0 24px; font-size: 15px; }
+  .sv__tire { position: absolute; right: -110px; bottom: -60px; width: 300px; opacity: .3; }
+  .sv.now { background: var(--signal); color: #fff; }
+  .sv.now .sv__n { color: rgba(255, 255, 255, .75); }
+  .sv.now .sv__x { color: rgba(255, 255, 255, .92); }
+  .sv.now .sv__f { background: rgba(0, 0, 0, .22); }
+  .sv.now .btn { background: var(--rubber); }
+  .sv.now .sv__tire { opacity: .9; }
+  .ticks { display: flex; flex: 1; gap: 6px; margin-right: 12px; }
+  .ticks i { flex: 1; height: 6px; background: var(--graphite); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+  .ticks i.on { background: var(--signal); }
+  .nb { display: grid; place-items: center; width: 56px; height: 56px; background: var(--graphite); font-size: 28px; --k: 10px; }
+  .nb.r { background: var(--signal); }
+  .count { font: 700 16px var(--D); color: var(--steel); }
+  .count b { font-weight: 900; font-size: 48px; letter-spacing: -.03em; color: var(--chalk); }
+
+  /* Карточки цен с фото */
+  .pc { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; align-items: end; gap: 20px 12px; min-height: 230px; padding: 28px; background: var(--asphalt); --k: 20px; clip-path: polygon(0 0, calc(100% - var(--k)) 0, 100% var(--k), 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
+  .pc__ph { position: absolute; inset: 0; background: center right / cover no-repeat; filter: grayscale(1); -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); }
+  .pc__ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 15, 18, .55), transparent 50%); }
+  .pc b { position: relative; grid-column: 1 / -1; align-self: start; max-width: 78%; font: 900 22px/1.1 var(--D); letter-spacing: -.02em; }
+  .pc small { display: block; margin-top: 8px; font: 400 14px/1.4 var(--T); color: var(--steel); letter-spacing: 0; }
+  .pc .arr { position: relative; grid-column: 1; grid-row: 2; }
+  .pc span { position: relative; grid-column: 2; grid-row: 2; font: 900 28px var(--D); letter-spacing: -.02em; text-align: right; }
+  .redhead { position: relative; color: #fff; background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal); }
+
+  /* Лента времени */
+  .tl { position: relative; }
+  .tl__s { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; padding-bottom: 32px; position: relative; }
+  .tl__s::before { content: ""; position: absolute; left: 62px; top: 9px; z-index: 1; width: 13px; height: 13px; margin-left: -6.5px; background: var(--graphite); transform: rotate(45deg); }
+  .tl__n { padding-top: 2px; font: 700 15px var(--D); color: var(--line); text-align: right; }
+  .tl__s b { display: block; font: 700 20px/1.2 var(--D); letter-spacing: -.015em; color: var(--steel); }
+  .tl__s p { margin-top: 6px; color: var(--steel); opacity: .55; }
+  .tl__s.on .tl__n { color: var(--signal); }
+  .tl__s.on::before { background: var(--signal); }
+  .tl__s.on b { color: var(--chalk); }
+  .tl__s.on p { opacity: 1; }
+  .tl__line { position: absolute; left: 62px; top: 10px; bottom: 30px; width: 4px; margin-left: -2px; background: var(--graphite); }
+  .tl__line i { position: absolute; left: 0; top: 0; width: 100%; background: var(--signal); }
+  .tl__wh { position: absolute; left: 50%; width: 38px; height: 38px; max-width: none; margin: -19px 0 0 -19px; transform: rotate(40deg); filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .8)); }
+  .tl__start { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; align-items: center; margin-bottom: 20px; }
+  .tl__start b { font: 700 15px var(--D); color: var(--signal); text-align: right; }
+  .tl__start span { font-size: 14px; color: var(--steel); }
+  .endcard { padding: 36px 40px; background: var(--signal); color: #fff; --k: 18px; }
+  .endcard .d { font-size: 96px; }
+  .endcard p:last-child { margin-top: 14px; font-size: 17px; color: rgba(255, 255, 255, .92); }
+
+  /* Плашки колеса */
+  .tag { position: relative; display: grid; align-content: start; gap: 8px; padding: 26px 28px; min-height: 160px; background: var(--asphalt); border-left: 3px solid var(--signal); --k: 12px; }
+  .tag b { font: 900 22px/1.05 var(--D); letter-spacing: -.02em; }
+  .tag span { color: var(--steel); font-size: 15px; }
+  .tag.big { background: var(--signal); color: #fff; border-left: 0; }
+  .tag.big b { font-size: 38px; transform: skewX(-9deg); transform-origin: left bottom; }
+  .tag.big span { color: rgba(255, 255, 255, .9); }
+  .wh { position: relative; }
+  .wh img { width: 100%; }
+  .wh::before { content: ""; position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(227, 38, 28, .35), transparent 75%); filter: blur(30px); }
+  .pin { position: absolute; left: 50%; top: -18px; width: 22px; height: 16px; margin-left: -11px; background: var(--signal); clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 2; }
+
+  /* Красные панели «Без сюрпризов» */
+  .rp { position: relative; overflow: hidden; padding: 44px 34px 52px; color: #fff; --k: 18px; background: repeating-linear-gradient(-63deg, transparent 0 56px, rgba(0, 0, 0, .11) 56px 112px), radial-gradient(90% 60% at 0 0, #ff4b33 0, transparent 70%), var(--signal); }
+  .rp__big { font-size: 54px; line-height: .95; }
+  .rp h3 { margin: 16px 0 26px; font: 600 18px var(--T); color: rgba(255, 255, 255, .9); }
+  .note-card { position: relative; display: grid; gap: 12px; padding: 24px 24px 24px 22px; background: var(--rubber); box-shadow: 0 0 0 6px rgba(255, 255, 255, .92), 0 20px 40px rgba(0, 0, 0, .35); transform: rotate(-2.5deg); }
+  .note-card li { position: relative; padding-left: 22px; font-size: 15px; color: #c9cbd1; }
+  .note-card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 12px; background: var(--signal); transform: skewX(-14deg); }
+  .rot2 { transform: rotate(2deg); }
+
+  /* Вопросы */
+  .fq { border-top: 1px solid var(--line); }
+  .fq li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); font: 700 21px/1.25 var(--D); letter-spacing: -.015em; }
+  .fq li::after { content: "+"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open { display: block; }
+  .fq li.open::after { display: none; }
+  .fq li.open > div { display: flex; justify-content: space-between; gap: 24px; }
+  .fq li.open > div::after { content: "−"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open p { max-width: 640px; margin-top: 14px; font: 400 17px/1.55 var(--T); color: var(--steel); letter-spacing: 0; }
+
+  /* Запись */
+  .bk { padding: 32px; background: var(--asphalt); --k: 18px; }
+  .bk__kick { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--steel); }
+  .bk__time { margin-top: 10px; font-size: 150px; line-height: .9; }
+  .bk__day { margin-top: 14px; font-size: 17px; }
+  .bk__day b { font-weight: 600; }
+  .bk__day span { margin-left: 10px; color: var(--steel); }
+  .bk__other { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-weight: 600; }
+  .bk__other::after { content: ""; width: 10px; height: 10px; margin-top: -6px; border-right: 2px solid var(--signal); border-bottom: 2px solid var(--signal); transform: rotate(45deg); }
+  .fld { display: grid; gap: 8px; margin-top: 20px; font-size: 15px; color: var(--steel); }
+  .fld i { display: flex; align-items: center; height: 58px; padding: 0 18px; font-style: normal; color: #6e717a; border: 1px solid var(--line); background: var(--rubber); }
+  .cons { display: flex; gap: 12px; margin-top: 20px; font-size: 14px; color: var(--steel); }
+  .cons::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 1px; border: 1.5px solid var(--steel); }
+  .cons u { color: var(--chalk); }
+  .day { display: grid; place-items: center; gap: 2px; width: 72px; height: 76px; background: var(--graphite); font-size: 13px; color: var(--steel); --k: 10px; }
+  .day b { font: 900 24px var(--D); color: var(--chalk); }
+  .day.on { background: var(--signal); color: #fff; }
+  .day.on b { color: #fff; }
+  .slot { display: grid; place-items: center; height: 50px; font: 600 15px var(--T); background: var(--graphite); --k: 8px; }
+  .slot.off { background: transparent; color: #4a4c54; box-shadow: inset 0 0 0 1px #2b2b32; }
+  .slot.on { background: var(--chalk); color: var(--rubber); }
+
+  /* Карта-схема */
+  .map { position: relative; overflow: hidden; background: #1d1d23; --k: 20px; }
+  .map::before { content: ""; position: absolute; inset: 0; background:
+      linear-gradient(90deg, transparent 0 22%, #2a2a31 22% 25%, transparent 25% 61%, #2a2a31 61% 64%, transparent 64%),
+      linear-gradient(0deg, transparent 0 30%, #2a2a31 30% 35%, transparent 35% 72%, #2a2a31 72% 77%, transparent 77%); }
+  .map::after { content: ""; position: absolute; inset: 0; background:
+      repeating-linear-gradient(90deg, transparent 0 9%, rgba(255, 255, 255, .02) 9% 18%),
+      repeating-linear-gradient(0deg, transparent 0 11%, rgba(255, 255, 255, .02) 11% 22%); }
+  .map__pin { position: absolute; z-index: 2; width: 40px; height: 52px; margin: -52px 0 0 -20px; }
+  .map__path { position: absolute; z-index: 1; border-left: 3px dotted var(--signal); border-top: 3px dotted var(--signal); }
+  .map__cap { position: absolute; left: 24px; bottom: 22px; z-index: 2; padding: 8px 12px; font-size: 13px; color: var(--steel); background: rgba(15, 15, 18, .85); }
+  .rows li { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .rows li b { font-weight: 600; }
+  .rows li span { color: var(--steel); }
+  .msg { display: grid; place-items: center; width: 44px; height: 44px; background: var(--graphite); --k: 8px; }
+  .msg svg { width: 20px; height: 20px; fill: var(--chalk); }
+  /* ---------- Своё время ---------- */
+  .bs { background: var(--asphalt); }
+  .bs .d { line-height: 1.06; }
+  .pn { background: var(--rubber); --k: 18px; padding: 36px 40px; }
+  .lab { font-size: 14px; color: var(--steel); margin-bottom: 12px; }
+  .lg { font: 700 20px var(--D); letter-spacing: -.015em; margin-bottom: 22px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip.dk { background: var(--graphite); color: var(--chalk); }
+  .chip.dk.on { background: var(--chalk); color: var(--rubber); }
+  .ip { display: flex; align-items: center; height: 56px; padding: 0 18px; border: 1px solid var(--line); background: var(--rubber); color: #6e717a; font-size: 15px; }
+  .ip2 { background: var(--asphalt); }
+  .cons2 { display: flex; gap: 12px; font-size: 13px; color: var(--steel); line-height: 1.45; }
+  .cons2::before { content: ""; flex: none; width: 18px; height: 18px; border: 1.5px solid var(--steel); }
+
+  /* 1. Шаги */
+  .tabs { display: flex; gap: 8px; }
+  .tab { display: flex; align-items: center; gap: 12px; height: 60px; padding: 0 24px; background: var(--rubber); color: var(--steel); font-weight: 600; --k: 12px; }
+  .tab b { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--graphite); font: 700 14px var(--D); color: var(--chalk); }
+  .tab.on { background: var(--chalk); color: var(--rubber); }
+  .tab.on b { background: var(--signal); color: #fff; }
+  .tab.done b { background: var(--signal); }
+
+  /* 2. Талон */
+  .ticket { position: relative; display: grid; grid-template-columns: 1fr 26px 420px; }
+  .tk-l { padding: 48px; color: #fff; background: radial-gradient(70% 120% at 0 0, #ff5a3d 0, transparent 60%), var(--signal); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  .tk-cut { background: radial-gradient(circle at 50% 0, var(--asphalt) 13px, transparent 14px) top / 26px 26px no-repeat, radial-gradient(circle at 50% 100%, var(--asphalt) 13px, transparent 14px) bottom / 26px 26px no-repeat, repeating-linear-gradient(to bottom, var(--signal) 0 10px, transparent 10px 18px) center / 2px 100% no-repeat, linear-gradient(90deg, var(--signal) 50%, var(--rubber) 50%); }
+  .tk-r { padding: 44px 40px; background: var(--rubber); }
+  .tk-grid { display: grid; grid-template-columns: repeat(3, auto); gap: 18px 44px; margin-top: 34px; }
+  .tk-grid span { display: block; font-size: 13px; color: rgba(255,255,255,.75); }
+  .tk-grid b { display: block; margin-top: 4px; font: 700 20px var(--D); }
+
+  /* 3. Шкала дня */
+  .days2 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .dd { display: grid; gap: 4px; padding: 18px 20px; background: var(--rubber); --k: 12px; color: var(--steel); font-size: 14px; }
+  .dd b { font: 900 34px var(--D); color: var(--chalk); }
+  .dd.on { background: var(--signal); color: #fff; }
+  .dd.on b { color: #fff; }
+  .dd small { font-size: 12px; }
+  .scale { position: relative; margin-top: 18px; padding: 30px 32px 26px; background: var(--rubber); --k: 18px; }
+  .hours { display: grid; grid-template-columns: repeat(14, 1fr); font-size: 12px; color: var(--steel); }
+  .lane { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 16px; margin-top: 14px; }
+  .lane > span { font-size: 14px; color: var(--steel); }
+  .cells { display: grid; grid-template-columns: repeat(28, 1fr); gap: 3px; }
+  .cells i { height: 44px; background: var(--graphite); }
+  .cells i.busy { background: repeating-linear-gradient(-45deg, #1d1d22 0 6px, #24242a 6px 12px); }
+  .cells i.past { background: #17171b; }
+  .cells i.on { background: var(--signal); }
+
+  /* 4. Минимум */
+  .mini { text-align: center; }
+  .mini .big { font-size: 220px; line-height: .95; transform-origin: center bottom; }
+
+  /* 5. Две линии */
+  .bays { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bay { padding: 32px; background: var(--rubber); --k: 18px; }
+  .bay h4 { display: flex; justify-content: space-between; align-items: baseline; font: 700 22px var(--D); }
+  .bay h4 small { font: 500 14px var(--T); color: var(--steel); }
+  .bslots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 22px; }
+  .bs2 { display: grid; place-items: center; height: 52px; font-weight: 600; font-size: 15px; background: var(--graphite); --k: 8px; }
+  .bs2.busy { background: transparent; box-shadow: inset 0 0 0 1px #2b2b32; color: #4a4c54; text-decoration: line-through; }
+  .bs2.on { background: var(--signal); color: #fff; }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>«Своё время»:<br><em>пять вариантов</em></h1>
+  <p>Тот же смысл: выбрать день, время, машину и оставить телефон. Но разложено по-разному. Кадры в ширину компьютера 1440 px. Телефон не трогаю.</p>
+  <nav class="jump"><a href="#v1">1 По шагам</a><a href="#v2">2 Талон</a><a href="#v3">3 Шкала дня</a><a href="#v4">4 Одно время</a><a href="#v5">5 Две линии</a></nav>
+</header>
+
+<section class="blk" id="v1">
+  <div class="blk__h"><b>1</b><h2>По шагам</h2><span>три шага по очереди,<br>слева запись копится</span></div>
+  <div class="var"><div class="var__h"><strong>Запись в три шага: время, машина, контакты</strong><span>Сверху вкладки-шаги, на экране только текущий шаг — не перегружено. Слева красная карточка, в ней по ходу собирается запись.</span></div>
+    <div class="fr"><div class="s bs pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end"><h2 class="d" style="font-size:88px">Своё время</h2><div class="tabs"><span class="tab c done"><b>1</b>Время</span><span class="tab c on"><b>2</b>Машина</span><span class="tab c"><b>3</b>Контакты</span></div></div>
+      <div style="display:grid;grid-template-columns:400px 1fr;gap:20px;margin-top:48px">
+        <div class="redhead c" style="--k:24px;padding:44px 40px">
+          <p style="font-size:14px;color:rgba(255,255,255,.85)">Ваша запись</p>
+          <p class="d" style="font-size:96px;margin-top:14px">17:00</p>
+          <p style="margin-top:14px;font-weight:600;font-size:17px">Сегодня, 20 октября</p>
+          <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.3);display:grid;gap:10px;font-size:15px"><p>Диски — <b>R16</b></p><p>Услуга — <b>переобувка</b></p><p style="color:rgba(255,255,255,.7)">Контакты — на шаге 3</p></div>
+        </div>
+        <div class="pn c">
+          <p class="lg">Шаг 2. Машина и услуга</p>
+          <p class="lab">Размер дисков</p>
+          <div class="row" data-rad></div>
+          <p class="lab" style="margin-top:30px">Что сделать</p>
+          <div class="row"><span class="chip c dk on">Переобувка</span><span class="chip c dk">Балансировка</span><span class="chip c dk">Ремонт прокола</span><span class="chip c dk">Хранение шин</span><span class="chip c dk">Правка дисков</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:44px"><span class="mut">← Назад ко времени</span><span class="btn btn--lg">Дальше — контакты</span></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v2">
+  <div class="blk__h"><b>2</b><h2>Талон</h2><span>запись выглядит как<br>отрывной талон</span></div>
+  <div class="var"><div class="var__h"><strong>Запись — красный отрывной талон, как билет</strong><span>На талоне крупно время, день, линия, услуга и диски. Меняете что-то — талон обновляется. Справа на «корешке» имя, телефон и кнопка.</span></div>
+    <div class="fr"><div class="s bs pad">
+      <h2 class="d" style="font-size:88px">Своё время</h2>
+      <div class="pn c" style="margin-top:44px;padding:28px 32px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center"><span class="lab" style="margin:0">День</span><div class="row" data-days-mini></div><span class="lab" style="margin:0">Время</span><div class="row" data-slots-mini></div></div>
+      <div class="ticket" style="margin-top:20px">
+        <div class="tk-l"><p style="font-size:14px;color:rgba(255,255,255,.85)">Талон записи · ПРОТЕКТОР</p><p class="d" style="font-size:140px;margin-top:10px">17:00</p>
+          <div class="tk-grid"><div><span>День</span><b>Сегодня, 20.10</b></div><div><span>Линия</span><b>№ 2</b></div><div><span>Длится</span><b>≈ 25 мин</b></div><div><span>Услуга</span><b>Переобувка</b></div><div><span>Диски</span><b>R16</b></div><div><span>Адрес</span><b>Варшавское ш., 118</b></div></div>
+        </div>
+        <i class="tk-cut"></i>
+        <div class="tk-r"><p class="lg">Кому записывать</p><p class="lab">Имя</p><div class="ip">Как к вам обращаться</div><p class="lab" style="margin-top:18px">Телефон</p><div class="ip">+7 (___) ___-__-__</div><p class="cons2" style="margin-top:18px">Согласен на обработку персональных данных</p><span class="btn btn--lg" style="width:100%;margin-top:22px">Записаться на 17:00</span></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v3">
+  <div class="blk__h"><b>3</b><h2>Шкала дня</h2><span>время — полосой с 8 до 22,<br>видно две линии и свободные окна</span></div>
+  <div class="var"><div class="var__h"><strong>Крупные дни сверху, под ними шкала дня по двум линиям</strong><span>Занятое заштриховано, свободное — тёмное, выбранное красное. Сразу видно, когда свободно. Справа внизу — карточка с итогом и контактами.</span></div>
+    <div class="fr"><div class="s bs pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end"><h2 class="d" style="font-size:88px">Своё время</h2><p class="lead" style="max-width:380px">Две линии, поэтому свободных окон обычно хватает. С 8:00 до 22:00 без выходных.</p></div>
+      <div class="days2" style="margin-top:44px" data-days2></div>
+      <div class="scale c"><div style="display:grid;grid-template-columns:120px 1fr;gap:16px"><span></span><div class="hours" data-hours></div></div><div class="lane"><span>Линия 1</span><div class="cells" data-l1></div></div><div class="lane"><span>Линия 2</span><div class="cells" data-l2></div></div>
+        <div style="display:flex;gap:24px;margin-top:18px;font-size:13px;color:var(--steel)"><span><i style="display:inline-block;width:14px;height:14px;background:var(--graphite);vertical-align:-2px;margin-right:6px"></i>свободно</span><span><i style="display:inline-block;width:14px;height:14px;background:repeating-linear-gradient(-45deg,#1d1d22 0 3px,#2a2a31 3px 6px);vertical-align:-2px;margin-right:6px"></i>занято</span><span><i style="display:inline-block;width:14px;height:14px;background:var(--signal);vertical-align:-2px;margin-right:6px"></i>ваше время</span></div></div>
+      <div class="redhead c" style="--k:20px;margin-top:18px;padding:28px 36px;display:grid;grid-template-columns:auto 1fr 1fr 300px;gap:24px;align-items:center"><div><p style="font-size:13px;color:rgba(255,255,255,.85)">Сегодня, линия 2</p><p class="d" style="font-size:56px">17:00</p></div><div class="ip ip2" style="border-color:transparent;background:rgba(0,0,0,.22);color:rgba(255,255,255,.7)">Имя</div><div class="ip ip2" style="border-color:transparent;background:rgba(0,0,0,.22);color:rgba(255,255,255,.7)">+7 (___) ___-__-__</div><span class="btn btn--ink btn--lg">Записаться на 17:00</span></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v4">
+  <div class="blk__h"><b>4</b><h2>Одно время</h2><span>как на телефоне: сразу<br>ближайшее время крупно</span></div>
+  <div class="var"><div class="var__h"><strong>Огромное ближайшее время по центру и одна кнопка</strong><span>Минимум решений: «Сегодня в 17:00 — записаться». Другое время, машина и услуга раскрываются по ссылке. Имя и телефон в одну строку.</span></div>
+    <div class="fr"><div class="s bs pad mini">
+      <p style="display:inline-flex;align-items:center;gap:10px;font-size:16px;color:var(--steel)"><i class="dot"></i>Ближайшее свободное · сегодня, 20 октября</p>
+      <p class="d big" style="margin-top:20px">17:00</p>
+      <p class="lead" style="margin-top:22px">Переобувка · R16 · линия 2 · <span style="color:var(--chalk);text-decoration:underline;text-underline-offset:4px">изменить</span></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 320px;gap:14px;max-width:1000px;margin:48px auto 0;text-align:left"><div class="ip">Как к вам обращаться</div><div class="ip">+7 (___) ___-__-__</div><span class="btn btn--lg" style="height:56px">Записаться на 17:00</span></div>
+      <p class="mut" style="margin-top:18px;font-size:14px">Нужно другое время? <span style="color:var(--chalk);text-decoration:underline;text-underline-offset:4px">Выбрать день и время</span></p>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v5">
+  <div class="blk__h"><b>5</b><h2>Две линии</h2><span>выбираете окно<br>на конкретной линии</span></div>
+  <div class="var"><div class="var__h"><strong>Две карточки — две линии шиномонтажа, в каждой свои окна</strong><span>Показывает главную фишку: две линии, поэтому очереди нет. Выбрали окно на линии — справа красная плашка с итогом и контактами.</span></div>
+    <div class="fr"><div class="s bs pad">
+      <h2 class="d" style="font-size:88px">Своё время</h2><div class="row" data-days-mini2 style="margin-top:36px"></div>
+      <div style="display:grid;grid-template-columns:1fr 400px;gap:20px;margin-top:44px">
+        <div class="bays"><div class="bay c"><h4>Линия 1 <small>свободно 5</small></h4><div class="bslots" data-b1></div></div><div class="bay c"><h4>Линия 2 <small>свободно 7</small></h4><div class="bslots" data-b2></div></div></div>
+        <div class="redhead c" style="--k:24px;padding:40px 36px;display:flex;flex-direction:column"><p style="font-size:14px;color:rgba(255,255,255,.85)">Линия 2 · сегодня</p><p class="d" style="font-size:96px;margin-top:10px">17:00</p><p style="margin-top:12px">Переобувка · R16</p><div class="ip" style="margin-top:26px;border:0;background:rgba(0,0,0,.22);color:rgba(255,255,255,.75)">Имя</div><div class="ip" style="margin-top:10px;border:0;background:rgba(0,0,0,.22);color:rgba(255,255,255,.75)">+7 (___) ___-__-__</div><span class="btn btn--ink btn--lg" style="margin-top:18px">Записаться на 17:00</span></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<p class="note"><b>Как выбирать:</b> напишите номер, можно смешать. Всё рабочее: выбор дня, времени, услуги и отправка останутся как сейчас, меняется только раскладка. Соберу только для компьютера.</p>
+
+<script>
+  const fit = () => document.querySelectorAll('.fr').forEach(f => f.style.setProperty('--z', f.clientWidth / 1440));
+  addEventListener('resize', fit);
+  const $$ = s => document.querySelectorAll(s);
+  const RAD = ['R13','R14','R15','R16','R17','R18','R19','R20','R21','R22'];
+  $$('[data-rad]').forEach(e => e.innerHTML = RAD.map(r => `<span class="chip c dk${r === 'R16' ? ' on' : ''}" style="width:64px;padding:0">${r}</span>`).join(''));
+  const DAYS = [['сегодня', 20], ['завтра', 21], ['чт', 22], ['пт', 23], ['сб', 24], ['вс', 25], ['пн', 26]];
+  const mini = (on) => DAYS.map((d, i) => `<span class="chip c dk${i === 0 ? ' on' : ''}" style="height:48px">${d[0]} ${d[1]}</span>`).join('');
+  $$('[data-days-mini]').forEach(e => e.innerHTML = mini());
+  $$('[data-days-mini2]').forEach(e => e.innerHTML = mini());
+  const SL = ['15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'];
+  $$('[data-slots-mini]').forEach(e => e.innerHTML = SL.map(s => `<span class="chip c dk${s === '17:00' ? ' on' : ''}" style="height:44px;${['16:00','16:30','18:30'].includes(s) ? 'opacity:.35;text-decoration:line-through' : ''}">${s}</span>`).join(''));
+  $$('[data-days2]').forEach(e => e.innerHTML = DAYS.map((d, i) => `<div class="dd c${i === 0 ? ' on' : ''}"><span>${d[0]}</span><b>${d[1]}</b><small>${[9, 14, 18, 16, 6, 11, 20][i]} окон</small></div>`).join(''));
+  $$('[data-hours]').forEach(e => e.innerHTML = Array.from({ length: 14 }, (_, i) => `<span>${8 + i}:00</span>`).join(''));
+  const cells = (busy, now, on) => Array.from({ length: 28 }, (_, i) => `<i class="${i < now ? 'past' : busy.includes(i) ? 'busy' : i === on ? 'on' : ''}"></i>`).join('');
+  $$('[data-l1]').forEach(e => e.innerHTML = cells([16, 17, 18, 21, 22, 25], 15, -1));
+  $$('[data-l2]').forEach(e => e.innerHTML = cells([15, 20, 23, 24], 15, 18));
+  const bslots = (busy, on) => SL.map(s => `<span class="bs2 c${busy.includes(s) ? ' busy' : s === on ? ' on' : ''}">${s}</span>`).join('');
+  $$('[data-b1]').forEach(e => e.innerHTML = bslots(['15:30','16:00','17:00','17:30','19:00','20:30','21:00'], ''));
+  $$('[data-b2]').forEach(e => e.innerHTML = bslots(['16:00','16:30','19:30','20:00','21:00'], '17:00'));
+  fit();
+</script>
+</body>
+</html>
