@@ -1549,3 +1549,15 @@ main { overflow-x: clip; }
   .where__msgs .msg { background: rgba(0, 0, 0, 0.25); color: #fff; }
   .where__msgs .msg:hover { background: var(--rubber); }
 }
+
+/* Компьютер: крупные заголовки свободнее — строки не слипаются, точки над Ё не упираются в строку выше */
+@media (min-width: 641px) {
+  .display { line-height: 1.04; }
+  .wheel__title { line-height: 1.14; }
+  .mcar__t, .detail__big, .tag--big b, .price-row b { line-height: 1.1; }
+  .mcar__card.is-now .mcar__t { max-width: 100%; font-size: 42px; line-height: 1.08; overflow-wrap: anywhere; }
+}
+@media (min-width: 1081px) {
+  .mcar__card .mcar__t { line-height: 1.14; }
+  .visit__title, .where__title, .faq__card-q { line-height: 1.08; }
+}

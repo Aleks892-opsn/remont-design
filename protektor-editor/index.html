@@ -319,6 +319,10 @@
   var hook = function () {
     var d = doc();
     if (!d) { setStatus('Сайт не открылся в редакторе', 'err'); return; }
+    // В редакторе окно сайта выше обычного экрана — первый экран держим в размере настоящего экрана
+    var fix = d.createElement('style');
+    fix.textContent = mode === 'desktop' ? '.hero{height:900px!important;min-height:0!important}' : '.hero{min-height:760px!important}';
+    d.head.appendChild(fix);
     d.addEventListener('click', onClick, true);
     d.addEventListener('pointerdown', onDown, true);
     d.addEventListener('pointermove', onMove, true);
