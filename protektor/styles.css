@@ -1350,6 +1350,7 @@ main { overflow-x: clip; }
 @media (min-width: 641px) {
   /* Первый экран: свет фары мягко гаснет и не доходит до текста; внизу — факты и контакты */
   .hero__photo { overflow: visible; }
+  .hero__lamp { display: none; }
   .hero__lamp::after {
     right: -14px; top: -62px; width: 240px; height: 124px;
     clip-path: none; filter: blur(10px);
@@ -1416,30 +1417,44 @@ main { overflow-x: clip; }
   @keyframes svc-in-t { from { opacity: 0; transform: skewX(var(--skew)) translate3d(0, 14px, 0); } to { transform: skewX(var(--skew)); } }
   .mcar__nav { display: none; }
 
-  /* 25 минут: лента поперёк экрана, колесо катится по ней, в конце красная полоса с таймером */
-  .visit__inner { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr; padding: 112px 0 56px; }
-  .visit__head { grid-column: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 64px; }
-  .visit__title { font-size: 60px; line-height: 0.98; white-space: nowrap; }
-  .visit__note { margin: 0 0 6px; max-width: 380px; line-height: 1.6; }
-  .visit__steps { grid-column: 1; grid-row: 2; align-self: start; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px; margin-top: 64px; }
-  .visit__steps li { display: block; position: relative; padding: 88px 0 0; border-top: 0; }
-  .visit__steps li::before { position: absolute; left: 0; top: 0; font-size: 16px; content: "0" counter(step); }
-  .visit__steps li::after { content: ""; position: absolute; left: 0; top: 41px; width: 14px; height: 14px; background: var(--graphite); transform: rotate(45deg); transition: background-color 0.4s; }
-  .visit__steps li.is-on::after { background: var(--signal); }
-  .visit__steps b { display: block; font-size: 19px; line-height: 1.22; }
-  .visit__steps span { display: block; margin-top: 10px; font-size: 15px; line-height: 1.55; }
-  .visit__steps li:not(.is-on) span { opacity: 0.55; }
-  .visit__rail { grid-column: 1; grid-row: 2; align-self: start; position: relative; left: auto; right: auto; bottom: auto; margin-top: calc(64px + 46px); }
-  .visit__rail i { position: relative; }
-  .visit__wh { display: block; position: absolute; right: -22px; top: 50%; width: 44px; height: 44px; max-width: none; margin-top: -22px; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8)); }
+  /* 25 минут: вертикальная лента, как на телефоне. Слева заголовок и красная плашка с таймером едут вместе с прокруткой */
+  .visit { height: auto; padding: 150px 0 160px; }
+  .visit__pin { position: static; display: block; height: auto; overflow: visible; }
+  .visit__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 80px; height: auto; padding: 0; }
+  .visit__head, .visit__bar { grid-column: 1; }
+  .visit__head { grid-row: 1; }
+  .visit__title { font-size: 58px; line-height: 1; }
+  .visit__note { margin-top: 28px; max-width: 420px; font-size: 18px; line-height: 1.6; }
+  .visit__steps, .visit__rail { display: none; }
   .visit__bar {
-    grid-column: 1; grid-row: 3; align-self: end; display: flex; align-items: center; gap: 48px;
-    padding: 26px 40px; background: var(--signal); color: #fff;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%);
+    grid-row: 2; align-self: start; position: sticky; top: 140px; margin-top: 56px;
+    display: flex; flex-direction: column; align-items: flex-start; padding: 48px 52px 52px; color: #fff;
+    background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal);
+    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
   }
-  .visit__bar .visit__timer { font-size: 104px; color: #fff; line-height: 0.85; }
-  .visit__bar-t { display: block; max-width: 420px; font-size: 18px; line-height: 1.5; }
-  .visit__bar-go { display: inline-flex; margin-left: auto; }
+  .visit__bar .visit__timer { align-self: flex-start; font-size: 128px; line-height: 0.85; color: #fff; }
+  .visit__bar-t { display: block; max-width: 380px; margin-top: 30px; font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, 0.94); }
+  .visit__bar-go { display: inline-flex; margin-top: 34px; }
+  .mtl { display: block; grid-column: 2; grid-row: 1 / span 2; margin: 0; padding-top: 10px; }
+  .mtl__start, .mtl__step { display: grid; grid-template-columns: 52px 1fr; column-gap: 52px; }
+  .mtl__start { align-items: center; margin-bottom: 30px; }
+  .mtl__start b { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--signal); font-variant-numeric: tabular-nums; text-align: right; }
+  .mtl__start span { font-size: 15px; color: var(--steel); }
+  .mtl__body { position: relative; }
+  .mtl__line { position: absolute; left: 78px; top: 10px; bottom: 6px; width: 4px; margin-left: -2px; background: var(--graphite); }
+  .mtl__line i { position: absolute; left: 0; top: 0; width: 100%; height: var(--fill, 0px); background: var(--signal); }
+  .mtl__wheel { position: absolute; left: 50%; top: var(--fill, 0px); width: 48px; height: 48px; max-width: none; margin: -24px 0 0 -24px; transform: rotate(var(--r, 0deg)); filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8)); }
+  .mtl__step { position: relative; padding-bottom: 48px; }
+  .mtl__step:last-child { padding-bottom: 0; }
+  .mtl__step::before { content: ""; position: absolute; left: 78px; top: 9px; z-index: 1; width: 15px; height: 15px; margin-left: -7.5px; background: var(--graphite); transform: rotate(45deg); transition: background-color 0.35s; }
+  .mtl__n { padding-top: 2px; font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--line); text-align: right; transition: color 0.35s; }
+  .mtl__step b { display: block; font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1.2; letter-spacing: -0.015em; color: var(--steel); transition: color 0.35s; }
+  .mtl__step div span { display: block; max-width: 520px; margin-top: 10px; color: var(--steel); font-size: 17px; line-height: 1.6; opacity: 0.55; transition: opacity 0.35s; }
+  .mtl__step.is-on .mtl__n { color: var(--signal); }
+  .mtl__step.is-on::before { background: var(--signal); }
+  .mtl__step.is-on b { color: var(--chalk); }
+  .mtl__step.is-on div span { opacity: 1; }
+  .mtl__end { display: none; }
 
   /* Вопросы: список слева, ответ на выбранный — в красной плашке справа */
   .faq__inner { grid-template-columns: minmax(0, 1fr) 540px; column-gap: 48px; row-gap: 56px; }
@@ -1461,33 +1476,35 @@ main { overflow-x: clip; }
   .faq__item p { display: none; }
   .faq__card {
     grid-column: 2; grid-row: 2; position: sticky; top: 120px; display: flex; flex-direction: column; align-items: flex-start;
-    min-height: 460px; padding: 44px; color: #fff;
+    min-height: 460px; padding: 56px 60px 56px 56px; color: #fff;
     background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal);
     clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px));
   }
   .faq__card-n { font-family: var(--display); font-weight: 900; font-size: 18px; opacity: 0.8; }
-  .faq__card-q { max-width: 100%; margin-top: 24px; font-size: 36px; line-height: 1.04; overflow-wrap: anywhere; }
-  .faq__card-a { margin: 24px 0 36px; font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, 0.94); }
+  .faq__card-q { max-width: calc(100% - 24px); margin-top: 26px; font-size: 32px; line-height: 1.1; overflow-wrap: anywhere; }
+  .faq__card-a { margin: 26px 0 40px; font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, 0.94); }
   .faq__card .cut { margin-top: auto; }
   .faq__card.is-swap > * { animation: svc-in 0.5s var(--ease) both; }
   .faq__card.is-swap .faq__card-q { animation-name: svc-in-t; }
 
   /* Своё время: красная плашка с выбранным временем по центру, рядом дни и окна, ниже машина и контакты */
-  .book__form { grid-template-columns: 420px minmax(0, 1fr); gap: 16px; }
-  .book__col legend { float: left; width: 100%; margin-bottom: 22px; }
+  .book__form { grid-template-columns: 400px minmax(0, 1fr); gap: 20px; }
+  .book__col legend { float: left; width: 100%; margin-bottom: 28px; }
+  .book__col .book__label { margin: 30px 0 14px; }
+  .book__col .days, .book__col .slots, .book__col .chips { gap: 10px; }
   .book__col legend + * { clear: both; }
-  .book__col { padding: 34px 38px 36px; background: var(--rubber); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px)); }
+  .book__col { padding: 44px 48px 48px; background: var(--rubber); clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px)); }
   .book__now {
     grid-column: 1; grid-row: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    padding: 40px 32px; color: #fff;
+    padding: 56px 48px; color: #fff;
     background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal);
     clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px));
   }
   .book__now-kick { display: flex; align-items: center; gap: 10px; font-size: 15px; }
   .book__now-kick .dot { background: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25); }
-  .book__now-time { margin: 18px 0 20px; font-size: 118px; line-height: 0.9; font-variant-numeric: tabular-nums; transform-origin: center bottom; }
+  .book__now-time { margin: 24px 0 26px; font-size: 84px; line-height: 0.9; font-variant-numeric: tabular-nums; transform-origin: center bottom; }
   .book__now-day { font-size: 18px; font-weight: 600; }
-  .book__now-what { margin-top: 6px; color: rgba(255, 255, 255, 0.88); line-height: 1.5; }
+  .book__now-what { margin-top: 10px; color: rgba(255, 255, 255, 0.88); line-height: 1.5; }
   .book__col--when { grid-column: 2; grid-row: 1; }
   .slots { grid-template-columns: repeat(7, 1fr); }
   .book__col--what { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 56px; align-items: start; }
@@ -1498,7 +1515,7 @@ main { overflow-x: clip; }
   .book__col--what > #what { grid-column: 2; grid-row: 3; }
   .book__col--what > .switch { grid-column: 2; grid-row: 4; margin-top: 22px; }
   .book__col--what > .field--address { grid-column: 2; grid-row: 5; }
-  .book__col--send { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr minmax(0, 1.1fr) 300px; column-gap: 16px; align-items: end; }
+  .book__col--send { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr minmax(0, 1.1fr) 300px; column-gap: 24px; align-items: end; }
   .book__col--send .field { margin-top: 0; }
   .book__col--send > .field, .book__col--send > .consent, .book__col--send > .book__send { grid-row: 2; }
   .book__col--send .consent { margin: 0 0 12px; }
@@ -1510,21 +1527,22 @@ main { overflow-x: clip; }
   .where { position: relative; min-height: 880px; padding: 110px 0; }
   .where__inner { display: block; }
   .where__map { position: absolute; inset: 0; min-height: 0; clip-path: none; }
-  .where__map-note { left: auto; right: var(--pad); bottom: 28px; }
+  .where__map-note { left: var(--pad); right: auto; bottom: 28px; }
   .where__text {
-    position: relative; z-index: 1; width: 580px; padding: 56px 50px 52px; color: #fff;
+    position: relative; z-index: 1; width: 470px; margin-left: auto; padding: 52px 48px 50px; color: #fff;
     background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal);
     clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 32px 100%, 0 calc(100% - 32px));
   }
-  .where__addr { margin-top: 30px; }
+  .where__title { font-size: 60px; line-height: 0.98; }
+  .where__addr { margin-top: 30px; font-size: 21px; line-height: 1.3; }
   .where__list { margin-top: 26px; }
-  .where__list li { padding: 18px 0; border-top-color: rgba(255, 255, 255, 0.28); line-height: 1.5; }
+  .where__list li { grid-template-columns: 104px 1fr; padding: 20px 0; border-top-color: rgba(255, 255, 255, 0.28); font-size: 15px; line-height: 1.55; }
   .where__list span { color: rgba(255, 255, 255, 0.88); }
   .where__btns { margin-top: 36px; }
   .where__btns .cut--red { flex: 1; background: var(--rubber); }
   .where__btns .cut--red:hover { background: #000; }
   .where__btns .cut--line { background: rgba(0, 0, 0, 0.25); color: #fff; }
-  .where__msgs { color: rgba(255, 255, 255, 0.88); margin-top: 26px; }
+  .where__msgs { color: rgba(255, 255, 255, 0.88); margin-top: 28px; }
   .where__msgs .msg { background: rgba(0, 0, 0, 0.25); color: #fff; }
   .where__msgs .msg:hover { background: var(--rubber); }
 }

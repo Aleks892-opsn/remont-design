@@ -101,6 +101,7 @@
   var ticking = false;
   var phoneJobs = []; // обработчики прокрутки телефонных блоков (добавляются ниже)
   var deskJobs = [];  // то же для компьютера — для блоков, которые устроены одинаково
+  var wideVisit = matchMedia('(min-width: 1081px)'); // на широком экране «25 минут» — вертикальная лента, как на телефоне
   var onScroll = function () {
     ticking = false;
     var y = window.scrollY;
@@ -124,7 +125,8 @@
       setRot(bigWheel, (innerHeight - r.top) * 0.18);
     }
 
-    // Закреплённый блок визита: прогресс от 0 до 1 → таймер 00:00…25:00 и шаги по очереди
+    // Закреплённый блок визита (планшет): прогресс от 0 до 1 → таймер 00:00…25:00 и шаги по очереди
+    if (wideVisit.matches) return;
     var vr = visit.getBoundingClientRect();
     var total = visit.offsetHeight - innerHeight;
     var p = Math.min(1, Math.max(0, -vr.top / total));
@@ -718,17 +720,25 @@
     var wheel = document.querySelector('.mtl__wheel');
     var steps = Array.prototype.slice.call(document.querySelectorAll('.mtl__step'));
     if (!motion) { steps.forEach(function (s) { s.classList.add('is-on'); }); return; }
-    phoneJobs.push(function () {
+    var job = function (desk) {
       var lr = line.getBoundingClientRect();
       if (lr.bottom < -200 || lr.top > innerHeight + 200) return null;
       var fill = clamp(innerHeight * 0.62 - lr.top, 0, lr.height);
       var tops = steps.map(function (s) { return s.getBoundingClientRect().top + 14 - lr.top; });
+      var d = wheel.offsetWidth || 34;
       return function () {
         line.style.setProperty('--fill', fill.toFixed(1) + 'px');
-        wheel.style.setProperty('--r', (fill / (Math.PI * 34) * 360).toFixed(1) + 'deg');
+        wheel.style.setProperty('--r', (fill / (Math.PI * d) * 360).toFixed(1) + 'deg');
         steps.forEach(function (s, i) { s.classList.toggle('is-on', tops[i] <= fill + 1); });
+        // На компьютере рядом с лентой тикает таймер: 00:00 в начале, 25:00 в конце
+        if (desk) {
+          var secs = Math.round(fill / (lr.height || 1) * 25 * 60);
+          timer.textContent = pad(Math.floor(secs / 60)) + ':' + pad(secs % 60);
+        }
       };
-    });
+    };
+    phoneJobs.push(function () { return job(false); });
+    deskJobs.push(function () { return wideVisit.matches ? job(true) : null; });
   })();
 
   /* ---------- Колесо на ленте: крутится на месте от прокрутки и от свайпа плашек ---------- */
