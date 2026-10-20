@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТЕКТОР: колесо, второй заход</title>
+<link rel="stylesheet" href="../protektor/assets/fonts.css">
+<style>
+  :root {
+    --rubber: #0f0f12; --asphalt: #18181d; --graphite: #26262d; --line: #34343c;
+    --chalk: #eeece7; --steel: #8d9099; --signal: #e3261c; --ok: #35c46a;
+    --D: "Unbounded", "Arial Black", sans-serif; --T: "Onest", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: #09090b; color: var(--chalk); font: 16px/1.5 var(--T); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
+
+  /* ---------- Страница демо ---------- */
+  .intro { max-width: 1480px; margin: 0 auto; padding: 56px 16px 24px; }
+  .intro h1 { font: 900 clamp(30px, 4.4vw, 60px)/.95 var(--D); text-transform: uppercase; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .intro h1 em { font-style: normal; color: var(--signal); }
+  .intro p { max-width: 760px; margin-top: 20px; color: var(--steel); font-size: 17px; }
+  .jump { display: flex; max-width: 100%; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .jump a { padding: 9px 14px; color: var(--chalk); text-decoration: none; font-weight: 600; font-size: 14px; background: var(--graphite); clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .jump a:hover { background: var(--signal); }
+
+  .blk { max-width: 1480px; margin: 0 auto; padding: 56px 16px 8px; scroll-margin-top: 8px; }
+  .blk__h { display: flex; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--signal); }
+  .blk__h b { font: 900 34px/1 var(--D); color: var(--signal); }
+  .blk__h h2 { font: 900 clamp(22px, 2.6vw, 34px)/1 var(--D); text-transform: uppercase; letter-spacing: -.03em; transform: skewX(-9deg); }
+  .blk__h span { margin-left: auto; color: var(--steel); font-size: 14px; text-align: right; }
+
+  @media (max-width: 700px) { .blk__h span { display: none; } .intro h1 { font-size: 27px; } }
+  .var { margin-top: 30px; }
+  .var__h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 12px; }
+  .var__h b { display: inline-grid; place-items: center; min-width: 40px; height: 34px; padding: 0 10px; font: 900 16px var(--D); background: var(--signal); color: #fff; clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .var__h strong { font-size: 18px; }
+  .var__h span { color: var(--steel); font-size: 15px; flex-basis: 100%; }
+  @media (min-width: 900px) { .var__h span { flex-basis: auto; } }
+
+  /* Кадр 1440 px, уменьшается под ширину экрана */
+  .fr { overflow: hidden; border-radius: 12px; outline: 1px solid #222228; background: var(--rubber); }
+  .s { position: relative; width: 1440px; zoom: var(--z, 1); background: var(--rubber); overflow: hidden; }
+  .s::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; background-image: url("../protektor/assets/grain.svg"); z-index: 50; }
+  .pad { padding: 104px 64px; }
+  .note { max-width: 1480px; margin: 40px auto 0; padding: 0 16px 80px; color: var(--steel); }
+  .note b { color: var(--chalk); }
+
+  /* ---------- Общие элементы сайта ---------- */
+  .d { font-family: var(--D); font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .c { --k: 14px; clip-path: polygon(var(--k) 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%, 0 var(--k)); }
+  .btn { --k: 12px; display: inline-flex; align-items: center; justify-content: center; height: 58px; padding: 0 32px; font: 600 16px var(--T); color: #fff; background: var(--signal); white-space: nowrap; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
+  .btn--ink { background: var(--rubber); }
+  .btn--gr { background: var(--graphite); color: var(--chalk); }
+  .btn--lg { height: 68px; padding: 0 44px; font-size: 17px; }
+  .red { color: var(--signal); }
+  .mut { color: var(--steel); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(53, 196, 106, .18); }
+  .tread { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: url("../protektor/assets/tread-white.svg") 0 50% / auto 30px repeat-x; opacity: .95; }
+  .arr { display: grid; place-items: center; width: 56px; height: 56px; flex: none; background: var(--signal); --k: 10px; }
+  .arr::after { content: ""; width: 12px; height: 12px; margin-left: -4px; border-top: 2.5px solid #fff; border-right: 2.5px solid #fff; transform: rotate(45deg); }
+  .chip { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; font: 600 15px var(--T); background: rgba(0, 0, 0, .22); color: #fff; --k: 8px; }
+  .chip.on { background: var(--chalk); color: var(--rubber); }
+  .lead { font-size: 17px; color: var(--steel); line-height: 1.5; }
+  .lead b { color: var(--chalk); font-weight: 600; }
+  .sec-t { font-size: 104px; }
+
+  /* Шапка сайта */
+  .hd { position: absolute; left: 0; right: 0; top: 0; z-index: 5; display: flex; align-items: center; gap: 32px; height: 84px; padding: 0 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 900 20px var(--D); text-transform: uppercase; letter-spacing: -.02em; transform: skewX(-9deg); }
+  .mark { width: 20px; height: 22px; background: var(--signal); transform: skewX(-12deg); }
+  .hd__where { font-size: 14px; line-height: 1.35; color: var(--steel); }
+  .hd__where span { display: flex; align-items: center; gap: 8px; color: var(--chalk); }
+  .hd nav { display: flex; gap: 28px; margin-left: auto; font-size: 15px; color: var(--steel); }
+  .hd__ph { font-weight: 600; }
+  .hd .btn { height: 46px; padding: 0 22px; font-size: 15px; }
+
+  /* Машина с фарами и дымом */
+  .car { position: absolute; aspect-ratio: 1536 / 1240; }
+  .car img { width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); mask-composite: intersect; }
+  .car::before { content: ""; position: absolute; left: 6%; bottom: 4%; width: 70%; height: 38%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .55), rgba(255, 255, 255, .18) 55%, transparent); filter: blur(18px); z-index: 1; mix-blend-mode: screen; }
+  .car::after { content: ""; position: absolute; left: -6%; bottom: 0; width: 46%; height: 30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent); filter: blur(24px); mix-blend-mode: screen; }
+
+  /* Три факта, как под машиной на телефоне */
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .facts li { padding: 18px 22px 0 0; font-size: 14px; color: var(--steel); line-height: 1.35; }
+  .facts li + li { padding-left: 22px; border-left: 1px solid var(--line); }
+  .facts b { display: block; margin-bottom: 4px; font: 900 24px var(--D); color: var(--chalk); letter-spacing: -.02em; }
+
+  /* Карточки услуг (карусель с телефона) */
+  .sv { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-height: 470px; padding: 36px 34px 32px; overflow: hidden; background: var(--asphalt); --k: 16px; }
+  .sv__n { font: 700 14px var(--D); color: var(--steel); }
+  .sv__t { position: relative; z-index: 1; margin-top: 18px; font-size: 32px; line-height: 1; }
+  .sv__x { position: relative; z-index: 1; max-width: 300px; margin-top: 18px; color: var(--steel); }
+  .sv__f { position: relative; z-index: 1; margin-top: 16px; padding: 7px 12px; font-size: 14px; font-weight: 600; background: var(--graphite); --k: 6px; }
+  .sv .btn { position: relative; z-index: 1; margin-top: auto; background: var(--graphite); color: var(--chalk); height: 54px; padding: 0 24px; font-size: 15px; }
+  .sv__tire { position: absolute; right: -110px; bottom: -60px; width: 300px; opacity: .3; }
+  .sv.now { background: var(--signal); color: #fff; }
+  .sv.now .sv__n { color: rgba(255, 255, 255, .75); }
+  .sv.now .sv__x { color: rgba(255, 255, 255, .92); }
+  .sv.now .sv__f { background: rgba(0, 0, 0, .22); }
+  .sv.now .btn { background: var(--rubber); }
+  .sv.now .sv__tire { opacity: .9; }
+  .ticks { display: flex; flex: 1; gap: 6px; margin-right: 12px; }
+  .ticks i { flex: 1; height: 6px; background: var(--graphite); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+  .ticks i.on { background: var(--signal); }
+  .nb { display: grid; place-items: center; width: 56px; height: 56px; background: var(--graphite); font-size: 28px; --k: 10px; }
+  .nb.r { background: var(--signal); }
+  .count { font: 700 16px var(--D); color: var(--steel); }
+  .count b { font-weight: 900; font-size: 48px; letter-spacing: -.03em; color: var(--chalk); }
+
+  /* Карточки цен с фото */
+  .pc { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; align-items: end; gap: 20px 12px; min-height: 230px; padding: 28px; background: var(--asphalt); --k: 20px; clip-path: polygon(0 0, calc(100% - var(--k)) 0, 100% var(--k), 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
+  .pc__ph { position: absolute; inset: 0; background: center right / cover no-repeat; filter: grayscale(1); -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); }
+  .pc__ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 15, 18, .55), transparent 50%); }
+  .pc b { position: relative; grid-column: 1 / -1; align-self: start; max-width: 78%; font: 900 22px/1.1 var(--D); letter-spacing: -.02em; }
+  .pc small { display: block; margin-top: 8px; font: 400 14px/1.4 var(--T); color: var(--steel); letter-spacing: 0; }
+  .pc .arr { position: relative; grid-column: 1; grid-row: 2; }
+  .pc span { position: relative; grid-column: 2; grid-row: 2; font: 900 28px var(--D); letter-spacing: -.02em; text-align: right; }
+  .redhead { position: relative; color: #fff; background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal); }
+
+  /* Лента времени */
+  .tl { position: relative; }
+  .tl__s { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; padding-bottom: 32px; position: relative; }
+  .tl__s::before { content: ""; position: absolute; left: 62px; top: 9px; z-index: 1; width: 13px; height: 13px; margin-left: -6.5px; background: var(--graphite); transform: rotate(45deg); }
+  .tl__n { padding-top: 2px; font: 700 15px var(--D); color: var(--line); text-align: right; }
+  .tl__s b { display: block; font: 700 20px/1.2 var(--D); letter-spacing: -.015em; color: var(--steel); }
+  .tl__s p { margin-top: 6px; color: var(--steel); opacity: .55; }
+  .tl__s.on .tl__n { color: var(--signal); }
+  .tl__s.on::before { background: var(--signal); }
+  .tl__s.on b { color: var(--chalk); }
+  .tl__s.on p { opacity: 1; }
+  .tl__line { position: absolute; left: 62px; top: 10px; bottom: 30px; width: 4px; margin-left: -2px; background: var(--graphite); }
+  .tl__line i { position: absolute; left: 0; top: 0; width: 100%; background: var(--signal); }
+  .tl__wh { position: absolute; left: 50%; width: 38px; height: 38px; max-width: none; margin: -19px 0 0 -19px; transform: rotate(40deg); filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .8)); }
+  .tl__start { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; align-items: center; margin-bottom: 20px; }
+  .tl__start b { font: 700 15px var(--D); color: var(--signal); text-align: right; }
+  .tl__start span { font-size: 14px; color: var(--steel); }
+  .endcard { padding: 36px 40px; background: var(--signal); color: #fff; --k: 18px; }
+  .endcard .d { font-size: 96px; }
+  .endcard p:last-child { margin-top: 14px; font-size: 17px; color: rgba(255, 255, 255, .92); }
+
+  /* Плашки колеса */
+  .tag { position: relative; display: grid; align-content: start; gap: 8px; padding: 26px 28px; min-height: 160px; background: var(--asphalt); border-left: 3px solid var(--signal); --k: 12px; }
+  .tag b { font: 900 22px/1.05 var(--D); letter-spacing: -.02em; }
+  .tag span { color: var(--steel); font-size: 15px; }
+  .tag.big { background: var(--signal); color: #fff; border-left: 0; }
+  .tag.big b { font-size: 38px; transform: skewX(-9deg); transform-origin: left bottom; }
+  .tag.big span { color: rgba(255, 255, 255, .9); }
+  .wh { position: relative; }
+  .wh img { width: 100%; }
+  .wh::before { content: ""; position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(227, 38, 28, .35), transparent 75%); filter: blur(30px); }
+  .pin { position: absolute; left: 50%; top: -18px; width: 22px; height: 16px; margin-left: -11px; background: var(--signal); clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 2; }
+
+  /* Красные панели «Без сюрпризов» */
+  .rp { position: relative; overflow: hidden; padding: 44px 34px 52px; color: #fff; --k: 18px; background: repeating-linear-gradient(-63deg, transparent 0 56px, rgba(0, 0, 0, .11) 56px 112px), radial-gradient(90% 60% at 0 0, #ff4b33 0, transparent 70%), var(--signal); }
+  .rp__big { font-size: 54px; line-height: .95; }
+  .rp h3 { margin: 16px 0 26px; font: 600 18px var(--T); color: rgba(255, 255, 255, .9); }
+  .note-card { position: relative; display: grid; gap: 12px; padding: 24px 24px 24px 22px; background: var(--rubber); box-shadow: 0 0 0 6px rgba(255, 255, 255, .92), 0 20px 40px rgba(0, 0, 0, .35); transform: rotate(-2.5deg); }
+  .note-card li { position: relative; padding-left: 22px; font-size: 15px; color: #c9cbd1; }
+  .note-card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 12px; background: var(--signal); transform: skewX(-14deg); }
+  .rot2 { transform: rotate(2deg); }
+
+  /* Вопросы */
+  .fq { border-top: 1px solid var(--line); }
+  .fq li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); font: 700 21px/1.25 var(--D); letter-spacing: -.015em; }
+  .fq li::after { content: "+"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open { display: block; }
+  .fq li.open::after { display: none; }
+  .fq li.open > div { display: flex; justify-content: space-between; gap: 24px; }
+  .fq li.open > div::after { content: "−"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open p { max-width: 640px; margin-top: 14px; font: 400 17px/1.55 var(--T); color: var(--steel); letter-spacing: 0; }
+
+  /* Запись */
+  .bk { padding: 32px; background: var(--asphalt); --k: 18px; }
+  .bk__kick { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--steel); }
+  .bk__time { margin-top: 10px; font-size: 150px; line-height: .9; }
+  .bk__day { margin-top: 14px; font-size: 17px; }
+  .bk__day b { font-weight: 600; }
+  .bk__day span { margin-left: 10px; color: var(--steel); }
+  .bk__other { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-weight: 600; }
+  .bk__other::after { content: ""; width: 10px; height: 10px; margin-top: -6px; border-right: 2px solid var(--signal); border-bottom: 2px solid var(--signal); transform: rotate(45deg); }
+  .fld { display: grid; gap: 8px; margin-top: 20px; font-size: 15px; color: var(--steel); }
+  .fld i { display: flex; align-items: center; height: 58px; padding: 0 18px; font-style: normal; color: #6e717a; border: 1px solid var(--line); background: var(--rubber); }
+  .cons { display: flex; gap: 12px; margin-top: 20px; font-size: 14px; color: var(--steel); }
+  .cons::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 1px; border: 1.5px solid var(--steel); }
+  .cons u { color: var(--chalk); }
+  .day { display: grid; place-items: center; gap: 2px; width: 72px; height: 76px; background: var(--graphite); font-size: 13px; color: var(--steel); --k: 10px; }
+  .day b { font: 900 24px var(--D); color: var(--chalk); }
+  .day.on { background: var(--signal); color: #fff; }
+  .day.on b { color: #fff; }
+  .slot { display: grid; place-items: center; height: 50px; font: 600 15px var(--T); background: var(--graphite); --k: 8px; }
+  .slot.off { background: transparent; color: #4a4c54; box-shadow: inset 0 0 0 1px #2b2b32; }
+  .slot.on { background: var(--chalk); color: var(--rubber); }
+
+  /* Карта-схема */
+  .map { position: relative; overflow: hidden; background: #1d1d23; --k: 20px; }
+  .map::before { content: ""; position: absolute; inset: 0; background:
+      linear-gradient(90deg, transparent 0 22%, #2a2a31 22% 25%, transparent 25% 61%, #2a2a31 61% 64%, transparent 64%),
+      linear-gradient(0deg, transparent 0 30%, #2a2a31 30% 35%, transparent 35% 72%, #2a2a31 72% 77%, transparent 77%); }
+  .map::after { content: ""; position: absolute; inset: 0; background:
+      repeating-linear-gradient(90deg, transparent 0 9%, rgba(255, 255, 255, .02) 9% 18%),
+      repeating-linear-gradient(0deg, transparent 0 11%, rgba(255, 255, 255, .02) 11% 22%); }
+  .map__pin { position: absolute; z-index: 2; width: 40px; height: 52px; margin: -52px 0 0 -20px; }
+  .map__path { position: absolute; z-index: 1; border-left: 3px dotted var(--signal); border-top: 3px dotted var(--signal); }
+  .map__cap { position: absolute; left: 24px; bottom: 22px; z-index: 2; padding: 8px 12px; font-size: 13px; color: var(--steel); background: rgba(15, 15, 18, .85); }
+  .rows li { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .rows li b { font-weight: 600; }
+  .rows li span { color: var(--steel); }
+  .msg { display: grid; place-items: center; width: 44px; height: 44px; background: var(--graphite); --k: 8px; }
+  .msg svg { width: 20px; height: 20px; fill: var(--chalk); }
+  /* ---------- Колесо: второй заход ---------- */
+  .ws { background: var(--rubber); }
+  .ws .d { line-height: 1.06; }
+  .kick { font: 700 14px var(--D); color: var(--signal); letter-spacing: .04em; text-transform: uppercase; }
+  .spin { animation: spin 20s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ft b { display: block; font: 900 22px/1.15 var(--D); letter-spacing: -.02em; }
+  .ft span { display: block; margin-top: 8px; color: var(--steel); font-size: 15px; line-height: 1.55; }
+
+  /* 1. Колесо в разборе */
+  .xp { position: absolute; left: 300px; top: 200px; width: 840px; height: 640px; perspective: 1400px; }
+  .xp .stack { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(-46deg) rotateX(6deg); }
+  .xp img { position: absolute; top: 40px; width: 560px; height: 560px; max-width: none; filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
+  .xp .l1 { left: 60px; transform: translateZ(-220px); }
+  .xp .l2 { left: 140px; transform: translateZ(0); }
+  .xp .l3 { left: 220px; transform: translateZ(220px); }
+  .co { position: absolute; width: 300px; }
+  .co::before { content: ""; position: absolute; top: 12px; height: 2px; background: linear-gradient(90deg, var(--signal), rgba(227,38,28,.15)); }
+  .co.r::before { right: 100%; width: var(--w, 120px); margin-right: 16px; background: linear-gradient(270deg, var(--signal), rgba(227,38,28,.15)); }
+  .co.l { text-align: right; }
+  .co.l::before { left: 100%; width: var(--w, 120px); margin-left: 16px; }
+  .co .n { font: 700 13px var(--D); color: var(--signal); }
+  .co b { display: block; margin-top: 6px; font: 900 21px/1.15 var(--D); }
+  .co span { display: block; margin-top: 6px; color: var(--steel); font-size: 14px; line-height: 1.5; }
+
+  /* 2. Фото-сетка */
+  .ph2 { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 210px; gap: 12px; }
+  .pc2 { position: relative; overflow: hidden; --k: 16px; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; background: #000 center / cover no-repeat; }
+  .pc2::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,12,.92) 8%, rgba(10,10,12,.2) 70%); }
+  .pc2 > * { position: relative; }
+  .pc2 b { font: 900 20px/1.15 var(--D); }
+  .pc2 span { margin-top: 6px; font-size: 14px; color: #c3c5cb; }
+  .big12 { position: relative; overflow: hidden; --k: 22px; padding: 34px 36px; color: #fff; background: radial-gradient(80% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal); display: flex; flex-direction: column; justify-content: space-between; }
+
+  /* 3. Гарантийный талон */
+  .cert { position: relative; width: 640px; padding: 48px 52px 44px; background: #f1efea; color: #16161a; transform: rotate(-2.5deg); box-shadow: 0 40px 80px rgba(0,0,0,.55); --k: 22px; }
+  .cert::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 18px; background: radial-gradient(circle at 9px 18px, var(--rubber) 8px, transparent 9px) 0 0 / 18px 18px repeat-x; }
+  .cert h3 { font: 900 30px/1.1 var(--D); text-transform: uppercase; letter-spacing: -.02em; }
+  .cert .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; margin-top: 26px; padding-top: 22px; border-top: 2px dashed #c9c6be; font-size: 14px; color: #6a6a72; }
+  .cert .meta b { display: block; margin-top: 3px; color: #16161a; font: 700 17px var(--T); }
+  .cert ul { margin-top: 26px; display: grid; gap: 12px; }
+  .cert li { position: relative; padding-left: 30px; font-size: 16px; line-height: 1.45; }
+  .cert li::before { content: ""; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; background: var(--signal); clip-path: polygon(14% 52%, 0 66%, 38% 100%, 100% 22%, 86% 8%, 38% 72%); }
+  .stamp { position: absolute; right: -40px; top: 40px; width: 190px; height: 190px; border-radius: 50%; display: grid; place-items: center; text-align: center; color: var(--signal); border: 5px solid var(--signal); transform: rotate(14deg); font: 900 16px/1.1 var(--D); text-transform: uppercase; box-shadow: inset 0 0 0 6px #f1efea, inset 0 0 0 8px var(--signal); background: rgba(241,239,234,.6); }
+  .stamp b { display: block; font-size: 52px; line-height: .95; }
+
+  /* 4. Колесо вместо буквы О */
+  .giant { display: flex; align-items: center; font-size: 200px; line-height: .9; white-space: nowrap; }
+  .giant .o { position: relative; display: inline-block; width: .82em; height: .82em; margin: 0 .02em; transform: skewX(9deg); }
+  .giant .o img { width: 100%; height: 100%; }
+  .mq { display: flex; gap: 0; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .mq span { flex: none; padding: 26px 36px; font: 900 26px var(--D); text-transform: uppercase; letter-spacing: -.02em; white-space: nowrap; }
+  .mq span i { display: inline-block; width: 12px; height: 18px; margin-left: 36px; background: var(--signal); transform: skewX(-14deg); }
+  .mq span.red { color: var(--signal); }
+
+  /* 5. Сцена: одна гарантия крупно */
+  .scene { position: relative; height: 900px; overflow: hidden; background: radial-gradient(60% 70% at 72% 55%, #2a1212 0, var(--rubber) 60%); }
+  .scene .whl { position: absolute; right: -60px; top: 120px; width: 720px; }
+  .scene .whl img { position: absolute; inset: 0; width: 100%; }
+  .scene .txt { position: absolute; left: 64px; top: 200px; width: 680px; }
+  .prog { display: flex; gap: 8px; }
+  .prog i { width: 48px; height: 5px; background: var(--graphite); }
+  .prog i.on { background: var(--signal); }
+  .prog i.done { background: #5a2420; }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>Колесо вернётся целым:<br><em>второй заход</em></h1>
+  <p>Ушёл от «плашек вокруг колеса». Здесь колесо в разборе, фото из мастерской, настоящий гарантийный талон, огромная типографика и кинематографичная сцена. Кадры в ширину компьютера 1440 px. Телефон не трогаю.</p>
+  <nav class="jump"><a href="#v1">1 Колесо в разборе</a><a href="#v2">2 Фото из мастерской</a><a href="#v3">3 Гарантийный талон</a><a href="#v4">4 Колесо вместо «О»</a><a href="#v5">5 Сцена</a></nav>
+</header>
+
+<section class="blk" id="v1">
+  <div class="blk__h"><b>1</b><h2>Колесо в разборе</h2><span>колесо раскладывается на слои,<br>к каждой части — что мы гарантируем</span></div>
+  <div class="var"><div class="var__h"><strong>При прокрутке колесо «разбирается» на шину, суппорт и диск — как на техническом чертеже</strong><span>От каждой части тянется выноска: шина — порезы и проколы, диск — правка без царапин, внутри — азот и балансировка. Самое эффектное из всех.</span></div>
+    <div class="fr"><div class="s ws" style="height:900px">
+      <div class="pad" style="padding-bottom:0"><p class="kick">Гарантии</p><h2 class="d" style="margin-top:14px;font-size:72px;white-space:nowrap">Колесо вернётся целым</h2></div>
+      <div class="xp"><div class="stack"><img class="l1" src="../protektor/assets/wheel/back.webp" alt=""><img class="l2" src="../protektor/assets/wheel/cal.webp" alt=""><img class="l3" src="../protektor/assets/wheel/front.webp" alt=""></div></div>
+      <div class="co l" style="left:64px;top:330px;--w:170px"><p class="n">ДИСК</p><b>Без царапин</b><span>Пластиковые насадки на станке, металл не касается обода</span></div>
+      <div class="co l" style="left:64px;top:600px;--w:170px"><p class="n">ПОСЛЕ ЯМЫ</p><b>Правим литые диски</b><span>После ям и бордюров</span></div>
+      <div class="co r" style="left:1076px;top:290px;--w:110px"><p class="n">ШИНА</p><b>Ремонт проколов и порезов</b><span>На прокол — гарантия 12 месяцев</span></div>
+      <div class="co r" style="left:1076px;top:500px;--w:140px"><p class="n">ВНУТРИ</p><b>Азот в шины бесплатно</b><span>Давление держится дольше</span></div>
+      <div class="co r" style="left:1076px;top:700px;--w:90px"><p class="n">СБОРКА</p><b>Финишная балансировка</b><span>Прямо на машине, если бьёт руль</span></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v2">
+  <div class="blk__h"><b>2</b><h2>Фото из мастерской</h2><span>гарантии на настоящих<br>фото работы</span></div>
+  <div class="var"><div class="var__h"><strong>Журнальная сетка: красная плитка «12 месяцев» и фото из мастерской с подписями</strong><span>Живые чёрно-белые кадры работы вместо иконок — выглядит дорого и честно. При наведении фото слегка приближается.</span></div>
+    <div class="fr"><div class="s ws pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:48px"><h2 class="d" style="font-size:80px">Колесо вернётся<br>целым</h2><p class="lead" style="max-width:380px">Шесть вещей, которые мы делаем, чтобы колесо уехало таким же, каким приехало.</p></div>
+      <div class="ph2" style="margin-top:52px">
+        <div class="big12 c" style="grid-column:span 2;grid-row:span 2"><p style="font-size:15px;color:rgba(255,255,255,.85)">Главная гарантия</p><div><p class="d" style="font-size:150px;line-height:.9">12</p><p class="d" style="font-size:46px">месяцев</p><p style="margin-top:16px;font-size:16px;line-height:1.55;color:rgba(255,255,255,.92)">на ремонт прокола: начнёт спускать — переделаем бесплатно</p></div></div>
+        <div class="pc2 c" style="grid-column:span 2;background-image:url(../protektor/assets/prices/disk.webp)"><b>Правим литые диски</b><span>после ям и бордюров</span></div>
+        <div class="pc2 c" style="grid-column:span 2;background-image:url(../protektor/assets/prices/finish.webp)"><b>Финишная балансировка</b><span>прямо на автомобиле</span></div>
+        <div class="pc2 c" style="grid-column:span 2;background-image:url(../protektor/assets/prices/porez.webp)"><b>Ремонт боковых порезов</b><span>не только проколов</span></div>
+        <div class="pc2 c" style="grid-column:span 1;background-image:url(../protektor/assets/prices/azot.webp)"><b>Азот</b><span>бесплатно</span></div>
+        <div class="pc2 c" style="grid-column:span 1;background-image:url(../protektor/assets/prices/balans.webp)"><b>Кофе</b><span>пока ждёте</span></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v3">
+  <div class="blk__h"><b>3</b><h2>Гарантийный талон</h2><span>гарантия как настоящий<br>документ с печатью</span></div>
+  <div class="var"><div class="var__h"><strong>Светлый гарантийный талон с красной печатью «12 месяцев» на тёмном фоне</strong><span>Единственный светлый элемент на тёмном сайте — сразу притягивает взгляд. В талоне: что покрыто гарантией и как ей воспользоваться. Справа колесо и остальные плюсы.</span></div>
+    <div class="fr"><div class="s ws pad" style="height:960px">
+      <div style="display:grid;grid-template-columns:1fr 640px;gap:80px;align-items:start">
+        <div>
+          <p class="kick">Гарантии</p>
+          <h2 class="d" style="margin-top:14px;font-size:80px">Колесо<br>вернётся<br>целым</h2>
+          <div style="margin-top:52px;display:grid;gap:26px;max-width:460px" data-side></div>
+        </div>
+        <div style="position:relative;padding-top:20px">
+          <div style="position:absolute;right:-140px;top:300px;width:520px;opacity:.9"><img class="spin" src="../protektor/assets/wheel/full.webp" alt="" style="width:100%"></div>
+          <div class="cert">
+            <p style="font:700 13px var(--D);color:#9a9890;letter-spacing:.06em">ПРОТЕКТОР · ГАРАНТИЙНЫЙ ТАЛОН</p>
+            <h3 style="margin-top:16px">Гарантия на ремонт<br>прокола</h3>
+            <div class="meta"><div>Срок<b>12 месяцев</b></div><div>Что нужно<b>Номер телефона</b></div><div>Где<b>Варшавское ш., 118</b></div><div>Стоимость<b>Бесплатно</b></div></div>
+            <ul><li>Колесо начало спускать в месте ремонта — переделаем бесплатно</li><li>Достаточно назвать телефон, на который была запись</li><li>Боковые порезы ремонтируем тоже — о гарантии скажем после осмотра</li></ul>
+            <div class="stamp"><div>гарантия<b>12</b>месяцев</div></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v4">
+  <div class="blk__h"><b>4</b><h2>Колесо вместо «О»</h2><span>огромный заголовок,<br>колесо — буква «О»</span></div>
+  <div class="var"><div class="var__h"><strong>Заголовок на весь экран, вместо буквы «О» в «КОЛЕСО» крутится настоящее колесо</strong><span>Ниже бегущая строка из гарантий, как лента протектора, и три коротких факта. Дерзко и запоминается.</span></div>
+    <div class="fr"><div class="s ws" style="padding:110px 0 100px">
+      <div style="padding:0 64px">
+        <div class="d giant">к<span class="o"><img class="spin" src="../protektor/assets/wheel/full.webp" alt=""></span>лес<span class="o"><img class="spin" src="../protektor/assets/wheel/full.webp" alt=""></span></div>
+        <div class="d giant" style="font-size:104px;margin-top:14px">вернётся <span class="red" style="margin-left:.2em">целым</span></div>
+      </div>
+      <div class="mq" style="margin-top:56px"><span class="red">12 месяцев на прокол<i></i></span><span>финишная балансировка<i></i></span><span>правим литые диски<i></i></span><span class="red">азот бесплатно<i></i></span><span>ремонт порезов<i></i></span><span>кофе пока ждёте<i></i></span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;padding:48px 64px 0">
+        <div class="ft"><b>Без царапин</b><span>На станке пластиковые насадки — металл не касается обода.</span></div>
+        <div class="ft"><b>12 месяцев</b><span>Гарантия на ремонт прокола. Достаточно назвать телефон.</span></div>
+        <div class="ft"><b>До сезона</b><span>Храним комплект, каждое колесо подписано.</span></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v5">
+  <div class="blk__h"><b>5</b><h2>Сцена</h2><span>одна гарантия за раз,<br>крупно, как кадры фильма</span></div>
+  <div class="var"><div class="var__h"><strong>Тёмная сцена с красным светом: колесо справа, слева одна гарантия крупным текстом</strong><span>При прокрутке гарантии сменяют друг друга, как титры: 01, 02, 03… Колесо поворачивается на каждой. Внизу полоска прогресса.</span></div>
+    <div class="fr"><div class="s scene">
+      <div class="whl"><img src="../protektor/assets/wheel/light.webp" alt="" style="opacity:.9"><img class="spin" src="../protektor/assets/wheel/back.webp" alt=""><img src="../protektor/assets/wheel/cal.webp" alt=""><img class="spin" src="../protektor/assets/wheel/front.webp" alt=""></div>
+      <div style="position:absolute;left:64px;top:96px"><p class="kick">Колесо вернётся целым</p></div>
+      <div class="txt">
+        <p style="font:900 22px var(--D);color:var(--steel)"><span style="color:var(--chalk)">03</span> / 06</p>
+        <h2 class="d" style="margin-top:24px;font-size:96px">Правим<br>литые диски</h2>
+        <p style="margin-top:30px;max-width:460px;font-size:20px;line-height:1.6;color:var(--steel)">Поймали яму или бордюр — выправим диск, чтобы колесо снова держало давление и не било в руль.</p>
+      </div>
+      <div class="prog" style="position:absolute;left:64px;bottom:80px"><i class="done"></i><i class="done"></i><i class="on"></i><i></i><i></i><i></i></div>
+      <p class="mut" style="position:absolute;left:400px;bottom:72px;font-size:14px">листайте — следующая гарантия</p>
+    </div></div>
+  </div>
+</section>
+
+<p class="note"><b>Как выбирать:</b> напишите номер, можно смешать. Соберу только для компьютера, телефон не трогаю.</p>
+
+<script>
+  const fit = () => document.querySelectorAll('.fr').forEach(f => f.style.setProperty('--z', f.clientWidth / 1440));
+  addEventListener('resize', fit);
+  document.querySelectorAll('[data-side]').forEach(e => e.innerHTML = [['Без царапин', 'На станке пластиковые насадки — металл не касается обода.'], ['Финишная балансировка', 'Прямо на автомобиле, если руль бьёт после обычной.'], ['Азот бесплатно', 'Для всех клиентов, давление держится дольше.']].map((t, i) => `<div class="ft" style="display:grid;grid-template-columns:44px 1fr;gap:4px 16px"><span class="kick" style="margin:2px 0 0;color:var(--signal)">0${i + 2}</span><div><b>${t[0]}</b><span>${t[1]}</span></div></div>`).join(''));
+  fit();
+</script>
+</body>
+</html>
