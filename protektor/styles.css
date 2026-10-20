@@ -1580,3 +1580,10 @@ main { overflow-x: clip; }
     mask-composite: intersect;
   }
 }
+
+/* Компьютер: «25 минут» — этапы слева, заголовок и таймер справа */
+@media (min-width: 1081px) {
+  .visit__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .visit__head, .visit__bar { grid-column: 2; }
+  .mtl { grid-column: 1; }
+}
