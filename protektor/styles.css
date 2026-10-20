@@ -1356,18 +1356,19 @@ main { overflow-x: clip; }
     clip-path: none; filter: blur(10px);
     background: radial-gradient(100% 50% at 100% 50%, rgba(255, 250, 235, 0.5) 0, rgba(255, 250, 235, 0.16) 45%, transparent 75%);
   }
-  .hero__call { display: none; }
-  .hero__info { display: block; position: absolute; z-index: 2; left: var(--pad); bottom: 78px; width: clamp(470px, 46vw, 680px); }
+  .hero__actions { display: none; }
+  .hero__info { display: block; width: clamp(440px, 40vw, 540px); margin-top: 44px; }
+  .hero__nums li { white-space: nowrap; }
   .hero__nums { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-  .hero__nums li { padding: 20px 20px 0 0; font-size: 14px; line-height: 1.4; color: var(--steel); }
-  .hero__nums li + li { padding-left: 22px; border-left: 1px solid var(--line); }
-  .hero__nums b { display: block; margin-bottom: 6px; font-family: var(--display); font-weight: 900; font-size: 24px; letter-spacing: -0.02em; color: var(--chalk); }
-  .hero__contact { display: flex; align-items: center; gap: 10px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
-  .hero__tel { margin-right: 14px; white-space: nowrap; font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; transition: color 0.2s; }
+  .hero__nums li { padding: 16px 16px 0 0; font-size: 13px; line-height: 1.4; color: var(--steel); }
+  .hero__nums li + li { padding-left: 18px; border-left: 1px solid var(--line); }
+  .hero__nums b { display: block; margin-bottom: 4px; font-family: var(--display); font-weight: 900; font-size: 19px; letter-spacing: -0.02em; color: var(--chalk); }
+  .hero__contact { display: flex; align-items: center; gap: 8px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .hero__contact .msg { width: 40px; height: 40px; }
+  .hero__tel { margin-right: 12px; white-space: nowrap; font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; transition: color 0.2s; }
   .hero__tel:hover { color: var(--signal); }
-  .hero__addr { margin-right: auto; white-space: nowrap; color: var(--steel); font-size: 15px; }
-  .motion .hero:not(.is-in) .hero__info { opacity: 0; transform: translateY(18px); }
-  .motion .hero.is-in .hero__info { transition: opacity 0.8s var(--ease) 0.45s, transform 0.9s var(--ease) 0.45s; }
+  .hero__addr { margin-right: auto; white-space: nowrap; color: var(--steel); font-size: 14px; }
+  .motion .hero.is-in .hero__copy > .hero__info { transition-delay: 0.45s; }
 
   /* Воздух в тексте карточек */
   .mcar__t { line-height: 1.02; }
@@ -1524,21 +1525,23 @@ main { overflow-x: clip; }
   .book__col--send .book__error { grid-column: 1 / -1; min-height: 0; }
 
   /* Как доехать: схема на весь блок, адрес и кнопки — в красной карточке поверх */
-  .where { position: relative; min-height: 880px; padding: 110px 0; }
+  .where { position: relative; min-height: 820px; padding: 110px 0; }
   .where__inner { display: block; }
   .where__map { position: absolute; inset: 0; min-height: 0; clip-path: none; }
-  .where__map-note { left: var(--pad); right: auto; bottom: 28px; }
+  .where__map-note { left: auto; right: var(--pad); bottom: 28px; }
+  .where__map svg { transform: scaleX(-1); }
   .where__text {
-    position: relative; z-index: 1; width: 470px; margin-left: auto; padding: 52px 48px 50px; color: #fff;
+    position: relative; z-index: 1; width: 420px; padding: 44px 40px 42px; color: #fff;
     background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal);
     clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 32px 100%, 0 calc(100% - 32px));
   }
-  .where__title { font-size: 60px; line-height: 0.98; }
-  .where__addr { margin-top: 30px; font-size: 21px; line-height: 1.3; }
+  .where__title { font-size: 52px; line-height: 0.98; }
+  .where__addr { margin-top: 24px; font-size: 19px; line-height: 1.3; }
   .where__list { margin-top: 26px; }
-  .where__list li { grid-template-columns: 104px 1fr; padding: 20px 0; border-top-color: rgba(255, 255, 255, 0.28); font-size: 15px; line-height: 1.55; }
+  .where__list li { grid-template-columns: 96px 1fr; padding: 16px 0; border-top-color: rgba(255, 255, 255, 0.28); font-size: 15px; line-height: 1.55; }
   .where__list span { color: rgba(255, 255, 255, 0.88); }
-  .where__btns { margin-top: 36px; }
+  .where__btns { margin-top: 30px; }
+  .where__btns .cut { height: 52px; padding: 0 22px; }
   .where__btns .cut--red { flex: 1; background: var(--rubber); }
   .where__btns .cut--red:hover { background: #000; }
   .where__btns .cut--line { background: rgba(0, 0, 0, 0.25); color: #fff; }
