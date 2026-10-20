@@ -185,6 +185,16 @@
         <!-- Только на телефоне: три коротких факта под колесом -->
         <ul class="hero__facts"><li><b>2 линии</b>без очереди</li><li><b>R13–R22</b>легковые и кроссоверы</li><li><b>8–22</b>без выходных</li></ul>
       </div>
+      <!-- Только на компьютере: факты и контакты внизу первого экрана -->
+      <div class="hero__info">
+        <ul class="hero__nums"><li><b>2 линии</b>без очереди</li><li><b>R13–R22</b>легковые и кроссоверы</li><li><b>8–22</b>без выходных</li></ul>
+        <div class="hero__contact">
+          <a class="hero__tel" href="tel:+70000000000">+7 (000) 000-00-00</a>
+          <span class="hero__addr">[город], [адрес]</span>
+          <a class="msg" href="https://t.me/[telegram]" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 4.2 2.9 11.3c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.3-1.4zM8.6 14l9.3-5.9c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.2z"/></svg></a>
+          <a class="msg" href="https://wa.me/70000000000" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg></a>
+        </div>
+      </div>
       <div class="tread" aria-hidden="true"><div class="tread__belt" data-belt></div></div>
     </section>
 
@@ -321,7 +331,11 @@
             <h2 class="display visit__title" id="visit-title">25 минут<br>от заезда до выезда</h2>
             <p class="visit__note">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p>
           </div>
-          <div class="visit__timer" aria-hidden="true"><span id="visit-timer">00:00</span></div>
+          <div class="visit__bar">
+            <div class="visit__timer" aria-hidden="true"><span id="visit-timer">00:00</span></div>
+            <p class="visit__bar-t">Через 25 минут вы уже едете. А в следующий сезон — снова на своё время.</p>
+            <a class="cut cut--ink cut--lg visit__bar-go" href="#book">Выбрать время</a>
+          </div>
           <ol class="visit__steps" id="visit-steps">
             <li><b>Приезжаете к своему времени</b><span>Записались на 14:30 — в 14:30 машина уже на подъёмнике.</span></li>
             <li><b>Ждёте с кофе</b><span>В комнате ожидания тепло, есть кофе и видно, как идёт работа.</span></li>
@@ -330,7 +344,7 @@
             <li><b>Накачиваем азотом</b><span>Бесплатно. Затягиваем колёса и проверяем давление.</span></li>
             <li><b>Выезжаете</b><span>Через 25 минут после того, как заехали.</span></li>
           </ol>
-          <div class="visit__rail" aria-hidden="true"><i id="visit-rail"></i></div>
+          <div class="visit__rail" aria-hidden="true"><i id="visit-rail"><img class="visit__wh" id="visit-wh" src="assets/tire.svg" alt="" width="44" height="44"></i></div>
           <!-- Только на телефоне: лента времени без закрепления, линия заполняется по прокрутке -->
           <div class="mtl" id="mtl">
             <p class="mtl__start"><b>00:00</b><span>заезд</span></p>
@@ -539,6 +553,13 @@
           <details class="faq__item"><summary>Можно оплатить картой?</summary><p>[уточнить способы оплаты]</p></details>
           <details class="faq__item"><summary>Где подождать?</summary><p>В комнате ожидания: там тепло, есть кофе и видно, как идёт работа.</p></details>
         </div>
+        <!-- Только на компьютере: ответ на выбранный вопрос -->
+        <div class="faq__card" id="faq-card" aria-live="polite">
+          <p class="faq__card-n" id="faq-n">01 / 06</p>
+          <h3 class="display faq__card-q" id="faq-q"></h3>
+          <p class="faq__card-a" id="faq-a"></p>
+          <a class="cut cut--ink cut--lg" href="#book">Выбрать время</a>
+        </div>
       </div>
     </section>
 
@@ -601,14 +622,21 @@
         <p class="mbook__voice" id="mbook-voice">Удобнее голосом? <a href="tel:+70000000000">+7 (000) 000-00-00</a></p>
 
         <form class="book__form" id="book-form" novalidate>
-          <fieldset class="book__col">
+          <!-- Только на компьютере: выбранное время крупно в красной плашке -->
+          <div class="book__now">
+            <p class="book__now-kick"><i class="dot"></i><span id="bnow-kick">Ближайшее свободное</span></p>
+            <p class="display book__now-time" id="bnow-time">—</p>
+            <p class="book__now-day" id="bnow-day"></p>
+            <p class="book__now-what" id="bnow-what"></p>
+          </div>
+          <fieldset class="book__col book__col--when">
             <legend>День</legend>
             <div class="days" id="days" role="radiogroup" aria-label="День"></div>
             <p class="book__label" id="slots-label">Время</p>
             <div class="slots" id="slots" role="radiogroup" aria-labelledby="slots-label"></div>
           </fieldset>
 
-          <fieldset class="book__col">
+          <fieldset class="book__col book__col--what">
             <legend>Машина и услуга</legend>
             <p class="book__label">Размер дисков</p>
             <div class="chips" id="radius" role="radiogroup" aria-label="Размер дисков"></div>

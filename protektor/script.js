@@ -82,6 +82,7 @@
   var visit = $('visit');
   var timer = $('visit-timer');
   var rail = $('visit-rail');
+  var railWheel = $('visit-wh');
   var steps = Array.prototype.slice.call(document.querySelectorAll('#visit-steps li'));
   // Колесо 1080px в диаметре: при прокрутке на X пикселей «проезжает» X — поворот X / (π·d) оборотов
   var degPerPx = 360 / (Math.PI * 1080);
@@ -130,6 +131,8 @@
     var secs = Math.round(p * 25 * 60);
     timer.textContent = pad(Math.floor(secs / 60)) + ':' + pad(secs % 60);
     rail.style.width = (p * 100) + '%';
+    // колёсико катится по ленте: поворот ровно на пройденный путь
+    if (railWheel) railWheel.style.transform = 'rotate(' + (rail.parentNode.offsetWidth * p / (Math.PI * 44) * 360).toFixed(1) + 'deg)';
     var on = Math.min(steps.length, Math.floor(p * steps.length + 0.35));
     steps.forEach(function (li, i) { li.classList.toggle('is-on', i < on); });
     steps.forEach(function (li, i) { li.classList.toggle('is-now', i === Math.max(0, on - 1)); });
@@ -303,19 +306,28 @@
       }
     }
     if (state.time && items.some(function (x) { return x.value === state.time && x.disabled; })) state.time = null;
-    radioGroup($('slots'), items, function (v) { state.time = v; summary(); });
+    radioGroup($('slots'), items, function (v) { state.time = v; state.custom = true; summary(); });
   };
 
+  // Сразу предлагаем ближайшее свободное окно (на компьютере оно крупно в красной плашке)
+  state.day = dayList[0];
+  (function () {
+    var now = new Date();
+    for (var i = 0; i < dayList.length; i++) for (var h = 8; h < 22; h++) for (var m = 0; m < 60; m += 30) {
+      var slot = new Date(dayList[i]);
+      slot.setHours(h, m);
+      if (slot > now && !busy(dayList[i], h, m)) { state.day = dayList[i]; state.time = h + ':' + pad(m); return; }
+    }
+  })();
   radioGroup($('days'), dayList.map(function (dt, i) {
     return {
       cls: 'day',
       html: '<span>' + (i === 0 ? 'сегодня' : i === 1 ? 'завтра' : DAYS[dt.getDay()]) + '</span><b>' + dt.getDate() + '</b>',
       label: dt.getDate() + ' ' + MONTHS[dt.getMonth()],
       value: dt,
-      checked: i === 0
+      checked: dt === state.day
     };
   }), function (v) { state.day = v; renderSlots(); summary(); });
-  state.day = dayList[0];
   renderSlots();
 
   radioGroup($('radius'), ['R13', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20', 'R21', 'R22'].map(function (r) {
@@ -350,6 +362,12 @@
     if (mobile.checked) parts.push('с выездом к вам');
     $('summary').textContent = parts.join('. ') + '.';
     $('send').textContent = state.time ? 'Записаться на ' + state.time : 'Записаться';
+    // Красная плашка на компьютере
+    var di = dayList.indexOf(state.day);
+    $('bnow-kick').textContent = state.custom ? 'Ваше время' : 'Ближайшее свободное';
+    $('bnow-time').textContent = state.time || '—';
+    $('bnow-day').textContent = (di === 0 ? 'Сегодня' : di === 1 ? 'Завтра' : DAYS[state.day.getDay()]) + ', ' + state.day.getDate() + ' ' + MONTHS[state.day.getMonth()];
+    $('bnow-what').textContent = (w.length ? w.join(', ') : 'услуга не выбрана') + ' · ' + state.radius + (mobile.checked ? ' · выезд к вам' : '');
   };
   summary();
 
@@ -636,14 +654,62 @@
       next.disabled = i === cards.length - 1;
     };
     track.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(draw); }, { passive: true });
-    var go = function (i) { track.scrollTo({ left: i * step(), behavior: motion ? 'smooth' : 'auto' }); };
-    cards.forEach(function (c, k) { c.addEventListener('click', function (e) { if (!e.target.closest('a')) go(k); }); });
+    // Компьютер: карточки не листаются — выбранная услуга становится большой красной слева, колесо вкатывается в неё
+    var wide = matchMedia('(min-width: 1081px)');
+    var pick = function (i) {
+      if (i === cur) return;
+      cur = i;
+      num.textContent = pad(i + 1);
+      cards.forEach(function (c, k) { c.classList.toggle('is-now', k === i); c.setAttribute('aria-current', String(k === i)); });
+      if (motion && tires[i].animate) {
+        tires[i].animate([
+          { transform: 'translate3d(180px, 60px, 0) rotate(300deg)', opacity: 0 },
+          { transform: 'translate3d(0, 0, 0) rotate(0deg)', opacity: 0.9 }
+        ], { duration: 950, easing: 'cubic-bezier(.22,.8,.2,1)' });
+      }
+    };
+    var go = function (i) {
+      if (wide.matches) { pick(i); return; }
+      track.scrollTo({ left: i * step(), behavior: motion ? 'smooth' : 'auto' });
+    };
+    wide.addEventListener('change', function () { if (!wide.matches) track.scrollLeft = cur * step(); });
+    cards.forEach(function (c, k) {
+      c.tabIndex = 0;
+      c.addEventListener('click', function (e) { if (!e.target.closest('a')) go(k); });
+      c.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === c) { go(k); e.preventDefault(); } });
+    });
     prev.addEventListener('click', function () { go(Math.max(0, cur - 1)); });
     next.addEventListener('click', function () { go(Math.min(cards.length - 1, cur + 1)); });
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { go(Math.min(cards.length - 1, cur + 1)); e.preventDefault(); }
       if (e.key === 'ArrowLeft') { go(Math.max(0, cur - 1)); e.preventDefault(); }
     });
+  })();
+
+  /* ---------- Вопросы на компьютере: список слева, ответ на выбранный — в красной плашке справа ---------- */
+  (function () {
+    var card = $('faq-card');
+    if (!card) return;
+    var items = Array.prototype.slice.call(document.querySelectorAll('.faq__item'));
+    var wide = matchMedia('(min-width: 1081px)');
+    var show = function (i, anim) {
+      items.forEach(function (d, k) {
+        d.classList.toggle('is-sel', k === i);
+        d.querySelector('summary').setAttribute('aria-current', String(k === i));
+      });
+      $('faq-n').textContent = pad(i + 1) + ' / ' + pad(items.length);
+      $('faq-q').textContent = items[i].querySelector('summary').textContent;
+      $('faq-a').textContent = items[i].querySelector('p').textContent;
+      if (anim && motion) { card.classList.remove('is-swap'); void card.offsetWidth; card.classList.add('is-swap'); }
+    };
+    items.forEach(function (d, i) {
+      d.querySelector('summary').addEventListener('click', function (e) {
+        if (!wide.matches) return;
+        e.preventDefault();
+        show(i, true);
+      });
+    });
+    show(0, false);
   })();
 
   /* ---------- Лента времени: линия заполняется по прокрутке, колёсико катится по ней ---------- */
