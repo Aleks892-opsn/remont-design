@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТЕКТОР: 25 минут</title>
+<link rel="stylesheet" href="../protektor/assets/fonts.css">
+<style>
+  :root {
+    --rubber: #0f0f12; --asphalt: #18181d; --graphite: #26262d; --line: #34343c;
+    --chalk: #eeece7; --steel: #8d9099; --signal: #e3261c; --ok: #35c46a;
+    --D: "Unbounded", "Arial Black", sans-serif; --T: "Onest", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: #09090b; color: var(--chalk); font: 16px/1.5 var(--T); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
+
+  /* ---------- Страница демо ---------- */
+  .intro { max-width: 1480px; margin: 0 auto; padding: 56px 16px 24px; }
+  .intro h1 { font: 900 clamp(30px, 4.4vw, 60px)/.95 var(--D); text-transform: uppercase; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .intro h1 em { font-style: normal; color: var(--signal); }
+  .intro p { max-width: 760px; margin-top: 20px; color: var(--steel); font-size: 17px; }
+  .jump { display: flex; max-width: 100%; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .jump a { padding: 9px 14px; color: var(--chalk); text-decoration: none; font-weight: 600; font-size: 14px; background: var(--graphite); clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .jump a:hover { background: var(--signal); }
+
+  .blk { max-width: 1480px; margin: 0 auto; padding: 56px 16px 8px; scroll-margin-top: 8px; }
+  .blk__h { display: flex; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--signal); }
+  .blk__h b { font: 900 34px/1 var(--D); color: var(--signal); }
+  .blk__h h2 { font: 900 clamp(22px, 2.6vw, 34px)/1 var(--D); text-transform: uppercase; letter-spacing: -.03em; transform: skewX(-9deg); }
+  .blk__h span { margin-left: auto; color: var(--steel); font-size: 14px; text-align: right; }
+
+  @media (max-width: 700px) { .blk__h span { display: none; } .intro h1 { font-size: 27px; } }
+  .var { margin-top: 30px; }
+  .var__h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 12px; }
+  .var__h b { display: inline-grid; place-items: center; min-width: 40px; height: 34px; padding: 0 10px; font: 900 16px var(--D); background: var(--signal); color: #fff; clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
+  .var__h strong { font-size: 18px; }
+  .var__h span { color: var(--steel); font-size: 15px; flex-basis: 100%; }
+  @media (min-width: 900px) { .var__h span { flex-basis: auto; } }
+
+  /* Кадр 1440 px, уменьшается под ширину экрана */
+  .fr { overflow: hidden; border-radius: 12px; outline: 1px solid #222228; background: var(--rubber); }
+  .s { position: relative; width: 1440px; zoom: var(--z, 1); background: var(--rubber); overflow: hidden; }
+  .s::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; background-image: url("../protektor/assets/grain.svg"); z-index: 50; }
+  .pad { padding: 104px 64px; }
+  .note { max-width: 1480px; margin: 40px auto 0; padding: 0 16px 80px; color: var(--steel); }
+  .note b { color: var(--chalk); }
+
+  /* ---------- Общие элементы сайта ---------- */
+  .d { font-family: var(--D); font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.035em; transform: skewX(-9deg); transform-origin: left bottom; }
+  .c { --k: 14px; clip-path: polygon(var(--k) 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%, 0 var(--k)); }
+  .btn { --k: 12px; display: inline-flex; align-items: center; justify-content: center; height: 58px; padding: 0 32px; font: 600 16px var(--T); color: #fff; background: var(--signal); white-space: nowrap; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--k)), calc(100% - var(--k)) 100%, 0 100%); }
+  .btn--ink { background: var(--rubber); }
+  .btn--gr { background: var(--graphite); color: var(--chalk); }
+  .btn--lg { height: 68px; padding: 0 44px; font-size: 17px; }
+  .red { color: var(--signal); }
+  .mut { color: var(--steel); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(53, 196, 106, .18); }
+  .tread { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; background: url("../protektor/assets/tread-white.svg") 0 50% / auto 30px repeat-x; opacity: .95; }
+  .arr { display: grid; place-items: center; width: 56px; height: 56px; flex: none; background: var(--signal); --k: 10px; }
+  .arr::after { content: ""; width: 12px; height: 12px; margin-left: -4px; border-top: 2.5px solid #fff; border-right: 2.5px solid #fff; transform: rotate(45deg); }
+  .chip { display: inline-grid; place-items: center; height: 44px; padding: 0 16px; font: 600 15px var(--T); background: rgba(0, 0, 0, .22); color: #fff; --k: 8px; }
+  .chip.on { background: var(--chalk); color: var(--rubber); }
+  .lead { font-size: 17px; color: var(--steel); line-height: 1.5; }
+  .lead b { color: var(--chalk); font-weight: 600; }
+  .sec-t { font-size: 104px; }
+
+  /* Шапка сайта */
+  .hd { position: absolute; left: 0; right: 0; top: 0; z-index: 5; display: flex; align-items: center; gap: 32px; height: 84px; padding: 0 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 900 20px var(--D); text-transform: uppercase; letter-spacing: -.02em; transform: skewX(-9deg); }
+  .mark { width: 20px; height: 22px; background: var(--signal); transform: skewX(-12deg); }
+  .hd__where { font-size: 14px; line-height: 1.35; color: var(--steel); }
+  .hd__where span { display: flex; align-items: center; gap: 8px; color: var(--chalk); }
+  .hd nav { display: flex; gap: 28px; margin-left: auto; font-size: 15px; color: var(--steel); }
+  .hd__ph { font-weight: 600; }
+  .hd .btn { height: 46px; padding: 0 22px; font-size: 15px; }
+
+  /* Машина с фарами и дымом */
+  .car { position: absolute; aspect-ratio: 1536 / 1240; }
+  .car img { width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 22%, #000 80%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 88%, transparent 100%); mask-composite: intersect; }
+  .car::before { content: ""; position: absolute; left: 6%; bottom: 4%; width: 70%; height: 38%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .55), rgba(255, 255, 255, .18) 55%, transparent); filter: blur(18px); z-index: 1; mix-blend-mode: screen; }
+  .car::after { content: ""; position: absolute; left: -6%; bottom: 0; width: 46%; height: 30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent); filter: blur(24px); mix-blend-mode: screen; }
+
+  /* Три факта, как под машиной на телефоне */
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .facts li { padding: 18px 22px 0 0; font-size: 14px; color: var(--steel); line-height: 1.35; }
+  .facts li + li { padding-left: 22px; border-left: 1px solid var(--line); }
+  .facts b { display: block; margin-bottom: 4px; font: 900 24px var(--D); color: var(--chalk); letter-spacing: -.02em; }
+
+  /* Карточки услуг (карусель с телефона) */
+  .sv { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-height: 470px; padding: 36px 34px 32px; overflow: hidden; background: var(--asphalt); --k: 16px; }
+  .sv__n { font: 700 14px var(--D); color: var(--steel); }
+  .sv__t { position: relative; z-index: 1; margin-top: 18px; font-size: 32px; line-height: 1; }
+  .sv__x { position: relative; z-index: 1; max-width: 300px; margin-top: 18px; color: var(--steel); }
+  .sv__f { position: relative; z-index: 1; margin-top: 16px; padding: 7px 12px; font-size: 14px; font-weight: 600; background: var(--graphite); --k: 6px; }
+  .sv .btn { position: relative; z-index: 1; margin-top: auto; background: var(--graphite); color: var(--chalk); height: 54px; padding: 0 24px; font-size: 15px; }
+  .sv__tire { position: absolute; right: -110px; bottom: -60px; width: 300px; opacity: .3; }
+  .sv.now { background: var(--signal); color: #fff; }
+  .sv.now .sv__n { color: rgba(255, 255, 255, .75); }
+  .sv.now .sv__x { color: rgba(255, 255, 255, .92); }
+  .sv.now .sv__f { background: rgba(0, 0, 0, .22); }
+  .sv.now .btn { background: var(--rubber); }
+  .sv.now .sv__tire { opacity: .9; }
+  .ticks { display: flex; flex: 1; gap: 6px; margin-right: 12px; }
+  .ticks i { flex: 1; height: 6px; background: var(--graphite); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+  .ticks i.on { background: var(--signal); }
+  .nb { display: grid; place-items: center; width: 56px; height: 56px; background: var(--graphite); font-size: 28px; --k: 10px; }
+  .nb.r { background: var(--signal); }
+  .count { font: 700 16px var(--D); color: var(--steel); }
+  .count b { font-weight: 900; font-size: 48px; letter-spacing: -.03em; color: var(--chalk); }
+
+  /* Карточки цен с фото */
+  .pc { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; align-items: end; gap: 20px 12px; min-height: 230px; padding: 28px; background: var(--asphalt); --k: 20px; clip-path: polygon(0 0, calc(100% - var(--k)) 0, 100% var(--k), 100% 100%, var(--k) 100%, 0 calc(100% - var(--k))); }
+  .pc__ph { position: absolute; inset: 0; background: center right / cover no-repeat; filter: grayscale(1); -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) 30%, #000 70%); }
+  .pc__ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(15, 15, 18, .55), transparent 50%); }
+  .pc b { position: relative; grid-column: 1 / -1; align-self: start; max-width: 78%; font: 900 22px/1.1 var(--D); letter-spacing: -.02em; }
+  .pc small { display: block; margin-top: 8px; font: 400 14px/1.4 var(--T); color: var(--steel); letter-spacing: 0; }
+  .pc .arr { position: relative; grid-column: 1; grid-row: 2; }
+  .pc span { position: relative; grid-column: 2; grid-row: 2; font: 900 28px var(--D); letter-spacing: -.02em; text-align: right; }
+  .redhead { position: relative; color: #fff; background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal); }
+
+  /* Лента времени */
+  .tl { position: relative; }
+  .tl__s { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; padding-bottom: 32px; position: relative; }
+  .tl__s::before { content: ""; position: absolute; left: 62px; top: 9px; z-index: 1; width: 13px; height: 13px; margin-left: -6.5px; background: var(--graphite); transform: rotate(45deg); }
+  .tl__n { padding-top: 2px; font: 700 15px var(--D); color: var(--line); text-align: right; }
+  .tl__s b { display: block; font: 700 20px/1.2 var(--D); letter-spacing: -.015em; color: var(--steel); }
+  .tl__s p { margin-top: 6px; color: var(--steel); opacity: .55; }
+  .tl__s.on .tl__n { color: var(--signal); }
+  .tl__s.on::before { background: var(--signal); }
+  .tl__s.on b { color: var(--chalk); }
+  .tl__s.on p { opacity: 1; }
+  .tl__line { position: absolute; left: 62px; top: 10px; bottom: 30px; width: 4px; margin-left: -2px; background: var(--graphite); }
+  .tl__line i { position: absolute; left: 0; top: 0; width: 100%; background: var(--signal); }
+  .tl__wh { position: absolute; left: 50%; width: 38px; height: 38px; max-width: none; margin: -19px 0 0 -19px; transform: rotate(40deg); filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .8)); }
+  .tl__start { display: grid; grid-template-columns: 44px 1fr; column-gap: 36px; align-items: center; margin-bottom: 20px; }
+  .tl__start b { font: 700 15px var(--D); color: var(--signal); text-align: right; }
+  .tl__start span { font-size: 14px; color: var(--steel); }
+  .endcard { padding: 36px 40px; background: var(--signal); color: #fff; --k: 18px; }
+  .endcard .d { font-size: 96px; }
+  .endcard p:last-child { margin-top: 14px; font-size: 17px; color: rgba(255, 255, 255, .92); }
+
+  /* Плашки колеса */
+  .tag { position: relative; display: grid; align-content: start; gap: 8px; padding: 26px 28px; min-height: 160px; background: var(--asphalt); border-left: 3px solid var(--signal); --k: 12px; }
+  .tag b { font: 900 22px/1.05 var(--D); letter-spacing: -.02em; }
+  .tag span { color: var(--steel); font-size: 15px; }
+  .tag.big { background: var(--signal); color: #fff; border-left: 0; }
+  .tag.big b { font-size: 38px; transform: skewX(-9deg); transform-origin: left bottom; }
+  .tag.big span { color: rgba(255, 255, 255, .9); }
+  .wh { position: relative; }
+  .wh img { width: 100%; }
+  .wh::before { content: ""; position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(227, 38, 28, .35), transparent 75%); filter: blur(30px); }
+  .pin { position: absolute; left: 50%; top: -18px; width: 22px; height: 16px; margin-left: -11px; background: var(--signal); clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 2; }
+
+  /* Красные панели «Без сюрпризов» */
+  .rp { position: relative; overflow: hidden; padding: 44px 34px 52px; color: #fff; --k: 18px; background: repeating-linear-gradient(-63deg, transparent 0 56px, rgba(0, 0, 0, .11) 56px 112px), radial-gradient(90% 60% at 0 0, #ff4b33 0, transparent 70%), var(--signal); }
+  .rp__big { font-size: 54px; line-height: .95; }
+  .rp h3 { margin: 16px 0 26px; font: 600 18px var(--T); color: rgba(255, 255, 255, .9); }
+  .note-card { position: relative; display: grid; gap: 12px; padding: 24px 24px 24px 22px; background: var(--rubber); box-shadow: 0 0 0 6px rgba(255, 255, 255, .92), 0 20px 40px rgba(0, 0, 0, .35); transform: rotate(-2.5deg); }
+  .note-card li { position: relative; padding-left: 22px; font-size: 15px; color: #c9cbd1; }
+  .note-card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 12px; background: var(--signal); transform: skewX(-14deg); }
+  .rot2 { transform: rotate(2deg); }
+
+  /* Вопросы */
+  .fq { border-top: 1px solid var(--line); }
+  .fq li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); font: 700 21px/1.25 var(--D); letter-spacing: -.015em; }
+  .fq li::after { content: "+"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open { display: block; }
+  .fq li.open::after { display: none; }
+  .fq li.open > div { display: flex; justify-content: space-between; gap: 24px; }
+  .fq li.open > div::after { content: "−"; font: 400 34px/1 var(--T); color: var(--signal); }
+  .fq li.open p { max-width: 640px; margin-top: 14px; font: 400 17px/1.55 var(--T); color: var(--steel); letter-spacing: 0; }
+
+  /* Запись */
+  .bk { padding: 32px; background: var(--asphalt); --k: 18px; }
+  .bk__kick { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--steel); }
+  .bk__time { margin-top: 10px; font-size: 150px; line-height: .9; }
+  .bk__day { margin-top: 14px; font-size: 17px; }
+  .bk__day b { font-weight: 600; }
+  .bk__day span { margin-left: 10px; color: var(--steel); }
+  .bk__other { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-weight: 600; }
+  .bk__other::after { content: ""; width: 10px; height: 10px; margin-top: -6px; border-right: 2px solid var(--signal); border-bottom: 2px solid var(--signal); transform: rotate(45deg); }
+  .fld { display: grid; gap: 8px; margin-top: 20px; font-size: 15px; color: var(--steel); }
+  .fld i { display: flex; align-items: center; height: 58px; padding: 0 18px; font-style: normal; color: #6e717a; border: 1px solid var(--line); background: var(--rubber); }
+  .cons { display: flex; gap: 12px; margin-top: 20px; font-size: 14px; color: var(--steel); }
+  .cons::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 1px; border: 1.5px solid var(--steel); }
+  .cons u { color: var(--chalk); }
+  .day { display: grid; place-items: center; gap: 2px; width: 72px; height: 76px; background: var(--graphite); font-size: 13px; color: var(--steel); --k: 10px; }
+  .day b { font: 900 24px var(--D); color: var(--chalk); }
+  .day.on { background: var(--signal); color: #fff; }
+  .day.on b { color: #fff; }
+  .slot { display: grid; place-items: center; height: 50px; font: 600 15px var(--T); background: var(--graphite); --k: 8px; }
+  .slot.off { background: transparent; color: #4a4c54; box-shadow: inset 0 0 0 1px #2b2b32; }
+  .slot.on { background: var(--chalk); color: var(--rubber); }
+
+  /* Карта-схема */
+  .map { position: relative; overflow: hidden; background: #1d1d23; --k: 20px; }
+  .map::before { content: ""; position: absolute; inset: 0; background:
+      linear-gradient(90deg, transparent 0 22%, #2a2a31 22% 25%, transparent 25% 61%, #2a2a31 61% 64%, transparent 64%),
+      linear-gradient(0deg, transparent 0 30%, #2a2a31 30% 35%, transparent 35% 72%, #2a2a31 72% 77%, transparent 77%); }
+  .map::after { content: ""; position: absolute; inset: 0; background:
+      repeating-linear-gradient(90deg, transparent 0 9%, rgba(255, 255, 255, .02) 9% 18%),
+      repeating-linear-gradient(0deg, transparent 0 11%, rgba(255, 255, 255, .02) 11% 22%); }
+  .map__pin { position: absolute; z-index: 2; width: 40px; height: 52px; margin: -52px 0 0 -20px; }
+  .map__path { position: absolute; z-index: 1; border-left: 3px dotted var(--signal); border-top: 3px dotted var(--signal); }
+  .map__cap { position: absolute; left: 24px; bottom: 22px; z-index: 2; padding: 8px 12px; font-size: 13px; color: var(--steel); background: rgba(15, 15, 18, .85); }
+  .rows li { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .rows li b { font-weight: 600; }
+  .rows li span { color: var(--steel); }
+  .msg { display: grid; place-items: center; width: 44px; height: 44px; background: var(--graphite); --k: 8px; }
+  .msg svg { width: 20px; height: 20px; fill: var(--chalk); }
+  /* ---------- 25 минут ---------- */
+  .vs { background: var(--asphalt); }
+  .vs .d { line-height: 1.06; }
+  .st b { display: block; font: 700 22px/1.25 var(--D); letter-spacing: -.015em; }
+  .st p { margin-top: 8px; color: var(--steel); font-size: 16px; line-height: 1.6; }
+  .st .n { font: 700 15px var(--D); color: var(--signal); }
+  .st.off b { color: var(--steel); }
+  .st.off p { opacity: .55; }
+  .st.off .n { color: var(--line); }
+  .dia { width: 16px; height: 16px; background: var(--signal); transform: rotate(45deg); }
+  .dia.off { background: var(--graphite); }
+  .tw { position: absolute; width: 50px; height: 50px; max-width: none; filter: drop-shadow(0 4px 12px rgba(0,0,0,.8)); }
+  .redc { color: #fff; --k: 24px; background: radial-gradient(70% 120% at 100% 0, #ff5a3d 0, transparent 60%), var(--signal); }
+  .tmr { font-size: 120px; line-height: .9; }
+
+  /* 1. Ёлочка по центру */
+  .z .axis { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: var(--graphite); }
+  .z .axis i { position: absolute; left: 0; top: 0; width: 100%; height: 62%; background: var(--signal); }
+  .z .zrow { position: relative; display: grid; grid-template-columns: 1fr 120px 1fr; align-items: center; min-height: 118px; }
+  .z .zrow .dia { justify-self: center; position: relative; z-index: 1; }
+  .z .zrow .st { max-width: 440px; }
+  .z .zrow.l .st { grid-column: 1; justify-self: end; text-align: right; }
+  .z .zrow.r .st { grid-column: 3; }
+  .z .zrow.l .dia { grid-column: 2; grid-row: 1; }
+  .z .zrow.r .dia { grid-column: 2; grid-row: 1; }
+
+  /* 2. Минутная шкала: строки с минутами */
+  .m .mrow { display: grid; grid-template-columns: 150px 40px 1fr 1.2fr; align-items: center; gap: 28px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .m .mrow:last-child { border-bottom: 1px solid var(--line); }
+  .m .min { font: 900 34px var(--D); letter-spacing: -.02em; color: var(--chalk); }
+  .m .mrow.off .min { color: var(--line); }
+  .m .bar { position: relative; height: 6px; background: var(--graphite); }
+  .m .bar i { position: absolute; left: 0; top: 0; height: 100%; background: var(--signal); }
+
+  /* 3. Всё в красной панели */
+  .rp3 { position: relative; overflow: hidden; padding: 64px; --k: 30px; color: #fff; background: repeating-linear-gradient(-63deg, transparent 0 56px, rgba(0,0,0,.08) 56px 112px), radial-gradient(90% 60% at 0 0, #ff4b33 0, transparent 70%), var(--signal); }
+  .rp3 .bg { position: absolute; right: -30px; bottom: -70px; font-size: 380px; line-height: .8; color: rgba(0,0,0,.14); }
+  .rp3 .steps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+  .rp3 .sc { padding: 26px 26px 28px; background: var(--rubber); --k: 14px; }
+  .rp3 .sc.off { background: rgba(0,0,0,.22); }
+  .rp3 .sc.off b { color: rgba(255,255,255,.75); }
+  .rp3 .sc.off p { color: rgba(255,255,255,.6); opacity: 1; }
+  .rp3 .sc.off .n { color: rgba(255,255,255,.6); }
+
+  /* 4. Циферблат */
+  .dial { position: absolute; left: 50%; top: 420px; width: 520px; height: 520px; margin-left: -260px; border-radius: 50%; }
+  .dial .ring { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(var(--signal) 0 62%, var(--graphite) 62% 100%); -webkit-mask: radial-gradient(closest-side, transparent 88%, #000 89%); mask: radial-gradient(closest-side, transparent 88%, #000 89%); }
+  .dial .ctr { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .dial .ctr .d { transform-origin: center bottom; }
+  .ds { position: absolute; width: 330px; }
+  .ds.rt { text-align: left; }
+  .ds.lt { text-align: right; }
+
+  /* 5. Карточки с прогрессом сверху */
+  .g5 .top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px; margin-top: 56px; padding: 30px 36px; --k: 18px; }
+  .g5 .track { position: relative; height: 8px; background: rgba(0,0,0,.25); }
+  .g5 .track i { position: absolute; left: 0; top: 0; height: 100%; width: 62%; background: #fff; }
+  .g5 .track img { position: absolute; left: 62%; top: 50%; width: 44px; margin: -22px 0 0 -22px; }
+  .g5 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .g5 .cd { position: relative; min-height: 220px; padding: 30px; background: var(--rubber); --k: 16px; }
+  .g5 .cd.now { box-shadow: inset 0 0 0 2px var(--signal); }
+  .g5 .cd .mm { position: absolute; right: 26px; top: 26px; font: 700 14px var(--D); color: var(--steel); }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>«25 минут»:<br><em>новые варианты</em></h1>
+  <p>Этапы больше не стоят отдельно справа: они идут прямо под заголовком, по центру или внутри красной плашки. Кадры в ширину компьютера 1440 px, кадр показан в момент, когда идёт 4-й этап. Телефон не трогаю.</p>
+  <nav class="jump"><a href="#v1">1 Ёлочка по центру</a><a href="#v2">2 Минутная шкала</a><a href="#v3">3 В красной плашке</a><a href="#v4">4 Циферблат</a><a href="#v5">5 Карточки и полоса</a></nav>
+</header>
+
+<section class="blk" id="v1">
+  <div class="blk__h"><b>1</b><h2>Ёлочка по центру</h2><span>линия посередине,<br>этапы слева и справа по очереди</span></div>
+  <div class="var"><div class="var__h"><strong>Заголовок по центру, под ним линия посередине экрана</strong><span>Этапы ёлочкой: первый слева, второй справа и так далее. Колесо катится вниз по линии, в конце красная плашка «25:00» по центру.</span></div>
+    <div class="fr"><div class="s vs z pad">
+      <div style="text-align:center"><h2 class="d" style="font-size:76px;transform-origin:center bottom">25 минут от заезда<br>до выезда</h2><p class="lead" style="margin:22px auto 0;max-width:460px">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p></div>
+      <div style="position:relative;margin-top:64px"><div class="axis"><i></i><img class="tw" src="../protektor/assets/tire.svg" alt="" style="left:50%;top:62%;margin:-25px 0 0 -25px;transform:rotate(60deg)"></div><div data-z></div></div>
+      <div class="redc c" style="display:flex;align-items:center;justify-content:center;gap:40px;margin:56px auto 0;max-width:760px;padding:34px 44px"><p class="d tmr" style="font-size:96px">14:37</p><p style="max-width:300px;font-size:17px;line-height:1.55">Через 25 минут вы уже едете. А в следующий сезон — снова на своё время.</p></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v2">
+  <div class="blk__h"><b>2</b><h2>Минутная шкала</h2><span>этапы строками с минутами,<br>как расписание</span></div>
+  <div class="var"><div class="var__h"><strong>Каждый этап — строка с его минутами, как табло расписания</strong><span>Слева время этапа крупно, в строке полоска заполняется, пока идёт этап. Сверху заголовок и красная плашка с общим таймером.</span></div>
+    <div class="fr"><div class="s vs m pad">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:48px"><div><h2 class="d" style="font-size:54px;white-space:nowrap">25 минут<br>от заезда до выезда</h2><p class="lead" style="margin-top:22px;max-width:440px">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p></div>
+        <div class="redc c" style="padding:30px 40px"><p style="font-size:15px;color:rgba(255,255,255,.85)">Сейчас идёт</p><p class="d tmr" style="margin-top:8px;font-size:84px">14:37</p></div></div>
+      <div data-m style="margin-top:56px"></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v3">
+  <div class="blk__h"><b>3</b><h2>В красной плашке</h2><span>весь блок — одна большая<br>красная панель</span></div>
+  <div class="var"><div class="var__h"><strong>Одна большая красная панель: заголовок, таймер и шесть этапов карточками внутри</strong><span>Пройденные этапы — тёмные карточки, следующие — полупрозрачные. На фоне огромная цифра «25», таймер в углу считает минуты.</span></div>
+    <div class="fr"><div class="s vs pad">
+      <div class="rp3 c"><p class="d bg">25</p>
+        <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:40px"><div><h2 class="d" style="font-size:52px;white-space:nowrap">25 минут<br>от заезда до выезда</h2><p style="margin-top:20px;max-width:440px;font-size:17px;line-height:1.55;color:rgba(255,255,255,.9)">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p></div><p class="d tmr" style="font-size:96px;flex:none">14:37</p></div>
+        <div class="steps" data-r3></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v4">
+  <div class="blk__h"><b>4</b><h2>Циферблат</h2><span>круглый таймер в центре,<br>этапы по кругу</span></div>
+  <div class="var"><div class="var__h"><strong>В центре круглый таймер на 25 минут, красная дуга заполняется</strong><span>Этапы расположены вокруг циферблата: три слева, три справа. Активный этап белый, будущие серые.</span></div>
+    <div class="fr"><div class="s vs" style="height:1080px">
+      <div class="pad" style="text-align:center;padding-bottom:0"><h2 class="d" style="font-size:76px;transform-origin:center bottom">25 минут от заезда<br>до выезда</h2><p class="lead" style="margin:20px auto 0;max-width:460px">Работаем на двух линиях, поэтому ваше время не съедает чужая машина.</p></div>
+      <div class="dial"><i class="ring"></i><div class="ctr"><p class="kick" style="font:700 14px var(--D);color:var(--signal)">идёт этап 04</p><p class="d" style="font-size:110px;margin-top:10px">14:37</p><p class="mut" style="margin-top:12px">из 25:00</p></div></div>
+      <div data-dial></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk" id="v5">
+  <div class="blk__h"><b>5</b><h2>Карточки и полоса</h2><span>красная полоса-таймер,<br>под ней этапы сеткой</span></div>
+  <div class="var"><div class="var__h"><strong>Под заголовком красная полоса: таймер, колесо едет по белой линии</strong><span>Ниже шесть этапов карточками 3×2 с минутами в углу. Текущий этап обведён красным.</span></div>
+    <div class="fr"><div class="s vs g5 pad">
+      <h2 class="d" style="font-size:76px">25 минут от заезда<br>до выезда</h2>
+      <div class="top redc c"><p class="d tmr" style="font-size:84px">14:37</p><div class="track"><i></i><img src="../protektor/assets/tire.svg" alt=""></div><p style="font-size:16px">из 25:00</p></div>
+      <div class="grid" data-g5></div>
+    </div></div>
+  </div>
+</section>
+
+<p class="note"><b>Как выбирать:</b> напишите номер, можно смешать. Соберу только для компьютера. На сайте таймер и этапы двигаются от прокрутки, как сейчас.</p>
+
+<script>
+  const fit = () => document.querySelectorAll('.fr').forEach(f => f.style.setProperty('--z', f.clientWidth / 1440));
+  addEventListener('resize', fit);
+  const $$ = s => document.querySelectorAll(s);
+  const ST = [['Приезжаете к своему времени', 'Записались на 14:30 — в 14:30 машина уже на подъёмнике.', '00:00'], ['Ждёте с кофе', 'В комнате ожидания тепло, есть кофе и видно, как идёт работа.', '01:00'], ['Меняем шины', 'Снимаем колёса, перебортовываем резину, проверяем диски.', '03:00'], ['Балансируем', 'Каждое колесо — на станке. Если нужно, добиваем финишной балансировкой на машине.', '13:00'], ['Накачиваем азотом', 'Бесплатно. Затягиваем колёса и проверяем давление.', '20:00'], ['Выезжаете', 'Через 25 минут после того, как заехали.', '25:00']];
+  const st = (s, i, extra = '') => `<div class="st${i > 3 ? ' off' : ''}" ${extra}><span class="n">0${i + 1}</span><b style="margin-top:6px">${s[0]}</b><p>${s[1]}</p></div>`;
+  $$('[data-z]').forEach(e => e.innerHTML = ST.map((s, i) => `<div class="zrow ${i % 2 ? 'r' : 'l'}">${st(s, i)}<i class="dia${i > 3 ? ' off' : ''}"></i></div>`).join(''));
+  $$('[data-m]').forEach(e => e.innerHTML = ST.map((s, i) => `<div class="mrow${i > 3 ? ' off' : ''}"><span class="min">${s[2]}</span><span class="st${i > 3 ? ' off' : ''}"><span class="n">0${i + 1}</span></span><div class="st${i > 3 ? ' off' : ''}"><b>${s[0]}</b></div><div><p class="mut" style="font-size:16px;line-height:1.55;opacity:${i > 3 ? .55 : 1}">${s[1]}</p><div class="bar" style="margin-top:14px"><i style="width:${i < 3 ? 100 : i === 3 ? 22 : 0}%"></i></div></div></div>`).join(''));
+  $$('[data-r3]').forEach(e => e.innerHTML = ST.map((s, i) => `<div class="sc c st${i > 3 ? ' off' : ''}"><span class="n">0${i + 1} · ${s[2]}</span><b style="margin-top:10px">${s[0]}</b><p>${s[1]}</p></div>`).join(''));
+  const DP = [[110, 470, 'lt'], [40, 660, 'lt'], [110, 850, 'lt'], [1000, 470, 'rt'], [1070, 660, 'rt'], [1000, 850, 'rt']];
+  $$('[data-dial]').forEach(e => e.innerHTML = ST.map((s, i) => `<div class="ds ${DP[i][2]}" style="left:${DP[i][0]}px;top:${DP[i][1]}px">${st(s, i)}</div>`).join(''));
+  $$('[data-g5]').forEach(e => e.innerHTML = ST.map((s, i) => `<div class="cd c${i === 3 ? ' now' : ''}"><span class="mm">${s[2]}</span>${st(s, i)}</div>`).join(''));
+  fit();
+</script>
+</body>
+</html>
