@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТЕКТОР: редактор</title>
+<style>
+  :root {
+    --bg: #0b0b0d; --bar: #151519; --line: #2c2c33; --text: #eeece7; --mute: #8d9099;
+    --red: #e3261c; --ok: #35c46a; --btn: #26262d;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden; }
+  button, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; }
+
+  .bar { position: relative; z-index: 3; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 56px; padding: 8px 16px; background: var(--bar); border-bottom: 1px solid var(--line); }
+  .bar h1 { margin-right: 6px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+  .seg { display: inline-flex; padding: 3px; background: var(--btn); border-radius: 10px; }
+  .seg button { height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; color: var(--mute); font-weight: 600; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: #111; }
+  .b { height: 38px; padding: 0 14px; border-radius: 10px; background: var(--btn); font-weight: 600; white-space: nowrap; }
+  .b:hover { background: #33333b; }
+  .b--red { background: var(--red); color: #fff; }
+  .b--red:hover { background: #f23a2f; }
+  .b--on { background: var(--text); color: #111; }
+  .b:disabled { opacity: .45; cursor: default; }
+  .grow { flex: 1; }
+  .status { color: var(--mute); font-size: 13px; }
+  .status.ok { color: var(--ok); }
+  .status.err { color: #ff6b61; }
+  .count { min-width: 22px; height: 22px; padding: 0 6px; margin-left: 6px; border-radius: 11px; background: rgba(255,255,255,.15); font-size: 12px; line-height: 22px; display: inline-block; }
+
+  .hint { padding: 8px 16px; background: #1b1b20; color: var(--mute); font-size: 13px; border-bottom: 1px solid var(--line); }
+  .hint b { color: var(--text); }
+
+  .stage { position: relative; overflow-x: auto; overflow-y: hidden; background: #050506; -webkit-overflow-scrolling: touch; }
+  .sizer { position: relative; margin: 0 auto; }
+  .wrap { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .wrap iframe { display: block; border: 0; background: #0f0f12; }
+
+  .panel { position: fixed; z-index: 5; left: 50%; bottom: 14px; transform: translateX(-50%); width: min(560px, calc(100% - 24px)); padding: 14px; border-radius: 16px; background: rgba(21, 21, 25, .97); border: 1px solid var(--line); box-shadow: 0 20px 50px rgba(0,0,0,.6); display: none; }
+  .panel.show { display: block; }
+  .panel__name { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 13px; color: var(--mute); }
+  .panel__name b { color: var(--text); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .panel__name .x { margin-left: auto; width: 30px; height: 30px; border-radius: 8px; background: var(--btn); font-size: 16px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .row + .row { margin-top: 6px; }
+  .row .b { height: 36px; padding: 0 12px; font-size: 13px; }
+  .row .b.arr { width: 40px; padding: 0; font-size: 16px; }
+
+  .note { position: fixed; z-index: 6; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.6); padding: 16px; }
+  .note.show { display: grid; }
+  .note__box { width: min(520px, 100%); padding: 20px; border-radius: 16px; background: var(--bar); border: 1px solid var(--line); }
+  .note__box h2 { font-size: 17px; margin-bottom: 6px; }
+  .note__box p { color: var(--mute); font-size: 13px; margin-bottom: 12px; }
+  .note__box textarea { width: 100%; min-height: 120px; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: #0f0f12; resize: vertical; }
+  .note__box .row { margin-top: 12px; justify-content: flex-end; }
+
+  @media (max-width: 700px) {
+    .bar { padding: 8px 12px; gap: 6px; }
+    .bar h1 { display: none; }
+    .b { height: 36px; padding: 0 11px; font-size: 13px; }
+    .status { width: 100%; order: 9; }
+    .hint { font-size: 12px; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>ПРОТЕКТОР · редактор</h1>
+    <div class="seg" role="group" aria-label="Версия сайта">
+      <button type="button" id="m-desk" aria-pressed="true">Компьютер</button>
+      <button type="button" id="m-phone" aria-pressed="false">Телефон</button>
+    </div>
+    <button class="b" type="button" id="edit">Редактировать</button>
+    <button class="b" type="button" id="zoom" title="Увеличить вид сайта">Лупа ×1</button>
+    <span class="grow"></span>
+    <span class="status" id="status">Загрузка…</span>
+    <button class="b" type="button" id="note-open">Комментарий</button>
+    <button class="b b--red" type="button" id="save" disabled>Сохранить<span class="count" id="count">0</span></button>
+  </div>
+  <p class="hint" id="hint">Нажмите <b>«Редактировать»</b>, потом на любой текст или плашку. Её можно перетащить, сдвинуть стрелками, увеличить, скрыть или поменять текст. Потом <b>«Сохранить»</b> — я перенесу правки на сайт.</p>
+  <div class="stage" id="stage"><div class="sizer" id="sizer"><div class="wrap" id="wrap"><iframe id="site" title="Сайт ПРОТЕКТОР" src="site/index.html"></iframe></div></div></div>
+
+  <div class="panel" id="panel" role="dialog" aria-label="Правка элемента">
+    <div class="panel__name">Выбрано: <b id="sel-name"></b><button class="x" type="button" id="sel-close" aria-label="Снять выбор">×</button></div>
+    <div class="row arrows">
+      <button class="b arr" type="button" data-move="-1,0" aria-label="Влево">←</button>
+      <button class="b arr" type="button" data-move="0,-1" aria-label="Вверх">↑</button>
+      <button class="b arr" type="button" data-move="0,1" aria-label="Вниз">↓</button>
+      <button class="b arr" type="button" data-move="1,0" aria-label="Вправо">→</button>
+      <button class="b" type="button" id="smaller">Мельче</button>
+      <button class="b" type="button" id="bigger">Крупнее</button>
+    </div>
+    <div class="row">
+      <button class="b" type="button" id="parent">Выбрать блок целиком</button>
+      <button class="b" type="button" id="text">Изменить текст</button>
+      <button class="b" type="button" id="hide">Скрыть</button>
+      <button class="b" type="button" id="reset">Как было</button>
+    </div>
+  </div>
+
+  <div class="note" id="note" role="dialog" aria-label="Комментарий для Claude">
+    <div class="note__box">
+      <h2>Комментарий для Claude</h2>
+      <p>Что ещё поменять словами — например, «плашку цен сделать уже» или «другой цвет кнопки». Сохранится вместе с правками.</p>
+      <textarea id="note-text" placeholder="Напишите, что хотите изменить"></textarea>
+      <div class="row"><button class="b" type="button" id="note-close">Готово</button></div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var frame = $('site'), wrap = $('wrap'), stage = $('stage'), sizer = $('sizer');
+  var mode = 'desktop';             // какая версия сайта открыта
+  var editing = false;
+  var sel = null;                   // выбранный элемент внутри сайта
+  var store = { desktop: {}, phone: {} };   // правки: путь элемента → { dx, dy, s, hidden, text, label }
+  var notes = { desktop: '', phone: '' };
+  var originals = new WeakMap();    // исходный текст элементов, чтобы вернуть «как было»
+  var dirty = false, db = null;
+  var mag = 1;                      // лупа: 1, 2 или 3 — во сколько раз крупнее, чем «по ширине экрана»
+
+  var setStatus = function (t, cls) { var s = $('status'); s.textContent = t; s.className = 'status' + (cls ? ' ' + cls : ''); };
+  var countAll = function () { return Object.keys(store[mode]).length; };
+  var markDirty = function () {
+    dirty = true;
+    $('count').textContent = countAll();
+    $('save').disabled = !db;
+    setStatus(db ? 'Есть несохранённые правки' : 'Сохранение недоступно в этом просмотре', db ? '' : 'err');
+  };
+
+  /* ---------- Размер сайта: 1440 px для компьютера, 390 px для телефона, уменьшаем под экран ---------- */
+  var fit = function () {
+    var top = stage.getBoundingClientRect().top;
+    var aw = window.innerWidth, ah = window.innerHeight - top;
+    stage.style.height = ah + 'px';
+    var W = mode === 'desktop' ? 1440 : 390;
+    var k = Math.min(1, Math.min(1, aw / W) * mag);
+    var H = Math.floor(ah / k) - 1;
+    frame.style.width = W + 'px';
+    frame.style.height = H + 'px';
+    wrap.style.transform = 'scale(' + k + ')';
+    sizer.style.width = Math.ceil(W * k) + 'px';
+    sizer.style.height = ah + 'px';
+  };
+  window.addEventListener('resize', fit);
+
+  /* ---------- Путь к элементу: от ближайшего блока с id, чтобы правку можно было найти в коде ---------- */
+  var pathOf = function (el) {
+    var parts = [];
+    while (el && el.nodeType === 1 && el.tagName !== 'BODY') {
+      if (el.id) { parts.unshift('#' + el.id); break; }
+      var i = 1, s = el;
+      while ((s = s.previousElementSibling)) i++;
+      parts.unshift(el.tagName.toLowerCase() + ':nth-child(' + i + ')');
+      el = el.parentElement;
+    }
+    return parts.join(' > ');
+  };
+  var labelOf = function (el) {
+    var t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    var sec = el.closest('section, header, footer');
+    var where = sec ? (sec.id || sec.tagName.toLowerCase()) : '';
+    return (where ? where + ': ' : '') + (t ? '«' + (t.length > 40 ? t.slice(0, 40) + '…' : t) + '»' : el.tagName.toLowerCase());
+  };
+  var doc = function () { try { return frame.contentDocument; } catch (e) { return null; } };
+
+  /* ---------- Применение правок к элементу ---------- */
+  var apply = function (el, c) {
+    el.style.translate = (c.dx || c.dy) ? (c.dx || 0) + 'px ' + (c.dy || 0) + 'px' : '';
+    el.style.scale = c.s && c.s !== 1 ? String(c.s) : '';
+    el.style.opacity = c.hidden ? (editing ? '0.15' : '0') : '';
+    el.style.pointerEvents = c.hidden && !editing ? 'none' : '';
+    if (typeof c.text === 'string' && el.textContent !== c.text) {
+      if (!originals.has(el)) originals.set(el, el.textContent);
+      el.textContent = c.text;
+    }
+  };
+  var applyAll = function () {
+    var d = doc(); if (!d) return;
+    Object.keys(store[mode]).forEach(function (p) {
+      var el; try { el = d.querySelector(p); } catch (e) { el = null; }
+      if (el) apply(el, store[mode][p]);
+    });
+  };
+  var entry = function (el) {
+    var p = pathOf(el);
+    if (!store[mode][p]) store[mode][p] = { dx: 0, dy: 0, s: 1, label: labelOf(el) };
+    return store[mode][p];
+  };
+  var clean = function (el) {
+    var p = pathOf(el), c = store[mode][p];
+    if (c && !c.dx && !c.dy && (!c.s || c.s === 1) && !c.hidden && typeof c.text !== 'string') delete store[mode][p];
+  };
+
+  /* ---------- Выбор элемента ---------- */
+  var outline = function (el, on) {
+    if (!el) return;
+    el.style.outline = on ? '2px solid #e3261c' : '';
+    el.style.outlineOffset = on ? '3px' : '';
+    el.style.touchAction = on ? 'none' : '';
+    el.style.cursor = on ? 'move' : '';
+  };
+  var select = function (el) {
+    if (sel) { outline(sel, false); stopText(); }
+    sel = el;
+    if (!el) { $('panel').classList.remove('show'); return; }
+    outline(el, true);
+    $('sel-name').textContent = labelOf(el);
+    var c = store[mode][pathOf(el)];
+    $('hide').textContent = c && c.hidden ? 'Показать' : 'Скрыть';
+    $('text').disabled = !!el.querySelector('*:not(br)');
+    $('panel').classList.add('show');
+  };
+
+  /* ---------- Перетаскивание ---------- */
+  var drag = null;
+  var onDown = function (e) {
+    if (!editing) return;
+    var t = e.target;
+    if (sel && (t === sel || sel.contains(t)) && !sel.isContentEditable) {
+      var c = entry(sel);
+      drag = { x: e.clientX, y: e.clientY, dx: c.dx, dy: c.dy, moved: false };
+      e.preventDefault();
+    }
+  };
+  var onMove = function (e) {
+    if (!drag || !sel) return;
+    var c = entry(sel);
+    var mx = e.clientX - drag.x, my = e.clientY - drag.y;
+    if (Math.abs(mx) + Math.abs(my) > 3) drag.moved = true;
+    c.dx = Math.round(drag.dx + mx); c.dy = Math.round(drag.dy + my);
+    apply(sel, c);
+  };
+  var onUp = function () {
+    if (!drag) return;
+    if (drag.moved) { clean(sel); markDirty(); }
+    drag = null;
+  };
+  var onClick = function (e) {
+    if (!editing) return;
+    if (sel && sel.isContentEditable && sel.contains(e.target)) return;
+    e.preventDefault(); e.stopPropagation();
+    var t = e.target;
+    if (t.closest('svg') && t.closest('svg').parentElement) t = t.closest('svg');
+    if (sel && (t === sel || sel.contains(t))) return;
+    select(t);
+  };
+
+  /* ---------- Правка текста ---------- */
+  var stopText = function () {
+    if (!sel || !sel.isContentEditable) return;
+    sel.contentEditable = 'false';
+    var before = originals.has(sel) ? originals.get(sel) : null;
+    var now = sel.textContent;
+    var c = entry(sel);
+    if (before === null) before = c._orig;
+    if (now !== before) { c.text = now; } else { delete c.text; }
+    delete c._orig;
+    clean(sel); markDirty();
+    $('text').textContent = 'Изменить текст';
+  };
+  $('text').addEventListener('click', function () {
+    if (!sel) return;
+    if (sel.isContentEditable) { stopText(); return; }
+    var c = entry(sel);
+    if (!originals.has(sel)) c._orig = sel.textContent;
+    try { sel.contentEditable = 'plaintext-only'; } catch (e) { sel.contentEditable = 'true'; }
+    if (sel.contentEditable !== 'plaintext-only') sel.contentEditable = 'true';
+    sel.focus();
+    $('text').textContent = 'Готово';
+  });
+
+  /* ---------- Кнопки панели ---------- */
+  document.querySelectorAll('[data-move]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!sel) return;
+      var v = b.getAttribute('data-move').split(','), c = entry(sel);
+      c.dx += +v[0] * 10; c.dy += +v[1] * 10;
+      apply(sel, c); clean(sel); markDirty();
+    });
+  });
+  var scaleBy = function (f) {
+    if (!sel) return;
+    var c = entry(sel);
+    c.s = Math.round(Math.max(0.3, Math.min(3, (c.s || 1) + f)) * 100) / 100;
+    apply(sel, c); clean(sel); markDirty();
+  };
+  $('smaller').addEventListener('click', function () { scaleBy(-0.05); });
+  $('bigger').addEventListener('click', function () { scaleBy(0.05); });
+  $('hide').addEventListener('click', function () {
+    if (!sel) return;
+    var c = entry(sel); c.hidden = !c.hidden;
+    if (!c.hidden) delete c.hidden;
+    apply(sel, c); clean(sel); markDirty();
+    $('hide').textContent = c.hidden ? 'Показать' : 'Скрыть';
+  });
+  $('reset').addEventListener('click', function () {
+    if (!sel) return;
+    stopText();
+    if (originals.has(sel)) { sel.textContent = originals.get(sel); originals.delete(sel); }
+    delete store[mode][pathOf(sel)];
+    apply(sel, {});
+    markDirty();
+    $('hide').textContent = 'Скрыть';
+  });
+  $('parent').addEventListener('click', function () {
+    if (sel && sel.parentElement && sel.parentElement.tagName !== 'BODY') select(sel.parentElement);
+  });
+  $('sel-close').addEventListener('click', function () { select(null); });
+
+  /* ---------- Режим правки ---------- */
+  var hook = function () {
+    var d = doc();
+    if (!d) { setStatus('Сайт не открылся в редакторе', 'err'); return; }
+    d.addEventListener('click', onClick, true);
+    d.addEventListener('pointerdown', onDown, true);
+    d.addEventListener('pointermove', onMove, true);
+    d.addEventListener('pointerup', onUp, true);
+    d.addEventListener('pointercancel', onUp, true);
+    applyAll();
+    // сайт дорисовывает часть блоков скриптом — применяем правки ещё раз, когда он закончит
+    setTimeout(applyAll, 800); setTimeout(applyAll, 2500);
+  };
+  frame.addEventListener('load', hook);
+  $('edit').addEventListener('click', function () {
+    editing = !editing;
+    $('edit').classList.toggle('b--on', editing);
+    $('edit').textContent = editing ? 'Правка включена' : 'Редактировать';
+    if (!editing) select(null);
+    applyAll();
+  });
+
+  $('zoom').addEventListener('click', function () {
+    mag = mag >= 3 ? 1 : mag + 1;
+    $('zoom').textContent = 'Лупа ×' + mag;
+    fit();
+  });
+
+  /* ---------- Компьютер / телефон ---------- */
+  var setMode = function (m) {
+    if (m === mode) return;
+    select(null);
+    mode = m;
+    $('m-desk').setAttribute('aria-pressed', String(m === 'desktop'));
+    $('m-phone').setAttribute('aria-pressed', String(m === 'phone'));
+    $('count').textContent = countAll();
+    $('note-text').value = notes[mode];
+    fit();
+    frame.src = 'site/index.html?v=' + Date.now(); // перезагружаем, чтобы сайт собрался под новую ширину
+  };
+  $('m-desk').addEventListener('click', function () { setMode('desktop'); });
+  $('m-phone').addEventListener('click', function () { setMode('phone'); });
+
+  /* ---------- Комментарий ---------- */
+  $('note-open').addEventListener('click', function () { $('note-text').value = notes[mode]; $('note').classList.add('show'); $('note-text').focus(); });
+  $('note-close').addEventListener('click', function () {
+    var v = $('note-text').value.trim();
+    if (v !== notes[mode]) { notes[mode] = v; markDirty(); }
+    $('note').classList.remove('show');
+  });
+
+  /* ---------- Сохранение: правки уходят в базу страницы, Claude читает их оттуда ---------- */
+  var plain = function (o) {
+    var out = {};
+    Object.keys(o).forEach(function (p) {
+      var c = o[p], r = { label: c.label || '' };
+      if (c.dx) r.dx = c.dx; if (c.dy) r.dy = c.dy;
+      if (c.s && c.s !== 1) r.s = c.s;
+      if (c.hidden) r.hidden = true;
+      if (typeof c.text === 'string') r.text = c.text;
+      out[p] = r;
+    });
+    return out;
+  };
+  $('save').addEventListener('click', function () {
+    if (!db) return;
+    stopText();
+    $('save').disabled = true;
+    setStatus('Сохраняю…');
+    var m = mode;
+    db.doc('edits/' + m).set({ changes: plain(store[m]), note: notes[m], width: m === 'desktop' ? 1440 : 390, savedAt: new Date().toISOString() })
+      .then(function () { dirty = false; setStatus('Сохранено. Напишите Claude «примени правки»', 'ok'); })
+      .catch(function (err) { $('save').disabled = false; setStatus(err && err.code === 'invalid_argument' ? 'Нет прав на сохранение' : 'Не сохранилось, попробуйте ещё раз', 'err'); });
+  });
+
+  window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+  /* ---------- Старт: подключаем базу и подгружаем уже сохранённые правки ---------- */
+  fit();
+  setStatus('Правки пока не сохраняются…');
+  if (window.claude && window.claude.use) {
+    window.claude.use('db').then(function (d) {
+      if (!d) { setStatus('Сохранение недоступно в этом просмотре', 'err'); return; }
+      db = d;
+      setStatus('Готово к правке');
+      ['desktop', 'phone'].forEach(function (m) {
+        db.doc('edits/' + m).get().then(function (snap) {
+          if (!snap.exists) return;
+          var v = snap.data() || {};
+          var ch = v.changes && typeof v.changes === 'object' ? v.changes : {};
+          Object.keys(ch).forEach(function (p) {
+            var c = ch[p] || {};
+            store[m][p] = { dx: +c.dx || 0, dy: +c.dy || 0, s: +c.s || 1, label: String(c.label || '') };
+            if (c.hidden) store[m][p].hidden = true;
+            if (typeof c.text === 'string') store[m][p].text = c.text;
+          });
+          notes[m] = typeof v.note === 'string' ? v.note : '';
+          if (m === mode) { $('count').textContent = countAll(); applyAll(); setStatus('Загружены сохранённые правки: ' + countAll()); }
+        }).catch(function () {});
+      });
+    });
+  } else {
+    setStatus('Сохранение доступно, когда страница открыта в Claude', 'err');
+  }
+})();
+</script>
+</body>
+</html>
