@@ -1647,3 +1647,35 @@ main { overflow-x: clip; }
   .visit__bar-t { margin: 0; max-width: 320px; font-size: 17px; }
   .visit__bar-go { display: none; }
 }
+
+/* Компьютер: запись по шагам — слева красная карточка с записью, справа один шаг за раз */
+.book__steps, .book__nav { display: none; }
+@media (min-width: 1081px) {
+  .book__head .book__note { display: none; }
+  .book__steps { display: flex; gap: 8px; }
+  .book__step {
+    display: flex; align-items: center; gap: 12px; height: 60px; padding: 0 24px; border: 0; cursor: pointer;
+    background: var(--rubber); color: var(--steel); font: 600 16px var(--text);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .book__step b { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--graphite); color: var(--chalk); font: 700 14px var(--display); transition: background-color 0.2s; }
+  .book__step:hover { color: var(--chalk); }
+  .book__step.is-on { background: var(--chalk); color: var(--rubber); }
+  .book__step.is-on b, .book__step.is-done b { background: var(--signal); color: #fff; }
+
+  .book__form[data-step] .book__col { grid-column: 2; grid-row: 1; display: none; }
+  .book__form[data-step="1"] .book__col--when { display: block; }
+  .book__form[data-step="2"] .book__col--what { display: grid; }
+  .book__form[data-step="3"] .book__col--send { display: grid; }
+  .book__form[data-step] .book__col--send { grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 0; align-items: start; }
+  .book__form .book__col--send > .field { grid-row: 2; }
+  .book__form .book__col--send > .consent { grid-row: 3; grid-column: 1 / -1; margin: 22px 0 0; }
+  .book__form .book__col--send > .book__send { grid-row: 4; grid-column: 1; margin-top: 28px; }
+  .book__form .book__col--send > .book__error { grid-row: 5; grid-column: 1 / -1; }
+  .book__form .book__col--send > .book__nav--back { grid-row: 4; grid-column: 2; align-self: center; justify-content: flex-end; margin: 28px 0 0; }
+  .book__col--what > .book__nav { grid-column: 1 / -1; grid-row: 6; }
+  .book__nav { display: flex; align-items: center; justify-content: space-between; margin-top: 40px; }
+  .book__back { border: 0; background: none; color: var(--steel); font: 500 15px var(--text); cursor: pointer; transition: color 0.2s; }
+  .book__back:hover { color: var(--chalk); }
+}

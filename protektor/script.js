@@ -688,6 +688,33 @@
     });
   })();
 
+  /* ---------- Запись на компьютере по шагам: время → машина → контакты ---------- */
+  (function () {
+    var form = $('book-form');
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.book__step'));
+    if (!form || !tabs.length) return;
+    var go = function (n, scroll) {
+      form.setAttribute('data-step', n);
+      tabs.forEach(function (t) {
+        var k = +t.getAttribute('data-step');
+        t.classList.toggle('is-on', k === n);
+        t.classList.toggle('is-done', k < n);
+        t.setAttribute('aria-selected', String(k === n));
+      });
+      if (scroll) {
+        var top = form.getBoundingClientRect().top + window.scrollY - 140;
+        if (window.scrollY > top) window.scrollTo({ top: top, behavior: motion ? 'smooth' : 'auto' });
+      }
+    };
+    tabs.forEach(function (t) { t.addEventListener('click', function () { go(+t.getAttribute('data-step')); }); });
+    form.querySelectorAll('[data-go]').forEach(function (b) {
+      b.addEventListener('click', function () { go(+b.getAttribute('data-go'), true); });
+    });
+    // ошибка в форме (не выбрано время и т. п.) — открываем последний шаг, где кнопка отправки
+    form.addEventListener('submit', function () { go(3); }, true);
+    go(1);
+  })();
+
   /* ---------- Вопросы на компьютере: список слева, ответ на выбранный — в красной плашке справа ---------- */
   (function () {
     var card = $('faq-card');

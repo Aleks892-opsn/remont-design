@@ -573,6 +573,12 @@
         <div class="book__head">
           <h2 class="display book__title" id="book-title">Своё время</h2>
           <p class="book__note">Выберите день и время — две линии, поэтому свободных окон обычно хватает. Работаем с 8:00 до 22:00 без выходных.</p>
+          <!-- Только на компьютере: запись по шагам -->
+          <div class="book__steps" role="tablist" aria-label="Шаги записи">
+            <button class="book__step" type="button" role="tab" data-step="1"><b>1</b>Время</button>
+            <button class="book__step" type="button" role="tab" data-step="2"><b>2</b>Машина</button>
+            <button class="book__step" type="button" role="tab" data-step="3"><b>3</b>Контакты</button>
+          </div>
         </div>
 
         <!-- Только на телефоне: сразу ближайшее свободное время, остальное — по кнопке -->
@@ -635,6 +641,7 @@
             <div class="days" id="days" role="radiogroup" aria-label="День"></div>
             <p class="book__label" id="slots-label">Время</p>
             <div class="slots" id="slots" role="radiogroup" aria-labelledby="slots-label"></div>
+            <div class="book__nav"><span></span><button class="cut cut--red cut--lg" type="button" data-go="2">Дальше — машина</button></div>
           </fieldset>
 
           <fieldset class="book__col book__col--what">
@@ -654,6 +661,7 @@
               <label for="address">Адрес</label>
               <input id="address" name="address" autocomplete="street-address" placeholder="Улица, дом, где стоит машина">
             </div>
+            <div class="book__nav"><button class="book__back" type="button" data-go="1">← Назад ко времени</button><button class="cut cut--red cut--lg" type="button" data-go="3">Дальше — контакты</button></div>
           </fieldset>
 
           <fieldset class="book__col book__col--send">
@@ -670,6 +678,7 @@
             <p class="book__summary" id="summary" aria-live="polite"></p>
             <button class="cut cut--red cut--lg book__send" type="submit" id="send">Записаться</button>
             <p class="book__error" id="book-error" role="alert"></p>
+            <div class="book__nav book__nav--back"><button class="book__back" type="button" data-go="2">← Назад к машине</button></div>
           </fieldset>
         </form>
 
