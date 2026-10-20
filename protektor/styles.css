@@ -1561,3 +1561,11 @@ main { overflow-x: clip; }
   .mcar__card .mcar__t { line-height: 1.14; }
   .visit__title, .where__title, .faq__card-q { line-height: 1.08; }
 }
+
+/* Компьютер: кнопка записи одна — в шапке; запись по-прежнему в своём блоке */
+@media (min-width: 641px) {
+  .mcar__card .mcar__btn, .mcar__card.is-now .mcar__btn, .prices__go, .visit__bar-go, .faq__card .cut, .footer__go { display: none; }
+  .prices__radius { margin-bottom: 16px; padding-bottom: 44px; clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%, 0 calc(100% - 32px)); }
+  .faq__card { min-height: 0; }
+  .faq__card-a { margin-bottom: 0; }
+}
