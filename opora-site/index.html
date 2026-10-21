@@ -538,15 +538,6 @@
   .svx__chips span:empty { display: none; }
   .svx__go { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--or); color: #fff; }
   .svx__go svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-  /* Компьютер: вертикальные фото домов целиком справа, фон — то же фото, размытое */
-  .svx__bg { display: none; }
-  @media (min-width: 900px) {
-    .svx__bg { display: block; position: absolute; inset: -60px; z-index: -3; background: center / cover no-repeat; filter: blur(40px) brightness(.6) saturate(1.1); transition: background-image .6s; }
-    .svx__st img:not(.wide) { object-fit: contain; object-position: right center;
-      --pw: calc(min(640px, 72vh) * .806);
-      -webkit-mask-image: linear-gradient(90deg, transparent calc(100% - var(--pw)), #000 calc(100% - var(--pw) + 90px));
-      mask-image: linear-gradient(90deg, transparent calc(100% - var(--pw)), #000 calc(100% - var(--pw) + 90px)); }
-  }
   @media (min-width: 900px) { .svx__tabs { max-width: 640px; } .svx__tabs button { font-size: 14px; height: 48px; } .svx__st { height: min(640px, 72vh); margin-top: 14px; } .svx__b { left: 32px; right: 32px; bottom: 30px; } .svx__b h3 { font-size: 48px; } .svx__b p { font-size: 15px; } }
   .nav { display: none !important; }
 
@@ -720,7 +711,7 @@
     </div>
     <div class="svx" id="svx" data-r style="--d:.1s">
       <div class="svx__tabs" role="tablist"><i></i><button class="on" role="tab">Дом</button><button role="tab">Коттедж</button><button role="tab">Контур</button><button role="tab">Бизнес</button></div>
-      <div class="svx__st"><i class="svx__bg" aria-hidden="true" style="background-image:url(img/sv-house.webp)"></i><img src="img/sv-house.webp" alt="Двухэтажный дом с подсветкой" loading="lazy" class="on"><img src="img/pr-lake.webp" alt="Коттедж с панорамным остеклением" loading="lazy" class="wide"><img src="img/sv-shell.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"><img src="img/sv-comm.webp" alt="Коммерческое здание" loading="lazy">
+      <div class="svx__st"><img src="img/sv-house.webp" alt="Двухэтажный дом с подсветкой" loading="lazy" class="on"><img src="img/pr-lake.webp" alt="Коттедж с панорамным остеклением" loading="lazy"><img src="img/sv-shell.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"><img src="img/sv-comm.webp" alt="Коммерческое здание" loading="lazy">
         <div class="svx__b"><h3>Дом под ключ</h3><p>Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.</p><div class="svx__row"><div class="svx__chips"><span>от 6,8 млн ₽</span><span>6 мес</span></div><a class="svx__go" href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
       </div>
       <template data-svx>Дом под ключ|Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.|от 6,8 млн ₽|6 мес|#build</template><template data-svx>Коттеджи|Большие дома с панорамами и террасами, проект под ваш участок.|от 12 млн ₽||#build</template><template data-svx>Тёплый контур|Фундамент, стены, кровля и окна. Отделку делаете сами.|от 3,9 млн ₽||#build</template><template data-svx>Коммерческие здания|Офисы, магазины, базы отдыха, с проектом и согласованиями.|по проекту||#contact</template>
@@ -1019,14 +1010,13 @@
   (function () {
     var box = $('#svx'); if (!box) return;
     var D = $$('template[data-svx]', box).map(function (t) { return t.innerHTML.split('|'); });
-    var tabs = $('.svx__tabs', box), btns = $$('button', tabs), imgs = $$('.svx__st img', box), bx = $('.svx__b', box), go = $('.svx__go', box), bg = $('.svx__bg', box);
+    var tabs = $('.svx__tabs', box), btns = $$('button', tabs), imgs = $$('.svx__st img', box), bx = $('.svx__b', box), go = $('.svx__go', box);
     var cur = 0;
     var fill = function (i) { var d = D[i]; $('h3', bx).textContent = d[0]; $('p', bx).textContent = d[1]; var c = $$('.svx__chips span', bx); c[0].textContent = d[2]; c[1].textContent = d[3]; go.setAttribute('href', d[4]); };
     var show = function (i) {
       cur = i; tabs.style.setProperty('--k', i);
       btns.forEach(function (b, k) { b.classList.toggle('on', k === i); b.setAttribute('aria-selected', k === i); });
       imgs.forEach(function (im, k) { im.classList.toggle('on', k === i); });
-      if (bg) bg.style.backgroundImage = 'url(' + imgs[i].getAttribute('src') + ')';
       bx.classList.add('sw'); setTimeout(function () { fill(i); bx.classList.remove('sw'); }, 300);
     };
     btns.forEach(function (b, i) { b.addEventListener('click', function () { show(i); }); });
