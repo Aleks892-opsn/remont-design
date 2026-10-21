@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Altitude: главный экран</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --paper: #fff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --line: rgba(31, 86, 255, .12); --blue: #1f5bff; --blue2: #4d8dff; --blue-l: #dfe9ff; --f: "Montserrat", system-ui, sans-serif; color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0b1022; color: #eef1f6; font: 16px/1.5 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  .intro { max-width: 1480px; margin: 0 auto; padding: 52px 16px 20px; }
+  .intro h1 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
+  .intro h1 em { font-style: normal; color: #6f9bff; }
+  .intro p { max-width: 760px; margin-top: 16px; color: #9aa5c4; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .jump a { padding: 9px 14px; border-radius: 20px; background: #1a2240; color: #dfe6ff; text-decoration: none; font-weight: 600; font-size: 14px; }
+  .blk { max-width: 1480px; margin: 0 auto; padding: 48px 16px 8px; }
+  .blk__h { display: flex; align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--blue); }
+  .blk__h b { font-size: 32px; font-weight: 800; color: #6f9bff; }
+  .blk__h h2 { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; letter-spacing: -.02em; }
+  .blk__h span { margin-left: auto; color: #9aa5c4; font-size: 14px; text-align: right; }
+  .desc { margin: 14px 0 14px; color: #b9c3e0; font-size: 15px; max-width: 900px; }
+  .fr { overflow: hidden; border-radius: 14px; }
+  .s { position: relative; width: 1440px; zoom: var(--z, 1); background: var(--bg); color: var(--ink); overflow: hidden; padding: 72px 100px; }
+  .note { max-width: 1480px; margin: 36px auto 0; padding: 0 16px 80px; color: #9aa5c4; }
+  .note b { color: #fff; }
+  @media (max-width: 700px) { .blk__h span { display: none; } }
+
+
+  .s { padding: 0; height: 900px; }
+  .sky { position: absolute; inset: 0; background: linear-gradient(180deg, #0f47e8 0%, #2a6bff 42%, #8fc2ff 78%, #dcebff 100%); }
+  .nav { position: absolute; left: 100px; right: 100px; top: 22px; z-index: 10; display: flex; align-items: center; gap: 30px; height: 64px; padding: 0 10px 0 26px; border-radius: 32px; background: #fff; box-shadow: 0 10px 30px rgba(10, 40, 140, .18); }
+  .logo { font-weight: 800; font-size: 24px; letter-spacing: -.04em; color: var(--blue); }
+  .nav ul { display: flex; gap: 26px; margin: 0 auto; list-style: none; font-size: 14px; font-weight: 600; color: var(--ink2); }
+  .nav .btn { height: 46px; padding: 0 22px; font-size: 14px; }
+  .burg { width: 46px; height: 46px; border-radius: 50%; background: var(--blue-l); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 30px; border-radius: 28px; background: var(--blue); color: #fff; font-weight: 700; font-size: 16px; white-space: nowrap; gap: 10px; }
+  .btn.or { background: linear-gradient(135deg, #ff9a3c, #ff6a13); box-shadow: 0 14px 30px rgba(255, 106, 19, .35); }
+  .btn.gl { background: rgba(20, 70, 230, .55); border: 1px solid rgba(255,255,255,.5); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .btn.w { background: #fff; color: var(--blue); }
+  .h1 { color: #fff; font-weight: 800; letter-spacing: -.045em; line-height: .98; }
+  .ab { position: absolute; }
+  .ab img { width: 100%; }
+  .glassc { background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 30px; box-shadow: 0 30px 60px rgba(10, 40, 140, .25); }
+
+  /* 1. Поиск */
+  .srch { position: absolute; left: 100px; right: 100px; bottom: 56px; z-index: 6; display: grid; grid-template-columns: 1.3fr 1.3fr 1fr 1fr auto; gap: 10px; padding: 12px; }
+  .fld { padding: 14px 20px; border-radius: 20px; background: #f2f6ff; }
+  .fld span { display: block; font-size: 12px; font-weight: 600; color: var(--mute); }
+  .fld b { display: block; margin-top: 2px; font-size: 18px; letter-spacing: -.02em; color: var(--ink); }
+  .srch .btn { height: 100%; min-height: 66px; padding: 0 36px; border-radius: 20px; }
+
+  /* 2. Иллюминатор */
+  .port { position: absolute; left: 50%; top: 170px; width: 470px; height: 620px; margin-left: -235px; border-radius: 235px; padding: 22px; background: linear-gradient(145deg, #ffffff, #dfe8f7); box-shadow: 0 40px 80px rgba(10,40,140,.35), inset 0 0 0 1px rgba(255,255,255,.8); z-index: 3; }
+  .port .win { position: relative; height: 100%; border-radius: 215px; overflow: hidden; background: linear-gradient(180deg, #1d5cf5, #7fb6ff 70%, #e6f1ff); box-shadow: inset 0 10px 40px rgba(0,0,0,.35); }
+
+  /* 3. Над облаками */
+  .stats { display: flex; gap: 0; }
+  .stats div { padding: 0 36px; border-left: 1px solid rgba(11, 20, 51, .15); color: var(--ink); }
+  .stats div:first-child { border-left: 0; padding-left: 0; }
+  .stats b { display: block; font-size: 40px; font-weight: 800; letter-spacing: -.04em; color: var(--blue); line-height: 1.05; }
+  .stats span { font-size: 14px; color: var(--ink2); font-weight: 600; }
+
+  /* 4. Билет */
+  .tk { position: absolute; right: 100px; top: 290px; width: 520px; z-index: 5; padding: 0; overflow: hidden; }
+  .tk .t { padding: 30px 34px; }
+  .tk .rt { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
+  .tk .rt b { display: block; font-size: 44px; font-weight: 800; letter-spacing: -.04em; color: var(--ink); line-height: 1; }
+  .tk .rt span { font-size: 13px; color: var(--mute); font-weight: 600; }
+  .tk .ln { flex: 1; margin: 0 18px; height: 2px; background: repeating-linear-gradient(90deg, var(--blue) 0 6px, transparent 6px 12px); position: relative; }
+  .tk .ln::after { content: "✈"; position: absolute; left: 50%; top: -12px; margin-left: -9px; color: var(--blue); font-size: 18px; }
+  .tk .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 2px dashed #d6e2ff; }
+  .tk .meta span { display: block; font-size: 12px; color: var(--mute); font-weight: 600; }
+  .tk .meta b { font-size: 17px; color: var(--ink); }
+  .tk .bot { display: flex; align-items: center; justify-content: space-between; padding: 20px 34px; background: #f2f6ff; }
+  .tk .bar { width: 180px; height: 40px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px); opacity: .85; }
+
+  /* 5. Маршруты */
+  .arcs { position: absolute; inset: 0; z-index: 1; }
+  .city { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 700; font-size: 15px; }
+  .city i { width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px rgba(255,255,255,.25); }
+  .city.home i { background: #ff7a1a; box-shadow: 0 0 0 8px rgba(255,122,26,.3); }
+  .city small { display: block; font-weight: 600; font-size: 12px; opacity: .75; }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>Altitude, главный экран:<br><em>пять вариантов</em></h1>
+  <p>Сейчас на компьютере главный экран — это растянутая телефонная версия: заголовок и самолёт по центру, по бокам пусто. Здесь пять вариантов именно для широкого экрана, в тех же цветах и с теми же облаками и самолётом. Кадры 1440×900, телефон не трогаю.</p>
+  <nav class="jump"><a href="#v1">1 Поиск рейса</a><a href="#v2">2 Иллюминатор</a><a href="#v3">3 Над облаками</a><a href="#v4">4 Билет</a><a href="#v5">5 Карта маршрутов</a></nav>
+</header>
+
+<section class="blk" id="v1">
+  <div class="blk__h"><b>1</b><h2>Поиск рейса прямо на главном</h2><span>как у настоящих авиакомпаний</span></div>
+  <p class="desc">Заголовок из облаков слева, самолёт пролетает справа налево. Внизу во всю ширину стеклянная строка поиска: откуда, куда, когда, пассажиры и «Найти рейс». Сразу понятно, что здесь продают билеты.</p>
+  <div class="fr"><div class="s"><i class="sky"></i><div class="nav"><span class="logo">altitude</span><ul><li>Поиск</li><li>Классы</li><li>Маршруты</li><li>История</li><li>Путь пассажира</li><li>Гарантии</li><li>Отзывы</li></ul><span class="btn">Купить билет</span><span class="burg"></span></div>
+    <div class="ab" style="left:-10%;right:-10%;bottom:-330px;z-index:2"><img src="../altitude-site/hero/cloud-dense.webp" alt="" style="opacity:.95"></div>
+    <div class="ab" style="left:100px;top:150px;width:560px;z-index:4"><img src="../altitude-site/hero/cloud-title.webp" alt=""><p style="margin-top:24px;max-width:480px;font-size:20px;line-height:1.5;color:#fff;font-weight:500">Летаем с 2014 года. 91 направление, свой флот и сервис — от онлайн-регистрации до выдачи багажа.</p><div style="display:flex;gap:12px;margin-top:30px"><span class="btn or">✈ Направления</span><span class="btn gl">Частный джет</span></div></div>
+    <div class="ab" style="right:-40px;top:200px;width:720px;z-index:3"><img src="../altitude-site/hero/plane.webp" alt="" style="transform:scaleX(-1) rotate(-4deg)"></div>
+    <div class="srch glassc"><div class="fld"><span>Откуда</span><b>Москва</b></div><div class="fld"><span>Куда</span><b>Сочи</b></div><div class="fld"><span>Когда</span><b>22 октября</b></div><div class="fld"><span>Пассажиры</span><b>1, эконом</b></div><span class="btn or">Найти рейс</span></div>
+  </div></div>
+</section>
+
+<section class="blk" id="v2">
+  <div class="blk__h"><b>2</b><h2>Иллюминатор</h2><span>сайт как вид из окна самолёта</span></div>
+  <p class="desc">В центре огромный иллюминатор, в нём небо, облака и самолёт. Слева заголовок, справа цифры. При прокрутке иллюминатор приближается и «впускает» в сайт — будто садитесь у окна.</p>
+  <div class="fr"><div class="s"><i class="sky" style="background:linear-gradient(180deg,#e9f1ff,#cfe0ff)"></i><div class="nav"><span class="logo">altitude</span><ul><li>Поиск</li><li>Классы</li><li>Маршруты</li><li>История</li><li>Путь пассажира</li><li>Гарантии</li><li>Отзывы</li></ul><span class="btn">Купить билет</span><span class="burg"></span></div>
+    <div class="port"><div class="win"><div class="ab" style="left:-40%;right:-40%;bottom:-40px"><img src="../altitude-site/hero/cloud-dense.webp" alt=""></div><div class="ab" style="left:-10%;right:-10%;top:150px"><img src="../altitude-site/hero/plane.webp" alt=""></div><div class="ab" style="left:-60%;right:-60%;top:40px;opacity:.7"><img src="../altitude-site/hero/cloud-soft.webp" alt=""></div></div></div>
+    <div class="ab" style="left:100px;top:300px;width:360px;z-index:4"><p style="font-weight:700;color:var(--blue);font-size:14px">Altitude Airlines · с 2014 года</p><h1 class="h1" style="color:var(--ink);font-size:60px;margin-top:14px">Выше<br><span style="color:var(--blue)">ожиданий</span></h1><div style="display:flex;gap:10px;margin-top:30px"><span class="btn or">Направления</span><span class="btn w">Джет</span></div></div>
+    <div class="ab" style="right:100px;top:300px;width:250px;z-index:4;display:grid;gap:26px;text-align:right"><div><b style="display:block;font-size:52px;font-weight:800;letter-spacing:-.04em;color:var(--blue);line-height:1">91</b><span style="color:var(--ink2);font-weight:600">направление по миру</span></div><div><b style="display:block;font-size:52px;font-weight:800;letter-spacing:-.04em;color:var(--blue);line-height:1">21</b><span style="color:var(--ink2);font-weight:600">самолёт во флоте</span></div><div><b style="display:block;font-size:52px;font-weight:800;letter-spacing:-.04em;color:var(--blue);line-height:1">11 лет</b><span style="color:var(--ink2);font-weight:600">в небе</span></div></div>
+  </div></div>
+</section>
+
+<section class="blk" id="v3">
+  <div class="blk__h"><b>3</b><h2>Над облаками</h2><span>самолёт выныривает из облаков,<br>внизу цифры</span></div>
+  <p class="desc">Как сейчас, но развёрнуто на всю ширину: внизу плотная полоса облаков во весь экран, самолёт выныривает из неё и уходит вверх. Заголовок крупнее, под облаками на белом — цифры компании.</p>
+  <div class="fr"><div class="s"><i class="sky" style="background:linear-gradient(180deg,#0f47e8 0%,#2a6bff 45%,#9cc8ff 75%,#fff 100%)"></i><div class="nav"><span class="logo">altitude</span><ul><li>Поиск</li><li>Классы</li><li>Маршруты</li><li>История</li><li>Путь пассажира</li><li>Гарантии</li><li>Отзывы</li></ul><span class="btn">Купить билет</span><span class="burg"></span></div>
+    <div class="ab" style="left:50%;top:130px;width:820px;margin-left:-410px;z-index:4"><img src="../altitude-site/hero/cloud-title.webp" alt=""></div>
+    <div class="ab" style="left:50%;top:430px;width:300px;margin-left:-150px;z-index:5;display:flex;gap:12px;justify-content:center"><span class="btn or">✈ Направления</span><span class="btn gl">Частный джет</span></div>
+    <div class="ab" style="left:300px;top:420px;width:900px;z-index:3"><img src="../altitude-site/hero/plane.webp" alt="" style="transform:rotate(-10deg)"></div>
+    <div class="ab" style="left:-20%;right:-20%;top:560px;z-index:4"><img src="../altitude-site/hero/cloud-dense.webp" alt=""></div>
+    <div class="ab" style="left:0;right:0;bottom:0;height:150px;z-index:5;background:linear-gradient(rgba(255,255,255,0),#fff 45%)"></div>
+    <div class="ab stats" style="left:100px;bottom:44px;z-index:6"><div><b>11 лет</b><span>в небе</span></div><div><b>91</b><span>направление</span></div><div><b>21</b><span>самолёт во флоте</span></div><div><b>28%</b><span>возвратов из всех рейсов</span></div></div>
+  </div></div>
+</section>
+
+<section class="blk" id="v4">
+  <div class="blk__h"><b>4</b><h2>Билет</h2><span>справа живой посадочный<br>талон на ближайший рейс</span></div>
+  <p class="desc">Слева заголовок и кнопки, справа посадочный талон на ближайший рейс — Москва → Мальдивы, с датой и ценой. Самолёт пролетает над талоном, облака внизу. Нажал на талон — сразу к покупке.</p>
+  <div class="fr"><div class="s"><i class="sky"></i><div class="nav"><span class="logo">altitude</span><ul><li>Поиск</li><li>Классы</li><li>Маршруты</li><li>История</li><li>Путь пассажира</li><li>Гарантии</li><li>Отзывы</li></ul><span class="btn">Купить билет</span><span class="burg"></span></div>
+    <div class="ab" style="left:-10%;right:-10%;bottom:-470px;z-index:2"><img src="../altitude-site/hero/cloud-dense.webp" alt=""></div>
+    <div class="ab" style="left:100px;top:230px;width:600px;z-index:4"><p style="font-weight:700;color:rgba(255,255,255,.85);font-size:15px">Altitude Airlines · с 2014 года</p><h1 class="h1" style="font-size:96px;margin-top:16px">Выше<br>ожиданий</h1><p style="margin-top:22px;max-width:440px;font-size:19px;line-height:1.55;color:rgba(255,255,255,.92);font-weight:500">91 направление, свой флот и сервис. Цена в билете не меняется.</p><div style="display:flex;gap:12px;margin-top:30px"><span class="btn or">✈ Направления</span><span class="btn gl">Частный джет</span></div></div>
+    <div class="ab" style="right:160px;top:96px;width:440px;z-index:6"><img src="../altitude-site/hero/plane.webp" alt="" style="transform:rotate(-6deg)"></div>
+    <div class="tk glassc"><div class="t"><span class="pill">Новый маршрут · прямой рейс</span><div class="rt"><div><b>MOW</b><span>Москва</span></div><i class="ln"></i><div style="text-align:right"><b>MLE</b><span>Мальдивы</span></div></div><div class="meta"><div><span>Вылет</span><b>15 декабря</b></div><div><span>В пути</span><b>9 часов</b></div><div><span>Класс</span><b>Бизнес</b></div></div></div><div class="bot"><i class="bar"></i><span class="btn" style="height:50px">Купить билет</span></div></div>
+  </div></div>
+</section>
+
+<section class="blk" id="v5">
+  <div class="blk__h"><b>5</b><h2>Карта маршрутов</h2><span>от Москвы разлетаются<br>линии направлений</span></div>
+  <p class="desc">На синем небе из Москвы во все стороны разлетаются пунктирные линии направлений, по ним скользят маленькие самолёты. Слева заголовок. Подсказывает главное: летаем далеко и много.</p>
+  <div class="fr"><div class="s"><i class="sky" style="background:radial-gradient(70% 90% at 70% 60%,#3b7bff,#0f3fd6 70%)"></i><div class="nav"><span class="logo">altitude</span><ul><li>Поиск</li><li>Классы</li><li>Маршруты</li><li>История</li><li>Путь пассажира</li><li>Гарантии</li><li>Отзывы</li></ul><span class="btn">Купить билет</span><span class="burg"></span></div>
+    <svg class="arcs" viewBox="0 0 1440 900" fill="none"><g stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-dasharray="4 10"><path d="M880 600 Q1000 340 1260 300"/><path d="M880 600 Q1100 520 1320 620"/><path d="M880 600 Q960 760 1180 800"/><path d="M880 600 Q780 380 820 210"/><path d="M880 600 Q1120 200 1340 160"/><path d="M880 600 Q700 720 600 820"/></g><g fill="#fff"><text x="1120" y="300" font-size="22" transform="rotate(-20 1120 300)">✈</text><text x="1180" y="560" font-size="22">✈</text><text x="830" y="330" font-size="22" transform="rotate(-80 830 330)">✈</text></g></svg>
+    <div class="city home" style="left:850px;top:588px"><i></i><div>Москва<small>все рейсы отсюда</small></div></div>
+    <div class="city" style="left:1250px;top:288px"><i></i><div>Дубай<small>от 89 000 ₽</small></div></div>
+    <div class="city" style="left:1310px;top:608px"><i></i><div>Мальдивы<small>новый</small></div></div>
+    <div class="city" style="left:1170px;top:788px"><i></i><div>Анталья</div></div>
+    <div class="city" style="left:810px;top:198px"><i></i><div>Санкт-Петербург</div></div>
+    <div class="city" style="left:1330px;top:148px"><i></i><div>Пекин</div></div>
+    <div class="city" style="left:590px;top:808px"><i></i><div>Сочи<small>от 4 900 ₽</small></div></div>
+    <div class="ab" style="left:100px;top:230px;width:560px;z-index:4"><p style="font-weight:700;color:rgba(255,255,255,.85);font-size:15px">Altitude Airlines</p><h1 class="h1" style="font-size:96px;margin-top:16px">Выше<br>ожиданий</h1><p style="margin-top:22px;max-width:420px;font-size:19px;line-height:1.55;color:rgba(255,255,255,.92);font-weight:500">91 направление по миру. Куда полетим?</p><div style="display:flex;gap:12px;margin-top:30px"><span class="btn or">✈ Все направления</span><span class="btn gl">Частный джет</span></div></div>
+  </div></div>
+</section>
+
+<p class="note"><b>Как выбирать:</b> напишите номер, можно смешать, например «4, но с поиском из 1». Соберу только для компьютера, телефон не трогаю.</p>
+
+<script>
+  const fit = () => document.querySelectorAll('.fr').forEach(f => f.style.setProperty('--z', f.clientWidth / 1440));
+  addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
