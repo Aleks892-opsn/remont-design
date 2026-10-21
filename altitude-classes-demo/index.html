@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Altitude: четыре класса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #eaf1ff; --paper: #fff; --ink: #0b1433; --ink2: #3a4566; --mute: #8792b5; --line: rgba(31, 86, 255, .12); --blue: #1f5bff; --blue2: #4d8dff; --blue-l: #dfe9ff; --f: "Montserrat", system-ui, sans-serif; color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0b1022; color: #eef1f6; font: 16px/1.5 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  .intro { max-width: 1480px; margin: 0 auto; padding: 52px 16px 20px; }
+  .intro h1 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
+  .intro h1 em { font-style: normal; color: #6f9bff; }
+  .intro p { max-width: 760px; margin-top: 16px; color: #9aa5c4; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .jump a { padding: 9px 14px; border-radius: 20px; background: #1a2240; color: #dfe6ff; text-decoration: none; font-weight: 600; font-size: 14px; }
+  .blk { max-width: 1480px; margin: 0 auto; padding: 48px 16px 8px; }
+  .blk__h { display: flex; align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--blue); }
+  .blk__h b { font-size: 32px; font-weight: 800; color: #6f9bff; }
+  .blk__h h2 { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; letter-spacing: -.02em; }
+  .blk__h span { margin-left: auto; color: #9aa5c4; font-size: 14px; text-align: right; }
+  .desc { margin: 14px 0 14px; color: #b9c3e0; font-size: 15px; max-width: 900px; }
+  .fr { overflow: hidden; border-radius: 14px; }
+  .s { position: relative; width: 1440px; zoom: var(--z, 1); background: var(--bg); color: var(--ink); overflow: hidden; padding: 72px 100px; }
+  .note { max-width: 1480px; margin: 36px auto 0; padding: 0 16px 80px; color: #9aa5c4; }
+  .note b { color: #fff; }
+  @media (max-width: 700px) { .blk__h span { display: none; } }
+
+  /* общие элементы сайта Altitude */
+  .card { background: var(--paper); border-radius: 44px; padding: 64px 72px; box-shadow: 0 16px 40px rgba(20, 60, 180, .08); }
+  .lbl { display: inline-block; padding: 6px 12px; border-radius: 20px; background: var(--blue-l); color: var(--blue); font-size: 12px; font-weight: 700; }
+  .h2 { margin-top: 14px; font-size: 52px; font-weight: 800; letter-spacing: -.04em; line-height: 1.02; }
+  .h2 em { font-style: normal; color: var(--blue); }
+  .sub { margin-top: 10px; color: var(--mute); font-size: 18px; font-weight: 500; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 28px; border-radius: 26px; background: var(--blue); color: #fff; font-weight: 700; font-size: 15px; white-space: nowrap; }
+  .btn.w { background: #fff; color: var(--blue); }
+  .btn.gh { background: var(--blue-l); color: var(--blue); }
+  .price { font-weight: 800; letter-spacing: -.03em; }
+  .pill { display: inline-flex; padding: 6px 12px; border-radius: 16px; background: var(--blue-l); color: var(--blue); font-size: 12px; font-weight: 700; }
+
+  /* 1. Большое фото + переключатель */
+  .v1 { display: grid; grid-template-columns: 360px 1fr; gap: 28px; margin-top: 40px; }
+  .tabs1 { display: grid; gap: 10px; align-content: start; }
+  .t1 { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 14px; padding: 20px 22px; border-radius: 24px; background: #f4f7ff; }
+  .t1 b { font-size: 20px; letter-spacing: -.02em; }
+  .t1 span { grid-column: 1; font-size: 13px; color: var(--mute); }
+  .t1 i { grid-row: 1 / span 2; grid-column: 2; font-style: normal; font-weight: 800; font-size: 15px; color: var(--blue); }
+  .t1.on { background: linear-gradient(150deg, var(--blue2), var(--blue)); color: #fff; box-shadow: 0 16px 30px rgba(31, 91, 255, .3); }
+  .t1.on span, .t1.on i { color: rgba(255,255,255,.85); }
+  .big1 { position: relative; height: 560px; border-radius: 36px; overflow: hidden; }
+  .big1 img { width: 100%; height: 100%; object-fit: cover; }
+  .glass { position: absolute; left: 28px; bottom: 28px; width: 440px; padding: 28px 30px; border-radius: 28px; background: rgba(255,255,255,.78); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+  .glass ul { margin: 14px 0 20px; display: grid; gap: 8px; list-style: none; }
+  .glass li { position: relative; padding-left: 26px; font-size: 15px; color: var(--ink2); }
+  .glass li::before { content: ""; position: absolute; left: 0; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: var(--blue); box-shadow: inset 0 0 0 4px #cfe0ff; }
+
+  /* 2. Лестница: колонки растут, как высота полёта */
+  .v2 { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; align-items: end; height: 660px; margin-top: 30px; }
+  .alt { position: absolute; left: -84px; top: 0; bottom: 0; width: 70px; white-space: nowrap; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--mute); }
+  .col { position: relative; display: flex; flex-direction: column; border-radius: 32px; overflow: hidden; background: #fff; box-shadow: 0 16px 40px rgba(20, 60, 180, .10); }
+  .col .ph { flex: 1; min-height: 120px; background: center / cover no-repeat; }
+  .col .bd { padding: 24px 24px 26px; }
+  .col b { display: block; font-size: 22px; letter-spacing: -.02em; }
+  .col p { margin-top: 6px; font-size: 14px; color: var(--ink2); line-height: 1.5; }
+  .col .price { margin-top: 14px; font-size: 22px; color: var(--blue); }
+  .col.top { background: linear-gradient(170deg, var(--blue2), var(--blue)); color: #fff; }
+  .col.top p { color: rgba(255,255,255,.88); }
+  .col.top .price { color: #fff; }
+  .flag { position: absolute; left: 18px; top: 18px; padding: 6px 12px; border-radius: 14px; background: rgba(255,255,255,.9); color: var(--blue); font-size: 12px; font-weight: 700; }
+
+  /* 3. Посадочные талоны */
+  .v3 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px; }
+  .bp { position: relative; display: grid; grid-template-columns: 170px 1fr 170px; min-height: 230px; border-radius: 28px; background: #fff; overflow: hidden; box-shadow: 0 16px 40px rgba(20, 60, 180, .10); }
+  .bp .ph { background: center / cover no-repeat; }
+  .bp .mid { padding: 26px 26px 22px; border-right: 2px dashed #d6e2ff; }
+  .bp .cls { font-size: 12px; font-weight: 700; color: var(--mute); letter-spacing: .08em; text-transform: uppercase; }
+  .bp b { display: block; margin-top: 4px; font-size: 26px; letter-spacing: -.03em; }
+  .bp .rt { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+  .bp .rt i { flex: 1; height: 2px; background: repeating-linear-gradient(90deg, var(--blue) 0 6px, transparent 6px 12px); position: relative; }
+  .bp .rt i::after { content: "✈"; position: absolute; left: 50%; top: -11px; font-style: normal; font-size: 16px; color: var(--blue); }
+  .bp p { margin-top: 12px; font-size: 13px; color: var(--ink2); }
+  .bp .stub { display: flex; flex-direction: column; justify-content: space-between; padding: 26px 20px; background: #f4f7ff; }
+  .bp .stub span { font-size: 11px; color: var(--mute); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .bp .stub .price { font-size: 21px; color: var(--blue); text-transform: none; letter-spacing: -.03em; white-space: nowrap; }
+  .bp .bar { height: 34px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px); opacity: .8; }
+  .bp::before, .bp::after { content: ""; position: absolute; right: 156px; width: 28px; height: 28px; border-radius: 50%; background: var(--bg); }
+  .bp::before { top: -14px; } .bp::after { bottom: -14px; }
+  .bp.pop { box-shadow: 0 0 0 3px var(--blue), 0 16px 40px rgba(20, 60, 180, .18); }
+
+  /* 4. Сравнение */
+  .tbl { margin-top: 40px; display: grid; grid-template-columns: 260px repeat(4, 1fr); border-radius: 32px; background: #fff; overflow: hidden; box-shadow: 0 16px 40px rgba(20, 60, 180, .08); }
+  .tbl > div { padding: 18px 22px; border-bottom: 1px solid #edf2ff; font-size: 15px; display: flex; align-items: center; }
+  .tbl .hd { flex-direction: column; align-items: stretch; padding: 16px 16px 22px; }
+  .tbl .hd img { height: 130px; width: 100%; object-fit: cover; border-radius: 20px; }
+  .tbl .hd b { margin-top: 14px; font-size: 20px; letter-spacing: -.02em; }
+  .tbl .hd .price { margin-top: 4px; font-size: 17px; color: var(--blue); }
+  .tbl .rl { color: var(--ink2); font-weight: 600; }
+  .tbl .ok::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center / 14px no-repeat; margin-right: 10px; flex: none; }
+  .tbl .no { color: #b7bfd8; }
+  .tbl .hl { background: #f4f7ff; }
+  .tbl .ft { border-bottom: 0; }
+
+  /* 5. Раскрывающиеся панели */
+  .v5 { display: flex; gap: 14px; height: 600px; margin-top: 40px; }
+  .pn { position: relative; flex: 1; border-radius: 36px; overflow: hidden; background: center / cover no-repeat; }
+  .pn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8, 20, 60, .85), rgba(8, 20, 60, .05) 60%); }
+  .pn > * { position: relative; z-index: 1; }
+  .pn .vt { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl; color: #fff; font-weight: 800; font-size: 26px; letter-spacing: -.02em; white-space: nowrap; }
+  .pn .num { position: absolute; left: 50%; top: 28px; transform: translateX(-50%); color: rgba(255,255,255,.8); font-weight: 700; font-size: 14px; }
+  .pn.open { flex: 4.4; }
+  .pn.open .in { position: absolute; left: 40px; right: 40px; bottom: 40px; color: #fff; }
+  .pn.open .in b { display: block; margin-top: 10px; font-size: 44px; letter-spacing: -.04em; line-height: 1; }
+  .pn.open .in p { max-width: 460px; margin-top: 14px; font-size: 17px; color: rgba(255,255,255,.9); }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>Altitude, «Четыре класса»:<br><em>пять новых вариантов</em></h1>
+  <p>Сейчас этот блок похож на соседние: такие же карточки с фото сверху. Здесь пять других подач в том же сине-белом стиле сайта. Кадры в ширину компьютера 1440 px, телефон не трогаю.</p>
+  <nav class="jump"><a href="#v1">1 Большое фото</a><a href="#v2">2 Лестница</a><a href="#v3">3 Посадочные талоны</a><a href="#v4">4 Сравнение</a><a href="#v5">5 Раскрывающиеся панели</a></nav>
+</header>
+
+<section class="blk" id="v1">
+  <div class="blk__h"><b>1</b><h2>Большое фото и переключатель</h2><span>один класс крупно,<br>остальные — кнопками сбоку</span></div>
+  <p class="desc">Слева список классов с ценами, справа огромное фото выбранного класса и стеклянная плашка с тем, что входит. Нажали «Бизнес» — фото плавно сменилось.</p>
+  <div class="fr"><div class="s"><div class="card">
+    <span class="lbl">01 — как летаем</span><h2 class="h2">Четыре <em>класса</em></h2><p class="sub">один сервис</p>
+    <div class="v1">
+      <div class="tabs1">
+        <div class="t1"><b>Эконом</b><span>Москва — Сочи</span><i>от 4 900 ₽</i></div>
+        <div class="t1"><b>Комфорт</b><span>Москва — Сочи</span><i>от 9 900 ₽</i></div>
+        <div class="t1 on"><b>Бизнес</b><span>Москва — Дубай</span><i>от 89 000 ₽</i></div>
+        <div class="t1"><b>Частный джет</b><span>до 12 пассажиров</span><i>от 390 000 ₽</i></div>
+      </div>
+      <div class="big1"><img src="../altitude-site/photos/business.webp" alt=""><div class="glass"><span class="pill">03 · Бизнес</span><b style="display:block;margin-top:12px;font-size:30px;letter-spacing:-.03em">Бизнес</b><ul><li>Кресло-кровать</li><li>Бизнес-зал в аэропорту</li><li>Меню от шефа</li></ul><div style="display:flex;align-items:center;justify-content:space-between"><span class="price" style="font-size:24px;color:var(--blue)">от 89 000 ₽</span><span class="btn">Выбрать бизнес</span></div></div></div>
+    </div>
+  </div></div></div>
+</section>
+
+<section class="blk" id="v2">
+  <div class="blk__h"><b>2</b><h2>Лестница</h2><span>чем выше класс —<br>тем выше колонка</span></div>
+  <p class="desc">Колонки растут слева направо, как набор высоты: эконом ниже всех, джет выше всех. Сбоку шкала высоты в футах — в духе авиакомпании. При прокрутке колонки «взлетают» по очереди.</p>
+  <div class="fr"><div class="s"><div class="card" style="padding-left:130px">
+    <span class="lbl">01 — как летаем</span><h2 class="h2">Чем выше — <em>тем свободнее</em></h2><p class="sub">четыре класса, один сервис</p>
+    <div class="v2">
+      <div class="alt"><span>41 000 ft</span><span>30 000 ft</span><span>20 000 ft</span><span>10 000 ft</span><span>0</span></div>
+      <div class="col" style="height:52%"><span class="flag">Самый популярный</span><div class="ph" style="background-image:url(../altitude-site/photos/economy.webp)"></div><div class="bd"><b>Эконом</b><p>Багаж 23 кг включён, место у окна бесплатно.</p><p class="price">от 4 900 ₽</p></div></div>
+      <div class="col" style="height:66%"><div class="ph" style="background-image:url(../altitude-site/photos/comfort.webp)"></div><div class="bd"><b>Комфорт</b><p>Больше места для ног, приоритетная посадка, горячее питание.</p><p class="price">от 9 900 ₽</p></div></div>
+      <div class="col" style="height:82%"><div class="ph" style="background-image:url(../altitude-site/photos/business.webp)"></div><div class="bd"><b>Бизнес</b><p>Кресло-кровать, бизнес-зал, меню от шефа.</p><p class="price">от 89 000 ₽</p></div></div>
+      <div class="col top" style="height:100%"><div class="ph" style="background-image:url(../altitude-site/photos/jet.webp)"></div><div class="bd"><b>Частный джет</b><p>Свой самолёт и своё расписание. Вылет через 4 часа после заявки.</p><p class="price">от 390 000 ₽</p></div></div>
+    </div>
+  </div></div></div>
+</section>
+
+<section class="blk" id="v3">
+  <div class="blk__h"><b>3</b><h2>Посадочные талоны</h2><span>каждый класс —<br>как настоящий билет</span></div>
+  <p class="desc">Четыре посадочных талона с маршрутом, ценой и штрихкодом на корешке. Самый популярный обведён синим. Сразу понятно, что это авиакомпания, и не похоже ни на один другой блок.</p>
+  <div class="fr"><div class="s"><div class="card">
+    <span class="lbl">01 — как летаем</span><h2 class="h2">Выберите <em>свой билет</em></h2><p class="sub">четыре класса, один сервис</p>
+    <div class="v3" data-bp></div>
+  </div></div></div>
+</section>
+
+<section class="blk" id="v4">
+  <div class="blk__h"><b>4</b><h2>Сравнение</h2><span>таблица, что входит<br>в каждый класс</span></div>
+  <p class="desc">Фото классов в шапке, ниже строки «что входит» с синими галочками. Удобно сравнить и выбрать. Эконом подсвечен как самый популярный.</p>
+  <div class="fr"><div class="s"><div class="card" style="padding:56px 56px">
+    <span class="lbl">01 — как летаем</span><h2 class="h2">Что входит <em>в каждый класс</em></h2>
+    <div class="tbl" data-tbl></div>
+  </div></div></div>
+</section>
+
+<section class="blk" id="v5">
+  <div class="blk__h"><b>5</b><h2>Раскрывающиеся панели</h2><span>четыре высоких фото,<br>выбранное раскрывается</span></div>
+  <p class="desc">Четыре вертикальные фото-панели. Наведите на любую — она плавно раскрывается на всю ширину и показывает описание и цену, остальные сжимаются в узкие полоски с названием.</p>
+  <div class="fr"><div class="s"><div class="card">
+    <span class="lbl">01 — как летаем</span><h2 class="h2">Четыре <em>класса</em></h2><p class="sub">один сервис</p>
+    <div class="v5">
+      <div class="pn" style="background-image:url(../altitude-site/photos/economy.webp)"><span class="num">01</span><span class="vt">Эконом</span></div>
+      <div class="pn" style="background-image:url(../altitude-site/photos/comfort.webp)"><span class="num">02</span><span class="vt">Комфорт</span></div>
+      <div class="pn open" style="background-image:url(../altitude-site/photos/bizseat.webp)"><div class="in"><span class="pill" style="background:rgba(255,255,255,.2);color:#fff">03 · Москва — Дубай</span><b>Бизнес</b><p>Кресло-кровать, бизнес-зал в аэропорту и меню от шефа.</p><div style="display:flex;align-items:center;gap:22px;margin-top:22px"><span class="price" style="font-size:28px">от 89 000 ₽</span><span class="btn w">Выбрать бизнес</span></div></div></div>
+      <div class="pn" style="background-image:url(../altitude-site/photos/jet.webp)"><span class="num">04</span><span class="vt">Частный джет</span></div>
+    </div>
+  </div></div></div>
+</section>
+
+<p class="note"><b>Как выбирать:</b> напишите номер, можно смешать. Соберу только для компьютера, телефонную версию не меняю.</p>
+
+<script>
+  const fit = () => document.querySelectorAll('.fr').forEach(f => f.style.setProperty('--z', f.clientWidth / 1440));
+  addEventListener('resize', fit);
+  const C = [['Эконом', 'economy', 'MOW', 'AER', 'Москва — Сочи', 'Ручная кладь и багаж 23 кг включены. Место у окна бесплатно.', 'от 4 900 ₽', true], ['Комфорт', 'comfort', 'MOW', 'AER', 'Москва — Сочи', 'Больше места для ног, приоритетная посадка, горячее питание.', 'от 9 900 ₽'], ['Бизнес', 'business', 'MOW', 'DXB', 'Москва — Дубай', 'Кресло-кровать, бизнес-зал в аэропорту, меню от шефа.', 'от 89 000 ₽'], ['Частный джет', 'jet', 'MOW', 'ANY', 'Куда угодно', 'Свой самолёт и своё расписание. Вылет через 4 часа после заявки.', 'от 390 000 ₽']];
+  document.querySelectorAll('[data-bp]').forEach(e => e.innerHTML = C.map((c, i) => `<div class="bp${c[7] ? ' pop' : ''}"><div class="ph" style="background-image:url(../altitude-site/photos/${c[1]}.webp)"></div><div class="mid"><span class="cls">Класс 0${i + 1}${c[7] ? ' · самый популярный' : ''}</span><b>${c[0]}</b><div class="rt">${c[2]}<i></i>${c[3]}</div><p>${c[5]}</p></div><div class="stub"><span>Рейс</span><div class="bar"></div><b class="price" style="font-size:21px;color:var(--blue);white-space:nowrap">${c[6]}</b></div></div>`).join(''));
+  const R = [['Багаж 23 кг', [1, 1, 1, 1]], ['Место у окна', [1, 1, 1, 1]], ['Больше места для ног', [0, 1, 1, 1]], ['Горячее питание', [0, 1, 1, 1]], ['Приоритетная посадка', [0, 1, 1, 1]], ['Бизнес-зал', [0, 0, 1, 1]], ['Кресло-кровать', [0, 0, 1, 0]], ['Своё расписание', [0, 0, 0, 1]]];
+  document.querySelectorAll('[data-tbl]').forEach(e => {
+    let h = '<div class="hd" style="justify-content:flex-end"><span class="sub" style="margin:0">Что входит</span></div>';
+    h += C.map((c, i) => `<div class="hd${i === 0 ? ' hl' : ''}"><img src="../altitude-site/photos/${c[1]}.webp" alt=""><b>${c[0]}</b><span class="price">${c[6]}</span></div>`).join('');
+    R.forEach((r, k) => { h += `<div class="rl${k === R.length - 1 ? ' ft' : ''}">${r[0]}</div>` + r[1].map((v, i) => `<div class="${v ? 'ok' : 'no'}${i === 0 ? ' hl' : ''}${k === R.length - 1 ? ' ft' : ''}">${v ? 'входит' : '—'}</div>`).join(''); });
+    h += '<div class="ft"></div>' + C.map((c, i) => `<div class="ft${i === 0 ? ' hl' : ''}" style="padding-bottom:22px"><span class="btn ${i === 0 ? '' : 'gh'}" style="width:100%;height:46px">Выбрать</span></div>`).join('');
+    e.innerHTML = h;
+  });
+  fit();
+</script>
+</body>
+</html>
