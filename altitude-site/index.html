@@ -828,7 +828,7 @@
 
     /* Новый маршрут */
     .obj { height: calc(var(--vh, 1vh) * 88); margin-top: 40px; }
-    .obj__plate { left: auto; right: 64px; bottom: 56px; width: 440px; border-radius: 24px; padding: 26px 26px; }
+    .obj__plate { left: 64px; right: auto; bottom: 56px; width: 440px; border-radius: 24px; padding: 26px 26px; }
     .obj__plate h3 { font-size: 26px; }
 
     /* История: фото и текст по разные стороны линии */
@@ -843,7 +843,7 @@
     .tli:nth-child(odd) .tli__y, .tli:nth-child(odd) b, .tli:nth-child(odd) > span:last-child { grid-column: 1; justify-self: end; text-align: right; }
 
     /* Путь пассажира: шаги сеткой 3×2 */
-    .hv-c .swipe { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; overflow: visible; margin: 0; padding: 0; }
+    .hv-c .swipe { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; overflow: visible; margin: 0; padding: 0; }
     .hv-c .swipe > * { flex: none; }
     .hv-c .nav { display: none; }
     .bign { min-height: 280px; }
@@ -854,8 +854,8 @@
     #why > .doc { grid-column: 2; grid-row: 1 / 6; margin: 0; }
     #why > .doc-btn { justify-self: start; margin-top: 32px; padding: 0 40px; }
     #why > .sh:not(:first-child), #why > .why-cards, #why > .why-list { grid-column: 1 / -1; }
-    .why-cards .swipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; overflow: visible; margin: 0; padding: 0; }
-    .why-cards .swipe > * { flex: none; }
+    .why-cards .swipe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; overflow: visible; margin: 0; padding: 0; }
+    .why-cards .swipe > * { flex: none; min-width: 0; }
     .why-cards .nav { display: none; }
 
     /* Партнёры */
@@ -885,7 +885,7 @@
     .menu__grid { grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
     .menu a.m { min-height: 150px; }
     .menu a.m--wide { grid-column: 1 / -1; min-height: 170px; }
-    .menu__auth { display: flex; gap: 12px; }
+    .menu__auth { display: flex; gap: 12px; margin-top: 40px; }
     .menu__auth .ma { flex: 1; }
     .auth { left: 50%; right: auto; bottom: auto; top: 50%; width: 460px; max-width: calc(100% - 48px); border-radius: 28px; padding: 24px 28px 28px; transform: translate(-50%, -46%); opacity: 0; visibility: hidden; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .25s, visibility 0s .35s; }
     body.auth-open .auth { transform: translate(-50%, -50%); opacity: 1; visibility: visible; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .25s; }
