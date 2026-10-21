@@ -649,6 +649,26 @@
     .rv__c q::before { content: "«"; } .rv__c q::after { content: "»"; }
     .rv__w { margin: 22px 20px 0; padding-top: 0; border-top: 0; }
   }
+
+  /* ===== Первый экран на компьютере: огромное FORTE за крышей дома ===== */
+  .hero__big { display: none; }
+  @media (min-width: 900px) {
+    .hero__dsk picture { position: absolute; inset: 0; }
+    .hero__dsk picture:first-child { z-index: 0; }
+    .hero__big { display: flex; position: absolute; z-index: 1; left: 56px; top: 0; white-space: nowrap; font: 900 var(--bs, 260px)/.74 var(--f); letter-spacing: -.045em; pointer-events: none; user-select: none; }
+    .hero__big span { display: block; background: linear-gradient(180deg, #fff 35%, rgba(255, 255, 255, .55) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; transform: translate3d(0, 38%, 0); opacity: 0; transition: transform 1.6s var(--ease), opacity 1s var(--ease); }
+    .hero__big span:nth-child(2) { transition-delay: .08s; } .hero__big span:nth-child(3) { transition-delay: .16s; } .hero__big span:nth-child(4) { transition-delay: .24s; } .hero__big span:nth-child(5) { transition-delay: .32s; }
+    body.ld .hero__big span { transform: none; opacity: 1; }
+    .hero__fg { z-index: 2; }
+    .hero__f::after { background: radial-gradient(70% 60% at 0% 78%, rgba(8, 12, 20, .6), rgba(8, 12, 20, 0) 70%), linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, .5) 100%); }
+    .hero__txt { top: var(--tt, 380px); transform: none; width: min(520px, 36%); }
+    .hero__tag { margin-bottom: 18px; }
+    .hero__h { font-size: clamp(36px, 3.3vw, 50px); }
+    .hero__sub { margin-top: 14px; }
+    .hero__btns { margin-top: 24px; }
+    .hero__stats { left: auto; right: 40px; bottom: 40px; }
+  }
+  @media (min-width: 900px) and (prefers-reduced-motion: reduce) { .hero__big span { transform: none; opacity: 1; transition: none; } }
 </style>
 </head>
 <body>
@@ -681,7 +701,7 @@
         <img class="hero__house" id="heroImg" src="img/p_house2.webp" alt="Современные частные дома с панорамными окнами" fetchpriority="high">
       </div>
     </div>
-    <picture class="hero__dsk" aria-hidden="true"><source media="(min-width: 900px)" srcset="img/hero-dusk-w.webp"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></picture>
+    <div class="hero__dsk" aria-hidden="true"><picture><source media="(min-width: 900px)" srcset="img/hero-dusk-w.webp"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></picture><div class="hero__big" id="heroBig"><span>F</span><span>O</span><span>R</span><span>T</span><span>E</span></div><picture class="hero__fg"><source media="(min-width: 900px)" srcset="img/hero-dusk-fg.webp"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></picture></div>
     <div class="hero__bot">
       <div class="hero__txt">
       <span class="hero__tag hero__dx" data-h style="--d:.55s"><i></i>Частные дома под ключ · Москва и область</span>
@@ -711,7 +731,7 @@
     </div>
     <div class="svx" id="svx" data-r style="--d:.1s">
       <div class="svx__tabs" role="tablist"><i></i><button class="on" role="tab">Дом</button><button role="tab">Коттедж</button><button role="tab">Контур</button><button role="tab">Бизнес</button></div>
-      <div class="svx__st"><img src="img/sv-house.webp" alt="Двухэтажный дом с подсветкой" loading="lazy" class="on"><img src="img/pr-lake.webp" alt="Коттедж с панорамным остеклением" loading="lazy"><img src="img/sv-shell.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"><img src="img/sv-comm.webp" alt="Коммерческое здание" loading="lazy">
+      <div class="svx__st"><picture><source media="(min-width: 900px)" srcset="img/sv-house-w.webp"><img src="img/sv-house.webp" alt="Двухэтажный дом с подсветкой" loading="lazy" class="on"></picture><img src="img/pr-lake.webp" alt="Коттедж с панорамным остеклением" loading="lazy"><picture><source media="(min-width: 900px)" srcset="img/sv-shell-w.webp"><img src="img/sv-shell.webp" alt="Дом из кирпича в стиле минимализм" loading="lazy"></picture><picture><source media="(min-width: 900px)" srcset="img/sv-comm-w.webp"><img src="img/sv-comm.webp" alt="Коммерческое здание" loading="lazy"></picture>
         <div class="svx__b"><h3>Дом под ключ</h3><p>Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.</p><div class="svx__row"><div class="svx__chips"><span>от 6,8 млн ₽</span><span>6 мес</span></div><a class="svx__go" href="#build" aria-label="Рассчитать"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
       </div>
       <template data-svx>Дом под ключ|Газобетон или кирпич, отделка, инженерия. Заезжаете с чемоданом.|от 6,8 млн ₽|6 мес|#build</template><template data-svx>Коттеджи|Большие дома с панорамами и террасами, проект под ваш участок.|от 12 млн ₽||#build</template><template data-svx>Тёплый контур|Фундамент, стены, кровля и окна. Отделку делаете сами.|от 3,9 млн ₽||#build</template><template data-svx>Коммерческие здания|Офисы, магазины, базы отдыха, с проектом и согласованиями.|по проекту||#contact</template>
@@ -1209,6 +1229,27 @@
     // лёгкий поворот при первом показе, чтобы было понятно, что это 3D
     if (!reduce) { vel = .045; spin = requestAnimationFrame(tick); }
   }
+})();
+</script>
+<script>
+/* Надпись FORTE подгоняется под кадр — заканчивается сразу за коньком крыши */
+(function () {
+  var f = document.getElementById('heroSt'), w = document.getElementById('heroBig'); if (!f || !w) return;
+  var IW = 1936, IH = 768, PEAK = 1590, ROOF_TOP = 136;
+  var fit = function () {
+    if (innerWidth < 900) return;
+    var W = f.clientWidth, H = f.clientHeight, k = Math.max(W / IW, H / IH);
+    var ox = W - IW * k, oy = (H - IH * k) * .55;
+    var right = ox + PEAK * k, left = 56, nav = 112;
+    w.style.setProperty('--bs', '100px');
+    var fs = 100 * (right - left) / w.scrollWidth;
+    w.style.setProperty('--bs', fs.toFixed(1) + 'px');
+    fs = Math.min(fs, H * .3);
+    w.style.setProperty('--bs', fs.toFixed(1) + 'px');
+    w.style.top = nav + 'px';
+    f.style.setProperty('--tt', Math.round(nav + fs * .74 + Math.max(28, H * .045)) + 'px');
+  };
+  addEventListener('resize', fit); if (document.fonts) document.fonts.ready.then(fit); fit();
 })();
 </script>
 </body>
