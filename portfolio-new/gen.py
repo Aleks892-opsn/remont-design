@@ -166,6 +166,7 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead,.hero__name{font-family
 .case__n{font-size:clamp(34px,6vw,64px);line-height:1}
 .case__n em{font-style:normal;color:var(--acc);margin-right:.15em}
 .case__no{display:none}
+@media(min-width:900px){.cover__mast{display:none}}
 .case__pitch{margin-top:8px;font-size:clamp(18px,1.7vw,22px);font-weight:500}
 .case__win{border-radius:14px;overflow:hidden;background:#0d0d0e}
 .case__bar2{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;background:#1d1d20}
