@@ -361,7 +361,7 @@ def page(key, th):
  <p class="about__t" data-words>Мне 18, и я делаю сайты не для галочки. Каждый начинаю с разбора ниши, а заканчиваю тем, что сайт приводит заявки с компьютера и телефона.</p>
  <div class="about__s"><div><b>3</b><span>сайта в портфолио</span></div><div><b>3</b><span>разные ниши</span></div><div><b>100%</b><span>работаю сам, без посредников</span></div></div>
 </div></section>
-<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры <em>сайтов</em></h2></div></div>
+<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры<br><em>сайтов</em></h2></div></div>
 {cases}
 <section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p></div><div class="how__list"><span class="how__line"><i></i></span>{steps}</div></div></section>
 <section class="cta" id="contact"><div class="w">
