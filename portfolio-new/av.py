@@ -2,6 +2,7 @@
 import gen
 
 AB = {}
+ARR = gen.ARR
 
 # 1. Текст с картинками внутри строк
 AB['a1'] = dict(title='Текст с картинками', css='''
@@ -86,8 +87,9 @@ AB['a3'] = dict(title='Спросите меня', css='''
 .chatb__top img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 35%}
 .chatb__top b{display:block;font-size:15px}
 .chatb__top span{font-size:12px;color:#4ade80}
-.chatb__log{display:flex;flex-direction:column;gap:8px;flex:1;max-height:360px;overflow-y:auto;padding:4px 0}
-.bb{max-width:82%;padding:11px 15px;border-radius:18px 18px 18px 6px;background:#232327;font-size:16px;line-height:1.42}
+.chatb__log{display:flex;flex-direction:column;gap:8px;flex:1;max-height:440px;min-height:220px;overflow-y:auto;padding:4px 0;scroll-behavior:smooth}
+.chatb__go{margin-top:6px;width:100%}
+.bb{max-width:86%;padding:11px 15px;border-radius:18px 18px 18px 6px;background:#232327;color:#f3f1ec;font-size:16px;line-height:1.42}
 .bb--me{align-self:flex-end;border-radius:18px 18px 6px 18px;background:var(--acc);color:#fff}
 .bb--ty{display:inline-flex;gap:4px;width:max-content}
 .bb--ty i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:tyb 1s infinite}
@@ -100,17 +102,23 @@ AB['a3'] = dict(title='Спросите меня', css='''
 @media(min-width:900px){.abc .w{grid-template-columns:.9fr 1.1fr;align-items:center}}
 ''', html='''
 <section class="about abc"><div class="w">
- <div><p class="abc__k">О себе</p><h2 class="abc__h">Спросите <em>меня</em></h2><p style="margin-top:14px;color:var(--mute);max-width:32ch">Нажимайте на вопросы внизу. Отвечу как в переписке.</p></div>
+ <div><p class="abc__k">О себе</p><h2 class="abc__h">Спросите <em>меня</em></h2><p style="margin-top:14px;color:var(--mute);max-width:32ch">Ответил на вопросы, которые чаще всего задают перед заказом сайта. Нажимайте.</p></div>
  <div class="chatb">
   <div class="chatb__top"><img src="img/kirill.webp" alt=""><div><b>Кирилл</b><span>в сети</span></div></div>
-  <div class="chatb__log" id="log"><div class="bb">Привет! Я Кирилл, делаю сайты для бизнеса. Что хотите узнать?</div></div>
+  <div class="chatb__log" id="log"><div class="bb">Привет! Я Кирилл, делаю сайты для бизнеса. Выберите вопрос ниже, отвечу как в переписке.</div></div>
   <div class="qs" id="qs">
-   <button type="button" data-a="Мне 18. Делаю лендинги под ключ: продумываю, рисую, оживляю анимацией и запускаю.">Кто ты?</button>
-   <button type="button" data-a="Шаблон одинаковый у всех. Я рисую дизайн под вашу нишу и ваше главное обещание клиентам.">Почему не шаблон?</button>
-   <button type="button" data-a="Разбираю нишу, показываю 2-3 варианта дизайна, собираю выбранный и запускаю. Вы видите каждый шаг.">Как работаешь?</button>
-   <button type="button" data-a="Зависит от задачи. Назову точную цену после короткого разбора, до начала работы.">Сколько стоит?</button>
-   <button type="button" data-a="Со мной напрямую. Без менеджеров и посредников.">С кем общаться?</button>
+   <button type="button" data-a="Я Кирилл, мне 18 лет. Веб-дизайном занимаюсь около года.<br><br>Делаю лендинги для бизнеса под ключ: сам рисую дизайн, собираю сайт, оживляю его анимацией и запускаю.">Кто ты?</button>
+   <button type="button" data-a="Шаблон одинаковый у сотен компаний, и клиент его не запоминает.<br><br>Я рисую дизайн под вашу нишу и главное обещание клиентам. Поэтому сайт выделяется среди конкурентов и ведёт к заявке.">Почему не шаблон?</button>
+   <button type="button" data-a="1. Коротко обсуждаем ваш бизнес.<br>2. Разбираю нишу и конкурентов.<br>3. Показываю 2-3 варианта дизайна.<br>4. Собираю выбранный, вместе с версией для телефона.<br>5. Запускаю сайт и помогаю с доменом.">Как проходит работа?</button>
+   <button type="button" data-a="Зависит от задачи и объёма. Точную цену назову после короткого разбора и зафиксирую её до начала работы. Никаких доплат по ходу.">Сколько стоит?</button>
+   <button type="button" data-a="Тоже зависят от объёма. Срок называю заранее, после разбора, и вы знаете дату запуска с самого начала.">Какие сроки?</button>
+   <button type="button" data-a="Рассказать о бизнесе и клиентах, прислать логотип и фото, если они есть. С текстами помогу.">Что нужно от меня?</button>
+   <button type="button" data-a="Да. Версию для телефона продумываю отдельно, а не просто сжимаю компьютерную. Большинство клиентов заходят на сайт именно с телефона.">А на телефоне будет удобно?</button>
+   <button type="button" data-a="Да. Сначала вы выбираете дизайн из вариантов, а правки по ходу мы обсуждаем и согласуем заранее.">Можно вносить правки?</button>
+   <button type="button" data-a="Помогаю подключить домен и проверить, что заявки доходят. Если позже понадобится что-то поменять, просто напишите.">Что после запуска?</button>
+   <button type="button" data-a="Напишите мне в Telegram, кнопка ниже. Отвечу и предложу, каким может быть ваш сайт.">Как с тобой связаться?</button>
   </div>
+  <a class="btn btn--acc js-tg chatb__go" href="#">Написать в Telegram{ARR}</a>
  </div>
 </div></section>''', js='''
 (function(){
@@ -165,6 +173,10 @@ AB['a4'] = dict(title='Обычно или со мной', css='''
  if(window.gsap&&!matchMedia('(prefers-reduced-motion: reduce)').matches) gsap.from('.cr',{y:30,opacity:0,stagger:.08,duration:.9,ease:'expo.out',scrollTrigger:{trigger:'.cmp',start:'top 85%'}});
 })();''')
 
-for k, v in AB.items():
-    open(f'{k}.html', 'w').write(gen.page('v1', gen.THEMES['v1'], about=v))
-print('ok')
+for v in AB.values():
+    v['html'] = v['html'].replace('{ARR}', ARR)
+
+if __name__ == '__main__':
+    for k, v in AB.items():
+        open(f'{k}.html', 'w').write(gen.page('v1', gen.THEMES['v1'], about=v))
+    print('ok')

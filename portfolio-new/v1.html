@@ -162,6 +162,30 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .case__win{box-shadow:0 0 0 1px #2c2c30,0 50px 120px -40px rgba(255,43,43,.45)}
 .case::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 40% at 70% 50%,rgba(255,43,43,.16),transparent 70%);pointer-events:none}
 .cta{background:radial-gradient(60% 70% at 50% 100%,rgba(255,43,43,.35),transparent 70%)}
+
+.abc{padding:100px 0 90px}
+.abc .w{display:grid;gap:30px}
+.abc__k{font-size:14px;color:var(--mute)}
+.abc__h{margin-top:10px;font:var(--hw) clamp(32px,4.6vw,60px)/1.04 var(--fh);letter-spacing:var(--ls)}
+.abc__h em{font-style:normal;color:var(--acc)}
+.chatb{border-radius:24px;background:var(--card);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px;min-height:380px}
+.chatb__top{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.chatb__top img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 35%}
+.chatb__top b{display:block;font-size:15px}
+.chatb__top span{font-size:12px;color:#4ade80}
+.chatb__log{display:flex;flex-direction:column;gap:8px;flex:1;max-height:440px;min-height:220px;overflow-y:auto;padding:4px 0;scroll-behavior:smooth}
+.chatb__go{margin-top:6px;width:100%}
+.bb{max-width:86%;padding:11px 15px;border-radius:18px 18px 18px 6px;background:#232327;color:#f3f1ec;font-size:16px;line-height:1.42}
+.bb--me{align-self:flex-end;border-radius:18px 18px 6px 18px;background:var(--acc);color:#fff}
+.bb--ty{display:inline-flex;gap:4px;width:max-content}
+.bb--ty i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:tyb 1s infinite}
+.bb--ty i:nth-child(2){animation-delay:.15s}.bb--ty i:nth-child(3){animation-delay:.3s}
+@keyframes tyb{50%{transform:translateY(-4px);opacity:.4}}
+.qs{display:flex;flex-wrap:wrap;gap:8px}
+.qs button{height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--acc);background:none;color:var(--t);font:500 14px var(--fb);cursor:pointer;transition:background .25s,opacity .25s}
+.qs button:hover{background:color-mix(in srgb,var(--acc) 18%,transparent)}
+.qs button.used{opacity:.35;pointer-events:none}
+@media(min-width:900px){.abc .w{grid-template-columns:.9fr 1.1fr;align-items:center}}
 </style>
 </head>
 <body>
@@ -175,11 +199,27 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
   <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a><a class="btn btn--line js-tg" href="#">Написать</a></div></div>
 </div></section>
 <div class="mq" aria-hidden="true"><div class="mq__t"><span>Дизайн</span><span>Анимации</span><span>Версия для телефона</span><span>Запуск</span><span>Дизайн</span><span>Анимации</span><span>Версия для телефона</span><span>Запуск</span></div></div>
-<section class="about"><div class="w">
- <p class="about__t" data-words>Мне 18, и я делаю сайты не для галочки. Каждый начинаю с разбора ниши, а заканчиваю тем, что сайт приводит заявки с компьютера и телефона.</p>
- <div class="about__s"><div><b>3</b><span>сайта в портфолио</span></div><div><b>3</b><span>разные ниши</span></div><div><b>100%</b><span>работаю сам, без посредников</span></div></div>
-</div></section>
-<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры<br><em>сайтов</em></h2></div></div>
+
+<section class="about abc"><div class="w">
+ <div><p class="abc__k">О себе</p><h2 class="abc__h">Спросите <em>меня</em></h2><p style="margin-top:14px;color:var(--mute);max-width:32ch">Ответил на вопросы, которые чаще всего задают перед заказом сайта. Нажимайте.</p></div>
+ <div class="chatb">
+  <div class="chatb__top"><img src="img/kirill.webp" alt=""><div><b>Кирилл</b><span>в сети</span></div></div>
+  <div class="chatb__log" id="log"><div class="bb">Привет! Я Кирилл, делаю сайты для бизнеса. Выберите вопрос ниже, отвечу как в переписке.</div></div>
+  <div class="qs" id="qs">
+   <button type="button" data-a="Я Кирилл, мне 18 лет. Веб-дизайном занимаюсь около года.<br><br>Делаю лендинги для бизнеса под ключ: сам рисую дизайн, собираю сайт, оживляю его анимацией и запускаю.">Кто ты?</button>
+   <button type="button" data-a="Шаблон одинаковый у сотен компаний, и клиент его не запоминает.<br><br>Я рисую дизайн под вашу нишу и главное обещание клиентам. Поэтому сайт выделяется среди конкурентов и ведёт к заявке.">Почему не шаблон?</button>
+   <button type="button" data-a="1. Коротко обсуждаем ваш бизнес.<br>2. Разбираю нишу и конкурентов.<br>3. Показываю 2-3 варианта дизайна.<br>4. Собираю выбранный, вместе с версией для телефона.<br>5. Запускаю сайт и помогаю с доменом.">Как проходит работа?</button>
+   <button type="button" data-a="Зависит от задачи и объёма. Точную цену назову после короткого разбора и зафиксирую её до начала работы. Никаких доплат по ходу.">Сколько стоит?</button>
+   <button type="button" data-a="Тоже зависят от объёма. Срок называю заранее, после разбора, и вы знаете дату запуска с самого начала.">Какие сроки?</button>
+   <button type="button" data-a="Рассказать о бизнесе и клиентах, прислать логотип и фото, если они есть. С текстами помогу.">Что нужно от меня?</button>
+   <button type="button" data-a="Да. Версию для телефона продумываю отдельно, а не просто сжимаю компьютерную. Большинство клиентов заходят на сайт именно с телефона.">А на телефоне будет удобно?</button>
+   <button type="button" data-a="Да. Сначала вы выбираете дизайн из вариантов, а правки по ходу мы обсуждаем и согласуем заранее.">Можно вносить правки?</button>
+   <button type="button" data-a="Помогаю подключить домен и проверить, что заявки доходят. Если позже понадобится что-то поменять, просто напишите.">Что после запуска?</button>
+   <button type="button" data-a="Напишите мне в Telegram, кнопка ниже. Отвечу и предложу, каким может быть ваш сайт.">Как с тобой связаться?</button>
+  </div>
+  <a class="btn btn--acc js-tg chatb__go" href="#">Написать в Telegram<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+ </div>
+</div></section><div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры<br><em>сайтов</em></h2></div></div>
 <section class="case" id="case-protektor"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">01 / 03</span><span class="case__bar"><i></i></span><span class="tag">Шиномонтаж</span></div>
 <h3 class="case__n" data-split>ПРОТЕКТОР</h3><p class="case__pitch">Шиномонтаж, куда записываются сами</p></div>
@@ -300,6 +340,14 @@ document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target
   addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();
 </script>
-<script></script>
+<script>
+(function(){
+ var log=document.getElementById('log'); if(!log) return;
+ var add=function(cls,html){ var d=document.createElement('div'); d.className='bb '+cls; d.innerHTML=html; log.appendChild(d); log.scrollTop=log.scrollHeight; if(window.gsap) gsap.from(d,{y:12,opacity:0,scale:.95,duration:.45,ease:'back.out(1.6)'}); return d; };
+ document.querySelectorAll('#qs button').forEach(function(b){ b.addEventListener('click',function(){
+  b.classList.add('used'); add('bb--me',b.textContent); var t=add('bb--ty','<i></i><i></i><i></i>');
+  setTimeout(function(){ t.remove(); add('',b.getAttribute('data-a')); },900);
+ }); });
+})();</script>
 </body>
 </html>
