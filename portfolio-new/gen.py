@@ -1,6 +1,6 @@
 # Собирает три варианта портфолио из одной разметки и трёх тем
 CASES = [
-    dict(id='protektor', name='ПРОТЕКТОР', niche='Шиномонтаж', url='https://protektorvercelapp.vercel.app', host='protektor.ru',
+    dict(id='protektor', name='Протектор', niche='Шиномонтаж', url='https://protektorvercelapp.vercel.app', host='protektor.ru',
          pitch='Шиномонтаж, куда записываются сами',
          task='Люди не хотят звонить и стоять в очереди. Нужно, чтобы запись занимала минуту.',
          sol='Главное обещание вынес на первый экран: «Переобуем за 25 минут». Каждый следующий блок его доказывает.',
@@ -82,7 +82,7 @@ img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 .w{width:100%;max-width:1320px;margin:0 auto;padding:0 18px}
 @media(min-width:900px){.w{padding:0 48px}}
-h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);font-weight:var(--hw);letter-spacing:var(--ls)}
+h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead,.hero__name{font-family:var(--fh);font-weight:var(--hw);letter-spacing:var(--ls)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:58px;padding:0 28px;border-radius:var(--rb);font:600 16px var(--fb);white-space:nowrap;transition:background .3s,color .3s,transform .3s cubic-bezier(.16,1,.3,1)}
 .btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .btn:hover svg{transform:translate(3px,-3px)}
@@ -163,7 +163,9 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .case__no{font:var(--hw) 15px var(--fh);color:var(--acc)}
 .case__bar{flex:1;height:1px;background:var(--line);position:relative}
 .case__bar i{position:absolute;inset:0;background:var(--acc);transform-origin:0 50%;transform:scaleX(0)}
-.case__n{font-size:clamp(44px,8vw,110px);line-height:.95}
+.case__n{font-size:clamp(34px,6vw,64px);line-height:1}
+.case__n em{font-style:normal;color:var(--acc);margin-right:.15em}
+.case__no{display:none}
 .case__pitch{margin-top:8px;font-size:clamp(18px,1.7vw,22px);font-weight:500}
 .case__win{border-radius:14px;overflow:hidden;background:#0d0d0e}
 .case__bar2{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;background:#1d1d20}
@@ -293,6 +295,7 @@ JS = r'''
     .to('.loader', { yPercent: -100, duration: .8, ease: 'power3.inOut' }, .9)
     .set('.loader', { display: 'none' })
     .add(DESK ? gsap.fromTo('.cover', { autoAlpha: 0, y: 30, filter: 'blur(14px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out', clearProps: 'filter' }) : gsap.timeline().to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: E }, 0).to('.hero__photo img', { scale: 1, duration: 1.6, ease: E }, 0), 1.25)
+    .add(wordAnim(document.querySelector('.hero__name')), 1.55)
     .from('.cover__no', { autoAlpha: 0, y: 10, duration: .6 }, 1.9)
     .add(wordAnim(document.querySelector('.hero__lead')), 1.85)
     .fromTo('.hero [data-fade]', M.block, Object.assign({}, M.blockTo, { duration: .9, stagger: .12, ease: ME }), 2.35);
@@ -350,7 +353,7 @@ def case_html(c, i):
     lis = ''.join(f'<li>{d}</li>' for d in c['done'])
     return f'''<section class="case" id="case-{c["id"]}"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">0{i+1} / 03</span><span class="case__bar"><i></i></span><span class="tag">{c["niche"]}</span></div>
-<h3 class="case__n" data-split>{c["name"]}</h3><p class="case__pitch">{c["pitch"]}</p></div>
+<h3 class="case__n" data-split><em>0{i+1}</em> {c["name"]}</h3><p class="case__pitch">{c["pitch"]}</p></div>
 <div class="case__shot"><a class="case__win" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div></div></a><a class="btn btn--acc case__go" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}">Открыть сайт{ARR}</a></div>
 <div class="case__info"><div><h3>Задача</h3><p>{c["task"]}</p></div><div><h3>Решение</h3><p>{c["sol"]}</p></div><div><h3>Что сделал</h3><ul>{lis}</ul></div></div>
 </div></div></section>'''
@@ -385,7 +388,8 @@ def page(key, th, about=None):
 <header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
- <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div><span class="cover__no">№ 01<br>2026</span></div>
+ <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div>
+  <div class="cover__mast"><p class="hero__name"><span class="ln"><span>Кирилл</span></span></p></div><span class="cover__no">№ 01<br>2026</span></div>
  <div class="hero__txt"><h1 class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</h1>
   <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Написать</a></div></div>
 </div></section>

@@ -17,7 +17,7 @@ D['d1'] = ('Крупно', '''
  .case .w{grid-template-columns:1fr;grid-template-areas:"top" "win" "info";row-gap:56px}
  .case__head{display:grid;grid-template-columns:1fr auto;align-items:end;column-gap:40px;row-gap:14px}
  .case__top{grid-column:1/-1}
- .case__n{font-size:clamp(60px,6.4vw,112px)}
+ .case__n{font-size:clamp(44px,4vw,64px)}
  .case__pitch{margin:0 0 10px;font-size:20px;color:var(--mute)}
  .case__shot{display:grid;grid-template-columns:1fr;width:min(1040px,calc((100svh - 420px) * 1.6));justify-self:center}
  .case__win{border-radius:18px}
