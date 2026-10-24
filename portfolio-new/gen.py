@@ -181,11 +181,12 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .case__info ul{list-style:none;display:grid;gap:6px;margin-top:6px}
 .case__info li{position:relative;padding-left:22px;color:var(--mute)}
 .case__info li::before{content:"";position:absolute;left:0;top:.75em;width:12px;height:2px;background:var(--acc)}
-.case__go{justify-self:start}
+.case__go{width:100%;margin-top:12px}
 @media(min-width:900px){
  .case .w{grid-template-columns:.8fr 1.2fr;grid-template-areas:"top top" "info win";column-gap:56px;row-gap:26px;align-items:center}
  .case__head{grid-area:top}
- .case__win{grid-area:win}
+ .case__shot{grid-area:win}
+ .case__go{width:auto}
  .case__info{grid-area:info}
 }
 @media(max-width:899px){.case__info p,.case__info ul{font-size:15px}}
@@ -321,9 +322,8 @@ def case_html(c, i):
     return f'''<section class="case" id="case-{c["id"]}"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">0{i+1} / 03</span><span class="case__bar"><i></i></span><span class="tag">{c["niche"]}</span></div>
 <h3 class="case__n" data-split>{c["name"]}</h3><p class="case__pitch">{c["pitch"]}</p></div>
-<a class="case__win" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div></div><span class="case__open">Открыть сайт{ARR}</span></a>
-<div class="case__info"><div><h3>Задача</h3><p>{c["task"]}</p></div><div><h3>Решение</h3><p>{c["sol"]}</p></div><div><h3>Что сделал</h3><ul>{lis}</ul></div>
-<a class="btn btn--line case__go" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}">Открыть сайт{ARR}</a></div>
+<div class="case__shot"><a class="case__win" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div></div></a><a class="btn btn--acc case__go" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}">Открыть сайт{ARR}</a></div>
+<div class="case__info"><div><h3>Задача</h3><p>{c["task"]}</p></div><div><h3>Решение</h3><p>{c["sol"]}</p></div><div><h3>Что сделал</h3><ul>{lis}</ul></div></div>
 </div></div></section>'''
 
 def page(key, th):
@@ -363,7 +363,7 @@ def page(key, th):
 </div></section>
 <div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Три проекта.<br><em>Три ниши.</em></h2></div></div>
 {cases}
-<section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p><a class="btn btn--acc js-tg" href="#">Обсудить проект{ARR}</a></div><div class="how__list"><span class="how__line"><i></i></span>{steps}</div></div></section>
+<section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p></div><div class="how__list"><span class="how__line"><i></i></span>{steps}</div></div></section>
 <section class="cta" id="contact"><div class="w">
  <h2 class="cta__h" data-split>Есть задача?<br><em>Обсудим.</em></h2>
  <p class="cta__p">Напишите пару слов о бизнесе. Отвечу и предложу, каким может быть ваш сайт.</p>
