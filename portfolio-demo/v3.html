@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кирилл, веб-дизайн</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #e9eaee; --tile: #fbfbfc; --ink: #101114; --ink2: #5b5e66; --line: #d7d9de; --acc: #2b4cff; --r: 26px; --ease: cubic-bezier(.16, 1, .3, 1); --f: "Geologica", system-ui, sans-serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 12px; }
+  @media (min-width: 768px) { .wrap { padding: 0 24px; } }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: 999px; font: 600 15px var(--f); white-space: nowrap; transition: transform .3s var(--ease), background .25s; }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease); }
+  .btn:hover svg { transform: translate(3px, -3px); }
+  .btn--acc { background: var(--acc); color: #fff; }
+  .btn--acc:hover { background: #1f3de0; }
+  .btn--w { background: #fff; color: var(--ink); }
+
+  /* первый экран — сетка плиток */
+  .bento { display: grid; gap: 10px; padding: 12px 0; }
+  .t { position: relative; border-radius: var(--r); background: var(--tile); overflow: hidden; opacity: 0; transform: translate3d(0, 18px, 0) scale(.985); transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i) * .07s); }
+  .ld .t { opacity: 1; transform: none; }
+  .t--intro { padding: 28px; display: flex; flex-direction: column; }
+  .t--intro .logo { font-weight: 700; font-size: 17px; display: flex; justify-content: space-between; align-items: center; }
+  .t--intro .logo a { font-size: 15px; color: var(--ink2); font-weight: 500; }
+  .t--intro h1 { margin-top: 40px; font-size: clamp(32px, 3vw, 48px); font-weight: 700; line-height: 1.02; letter-spacing: -.04em; }
+  .t--intro h1 em { font-style: normal; color: var(--acc); }
+  .t--intro p { margin-top: 16px; color: var(--ink2); max-width: 34ch; }
+  .t--intro .btn { margin-top: 26px; align-self: flex-start; }
+  .t--ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; min-height: 380px; transition: transform 1.2s var(--ease); }
+  .t--ph:hover img { transform: scale(1.03); }
+  .t--ph figcaption { position: absolute; left: 14px; bottom: 14px; padding: 10px 14px; border-radius: 16px; background: rgba(255, 255, 255, .86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-size: 14px; line-height: 1.3; }
+  .t--ph figcaption b { display: block; font-size: 16px; }
+  .t--site { display: flex; flex-direction: column; cursor: pointer; text-align: left; border: 0; font: inherit; color: inherit; }
+  .t--site .sh { position: relative; flex: 1; min-height: 160px; overflow: hidden; }
+  .t--site .sh img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1.2s var(--ease); }
+  .t--site:hover .sh img { transform: scale(1.05); }
+  .t--site .cap { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; }
+  .t--site .cap b { font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+  .t--site .cap span { font-size: 13px; color: var(--ink2); }
+  .t--site .cap i { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); flex: none; transition: background .25s, color .25s; }
+  .t--site:hover .cap i { background: var(--ink); color: #fff; }
+  .t--site .cap svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .t--tg { background: var(--acc); color: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 180px; transition: background .3s; }
+  .t--tg:hover { background: #1f3de0; }
+  .t--tg b { font-size: clamp(24px, 2vw, 32px); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; }
+  .t--tg span { display: flex; justify-content: space-between; align-items: center; color: rgba(255, 255, 255, .8); }
+  .t--tg svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .35s var(--ease); }
+  .t--tg:hover svg { transform: translate(4px, -4px); }
+  @media (min-width: 900px) {
+    .bento { min-height: 100dvh; grid-template-columns: 1.25fr .9fr 1fr 1fr; grid-template-rows: 1fr 1fr; padding: 12px 0; }
+    .t--intro { grid-column: 1; grid-row: 1 / 3; padding: 36px; }
+    .t--intro h1 { margin-top: auto; }
+    .t--ph { grid-column: 2; grid-row: 1 / 3; }
+    .t--ph img { min-height: 0; }
+    .s0 { grid-column: 3 / 5; grid-row: 1; }
+    .s1 { grid-column: 3; grid-row: 2; }
+    .s2 { grid-column: 4; grid-row: 2; }
+  }
+  .bento2 { display: grid; gap: 10px; }
+  @media (min-width: 900px) { .bento { grid-template-columns: 1.25fr .9fr 1fr 1fr; } }
+
+  /* разборы */
+  .cases { padding: 90px 0 40px; }
+  .h2 { font-size: clamp(34px, 4.6vw, 64px); font-weight: 700; letter-spacing: -.04em; line-height: 1; padding: 0 8px; }
+  .acc { margin-top: 36px; display: grid; gap: 10px; }
+  .it { border-radius: var(--r); background: var(--tile); overflow: hidden; }
+  .it__h { width: 100%; display: flex; align-items: center; gap: 16px; padding: 22px 24px; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+  .it__h b { font-size: clamp(24px, 2.6vw, 38px); font-weight: 700; letter-spacing: -.035em; }
+  .it__h span { color: var(--ink2); }
+  .it__h i { margin-left: auto; width: 46px; height: 46px; flex: none; border-radius: 50%; background: var(--bg); display: grid; place-items: center; transition: transform .5s var(--ease), background .25s, color .25s; }
+  .it__h svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+  .it.open .it__h i { transform: rotate(45deg); background: var(--ink); color: #fff; }
+  .it__b { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .7s var(--ease); }
+  .it.open .it__b { grid-template-rows: 1fr; }
+  .it__b > div { overflow: hidden; }
+  .it__in { padding: 0 24px 24px; display: grid; gap: 20px; }
+  .gal { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+  .gal img { border-radius: 16px; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; }
+  .gal img:first-child { grid-column: 1 / -1; }
+  .gal .ph { display: none; }
+  .txt { display: grid; gap: 10px; align-content: start; }
+  .txt .box { padding: 18px 20px; border-radius: 18px; background: var(--bg); }
+  .txt .box b { display: block; font-size: 13px; color: var(--ink2); font-weight: 600; }
+  .txt .box--k { background: var(--ink); color: #fff; }
+  .txt .box--k b { color: #9ea7ff; }
+  .txt ul { list-style: none; margin-top: 4px; display: grid; gap: 4px; }
+  .txt li { padding-left: 16px; position: relative; }
+  .txt li::before { content: ''; position: absolute; left: 0; top: .7em; width: 8px; height: 2px; background: #9ea7ff; }
+  .txt .btn { justify-self: start; margin-top: 4px; }
+  @media (min-width: 900px) {
+    .it__in { grid-template-columns: 1.5fr 1fr; gap: 24px; }
+    .gal { grid-template-columns: 1fr 1fr .5fr; }
+    .gal img:first-child { grid-column: 1 / 3; }
+    .gal .ph { display: block; grid-column: 3; grid-row: 1 / 3; aspect-ratio: auto; height: 100%; }
+  }
+
+  /* обо мне + связь */
+  .about { padding: 60px 0 12px; }
+  .ab { display: grid; gap: 10px; }
+  .ab__t { border-radius: var(--r); background: var(--tile); padding: 32px; }
+  .ab__t p { margin-top: 18px; font-size: clamp(20px, 2vw, 28px); font-weight: 500; line-height: 1.35; letter-spacing: -.015em; }
+  .ab__t p span { color: var(--ink2); }
+  .ab__ph { border-radius: var(--r); overflow: hidden; min-height: 320px; }
+  .ab__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .steps { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+  .step { border-radius: var(--r); background: var(--tile); padding: 22px; }
+  .step b { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--acc); color: #fff; font-weight: 700; }
+  .step h3 { margin-top: 18px; font-size: 17px; font-weight: 700; }
+  .step p { color: var(--ink2); font-size: 15px; }
+  @media (min-width: 900px) { .ab { grid-template-columns: 1.4fr .8fr 1.3fr; } .steps { grid-template-columns: 1fr 1fr; } }
+  .cta { margin-top: 10px; border-radius: var(--r); background: var(--ink); color: #f1f2f5; padding: 48px 32px; display: grid; gap: 24px; align-items: end; }
+  .cta h2 { font-size: clamp(38px, 5.6vw, 88px); font-weight: 700; letter-spacing: -.045em; line-height: .98; }
+  .cta p { color: #a3a6ae; max-width: 40ch; margin-top: 14px; }
+  @media (min-width: 900px) { .cta { grid-template-columns: 1.5fr auto; padding: 56px; } }
+  .foot { display: flex; justify-content: space-between; color: var(--ink2); font-size: 14px; padding: 24px 8px 30px; }
+  .rv { opacity: 0; transform: translate3d(0, 26px, 0); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .t, .rv, .it__b { transition: none !important; transform: none !important; opacity: 1 !important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="bento" id="top">
+    <div class="t t--intro" style="--i:0">
+      <div class="logo">Кирилл<a href="#cases">Работы</a></div>
+      <h1>Делаю сайты, которые <em>продают</em> с первого экрана</h1>
+      <p>Мне 18. Лендинги под ключ: дизайн, анимации, версия для телефона и запуск.</p>
+      <a class="btn btn--acc js-tg" href="#">Написать в Telegram<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+    <figure class="t t--ph" style="--i:1"><img src="img/kirill.webp" alt="Кирилл"><figcaption><b>Кирилл</b>веб-дизайнер</figcaption></figure>
+  </section>
+
+  <section class="cases" id="cases">
+    <h2 class="h2 rv">Работы и разборы</h2>
+    <div class="acc" id="acc"></div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="ab">
+      <div class="ab__t rv"><h2 class="h2" style="padding:0">Обо мне</h2><p>Меня зовут Кирилл, мне 18 лет. <span>Делаю лендинги для бизнеса: от первого эскиза до сайта, который работает на компьютере и телефоне.</span></p></div>
+      <div class="ab__ph rv"><img src="img/kirill-2.webp" alt="Кирилл" loading="lazy"></div>
+      <div class="steps">
+        <div class="step rv"><b>1</b><h3>Разбираю нишу</h3><p>Смотрю десятки референсов и конкурентов.</p></div>
+        <div class="step rv"><b>2</b><h3>Показываю варианты</h3><p>2-3 дизайна на выбор до сборки.</p></div>
+        <div class="step rv"><b>3</b><h3>Собираю сайт</h3><p>Вёрстка, анимации, телефон.</p></div>
+        <div class="step rv"><b>4</b><h3>Запускаю</h3><p>Публикую и подключаю домен.</p></div>
+      </div>
+    </div>
+    <div class="cta rv"><div><h2>Нужен сайт? Напишите</h2><p>Расскажите о бизнесе в паре предложений. Отвечу и предложу, каким может быть ваш сайт.</p></div><a class="btn btn--w js-tg" href="#">Написать в Telegram<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+    <footer class="foot"><span>Кирилл, веб-дизайн</span><span>2026</span></footer>
+  </section>
+</main>
+
+<script src="cases.js"></script>
+<script>
+(function () {
+  var arr = '<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+  // плитки сайтов в первом экране
+  var bento = document.getElementById('top');
+  bento.insertAdjacentHTML('beforeend', CASES.map(function (c, i) {
+    return '<button type="button" class="t t--site s' + i + '" style="--i:' + (i + 2) + '" data-go="' + i + '"><div class="sh"><img src="' + c.shots[0] + '" alt="' + c.name + '"></div><div class="cap"><div><b>' + c.name + '</b><br><span>' + c.niche + '</span></div><i>' + arr + '</i></div></button>';
+  }).join(''));
+  // разборы-аккордеон
+  document.getElementById('acc').innerHTML = CASES.map(function (c, i) {
+    return '<div class="it rv' + (i ? '' : ' open') + '" id="case-' + i + '"><button type="button" class="it__h" aria-expanded="' + (i ? 'false' : 'true') + '"><b>' + c.name + '</b><span>' + c.niche + '</span><i><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></button>' +
+      '<div class="it__b"><div><div class="it__in"><div class="gal">' + c.shots.map(function (s, j) { return '<img src="' + s + '" alt="' + c.name + ', экран ' + (j + 1) + '" loading="lazy">'; }).join('') + '<img class="ph" src="' + c.phone + '" alt="' + c.name + ' на телефоне" loading="lazy"></div>' +
+      '<div class="txt"><div class="box"><b>Задача</b>' + c.task + '</div><div class="box"><b>Идея</b>' + c.idea + '</div><div class="box box--k"><b>Что сделал</b><ul>' + c.done.map(function (d) { return '<li>' + d + '</li>'; }).join('') + '</ul></div>' +
+      '<a class="btn btn--acc" href="' + c.url + '" target="_blank" rel="noopener">Открыть сайт' + arr + '</a></div></div></div></div></div>';
+  }).join('');
+  var items = document.querySelectorAll('.it');
+  var open = function (k) { items.forEach(function (it, j) { var on = j === k ? !it.classList.contains('open') || true : false; it.classList.toggle('open', on); it.querySelector('.it__h').setAttribute('aria-expanded', on); }); };
+  items.forEach(function (it, i) { it.querySelector('.it__h').addEventListener('click', function () { if (it.classList.contains('open')) { it.classList.remove('open'); it.querySelector('.it__h').setAttribute('aria-expanded', 'false'); } else open(i); }); });
+  document.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { var k = +b.getAttribute('data-go'); open(k); setTimeout(function () { document.getElementById('case-' + k).scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }); });
+  document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target = '_blank'; a.rel = 'noopener'; });
+  requestAnimationFrame(function () { document.body.classList.add('ld'); });
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach(function (e) { io.observe(e); });
+})();
+</script>
+</body>
+</html>

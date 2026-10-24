@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кирилл, веб-дизайн</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --dk: #0e0f10; --dk2: #18191b; --t: #f2f2ee; --mute: #9d9e99; --paper: #f2f2ee; --ink: #0e0f10; --ink2: #5c5d59; --acc: #d4ff3a; --ease: cubic-bezier(.16, 1, .3, 1); --f: "Onest", system-ui, sans-serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 768px) { .wrap { padding: 0 40px; } }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; border-radius: 999px; font: 600 16px var(--f); white-space: nowrap; transition: transform .3s var(--ease), background .25s; }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease); }
+  .btn:hover svg { transform: translate(3px, -3px); }
+  .btn--acc { background: var(--acc); color: var(--ink); }
+  .btn--acc:hover { background: #e2ff78; }
+  .btn--gh { border: 1px solid rgba(255, 255, 255, .3); color: var(--t); }
+  .btn--gh:hover { background: rgba(255, 255, 255, .08); }
+  .btn--ink { background: var(--ink); color: var(--t); }
+
+  /* первый экран: фото на всю правую половину */
+  .hero { position: relative; min-height: 100dvh; background: var(--dk); color: var(--t); overflow: hidden; display: flex; align-items: flex-end; }
+  .hero__ph { position: absolute; inset: 0; }
+  .hero__ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; transform: scale(1.08); transition: transform 2.4s var(--ease); }
+  .ld .hero__ph img { transform: none; }
+  .hero__ph::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 15, 16, .2) 0%, rgba(14, 15, 16, .15) 35%, rgba(14, 15, 16, .92) 78%); }
+  @media (min-width: 900px) {
+    .hero__ph { left: 46%; }
+    .hero__ph::after { background: linear-gradient(90deg, var(--dk) 0%, rgba(14, 15, 16, .55) 22%, rgba(14, 15, 16, 0) 50%), linear-gradient(0deg, rgba(14, 15, 16, .6) 0%, rgba(14, 15, 16, 0) 30%); }
+  }
+  .hero .wrap { position: relative; width: 100%; padding-bottom: 56px; padding-top: 120px; }
+  .top { position: absolute; z-index: 3; top: 0; left: 0; right: 0; }
+  .top .wrap { display: flex; align-items: center; height: 80px; padding-top: 0; padding-bottom: 0; color: var(--t); gap: 26px; }
+  .top b { font-weight: 800; font-size: 18px; }
+  .top span { flex: 1; }
+  .top a.l { display: none; color: var(--mute); font-weight: 500; transition: color .2s; }
+  .top a.l:hover { color: var(--t); }
+  @media (min-width: 768px) { .top a.l { display: inline; } }
+  .top .btn { height: 44px; padding: 0 18px; font-size: 14px; }
+  .hero__k { font-size: 15px; color: var(--acc); font-weight: 600; }
+  .hero h1 { margin-top: 18px; font-size: clamp(42px, 6.4vw, 104px); font-weight: 800; line-height: .95; letter-spacing: -.045em; max-width: 9.5ch; }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .04em; }
+  .hero h1 .ln > span { display: block; transform: translate3d(0, 105%, 0); transition: transform 1.2s var(--ease); transition-delay: calc(.2s + var(--i) * .1s); }
+  .ld .hero h1 .ln > span { transform: none; }
+  .hero__p { margin-top: 24px; max-width: 38ch; color: var(--mute); font-size: 18px; }
+  .hero__b { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .fade { opacity: 0; transform: translate3d(0, 14px, 0); transition: opacity .9s var(--ease) .7s, transform .9s var(--ease) .7s; }
+  .ld .fade { opacity: 1; transform: none; }
+
+  /* работы: листаются вбок при прокрутке */
+  .works { padding: 110px 0 0; }
+  .h2 { font-size: clamp(36px, 5vw, 70px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .works__p { margin-top: 14px; color: var(--ink2); max-width: 46ch; font-size: 17px; }
+  .pan { margin-top: 40px; padding-bottom: 80px; }
+  .track { display: grid; gap: 40px; padding: 0 16px; }
+  .slide { display: grid; gap: 20px; }
+  .win { border-radius: 20px; overflow: hidden; background: #0e0f10; box-shadow: 0 30px 70px -35px rgba(14, 15, 16, .5); }
+  .win__bar { display: flex; gap: 6px; align-items: center; height: 32px; padding: 0 14px; background: #1c1d1f; }
+  .win__bar i { width: 9px; height: 9px; border-radius: 50%; background: #3a3b3e; }
+  .win__bar span { margin-left: 10px; font-size: 12px; color: #8a8b8f; }
+  .win__v { position: relative; aspect-ratio: 16 / 10; }
+  .win__v img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .7s var(--ease); }
+  .win__v img.on { opacity: 1; }
+  .dots { display: flex; gap: 6px; margin-top: 12px; }
+  .dots button { height: 6px; width: 28px; border-radius: 3px; border: 0; background: #cfcfca; cursor: pointer; transition: background .25s, width .35s var(--ease); }
+  .dots button.on { background: var(--ink); width: 48px; }
+  .slide__t h3 { font-size: clamp(30px, 3vw, 46px); font-weight: 800; letter-spacing: -.035em; line-height: 1; }
+  .slide__t .ni { display: block; margin-top: 8px; font-weight: 600; color: var(--c); }
+  .slide__t p { margin-top: 16px; }
+  .slide__t p b { display: block; font-size: 13px; color: var(--ink2); font-weight: 600; }
+  .slide__t ul { list-style: none; margin-top: 4px; display: grid; gap: 4px; }
+  .slide__t li { padding-left: 16px; position: relative; }
+  .slide__t li::before { content: ''; position: absolute; left: 0; top: .7em; width: 8px; height: 2px; background: var(--c); }
+  .slide__t a { margin-top: 20px; display: inline-flex; gap: 8px; align-items: center; font-weight: 700; border-bottom: 2px solid var(--c); padding-bottom: 2px; }
+  .slide__t a svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .bar { display: none; }
+  @media (min-width: 900px) {
+    .pan { height: 100vh; margin-top: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+    .track { display: flex; gap: 6vw; padding: 0 40px; width: max-content; will-change: transform; }
+    .slide { width: min(84vw, 1240px); grid-template-columns: 1.55fr 1fr; gap: 40px; align-items: center; }
+    .bar { display: block; margin: 36px 40px 0; height: 2px; background: #d6d6d1; }
+    .bar i { display: block; height: 100%; width: 100%; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
+  }
+
+  /* обо мне */
+  .about { background: var(--dk); color: var(--t); padding: 110px 0; }
+  .about__g { display: grid; gap: 40px; }
+  .about__ph { border-radius: 24px; overflow: hidden; aspect-ratio: 1; }
+  .about__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .about__p { margin-top: 22px; font-size: clamp(21px, 2.2vw, 30px); font-weight: 600; letter-spacing: -.015em; line-height: 1.35; }
+  .about__p span { color: var(--mute); }
+  .steps { margin-top: 36px; display: grid; gap: 10px; }
+  .step { padding: 20px 22px; border-radius: 18px; background: var(--dk2); display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+  .step b { color: var(--acc); font-size: 14px; font-weight: 700; padding-top: 3px; }
+  .step h3 { font-size: 17px; font-weight: 700; }
+  .step p { color: var(--mute); font-size: 15px; }
+  @media (min-width: 900px) { .about__g { grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: center; } .steps { grid-template-columns: 1fr 1fr; } }
+
+  .cta { padding: 120px 0 40px; }
+  .cta h2 { font-size: clamp(44px, 7.5vw, 120px); font-weight: 800; letter-spacing: -.05em; line-height: .95; max-width: 11ch; }
+  .cta p { margin-top: 22px; color: var(--ink2); font-size: 18px; max-width: 42ch; }
+  .cta .btn { margin-top: 30px; }
+  .foot { margin-top: 100px; padding-top: 20px; border-top: 1px solid #d6d6d1; display: flex; justify-content: space-between; color: var(--ink2); font-size: 14px; }
+  .rv { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .hero__ph img, .hero h1 .ln > span, .fade, .rv { transition: none !important; transform: none !important; opacity: 1 !important; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero" id="top">
+    <div class="hero__ph"><img src="img/kirill.webp" alt="Кирилл"></div>
+    <header class="top"><div class="wrap"><b>Кирилл</b><span></span><a class="l" href="#works">Работы</a><a class="l" href="#about">Обо мне</a><a class="btn btn--acc js-tg" href="#">Написать</a></div></header>
+    <div class="wrap">
+      <p class="hero__k fade">Веб-дизайнер, 18 лет</p>
+      <h1><span class="ln"><span style="--i:0">Сайты,</span></span><span class="ln"><span style="--i:1">которые</span></span><span class="ln"><span style="--i:2">продают</span></span></h1>
+      <p class="hero__p fade">Меня зовут Кирилл. Делаю лендинги под ключ: дизайн, анимации, версия для телефона и запуск.</p>
+      <div class="hero__b fade"><a class="btn btn--acc" href="#works">Смотреть работы<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+    </div>
+  </section>
+
+  <section class="works" id="works">
+    <div class="wrap"><h2 class="h2 rv">Три сайта, три ниши</h2><p class="works__p rv">Каждый сделан с нуля, от разбора ниши до запуска. Листайте вниз, работы поедут вбок.</p></div>
+    <div class="pan" id="pan"><div class="track" id="track"></div><div class="bar"><i id="barI"></i></div></div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap about__g">
+      <div class="about__ph rv"><img src="img/kirill-2.webp" alt="Кирилл" loading="lazy"></div>
+      <div>
+        <h2 class="h2 rv">Обо мне</h2>
+        <p class="about__p rv">Меня зовут Кирилл, мне 18 лет. <span>Делаю лендинги для бизнеса: от первого эскиза до сайта, который работает на компьютере и телефоне.</span></p>
+        <div class="steps">
+          <div class="step rv"><b>01</b><div><h3>Разбираю нишу</h3><p>Смотрю десятки сайтов-референсов и конкурентов.</p></div></div>
+          <div class="step rv"><b>02</b><div><h3>Показываю варианты</h3><p>2-3 варианта дизайна на выбор, до начала сборки.</p></div></div>
+          <div class="step rv"><b>03</b><div><h3>Собираю сайт</h3><p>Вёрстка, анимации, версия для телефона.</p></div></div>
+          <div class="step rv"><b>04</b><div><h3>Запускаю</h3><p>Публикую сайт и помогаю подключить домен.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <h2 class="rv">Нужен сайт? Напишите</h2>
+      <p class="rv">Расскажите о бизнесе в паре предложений. Отвечу и предложу, каким может быть ваш сайт.</p>
+      <a class="btn btn--ink js-tg rv" href="#">Написать в Telegram<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      <footer class="foot"><span>Кирилл, веб-дизайн</span><span>2026</span></footer>
+    </div>
+  </section>
+</main>
+
+<script src="cases.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var arr = '<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+  document.getElementById('track').innerHTML = CASES.map(function (c) {
+    return '<article class="slide" style="--c:' + c.color + '"><div><div class="win"><div class="win__bar"><i></i><i></i><i></i><span>' + c.host + '</span></div><div class="win__v">' +
+      c.shots.map(function (s, j) { return '<img src="' + s + '" alt="' + c.name + ', экран ' + (j + 1) + '"' + (j ? '' : ' class="on"') + '>'; }).join('') +
+      '</div></div><div class="dots">' + c.shots.map(function (s, j) { return '<button type="button" aria-label="Экран ' + (j + 1) + '"' + (j ? '' : ' class="on"') + '></button>'; }).join('') + '</div></div>' +
+      '<div class="slide__t"><h3>' + c.name + '</h3><span class="ni">' + c.niche + '</span><p><b>Задача</b>' + c.task + '</p><p><b>Идея</b>' + c.idea + '</p><p><b>Что сделал</b></p><ul>' +
+      c.done.map(function (d) { return '<li>' + d + '</li>'; }).join('') + '</ul><a href="' + c.url + '" target="_blank" rel="noopener">Открыть сайт' + arr + '</a></div></article>';
+  }).join('');
+  document.querySelectorAll('.slide').forEach(function (s) {
+    var imgs = s.querySelectorAll('.win__v img'), bs = s.querySelectorAll('.dots button');
+    bs.forEach(function (b, i) { b.addEventListener('click', function () { bs.forEach(function (x, j) { x.classList.toggle('on', i === j); }); imgs.forEach(function (x, j) { x.classList.toggle('on', i === j); }); }); });
+  });
+  document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target = '_blank'; a.rel = 'noopener'; });
+  requestAnimationFrame(function () { document.body.classList.add('ld'); });
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.rv').forEach(function (e) { io.observe(e); });
+
+  // на компьютере работы едут вбок, пока секция закреплена
+  if (!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var mm = gsap.matchMedia();
+  mm.add('(min-width: 900px)', function () {
+    var track = document.getElementById('track');
+    var dist = function () { return track.scrollWidth - innerWidth; };
+    gsap.to(track, { x: function () { return -dist(); }, ease: 'none', scrollTrigger: { trigger: '#pan', start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: 1, invalidateOnRefresh: true,
+      onUpdate: function (st) { document.getElementById('barI').style.transform = 'scaleX(' + st.progress + ')'; } } });
+  });
+})();
+</script>
+</body>
+</html>

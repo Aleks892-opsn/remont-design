@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кирилл, веб-дизайн</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #ecebe7; --ink: #121212; --ink2: #5d5c58; --card: #fbfbf9; --line: #d6d4cf; --acc: #ff4b1f; --ease: cubic-bezier(.16, 1, .3, 1); --f: "Manrope", system-ui, sans-serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font: 500 16px/1.55 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 768px) { .wrap { padding: 0 40px; } }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: 999px; font: 700 15px var(--f); white-space: nowrap; transition: transform .3s var(--ease), background .25s; }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease); }
+  .btn:hover svg { transform: translate(3px, -3px); }
+  .btn--acc { background: var(--acc); color: #fff; }
+  .btn--acc:hover { background: #e83c12; }
+  .btn--line { border: 1.5px solid var(--ink); }
+  .btn--line:hover { background: var(--ink); color: var(--bg); }
+
+  .nav { position: absolute; z-index: 5; top: 0; left: 0; right: 0; }
+  .nav .wrap { display: flex; align-items: center; height: 76px; gap: 28px; }
+  .nav__logo { font-weight: 800; font-size: 18px; }
+  .nav__sp { flex: 1; }
+  .nav a.l { display: none; font-weight: 600; color: var(--ink2); transition: color .2s; }
+  .nav a.l:hover { color: var(--ink); }
+  @media (min-width: 768px) { .nav a.l { display: inline; } }
+  .nav .btn { height: 44px; padding: 0 18px; font-size: 14px; }
+
+  /* первый экран: имя во всю ширину, фото поверх */
+  .hero { position: relative; min-height: 100dvh; display: flex; flex-direction: column; justify-content: flex-end; padding: 96px 0 40px; overflow: hidden; }
+  .hero__name { position: relative; white-space: nowrap; font-weight: 800; line-height: .8; letter-spacing: -.06em; font-size: var(--nf, 18vw); margin-left: -.04em; }
+  .hero__name .w { display: inline-block; }
+  .hero__name .w > span { display: inline-block; transform: translate3d(0, 105%, 0); transition: transform 1.2s var(--ease); transition-delay: calc(.08s * var(--i)); }
+  .hero__clip { overflow: hidden; padding-top: .06em; }
+  .ld .hero__name .w > span { transform: none; }
+  .hero__ph { position: absolute; z-index: 2; right: 7%; bottom: 46%; width: clamp(150px, 19vw, 300px); aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; transform: rotate(6deg) scale(.6); opacity: 0; transition: transform 1.3s var(--ease) .5s, opacity .8s var(--ease) .5s; box-shadow: 0 30px 60px -20px rgba(18, 18, 18, .45); }
+  .ld .hero__ph { transform: rotate(-5deg); opacity: 1; }
+  .hero__ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .hero__row { margin-top: 36px; display: grid; gap: 22px; align-items: end; opacity: 0; transform: translate3d(0, 16px, 0); transition: opacity .9s var(--ease) .7s, transform .9s var(--ease) .7s; }
+  .ld .hero__row { opacity: 1; transform: none; }
+  .hero__lead { font-size: clamp(24px, 2.6vw, 38px); font-weight: 700; line-height: 1.15; letter-spacing: -.025em; max-width: 20ch; }
+  .hero__lead em { font-style: normal; color: var(--acc); }
+  .hero__side p { color: var(--ink2); max-width: 36ch; }
+  .hero__btns { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+  @media (min-width: 900px) { .hero__row { grid-template-columns: 1.3fr 1fr; } .hero__side { justify-self: end; } }
+  @media (max-width: 767px) { .hero__ph { bottom: auto; top: 90px; right: 16px; } }
+
+  /* работы: карточки складываются стопкой */
+  .works { padding: 120px 0 60px; }
+  .h2 { font-size: clamp(36px, 5vw, 72px); font-weight: 800; letter-spacing: -.045em; line-height: 1; }
+  .h2 sup { font-size: .4em; vertical-align: top; color: var(--acc); margin-left: 6px; letter-spacing: 0; }
+  .stack { margin-top: 48px; }
+  .card { position: relative; margin-bottom: 28px; padding: 18px; border-radius: 30px; background: var(--card); box-shadow: 0 -1px 0 rgba(18, 18, 18, .04), 0 30px 60px -40px rgba(18, 18, 18, .4); display: grid; gap: 22px; }
+  @media (min-width: 900px) {
+    .card { position: sticky; top: calc(24px + var(--i) * 18px); grid-template-columns: 1.45fr 1fr; gap: 36px; padding: 22px; min-height: min(78vh, 720px); align-items: stretch; }
+  }
+  .win { border-radius: 18px; overflow: hidden; background: #0f0f10; display: flex; flex-direction: column; }
+  .win__bar { display: flex; gap: 6px; align-items: center; height: 32px; padding: 0 14px; background: #1c1c1e; flex: none; }
+  .win__bar i { width: 9px; height: 9px; border-radius: 50%; background: #3b3b3f; }
+  .win__bar span { margin-left: 10px; font-size: 12px; color: #8a8a8f; }
+  .win__v { position: relative; flex: 1; min-height: 260px; aspect-ratio: 16 / 10; }
+  @media (min-width: 900px) { .win__v { aspect-ratio: auto; } }
+  .win__v img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .7s var(--ease); }
+  .win__v img.on { opacity: 1; }
+  .card__t { display: flex; flex-direction: column; padding: 8px 6px 6px; }
+  .card__n { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .card__n h3 { font-size: clamp(30px, 3vw, 46px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .card__n b { font-size: 14px; color: var(--ink2); font-weight: 700; }
+  .card__niche { margin-top: 10px; display: inline-flex; align-self: flex-start; height: 30px; padding: 0 12px; align-items: center; border-radius: 999px; font-size: 13px; font-weight: 700; color: #fff; background: var(--c); }
+  .card dl { margin-top: 26px; display: grid; gap: 16px; }
+  .card dt { font-size: 13px; font-weight: 700; color: var(--ink2); }
+  .card dd { margin-top: 4px; }
+  .card ul { list-style: none; display: grid; gap: 6px; margin-top: 6px; }
+  .card li { padding-left: 18px; position: relative; }
+  .card li::before { content: ''; position: absolute; left: 0; top: .7em; width: 9px; height: 2px; background: var(--c); }
+  .card__go { margin-top: auto; padding-top: 22px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tabs { display: flex; gap: 6px; }
+  .tabs button { height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: none; font: 700 13px var(--f); color: var(--ink2); cursor: pointer; transition: all .25s; }
+  .tabs button.on { border-color: var(--ink); color: var(--ink); }
+
+  /* обо мне */
+  .about { padding: 80px 0 120px; }
+  .about__g { display: grid; gap: 40px; margin-top: 44px; }
+  .about__ph { border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; }
+  .about__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .about__p { font-size: clamp(22px, 2.3vw, 32px); font-weight: 700; letter-spacing: -.02em; line-height: 1.3; }
+  .about__p span { color: var(--ink2); }
+  .steps { margin-top: 40px; display: grid; }
+  .step { display: grid; grid-template-columns: 64px 1fr; gap: 10px; padding: 20px 0; border-top: 1.5px solid var(--line); }
+  .step b { font-size: 32px; font-weight: 800; letter-spacing: -.04em; color: var(--acc); line-height: 1; }
+  .step h3 { font-size: 19px; font-weight: 800; }
+  .step p { color: var(--ink2); }
+  @media (min-width: 900px) { .about__g { grid-template-columns: .75fr 1.25fr; gap: 80px; } }
+
+  /* связь */
+  .cta { background: var(--ink); color: #f1f0ec; padding: 110px 0 40px; }
+  .cta h2 { font-size: clamp(48px, 9vw, 150px); font-weight: 800; letter-spacing: -.06em; line-height: .9; }
+  .cta h2 em { font-style: normal; color: var(--acc); }
+  .cta p { margin-top: 26px; max-width: 42ch; color: #a8a7a2; font-size: 18px; }
+  .cta .btn { margin-top: 30px; height: 60px; padding: 0 30px; font-size: 17px; }
+  .foot { margin-top: 100px; padding-top: 20px; border-top: 1px solid #2c2c2c; display: flex; justify-content: space-between; color: #7c7b77; font-size: 14px; }
+
+  .rv { opacity: 0; transform: translate3d(0, 30px, 0); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .hero__name span, .hero__ph, .hero__row, .rv { transition: none !important; transform: none !important; opacity: 1 !important; } }
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap"><a class="nav__logo" href="#top">Кирилл</a><span class="nav__sp"></span><a class="l" href="#works">Работы</a><a class="l" href="#about">Обо мне</a><a class="btn btn--acc js-tg" href="#">Написать<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__clip"><h1 class="hero__name" aria-label="Кирилл"><span class="w" id="name"><span style="--i:0">К</span><span style="--i:1">И</span><span style="--i:2">Р</span><span style="--i:3">И</span><span style="--i:4">Л</span><span style="--i:5">Л</span></span></h1></div>
+      <div class="hero__row">
+        <p class="hero__lead">Делаю лендинги, которые <em>продают</em> с первого экрана</p>
+        <div class="hero__side"><p>Мне 18. Беру сайт целиком: дизайн, анимации, версия для телефона и запуск.</p><div class="hero__btns"><a class="btn btn--acc" href="#works">Смотреть работы<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
+      </div>
+    </div>
+    <div class="hero__ph"><img src="img/kirill.webp" alt="Кирилл"></div>
+  </section>
+
+  <section class="works" id="works">
+    <div class="wrap">
+      <h2 class="h2 rv">Работы<sup>3</sup></h2>
+      <div class="stack" id="stack"></div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <h2 class="h2 rv">Обо мне</h2>
+      <div class="about__g">
+        <div class="about__ph rv"><img src="img/kirill-2.webp" alt="Кирилл" loading="lazy"></div>
+        <div>
+          <p class="about__p rv">Меня зовут Кирилл, мне 18 лет. <span>Делаю лендинги для бизнеса: от первого эскиза до сайта, который работает на компьютере и телефоне.</span></p>
+          <div class="steps">
+            <div class="step rv"><b>01</b><div><h3>Разбираю нишу</h3><p>Смотрю десятки сайтов-референсов и конкурентов.</p></div></div>
+            <div class="step rv"><b>02</b><div><h3>Показываю варианты</h3><p>2-3 варианта дизайна на выбор, до начала сборки.</p></div></div>
+            <div class="step rv"><b>03</b><div><h3>Собираю сайт</h3><p>Вёрстка, анимации, версия для телефона.</p></div></div>
+            <div class="step rv"><b>04</b><div><h3>Запускаю</h3><p>Публикую сайт и помогаю подключить домен.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <h2 class="rv">Нужен сайт?<br><em>Напишите.</em></h2>
+      <p class="rv">Расскажите о бизнесе в паре предложений. Отвечу и предложу, каким может быть ваш сайт.</p>
+      <a class="btn btn--acc js-tg rv" href="#">Написать в Telegram<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      <footer class="foot"><span>Кирилл, веб-дизайн</span><span>2026</span></footer>
+    </div>
+  </section>
+</main>
+
+<script src="cases.js"></script>
+<script>
+(function () {
+  var arr = '<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+  document.getElementById('stack').innerHTML = CASES.map(function (c, i) {
+    return '<article class="card" style="--i:' + i + ';--c:' + c.color + '">' +
+      '<div class="win"><div class="win__bar"><i></i><i></i><i></i><span>' + c.host + '</span></div><div class="win__v">' +
+      c.shots.map(function (s, j) { return '<img src="' + s + '" alt="' + c.name + ', экран ' + (j + 1) + '" loading="lazy"' + (j ? '' : ' class="on"') + '>'; }).join('') + '</div></div>' +
+      '<div class="card__t"><div class="card__n"><h3>' + c.name + '</h3><b>0' + (i + 1) + '</b></div><span class="card__niche">' + c.niche + '</span>' +
+      '<dl><div><dt>Задача</dt><dd>' + c.task + '</dd></div><div><dt>Идея</dt><dd>' + c.idea + '</dd></div><div><dt>Что сделал</dt><dd><ul>' + c.done.map(function (d) { return '<li>' + d + '</li>'; }).join('') + '</ul></dd></div></dl>' +
+      '<div class="card__go"><a class="btn btn--line" href="' + c.url + '" target="_blank" rel="noopener">Открыть сайт' + arr + '</a><div class="tabs">' +
+      c.shots.map(function (s, j) { return '<button type="button"' + (j ? '' : ' class="on"') + '>Экран ' + (j + 1) + '</button>'; }).join('') + '</div></div></div></article>';
+  }).join('');
+  document.querySelectorAll('.card').forEach(function (c) {
+    var imgs = c.querySelectorAll('.win__v img'), bs = c.querySelectorAll('.tabs button');
+    bs.forEach(function (b, i) { b.addEventListener('click', function () { bs.forEach(function (x, j) { x.classList.toggle('on', i === j); }); imgs.forEach(function (x, j) { x.classList.toggle('on', i === j); }); }); });
+  });
+  document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target = '_blank'; a.rel = 'noopener'; });
+  // имя ровно во всю ширину
+  var n = document.getElementById('name');
+  var h1 = n.parentNode;
+  var fit = function () { h1.style.setProperty('--nf', '100px'); var w = h1.parentNode.clientWidth; h1.style.setProperty('--nf', Math.min(97 * w / n.offsetWidth, innerHeight * .42) + 'px'); };
+  fit(); addEventListener('resize', fit); if (document.fonts) document.fonts.ready.then(fit);
+  requestAnimationFrame(function () { document.body.classList.add('ld'); });
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.rv').forEach(function (e) { io.observe(e); });
+})();
+</script>
+</body>
+</html>
