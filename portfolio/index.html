@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кирилл, веб-дизайн и лендинги</title>
+<meta name="description" content="Кирилл, 18 лет. Делаю лендинги под ключ: дизайн, анимации, запуск. Работы: ПРОТЕКТОР, Altitude, FORTE.">
+<meta property="og:title" content="Кирилл, веб-дизайн и лендинги">
+<meta property="og:description" content="Лендинги под ключ: дизайн, анимации, запуск. Три работы с разбором.">
+<meta property="og:image" content="img/forte-1.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/kirill.webp">
+<style>
+  :root {
+    --ink: #111214; --ink2: #55585f; --paper: #f1f1ef; --card: #fff; --line: #dcdcd8;
+    --dk: #121315; --dk2: #1b1c1f; --dk-text: #f3f3f1; --dk-mute: #a3a5ab;
+    --acc: #d6ff3f; --r: 22px; --ease: cubic-bezier(.16, 1, .3, 1);
+    --f: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--f); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+  /* кнопки: все в форме таблетки */
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; border-radius: 999px; font: 600 16px var(--f); white-space: nowrap; transition: transform .3s var(--ease), background .25s, color .25s; }
+  .btn:active { transform: scale(.98); }
+  .btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease); }
+  .btn:hover svg { transform: translate(3px, -3px); }
+  .btn--acc { background: var(--acc); color: var(--ink); }
+  .btn--acc:hover { background: #e4ff7a; }
+  .btn--ghost { color: var(--dk-text); border: 1px solid rgba(255, 255, 255, .28); }
+  .btn--ghost:hover { background: rgba(255, 255, 255, .08); }
+  .btn--ink { background: var(--ink); color: #fff; }
+  .btn--ink:hover { background: #2a2c30; }
+
+  /* шапка */
+  .nav { position: fixed; z-index: 20; top: 12px; left: 12px; right: 12px; display: flex; justify-content: center; pointer-events: none; }
+  .nav__in { pointer-events: auto; display: flex; align-items: center; gap: 6px; height: 60px; padding: 0 6px 0 22px; border-radius: 999px; background: rgba(18, 19, 21, .78); color: var(--dk-text); border: 1px solid rgba(255, 255, 255, .1); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); }
+  .nav__logo { font-weight: 800; font-size: 18px; letter-spacing: -.02em; margin-right: 18px; }
+  .nav__links { display: none; gap: 4px; }
+  .nav__links a { height: 44px; padding: 0 16px; display: inline-flex; align-items: center; border-radius: 999px; color: var(--dk-mute); font-weight: 500; font-size: 15px; transition: color .2s, background .2s; }
+  .nav__links a:hover { color: var(--dk-text); background: rgba(255, 255, 255, .06); }
+  .nav .btn { height: 48px; padding: 0 20px; font-size: 15px; margin-left: 10px; }
+  @media (min-width: 768px) { .nav__links { display: flex; } }
+
+  /* первый экран */
+  .hero { background: var(--dk); color: var(--dk-text); padding: 104px 0 56px; overflow: hidden; }
+  .hero__grid { display: grid; gap: 36px; align-items: center; }
+  .hero__h { font-size: clamp(36px, 5vw, 66px); font-weight: 800; line-height: 1.04; letter-spacing: -.035em; max-width: 15ch; }
+  .hero__h em { font-style: normal; color: var(--acc); }
+  .hero__sub { margin-top: 22px; max-width: 46ch; font-size: 18px; color: var(--dk-mute); }
+  .hero__btns { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero__ph { position: relative; border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 5; background: var(--dk2); }
+  .hero__ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  @media (min-width: 900px) {
+    .hero { min-height: 100dvh; display: flex; align-items: center; padding: 110px 0 60px; }
+    .hero__grid { grid-template-columns: 1.25fr .75fr; gap: 64px; }
+    .hero__ph { aspect-ratio: auto; height: min(640px, 74vh); }
+  }
+
+  /* появление */
+  .rv { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  .rv.in { opacity: 1; transform: none; }
+  .hero .rv { transform: translate3d(0, 22px, 0); }
+  .hero__ph.rv { transform: scale(1.04); }
+  .hero__ph.rv.in { transform: none; }
+
+  /* работы */
+  .works { padding: 88px 0 40px; }
+  .sec-h { font-size: clamp(32px, 4.4vw, 56px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
+  .sec-p { margin-top: 14px; max-width: 52ch; color: var(--ink2); font-size: 17px; }
+  .case { margin-top: 72px; }
+  .case__top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px; }
+  .case__name { font-size: clamp(28px, 3.4vw, 44px); font-weight: 800; letter-spacing: -.03em; }
+  .chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font-size: 13px; font-weight: 600; color: var(--ink2); }
+  .case__live { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; border-bottom: 2px solid var(--acc); padding-bottom: 2px; }
+  .case__live svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s var(--ease); }
+  .case__live:hover svg { transform: translate(2px, -2px); }
+
+  /* окно браузера со снимками сайта */
+  .shot { position: relative; margin-top: 22px; }
+  .win { position: relative; border-radius: var(--r); overflow: hidden; background: #0e0f11; box-shadow: 0 30px 70px -30px rgba(17, 18, 20, .35), 0 0 0 1px rgba(17, 18, 20, .06); }
+  .win__bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; background: #1b1c1f; }
+  .win__bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3b40; }
+  .win__url { margin-left: 12px; font-size: 12px; color: #8c8e94; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .win__view { position: relative; aspect-ratio: 16 / 10; }
+  .win__view img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.02); transition: opacity .6s var(--ease), transform 1s var(--ease); }
+  .win__view img.on { opacity: 1; transform: none; }
+  .phone { display: none; }
+  @media (min-width: 900px) {
+    .phone { display: block; position: absolute; right: -14px; bottom: -40px; width: 200px; border-radius: 30px; padding: 8px; background: #0e0f11; box-shadow: 0 30px 60px -20px rgba(17, 18, 20, .5); }
+    .phone img { border-radius: 23px; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; }
+    .shot--l .phone { right: auto; left: -14px; }
+  }
+  .thumbs { margin-top: 14px; display: flex; gap: 8px; }
+  .thumbs button { width: 92px; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; border: 2px solid transparent; padding: 0; cursor: pointer; background: #ddd; opacity: .55; transition: opacity .25s, border-color .25s, transform .3s var(--ease); }
+  .thumbs button img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .thumbs button:hover { opacity: .9; }
+  .thumbs button.on { opacity: 1; border-color: var(--ink); }
+  .thumbs button:active { transform: scale(.96); }
+
+  /* разбор */
+  .brk { margin-top: 30px; display: grid; gap: 14px; }
+  .brk__i { padding: 24px; border-radius: var(--r); background: var(--card); border: 1px solid var(--line); }
+  .brk__i h3 { font-size: 15px; font-weight: 700; color: var(--ink2); }
+  .brk__i p { margin-top: 8px; font-size: 16px; }
+  .brk__i ul { margin-top: 10px; list-style: none; display: grid; gap: 8px; }
+  .brk__i li { position: relative; padding-left: 18px; }
+  .brk__i li::before { content: ''; position: absolute; left: 0; top: .62em; width: 8px; height: 2px; background: var(--ink); }
+  .brk__i--acc { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .brk__i--acc h3 { color: var(--acc); }
+  .brk__i--acc li::before { background: var(--acc); }
+  @media (min-width: 900px) {
+    .brk { grid-template-columns: 1fr 1fr 1.3fr; margin-top: 64px; }
+    /* средняя работа: текст слева, окно справа */
+    .case--split { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: start; }
+    .case--split .case__top { grid-column: 1 / -1; }
+    .case--split .brk { grid-template-columns: 1fr; margin-top: 22px; }
+    .case--split .shot { margin-top: 22px; }
+  }
+
+  /* обо мне */
+  .about { background: var(--dk); color: var(--dk-text); padding: 96px 0; margin-top: 80px; }
+  .about__grid { display: grid; gap: 40px; }
+  .about__ph { border-radius: var(--r); overflow: hidden; aspect-ratio: 1; background: var(--dk2); }
+  .about__ph img { width: 100%; height: 100%; object-fit: cover; }
+  .about__t { font-size: clamp(22px, 2.4vw, 30px); font-weight: 600; line-height: 1.35; letter-spacing: -.015em; }
+  .about__t span { color: var(--dk-mute); }
+  .steps { margin-top: 40px; display: grid; gap: 10px; counter-reset: s; }
+  .step { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 18px 20px; border-radius: 18px; background: var(--dk2); }
+  .step b { counter-increment: s; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--acc); color: var(--ink); font-weight: 800; }
+  .step b::before { content: counter(s); }
+  .step h3 { font-size: 17px; font-weight: 700; }
+  .step p { font-size: 15px; color: var(--dk-mute); }
+  @media (min-width: 900px) {
+    .about__grid { grid-template-columns: .8fr 1.2fr; gap: 72px; align-items: start; }
+    .about__ph { position: sticky; top: 100px; aspect-ratio: 4 / 5; }
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* связь */
+  .cta { padding: 110px 0 60px; }
+  .cta__h { font-size: clamp(40px, 7vw, 96px); font-weight: 800; letter-spacing: -.04em; line-height: 1; max-width: 13ch; }
+  .cta__p { margin-top: 20px; max-width: 44ch; font-size: 18px; color: var(--ink2); }
+  .cta__btns { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .foot { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--ink2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv, .hero .rv, .hero__ph.rv { opacity: 1; transform: none; transition: none; }
+    .win__view img { transition: none; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="nav__logo" href="#top">Кирилл</a>
+    <nav class="nav__links" aria-label="Разделы">
+      <a href="#works">Работы</a>
+      <a href="#about">Обо мне</a>
+    </nav>
+    <a class="btn btn--acc" href="#contact">Написать</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <h1 class="hero__h rv" style="--d:.1s">Делаю сайты, которые <em>продают</em> с первого экрана</h1>
+        <p class="hero__sub rv" style="--d:.25s">Меня зовут Кирилл, мне 18. Дизайн, анимации и запуск лендинга под ключ.</p>
+        <div class="hero__btns rv" style="--d:.4s">
+          <a class="btn btn--acc" href="#works">Смотреть работы<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a class="btn btn--ghost" href="#contact">Написать</a>
+        </div>
+      </div>
+      <div class="hero__ph rv" style="--d:.2s"><img src="img/kirill.webp" alt="Кирилл в костюме" fetchpriority="high"></div>
+    </div>
+  </section>
+
+  <section class="works" id="works">
+    <div class="wrap">
+      <h2 class="sec-h rv">Три сайта, три ниши</h2>
+      <p class="sec-p rv">Каждый сделан с нуля: от разбора ниши до запуска. Сайты живые, их можно открыть и полистать.</p>
+
+      <!-- ПРОТЕКТОР -->
+      <article class="case" data-case>
+        <div class="case__top rv">
+          <h3 class="case__name">ПРОТЕКТОР</h3>
+          <span class="chip">Шиномонтаж</span><span class="chip">Концепт</span>
+          <a class="case__live" href="https://protektorvercelapp.vercel.app" target="_blank" rel="noopener">Открыть сайт<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+        <div class="shot rv">
+          <div class="win">
+            <div class="win__bar"><i></i><i></i><i></i><span class="win__url">protektorvercelapp.vercel.app</span></div>
+            <div class="win__view">
+              <img class="on" src="img/protektor-1.webp" alt="ПРОТЕКТОР: главный экран с колесом" loading="lazy">
+              <img src="img/protektor-2.webp" alt="ПРОТЕКТОР: прайс" loading="lazy">
+              <img src="img/protektor-3.webp" alt="ПРОТЕКТОР: блок «25 минут от заезда до выезда»" loading="lazy">
+            </div>
+          </div>
+          <div class="phone"><img src="img/protektor-m.webp" alt="ПРОТЕКТОР на телефоне" loading="lazy"></div>
+        </div>
+        <div class="thumbs rv"><button class="on" type="button" aria-label="Главный экран"><img src="img/protektor-1.webp" alt="" loading="lazy"></button><button type="button" aria-label="Прайс"><img src="img/protektor-2.webp" alt="" loading="lazy"></button><button type="button" aria-label="25 минут"><img src="img/protektor-3.webp" alt="" loading="lazy"></button></div>
+        <div class="brk">
+          <div class="brk__i rv"><h3>Задача</h3><p>Чтобы человек записался на шиномонтаж сам, без звонка, и не боялся очереди.</p></div>
+          <div class="brk__i rv" style="--d:.08s"><h3>Идея</h3><p>Главное обещание вынесено на первый экран: «Переобуем за 25 минут». Весь сайт его доказывает.</p></div>
+          <div class="brk__i brk__i--acc rv" style="--d:.16s"><h3>Что сделал</h3><ul><li>Крупное колесо с анимацией на первом экране</li><li>Прайс без мелкого шрифта, цены сразу видны</li><li>Блок «25 минут» по шагам, от заезда до выезда</li><li>Запись на точное время в пару нажатий</li></ul></div>
+        </div>
+      </article>
+
+      <!-- Altitude -->
+      <article class="case case--split" data-case>
+        <div class="case__top rv">
+          <h3 class="case__name">Altitude</h3>
+          <span class="chip">Авиакомпания</span><span class="chip">Концепт</span>
+          <a class="case__live" href="https://altitude-airlines.vercel.app" target="_blank" rel="noopener">Открыть сайт<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+        <div class="brk">
+          <div class="brk__i rv"><h3>Задача</h3><p>Показать, что лететь с этой компанией удобно, а цена честная: без доплат за багаж.</p></div>
+          <div class="brk__i rv" style="--d:.08s"><h3>Идея</h3><p>Ощущение полёта с первой секунды: небо, облака и самолёт прямо на первом экране.</p></div>
+          <div class="brk__i brk__i--acc rv" style="--d:.16s"><h3>Что сделал</h3><ul><li>Заставка: посадочный талон и вход в облака через иллюминатор</li><li>Выбор класса: эконом, комфорт, бизнес, частный джет</li><li>История компании по годам с фотографиями</li><li>Гарантии: багаж включён, цена фиксируется</li></ul></div>
+        </div>
+        <div>
+          <div class="shot shot--l rv">
+            <div class="win">
+              <div class="win__bar"><i></i><i></i><i></i><span class="win__url">altitude-airlines.vercel.app</span></div>
+              <div class="win__view">
+                <img class="on" src="img/altitude-1.webp" alt="Altitude: главный экран «Выше ожиданий»" loading="lazy">
+                <img src="img/altitude-2.webp" alt="Altitude: блок о компании" loading="lazy">
+                <img src="img/altitude-3.webp" alt="Altitude: история компании по годам" loading="lazy">
+              </div>
+            </div>
+            <div class="phone"><img src="img/altitude-m.webp" alt="Altitude на телефоне" loading="lazy"></div>
+          </div>
+          <div class="thumbs rv" style="justify-content:flex-end"><button class="on" type="button" aria-label="Главный экран"><img src="img/altitude-1.webp" alt="" loading="lazy"></button><button type="button" aria-label="О компании"><img src="img/altitude-2.webp" alt="" loading="lazy"></button><button type="button" aria-label="История"><img src="img/altitude-3.webp" alt="" loading="lazy"></button></div>
+        </div>
+      </article>
+
+      <!-- FORTE -->
+      <article class="case" data-case>
+        <div class="case__top rv">
+          <h3 class="case__name">FORTE</h3>
+          <span class="chip">Строительство домов</span><span class="chip">Концепт</span>
+          <a class="case__live" href="https://forte-stroy.vercel.app" target="_blank" rel="noopener">Открыть сайт<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+        <div class="shot rv">
+          <div class="win">
+            <div class="win__bar"><i></i><i></i><i></i><span class="win__url">forte-stroy.vercel.app</span></div>
+            <div class="win__view">
+              <img class="on" src="img/forte-1.webp" alt="FORTE: надпись за крышей дома на главном экране" loading="lazy">
+              <img src="img/forte-2.webp" alt="FORTE: конфигуратор дома с ценой" loading="lazy">
+              <img src="img/forte-3.webp" alt="FORTE: блок о прорабе" loading="lazy">
+            </div>
+          </div>
+          <div class="phone"><img src="img/forte-m.webp" alt="FORTE на телефоне" loading="lazy"></div>
+        </div>
+        <div class="thumbs rv"><button class="on" type="button" aria-label="Главный экран"><img src="img/forte-1.webp" alt="" loading="lazy"></button><button type="button" aria-label="Конфигуратор"><img src="img/forte-2.webp" alt="" loading="lazy"></button><button type="button" aria-label="Прораб"><img src="img/forte-3.webp" alt="" loading="lazy"></button></div>
+        <div class="brk">
+          <div class="brk__i rv"><h3>Задача</h3><p>Снять главный страх заказчика дома: что цена вырастет уже в процессе стройки.</p></div>
+          <div class="brk__i rv" style="--d:.08s"><h3>Идея</h3><p>Сделать цену и процесс прозрачными: всё можно посчитать и проверить прямо на сайте.</p></div>
+          <div class="brk__i brk__i--acc rv" style="--d:.16s"><h3>Что сделал</h3><ul><li>Огромная надпись FORTE уходит за крышу дома</li><li>Конфигуратор: собираешь дом и сразу видишь цену</li><li>Один прораб от фундамента до ключей</li><li>Отзывы с фотографиями построенных домов</li></ul></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap about__grid">
+      <div class="about__ph rv"><img src="img/kirill-2.webp" alt="Кирилл" loading="lazy"></div>
+      <div>
+        <h2 class="sec-h rv">Обо мне</h2>
+        <p class="about__t rv" style="margin-top:22px">Меня зовут Кирилл, мне 18 лет. Делаю лендинги для бизнеса: <span>от первого эскиза до сайта, который работает на компьютере и телефоне.</span></p>
+        <div class="steps">
+          <div class="step rv"><b></b><div><h3>Разбираю нишу</h3><p>Смотрю десятки сайтов-референсов и конкурентов.</p></div></div>
+          <div class="step rv" style="--d:.06s"><b></b><div><h3>Показываю варианты</h3><p>2-3 варианта дизайна на выбор, до начала сборки.</p></div></div>
+          <div class="step rv" style="--d:.12s"><b></b><div><h3>Собираю сайт</h3><p>Вёрстка, анимации, версия для телефона.</p></div></div>
+          <div class="step rv" style="--d:.18s"><b></b><div><h3>Запускаю</h3><p>Публикую сайт и помогаю подключить домен.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <h2 class="cta__h rv">Нужен сайт? Напишите</h2>
+      <p class="cta__p rv">Расскажите о бизнесе в паре предложений. Отвечу и предложу, каким может быть ваш сайт.</p>
+      <div class="cta__btns rv">
+        <!-- TODO: ссылка на Telegram Кирилла -->
+        <a class="btn btn--ink" href="https://t.me/" target="_blank" rel="noopener">Написать в Telegram<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+      <footer class="foot"><span>Кирилл, веб-дизайн</span><span>2026</span></footer>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  // появление блоков при прокрутке
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  }
+  // переключение экранов сайта по миниатюрам
+  document.querySelectorAll('[data-case]').forEach(function (c) {
+    var imgs = c.querySelectorAll('.win__view img'), btns = c.querySelectorAll('.thumbs button');
+    btns.forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x, j) { x.classList.toggle('on', j === i); });
+        imgs.forEach(function (x, j) { x.classList.toggle('on', j === i); });
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
