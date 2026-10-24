@@ -269,7 +269,7 @@ JS = r'''
   gsap.defaults({ ease: 'power3.out', force3D: true });
   var E = 'power4.out';
   // набор анимаций выбирается атрибутом data-anim у body
-  var MODE = document.body.getAttribute('data-anim') || 'rise';
+  var MODE = document.body.getAttribute('data-anim') || 'blur';
   var MODES = {
     rise:  { word: { yPercent: 105, autoAlpha: 0 }, block: { y: 34, autoAlpha: 0 }, blockTo: { y: 0, autoAlpha: 1 }, d: .9, st: .07 },
     blur:  { word: { autoAlpha: 0, filter: 'blur(14px)', y: 8 }, block: { autoAlpha: 0, filter: 'blur(12px)', y: 14 }, blockTo: { autoAlpha: 1, filter: 'blur(0px)', y: 0 }, d: 1.1, st: .09, ease: 'power2.out' },
