@@ -10,8 +10,8 @@
 <link rel="preload" as="image" href="img/kirill.webp">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
+html{scroll-behavior:smooth}
+[data-rv],.ln>span{will-change:transform,opacity}
 body{background:var(--bg);color:var(--t);font:400 16px/1.6 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -37,7 +37,8 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .loader__bar{position:absolute;left:18px;right:18px;bottom:40px;height:2px;background:var(--line)}
 .loader__bar i{display:block;height:100%;background:var(--acc);transform-origin:0 50%;transform:scaleX(0)}
 
-.nav{position:fixed;z-index:50;top:0;left:0;right:0;mix-blend-mode:difference;color:#fff}
+.nav{position:fixed;z-index:50;top:0;left:0;right:0;color:var(--t);background:linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 70%,transparent) 60%,transparent);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.nav.hide{transform:translateY(-100%)}
 .nav .w{display:flex;align-items:center;justify-content:space-between;height:72px}
 .nav b{font:var(--hw) 20px var(--fh);letter-spacing:-.01em}
 .nav nav{display:flex;gap:26px;font-size:15px;font-weight:500}
@@ -104,10 +105,8 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .case__view{position:relative;aspect-ratio:16/10;overflow:hidden}
 .case__strip{position:absolute;left:0;top:0;width:100%;will-change:transform}
 .case__strip img{width:100%;aspect-ratio:16/10;object-fit:cover}
-.case__vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;background:#0d0d0e;transition:opacity .6s}
-.case__vid.off{opacity:0;pointer-events:none}
-.case__replay{position:absolute;z-index:3;right:10px;top:10px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:17px;cursor:pointer;opacity:0;transition:opacity .3s}
-.case__vid.off~.case__replay{opacity:1}
+@media(max-width:899px){.case__strip{position:absolute;inset:0}.case__strip img{position:absolute;inset:0;height:100%;opacity:0;transition:opacity .9s ease}.case__strip img.on{opacity:1}}
+
 .case__info{display:grid;gap:16px}
 .case__info h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--acc)}
 .case__info p{margin-top:4px;color:var(--mute)}
@@ -227,17 +226,17 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 <section class="case" id="case-protektor"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">01 / 03</span><span class="case__bar"><i></i></span><span class="tag">Шиномонтаж</span></div>
 <h3 class="case__n" data-split>ПРОТЕКТОР</h3><p class="case__pitch">Шиномонтаж, куда записываются сами</p></div>
-<div class="case__shot"><a class="case__win" href="sites/protektor/index.html" data-open="sites/protektor/index.html" data-name="ПРОТЕКТОР"><div class="case__bar2"><i></i><i></i><i></i><span>protektorvercelapp.vercel.app</span></div><div class="case__view"><div class="case__strip"><img src="img/protektor-1.webp" alt="ПРОТЕКТОР, блок 1" loading="lazy"><img src="img/protektor-2.webp" alt="ПРОТЕКТОР, блок 2" loading="lazy"><img src="img/protektor-3.webp" alt="ПРОТЕКТОР, блок 3" loading="lazy"><img src="img/protektor-4.webp" alt="ПРОТЕКТОР, блок 4" loading="lazy"></div><video class="case__vid" poster="vid/protektor.jpg" muted playsinline preload="metadata"><source src="vid/protektor.mp4" type="video/mp4"><source src="vid/protektor.webm" type="video/webm"></video><button class="case__replay" type="button" aria-label="Повторить анимацию">↻</button></div></a><a class="btn btn--acc case__go" href="sites/protektor/index.html" data-open="sites/protektor/index.html" data-name="ПРОТЕКТОР">Открыть сайт<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+<div class="case__shot"><a class="case__win" href="sites/protektor/index.html" data-open="sites/protektor/index.html" data-name="ПРОТЕКТОР"><div class="case__bar2"><i></i><i></i><i></i><span>protektorvercelapp.vercel.app</span></div><div class="case__view"><div class="case__strip"><img src="img/protektor-1.webp" alt="ПРОТЕКТОР, блок 1" loading="lazy"><img src="img/protektor-2.webp" alt="ПРОТЕКТОР, блок 2" loading="lazy"><img src="img/protektor-3.webp" alt="ПРОТЕКТОР, блок 3" loading="lazy"><img src="img/protektor-4.webp" alt="ПРОТЕКТОР, блок 4" loading="lazy"></div></div></a><a class="btn btn--acc case__go" href="sites/protektor/index.html" data-open="sites/protektor/index.html" data-name="ПРОТЕКТОР">Открыть сайт<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
 <div class="case__info"><div><h3>Задача</h3><p>Люди не хотят звонить и стоять в очереди. Нужно, чтобы запись занимала минуту.</p></div><div><h3>Решение</h3><p>Главное обещание вынес на первый экран: «Переобуем за 25 минут». Каждый следующий блок его доказывает.</p></div><div><h3>Что сделал</h3><ul><li>Первый экран с красной машиной и обещанием</li><li>Цены по размеру колеса без звёздочек</li><li>Запись на точное время в три шага</li></ul></div></div>
 </div></div></section><section class="case" id="case-altitude"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">02 / 03</span><span class="case__bar"><i></i></span><span class="tag">Авиакомпания</span></div>
 <h3 class="case__n" data-split>Altitude</h3><p class="case__pitch">Авиакомпания с честной ценой</p></div>
-<div class="case__shot"><a class="case__win" href="sites/altitude/index.html" data-open="sites/altitude/index.html" data-name="Altitude"><div class="case__bar2"><i></i><i></i><i></i><span>altitude-airlines.vercel.app</span></div><div class="case__view"><div class="case__strip"><img src="img/altitude-1.webp" alt="Altitude, блок 1" loading="lazy"><img src="img/altitude-2.webp" alt="Altitude, блок 2" loading="lazy"><img src="img/altitude-3.webp" alt="Altitude, блок 3" loading="lazy"><img src="img/altitude-4.webp" alt="Altitude, блок 4" loading="lazy"></div><video class="case__vid" poster="vid/altitude.jpg" muted playsinline preload="metadata"><source src="vid/altitude.mp4" type="video/mp4"><source src="vid/altitude.webm" type="video/webm"></video><button class="case__replay" type="button" aria-label="Повторить анимацию">↻</button></div></a><a class="btn btn--acc case__go" href="sites/altitude/index.html" data-open="sites/altitude/index.html" data-name="Altitude">Открыть сайт<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+<div class="case__shot"><a class="case__win" href="sites/altitude/index.html" data-open="sites/altitude/index.html" data-name="Altitude"><div class="case__bar2"><i></i><i></i><i></i><span>altitude-airlines.vercel.app</span></div><div class="case__view"><div class="case__strip"><img src="img/altitude-1.webp" alt="Altitude, блок 1" loading="lazy"><img src="img/altitude-2.webp" alt="Altitude, блок 2" loading="lazy"><img src="img/altitude-3.webp" alt="Altitude, блок 3" loading="lazy"><img src="img/altitude-4.webp" alt="Altitude, блок 4" loading="lazy"></div></div></a><a class="btn btn--acc case__go" href="sites/altitude/index.html" data-open="sites/altitude/index.html" data-name="Altitude">Открыть сайт<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
 <div class="case__info"><div><h3>Задача</h3><p>Билеты все продают одинаково. Нужно, чтобы человек почувствовал полёт и поверил цене.</p></div><div><h3>Решение</h3><p>Небо, облака и самолёт с первой секунды, а рядом понятные гарантии: багаж включён, цена не меняется.</p></div><div><h3>Что сделал</h3><ul><li>Заставка с посадочным талоном</li><li>Четыре класса: от эконома до частного джета</li><li>Блок «Цена не меняется» с разбором билета</li></ul></div></div>
 </div></div></section><section class="case" id="case-forte"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">03 / 03</span><span class="case__bar"><i></i></span><span class="tag">Строительство домов</span></div>
 <h3 class="case__n" data-split>FORTE</h3><p class="case__pitch">Стройка без сюрпризов в смете</p></div>
-<div class="case__shot"><a class="case__win" href="sites/forte/index.html" data-open="sites/forte/index.html" data-name="FORTE"><div class="case__bar2"><i></i><i></i><i></i><span>forte-stroy.vercel.app</span></div><div class="case__view"><div class="case__strip"><img src="img/forte-1.webp" alt="FORTE, блок 1" loading="lazy"><img src="img/forte-2.webp" alt="FORTE, блок 2" loading="lazy"><img src="img/forte-3.webp" alt="FORTE, блок 3" loading="lazy"><img src="img/forte-4.webp" alt="FORTE, блок 4" loading="lazy"></div><video class="case__vid" poster="vid/forte.jpg" muted playsinline preload="metadata"><source src="vid/forte.mp4" type="video/mp4"><source src="vid/forte.webm" type="video/webm"></video><button class="case__replay" type="button" aria-label="Повторить анимацию">↻</button></div></a><a class="btn btn--acc case__go" href="sites/forte/index.html" data-open="sites/forte/index.html" data-name="FORTE">Открыть сайт<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+<div class="case__shot"><a class="case__win" href="sites/forte/index.html" data-open="sites/forte/index.html" data-name="FORTE"><div class="case__bar2"><i></i><i></i><i></i><span>forte-stroy.vercel.app</span></div><div class="case__view"><div class="case__strip"><img src="img/forte-1.webp" alt="FORTE, блок 1" loading="lazy"><img src="img/forte-2.webp" alt="FORTE, блок 2" loading="lazy"><img src="img/forte-3.webp" alt="FORTE, блок 3" loading="lazy"><img src="img/forte-4.webp" alt="FORTE, блок 4" loading="lazy"></div></div></a><a class="btn btn--acc case__go" href="sites/forte/index.html" data-open="sites/forte/index.html" data-name="FORTE">Открыть сайт<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
 <div class="case__info"><div><h3>Задача</h3><p>Главный страх заказчика: цена дома вырастет, когда стройка уже началась.</p></div><div><h3>Решение</h3><p>Сделал цену и процесс прозрачными: дом можно собрать и посчитать прямо на сайте.</p></div><div><h3>Что сделал</h3><ul><li>Надпись FORTE уходит за крышу дома</li><li>Конфигуратор: меняешь дом и видишь цену</li><li>Отзывы с фото построенных домов</li></ul></div></div>
 </div></div></section>
 <section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p></div><div class="how__list"><span class="how__line"><i></i></span><div class="step"><b>01</b><div><h3>Разбор</h3><p>Изучаю нишу, конкурентов и десятки сильных сайтов.</p></div></div><div class="step"><b>02</b><div><h3>Идея</h3><p>Нахожу главное обещание и выстраиваю блоки вокруг него.</p></div></div><div class="step"><b>03</b><div><h3>Дизайн</h3><p>Показываю 2-3 варианта. Собираю только тот, что выбрали.</p></div></div><div class="step"><b>04</b><div><h3>Сборка</h3><p>Вёрстка, анимации и отдельная версия для телефона.</p></div></div><div class="step"><b>05</b><div><h3>Запуск</h3><p>Публикую сайт и помогаю подключить домен.</p></div></div></div></div></section>
@@ -251,12 +250,11 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 <div class="vw" id="vw" hidden><div class="vw__bar"><b id="vwN"></b><a id="vwO" href="#" target="_blank" rel="noopener">Новая вкладка</a><button type="button" id="vwX">Закрыть</button></div><iframe id="vwF" title="Сайт"></iframe></div>
 <script>
 // TODO: ссылка на Telegram Кирилла
-var TG = 'https://t.me/';
+var TG = 'https://t.me/kirillostapov';
 document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target = '_blank'; a.rel = 'noopener'; });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 (function () {
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -273,85 +271,90 @@ document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target
   var fitName = function () { if (!nm) return; nm.style.setProperty('--nf', '100px'); var col = nm.closest('.cover').getBoundingClientRect().width - 28; nm.style.setProperty('--nf', Math.min(100 * col / nin.getBoundingClientRect().width, 260) + 'px'); };
   fitName(); addEventListener('resize', fitName); if (document.fonts) document.fonts.ready.then(fitName);
   var vw = document.getElementById('vw'), vf = document.getElementById('vwF');
-  var closeVw = function () { vw.hidden = true; vf.src = 'about:blank'; document.documentElement.style.overflow = ''; if (window.__lenis) window.__lenis.start(); };
+  var closeVw = function () { vw.hidden = true; vf.src = 'about:blank'; document.documentElement.style.overflow = '';  };
   document.querySelectorAll('[data-open]').forEach(function (b) { b.addEventListener('click', function (e) {
     e.preventDefault(); var u = b.getAttribute('data-open');
     vf.src = u; document.getElementById('vwN').textContent = b.getAttribute('data-name'); document.getElementById('vwO').href = u;
-    vw.hidden = false; document.documentElement.style.overflow = 'hidden'; if (window.__lenis) window.__lenis.stop();
+    vw.hidden = false; document.documentElement.style.overflow = 'hidden'; 
     if (window.gsap && !reduce) gsap.fromTo(vw, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: .8, ease: 'expo.out' });
   }); });
   document.getElementById('vwX').addEventListener('click', closeVw);
   addEventListener('keydown', function (e) { if (e.key === 'Escape' && !vw.hidden) closeVw(); });
-  // в окне сайта сначала проигрывается его загрузка и анимация первого экрана
-  document.querySelectorAll('.case').forEach(function (c) {
-    var v = c.querySelector('.case__vid'), rb = c.querySelector('.case__replay'); if (!v) return;
-    var play = function () { v.classList.remove('off'); try { v.currentTime = 0; } catch (e) {} var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.add('off'); }); };
-    v.addEventListener('ended', function () { v.classList.add('off'); });
-    rb.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); play(); });
-    c.__hideVid = function () { if (!v.classList.contains('off')) { v.pause(); v.classList.add('off'); } };
-    if (reduce) { v.classList.add('off'); return; }
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && e.intersectionRatio > .5) { play(); io.disconnect(); } }); }, { threshold: [0, .5, 1] });
-    io.observe(v);
+  // телефон: в окне сайта блоки сменяют друг друга, пока окно на экране
+  var mob = matchMedia('(max-width: 899px)');
+  document.querySelectorAll('.case__strip').forEach(function (st) {
+    var im = st.querySelectorAll('img'), k = 0, timer = null; im[0].classList.add('on');
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      clearInterval(timer);
+      if (e.isIntersecting && mob.matches && !reduce) timer = setInterval(function () { im[k].classList.remove('on'); k = (k + 1) % im.length; im[k].classList.add('on'); }, 2600);
+    }); }, { threshold: .4 });
+    io.observe(st);
   });
+  // шапка прячется при прокрутке вниз и возвращается при прокрутке вверх
+  var nav = document.querySelector('.nav'), lastY = 0, ticking = false;
+  addEventListener('scroll', function () { if (ticking) return; ticking = true; requestAnimationFrame(function () { var y = scrollY; nav.classList.toggle('hide', y > lastY && y > 200); lastY = y; ticking = false; }); }, { passive: true });
+
   if (reduce || !window.gsap) { var l = document.querySelector('.loader'); if (l) l.remove(); return; }
   gsap.registerPlugin(ScrollTrigger);
-  var lenis = null;
-  if (window.Lenis) { lenis = window.__lenis = new Lenis({ duration: 1.1, smoothWheel: true }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(function (t) { lenis.raf(t * 1000); }); gsap.ticker.lagSmoothing(0); }
+  gsap.defaults({ ease: 'power3.out', force3D: true });
+  var E = 'power4.out';
 
-  // заставка с именем, затем первый экран
-  var tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-  tl.fromTo('.loader__n span', { yPercent: 110 }, { yPercent: 0, duration: .9, stagger: .05 }, 0)
-    .to('.loader__bar i', { scaleX: 1, duration: 1.1, ease: 'power2.inOut' }, 0)
-    .to('.loader', { yPercent: -100, duration: 1, ease: 'expo.inOut' }, 1.15)
+  // заставка, затем первый экран по шагам: фото, имя, заголовок по словам, кнопки
+  var tl = gsap.timeline();
+  tl.fromTo('.loader__n span', { yPercent: 110 }, { yPercent: 0, duration: .7, stagger: .04, ease: E }, 0)
+    .to('.loader__bar i', { scaleX: 1, duration: .8, ease: 'power2.inOut' }, 0)
+    .to('.loader', { yPercent: -100, duration: .8, ease: 'power3.inOut' }, .9)
     .set('.loader', { display: 'none' })
-    .to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.4 }, 1.5)
-    .to('.hero__photo img', { scale: 1, duration: 1.8 }, 1.5)
-    .from('.hero__name .ln>span', { yPercent: 110, duration: 1.3 }, 1.55)
-    .from('.hero__lead .ln>span', { yPercent: 110, duration: 1.1, stagger: .05 }, 1.7)
-    .from('.chip', { scale: .6, opacity: 0, duration: .9, stagger: .12, ease: 'back.out(1.6)' }, 2.3)
-    .from('.hero [data-fade]', { y: 24, opacity: 0, duration: 1, stagger: .1 }, 1.9);
+    .to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: E }, 1.25)
+    .to('.hero__photo img', { scale: 1, duration: 1.6, ease: E }, 1.25)
+    .from('.hero__name .ln>span', { yPercent: 105, duration: 1, ease: E }, 1.55)
+    .from('.cover__no', { autoAlpha: 0, y: 10, duration: .6 }, 1.9)
+    .from('.hero__lead .ln>span', { yPercent: 105, autoAlpha: 0, duration: .9, stagger: .07, ease: E }, 1.85)
+    .from('.hero [data-fade]', { y: 20, autoAlpha: 0, duration: .8, stagger: .12 }, 2.35);
 
-  // фото чуть отстаёт при прокрутке
-  gsap.to('.hero__photo img', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  // заголовки: слова поднимаются по очереди, когда блок доходит до экрана
+  document.querySelectorAll('[data-split]').forEach(function (h) {
+    if (h.closest('.hero')) return;
+    gsap.from(h.querySelectorAll('.ln>span'), { yPercent: 105, autoAlpha: 0, duration: .9, stagger: .07, ease: E, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+  });
+  // остальной текст и карточки: плавно снизу, по очереди
+  var rv = gsap.utils.toArray('.mq, .case__top, .case__pitch, .case__info > *, .case__go, .how__l > p, .step, .cta__p, .cta .btn, section.about .w > *, .chatb');
+  gsap.set(rv, { autoAlpha: 0, y: 34 });
+  ScrollTrigger.batch(rv, { start: 'top 90%', once: true, onEnter: function (b) { gsap.to(b, { autoAlpha: 1, y: 0, duration: .9, stagger: .1, ease: E, overwrite: true }); } });
 
-  // бегущая строка ускоряется от прокрутки
-  var mq = document.querySelector('.mq__t');
-  ScrollTrigger.create({ trigger: '.mq', start: 'top bottom', end: 'bottom top', onUpdate: function (s) { var v = Math.min(Math.abs(s.getVelocity()) / 300, 4); gsap.to(mq, { skewX: s.direction * -v * 1.5, duration: .3, overwrite: true }); } });
-
-  // слова «обо мне» загораются по мере прокрутки
-  gsap.to('.about__t .wd', { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: '.about__t', start: 'top 80%', end: 'bottom 45%', scrub: true } });
-  gsap.from('.about__s div', { y: 30, opacity: 0, stagger: .1, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.about__s', start: 'top 85%' } });
-
-  // заголовки секций
-  document.querySelectorAll('.h2[data-split], .cta__h[data-split]').forEach(function (h) {
-    gsap.from(h.querySelectorAll('.ln>span'), { yPercent: 110, duration: 1.1, stagger: .06, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 85%' } });
+  // окно сайта: плавно выезжает и проявляется
+  gsap.utils.toArray('.case__win').forEach(function (w) {
+    gsap.from(w, { y: 50, autoAlpha: 0, scale: .97, duration: 1.1, ease: E, scrollTrigger: { trigger: w, start: 'top 90%', once: true } });
   });
 
-  // работы: секция закрепляется, а внутри окна листаются главные блоки сайта
-  document.querySelectorAll('.case').forEach(function (c) {
-    var strip = c.querySelector('.case__strip'), view = c.querySelector('.case__view'), n = strip.children.length;
-    var t = gsap.timeline({ scrollTrigger: { trigger: c, start: 'top top', end: '+=' + (n * 70) + '%', pin: true, scrub: .6, anticipatePin: 1, onUpdate: function (st) { if (st.progress > .06 && c.__hideVid) c.__hideVid(); } } });
-    t.to(strip, { y: function () { return -(view.offsetHeight * (n - 1)); }, ease: 'none' }, 0)
-     .to(c.querySelector('.case__bar i'), { scaleX: 1, ease: 'none' }, 0);
-    gsap.from(c.querySelectorAll('.case__n .ln>span'), { yPercent: 110, duration: 1.1, stagger: .05, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 70%' } });
-    gsap.from(c.querySelectorAll('.case__info > *, .case__pitch, .case__top'), { y: 26, opacity: 0, duration: .9, stagger: .07, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 60%' } });
-    gsap.from(c.querySelector('.case__win'), { y: 60, rotateX: 12, opacity: 0, transformPerspective: 1400, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 65%' } });
+  var mm = gsap.matchMedia();
+  mm.add('(min-width: 900px)', function () {
+    // фото на первом экране чуть отстаёт при прокрутке
+    gsap.to('.hero__photo img', { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+    // секция работы закрепляется, внутри окна плавно проезжают главные блоки
+    document.querySelectorAll('.case').forEach(function (c) {
+      var strip = c.querySelector('.case__strip'), view = c.querySelector('.case__view'), n = strip.children.length;
+      gsap.timeline({ scrollTrigger: { trigger: c, start: 'top top', end: '+=' + (n * 60) + '%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
+        .to(strip, { y: function () { return -(view.offsetHeight * (n - 1)); }, ease: 'none' }, 0)
+        .to(c.querySelector('.case__bar i'), { scaleX: 1, ease: 'none' }, 0);
+    });
+  });
+  mm.add('(max-width: 899px)', function () {
+    document.querySelectorAll('.case__bar i').forEach(function (b) { gsap.to(b, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: b.closest('.case'), start: 'top 80%', end: 'bottom 60%', scrub: true } }); });
   });
 
   // процесс: линия заполняется, шаги загораются по очереди
-  gsap.to('.how__line i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.how__list', start: 'top 60%', end: 'bottom 60%', scrub: true } });
+  gsap.to('.how__line i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.how__list', start: 'top 65%', end: 'bottom 65%', scrub: 1 } });
   document.querySelectorAll('.step').forEach(function (st) {
-    ScrollTrigger.create({ trigger: st, start: 'top 62%', onEnter: function () { st.classList.add('on'); }, onLeaveBack: function () { st.classList.remove('on'); } });
-    gsap.from(st.querySelectorAll('h3, p'), { x: 30, opacity: 0, duration: .9, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: st, start: 'top 80%' } });
+    ScrollTrigger.create({ trigger: st, start: 'top 65%', onEnter: function () { st.classList.add('on'); }, onLeaveBack: function () { st.classList.remove('on'); } });
   });
-  gsap.from('.how__l > *', { y: 30, opacity: 0, duration: 1, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.how', start: 'top 70%' } });
 
-  // кнопка тянется к курсору
+  // кнопка в конце тянется к курсору
   if (matchMedia('(hover: hover)').matches) document.querySelectorAll('.mag').forEach(function (b) {
-    b.addEventListener('mousemove', function (e) { var r = b.getBoundingClientRect(); gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * .3, y: (e.clientY - r.top - r.height / 2) * .4, duration: .4, ease: 'power3.out' }); });
-    b.addEventListener('mouseleave', function () { gsap.to(b, { x: 0, y: 0, duration: .7, ease: 'elastic.out(1,.4)' }); });
+    var xTo = gsap.quickTo(b, 'x', { duration: .5, ease: 'power3' }), yTo = gsap.quickTo(b, 'y', { duration: .5, ease: 'power3' });
+    b.addEventListener('mousemove', function (e) { var r = b.getBoundingClientRect(); xTo((e.clientX - r.left - r.width / 2) * .3); yTo((e.clientY - r.top - r.height / 2) * .4); });
+    b.addEventListener('mouseleave', function () { xTo(0); yTo(0); });
   });
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) { a.addEventListener('click', function (e) { var t = document.querySelector(a.getAttribute('href')); if (t && lenis) { e.preventDefault(); lenis.scrollTo(t, { offset: 0 }); } }); });
   addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();
 </script>
