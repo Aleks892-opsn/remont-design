@@ -167,6 +167,10 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .case__view{position:relative;aspect-ratio:16/10;overflow:hidden}
 .case__strip{position:absolute;left:0;top:0;width:100%;will-change:transform}
 .case__strip img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.case__vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;background:#0d0d0e;transition:opacity .6s}
+.case__vid.off{opacity:0;pointer-events:none}
+.case__replay{position:absolute;z-index:3;right:10px;top:10px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:17px;cursor:pointer;opacity:0;transition:opacity .3s}
+.case__vid.off~.case__replay{opacity:1}
 .case__info{display:grid;gap:16px}
 .case__info h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--acc)}
 .case__info p{margin-top:4px;color:var(--mute)}
@@ -245,6 +249,17 @@ JS = r'''
   }); });
   document.getElementById('vwX').addEventListener('click', closeVw);
   addEventListener('keydown', function (e) { if (e.key === 'Escape' && !vw.hidden) closeVw(); });
+  // в окне сайта сначала проигрывается его загрузка и анимация первого экрана
+  document.querySelectorAll('.case').forEach(function (c) {
+    var v = c.querySelector('.case__vid'), rb = c.querySelector('.case__replay'); if (!v) return;
+    var play = function () { v.classList.remove('off'); try { v.currentTime = 0; } catch (e) {} var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.add('off'); }); };
+    v.addEventListener('ended', function () { v.classList.add('off'); });
+    rb.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); play(); });
+    c.__hideVid = function () { if (!v.classList.contains('off')) { v.pause(); v.classList.add('off'); } };
+    if (reduce) { v.classList.add('off'); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && e.intersectionRatio > .5) { play(); io.disconnect(); } }); }, { threshold: [0, .5, 1] });
+    io.observe(v);
+  });
   if (reduce || !window.gsap) { var l = document.querySelector('.loader'); if (l) l.remove(); return; }
   gsap.registerPlugin(ScrollTrigger);
   var lenis = null;
@@ -282,7 +297,7 @@ JS = r'''
   // работы: секция закрепляется, а внутри окна листаются главные блоки сайта
   document.querySelectorAll('.case').forEach(function (c) {
     var strip = c.querySelector('.case__strip'), view = c.querySelector('.case__view'), n = strip.children.length;
-    var t = gsap.timeline({ scrollTrigger: { trigger: c, start: 'top top', end: '+=' + (n * 70) + '%', pin: true, scrub: .6, anticipatePin: 1 } });
+    var t = gsap.timeline({ scrollTrigger: { trigger: c, start: 'top top', end: '+=' + (n * 70) + '%', pin: true, scrub: .6, anticipatePin: 1, onUpdate: function (st) { if (st.progress > .06 && c.__hideVid) c.__hideVid(); } } });
     t.to(strip, { y: function () { return -(view.offsetHeight * (n - 1)); }, ease: 'none' }, 0)
      .to(c.querySelector('.case__bar i'), { scaleX: 1, ease: 'none' }, 0);
     gsap.from(c.querySelectorAll('.case__n .ln>span'), { yPercent: 110, duration: 1.1, stagger: .05, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 70%' } });
@@ -314,7 +329,7 @@ def case_html(c, i):
     return f'''<section class="case" id="case-{c["id"]}"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">0{i+1} / 03</span><span class="case__bar"><i></i></span><span class="tag">{c["niche"]}</span></div>
 <h3 class="case__n" data-split>{c["name"]}</h3><p class="case__pitch">{c["pitch"]}</p></div>
-<div class="case__shot"><a class="case__win" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div></div></a><a class="btn btn--acc case__go" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}">Открыть сайт{ARR}</a></div>
+<div class="case__shot"><a class="case__win" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div><video class="case__vid" poster="vid/{c["id"]}.jpg" muted playsinline preload="metadata"><source src="vid/{c["id"]}.mp4" type="video/mp4"><source src="vid/{c["id"]}.webm" type="video/webm"></video><button class="case__replay" type="button" aria-label="Повторить анимацию">↻</button></div></a><a class="btn btn--acc case__go" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}">Открыть сайт{ARR}</a></div>
 <div class="case__info"><div><h3>Задача</h3><p>{c["task"]}</p></div><div><h3>Решение</h3><p>{c["sol"]}</p></div><div><h3>Что сделал</h3><ul>{lis}</ul></div></div>
 </div></div></section>'''
 
