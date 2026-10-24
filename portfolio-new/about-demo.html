@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Блок о себе</title>
+<style>
+  :root { --bg: #0b0d12; --bar: #141821; --line: #262c38; --text: #eef1f6; --mute: #8f97a6; --acc: #ff6a1a; color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden; display: flex; flex-direction: column; }
+  button { font: inherit; color: inherit; border: 0; cursor: pointer; }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bar); border-bottom: 1px solid var(--line); }
+  .bar h1 { font-size: 15px; font-weight: 700; margin-right: 6px; }
+  .b { height: 36px; padding: 0 13px; border-radius: 10px; background: #222838; font-weight: 600; white-space: nowrap; }
+  .b:hover { background: #2c3446; }
+  .b.on { background: var(--acc); color: #fff; }
+  .hint { color: var(--mute); font-size: 13px; }
+  .grow { flex: 1; }
+  .jump { display: flex; gap: 6px; padding: 8px 16px; overflow-x: auto; background: #10141c; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump button { flex: none; height: 32px; padding: 0 12px; border-radius: 16px; background: #1b2130; color: var(--mute); font-size: 13px; font-weight: 600; }
+  .jump button:hover { color: var(--text); }
+  .stage { position: relative; flex: 1; min-height: 0; overflow: auto; display: grid; place-items: center; background: radial-gradient(60% 60% at 50% 40%, #151b28, var(--bg)); -webkit-overflow-scrolling: touch; }
+  .sizer { position: relative; }
+  .screen { position: absolute; left: 0; top: 0; transform-origin: 0 0; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px #2a3142, 0 30px 80px rgba(0,0,0,.6); }
+  .screen iframe { display: block; width: var(--w, 1440px); height: var(--h, 900px); border: 0; background: #fff; }
+  .rot { display: none; padding: 8px 16px; font-size: 13px; color: var(--mute); text-align: center; background: #10141c; }
+  @media (orientation: portrait) and (max-width: 700px) { .rot { display: block; } }
+  @media (max-width: 700px) { .bar h1 { display: none; } .hint { display: none; } }
+  @media (max-height: 500px) { .bar { padding: 4px 12px; gap: 6px; } .bar h1, .hint { display: none; } .b { height: 30px; font-size: 13px; } .jump { padding: 4px 12px; } .jump button { height: 26px; font-size: 12px; } }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>Портфолио</h1>
+    <button class="b on" type="button" data-v="a1.html">1. Текст с картинками</button>
+    <button class="b" type="button" data-v="a2.html">2. Колода карточек</button>
+    <button class="b" type="button" data-v="a3.html">3. Спросите меня</button>
+    <button class="b" type="button" data-v="a4.html">4. Обычно или со мной</button>
+    <span class="grow"></span>
+    <button class="b" type="button" data-d="d">Компьютер</button>
+    <button class="b" type="button" data-d="m">Телефон</button>
+    <button class="b" type="button" id="zoom">Лупа ×1</button>
+    <button class="b" type="button" id="reload">Заново</button>
+  </div>
+    <p class="rot">Поверните телефон горизонтально, экран компьютера будет крупнее</p>
+  <div class="stage" id="stage"><div class="sizer" id="sizer"><div class="screen" id="screen"><iframe id="site" title="Сайт FORTE" src="a1.html"></iframe></div></div></div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $('stage'), sizer = $('sizer'), screen = $('screen'), frame = $('site');
+  var mag = 1, W = 1440, H = 900, cur = 'a1.html';
+  // окно сайта целиком вписывается в экран, лупа увеличивает в 2-3 раза
+  var fit = function () {
+    var aw = stage.clientWidth - 24, ah = stage.clientHeight - 24;
+    var k = Math.min(aw / W, ah / H) * mag;
+    if (mag === 1) k = Math.min(k, 1);
+    screen.style.setProperty('--w', W + 'px'); screen.style.setProperty('--h', H + 'px');
+    screen.style.transform = 'scale(' + k + ')';
+    sizer.style.width = Math.round(W * k) + 'px';
+    sizer.style.height = Math.round(H * k) + 'px';
+  };
+  addEventListener('resize', fit);
+  addEventListener('orientationchange', function () { setTimeout(fit, 300); });
+  $('zoom').addEventListener('click', function () { mag = mag >= 3 ? 1 : mag + 1; $('zoom').textContent = 'Лупа ×' + mag; $('zoom').classList.toggle('on', mag > 1); fit(); });
+  document.querySelectorAll('[data-v]').forEach(function (b) { b.addEventListener('click', function () {
+    cur = b.getAttribute('data-v'); frame.src = cur;
+    document.querySelectorAll('[data-v]').forEach(function (x) { x.classList.toggle('on', x === b); });
+  }); });
+  document.querySelectorAll('[data-d]').forEach(function (b) { b.addEventListener('click', function () {
+    var m = b.getAttribute('data-d') === 'm'; W = m ? 390 : 1440; H = m ? 844 : 900;
+    document.querySelectorAll('[data-d]').forEach(function (x) { x.classList.toggle('on', x === b); });
+    frame.src = cur + '?v=' + Date.now(); fit();
+  }); });
+  $('reload').addEventListener('click', function () { frame.src = cur + '?v=' + Date.now(); });
+  var start = innerWidth < 900 ? 'm' : 'd';
+  document.querySelector('[data-d="' + start + '"]').click();
+})();
+</script>
+</body>
+</html>

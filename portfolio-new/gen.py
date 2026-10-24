@@ -108,36 +108,28 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .nav nav a.tg{display:inline}
 @media(min-width:900px){.nav nav a{display:inline}}
 
-/* первый экран: имя во всю ширину, фото целиком */
-.hero{position:relative;padding:84px 0 44px}
-.hero .w{display:flex;flex-direction:column}
-.hero__txt{display:contents}
-.hero__k{order:1;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute)}
-.hero__k span:first-child{display:inline-flex;align-items:center;gap:8px;color:var(--t);font-weight:500}
-.hero__k i{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 5px color-mix(in srgb,var(--acc) 25%,transparent);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--acc) 0%,transparent)}}
-.hero__name{order:2;margin-top:14px;font-size:var(--nf,24vw);line-height:.84;white-space:nowrap}
-.hero__lead{order:3;margin-top:14px;font-size:clamp(26px,3vw,42px);line-height:1.1;max-width:15ch;text-wrap:balance}
-.hero__lead em{font-style:normal;color:var(--acc)}
-.hero__ph{order:4;position:relative;margin-top:26px}
-.hero__p{order:5;margin-top:22px;font-size:17px;line-height:1.55;color:var(--mute);max-width:36ch}
-.hero__b{order:6;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.hero__b .btn{padding:0 16px;font-size:15px}
-.hero__photo{width:100%;overflow:hidden;clip-path:inset(100% 0 0 0)}
+/* первый экран: обложка журнала, фото целиком */
+.hero{position:relative;padding:76px 0 40px}
+.hero .w{display:grid;gap:24px}
+.cover{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.hero__photo{overflow:hidden;clip-path:inset(100% 0 0 0)}
 .hero__photo img{width:100%;height:auto;transform:scale(1.18);transform-origin:50% 60%}
-.chip{position:absolute;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rb);background:rgba(12,12,12,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;font-size:13px;font-weight:600}
-.chip b{color:var(--acc);font-weight:700}
-.c1{left:12px;top:12px}.c2{right:12px;bottom:12px}
+.cover__mast{position:absolute;left:0;right:0;top:0;padding:12px 14px 0;pointer-events:none}
+.hero__name{font-size:var(--nf,22vw);line-height:.84;white-space:nowrap;color:#fff;text-shadow:0 10px 40px rgba(0,0,0,.35)}
+.cover__no{position:absolute;right:14px;bottom:14px;font-size:12px;line-height:1.3;color:#fff;opacity:.85;text-align:right}
+.hero__lead{font-size:clamp(28px,4vw,54px);line-height:1.08;text-wrap:balance}
+.hero__lead em{font-style:normal;color:var(--acc)}
+.hero__b{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero__b .btn{padding:0 14px;font-size:15px}
 @media(min-width:900px){
  .hero{min-height:100svh;display:flex;align-items:center;padding:96px 0 50px}
- .hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
- .hero__txt{display:block}
- .hero__lead{margin-top:20px}
+ .hero .w{grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+ .hero__txt{order:-1}
  .hero__b{display:flex}
  .hero__b .btn{padding:0 28px}
- .hero__ph{margin:0;justify-self:end}
- .hero__photo{max-height:82svh;width:auto;aspect-ratio:1856/2304}
- .hero__photo img{height:100%;width:auto}
+ .cover{justify-self:end;max-height:84svh;aspect-ratio:1856/2304}
+ .hero__photo,.hero__photo img{height:100%}
+ .hero__photo img{width:auto}
 }
 /* бегущая строка */
 .mq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;white-space:nowrap}
@@ -241,7 +233,7 @@ JS = r'''
     el.innerHTML = el.textContent.trim().split(/\s+/).map(function (w) { return '<span class="wd">' + w + '</span>'; }).join(' ');
   });
   var nm = document.querySelector('.hero__name'), nin = nm && nm.querySelector('.ln');
-  var fitName = function () { if (!nm) return; nm.style.setProperty('--nf', '100px'); var tx = nm.closest('.hero__txt'), col = tx.getBoundingClientRect().width; if (!col) { var wr = nm.closest('.w'), cs = getComputedStyle(wr); col = wr.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); } col -= 4; nm.style.setProperty('--nf', Math.min(100 * col / nin.getBoundingClientRect().width, 260) + 'px'); };
+  var fitName = function () { if (!nm) return; nm.style.setProperty('--nf', '100px'); var col = nm.closest('.cover').getBoundingClientRect().width - 28; nm.style.setProperty('--nf', Math.min(100 * col / nin.getBoundingClientRect().width, 260) + 'px'); };
   fitName(); addEventListener('resize', fitName); if (document.fonts) document.fonts.ready.then(fitName);
   var vw = document.getElementById('vw'), vf = document.getElementById('vwF');
   var closeVw = function () { vw.hidden = true; vf.src = 'about:blank'; document.documentElement.style.overflow = ''; if (window.__lenis) window.__lenis.start(); };
@@ -326,10 +318,19 @@ def case_html(c, i):
 <div class="case__info"><div><h3>Задача</h3><p>{c["task"]}</p></div><div><h3>Решение</h3><p>{c["sol"]}</p></div><div><h3>Что сделал</h3><ul>{lis}</ul></div></div>
 </div></div></section>'''
 
-def page(key, th):
+ABOUT_DEFAULT = '''<section class="about"><div class="w">
+ <p class="about__t" data-words>Мне 18, и я делаю сайты не для галочки. Каждый начинаю с разбора ниши, а заканчиваю тем, что сайт приводит заявки с компьютера и телефона.</p>
+ <div class="about__s"><div><b>3</b><span>сайта в портфолио</span></div><div><b>3</b><span>разные ниши</span></div><div><b>100%</b><span>работаю сам, без посредников</span></div></div>
+</div></section>
+'''
+
+def page(key, th, about=None):
     cases = ''.join(case_html(c, i) for i, c in enumerate(CASES))
     steps = ''.join(f'<div class="step"><b>0{i+1}</b><div><h3>{s}</h3><p>{d}</p></div></div>' for i, (s, d) in enumerate(STEPS))
     mq = ''.join(f'<span>{t}</span>' for t in ['Дизайн', 'Анимации', 'Версия для телефона', 'Запуск'] * 2)
+    about_html = about['html'] if about else ABOUT_DEFAULT
+    about_css = about['css'] if about else ''
+    about_js = about['js'] if about else ''
     return f'''<!doctype html>
 <html lang="ru">
 <head>
@@ -340,28 +341,20 @@ def page(key, th):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family={th["fonts"]}&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/kirill.webp">
-<style>{BASE_CSS}{th["css"]}</style>
+<style>{BASE_CSS}{th["css"]}{about_css}</style>
 </head>
 <body>
 <div class="loader" aria-hidden="true"><div class="loader__n"><span>К</span><span>и</span><span>р</span><span>и</span><span>л</span><span>л</span></div><div class="loader__bar"><i></i></div></div>
 <header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="#">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
- <div class="hero__txt">
-  <div class="hero__k" data-fade><span><i></i>Беру новые проекты</span><span>Портфолио 2026</span></div>
-  <h1 class="hero__name"><span class="ln"><span>Кирилл</span></span></h1>
-  <p class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</p>
-  <p class="hero__p" data-fade>Веб-дизайнер, 18 лет. Лендинги под ключ: продумываю, рисую, оживляю анимацией и запускаю.</p>
-  <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="#">Написать</a></div>
- </div>
- <div class="hero__ph"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div><span class="chip c1"><b>18</b>лет</span><span class="chip c2"><b>3</b>сайта в портфолио</span></div>
+ <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div>
+  <div class="cover__mast"><h1 class="hero__name"><span class="ln"><span>Кирилл</span></span></h1></div><span class="cover__no">№ 01<br>2026</span></div>
+ <div class="hero__txt"><p class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</p>
+  <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="#">Написать</a></div></div>
 </div></section>
 <div class="mq" aria-hidden="true"><div class="mq__t">{mq}</div></div>
-<section class="about"><div class="w">
- <p class="about__t" data-words>Мне 18, и я делаю сайты не для галочки. Каждый начинаю с разбора ниши, а заканчиваю тем, что сайт приводит заявки с компьютера и телефона.</p>
- <div class="about__s"><div><b>3</b><span>сайта в портфолио</span></div><div><b>3</b><span>разные ниши</span></div><div><b>100%</b><span>работаю сам, без посредников</span></div></div>
-</div></section>
-<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры<br><em>сайтов</em></h2></div></div>
+{about_html}<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры<br><em>сайтов</em></h2></div></div>
 {cases}
 <section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p></div><div class="how__list"><span class="how__line"><i></i></span>{steps}</div></div></section>
 <section class="cta" id="contact"><div class="w">
@@ -381,9 +374,11 @@ document.querySelectorAll('.js-tg').forEach(function (a) {{ a.href = TG; a.targe
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>{JS}</script>
+<script>{about_js}</script>
 </body>
 </html>'''
 
-for k, th in THEMES.items():
+if __name__ == '__main__':
+  for k, th in THEMES.items():
     open(f'{k}.html', 'w').write(page(k, th))
-print('ok')
+  print('ok')
