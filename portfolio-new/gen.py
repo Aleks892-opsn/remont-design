@@ -30,7 +30,6 @@ THEMES = {
 .hero__photo{border-radius:var(--r)}
 .case__win{box-shadow:0 0 0 1px #2c2c30,0 50px 120px -40px rgba(255,43,43,.45)}
 .case::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 40% at 70% 50%,rgba(255,43,43,.16),transparent 70%);pointer-events:none}
-.step{border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
 .cta{background:radial-gradient(60% 70% at 50% 100%,rgba(255,43,43,.35),transparent 70%)}
 '''),
     'v2': dict(title='Вечер', fonts='Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Commissioner:wght@400;500;600',
@@ -38,11 +37,11 @@ THEMES = {
 :root{--bg:#120f0d;--bg2:#1a1613;--card:#1d1916;--line:#352d27;--t:#f1e9de;--mute:#a69a8c;--acc:#d23a4d;--acc2:#8e1c2b;--on:#fff;
 --fh:"Cormorant Garamond",serif;--hw:600;--fb:"Commissioner",sans-serif;--ls:-.02em;--r:0px;--rb:0px}
 h1,.h2,.case__n,.cta__h,.about__t,.loader__n{font-style:normal}
-.hero__h em,.h2 em,.cta__h em{font-style:italic;color:var(--acc)}
-.hero__h{font-size:clamp(46px,9.5vw,120px)!important;line-height:.95!important}
+.hero__lead em,.h2 em,.cta__h em{font-style:italic;color:var(--acc)}
+.hero__lead em{font-style:italic}
 .hero__photo{outline:1px solid var(--line);outline-offset:10px}
 .case__win{box-shadow:0 0 0 1px var(--line),0 50px 100px -40px rgba(0,0,0,.9)}
-.step{border-top:1px solid var(--line)}
+.step b{border-radius:0!important}
 .btn{letter-spacing:.06em;text-transform:uppercase;font-size:13px}
 .about__t{font-size:clamp(28px,4.4vw,58px)!important;line-height:1.12!important}
 '''),
@@ -51,7 +50,6 @@ h1,.h2,.case__n,.cta__h,.about__t,.loader__n{font-style:normal}
 :root{--bg:#efede8;--bg2:#e6e3dc;--card:#fff;--line:#d3cfc6;--t:#111;--mute:#5f5c56;--acc:#e2231a;--acc2:#b0150f;--on:#fff;
 --fh:"Dela Gothic One",sans-serif;--hw:400;--fb:"Golos Text",sans-serif;--ls:-.02em;--r:28px;--rb:999px}
 .loader{background:#111!important;color:#efede8}
-.hero__h{font-size:clamp(38px,8vw,104px)!important;line-height:1!important}
 .hero__photo{border-radius:var(--r);box-shadow:12px 12px 0 #111}
 .case{background:#111;color:#efede8}
 .case .tag{border-color:#3a3a3a;color:#bdbab3}
@@ -62,8 +60,8 @@ h1,.h2,.case__n,.cta__h,.about__t,.loader__n{font-style:normal}
 #case-altitude .tag{border-color:var(--line);color:var(--mute)}
 #case-altitude .case__win{box-shadow:12px 12px 0 #111}
 .mq{background:var(--acc);color:#fff;border:0}
-.step{border-radius:var(--r);background:#111;color:#efede8}
-.step p{color:#bdbab3!important}
+.step b{background:#fff!important}
+.step.on b{background:var(--acc)!important}
 .cta{background:var(--acc);color:#fff}
 .cta .btn--acc{background:#111;color:#fff}
 .cta__p{color:rgba(255,255,255,.85)!important}
@@ -82,7 +80,7 @@ img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 .w{width:100%;max-width:1320px;margin:0 auto;padding:0 18px}
 @media(min-width:900px){.w{padding:0 48px}}
-h1,.h2,.case__n,.cta__h,.loader__n,.about__t{font-family:var(--fh);font-weight:var(--hw);letter-spacing:var(--ls)}
+h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);font-weight:var(--hw);letter-spacing:var(--ls)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:58px;padding:0 28px;border-radius:var(--rb);font:600 16px var(--fb);white-space:nowrap;transition:background .3s,color .3s,transform .3s cubic-bezier(.16,1,.3,1)}
 .btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.16,1,.3,1)}
 .btn:hover svg{transform:translate(3px,-3px)}
@@ -92,7 +90,7 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t{font-family:var(--fh);font-weight:v
 .btn--line{border:1px solid var(--line)}
 .btn--line:hover{border-color:var(--t)}
 .tag{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line);border-radius:var(--rb);font-size:13px;font-weight:500;color:var(--mute)}
-.ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.ln{display:inline-block;vertical-align:top;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
 .ln>span{display:inline-block;will-change:transform}
 
 /* заставка */
@@ -110,28 +108,37 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t{font-family:var(--fh);font-weight:v
 .nav nav a.tg{display:inline}
 @media(min-width:900px){.nav nav a{display:inline}}
 
-/* первый экран: фото целиком */
-.hero{position:relative;padding:96px 0 40px}
-.hero .w{display:grid;gap:30px}
-.hero__k{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--mute);font-weight:500}
-.hero__k i{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 6px color-mix(in srgb,var(--acc) 22%,transparent)}
-.hero__h{margin-top:18px;font-size:clamp(42px,8.6vw,112px);line-height:.98}
-.hero__h em{font-style:normal;color:var(--acc)}
-.hero__p{margin-top:22px;font-size:clamp(17px,1.5vw,20px);line-height:1.5;color:var(--mute);max-width:34ch}
-.hero__b{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px}
-.hero__ph{position:relative}
-@media(max-width:899px){.hero{padding-top:76px}.hero__ph{order:-1}}
-.hero__photo{width:100%;height:auto;overflow:hidden;clip-path:inset(100% 0 0 0)}
+/* первый экран: имя во всю ширину, фото целиком */
+.hero{position:relative;padding:84px 0 44px}
+.hero .w{display:flex;flex-direction:column}
+.hero__txt{display:contents}
+.hero__k{order:1;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute)}
+.hero__k span:first-child{display:inline-flex;align-items:center;gap:8px;color:var(--t);font-weight:500}
+.hero__k i{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 5px color-mix(in srgb,var(--acc) 25%,transparent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--acc) 0%,transparent)}}
+.hero__name{order:2;margin-top:14px;font-size:var(--nf,24vw);line-height:.84;white-space:nowrap}
+.hero__lead{order:3;margin-top:14px;font-size:clamp(26px,3vw,42px);line-height:1.1;max-width:15ch;text-wrap:balance}
+.hero__lead em{font-style:normal;color:var(--acc)}
+.hero__ph{order:4;position:relative;margin-top:26px}
+.hero__p{order:5;margin-top:22px;font-size:17px;line-height:1.55;color:var(--mute);max-width:36ch}
+.hero__b{order:6;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hero__b .btn{padding:0 16px;font-size:15px}
+.hero__photo{width:100%;overflow:hidden;clip-path:inset(100% 0 0 0)}
 .hero__photo img{width:100%;height:auto;transform:scale(1.18);transform-origin:50% 60%}
-.hero__cap{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;color:var(--mute)}
+.chip{position:absolute;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rb);background:rgba(12,12,12,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;font-size:13px;font-weight:600}
+.chip b{color:var(--acc);font-weight:700}
+.c1{left:12px;top:12px}.c2{right:12px;bottom:12px}
 @media(min-width:900px){
- .hero{min-height:100svh;display:flex;align-items:center;padding:100px 0 50px}
- .hero .w{grid-template-columns:1.15fr .85fr;align-items:center;gap:60px}
- .hero__photo{max-height:80svh;width:auto;aspect-ratio:1856/2304}
+ .hero{min-height:100svh;display:flex;align-items:center;padding:96px 0 50px}
+ .hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+ .hero__txt{display:block}
+ .hero__lead{margin-top:20px}
+ .hero__b{display:flex}
+ .hero__b .btn{padding:0 28px}
+ .hero__ph{margin:0;justify-self:end}
+ .hero__photo{max-height:82svh;width:auto;aspect-ratio:1856/2304}
  .hero__photo img{height:100%;width:auto}
- .hero__ph{justify-self:end}
 }
-
 /* бегущая строка */
 .mq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;white-space:nowrap}
 .mq__t{display:inline-flex;gap:40px;padding-right:40px;font:var(--hw) clamp(26px,4vw,52px)/1 var(--fh);letter-spacing:var(--ls);animation:mq 22s linear infinite}
@@ -149,8 +156,8 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t{font-family:var(--fh);font-weight:v
 .about__s span{display:block;margin-top:6px;font-size:14px;color:var(--mute)}
 
 /* работы */
-.wk-h{padding:40px 0 10px}
-.h2{font-size:clamp(38px,6vw,84px);line-height:1}
+.wk-h{padding:30px 0 0}
+.h2{font-size:clamp(38px,6vw,84px);line-height:1.02;text-wrap:balance}
 .h2 em{font-style:normal;color:var(--acc)}
 .case{position:relative;overflow:hidden}
 .case__in{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:84px 0 34px}
@@ -183,15 +190,33 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t{font-family:var(--fh);font-weight:v
 }
 @media(max-width:899px){.case__info p,.case__info ul{font-size:15px}}
 
-/* процесс: карточки едут вбок */
-.how{padding:100px 0 0;overflow:hidden}
-.how__track{display:flex;gap:14px;padding:40px 18px 100px;width:max-content}
-.step{width:min(78vw,380px);flex:none;padding:28px;min-height:280px;display:flex;flex-direction:column}
-.step b{font:var(--hw) clamp(56px,6vw,84px)/1 var(--fh);letter-spacing:var(--ls);color:var(--acc)}
-.step h3{margin-top:auto;font:var(--hw) 26px/1.1 var(--fh);letter-spacing:var(--ls)}
-.step p{margin-top:8px;color:var(--mute)}
-@media(min-width:900px){.how__track{padding:50px 48px 120px}}
+/* процесс: шаги по линии, которая заполняется при прокрутке */
+.how{padding:110px 0}
+.how__g{display:grid;gap:36px}
+.how__p{margin-top:18px;font-size:17px;color:var(--mute);max-width:34ch}
+.how__l .btn{margin-top:26px}
+.how__list{position:relative}
+.how__line{position:absolute;left:27px;top:28px;bottom:28px;width:2px;background:var(--line)}
+.how__line i{position:absolute;inset:0;background:var(--acc);transform-origin:50% 0;transform:scaleY(0)}
+.step{position:relative;display:grid;grid-template-columns:56px 1fr;gap:18px;padding:16px 0;align-items:start}
+.step b{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);font:var(--hw) 17px var(--fh);color:var(--mute);transition:background .4s,color .4s,border-color .4s,transform .4s cubic-bezier(.16,1,.3,1)}
+.step.on b{background:var(--acc);border-color:var(--acc);color:var(--on);transform:scale(1.06)}
+.step h3{padding-top:8px;font:var(--hw) clamp(24px,2.4vw,32px)/1.1 var(--fh);letter-spacing:var(--ls);transition:color .4s}
+.step p{margin-top:6px;color:var(--mute);max-width:38ch}
+@media(min-width:900px){.how__g{grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start}.how__l{position:sticky;top:120px}}
 
+/* сайт открывается прямо в портфолио */
+.case__win{display:block;position:relative;cursor:pointer;border:0;padding:0;text-align:left;width:100%}
+.case__open{position:absolute;z-index:2;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;background:var(--acc);color:var(--on);font:600 14px var(--fb);box-shadow:0 10px 30px -8px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.case__open svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.case__win:hover .case__open{transform:scale(1.06)}
+.vw{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:#0b0b0c}
+.vw[hidden]{display:none}
+.vw__bar{flex:none;display:flex;align-items:center;gap:10px;height:56px;padding:0 10px 0 16px;background:#141416;color:#fff;border-bottom:1px solid #2a2a2e}
+.vw__bar b{flex:1;font:600 16px var(--fb)}
+.vw__bar a,.vw__bar button{height:38px;padding:0 14px;border-radius:999px;border:1px solid #3a3a3f;background:none;color:#fff;font:500 13px var(--fb);display:inline-flex;align-items:center;cursor:pointer}
+.vw__bar button{background:var(--acc);border-color:var(--acc)}
+.vw iframe{flex:1;width:100%;border:0;background:#fff}
 /* связь */
 .cta{position:relative;padding:120px 0 40px;text-align:center;overflow:hidden}
 .cta__h{font-size:clamp(48px,10vw,150px);line-height:.95}
@@ -199,7 +224,7 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t{font-family:var(--fh);font-weight:v
 .cta__p{margin:24px auto 0;max-width:36ch;font-size:18px;color:var(--mute)}
 .cta .btn{margin-top:34px;height:66px;padding:0 36px;font-size:17px}
 .foot{display:flex;justify-content:space-between;margin-top:110px;padding:22px 0 0;border-top:1px solid var(--line);font-size:13px;color:var(--mute);text-align:left}
-@media(prefers-reduced-motion:reduce){.loader{display:none}.hero__photo{clip-path:none}.hero__photo img{transform:none}.about__t .wd{opacity:1}.mq__t{animation:none}}
+@media(prefers-reduced-motion:reduce){.loader{display:none}.hero__photo{clip-path:none}.step b{transition:none}.hero__photo img{transform:none}.about__t .wd{opacity:1}.mq__t{animation:none}}
 '''
 
 JS = r'''
@@ -214,10 +239,23 @@ JS = r'''
   document.querySelectorAll('[data-words]').forEach(function (el) {
     el.innerHTML = el.textContent.trim().split(/\s+/).map(function (w) { return '<span class="wd">' + w + '</span>'; }).join(' ');
   });
+  var nm = document.querySelector('.hero__name'), nin = nm && nm.querySelector('.ln');
+  var fitName = function () { if (!nm) return; nm.style.setProperty('--nf', '100px'); var tx = nm.closest('.hero__txt'), col = tx.getBoundingClientRect().width; if (!col) { var wr = nm.closest('.w'), cs = getComputedStyle(wr); col = wr.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); } col -= 4; nm.style.setProperty('--nf', Math.min(100 * col / nin.getBoundingClientRect().width, 260) + 'px'); };
+  fitName(); addEventListener('resize', fitName); if (document.fonts) document.fonts.ready.then(fitName);
+  var vw = document.getElementById('vw'), vf = document.getElementById('vwF');
+  var closeVw = function () { vw.hidden = true; vf.src = 'about:blank'; document.documentElement.style.overflow = ''; if (window.__lenis) window.__lenis.start(); };
+  document.querySelectorAll('[data-open]').forEach(function (b) { b.addEventListener('click', function (e) {
+    e.preventDefault(); var u = b.getAttribute('data-open');
+    vf.src = u; document.getElementById('vwN').textContent = b.getAttribute('data-name'); document.getElementById('vwO').href = u;
+    vw.hidden = false; document.documentElement.style.overflow = 'hidden'; if (window.__lenis) window.__lenis.stop();
+    if (window.gsap && !reduce) gsap.fromTo(vw, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: .8, ease: 'expo.out' });
+  }); });
+  document.getElementById('vwX').addEventListener('click', closeVw);
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && !vw.hidden) closeVw(); });
   if (reduce || !window.gsap) { var l = document.querySelector('.loader'); if (l) l.remove(); return; }
   gsap.registerPlugin(ScrollTrigger);
   var lenis = null;
-  if (window.Lenis) { lenis = new Lenis({ duration: 1.1, smoothWheel: true }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(function (t) { lenis.raf(t * 1000); }); gsap.ticker.lagSmoothing(0); }
+  if (window.Lenis) { lenis = window.__lenis = new Lenis({ duration: 1.1, smoothWheel: true }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(function (t) { lenis.raf(t * 1000); }); gsap.ticker.lagSmoothing(0); }
 
   // заставка с именем, затем первый экран
   var tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
@@ -227,7 +265,9 @@ JS = r'''
     .set('.loader', { display: 'none' })
     .to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.4 }, 1.5)
     .to('.hero__photo img', { scale: 1, duration: 1.8 }, 1.5)
-    .from('.hero__h .ln>span', { yPercent: 110, duration: 1.2, stagger: .06 }, 1.6)
+    .from('.hero__name .ln>span', { yPercent: 110, duration: 1.3 }, 1.55)
+    .from('.hero__lead .ln>span', { yPercent: 110, duration: 1.1, stagger: .05 }, 1.7)
+    .from('.chip', { scale: .6, opacity: 0, duration: .9, stagger: .12, ease: 'back.out(1.6)' }, 2.3)
     .from('.hero [data-fade]', { y: 24, opacity: 0, duration: 1, stagger: .1 }, 1.9);
 
   // фото чуть отстаёт при прокрутке
@@ -257,9 +297,13 @@ JS = r'''
     gsap.from(c.querySelector('.case__win'), { y: 60, rotateX: 12, opacity: 0, transformPerspective: 1400, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 65%' } });
   });
 
-  // процесс: карточки едут вбок, пока секция закреплена
-  var track = document.querySelector('.how__track');
-  gsap.to(track, { x: function () { return -(track.scrollWidth - innerWidth); }, ease: 'none', scrollTrigger: { trigger: '.how', start: 'top top', end: function () { return '+=' + (track.scrollWidth - innerWidth); }, pin: true, scrub: .6, invalidateOnRefresh: true } });
+  // процесс: линия заполняется, шаги загораются по очереди
+  gsap.to('.how__line i', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.how__list', start: 'top 60%', end: 'bottom 60%', scrub: true } });
+  document.querySelectorAll('.step').forEach(function (st) {
+    ScrollTrigger.create({ trigger: st, start: 'top 62%', onEnter: function () { st.classList.add('on'); }, onLeaveBack: function () { st.classList.remove('on'); } });
+    gsap.from(st.querySelectorAll('h3, p'), { x: 30, opacity: 0, duration: .9, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: st, start: 'top 80%' } });
+  });
+  gsap.from('.how__l > *', { y: 30, opacity: 0, duration: 1, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.how', start: 'top 70%' } });
 
   // кнопка тянется к курсору
   if (matchMedia('(hover: hover)').matches) document.querySelectorAll('.mag').forEach(function (b) {
@@ -277,14 +321,14 @@ def case_html(c, i):
     return f'''<section class="case" id="case-{c["id"]}"><div class="case__in"><div class="w">
 <div class="case__head"><div class="case__top"><span class="case__no">0{i+1} / 03</span><span class="case__bar"><i></i></span><span class="tag">{c["niche"]}</span></div>
 <h3 class="case__n" data-split>{c["name"]}</h3><p class="case__pitch">{c["pitch"]}</p></div>
-<div class="case__win"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div></div></div>
+<a class="case__win" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}"><div class="case__bar2"><i></i><i></i><i></i><span>{c["url"].replace("https://","")}</span></div><div class="case__view"><div class="case__strip">{imgs}</div></div><span class="case__open">Открыть сайт{ARR}</span></a>
 <div class="case__info"><div><h3>Задача</h3><p>{c["task"]}</p></div><div><h3>Решение</h3><p>{c["sol"]}</p></div><div><h3>Что сделал</h3><ul>{lis}</ul></div>
-<a class="btn btn--line case__go" href="{c["url"]}" target="_blank" rel="noopener">Открыть сайт{ARR}</a></div>
+<a class="btn btn--line case__go" href="sites/{c["id"]}/index.html" data-open="sites/{c["id"]}/index.html" data-name="{c["name"]}">Открыть сайт{ARR}</a></div>
 </div></div></section>'''
 
 def page(key, th):
     cases = ''.join(case_html(c, i) for i, c in enumerate(CASES))
-    steps = ''.join(f'<div class="step"><b>0{i+1}</b><h3>{s}</h3><p>{d}</p></div>' for i, (s, d) in enumerate(STEPS))
+    steps = ''.join(f'<div class="step"><b>0{i+1}</b><div><h3>{s}</h3><p>{d}</p></div></div>' for i, (s, d) in enumerate(STEPS))
     mq = ''.join(f'<span>{t}</span>' for t in ['Дизайн', 'Анимации', 'Версия для телефона', 'Запуск'] * 2)
     return f'''<!doctype html>
 <html lang="ru">
@@ -303,13 +347,14 @@ def page(key, th):
 <header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="#">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
- <div>
-  <p class="hero__k" data-fade><i></i>Веб-дизайнер, 18 лет</p>
-  <h1 class="hero__h" data-split>Сайты, которые <em>приводят</em> клиентов</h1>
-  <p class="hero__p" data-fade>Делаю лендинги под ключ: продумываю, рисую, оживляю анимацией и запускаю.</p>
-  <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Смотреть работы{ARR}</a><a class="btn btn--line js-tg" href="#">Обсудить проект</a></div>
+ <div class="hero__txt">
+  <div class="hero__k" data-fade><span><i></i>Беру новые проекты</span><span>Портфолио 2026</span></div>
+  <h1 class="hero__name"><span class="ln"><span>Кирилл</span></span></h1>
+  <p class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</p>
+  <p class="hero__p" data-fade>Веб-дизайнер, 18 лет. Лендинги под ключ: продумываю, рисую, оживляю анимацией и запускаю.</p>
+  <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="#">Написать</a></div>
  </div>
- <div class="hero__ph"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div></div>
+ <div class="hero__ph"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div><span class="chip c1"><b>18</b>лет</span><span class="chip c2"><b>3</b>сайта в портфолио</span></div>
 </div></section>
 <div class="mq" aria-hidden="true"><div class="mq__t">{mq}</div></div>
 <section class="about"><div class="w">
@@ -318,7 +363,7 @@ def page(key, th):
 </div></section>
 <div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Три проекта.<br><em>Три ниши.</em></h2></div></div>
 {cases}
-<section class="how" id="how"><div class="w"><h2 class="h2" data-split>Как я <em>работаю</em></h2></div><div class="how__track">{steps}</div></section>
+<section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p><a class="btn btn--acc js-tg" href="#">Обсудить проект{ARR}</a></div><div class="how__list"><span class="how__line"><i></i></span>{steps}</div></div></section>
 <section class="cta" id="contact"><div class="w">
  <h2 class="cta__h" data-split>Есть задача?<br><em>Обсудим.</em></h2>
  <p class="cta__p">Напишите пару слов о бизнесе. Отвечу и предложу, каким может быть ваш сайт.</p>
@@ -326,6 +371,7 @@ def page(key, th):
  <footer class="foot"><span>Кирилл, веб-дизайнер</span><span>2026</span></footer>
 </div></section>
 </main>
+<div class="vw" id="vw" hidden><div class="vw__bar"><b id="vwN"></b><a id="vwO" href="#" target="_blank" rel="noopener">Новая вкладка</a><button type="button" id="vwX">Закрыть</button></div><iframe id="vwF" title="Сайт"></iframe></div>
 <script>
 // TODO: ссылка на Telegram Кирилла
 var TG = 'https://t.me/';
