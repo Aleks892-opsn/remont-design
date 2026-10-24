@@ -115,6 +115,11 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead,.hero__name{font-family
 /* первый экран: обложка журнала, фото целиком */
 .hero{position:relative;padding:76px 0 40px}
 .hero .w{display:grid;gap:24px}
+.hero__k{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--mute)}
+.hero__k span:first-child{display:inline-flex;align-items:center;gap:10px;color:var(--t);font-weight:500}
+.hero__k i,.dot{width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 50%,transparent);animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 50%,transparent)}70%{box-shadow:0 0 0 9px color-mix(in srgb,var(--acc) 0%,transparent)}100%{box-shadow:0 0 0 0 transparent}}
+@media(min-width:900px){.hero__k{grid-column:1/-1;order:-2;align-self:start;margin-bottom:-24px}}
 .cover{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
 .hero__photo{overflow:hidden;clip-path:inset(100% 0 0 0)}
 .hero__photo img{width:100%;height:auto;transform:scale(1.18);transform-origin:50% 60%}
@@ -389,6 +394,7 @@ def page(key, th, about=None):
 <header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
+ <div class="hero__k" data-fade><span><i></i>Беру новые проекты</span><span>Портфолио 2026</span></div>
  <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div>
   <div class="cover__mast"><p class="hero__name"><span class="ln"><span>Кирилл</span></span></p></div><span class="cover__no">№ 01<br>2026</span></div>
  <div class="hero__txt"><h1 class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</h1>
