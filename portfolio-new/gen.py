@@ -382,13 +382,13 @@ def page(key, th, about=None):
 </head>
 <body>
 <div class="loader" aria-hidden="true"><div class="loader__n"><span>К</span><span>и</span><span>р</span><span>и</span><span>л</span><span>л</span></div><div class="loader__bar"><i></i></div></div>
-<header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="#">Telegram</a></nav></div></header>
+<header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
  <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div>
   <div class="cover__mast"><h1 class="hero__name"><span class="ln"><span>Кирилл</span></span></h1></div><span class="cover__no">№ 01<br>2026</span></div>
  <div class="hero__txt"><p class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</p>
-  <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="#">Написать</a></div></div>
+  <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Написать</a></div></div>
 </div></section>
 <div class="mq" aria-hidden="true"><div class="mq__t">{mq}</div></div>
 {about_html}<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры<br><em>сайтов</em></h2></div></div>
@@ -397,7 +397,7 @@ def page(key, th, about=None):
 <section class="cta" id="contact"><div class="w">
  <h2 class="cta__h" data-split>Есть задача?<br><em>Обсудим.</em></h2>
  <p class="cta__p">Напишите пару слов о бизнесе. Отвечу и предложу, каким может быть ваш сайт.</p>
- <a class="btn btn--acc mag js-tg" href="#">Написать в Telegram{ARR}</a>
+ <a class="btn btn--acc mag js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Написать в Telegram{ARR}</a>
  <footer class="foot"><span>Кирилл, веб-дизайнер</span><span>2026</span></footer>
 </div></section>
 </main>

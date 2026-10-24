@@ -118,7 +118,7 @@ AB['a3'] = dict(title='Спросите меня', css='''
    <button type="button" data-a="Помогаю подключить домен и проверить, что заявки доходят. Если позже понадобится что-то поменять, просто напишите.">Что после запуска?</button>
    <button type="button" data-a="Напишите мне в Telegram, кнопка ниже. Отвечу и предложу, каким может быть ваш сайт.">Как с тобой связаться?</button>
   </div>
-  <a class="btn btn--acc js-tg chatb__go" href="#">Написать в Telegram{ARR}</a>
+  <a class="btn btn--acc js-tg chatb__go" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Написать в Telegram{ARR}</a>
  </div>
 </div></section>''', js='''
 (function(){
