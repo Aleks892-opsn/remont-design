@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Портфолио: телефон</title>
+<style>
+  :root { --bg: #0b0d12; --bar: #141821; --line: #262c38; --t: #eef1f6; --mute: #8f97a6; --acc: #e3131b; color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--t); font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; display: flex; flex-direction: column; }
+  .bar { display: flex; gap: 6px; padding: 8px 10px; background: var(--bar); border-bottom: 1px solid var(--line); overflow-x: auto; flex: none; }
+  .bar button { flex: none; height: 38px; padding: 0 14px; border: 0; border-radius: 10px; background: #222838; color: var(--t); font: 600 14px inherit; cursor: pointer; }
+  .bar button.on { background: var(--acc); }
+  .one { flex: 1; min-height: 0; }
+  .one iframe { width: 100%; height: 100%; border: 0; display: block; background: #000; }
+  .all { display: none; }
+  @media (min-width: 1100px) {
+    .bar { justify-content: center; }
+    .one { display: none; }
+    .all { flex: 1; min-height: 0; display: flex; gap: 28px; justify-content: center; align-items: flex-start; padding: 18px; overflow: auto; }
+    .ph { flex: none; text-align: center; }
+    .ph p { margin-bottom: 10px; color: var(--mute); font-weight: 600; }
+    .ph div { width: 390px; height: min(844px, calc(100vh - 120px)); border-radius: 34px; overflow: hidden; box-shadow: 0 0 0 8px #1b1f2a, 0 30px 70px rgba(0,0,0,.6); }
+    .ph iframe { width: 390px; height: 100%; border: 0; display: block; }
+    .bar .t { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <button class="t on" type="button" data-v="a.html">1. Постер</button>
+    <button class="t" type="button" data-v="b.html">2. Графит</button>
+    <button class="t" type="button" data-v="c.html">3. Свечение и рамки</button>
+  </div>
+  <div class="one"><iframe id="f" title="Вариант портфолио" src="a.html"></iframe></div>
+  <div class="all">
+    <div class="ph"><p>1. Постер</p><div><iframe title="Постер" src="a.html" loading="lazy"></iframe></div></div>
+    <div class="ph"><p>2. Графит</p><div><iframe title="Графит" src="b.html" loading="lazy"></iframe></div></div>
+    <div class="ph"><p>3. Свечение и рамки</p><div><iframe title="Свечение и рамки" src="c.html" loading="lazy"></iframe></div></div>
+  </div>
+<script>
+  document.querySelectorAll('.t').forEach(function (b) { b.addEventListener('click', function () {
+    document.getElementById('f').src = b.getAttribute('data-v');
+    document.querySelectorAll('.t').forEach(function (x) { x.classList.toggle('on', x === b); });
+  }); });
+</script>
+</body>
+</html>
