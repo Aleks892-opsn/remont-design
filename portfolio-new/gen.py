@@ -181,7 +181,7 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
 .case__info ul{list-style:none;display:grid;gap:6px;margin-top:6px}
 .case__info li{position:relative;padding-left:22px;color:var(--mute)}
 .case__info li::before{content:"";position:absolute;left:0;top:.75em;width:12px;height:2px;background:var(--acc)}
-.case__go{width:100%;margin-top:12px}
+.case__go{width:100%;margin-top:26px}
 @media(min-width:900px){
  .case .w{grid-template-columns:.8fr 1.2fr;grid-template-areas:"top top" "info win";column-gap:56px;row-gap:26px;align-items:center}
  .case__head{grid-area:top}
@@ -361,7 +361,7 @@ def page(key, th):
  <p class="about__t" data-words>Мне 18, и я делаю сайты не для галочки. Каждый начинаю с разбора ниши, а заканчиваю тем, что сайт приводит заявки с компьютера и телефона.</p>
  <div class="about__s"><div><b>3</b><span>сайта в портфолио</span></div><div><b>3</b><span>разные ниши</span></div><div><b>100%</b><span>работаю сам, без посредников</span></div></div>
 </div></section>
-<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Три проекта.<br><em>Три ниши.</em></h2></div></div>
+<div class="wk-h" id="works"><div class="w"><h2 class="h2" data-split>Примеры <em>сайтов</em></h2></div></div>
 {cases}
 <section class="how" id="how"><div class="w how__g"><div class="how__l"><h2 class="h2" data-split>Как я <em>работаю</em></h2><p class="how__p">Пять шагов от первого сообщения до готового сайта. Вы видите каждый этап и выбираете дизайн до того, как я начну собирать.</p></div><div class="how__list"><span class="how__line"><i></i></span>{steps}</div></div></section>
 <section class="cta" id="contact"><div class="w">
