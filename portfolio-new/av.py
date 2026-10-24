@@ -99,7 +99,7 @@ AB['a3'] = dict(title='Спросите меня', css='''
 .qs button{height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--acc);background:none;color:var(--t);font:500 14px var(--fb);cursor:pointer;transition:background .25s,opacity .25s}
 .qs button:hover{background:color-mix(in srgb,var(--acc) 18%,transparent)}
 .qs button.used{opacity:.35;pointer-events:none}
-@media(min-width:900px){.abc .w{grid-template-columns:.9fr 1.1fr;align-items:center}}
+@media(min-width:900px){.abc .w{grid-template-columns:.9fr 1.1fr;align-items:start}.abc .w>div:first-child{padding-top:6px}}
 ''', html='''
 <section class="about abc"><div class="w">
  <div><p class="abc__k">О себе</p><h2 class="abc__h">Спросите <em>меня</em></h2><p style="margin-top:14px;color:var(--mute);max-width:32ch">Ответил на вопросы, которые чаще всего задают перед заказом сайта. Нажимайте.</p></div>

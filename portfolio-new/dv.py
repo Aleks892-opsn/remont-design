@@ -13,16 +13,25 @@ D['d1'] = ('Крупно', '''
  .cover{max-height:86svh}
  .about .w{gap:80px}
  .abc__h{font-size:clamp(48px,5vw,84px)!important}
- .case__in{padding:96px 0 40px}
- .case .w{grid-template-columns:1fr;grid-template-areas:"top" "win" "info";row-gap:30px}
- .case__head{display:grid;grid-template-columns:1fr auto;align-items:end;column-gap:40px}
+ .case__in{padding:110px 0 60px}
+ .case .w{grid-template-columns:1fr;grid-template-areas:"top" "win" "info";row-gap:56px}
+ .case__head{display:grid;grid-template-columns:1fr auto;align-items:end;column-gap:40px;row-gap:14px}
  .case__top{grid-column:1/-1}
- .case__n{font-size:clamp(64px,7vw,120px)}
- .case__shot{display:grid;grid-template-columns:1fr;width:min(1100px,calc((100svh - 300px) * 1.6));justify-self:center}
+ .case__n{font-size:clamp(60px,6.4vw,112px)}
+ .case__pitch{margin:0 0 10px;font-size:20px;color:var(--mute)}
+ .case__shot{display:grid;grid-template-columns:1fr;width:min(1040px,calc((100svh - 420px) * 1.6));justify-self:center}
  .case__win{border-radius:18px}
- .case__go{justify-self:center;margin-top:22px}
- .case__info{grid-template-columns:1fr 1fr 1fr;gap:40px;max-width:1100px;width:100%;justify-self:center}
- .case__info p,.case__info li{font-size:16px}
+ .case__go{justify-self:center;margin-top:34px;width:auto}
+ .case__info{grid-template-columns:1fr 1fr;gap:16px;max-width:1040px;width:100%;justify-self:center;margin-top:10px}
+ .case__info>div{padding:30px 32px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
+ .case__info>div:nth-child(3){grid-column:1/-1}
+ .case__info h3{display:inline-flex;align-items:center;gap:10px;font-size:13px}
+ .case__info h3::before{content:"";width:22px;height:2px;background:var(--acc)}
+ .case__info p{margin-top:14px;font-size:18px;line-height:1.55;color:var(--t)}
+ .case__info ul{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+ .case__info li{padding:14px 20px 14px 46px;border-radius:999px;background:#1f1f23;border:1px solid var(--line);color:var(--t);font-size:16px}
+ .case__info li::before{left:18px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 22%,transparent)}
+ .case__info>.case__go{display:none}
  .how__g{grid-template-columns:1fr!important;gap:50px!important}
  .how__l{position:static!important;display:flex;justify-content:space-between;align-items:end;gap:40px}
  .how__list{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
@@ -97,9 +106,10 @@ D['d3'] = ('Редакция', '''
 if (matchMedia('(min-width: 900px)').matches) document.querySelectorAll('.case__no').forEach(function (n) { n.textContent = n.textContent.trim().slice(0, 2); });
 ''')
 
-for k, (name, css, js) in D.items():
-    a = dict(av.AB['a3'])
-    a['css'] = a['css'] + css
-    a['js'] = a['js'] + js
-    open(f'{k}.html', 'w').write(gen.page('v1', gen.THEMES['v1'], about=a))
-print('ok')
+if __name__ == '__main__':
+    for k, (name, css, js) in D.items():
+        a = dict(av.AB['a3'])
+        a['css'] = a['css'] + css
+        a['js'] = a['js'] + js
+        open(f'{k}.html', 'w').write(gen.page('v1', gen.THEMES['v1'], about=a))
+    print('ok')

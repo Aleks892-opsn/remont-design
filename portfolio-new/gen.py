@@ -131,8 +131,9 @@ h1,.h2,.case__n,.cta__h,.loader__n,.about__t,.hero__lead{font-family:var(--fh);f
  .hero__b{display:flex}
  .hero__b .btn{padding:0 28px}
  .cover{justify-self:end;max-height:84svh;aspect-ratio:1856/2304}
- .hero__photo,.hero__photo img{height:100%}
- .hero__photo img{width:auto}
+ .cover{width:min(560px,calc(84svh * 1856 / 2304));aspect-ratio:auto;max-height:none}
+ .hero__photo{clip-path:none}
+ .hero__photo img{width:100%;height:auto;transform:none}
 }
 /* бегущая строка */
 .mq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;white-space:nowrap}
@@ -284,13 +285,13 @@ JS = r'''
   };
 
   // заставка, затем первый экран по шагам: фото, имя, заголовок по словам, кнопки
+  var DESK = matchMedia('(min-width: 900px)').matches;
   var tl = gsap.timeline();
   tl.fromTo('.loader__n span', { yPercent: 110 }, { yPercent: 0, duration: .7, stagger: .04, ease: E }, 0)
     .to('.loader__bar i', { scaleX: 1, duration: .8, ease: 'power2.inOut' }, 0)
     .to('.loader', { yPercent: -100, duration: .8, ease: 'power3.inOut' }, .9)
     .set('.loader', { display: 'none' })
-    .to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: E }, 1.25)
-    .to('.hero__photo img', { scale: 1, duration: 1.6, ease: E }, 1.25)
+    .add(DESK ? gsap.fromTo('.cover', { autoAlpha: 0, y: 30, filter: 'blur(14px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out', clearProps: 'filter' }) : gsap.timeline().to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: E }, 0).to('.hero__photo img', { scale: 1, duration: 1.6, ease: E }, 0), 1.25)
     .add(wordAnim(document.querySelector('.hero__name')), 1.55)
     .from('.cover__no', { autoAlpha: 0, y: 10, duration: .6 }, 1.9)
     .add(wordAnim(document.querySelector('.hero__lead')), 1.85)
@@ -316,7 +317,6 @@ JS = r'''
   var mm = gsap.matchMedia();
   mm.add('(min-width: 900px)', function () {
     // фото на первом экране чуть отстаёт при прокрутке
-    gsap.to('.hero__photo img', { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } });
     // секция работы закрепляется, внутри окна плавно проезжают главные блоки
     document.querySelectorAll('.case').forEach(function (c) {
       var strip = c.querySelector('.case__strip'), view = c.querySelector('.case__view'), n = strip.children.length;
