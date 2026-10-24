@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вариант 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>body{font-family:"Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+body{background:#ecebe7;color:#121212}
+.h{min-height:100dvh;display:grid;grid-template-rows:1fr auto;padding:96px 40px 28px;gap:28px}
+.g{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+h1{font-size:clamp(44px,5.2vw,82px);font-weight:800;line-height:1;letter-spacing:-.045em}
+h1 em{font-style:normal;color:#ff4b1f}
+p{margin-top:22px;font-size:19px;color:#5d5c58;max-width:40ch;font-weight:500}
+.b1{margin-top:30px;display:flex;gap:10px}.acc{background:#ff4b1f;color:#fff}.acc:hover{background:#e83c12}.ln{border:1.5px solid #121212}.ln:hover{background:#121212;color:#ecebe7}
+.ph{height:min(560px,58vh);border-radius:28px;overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.strip{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:14px;align-items:center}
+.strip>b{font-size:14px;font-weight:700;color:#5d5c58;padding-right:10px;line-height:1.3}
+.s{display:flex;gap:12px;align-items:center;padding:8px;border-radius:18px;background:#fbfbf9;transition:transform .4s var(--ease)}
+.s:hover{transform:translateY(-4px)}
+.s .win{width:120px;flex:none;border-radius:10px;box-shadow:none}.s .win i.b{height:14px}.s .win i.b s{width:4px;height:4px}
+.s span{font-weight:800;font-size:17px;letter-spacing:-.02em;line-height:1.2}.s small{display:block;font-weight:600;font-size:13px;color:#5d5c58;letter-spacing:0}
+@media(max-width:899px){.h{padding:90px 16px 20px}.g{grid-template-columns:1fr;gap:28px}.ph{height:auto;aspect-ratio:4/5}.strip{grid-template-columns:1fr}}
+</style></head><body>
+<header class="nav"><b>Кирилл</b><span></span><a class="l" href="#">Работы</a><a class="l" href="#">Обо мне</a><a class="btn acc" href="#">Написать</a></header><section class="h"><div class="g"><div>
+<h1 class="in" style="--d:.1s">Делаю сайты, которые <em>продают</em> с первого экрана</h1>
+<p class="in" style="--d:.25s">Меня зовут Кирилл, мне 18. Лендинги под ключ: дизайн, анимации, запуск.</p>
+<div class="b1 in" style="--d:.4s"><a class="btn acc" href="#">Смотреть работы<svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
+<div class="ph in" style="--d:.2s"><img src="img/kirill.webp" alt="Кирилл"></div></div>
+<div class="strip in" style="--d:.55s"><b>Последние<br>работы</b><a class="s" href="#"><div class="win "><i class="b"><s></s><s></s><s></s></i><img src="img/protektor-1.webp" alt="ПРОТЕКТОР"></div><span>ПРОТЕКТОР<small>Шиномонтаж</small></span></a><a class="s" href="#"><div class="win "><i class="b"><s></s><s></s><s></s></i><img src="img/altitude-1.webp" alt="Altitude"></div><span>Altitude<small>Авиакомпания</small></span></a><a class="s" href="#"><div class="win "><i class="b"><s></s><s></s><s></s></i><img src="img/forte-1.webp" alt="FORTE"></div><span>FORTE<small>Строительство домов</small></span></a></div></section>
+<script>requestAnimationFrame(function(){document.body.classList.add('ld')});</script>
+</body></html>
