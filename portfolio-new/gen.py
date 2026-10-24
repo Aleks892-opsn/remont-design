@@ -292,7 +292,6 @@ JS = r'''
     .to('.loader', { yPercent: -100, duration: .8, ease: 'power3.inOut' }, .9)
     .set('.loader', { display: 'none' })
     .add(DESK ? gsap.fromTo('.cover', { autoAlpha: 0, y: 30, filter: 'blur(14px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out', clearProps: 'filter' }) : gsap.timeline().to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: E }, 0).to('.hero__photo img', { scale: 1, duration: 1.6, ease: E }, 0), 1.25)
-    .add(wordAnim(document.querySelector('.hero__name')), 1.55)
     .from('.cover__no', { autoAlpha: 0, y: 10, duration: .6 }, 1.9)
     .add(wordAnim(document.querySelector('.hero__lead')), 1.85)
     .fromTo('.hero [data-fade]', M.block, Object.assign({}, M.blockTo, { duration: .9, stagger: .12, ease: ME }), 2.35);
@@ -385,9 +384,8 @@ def page(key, th, about=None):
 <header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
- <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div>
-  <div class="cover__mast"><h1 class="hero__name"><span class="ln"><span>Кирилл</span></span></h1></div><span class="cover__no">№ 01<br>2026</span></div>
- <div class="hero__txt"><p class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</p>
+ <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div><span class="cover__no">№ 01<br>2026</span></div>
+ <div class="hero__txt"><h1 class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</h1>
   <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы{ARR}</a><a class="btn btn--line js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Написать</a></div></div>
 </div></section>
 <div class="mq" aria-hidden="true"><div class="mq__t">{mq}</div></div>

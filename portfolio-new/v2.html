@@ -215,14 +215,22 @@ h1,.h2,.case__n,.cta__h,.about__t,.loader__n{font-style:normal}
  .case__win{border-radius:18px}
  .case__go{justify-self:center;margin-top:34px;width:auto}
  .case__info{grid-template-columns:1fr 1fr;gap:16px;max-width:1040px;width:100%;justify-self:center;margin-top:10px}
- .case__info>div{padding:30px 32px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
- .case__info>div:nth-child(3){grid-column:1/-1}
+ .case__info>div{position:relative;overflow:hidden;padding:32px 34px;border-radius:26px}
+ .case__info>div:nth-child(1){background:linear-gradient(140deg,#ff3434,#b80f17);color:#fff;box-shadow:0 30px 60px -30px rgba(255,43,43,.6)}
+ .case__info>div:nth-child(1)::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:30px solid rgba(255,255,255,.1)}
+ .case__info>div:nth-child(1) h3{color:#fff}
+ .case__info>div:nth-child(1) h3::before{background:#fff}
+ .case__info>div:nth-child(1) p{color:#fff}
+ .case__info>div:nth-child(2){background:#140c0d;border:1px solid rgba(255,43,43,.45)}
+ .case__info>div:nth-child(2)::after{content:"";position:absolute;left:0;top:28px;bottom:28px;width:4px;border-radius:0 4px 4px 0;background:var(--acc)}
+ .case__info>div:nth-child(3){grid-column:1/-1;background:radial-gradient(80% 140% at 100% 0%,rgba(255,43,43,.28),transparent 60%),#121012;border:1px solid var(--line)}
  .case__info h3{display:inline-flex;align-items:center;gap:10px;font-size:13px}
  .case__info h3::before{content:"";width:22px;height:2px;background:var(--acc)}
  .case__info p{margin-top:14px;font-size:18px;line-height:1.55;color:var(--t)}
- .case__info ul{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
- .case__info li{padding:14px 20px 14px 46px;border-radius:999px;background:#1f1f23;border:1px solid var(--line);color:var(--t);font-size:16px}
- .case__info li::before{left:18px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 22%,transparent)}
+ .case__info ul{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;counter-reset:dn}
+ .case__info li{counter-increment:dn;display:inline-flex;align-items:center;gap:12px;padding:12px 22px 12px 12px;border-radius:999px;background:var(--acc);color:#fff;font-size:16px;font-weight:500;box-shadow:0 14px 30px -16px rgba(255,43,43,.8);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+ .case__info li:hover{transform:translateY(-3px)}
+ .case__info li::before{content:counter(dn);position:static;width:30px;height:30px;margin:0;border-radius:50%;background:#fff;color:var(--acc);display:grid;place-items:center;font:700 14px var(--fh);box-shadow:none}
  .case__info>.case__go{display:none}
  .how__g{grid-template-columns:1fr!important;gap:50px!important}
  .how__l{position:static!important;display:flex;justify-content:space-between;align-items:end;gap:40px}
@@ -239,9 +247,8 @@ h1,.h2,.case__n,.cta__h,.about__t,.loader__n{font-style:normal}
 <header class="nav"><div class="w"><b>Кирилл</b><nav><a href="#works">Работы</a><a href="#how">Процесс</a><a class="tg js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Telegram</a></nav></div></header>
 <main>
 <section class="hero"><div class="w">
- <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div>
-  <div class="cover__mast"><h1 class="hero__name"><span class="ln"><span>Кирилл</span></span></h1></div><span class="cover__no">№ 01<br>2026</span></div>
- <div class="hero__txt"><p class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</p>
+ <div class="cover"><div class="hero__photo"><img src="img/kirill.webp" alt="Кирилл" fetchpriority="high"></div><span class="cover__no">№ 01<br>2026</span></div>
+ <div class="hero__txt"><h1 class="hero__lead" data-split>Делаю сайты, которые <em>приводят</em> клиентов</h1>
   <div class="hero__b" data-fade><a class="btn btn--acc" href="#works">Работы<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a><a class="btn btn--line js-tg" href="https://t.me/kirillostapov" target="_blank" rel="noopener">Написать</a></div></div>
 </div></section>
 <div class="mq" aria-hidden="true"><div class="mq__t"><span>Дизайн</span><span>Анимации</span><span>Версия для телефона</span><span>Запуск</span><span>Дизайн</span><span>Анимации</span><span>Версия для телефона</span><span>Запуск</span></div></div>
@@ -364,7 +371,6 @@ document.querySelectorAll('.js-tg').forEach(function (a) { a.href = TG; a.target
     .to('.loader', { yPercent: -100, duration: .8, ease: 'power3.inOut' }, .9)
     .set('.loader', { display: 'none' })
     .add(DESK ? gsap.fromTo('.cover', { autoAlpha: 0, y: 30, filter: 'blur(14px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.3, ease: 'power3.out', clearProps: 'filter' }) : gsap.timeline().to('.hero__photo', { clipPath: 'inset(0% 0 0 0)', duration: 1.2, ease: E }, 0).to('.hero__photo img', { scale: 1, duration: 1.6, ease: E }, 0), 1.25)
-    .add(wordAnim(document.querySelector('.hero__name')), 1.55)
     .from('.cover__no', { autoAlpha: 0, y: 10, duration: .6 }, 1.9)
     .add(wordAnim(document.querySelector('.hero__lead')), 1.85)
     .fromTo('.hero [data-fade]', M.block, Object.assign({}, M.blockTo, { duration: .9, stagger: .12, ease: ME }), 2.35);
