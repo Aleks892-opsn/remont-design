@@ -3,8 +3,7 @@ HEAD = '''<!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ЖК «Соловьи» · {t}</title><meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Onest:wght@500;600;700&family=Golos+Text:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>{css}</style></head><body>'''
 BASE = '''
 :root{--g:#1f4d3a;--g2:#163a2c;--gl:#eaf2ed;--line:#d7e4dc;--mute:#5d6f66;--ease:cubic-bezier(.16,1,.3,1);--fh:"Unbounded",system-ui,sans-serif;--fb:"Manrope",system-ui,sans-serif}
@@ -13,7 +12,9 @@ body{background:#fff;color:var(--g);font:400 16px/1.5 var(--fb);-webkit-font-smo
 a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
 .top{position:relative;z-index:5;display:flex;align-items:center;gap:20px;padding:16px 18px}
 .logo{display:flex;align-items:center;gap:10px;font:700 15px var(--fh)}
-.logo i{width:36px;height:36px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:19px}
+.logo i{width:36px;height:36px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font:700 16px var(--fh);font-style:normal}
+.ico svg{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block}
+.chip i svg{width:19px;height:19px}
 .nav{display:none;gap:26px;font-size:14px;font-weight:500}
 .sp{flex:1}
 .call{height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1.5px solid currentColor;font-weight:600;font-size:14px}
@@ -34,7 +35,7 @@ a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
 @media(min-width:900px){.top{padding:22px 48px}.nav{display:flex}.call .l{display:inline}.call .s{display:none}}
 @media(prefers-reduced-motion:reduce){.rv{transition:none;opacity:1;filter:none;transform:none}.mq div{animation:none}}
 '''
-TOP = '<header class="top rv"><a class="logo" href="#"><i class="ti ti-feather"></i>ЖК Соловьи</a><nav class="nav"><a href="#">Дома</a><a href="#">Планировки</a><a href="#">Ипотека</a><a href="#">Контакты</a></nav><span class="sp"></span><a class="call" href="tel:+79228993550"><i class="ti ti-phone"></i><span class="l">8 (922) 899-35-50</span><span class="s">Позвонить</span></a></header>'
+TOP = '<header class="top rv"><a class="logo" href="#"><i>С</i>ЖК Соловьи</a><nav class="nav"><a href="#">Дома</a><a href="#">Планировки</a><a href="#">Ипотека</a><a href="#">Контакты</a></nav><span class="sp"></span><a class="call" href="tel:+79228993550"><i class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/></svg></i><span class="l">8 (922) 899-35-50</span><span class="s">Позвонить</span></a></header>'
 CTA = 'href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener"'
 MQ = '<div class="mq" aria-hidden="true"><div>' + ''.join('<span>%s</span>' % t for t in ['Готовые дома', 'Закрытая территория', '10 минут до Оренбурга', 'Семейная ипотека', 'Экскурсия по посёлку'] * 2) + '</div></div>'
 END = '<script>requestAnimationFrame(function(){requestAnimationFrame(function(){document.body.classList.add("ld")})});</script>'
@@ -71,11 +72,11 @@ h1 u::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.14e
 <span class="k rv" style="--d:.2s"><i></i>Готовые дома — можно заезжать</span>
 <h1 class="rv" style="--d:.3s">Свой дом в <u>10 минутах</u> от Оренбурга</h1>
 <p class="sub rv" style="--d:.4s">Закрытая территория, готовые дома 120, 138 и 170 м². Семейная ипотека. Приезжайте посмотреть вживую.</p>
-<div class="row rv" style="--d:.5s"><a class="btn btn--g" ''' + CTA + '''>Записаться на экскурсию<i class="ti ti-arrow-up-right"></i></a><div class="sz"><b>120 м²</b><b>138 м²</b><b>170 м²</b></div></div></div>
+<div class="row rv" style="--d:.5s"><a class="btn btn--g" ''' + CTA + '''>Записаться на экскурсию<i class="ico"><svg viewBox="0 0 24 24"><path d="M17 7l-10 10M8 7l9 0l0 9"/></svg></i></a><div class="sz"><b>120 м²</b><b>138 м²</b><b>170 м²</b></div></div></div>
 <div class="arch rv" style="--d:.25s"><div class="ph"><picture><source media="(min-width:900px)" srcset="house-d.webp"><img src="house-m.webp" alt="Дом в ЖК «Соловьи»"></picture></div>
-<div class="chip c1" data-f="1.2"><i class="ti ti-lock"></i><div>Закрытая<small>территория посёлка</small></div></div>
-<div class="chip c2" data-f="-1"><i class="ti ti-road"></i><div>10 минут<small>до Оренбурга</small></div></div>
-<div class="chip c3" data-f=".8"><i class="ti ti-home-heart"></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
+<div class="chip c1" data-f="1.2"><i class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/><path d="M8 11v-4a4 4 0 1 1 8 0v4"/></svg></i><div>Закрытая<small>территория посёлка</small></div></div>
+<div class="chip c2" data-f="-1"><i class="ico"><svg viewBox="0 0 24 24"><path d="M4 19l4 -14M16 5l4 14M12 8v-2M12 13v-2M12 18v-2"/></svg></i><div>10 минут<small>до Оренбурга</small></div></div>
+<div class="chip c3" data-f=".8"><i class="ico"><svg viewBox="0 0 24 24"><path d="M5 12h-2l9 -9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
 </div>''' + MQ + '''</section>''', '''
 // плашки покачиваются и смещаются за курсором
 var ch=document.querySelectorAll('.chip'),t0=performance.now(),mx=0,my=0;
@@ -110,7 +111,7 @@ h1{font:600 clamp(30px,4.2vw,62px)/1.05 var(--fh);letter-spacing:-.03em}
 <p class="sub rv" style="--d:.3s">Закрытая территория в 10 минутах от Оренбурга. Семейная ипотека.</p>
 <div class="tabs rv" style="--d:.4s" id="tabs"><span class="pill"></span><button class="on" type="button" data-i="0">120 м²</button><button type="button" data-i="1">138 м²</button><button type="button" data-i="2">170 м²</button></div>
 <div class="stat rv" style="--d:.5s"><div><b id="s1">120</b><span>м² площадь</span></div><div><b>10</b><span>минут до города</span></div><div><b>3</b><span>варианта домов</span></div></div>
-<a class="btn btn--w rv" style="--d:.6s" ''' + CTA + '''>Записаться на экскурсию<i class="ti ti-arrow-up-right"></i></a></div>
+<a class="btn btn--w rv" style="--d:.6s" ''' + CTA + '''>Записаться на экскурсию<i class="ico"><svg viewBox="0 0 24 24"><path d="M17 7l-10 10M8 7l9 0l0 9"/></svg></i></a></div>
 <div class="view rv" style="--d:.3s"><span class="tag" id="tag">Готовый дом</span><img class="on" src="house-d.webp" alt="Дом 120 м²"><img src="village-l.webp" alt="Посёлок"><img src="interior-l.webp" alt="Гостиная"></div>
 </div>''' + MQ.replace('class="mq"', 'class="mq" style="background:#fff;color:var(--g)"') + '''</section>''', '''
 var tabs=document.getElementById('tabs'),bs=tabs.querySelectorAll('button'),pill=tabs.querySelector('.pill'),im=document.querySelectorAll('.view img'),s1=document.getElementById('s1'),tag=document.getElementById('tag'),A=[120,138,170];
@@ -143,9 +144,9 @@ h1 span{display:inline-block}
 <span class="k rv" style="--d:.2s">Закрытый посёлок · 10 минут от Оренбурга</span>
 <h1 class="rv" style="--d:.3s">Дом, в&nbsp;который можно заехать уже сейчас</h1>
 <p class="sub rv" style="--d:.4s">Готовые дома 120, 138 и 170 м². Семейная ипотека.</p>
-<a class="btn btn--g rv" style="--d:.5s" ''' + CTA + '''>Записаться на экскурсию<i class="ti ti-arrow-up-right"></i></a></div>
+<a class="btn btn--g rv" style="--d:.5s" ''' + CTA + '''>Записаться на экскурсию<i class="ico"><svg viewBox="0 0 24 24"><path d="M17 7l-10 10M8 7l9 0l0 9"/></svg></i></a></div>
 <div class="pin" id="pin"><div class="st"><div class="fr" id="fr"><picture><source media="(min-width:900px)" srcset="house-d.webp"><img src="house-m.webp" alt="Готовый дом"></picture><div class="ov"></div>
-<div class="cap"><b>Готовые дома на закрытой территории</b><div class="sz"><span>120 м²</span><span>138 м²</span><span>170 м²</span></div><a class="btn btn--w" ''' + CTA + '''>Хочу на экскурсию<i class="ti ti-arrow-up-right"></i></a></div></div></div></div></section>''' + MQ, '''
+<div class="cap"><b>Готовые дома на закрытой территории</b><div class="sz"><span>120 м²</span><span>138 м²</span><span>170 м²</span></div><a class="btn btn--w" ''' + CTA + '''>Хочу на экскурсию<i class="ico"><svg viewBox="0 0 24 24"><path d="M17 7l-10 10M8 7l9 0l0 9"/></svg></i></a></div></div></div></div></section>''' + MQ, '''
 var pin=document.getElementById('pin'),fr=document.getElementById('fr'),tk=false;
 function up(){tk=false;var r=pin.getBoundingClientRect(),p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight)*1.4)),e=1-Math.pow(1-p,3);
  fr.style.setProperty('--w',(78+22*e)+'vw');fr.style.setProperty('--hh',(46+54*e)+'svh');fr.style.setProperty('--r',(28*(1-e))+'px');fr.style.setProperty('--s',(1.15-.15*e));fr.style.setProperty('--o',Math.max(0,(p-.55)/.45));}
@@ -162,11 +163,15 @@ V['8'] = ('Вырезанный дом', V['5'][1].replace('.arch{','.archX{') +
 .stage{padding:64px 0 76px}.stage .chip{padding:9px 12px;font-size:13px}.stage .chip i{width:30px;height:30px;font-size:16px}.stage .c1{left:0;top:0}.stage .c2{right:0;top:0}.stage .c3{left:50%;bottom:6px;margin-left:-90px}.ground{bottom:70px}
 @media(min-width:900px){.stage{max-width:none;padding:40px 0 30px}.stage .chip{padding:12px 16px;font-size:14px}.stage .chip i{width:36px;height:36px;font-size:19px}.stage .c3{margin-left:0}.ground{bottom:28px}.stage .c1{left:2%;top:0}.stage .c2{right:-10px;top:22%}.stage .c3{left:12%;bottom:-4px}}
 """, V['5'][2].split('<div class="arch rv"')[0] + """<div class="stage rv" style="--d:.2s"><span class="blob"></span><span class="ground"></span><img class="house" src="house-cut.webp" alt="Дом в ЖК «Соловьи»">
-<div class="chip c1" data-f="1.2"><i class="ti ti-lock"></i><div>Закрытая<small>территория посёлка</small></div></div>
-<div class="chip c2" data-f="-1"><i class="ti ti-road"></i><div>10 минут<small>до Оренбурга</small></div></div>
-<div class="chip c3" data-f=".8"><i class="ti ti-home-heart"></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
+<div class="chip c1" data-f="1.2"><i class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/><path d="M8 11v-4a4 4 0 1 1 8 0v4"/></svg></i><div>Закрытая<small>территория посёлка</small></div></div>
+<div class="chip c2" data-f="-1"><i class="ico"><svg viewBox="0 0 24 24"><path d="M4 19l4 -14M16 5l4 14M12 8v-2M12 13v-2M12 18v-2"/></svg></i><div>10 минут<small>до Оренбурга</small></div></div>
+<div class="chip c3" data-f=".8"><i class="ico"><svg viewBox="0 0 24 24"><path d="M5 12h-2l9 -9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
 </div>""" + MQ + '</section>', V['5'][3])
 
 for k, (name, css, html, js) in V.items():
-    open(k + '.html', 'w').write(HEAD.format(t=name, css=BASE + css) + html + END + '<script>(function(){' + js + '})();</script></body></html>')
+    page = HEAD.format(t=name, css=BASE + css) + html + END + '<script>(function(){' + js + '})();</script></body></html>'
+    if k == '8':
+        for suf, fam in [('a', '"Manrope"'), ('b', '"Onest"'), ('c', '"Golos Text"')]:
+            open('8' + suf + '.html', 'w').write(page.replace('--fh:"Unbounded"', '--fh:' + fam).replace('</style>', 'h1{letter-spacing:-.035em;font-weight:700}</style>'))
+    open(k + '.html', 'w').write(page)
 print('ok')
