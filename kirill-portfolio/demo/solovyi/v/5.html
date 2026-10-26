@@ -47,7 +47,7 @@ h1 u::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.14e
 .sz{display:flex;gap:6px}
 .sz b{height:40px;padding:0 14px;display:inline-flex;align-items:center;border-radius:999px;border:1.5px solid var(--line);font:600 14px var(--fh)}
 .arch{position:relative;justify-self:center;width:min(100%,520px);aspect-ratio:4/5}
-.arch .ph{position:absolute;inset:0;border-radius:999px 999px 28px 28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(31,77,58,.6)}
+.arch .ph{position:absolute;inset:0;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(31,77,58,.6)}
 .arch img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 2.2s var(--ease)}
 .ld .arch img{transform:none}
 .chip{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:18px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 18px 40px -20px rgba(31,77,58,.5);font-weight:600;font-size:14px;will-change:transform}
@@ -55,13 +55,13 @@ h1 u::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.14e
 .chip small{display:block;font-weight:500;color:var(--mute);font-size:12px}
 .c1{left:-6px;top:18%}.c2{right:-6px;top:48%}.c3{left:6%;bottom:6%}
 .in{display:flex;gap:6px;position:absolute;z-index:2;right:12px;bottom:12px}
-@media(min-width:900px){.g{grid-template-columns:1.05fr .95fr;gap:60px;padding:10px 48px 40px}.c1{left:-60px}.c2{right:-40px}.c3{left:-30px}.arch{width:min(100%,480px);aspect-ratio:auto;height:min(72svh,640px)}}
+@media(min-width:900px){.g{grid-template-columns:.85fr 1.15fr;gap:56px;padding:10px 48px 40px}.c1{left:-50px;top:12%}.c2{right:-24px;top:42%}.c3{left:-40px;bottom:10%}.arch{width:100%;aspect-ratio:auto;height:min(70svh,620px)}.arch img{object-position:50% 72%}}
 </style></head><body><section class="h"><header class="top rv"><a class="logo" href="#"><i class="ti ti-feather"></i>ЖК Соловьи</a><nav class="nav"><a href="#">Дома</a><a href="#">Планировки</a><a href="#">Ипотека</a><a href="#">Контакты</a></nav><span class="sp"></span><a class="call" href="tel:+79228993550"><i class="ti ti-phone"></i><span class="l">8 (922) 899-35-50</span><span class="s">Позвонить</span></a></header><div class="g"><div class="t">
 <span class="k rv" style="--d:.2s"><i></i>Готовые дома — можно заезжать</span>
 <h1 class="rv" style="--d:.3s">Свой дом в <u>10 минутах</u> от Оренбурга</h1>
 <p class="sub rv" style="--d:.4s">Закрытая территория, готовые дома 120, 138 и 170 м². Семейная ипотека. Приезжайте посмотреть вживую.</p>
 <div class="row rv" style="--d:.5s"><a class="btn btn--g" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<i class="ti ti-arrow-up-right"></i></a><div class="sz"><b>120 м²</b><b>138 м²</b><b>170 м²</b></div></div></div>
-<div class="arch rv" style="--d:.25s"><div class="ph"><picture><source media="(min-width:900px)" srcset="house-m.webp"><img src="house-m.webp" alt="Дом в ЖК «Соловьи»"></picture></div>
+<div class="arch rv" style="--d:.25s"><div class="ph"><picture><source media="(min-width:900px)" srcset="house-d.webp"><img src="house-m.webp" alt="Дом в ЖК «Соловьи»"></picture></div>
 <div class="chip c1" data-f="1.2"><i class="ti ti-lock"></i><div>Закрытая<small>территория посёлка</small></div></div>
 <div class="chip c2" data-f="-1"><i class="ti ti-road"></i><div>10 минут<small>до Оренбурга</small></div></div>
 <div class="chip c3" data-f=".8"><i class="ti ti-home-heart"></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>

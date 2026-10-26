@@ -58,7 +58,7 @@ h1 u::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.14e
 .sz{display:flex;gap:6px}
 .sz b{height:40px;padding:0 14px;display:inline-flex;align-items:center;border-radius:999px;border:1.5px solid var(--line);font:600 14px var(--fh)}
 .arch{position:relative;justify-self:center;width:min(100%,520px);aspect-ratio:4/5}
-.arch .ph{position:absolute;inset:0;border-radius:999px 999px 28px 28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(31,77,58,.6)}
+.arch .ph{position:absolute;inset:0;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(31,77,58,.6)}
 .arch img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 2.2s var(--ease)}
 .ld .arch img{transform:none}
 .chip{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:18px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 18px 40px -20px rgba(31,77,58,.5);font-weight:600;font-size:14px;will-change:transform}
@@ -66,13 +66,13 @@ h1 u::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.14e
 .chip small{display:block;font-weight:500;color:var(--mute);font-size:12px}
 .c1{left:-6px;top:18%}.c2{right:-6px;top:48%}.c3{left:6%;bottom:6%}
 .in{display:flex;gap:6px;position:absolute;z-index:2;right:12px;bottom:12px}
-@media(min-width:900px){.g{grid-template-columns:1.05fr .95fr;gap:60px;padding:10px 48px 40px}.c1{left:-60px}.c2{right:-40px}.c3{left:-30px}.arch{width:min(100%,480px);aspect-ratio:auto;height:min(72svh,640px)}}
+@media(min-width:900px){.g{grid-template-columns:.85fr 1.15fr;gap:56px;padding:10px 48px 40px}.c1{left:-50px;top:12%}.c2{right:-24px;top:42%}.c3{left:-40px;bottom:10%}.arch{width:100%;aspect-ratio:auto;height:min(70svh,620px)}.arch img{object-position:50% 72%}}
 ''', '<section class="h">' + TOP + '''<div class="g"><div class="t">
 <span class="k rv" style="--d:.2s"><i></i>Готовые дома — можно заезжать</span>
 <h1 class="rv" style="--d:.3s">Свой дом в <u>10 минутах</u> от Оренбурга</h1>
 <p class="sub rv" style="--d:.4s">Закрытая территория, готовые дома 120, 138 и 170 м². Семейная ипотека. Приезжайте посмотреть вживую.</p>
 <div class="row rv" style="--d:.5s"><a class="btn btn--g" ''' + CTA + '''>Записаться на экскурсию<i class="ti ti-arrow-up-right"></i></a><div class="sz"><b>120 м²</b><b>138 м²</b><b>170 м²</b></div></div></div>
-<div class="arch rv" style="--d:.25s"><div class="ph"><picture><source media="(min-width:900px)" srcset="house-m.webp"><img src="house-m.webp" alt="Дом в ЖК «Соловьи»"></picture></div>
+<div class="arch rv" style="--d:.25s"><div class="ph"><picture><source media="(min-width:900px)" srcset="house-d.webp"><img src="house-m.webp" alt="Дом в ЖК «Соловьи»"></picture></div>
 <div class="chip c1" data-f="1.2"><i class="ti ti-lock"></i><div>Закрытая<small>территория посёлка</small></div></div>
 <div class="chip c2" data-f="-1"><i class="ti ti-road"></i><div>10 минут<small>до Оренбурга</small></div></div>
 <div class="chip c3" data-f=".8"><i class="ti ti-home-heart"></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
@@ -151,6 +151,21 @@ function up(){tk=false;var r=pin.getBoundingClientRect(),p=Math.min(1,Math.max(0
  fr.style.setProperty('--w',(78+22*e)+'vw');fr.style.setProperty('--hh',(46+54*e)+'svh');fr.style.setProperty('--r',(28*(1-e))+'px');fr.style.setProperty('--s',(1.15-.15*e));fr.style.setProperty('--o',Math.max(0,(p-.55)/.45));}
 addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(up)}},{passive:true});addEventListener('resize',up);up();
 ''')
+
+# 8. Вырезанный дом: стоит на странице без фона, вокруг плавают плашки
+V['8'] = ('Вырезанный дом', V['5'][1].replace('.arch{','.archX{') + """
+.stage{position:relative;justify-self:center;width:100%;max-width:640px;padding:40px 0 30px}
+.blob{position:absolute;left:50%;top:50%;width:92%;aspect-ratio:1;transform:translate(-50%,-52%);border-radius:50%;background:radial-gradient(circle at 50% 40%,#d9e9df,#eaf2ed 60%,rgba(234,242,237,0) 71%)}
+.house{position:relative;z-index:1;width:100%;filter:drop-shadow(0 30px 30px rgba(31,77,58,.22));transform:translate3d(0,30px,0) scale(.96);opacity:0;transition:transform 1.4s var(--ease) .3s,opacity 1s var(--ease) .3s}
+.ld .house{transform:none;opacity:1}
+.ground{position:absolute;z-index:0;left:6%;right:6%;bottom:28px;height:34px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,77,58,.28),rgba(31,77,58,0))}
+.stage{padding:64px 0 76px}.stage .chip{padding:9px 12px;font-size:13px}.stage .chip i{width:30px;height:30px;font-size:16px}.stage .c1{left:0;top:0}.stage .c2{right:0;top:0}.stage .c3{left:50%;bottom:6px;margin-left:-90px}.ground{bottom:70px}
+@media(min-width:900px){.stage{max-width:none;padding:40px 0 30px}.stage .chip{padding:12px 16px;font-size:14px}.stage .chip i{width:36px;height:36px;font-size:19px}.stage .c3{margin-left:0}.ground{bottom:28px}.stage .c1{left:2%;top:0}.stage .c2{right:-10px;top:22%}.stage .c3{left:12%;bottom:-4px}}
+""", V['5'][2].split('<div class="arch rv"')[0] + """<div class="stage rv" style="--d:.2s"><span class="blob"></span><span class="ground"></span><img class="house" src="house-cut.webp" alt="Дом в ЖК «Соловьи»">
+<div class="chip c1" data-f="1.2"><i class="ti ti-lock"></i><div>Закрытая<small>территория посёлка</small></div></div>
+<div class="chip c2" data-f="-1"><i class="ti ti-road"></i><div>10 минут<small>до Оренбурга</small></div></div>
+<div class="chip c3" data-f=".8"><i class="ti ti-home-heart"></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
+</div>""" + MQ + '</section>', V['5'][3])
 
 for k, (name, css, html, js) in V.items():
     open(k + '.html', 'w').write(HEAD.format(t=name, css=BASE + css) + html + END + '<script>(function(){' + js + '})();</script></body></html>')
