@@ -153,22 +153,72 @@ function up(){tk=false;var r=pin.getBoundingClientRect(),p=Math.min(1,Math.max(0
 addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(up)}},{passive:true});addEventListener('resize',up);up();
 ''')
 
-# 8. Вырезанный дом: стоит на странице без фона, вокруг плавают плашки
-V['8'] = ('Вырезанный дом', V['5'][1].replace('.arch{','.archX{') + """
-.stage{position:relative;justify-self:center;width:100%;max-width:640px;padding:40px 0 30px}
-.blob{position:absolute;left:50%;top:50%;width:92%;aspect-ratio:1;transform:translate(-50%,-52%);border-radius:50%;background:radial-gradient(circle at 50% 40%,#d9e9df,#eaf2ed 60%,rgba(234,242,237,0) 71%)}
-.house{position:relative;z-index:1;width:100%;filter:drop-shadow(0 30px 30px rgba(31,77,58,.22));transform:translate3d(0,30px,0) scale(.96);opacity:0;transition:transform 1.4s var(--ease) .3s,opacity 1s var(--ease) .3s}
+# 8. Вырезанный дом: крупный дом, точки на доме и линии к плашкам
+CH8 = [
+ ('c1', 'ti ti-lock', 'Закрытая', 'территория посёлка', 32, 30),
+ ('c2', 'ti ti-road', '10 минут', 'до Оренбурга', 70, 22),
+ ('c3', 'ti ti-home-heart', 'Семейная ипотека', 'на готовые дома', 55, 72),
+]
+V['8'] = ('Вырезанный дом', V['5'][1] + """
+.g{overflow:visible}
+.stage{position:relative;width:100%;margin:0;padding:70px 0 84px}
+.stage .c2{right:0!important}.stage .c1{left:0!important}
+.blob{position:absolute;left:50%;top:52%;width:96%;aspect-ratio:1;transform:translate(-50%,-50%) scale(.6);border-radius:50%;background:radial-gradient(circle at 50% 42%,#d6e8dd,#eaf2ed 58%,rgba(234,242,237,0) 71%);opacity:0;transition:transform 1.6s var(--ease) .1s,opacity 1.2s var(--ease) .1s}
+.ld .blob{transform:translate(-50%,-50%) scale(1);opacity:1}
+.hw{position:relative;z-index:1}
+.house{width:100%;filter:drop-shadow(0 34px 30px rgba(31,77,58,.24));transform:translate3d(0,40px,0) scale(.94);opacity:0;transition:transform 1.5s var(--ease) .25s,opacity 1.1s var(--ease) .25s}
 .ld .house{transform:none;opacity:1}
-.ground{position:absolute;z-index:0;left:6%;right:6%;bottom:28px;height:34px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,77,58,.28),rgba(31,77,58,0))}
-.stage{padding:64px 0 76px}.stage .chip{padding:9px 12px;font-size:13px}.stage .chip i{width:30px;height:30px;font-size:16px}.stage .c1{left:0;top:0}.stage .c2{right:0;top:0}.stage .c3{left:50%;bottom:6px;margin-left:-90px}.ground{bottom:70px}
-@media(min-width:900px){.stage{max-width:none;padding:40px 0 30px}.stage .chip{padding:12px 16px;font-size:14px}.stage .chip i{width:36px;height:36px;font-size:19px}.stage .c3{margin-left:0}.ground{bottom:28px}.stage .c1{left:2%;top:0}.stage .c2{right:-10px;top:22%}.stage .c3{left:12%;bottom:-4px}}
-""", V['5'][2].split('<div class="arch rv"')[0] + """<div class="stage rv" style="--d:.2s"><span class="blob"></span><span class="ground"></span><img class="house" src="house-cut.webp" alt="Дом в ЖК «Соловьи»">
-<div class="chip c1" data-f="1.2"><i class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/><path d="M8 11v-4a4 4 0 1 1 8 0v4"/></svg></i><div>Закрытая<small>территория посёлка</small></div></div>
-<div class="chip c2" data-f="-1"><i class="ico"><svg viewBox="0 0 24 24"><path d="M4 19l4 -14M16 5l4 14M12 8v-2M12 13v-2M12 18v-2"/></svg></i><div>10 минут<small>до Оренбурга</small></div></div>
-<div class="chip c3" data-f=".8"><i class="ico"><svg viewBox="0 0 24 24"><path d="M5 12h-2l9 -9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg></i><div>Семейная ипотека<small>на готовые дома</small></div></div></div>
-</div>""" + MQ + '</section>', V['5'][3])
+.ground{position:absolute;left:4%;right:4%;bottom:-6px;height:40px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,77,58,.3),rgba(31,77,58,0))}
+.lines{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:visible}
+.lines path{fill:none;stroke:var(--g);stroke-width:1.5;stroke-dasharray:4 5;opacity:.55}
+.dot{position:absolute;z-index:3;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--g);box-shadow:0 0 0 4px #fff;transform:scale(0);transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+.dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--g);animation:ring 2.2s ease-out infinite;opacity:0}
+.dot.on{transform:scale(1)}.dot.on::after{opacity:1}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
+.stage .chip{opacity:0;transform:scale(.4);filter:blur(8px);transition:opacity .7s var(--ease),filter .7s var(--ease),transform .9s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;cursor:default}
+.stage .chip.on{opacity:1;filter:blur(0);transform:none}
+.stage .chip:hover{box-shadow:0 24px 50px -18px rgba(31,77,58,.6)}
+.stage .chip{padding:9px 12px;font-size:13px}.stage .chip i{width:30px;height:30px}
+.stage .c1{left:14px;top:4px}.stage .c2{right:14px;top:4px}.stage .c3{left:50%;bottom:8px;margin-left:-92px}
+@media(min-width:900px){
+ .g{grid-template-columns:.74fr 1.26fr;gap:32px}
+ .stage{width:100%;margin:0;padding:60px 0 50px}
+ .stage .chip{padding:12px 16px;font-size:14px}.stage .chip i{width:38px;height:38px}
+ .stage .c1{left:2%!important;top:0}.stage .c2{right:6%!important;top:2%}.stage .c3{left:44%;bottom:0;margin-left:0}
+}
+""", V['5'][2].split('<div class="arch rv"')[0] + """<div class="stage"><span class="blob"></span><div class="hw" id="hw"><span class="ground"></span><img class="house" src="house-cut.webp" alt="Дом в ЖК «Соловьи»">""" +
+ ''.join('<span class="dot" data-x="%d" data-y="%d"></span>' % (c[4], c[5]) for c in CH8) + """</div><svg class="lines" id="lines"></svg>""" +
+ ''.join('<div class="chip %s" data-f="%s"><i class="%s"></i><div>%s<small>%s</small></div></div>' % (c[0], f, c[1], c[2], c[3]) for c, f in zip(CH8, ['1', '-1', '.7'])) +
+ """</div></div>""" + MQ + '</section>', r"""
+var st=document.querySelector('.stage'),hw=document.getElementById('hw'),svg=document.getElementById('lines'),dots=[].slice.call(hw.querySelectorAll('.dot')),chips=[].slice.call(st.querySelectorAll('.chip'));
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,mx=0,my=0,t0=performance.now(),drawn=[0,0,0];
+dots.forEach(function(d){d.style.left=d.dataset.x+'%';d.style.top=d.dataset.y+'%'});
+svg.innerHTML=chips.map(function(){return '<path/>'}).join('');var paths=svg.querySelectorAll('path');
+addEventListener('mousemove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+function frame(t){var s=(t-t0)/1000,sr=st.getBoundingClientRect();
+ chips.forEach(function(c,i){var k=+c.dataset.f;if(c.classList.contains('on')&&!reduce)c.style.translate=(mx*22*k)+'px '+(Math.sin(s*1.1+i*2.1)*5+my*16*k)+'px';
+  var cr=c.getBoundingClientRect(),dr=dots[i].getBoundingClientRect(),dx=dr.left+dr.width/2-sr.left,dy=dr.top+dr.height/2-sr.top,
+   cx=Math.max(cr.left,Math.min(dx+sr.left,cr.right))-sr.left,cy=(dy<cr.top-sr.top?cr.top:cr.bottom)-sr.top;
+  if(dy>cr.top-sr.top&&dy<cr.bottom-sr.top){cy=cr.top+cr.height/2-sr.top;cx=(dx<cr.left-sr.left?cr.left:cr.right)-sr.left}
+  var p=paths[i],my2=(cy+dy)/2;p.setAttribute('d','M'+cx+' '+cy+' C'+cx+' '+my2+' '+dx+' '+my2+' '+dx+' '+dy);
+  var L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L*(1-drawn[i]);});
+ requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+// по очереди: точка на доме -> линия -> плашка
+chips.forEach(function(c,i){var at=1500+i*450;
+ setTimeout(function(){dots[i].classList.add('on')},at);
+ setTimeout(function(){var a=performance.now();(function g(t){var p=Math.min(1,(t-a)/650);drawn[i]=1-Math.pow(1-p,3);if(p<1)requestAnimationFrame(g)})(a)},reduce?0:at+250);
+ setTimeout(function(){c.classList.add('on')},reduce?0:at+650);});
+setTimeout(function(){paths.forEach(function(p){p.style.strokeDasharray='4 5';p.style.strokeDashoffset=0});drawn=[1,1,1]},reduce?0:1500+3*450+1200);
+""")
 
+ICONS = {
+ 'ti ti-lock': '<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/><path d="M8 11v-4a4 4 0 1 1 8 0v4"/></svg>',
+ 'ti ti-road': '<svg viewBox="0 0 24 24"><path d="M4 19l4 -14M16 5l4 14M12 8v-2M12 13v-2M12 18v-2"/></svg>',
+ 'ti ti-home-heart': '<svg viewBox="0 0 24 24"><path d="M5 12h-2l9 -9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/></svg>',
+}
 for k, (name, css, html, js) in V.items():
+    for a, b in ICONS.items(): html = html.replace('<i class="%s"></i>' % a, '<i class="ico">%s</i>' % b)
     page = HEAD.format(t=name, css=BASE + css) + html + END + '<script>(function(){' + js + '})();</script></body></html>'
     if k == '8':
         for suf, fam in [('a', '"Manrope"'), ('b', '"Onest"'), ('c', '"Golos Text"')]:
