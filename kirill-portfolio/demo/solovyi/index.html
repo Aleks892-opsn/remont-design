@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#000000">
 <title>Soloviy — коттеджный посёлок под Оренбургом</title>
 <meta name="description" content="Готовые дома 120, 138 и 170 м² в закрытом посёлке в 10 минутах от Оренбурга. Семейная ипотека. Запись на экскурсию.">
 <meta name="robots" content="noindex">
@@ -12,60 +12,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="house-fg.webp">
 <style>
-  :root { --ink: #0b0b0b; --w: #fff; --w7: rgba(255,255,255,.72); --glass: rgba(14,14,14,.42); --e: cubic-bezier(.2,.8,.2,1); }
+  :root { --ink: #0b0b0b; --w: #fff; --w7: rgba(255,255,255,.72); --line: rgba(255,255,255,.22); --glass: rgba(14,14,14,.42); --e: cubic-bezier(.2,.8,.2,1); --cond: "Big Shoulders Display", Impact, sans-serif; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; }
   body { background: #000; color: var(--w); font: 500 15px/1.45 Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  a { color: inherit; text-decoration: none; }
+  a, button { color: inherit; text-decoration: none; font: inherit; }
+  button { background: none; border: 0; cursor: pointer; }
 
-  .hero { background: rgb(185,189,198); position: relative; height: 100svh; min-height: 640px; overflow: hidden; isolation: isolate; }
-  .ly { position: absolute; left: -22%; width: 136%; bottom: 17svh; aspect-ratio: 1206 / 1494; will-change: transform; }
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; background: rgb(185,189,198); }
+  /* положение фото, надписи и плашек считает скрипт — от нижнего блока, чтобы ничего не наезжало */
+  .ly { position: absolute; aspect-ratio: 1206 / 1494; will-change: transform; }
   .ly img { width: 100%; height: 100%; display: block; }
-  /* облака медленно плывут за домом */
-  .sky img { animation: drift 26s ease-in-out infinite alternate; transform-origin: 50% 0; }
+  .sky img { animation: drift 26s ease-in-out infinite alternate; }
   @keyframes drift { from { transform: scale(1.06) translateX(-2.2%); } to { transform: scale(1.06) translateX(2.2%); } }
-  .dim { position: absolute; inset: 0; background: linear-gradient(rgba(8,8,8,.62) 0%, rgba(8,8,8,.38) 30%, rgba(8,8,8,0) 52%); }
-  .shade { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(rgba(0,0,0,0) 46%, rgba(0,0,0,.4) 62%, rgba(0,0,0,.9) 76%, #000 82%); }
-
-  .title { position: absolute; z-index: 1; left: 50%; top: 16.5svh; width: max-content; transform: translateX(-50%); font: 800 100px/.8 "Big Shoulders Display", Impact, sans-serif; text-transform: uppercase; white-space: nowrap; color: var(--w); }
+  .dim { position: absolute; inset: 0; background: linear-gradient(rgba(8,8,8,.62), rgba(8,8,8,.36) 30%, rgba(8,8,8,0) 52%); }
+  .title { position: absolute; z-index: 1; left: 50%; top: 0; width: max-content; transform: translateX(-50%); font: 800 100px/.8 var(--cond); text-transform: uppercase; white-space: nowrap; }
   .title span { display: inline-block; }
   .fg { z-index: 2; }
 
-  /* шапка */
   .hd { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: max(14px, env(safe-area-inset-top)) 16px 0; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 11px; line-height: 1.3; letter-spacing: .16em; text-transform: uppercase; }
   .brand img { width: 44px; height: 44px; display: block; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
   .call { width: 44px; height: 44px; border-radius: 50%; background: var(--w); color: var(--ink); display: grid; place-items: center; }
   .call svg { width: 19px; height: 19px; }
 
-  /* плашки-стекло */
-  .chip { position: absolute; z-index: 4; display: flex; align-items: center; gap: 8px; padding: 8px 13px 8px 8px; border-radius: 999px; background: var(--glass); border: 1px solid rgba(255,255,255,.22); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .chips { position: absolute; z-index: 6; left: 14px; right: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .chip { display: flex; align-items: center; gap: 8px; width: max-content; padding: 8px 13px 8px 8px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .chip:first-child { align-self: flex-end; }
   .chip i { width: 24px; height: 24px; border-radius: 50%; background: var(--w); color: var(--ink); display: grid; place-items: center; flex: none; }
   .chip i svg { width: 13px; height: 13px; }
-  .c1 { left: 14px; top: 63svh; }
-  .c2 { right: 14px; top: 56svh; }
+  [data-v="3"] .chips { display: none; }
 
-  /* низ */
-  .bt { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 0 16px max(18px, env(safe-area-inset-bottom)); }
-  .run { overflow: hidden; margin: 0 -16px 16px; padding: 9px 0; border-top: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--w7); }
-  .run div { display: flex; width: max-content; animation: run 22s linear infinite; }
-  .run span { padding-right: 22px; }
-  .run span::after { content: "✦"; padding-left: 22px; color: var(--w); }
-  @keyframes run { to { transform: translateX(-50%); } }
-  .lbl { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--w7); margin-bottom: 4px; }
-  .sizes { display: flex; align-items: flex-end; margin-bottom: 16px; }
-  .sizes div { flex: 1; }
-  .sizes div + div { padding-left: 14px; border-left: 1px solid rgba(255,255,255,.28); margin-left: 14px; }
-  .sizes b { font: 800 52px/.9 "Big Shoulders Display", Impact, sans-serif; letter-spacing: -.01em; }
-  .sizes small { font-size: 14px; font-weight: 600; margin-left: 3px; color: var(--w7); }
+  /* нижний блок, общее */
+  .bt { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 0 16px max(18px, env(safe-area-inset-bottom)); display: none; }
+  .bt::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; top: -170px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.55) 35%, rgba(0,0,0,.92) 62%, #000); pointer-events: none; }
+  [data-v="1"] .b1, [data-v="2"] .b2, [data-v="3"] .b3, [data-v="4"] .b4 { display: block; }
+  .lbl { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--w7); }
   .cta { position: relative; overflow: hidden; height: 60px; border-radius: 18px; background: var(--w); color: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 20px; font-weight: 700; font-size: 16px; transition: transform .2s; }
   .cta:active { transform: scale(.98); }
-  .cta span { width: 44px; height: 44px; border-radius: 13px; background: var(--ink); color: var(--w); display: grid; place-items: center; }
+  .cta > span { width: 44px; height: 44px; border-radius: 13px; background: var(--ink); color: var(--w); display: grid; place-items: center; flex: none; }
   .cta svg { width: 18px; height: 18px; }
   .cta::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(0,0,0,.08), transparent); animation: shine 4.5s 3s ease-in-out infinite; }
   @keyframes shine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
   .tel { margin-top: 12px; text-align: center; font-size: 14px; color: var(--w7); }
   .tel a { color: var(--w); font-weight: 700; }
+
+  /* 1 — бегущая строка и крупные цифры */
+  .run { overflow: hidden; margin: 0 -16px 16px; padding: 9px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--w7); }
+  .run div { display: flex; width: max-content; animation: run 22s linear infinite; }
+  .run span { padding-right: 22px; }
+  .run span::after { content: "✦"; padding-left: 22px; color: var(--w); }
+  @keyframes run { to { transform: translateX(-50%); } }
+  .sizes { display: flex; align-items: flex-end; margin: 4px 0 16px; }
+  .sizes div { flex: 1; }
+  .sizes div + div { padding-left: 14px; border-left: 1px solid rgba(255,255,255,.28); margin-left: 14px; }
+  .sizes b { font: 800 52px/.9 var(--cond); }
+  .sizes small { font-size: 14px; font-weight: 600; margin-left: 3px; color: var(--w7); }
+
+  /* 2 — карточки домов, листаются */
+  .b2 .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .b2 .row em { font-style: normal; font-size: 13px; color: var(--w7); }
+  .cards { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px 14px; padding: 0 16px; scrollbar-width: none; }
+  .cards::-webkit-scrollbar { display: none; }
+  .card { flex: 0 0 42%; scroll-snap-align: start; border-radius: 20px; padding: 14px 14px 12px; background: var(--glass); border: 1px solid var(--line); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); text-align: left; transition: background .35s, color .35s, transform .35s var(--e); }
+  .card b { display: block; font: 800 50px/.85 var(--cond); }
+  .card b small { font: 600 14px Manrope, sans-serif; margin-left: 3px; }
+  .card p { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; }
+  .card p i { width: 26px; height: 26px; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; }
+  .card p i svg { width: 12px; height: 12px; }
+  .card.on { background: var(--w); color: var(--ink); }
+  .card.on:active, .card:active { transform: scale(.97); }
+
+  /* 3 — стеклянная панель с переключателем */
+  .b3 { padding-bottom: 0; }
+  .b3::before { top: -120px; }
+  .sheet { margin: 0 -16px; padding: 18px 16px max(18px, env(safe-area-inset-bottom)); border-radius: 28px 28px 0 0; background: rgba(20,20,20,.5); border-top: 1px solid var(--line); -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; font-weight: 600; margin: 8px 0 14px; }
+  .facts span { display: flex; align-items: center; gap: 6px; }
+  .facts span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--w); }
+  .seg { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 16px; background: rgba(255,255,255,.1); margin-bottom: 12px; }
+  .seg .pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 3); border-radius: 12px; background: var(--w); transition: transform .5s var(--e); }
+  .seg button { position: relative; height: 50px; font: 800 30px/1 var(--cond); transition: color .35s; }
+  .seg button small { font: 600 12px Manrope, sans-serif; margin-left: 2px; }
+  .seg button.on { color: var(--ink); }
+
+  /* 4 — минимал с круглой кнопкой */
+  .b4 .wrap4 { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 4px; }
+  .b4 .big { font: 800 46px/.9 var(--cond); margin: 6px 0 4px; white-space: nowrap; }
+  .b4 .big i { font-style: normal; color: rgba(255,255,255,.4); }
+  .b4 .sub { font-size: 13px; color: var(--w7); }
+  .ring { position: relative; flex: none; width: 116px; height: 116px; border-radius: 50%; display: grid; place-items: center; }
+  .ring svg.txt { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 14s linear infinite; }
+  .ring svg.txt text { fill: #fff; font: 700 10.4px Manrope, sans-serif; text-transform: uppercase; }
+  .ring span { width: 66px; height: 66px; border-radius: 50%; background: var(--w); color: var(--ink); display: grid; place-items: center; transition: transform .35s var(--e); }
+  .ring span svg { width: 24px; height: 24px; transform: rotate(-45deg); }
+  .ring:active span { transform: scale(.92); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .b4 .bar { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 13px; color: var(--w7); }
+  .b4 .bar a { color: var(--w); font-weight: 700; }
+
+  /* переключатель вариантов (только в демо) */
+  .vs { position: fixed; z-index: 60; right: 64px; top: max(18px, calc(env(safe-area-inset-top) + 4px)); display: none; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--line); }
+  .demo .vs { display: flex; }
+  .vs button { width: 28px; height: 28px; border-radius: 50%; font-weight: 700; font-size: 14px; color: #fff; }
+  .vs button.on { background: #fff; color: #000; }
 
   /* заставка */
   .intro { position: fixed; inset: 0; z-index: 50; background: var(--ink); display: grid; place-items: center; pointer-events: none; clip-path: circle(150% at 50% 50%); }
@@ -76,65 +126,162 @@
 
   /* появление */
   .js .title span { transform: translateY(85%); opacity: 0; filter: blur(10px); }
-  .js .chip, .js .bt > *, .js .hd { opacity: 0; filter: blur(10px); transform: translateY(18px); }
-  .js .hero > .ly { transform: scale(1.14); }
+  .js .chip, .js .bt .in, .js .hd { opacity: 0; filter: blur(10px); transform: translateY(18px); }
+  .js .ly { scale: 1.14; }
   .ld .title span { transform: none; opacity: 1; filter: blur(0); transition: transform 1.3s var(--e), opacity .9s, filter .9s; }
-  .ld .chip, .ld .bt > *, .ld .hd { opacity: 1; filter: blur(0); transform: none; transition: opacity .9s, filter .9s, transform 1s var(--e); }
-  .ld .hero > .ly { transform: scale(1); transition: transform 2.6s var(--e) .9s; }
+  .ld .chip, .ld .bt .in, .ld .hd { opacity: 1; filter: blur(0); transform: none; transition: opacity .9s, filter .9s, transform 1s var(--e); }
+  .ld .ly { scale: 1; transition: scale 2.6s var(--e) .9s; }
   .chip.fl { animation: bob 5s ease-in-out infinite; }
-  @keyframes bob { 50% { transform: translateY(-7px); } }
-  @media (prefers-reduced-motion: reduce) { .intro { display: none; } .js *, .js *::after { transition: none !important; animation: none !important; filter: none !important; opacity: 1 !important; } .js .title span, .js .chip, .js .bt > *, .js .hd, .js .ly { transform: none !important; } }
+  @keyframes bob { 50% { transform: translateY(-6px); } }
+  .bt .in.re { animation: re .7s var(--e) both; }
+  @keyframes re { from { opacity: 0; filter: blur(10px); transform: translateY(18px); } }
+  @media (prefers-reduced-motion: reduce) { .intro { display: none; } .js *, .js *::after { transition: none !important; animation: none !important; filter: none !important; opacity: 1 !important; } .js .title span, .js .chip, .js .bt .in, .js .hd { transform: none !important; } .js .ly { scale: 1 !important; } }
 
-  /* компьютер: временно колонка по центру, полноценная версия позже */
   @media (min-width: 700px) { .hero { max-width: 480px; margin: 0 auto; } }
 </style>
 </head>
 <body>
 <div class="intro" aria-hidden="true"><img src="logo.png" alt=""></div>
 
-<main class="hero" id="hero">
+<main class="hero" id="hero" data-v="1">
   <div class="ly sky"><img src="sky.webp" alt="" width="1206" height="1494"></div>
   <div class="dim"></div>
   <h1 class="title" id="title" aria-label="Soloviy — коттеджный посёлок под Оренбургом"><span>S</span><span>o</span><span>l</span><span>o</span><span>v</span><span>i</span><span>y</span></h1>
-  <div class="ly fg" id="fg"><img src="house-fg.webp" alt="Двухэтажный дом с террасой в посёлке Soloviy" width="1206" height="1494" fetchpriority="high"></div>
-  <div class="shade"></div>
+  <div class="ly fg"><img src="house-fg.webp" alt="Двухэтажный дом с террасой в посёлке Soloviy" width="1206" height="1494" fetchpriority="high"></div>
 
   <header class="hd">
     <a class="brand" href="#"><img src="logo.png" alt="Логотип Soloviy" width="44" height="44">Коттеджный<br>посёлок</a>
     <a class="call" href="tel:+79228993550" aria-label="Позвонить 8 (922) 899-35-50"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
   </header>
 
-  <div class="chip c1"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i>10 минут до Оренбурга</div>
-  <div class="chip c2"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></i>Закрытая территория</div>
+  <div class="chips" id="chips">
+    <div class="chip"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></i>Закрытая территория</div>
+    <div class="chip"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i>10 минут до Оренбурга</div>
+  </div>
 
-  <div class="bt">
-    <div class="run" aria-hidden="true"><div><span>Готовые дома</span><span>Семейная ипотека</span><span>Закрытая территория</span><span>10 минут до Оренбурга</span><span>Готовые дома</span><span>Семейная ипотека</span><span>Закрытая территория</span><span>10 минут до Оренбурга</span></div></div>
-    <p class="lbl">Готовые дома</p>
-    <div class="sizes"><div><b>120</b><small>м²</small></div><div><b>138</b><small>м²</small></div><div><b>170</b><small>м²</small></div></div>
-    <a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-    <p class="tel">или позвоните <a href="tel:+79228993550">8 (922) 899-35-50</a></p>
+  <!-- 1: бегущая строка + цифры -->
+  <div class="bt b1">
+    <div class="run in" aria-hidden="true"><div><span>Готовые дома</span><span>Семейная ипотека</span><span>Закрытая территория</span><span>10 минут до Оренбурга</span><span>Готовые дома</span><span>Семейная ипотека</span><span>Закрытая территория</span><span>10 минут до Оренбурга</span></div></div>
+    <p class="lbl in">Готовые дома</p>
+    <div class="sizes in"><div><b>120</b><small>м²</small></div><div><b>138</b><small>м²</small></div><div><b>170</b><small>м²</small></div></div>
+    <a class="cta in" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <p class="tel in">или позвоните <a href="tel:+79228993550">8 (922) 899-35-50</a></p>
+  </div>
+
+  <!-- 2: карточки домов -->
+  <div class="bt b2">
+    <div class="row in"><p class="lbl">Готовые дома</p><em>листайте →</em></div>
+    <div class="cards in">
+      <button class="card on" type="button"><b>120<small>м²</small></b><p>Готовый дом<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></p></button>
+      <button class="card" type="button"><b>138<small>м²</small></b><p>Готовый дом<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></p></button>
+      <button class="card" type="button"><b>170<small>м²</small></b><p>Готовый дом<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></p></button>
+    </div>
+    <a class="cta in" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <p class="tel in">или позвоните <a href="tel:+79228993550">8 (922) 899-35-50</a></p>
+  </div>
+
+  <!-- 3: стеклянная панель -->
+  <div class="bt b3">
+    <div class="sheet in">
+      <p class="lbl">Выберите дом</p>
+      <div class="seg" id="seg"><i class="pill"></i><button class="on" type="button">120<small>м²</small></button><button type="button">138<small>м²</small></button><button type="button">170<small>м²</small></button></div>
+      <div class="facts"><span>Закрытая территория</span><span>10 минут до Оренбурга</span><span>Семейная ипотека</span></div>
+      <a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener"><em id="segTxt" style="font-style:normal">Посмотреть дом 120 м² вживую</em><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+
+  <!-- 4: минимал с круглой кнопкой -->
+  <div class="bt b4">
+    <div class="wrap4 in">
+      <div>
+        <p class="lbl">Готовые дома</p>
+        <p class="big">120 <i>/</i> 138 <i>/</i> 170</p>
+        <p class="sub">м² · семейная ипотека</p>
+      </div>
+      <a class="ring" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener" aria-label="Записаться на экскурсию">
+        <svg class="txt" viewBox="0 0 116 116" aria-hidden="true"><defs><path id="cp" d="M58 58 m-49 0 a49 49 0 1 1 98 0 a49 49 0 1 1 -98 0"/></defs><text><textPath href="#cp" textLength="304" lengthAdjust="spacing">Записаться на экскурсию ·</textPath></text></svg>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    <div class="bar in"><span>Экскурсия по посёлку</span><a href="tel:+79228993550">8 (922) 899-35-50</a></div>
   </div>
 </main>
 
+<div class="vs" id="vs" aria-label="Варианты"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></div>
+
 <script>
 (function () {
-  var d = document.documentElement, t = document.getElementById('title'), h = document.getElementById('hero');
+  var d = document.documentElement, h = document.getElementById('hero'), t = document.getElementById('title'),
+      chips = document.getElementById('chips'), lys = h.querySelectorAll('.ly'), hd = h.querySelector('.hd');
   d.classList.add('js');
-  function fit() { t.style.fontSize = '100px'; t.style.fontSize = (100 * (h.clientWidth - 24) / t.scrollWidth) + 'px'; }
+  var q = new URLSearchParams(location.search);
+  if (q.has('demo') || !/vercel\.app$/.test(location.hostname)) d.classList.add('demo');
+  if (/^[1-4]$/.test(q.get('v'))) h.dataset.v = q.get('v');
+
+  function bt() { return h.querySelector('.b' + h.dataset.v); }
+
+  // всё считается от верха нижнего блока: фото, надпись, плашки
+  function layout() {
+    var W = h.clientWidth, H = h.clientHeight, top = H - bt().offsetHeight;
+    t.style.fontSize = '100px';
+    var fs = 100 * (W - 24) / t.scrollWidth, th = fs * 0.8;
+    var hdB = hd.offsetTop + hd.offsetHeight + 14, roofMin = hdB + th * 0.8;
+    var ground = top + 70;                               // низ фото чуть заходит под нижний блок
+    var bw = Math.max(W * 1.25, ground / 1.15 * 1206 / 1494), bh = bw * 1494 / 1206;
+    if (ground - bh * 0.722 < roofMin) {                 // экран низкий: опускаем дом под нижний блок
+      ground = Math.min(H, roofMin + bh * 0.722);
+      if (ground - bh * 0.722 < roofMin) { bh = Math.max(W * 1.05 * 1494 / 1206, (ground - roofMin) / 0.722); bw = bh * 1206 / 1494; }
+    }
+    var by = ground - bh, bx = W * 0.5 - bw * 0.56;
+    [].forEach.call(lys, function (l) { l.style.width = bw + 'px'; l.style.left = bx + 'px'; l.style.top = by + 'px'; });
+    var roof = by + bh * 0.278;
+    if (roof - th * 0.8 < hdB) { th = Math.max(56, (roof - hdB) / 0.8); fs = th / 0.8; }
+    t.style.fontSize = fs + 'px';
+    t.style.top = Math.max(hdB, roof - th * 0.82) + 'px';
+    chips.style.bottom = (H - top + 12) + 'px';
+  }
+
+  function enter(el, delay) {
+    [].forEach.call(el.querySelectorAll('.in'), function (c, i) { c.style.transitionDelay = (delay + i * .09) + 's'; });
+  }
+
   var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
   Promise.race([ready, new Promise(function (r) { setTimeout(r, 1500); })]).then(function () {
-    fit();
+    layout();
     var base = 1.5;
     [].forEach.call(t.children, function (s, i) { s.style.transitionDelay = (base + i * 0.07) + 's'; });
-    document.querySelector('.hd').style.transitionDelay = (base + .3) + 's';
-    [].forEach.call(document.querySelectorAll('.bt > *'), function (c, i) { c.style.transitionDelay = (base + .45 + i * .09) + 's'; });
-    [].forEach.call(document.querySelectorAll('.chip'), function (c, i) {
+    hd.style.transitionDelay = (base + .3) + 's';
+    enter(bt(), base + .45);
+    [].forEach.call(chips.children, function (c, i) {
       c.style.transitionDelay = (base + 1 + i * .2) + 's';
       setTimeout(function () { c.classList.add('fl'); c.style.animationDelay = (i * 1.2) + 's'; }, (base + 2.1 + i * .2) * 1000);
     });
     requestAnimationFrame(function () { requestAnimationFrame(function () { d.classList.add('ld'); }); });
   });
-  addEventListener('resize', fit);
+  addEventListener('resize', layout);
+
+  // переключение вариантов
+  var vs = document.getElementById('vs').children;
+  [].forEach.call(vs, function (b, i) {
+    if (String(i + 1) === h.dataset.v) { [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on'); }
+    b.addEventListener('click', function () {
+      [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on');
+      h.dataset.v = i + 1; layout();
+      [].forEach.call(bt().querySelectorAll('.in'), function (c, k) { c.style.transitionDelay = ''; c.classList.remove('re'); void c.offsetWidth; c.style.animationDelay = (k * .07) + 's'; c.classList.add('re'); });
+    });
+  });
+
+  // 2: выбор карточки
+  var cards = h.querySelectorAll('.card');
+  [].forEach.call(cards, function (c) { c.addEventListener('click', function () { [].forEach.call(cards, function (x) { x.classList.remove('on'); }); c.classList.add('on'); }); });
+
+  // 3: переключатель площади
+  var seg = document.getElementById('seg'), pill = seg.querySelector('.pill'), sb = seg.querySelectorAll('button'), st = document.getElementById('segTxt');
+  [].forEach.call(sb, function (b, i) { b.addEventListener('click', function () {
+    [].forEach.call(sb, function (x) { x.classList.remove('on'); }); b.classList.add('on');
+    pill.style.transform = 'translateX(' + (i * 100) + '%)';
+    st.textContent = 'Посмотреть дом ' + b.firstChild.nodeValue + ' м² вживую';
+  }); });
 })();
 </script>
 </body>
