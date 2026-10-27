@@ -63,65 +63,31 @@
   .sizes small { font-size: 14px; font-weight: 700; margin-left: 3px; color: #9a6b37; }
 
   /* ===== меню: общее ===== */
-  .menu { position: absolute; inset: 0; z-index: 8; display: none; pointer-events: none; }
-  [data-m="1"] .m1, [data-m="2"] .m2, [data-m="3"] .m3, [data-m="4"] .m4 { display: block; }
+  .menu { position: absolute; inset: 0; z-index: 8; pointer-events: none; }
   .open .menu { pointer-events: auto; }
   .menu li { transition: opacity .5s, transform .6s var(--e); }
   .menu:not(.on) li { opacity: 0; transform: translateY(16px); transition-delay: 0s !important; }
   .mtel { display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
   .mtel a { font-weight: 700; }
 
-  /* 1 — на весь экран, раскрывается кругом от кнопки */
-  .m1 { background: var(--cream); clip-path: circle(0 at calc(100% - 39px) 37px); transition: clip-path .75s cubic-bezier(.7,0,.2,1); padding: 96px 16px max(22px, env(safe-area-inset-bottom)); }
-  .m1.on { clip-path: circle(160% at calc(100% - 39px) 37px); }
-  .m1 .wrap { height: 100%; display: flex; flex-direction: column; }
-  .m1 ul { flex: 1; }
-  .m1 li a { display: flex; align-items: baseline; gap: 14px; padding: 6px 0 4px; border-bottom: 1px solid var(--line); font: 600 44px/1.05 var(--ru); text-transform: uppercase; }
-  .m1 li a small { font: 700 12px Manrope, sans-serif; color: var(--gold); letter-spacing: .08em; width: 20px; }
-  .m1 .mtel { margin-bottom: 12px; color: var(--choc6); }
-  .m1 .mtel a { color: var(--choc); }
-
-  /* 2 — шторка снизу с плитками */
+  /* шторка снизу с бронзовыми плитками */
   .m2 .veil { position: absolute; inset: 0; background: rgba(59,42,32,.22); opacity: 0; transition: opacity .45s; }
   .m2.on .veil { opacity: 1; }
   .m2 .sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 16px max(20px, env(safe-area-inset-bottom)); background: var(--cream); border-radius: 30px 30px 0 0; box-shadow: 0 -18px 40px rgba(59,42,32,.22); transform: translateY(105%); transition: transform .6s cubic-bezier(.3,1.25,.4,1); }
   .m2.on .sheet { transform: none; }
   .m2 .grab { width: 40px; height: 5px; border-radius: 5px; background: var(--line); margin: 0 auto 14px; }
   .m2 ul { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 14px; }
-  .m2 li a { display: flex; flex-direction: column; gap: 18px; padding: 14px; border-radius: 18px; background: var(--cream2); font-weight: 700; font-size: 15px; }
-  .m2 li a i { width: 34px; height: 34px; border-radius: 50%; background: var(--bronze); color: var(--cream); display: grid; place-items: center; }
-  .m2 li a i svg { width: 17px; height: 17px; }
+  .m2 li a { position: relative; overflow: hidden; display: flex; align-items: flex-end; height: 104px; padding: 14px 16px; border-radius: 20px; background: var(--bronze); background-size: 160% 100%; color: var(--cream); font-weight: 700; font-size: 16px; box-shadow: 0 10px 22px rgba(94,61,36,.24); transition: transform .2s; }
+  .m2 li:nth-child(even) a { background-position: 100% 0; }
+  .m2 li a:active { transform: scale(.97); }
+  .m2 li a span { position: relative; }
+  .m2 li a svg { position: absolute; right: -14px; top: -10px; width: 96px; height: 96px; opacity: .26; stroke-width: 1.3; }
+  .m2 li a::after { content: ""; position: absolute; top: 0; bottom: 0; width: 45%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255,240,210,.35), transparent); }
+  .m2.on li a::after { animation: shine 4.5s ease-in-out infinite; }
+  .m2.on li:nth-child(2) a::after { animation-delay: .25s; } .m2.on li:nth-child(3) a::after { animation-delay: .5s; }
+  .m2.on li:nth-child(4) a::after { animation-delay: .75s; } .m2.on li:nth-child(5) a::after { animation-delay: 1s; } .m2.on li:nth-child(6) a::after { animation-delay: 1.25s; }
   .m2 .mtel { margin-bottom: 12px; color: var(--choc6); }
   .m2 .mtel a { color: var(--choc); }
-
-  /* 3 — бронзовая карточка из угла */
-  .m3 .veil { position: absolute; inset: 0; }
-  .m3 .card { position: absolute; top: calc(max(14px, env(safe-area-inset-top)) + 56px); left: 12px; right: 12px; padding: 8px 18px 18px; border-radius: 26px; background: var(--bronze); color: var(--cream); box-shadow: 0 24px 50px rgba(59,42,32,.35); transform-origin: calc(100% - 27px) -20px; transform: scale(.4); opacity: 0; transition: transform .55s var(--e), opacity .35s; }
-  .m3.on .card { transform: none; opacity: 1; }
-  .m3 li a { display: flex; justify-content: space-between; align-items: center; padding: 15px 2px; border-bottom: 1px solid var(--cl); font-weight: 700; font-size: 19px; }
-  .m3 li a svg { width: 18px; height: 18px; opacity: .8; }
-  .m3 .mtel { margin-top: 16px; }
-  .m3 .mtel a { padding: 11px 16px; border-radius: 999px; background: var(--cream); color: var(--choc); font-size: 14px; }
-  .m3 .mtel span { opacity: .8; }
-
-  /* 4 — шоколадная панель справа */
-  .m4 .veil { position: absolute; inset: 0; background: rgba(59,42,32,.28); opacity: 0; transition: opacity .45s; }
-  .m4.on .veil { opacity: 1; }
-  .m4 .side { position: absolute; top: 0; right: 0; bottom: 0; width: 86%; padding: calc(max(14px, env(safe-area-inset-top)) + 78px) 22px max(22px, env(safe-area-inset-bottom)); background: var(--choc); color: var(--cream); display: flex; flex-direction: column; border-radius: 28px 0 0 28px; transform: translateX(102%); transition: transform .65s cubic-bezier(.7,0,.2,1); }
-  .m4.on .side { transform: none; }
-  .m4 .side::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--bronze); border-radius: 28px 0 0 0; }
-  .m4 ul { flex: 1; }
-  .m4 li a { display: flex; align-items: baseline; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--cl); font: 600 34px/1.05 var(--ru); text-transform: uppercase; }
-  .m4 li a small { font: 700 12px Manrope, sans-serif; color: var(--gold); }
-  .m4 .mtel { margin-bottom: 12px; opacity: .85; }
-  .m4 .cta { box-shadow: none; }
-  .open[data-m="4"] .burger, .open[data-m="3"] .burger { background: var(--cream); }
-
-  /* переключатель вариантов (только в демо) */
-  .vs { position: fixed; z-index: 60; left: 50%; transform: translateX(-50%); top: max(23px, calc(env(safe-area-inset-top) + 9px)); display: none; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(59,42,32,.6); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-  .demo .vs { display: flex; }
-  .vs button { width: 28px; height: 28px; border-radius: 50%; font-weight: 700; font-size: 14px; color: var(--cream); }
-  .vs button.on { background: var(--cream); color: var(--choc); }
 
   /* заставка */
   .intro { position: fixed; inset: 0; z-index: 50; background: var(--cream); display: grid; place-items: center; pointer-events: none; clip-path: circle(150% at 50% 50%); }
@@ -147,7 +113,7 @@
 <body>
 <div class="intro" aria-hidden="true"><img src="logo-bronze.png" alt=""></div>
 
-<main class="hero" id="hero" data-m="1">
+<main class="hero" id="hero">
   <div class="ly sky"><img src="sky.webp" alt="" width="1206" height="1494"></div>
   <h1 class="title" id="title" aria-label="Soloviy — коттеджный посёлок под Оренбургом"><span>S</span><span>o</span><span>l</span><span>o</span><span>v</span><span>i</span><span>y</span></h1>
   <div class="ly fg"><img src="house-fg.webp" alt="Двухэтажный дом с террасой в посёлке Soloviy" width="1206" height="1494" fetchpriority="high"></div>
@@ -159,10 +125,7 @@
   </div>
 
   <!-- меню: 4 варианта оформления, пункты вставляет скрипт -->
-  <nav class="menu m1" aria-label="Меню"><div class="wrap"><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p><a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></nav>
   <nav class="menu m2" aria-label="Меню"><div class="veil"></div><div class="sheet"><div class="grab"></div><p class="lbl">Меню</p><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p><a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></nav>
-  <nav class="menu m3" aria-label="Меню"><div class="veil"></div><div class="card"><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p></div></nav>
-  <nav class="menu m4" aria-label="Меню"><div class="veil"></div><div class="side"><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p><a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></nav>
 
   <header class="hd">
     <a class="brand" href="#"><img src="logo-bronze.png" alt="Логотип Soloviy" width="46" height="46"></a>
@@ -171,16 +134,12 @@
   </header>
 </main>
 
-<div class="vs" id="vs" aria-label="Варианты меню"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></div>
 
 <script>
 (function () {
   var d = document.documentElement, h = document.getElementById('hero'), t = document.getElementById('title'),
       lys = h.querySelectorAll('.ly'), hd = h.querySelector('.hd'), bt = document.getElementById('bt');
   d.classList.add('js');
-  var q = new URLSearchParams(location.search);
-  if (q.has('demo') || !/vercel\.app$/.test(location.hostname)) d.classList.add('demo');
-  if (/^[1-4]$/.test(q.get('m'))) h.dataset.m = q.get('m');
 
   // всё считается от верха нижнего блока: фото, надпись
   function layout() {
@@ -217,7 +176,7 @@
   });
   addEventListener('resize', layout);
 
-  // пункты меню — одни на все варианты
+  // пункты меню
   var items = ['Дома', 'Планировки', 'О посёлке', 'Ипотека', 'Экскурсия', 'Контакты'];
   var ico = [
     '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
@@ -227,44 +186,23 @@
     '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'
   ];
-  var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  [].forEach.call(h.querySelectorAll('.menu ul'), function (ul) {
-    var m = ul.closest('.menu').className.match(/m(\d)/)[1];
-    ul.innerHTML = items.map(function (n, i) {
-      var num = '<small>0' + (i + 1) + '</small>';
-      if (m === '1') return '<li><a href="#">' + num + n + '</a></li>';
-      if (m === '2') return '<li><a href="#"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + ico[i] + '</svg></i>' + n + '</a></li>';
-      if (m === '3') return '<li><a href="#">' + n + arrow + '</a></li>';
-      return '<li><a href="#">' + n + num + '</a></li>';
-    }).join('');
-  });
+  h.querySelector('.menu ul').innerHTML = items.map(function (n, i) {
+    return '<li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico[i] + '</svg><span>' + n + '</span></a></li>';
+  }).join('');
 
   // открыть / закрыть
   var burger = document.getElementById('burger');
-  function cur() { return h.querySelector('.m' + h.dataset.m); }
+  function cur() { return h.querySelector('.m2'); }
   function setOpen(on) {
     var m = cur();
     h.classList.toggle('open', on); m.classList.toggle('on', on);
     burger.setAttribute('aria-expanded', on); burger.setAttribute('aria-label', on ? 'Закрыть меню' : 'Открыть меню');
-    var base = { 1: .3, 2: .2, 3: .15, 4: .25 }[h.dataset.m];
+    var base = .2;
     [].forEach.call(m.querySelectorAll('li'), function (li, i) { li.style.transitionDelay = on ? (base + i * .05) + 's' : '0s'; });
   }
   burger.addEventListener('click', function () { setOpen(!h.classList.contains('open')); });
   [].forEach.call(h.querySelectorAll('.menu .veil, .menu li a'), function (el) { el.addEventListener('click', function (e) { if (el.tagName === 'A') e.preventDefault(); setOpen(false); }); });
   addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
-
-  // переключение вариантов меню (демо)
-  var vs = document.getElementById('vs').children;
-  [].forEach.call(vs, function (b, i) {
-    b.classList.toggle('on', String(i + 1) === h.dataset.m);
-    b.addEventListener('click', function () {
-      var was = h.classList.contains('open');
-      if (was) setOpen(false);
-      [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on');
-      h.dataset.m = i + 1;
-      setTimeout(function () { setOpen(true); }, was ? 350 : 30);
-    });
-  });
 })();
 </script>
 </body>
