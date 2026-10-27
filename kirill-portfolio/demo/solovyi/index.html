@@ -9,18 +9,19 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Oswald:wght@600&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="house-fg.webp">
 <style>
   /* цвета взяты с логотипа «Соловьи»: бронзовый круг, шоколадная надпись, тёплое небо */
-  :root { --choc: #3b2a20; --choc6: rgba(59,42,32,.62); --line: rgba(59,42,32,.16); --cream: #f6f0e6; --cream2: #ede4d6;
-          --bronze: linear-gradient(105deg, #5e3d24 0%, #9a6b37 38%, #c79b5c 55%, #8d6034 75%, #4f3220 100%);
-          --e: cubic-bezier(.2,.8,.2,1); --cond: "Big Shoulders Display", Impact, sans-serif; }
+  :root { --choc: #3b2a20; --choc6: rgba(59,42,32,.62); --line: rgba(59,42,32,.14); --cream: #f6f0e6; --cream2: #ede4d6; --cl: rgba(246,240,230,.2);
+          --bronze: linear-gradient(105deg, #5e3d24 0%, #9a6b37 38%, #c79b5c 55%, #8d6034 75%, #4f3220 100%); --gold: #b5884c;
+          --e: cubic-bezier(.2,.8,.2,1); --cond: "Big Shoulders Display", Impact, sans-serif; --ru: Oswald, "Arial Narrow", sans-serif; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; }
   body { background: var(--cream); color: var(--choc); font: 500 15px/1.45 Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a, button { color: inherit; text-decoration: none; font: inherit; }
-  button { background: none; border: 0; cursor: pointer; }
+  button { background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  ul { list-style: none; }
 
   .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; background: linear-gradient(rgb(185,189,198) 50%, var(--cream) 50%); }
   /* положение фото и надписи считает скрипт — от нижнего блока, чтобы ничего не наезжало */
@@ -32,14 +33,22 @@
   .title span { display: inline-block; }
   .fg { z-index: 2; }
 
-  .hd { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: max(14px, env(safe-area-inset-top)) 16px 0; }
+  /* шапка */
+  .hd { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 8px; padding: max(14px, env(safe-area-inset-top)) 16px 0; }
+  .brand { margin-right: auto; }
   .brand img { width: 46px; height: 46px; display: block; border-radius: 50%; box-shadow: 0 4px 14px rgba(59,42,32,.25); }
-  .call { width: 46px; height: 46px; border-radius: 50%; background: var(--bronze); color: var(--cream); display: grid; place-items: center; box-shadow: 0 4px 14px rgba(59,42,32,.25); }
+  .call, .burger { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(59,42,32,.2); }
+  .call { background: var(--bronze); color: var(--cream); }
   .call svg { width: 19px; height: 19px; }
+  .burger { position: relative; background: var(--cream); }
+  .burger i { position: absolute; left: 14px; right: 14px; height: 2px; border-radius: 2px; background: var(--choc); transition: transform .45s var(--e), background .3s; }
+  .burger i:first-child { transform: translateY(-4px); }
+  .burger i:last-child { transform: translateY(4px); }
+  .open .burger i:first-child { transform: rotate(45deg); }
+  .open .burger i:last-child { transform: rotate(-45deg); }
 
   /* нижний блок — кремовая панель */
-  .bt { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 20px 16px max(22px, env(safe-area-inset-bottom)); display: none; background: var(--cream); border-radius: 26px 26px 0 0; box-shadow: 0 -12px 34px rgba(59,42,32,.16); }
-  [data-v="1"] .b1, [data-v="2"] .b2, [data-v="3"] .b3, [data-v="4"] .b4 { display: block; }
+  .bt { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 20px 16px max(22px, env(safe-area-inset-bottom)); background: var(--cream); border-radius: 26px 26px 0 0; box-shadow: 0 -12px 34px rgba(59,42,32,.16); }
   .lbl { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--choc6); }
   .cta { position: relative; overflow: hidden; height: 60px; border-radius: 18px; background: var(--bronze); color: var(--cream); display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 20px; font-weight: 700; font-size: 16px; transition: transform .2s; box-shadow: 0 10px 24px rgba(94,61,36,.28); }
   .cta:active { transform: scale(.98); }
@@ -47,53 +56,69 @@
   .cta svg { width: 18px; height: 18px; }
   .cta::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255,240,210,.35), transparent); animation: shine 4.5s 3s ease-in-out infinite; }
   @keyframes shine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
-
-  /* 1 — крупные цифры */
   .sizes { display: flex; align-items: flex-end; margin: 6px 0 18px; }
   .sizes div { flex: 1; }
   .sizes div + div { padding-left: 14px; border-left: 1px solid var(--line); margin-left: 14px; }
   .sizes b { font: 800 52px/.9 var(--cond); }
   .sizes small { font-size: 14px; font-weight: 700; margin-left: 3px; color: #9a6b37; }
 
-  /* 2 — карточки домов, листаются */
-  .b2 .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
-  .b2 .row em { font-style: normal; font-size: 13px; color: var(--choc6); }
-  .cards { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px 14px; padding: 0 16px; scrollbar-width: none; }
-  .cards::-webkit-scrollbar { display: none; }
-  .card { flex: 0 0 42%; scroll-snap-align: start; border-radius: 20px; padding: 14px 14px 12px; background: var(--cream2); text-align: left; transition: color .35s, transform .35s var(--e); position: relative; overflow: hidden; }
-  .card::before { content: ""; position: absolute; inset: 0; background: var(--bronze); opacity: 0; transition: opacity .35s; }
-  .card > * { position: relative; }
-  .card b { display: block; font: 800 50px/.85 var(--cond); }
-  .card b small { font: 700 14px Manrope, sans-serif; margin-left: 3px; }
-  .card p { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; }
-  .card p i { width: 26px; height: 26px; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; }
-  .card p i svg { width: 12px; height: 12px; }
-  .card.on { color: var(--cream); }
-  .card.on::before { opacity: 1; }
-  .card:active { transform: scale(.97); }
+  /* ===== меню: общее ===== */
+  .menu { position: absolute; inset: 0; z-index: 8; display: none; pointer-events: none; }
+  [data-m="1"] .m1, [data-m="2"] .m2, [data-m="3"] .m3, [data-m="4"] .m4 { display: block; }
+  .open .menu { pointer-events: auto; }
+  .menu li { transition: opacity .5s, transform .6s var(--e); }
+  .menu:not(.on) li { opacity: 0; transform: translateY(16px); transition-delay: 0s !important; }
+  .mtel { display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+  .mtel a { font-weight: 700; }
 
-  /* 3 — переключатель площади */
-  .seg { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 16px; background: var(--cream2); margin: 8px 0 14px; }
-  .seg .pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 3); border-radius: 12px; background: var(--bronze); transition: transform .5s var(--e); }
-  .seg button { position: relative; height: 50px; font: 800 30px/1 var(--cond); transition: color .35s; }
-  .seg button small { font: 700 12px Manrope, sans-serif; margin-left: 2px; }
-  .seg button.on { color: var(--cream); }
+  /* 1 — на весь экран, раскрывается кругом от кнопки */
+  .m1 { background: var(--cream); clip-path: circle(0 at calc(100% - 39px) 37px); transition: clip-path .75s cubic-bezier(.7,0,.2,1); padding: 96px 16px max(22px, env(safe-area-inset-bottom)); }
+  .m1.on { clip-path: circle(160% at calc(100% - 39px) 37px); }
+  .m1 .wrap { height: 100%; display: flex; flex-direction: column; }
+  .m1 ul { flex: 1; }
+  .m1 li a { display: flex; align-items: baseline; gap: 14px; padding: 6px 0 4px; border-bottom: 1px solid var(--line); font: 600 44px/1.05 var(--ru); text-transform: uppercase; }
+  .m1 li a small { font: 700 12px Manrope, sans-serif; color: var(--gold); letter-spacing: .08em; width: 20px; }
+  .m1 .mtel { margin-bottom: 12px; color: var(--choc6); }
+  .m1 .mtel a { color: var(--choc); }
 
-  /* 4 — минимал с круглой кнопкой */
-  .b4 .wrap4 { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .b4 .big { font: 800 46px/.9 var(--cond); margin: 6px 0 4px; white-space: nowrap; }
-  .b4 .big i { font-style: normal; color: #c79b5c; }
-  .b4 .sub { font-size: 13px; color: var(--choc6); }
-  .ring { position: relative; flex: none; width: 116px; height: 116px; border-radius: 50%; display: grid; place-items: center; }
-  .ring svg.txt { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 14s linear infinite; }
-  .ring svg.txt text { fill: #8d6034; font: 700 10.4px Manrope, sans-serif; text-transform: uppercase; }
-  .ring span { width: 66px; height: 66px; border-radius: 50%; background: var(--bronze); color: var(--cream); display: grid; place-items: center; transition: transform .35s var(--e); box-shadow: 0 8px 20px rgba(94,61,36,.3); }
-  .ring span svg { width: 24px; height: 24px; transform: rotate(-45deg); }
-  .ring:active span { transform: scale(.92); }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  /* 2 — шторка снизу с плитками */
+  .m2 .veil { position: absolute; inset: 0; background: rgba(59,42,32,.22); opacity: 0; transition: opacity .45s; }
+  .m2.on .veil { opacity: 1; }
+  .m2 .sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 16px max(20px, env(safe-area-inset-bottom)); background: var(--cream); border-radius: 30px 30px 0 0; box-shadow: 0 -18px 40px rgba(59,42,32,.22); transform: translateY(105%); transition: transform .6s cubic-bezier(.3,1.25,.4,1); }
+  .m2.on .sheet { transform: none; }
+  .m2 .grab { width: 40px; height: 5px; border-radius: 5px; background: var(--line); margin: 0 auto 14px; }
+  .m2 ul { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 14px; }
+  .m2 li a { display: flex; flex-direction: column; gap: 18px; padding: 14px; border-radius: 18px; background: var(--cream2); font-weight: 700; font-size: 15px; }
+  .m2 li a i { width: 34px; height: 34px; border-radius: 50%; background: var(--bronze); color: var(--cream); display: grid; place-items: center; }
+  .m2 li a i svg { width: 17px; height: 17px; }
+  .m2 .mtel { margin-bottom: 12px; color: var(--choc6); }
+  .m2 .mtel a { color: var(--choc); }
+
+  /* 3 — бронзовая карточка из угла */
+  .m3 .veil { position: absolute; inset: 0; }
+  .m3 .card { position: absolute; top: calc(max(14px, env(safe-area-inset-top)) + 56px); left: 12px; right: 12px; padding: 8px 18px 18px; border-radius: 26px; background: var(--bronze); color: var(--cream); box-shadow: 0 24px 50px rgba(59,42,32,.35); transform-origin: calc(100% - 27px) -20px; transform: scale(.4); opacity: 0; transition: transform .55s var(--e), opacity .35s; }
+  .m3.on .card { transform: none; opacity: 1; }
+  .m3 li a { display: flex; justify-content: space-between; align-items: center; padding: 15px 2px; border-bottom: 1px solid var(--cl); font-weight: 700; font-size: 19px; }
+  .m3 li a svg { width: 18px; height: 18px; opacity: .8; }
+  .m3 .mtel { margin-top: 16px; }
+  .m3 .mtel a { padding: 11px 16px; border-radius: 999px; background: var(--cream); color: var(--choc); font-size: 14px; }
+  .m3 .mtel span { opacity: .8; }
+
+  /* 4 — шоколадная панель справа */
+  .m4 .veil { position: absolute; inset: 0; background: rgba(59,42,32,.28); opacity: 0; transition: opacity .45s; }
+  .m4.on .veil { opacity: 1; }
+  .m4 .side { position: absolute; top: 0; right: 0; bottom: 0; width: 86%; padding: calc(max(14px, env(safe-area-inset-top)) + 78px) 22px max(22px, env(safe-area-inset-bottom)); background: var(--choc); color: var(--cream); display: flex; flex-direction: column; border-radius: 28px 0 0 28px; transform: translateX(102%); transition: transform .65s cubic-bezier(.7,0,.2,1); }
+  .m4.on .side { transform: none; }
+  .m4 .side::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--bronze); border-radius: 28px 0 0 0; }
+  .m4 ul { flex: 1; }
+  .m4 li a { display: flex; align-items: baseline; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--cl); font: 600 34px/1.05 var(--ru); text-transform: uppercase; }
+  .m4 li a small { font: 700 12px Manrope, sans-serif; color: var(--gold); }
+  .m4 .mtel { margin-bottom: 12px; opacity: .85; }
+  .m4 .cta { box-shadow: none; }
+  .open[data-m="4"] .burger, .open[data-m="3"] .burger { background: var(--cream); }
 
   /* переключатель вариантов (только в демо) */
-  .vs { position: fixed; z-index: 60; right: 70px; top: max(20px, calc(env(safe-area-inset-top) + 6px)); display: none; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(59,42,32,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .vs { position: fixed; z-index: 60; left: 50%; transform: translateX(-50%); top: max(23px, calc(env(safe-area-inset-top) + 9px)); display: none; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(59,42,32,.6); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
   .demo .vs { display: flex; }
   .vs button { width: 28px; height: 28px; border-radius: 50%; font-weight: 700; font-size: 14px; color: var(--cream); }
   .vs button.on { background: var(--cream); color: var(--choc); }
@@ -114,8 +139,6 @@
   .ld .bt .in, .ld .hd { opacity: 1; filter: blur(0); transform: none; transition: opacity .9s, filter .9s, transform 1s var(--e); }
   .ld .bt { transform: none; transition: transform 1.1s var(--e) 1.7s; }
   .ld .ly { scale: 1; transition: scale 2.6s var(--e) .9s; }
-  .bt .in.re { animation: re .7s var(--e) both; }
-  @keyframes re { from { opacity: 0; filter: blur(10px); transform: translateY(18px); } }
   @media (prefers-reduced-motion: reduce) { .intro { display: none; } .js *, .js *::after { transition: none !important; animation: none !important; filter: none !important; opacity: 1 !important; } .js .title span, .js .bt, .js .bt .in, .js .hd { transform: none !important; } .js .ly { scale: 1 !important; } }
 
   @media (min-width: 700px) { .hero { max-width: 480px; margin: 0 auto; } }
@@ -124,75 +147,44 @@
 <body>
 <div class="intro" aria-hidden="true"><img src="logo-bronze.png" alt=""></div>
 
-<main class="hero" id="hero" data-v="1">
+<main class="hero" id="hero" data-m="1">
   <div class="ly sky"><img src="sky.webp" alt="" width="1206" height="1494"></div>
   <h1 class="title" id="title" aria-label="Soloviy — коттеджный посёлок под Оренбургом"><span>S</span><span>o</span><span>l</span><span>o</span><span>v</span><span>i</span><span>y</span></h1>
   <div class="ly fg"><img src="house-fg.webp" alt="Двухэтажный дом с террасой в посёлке Soloviy" width="1206" height="1494" fetchpriority="high"></div>
 
-  <header class="hd">
-    <a class="brand" href="#"><img src="logo-bronze.png" alt="Логотип Soloviy" width="44" height="44"></a>
-    <a class="call" href="tel:+79228993550" aria-label="Позвонить 8 (922) 899-35-50"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
-  </header>
-
-  <!-- 1: бегущая строка + цифры -->
-  <div class="bt b1">
+  <div class="bt" id="bt">
     <p class="lbl in">Готовые дома</p>
     <div class="sizes in"><div><b>120</b><small>м²</small></div><div><b>138</b><small>м²</small></div><div><b>170</b><small>м²</small></div></div>
     <a class="cta in" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   </div>
 
-  <!-- 2: карточки домов -->
-  <div class="bt b2">
-    <div class="row in"><p class="lbl">Готовые дома</p><em>листайте →</em></div>
-    <div class="cards in">
-      <button class="card on" type="button"><b>120<small>м²</small></b><p>Готовый дом<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></p></button>
-      <button class="card" type="button"><b>138<small>м²</small></b><p>Готовый дом<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></p></button>
-      <button class="card" type="button"><b>170<small>м²</small></b><p>Готовый дом<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></i></p></button>
-    </div>
-    <a class="cta in" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  </div>
+  <!-- меню: 4 варианта оформления, пункты вставляет скрипт -->
+  <nav class="menu m1" aria-label="Меню"><div class="wrap"><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p><a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></nav>
+  <nav class="menu m2" aria-label="Меню"><div class="veil"></div><div class="sheet"><div class="grab"></div><p class="lbl">Меню</p><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p><a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></nav>
+  <nav class="menu m3" aria-label="Меню"><div class="veil"></div><div class="card"><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p></div></nav>
+  <nav class="menu m4" aria-label="Меню"><div class="veil"></div><div class="side"><ul></ul><p class="mtel"><span>Отдел продаж</span><a href="tel:+79228993550">8 (922) 899-35-50</a></p><a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener">Записаться на экскурсию<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></nav>
 
-  <!-- 3: стеклянная панель -->
-  <div class="bt b3">
-    <div class="sheet in">
-      <p class="lbl">Выберите дом</p>
-      <div class="seg" id="seg"><i class="pill"></i><button class="on" type="button">120<small>м²</small></button><button type="button">138<small>м²</small></button><button type="button">170<small>м²</small></button></div>
-      <a class="cta" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener"><em id="segTxt" style="font-style:normal">Посмотреть дом 120 м² вживую</em><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-    </div>
-  </div>
-
-  <!-- 4: минимал с круглой кнопкой -->
-  <div class="bt b4">
-    <div class="wrap4 in">
-      <div>
-        <p class="lbl">Готовые дома</p>
-        <p class="big">120 <i>/</i> 138 <i>/</i> 170</p>
-        <p class="sub">м² · семейная ипотека</p>
-      </div>
-      <a class="ring" href="https://t.me/ElenaYurevna13" target="_blank" rel="noopener" aria-label="Записаться на экскурсию">
-        <svg class="txt" viewBox="0 0 116 116" aria-hidden="true"><defs><path id="cp" d="M58 58 m-49 0 a49 49 0 1 1 98 0 a49 49 0 1 1 -98 0"/></defs><text><textPath href="#cp" textLength="304" lengthAdjust="spacing">Записаться на экскурсию ·</textPath></text></svg>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-    </div>
-  </div>
+  <header class="hd">
+    <a class="brand" href="#"><img src="logo-bronze.png" alt="Логотип Soloviy" width="46" height="46"></a>
+    <a class="call" href="tel:+79228993550" aria-label="Позвонить 8 (922) 899-35-50"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
+    <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><i></i><i></i></button>
+  </header>
 </main>
 
-<div class="vs" id="vs" aria-label="Варианты"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></div>
+<div class="vs" id="vs" aria-label="Варианты меню"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></div>
 
 <script>
 (function () {
   var d = document.documentElement, h = document.getElementById('hero'), t = document.getElementById('title'),
-      lys = h.querySelectorAll('.ly'), hd = h.querySelector('.hd');
+      lys = h.querySelectorAll('.ly'), hd = h.querySelector('.hd'), bt = document.getElementById('bt');
   d.classList.add('js');
   var q = new URLSearchParams(location.search);
   if (q.has('demo') || !/vercel\.app$/.test(location.hostname)) d.classList.add('demo');
-  if (/^[1-4]$/.test(q.get('v'))) h.dataset.v = q.get('v');
+  if (/^[1-4]$/.test(q.get('m'))) h.dataset.m = q.get('m');
 
-  function bt() { return h.querySelector('.b' + h.dataset.v); }
-
-  // всё считается от верха нижнего блока: фото, надпись, плашки
+  // всё считается от верха нижнего блока: фото, надпись
   function layout() {
-    var W = h.clientWidth, H = h.clientHeight, top = H - bt().offsetHeight;
+    var W = h.clientWidth, H = h.clientHeight, top = H - bt.offsetHeight;
     t.style.fontSize = '100px';
     var fs = 100 * (W - 24) / t.scrollWidth, th = fs * 0.8;
     var hdB = hd.offsetTop + hd.offsetHeight + Math.max(28, H * 0.06), roofMin = hdB + th * 0.8;
@@ -214,43 +206,65 @@
     t.style.top = Math.max(hdB, roof - th * 0.82) + 'px';
   }
 
-  function enter(el, delay) {
-    [].forEach.call(el.querySelectorAll('.in'), function (c, i) { c.style.transitionDelay = (delay + i * .09) + 's'; });
-  }
-
   var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
   Promise.race([ready, new Promise(function (r) { setTimeout(r, 1500); })]).then(function () {
     layout();
     var base = 1.5;
     [].forEach.call(t.children, function (s, i) { s.style.transitionDelay = (base + i * 0.07) + 's'; });
     hd.style.transitionDelay = (base + .3) + 's';
-    enter(bt(), base + .45);
+    [].forEach.call(bt.querySelectorAll('.in'), function (c, i) { c.style.transitionDelay = (base + .75 + i * .09) + 's'; });
     requestAnimationFrame(function () { requestAnimationFrame(function () { d.classList.add('ld'); }); });
   });
   addEventListener('resize', layout);
 
-  // переключение вариантов
-  var vs = document.getElementById('vs').children;
-  [].forEach.call(vs, function (b, i) {
-    if (String(i + 1) === h.dataset.v) { [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on'); }
-    b.addEventListener('click', function () {
-      [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on');
-      h.dataset.v = i + 1; layout();
-      [].forEach.call(bt().querySelectorAll('.in'), function (c, k) { c.style.transitionDelay = ''; c.classList.remove('re'); void c.offsetWidth; c.style.animationDelay = (k * .07) + 's'; c.classList.add('re'); });
-    });
+  // пункты меню — одни на все варианты
+  var items = ['Дома', 'Планировки', 'О посёлке', 'Ипотека', 'Экскурсия', 'Контакты'];
+  var ico = [
+    '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h9M12 3v18"/>',
+    '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    '<path d="M4 20h16M6 20V10M18 20V10M3 10l9-6 9 6"/><path d="M10 20v-5h4v5"/>',
+    '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'
+  ];
+  var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  [].forEach.call(h.querySelectorAll('.menu ul'), function (ul) {
+    var m = ul.closest('.menu').className.match(/m(\d)/)[1];
+    ul.innerHTML = items.map(function (n, i) {
+      var num = '<small>0' + (i + 1) + '</small>';
+      if (m === '1') return '<li><a href="#">' + num + n + '</a></li>';
+      if (m === '2') return '<li><a href="#"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + ico[i] + '</svg></i>' + n + '</a></li>';
+      if (m === '3') return '<li><a href="#">' + n + arrow + '</a></li>';
+      return '<li><a href="#">' + n + num + '</a></li>';
+    }).join('');
   });
 
-  // 2: выбор карточки
-  var cards = h.querySelectorAll('.card');
-  [].forEach.call(cards, function (c) { c.addEventListener('click', function () { [].forEach.call(cards, function (x) { x.classList.remove('on'); }); c.classList.add('on'); }); });
+  // открыть / закрыть
+  var burger = document.getElementById('burger');
+  function cur() { return h.querySelector('.m' + h.dataset.m); }
+  function setOpen(on) {
+    var m = cur();
+    h.classList.toggle('open', on); m.classList.toggle('on', on);
+    burger.setAttribute('aria-expanded', on); burger.setAttribute('aria-label', on ? 'Закрыть меню' : 'Открыть меню');
+    var base = { 1: .3, 2: .2, 3: .15, 4: .25 }[h.dataset.m];
+    [].forEach.call(m.querySelectorAll('li'), function (li, i) { li.style.transitionDelay = on ? (base + i * .05) + 's' : '0s'; });
+  }
+  burger.addEventListener('click', function () { setOpen(!h.classList.contains('open')); });
+  [].forEach.call(h.querySelectorAll('.menu .veil, .menu li a'), function (el) { el.addEventListener('click', function (e) { if (el.tagName === 'A') e.preventDefault(); setOpen(false); }); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
 
-  // 3: переключатель площади
-  var seg = document.getElementById('seg'), pill = seg.querySelector('.pill'), sb = seg.querySelectorAll('button'), st = document.getElementById('segTxt');
-  [].forEach.call(sb, function (b, i) { b.addEventListener('click', function () {
-    [].forEach.call(sb, function (x) { x.classList.remove('on'); }); b.classList.add('on');
-    pill.style.transform = 'translateX(' + (i * 100) + '%)';
-    st.textContent = 'Посмотреть дом ' + b.firstChild.nodeValue + ' м² вживую';
-  }); });
+  // переключение вариантов меню (демо)
+  var vs = document.getElementById('vs').children;
+  [].forEach.call(vs, function (b, i) {
+    b.classList.toggle('on', String(i + 1) === h.dataset.m);
+    b.addEventListener('click', function () {
+      var was = h.classList.contains('open');
+      if (was) setOpen(false);
+      [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on');
+      h.dataset.m = i + 1;
+      setTimeout(function () { setOpen(true); }, was ? 350 : 30);
+    });
+  });
 })();
 </script>
 </body>
