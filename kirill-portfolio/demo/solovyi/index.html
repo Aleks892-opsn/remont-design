@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#f6f0e6">
 <title>Soloviy — коттеджный посёлок под Оренбургом</title>
 <meta name="description" content="Готовые дома 120, 138 и 170 м² в закрытом посёлке в 10 минутах от Оренбурга. Семейная ипотека. Запись на экскурсию.">
 <meta name="robots" content="noindex">
@@ -12,159 +12,125 @@
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="house-fg.webp">
 <style>
-  :root { --ink: #0b0b0b; --w: #fff; --w7: rgba(255,255,255,.72); --line: rgba(255,255,255,.22); --glass: rgba(14,14,14,.42); --e: cubic-bezier(.2,.8,.2,1); --cond: "Big Shoulders Display", Impact, sans-serif; }
+  /* цвета взяты с логотипа «Соловьи»: бронзовый круг, шоколадная надпись, тёплое небо */
+  :root { --choc: #3b2a20; --choc6: rgba(59,42,32,.62); --line: rgba(59,42,32,.16); --cream: #f6f0e6; --cream2: #ede4d6;
+          --bronze: linear-gradient(105deg, #5e3d24 0%, #9a6b37 38%, #c79b5c 55%, #8d6034 75%, #4f3220 100%);
+          --e: cubic-bezier(.2,.8,.2,1); --cond: "Big Shoulders Display", Impact, sans-serif; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; }
-  body { background: #000; color: var(--w); font: 500 15px/1.45 Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { background: var(--cream); color: var(--choc); font: 500 15px/1.45 Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a, button { color: inherit; text-decoration: none; font: inherit; }
   button { background: none; border: 0; cursor: pointer; }
 
-  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; background: linear-gradient(rgb(185,189,198) 50%, #000 50%); }
-  /* положение фото, надписи и плашек считает скрипт — от нижнего блока, чтобы ничего не наезжало */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; isolation: isolate; background: linear-gradient(rgb(185,189,198) 50%, var(--cream) 50%); }
+  /* положение фото и надписи считает скрипт — от нижнего блока, чтобы ничего не наезжало */
   .ly { position: absolute; aspect-ratio: 1206 / 1494; will-change: transform; }
   .ly img { width: 100%; height: 100%; display: block; }
   .sky img { animation: drift 26s ease-in-out infinite alternate; }
   @keyframes drift { from { transform: scale(1.06) translateX(-2.2%); } to { transform: scale(1.06) translateX(2.2%); } }
-  .dim { position: absolute; inset: 0; background: linear-gradient(rgba(8,8,8,.62), rgba(8,8,8,.36) 30%, rgba(8,8,8,0) 52%); }
-  .title { position: absolute; z-index: 1; left: 50%; top: 0; width: max-content; transform: translateX(-50%); font: 800 100px/.8 var(--cond); text-transform: uppercase; white-space: nowrap; }
+  .title { position: absolute; z-index: 1; left: 50%; top: 0; width: max-content; transform: translateX(-50%); font: 800 100px/.8 var(--cond); text-transform: uppercase; white-space: nowrap; color: var(--choc); }
   .title span { display: inline-block; }
   .fg { z-index: 2; }
-  /* фон: 0 — фото как есть, a — фон затемнён и дом подсвечен, b — только вырезанный дом на чёрном */
-  .cut, .dark { display: none; }
-  .cut img { -webkit-mask-image: linear-gradient(#000 66%, transparent 73%); mask-image: linear-gradient(#000 66%, transparent 73%); }
-  [data-bg="a"] .fg { z-index: 0; }
-  [data-bg="a"] .dark { display: block; position: absolute; inset: 0; z-index: 1; background: rgba(0,0,0,.36); }
-  [data-bg="a"] .title, [data-bg="b"] .title { z-index: 2; }
-  [data-bg="a"] .cut, [data-bg="b"] .cut { display: block; z-index: 3; }
-  [data-bg="b"] { background: radial-gradient(120% 60% at 50% 48%, #2b2b2b, #0a0a0a 60%, #000); }
-  [data-bg="b"] .sky, [data-bg="b"] .fg, [data-bg="b"] .dim { display: none; }
-  [data-bg="b"] .cut img { filter: drop-shadow(0 30px 40px rgba(0,0,0,.7)); }
 
   .hd { position: absolute; z-index: 10; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: max(14px, env(safe-area-inset-top)) 16px 0; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 11px; line-height: 1.3; letter-spacing: .16em; text-transform: uppercase; }
-  .brand img { width: 44px; height: 44px; display: block; border-radius: 50%; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
-  .call { width: 44px; height: 44px; border-radius: 50%; background: var(--w); color: var(--ink); display: grid; place-items: center; }
+  .brand img { width: 46px; height: 46px; display: block; border-radius: 50%; box-shadow: 0 4px 14px rgba(59,42,32,.25); }
+  .call { width: 46px; height: 46px; border-radius: 50%; background: var(--bronze); color: var(--cream); display: grid; place-items: center; box-shadow: 0 4px 14px rgba(59,42,32,.25); }
   .call svg { width: 19px; height: 19px; }
 
-  .chips { position: absolute; z-index: 6; left: 14px; right: 14px; display: flex; flex-direction: column; gap: 8px; }
-  .chip { display: flex; align-items: center; gap: 8px; width: max-content; padding: 8px 13px 8px 8px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); font-size: 13px; font-weight: 600; white-space: nowrap; }
-  .chip:first-child { align-self: flex-end; }
-  .chip i { width: 24px; height: 24px; border-radius: 50%; background: var(--w); color: var(--ink); display: grid; place-items: center; flex: none; }
-  .chip i svg { width: 13px; height: 13px; }
-  [data-v="3"] .chips { display: none; }
-
-  /* нижний блок, общее */
-  .bt { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 0 16px max(22px, env(safe-area-inset-bottom)); display: none; }
-  .bt::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; top: -170px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.55) 35%, rgba(0,0,0,.92) 62%, #000); pointer-events: none; }
+  /* нижний блок — кремовая панель */
+  .bt { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 20px 16px max(22px, env(safe-area-inset-bottom)); display: none; background: var(--cream); border-radius: 26px 26px 0 0; box-shadow: 0 -12px 34px rgba(59,42,32,.16); }
   [data-v="1"] .b1, [data-v="2"] .b2, [data-v="3"] .b3, [data-v="4"] .b4 { display: block; }
-  .lbl { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--w7); }
-  .cta { position: relative; overflow: hidden; height: 60px; border-radius: 18px; background: var(--w); color: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 20px; font-weight: 700; font-size: 16px; transition: transform .2s; }
+  .lbl { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--choc6); }
+  .cta { position: relative; overflow: hidden; height: 60px; border-radius: 18px; background: var(--bronze); color: var(--cream); display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 20px; font-weight: 700; font-size: 16px; transition: transform .2s; box-shadow: 0 10px 24px rgba(94,61,36,.28); }
   .cta:active { transform: scale(.98); }
-  .cta > span { width: 44px; height: 44px; border-radius: 13px; background: var(--ink); color: var(--w); display: grid; place-items: center; flex: none; }
+  .cta > span { width: 44px; height: 44px; border-radius: 13px; background: var(--cream); color: var(--choc); display: grid; place-items: center; flex: none; }
   .cta svg { width: 18px; height: 18px; }
-  .cta::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(0,0,0,.08), transparent); animation: shine 4.5s 3s ease-in-out infinite; }
+  .cta::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255,240,210,.35), transparent); animation: shine 4.5s 3s ease-in-out infinite; }
   @keyframes shine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
-  .tel { margin-top: 12px; text-align: center; font-size: 14px; color: var(--w7); }
-  .tel a { color: var(--w); font-weight: 700; }
 
-  /* 1 — бегущая строка и крупные цифры */
-  .run { overflow: hidden; margin: 0 -16px 16px; padding: 9px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--w7); }
-  .run div { display: flex; width: max-content; animation: run 22s linear infinite; }
-  .run span { padding-right: 22px; }
-  .run span::after { content: "✦"; padding-left: 22px; color: var(--w); }
-  @keyframes run { to { transform: translateX(-50%); } }
+  /* 1 — крупные цифры */
   .sizes { display: flex; align-items: flex-end; margin: 6px 0 18px; }
   .sizes div { flex: 1; }
-  .sizes div + div { padding-left: 14px; border-left: 1px solid rgba(255,255,255,.28); margin-left: 14px; }
+  .sizes div + div { padding-left: 14px; border-left: 1px solid var(--line); margin-left: 14px; }
   .sizes b { font: 800 52px/.9 var(--cond); }
-  .sizes small { font-size: 14px; font-weight: 600; margin-left: 3px; color: var(--w7); }
+  .sizes small { font-size: 14px; font-weight: 700; margin-left: 3px; color: #9a6b37; }
 
   /* 2 — карточки домов, листаются */
   .b2 .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
-  .b2 .row em { font-style: normal; font-size: 13px; color: var(--w7); }
+  .b2 .row em { font-style: normal; font-size: 13px; color: var(--choc6); }
   .cards { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px 14px; padding: 0 16px; scrollbar-width: none; }
   .cards::-webkit-scrollbar { display: none; }
-  .card { flex: 0 0 42%; scroll-snap-align: start; border-radius: 20px; padding: 14px 14px 12px; background: var(--glass); border: 1px solid var(--line); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); text-align: left; transition: background .35s, color .35s, transform .35s var(--e); }
+  .card { flex: 0 0 42%; scroll-snap-align: start; border-radius: 20px; padding: 14px 14px 12px; background: var(--cream2); text-align: left; transition: color .35s, transform .35s var(--e); position: relative; overflow: hidden; }
+  .card::before { content: ""; position: absolute; inset: 0; background: var(--bronze); opacity: 0; transition: opacity .35s; }
+  .card > * { position: relative; }
   .card b { display: block; font: 800 50px/.85 var(--cond); }
-  .card b small { font: 600 14px Manrope, sans-serif; margin-left: 3px; }
+  .card b small { font: 700 14px Manrope, sans-serif; margin-left: 3px; }
   .card p { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; }
   .card p i { width: 26px; height: 26px; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; }
   .card p i svg { width: 12px; height: 12px; }
-  .card.on { background: var(--w); color: var(--ink); }
-  .card.on:active, .card:active { transform: scale(.97); }
+  .card.on { color: var(--cream); }
+  .card.on::before { opacity: 1; }
+  .card:active { transform: scale(.97); }
 
-  /* 3 — стеклянная панель с переключателем */
-  .b3 { padding-bottom: 0; }
-  .b3::before { top: -120px; }
-  .sheet { margin: 0 -16px; padding: 18px 16px max(18px, env(safe-area-inset-bottom)); border-radius: 28px 28px 0 0; background: rgba(20,20,20,.5); border-top: 1px solid var(--line); -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%); }
-  .facts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; font-weight: 600; margin: 8px 0 14px; }
-  .facts span { display: flex; align-items: center; gap: 6px; }
-  .facts span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--w); }
-  .seg { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 16px; background: rgba(255,255,255,.1); margin-bottom: 12px; }
-  .seg .pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 3); border-radius: 12px; background: var(--w); transition: transform .5s var(--e); }
+  /* 3 — переключатель площади */
+  .seg { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 16px; background: var(--cream2); margin: 8px 0 14px; }
+  .seg .pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 3); border-radius: 12px; background: var(--bronze); transition: transform .5s var(--e); }
   .seg button { position: relative; height: 50px; font: 800 30px/1 var(--cond); transition: color .35s; }
-  .seg button small { font: 600 12px Manrope, sans-serif; margin-left: 2px; }
-  .seg button.on { color: var(--ink); }
+  .seg button small { font: 700 12px Manrope, sans-serif; margin-left: 2px; }
+  .seg button.on { color: var(--cream); }
 
   /* 4 — минимал с круглой кнопкой */
-  .b4 .wrap4 { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 4px; }
+  .b4 .wrap4 { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .b4 .big { font: 800 46px/.9 var(--cond); margin: 6px 0 4px; white-space: nowrap; }
-  .b4 .big i { font-style: normal; color: rgba(255,255,255,.4); }
-  .b4 .sub { font-size: 13px; color: var(--w7); }
+  .b4 .big i { font-style: normal; color: #c79b5c; }
+  .b4 .sub { font-size: 13px; color: var(--choc6); }
   .ring { position: relative; flex: none; width: 116px; height: 116px; border-radius: 50%; display: grid; place-items: center; }
   .ring svg.txt { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 14s linear infinite; }
-  .ring svg.txt text { fill: #fff; font: 700 10.4px Manrope, sans-serif; text-transform: uppercase; }
-  .ring span { width: 66px; height: 66px; border-radius: 50%; background: var(--w); color: var(--ink); display: grid; place-items: center; transition: transform .35s var(--e); }
+  .ring svg.txt text { fill: #8d6034; font: 700 10.4px Manrope, sans-serif; text-transform: uppercase; }
+  .ring span { width: 66px; height: 66px; border-radius: 50%; background: var(--bronze); color: var(--cream); display: grid; place-items: center; transition: transform .35s var(--e); box-shadow: 0 8px 20px rgba(94,61,36,.3); }
   .ring span svg { width: 24px; height: 24px; transform: rotate(-45deg); }
   .ring:active span { transform: scale(.92); }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .b4 .bar { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 13px; color: var(--w7); }
-  .b4 .bar a { color: var(--w); font-weight: 700; }
 
   /* переключатель вариантов (только в демо) */
-  .vs { position: fixed; z-index: 60; right: 64px; top: max(18px, calc(env(safe-area-inset-top) + 4px)); display: none; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--line); }
+  .vs { position: fixed; z-index: 60; right: 70px; top: max(20px, calc(env(safe-area-inset-top) + 6px)); display: none; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(59,42,32,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
   .demo .vs { display: flex; }
-  .vs2 { top: max(62px, calc(env(safe-area-inset-top) + 48px)); right: 16px; }
-  .vs.vs2 button { width: auto; padding: 0 10px; border-radius: 999px; font-size: 12px; }
-  .vs button { width: 28px; height: 28px; border-radius: 50%; font-weight: 700; font-size: 14px; color: #fff; }
-  .vs button.on { background: #fff; color: #000; }
+  .vs button { width: 28px; height: 28px; border-radius: 50%; font-weight: 700; font-size: 14px; color: var(--cream); }
+  .vs button.on { background: var(--cream); color: var(--choc); }
 
   /* заставка */
-  .intro { position: fixed; inset: 0; z-index: 50; background: var(--ink); display: grid; place-items: center; pointer-events: none; clip-path: circle(150% at 50% 50%); }
-  .intro img { width: 92px; height: 92px; opacity: 0; transform: scale(.85); }
+  .intro { position: fixed; inset: 0; z-index: 50; background: var(--cream); display: grid; place-items: center; pointer-events: none; clip-path: circle(150% at 50% 50%); }
+  .intro img { width: 96px; height: 96px; opacity: 0; transform: scale(.85); border-radius: 50%; }
   .js .intro img { animation: lg .9s var(--e) .1s forwards; }
   @keyframes lg { to { opacity: 1; transform: none; } }
   .ld .intro { clip-path: circle(0% at 50% 50%); transition: clip-path 1.1s cubic-bezier(.7,0,.2,1) .95s; }
 
   /* появление */
   .js .title span { transform: translateY(85%); opacity: 0; filter: blur(10px); }
-  .js .chip, .js .bt .in, .js .hd { opacity: 0; filter: blur(10px); transform: translateY(18px); }
+  .js .bt .in, .js .hd { opacity: 0; filter: blur(10px); transform: translateY(18px); }
+  .js .bt { transform: translateY(100%); }
   .js .ly { scale: 1.14; }
   .ld .title span { transform: none; opacity: 1; filter: blur(0); transition: transform 1.3s var(--e), opacity .9s, filter .9s; }
-  .ld .chip, .ld .bt .in, .ld .hd { opacity: 1; filter: blur(0); transform: none; transition: opacity .9s, filter .9s, transform 1s var(--e); }
+  .ld .bt .in, .ld .hd { opacity: 1; filter: blur(0); transform: none; transition: opacity .9s, filter .9s, transform 1s var(--e); }
+  .ld .bt { transform: none; transition: transform 1.1s var(--e) 1.7s; }
   .ld .ly { scale: 1; transition: scale 2.6s var(--e) .9s; }
-  .chip.fl { animation: bob 5s ease-in-out infinite; }
-  @keyframes bob { 50% { transform: translateY(-6px); } }
   .bt .in.re { animation: re .7s var(--e) both; }
   @keyframes re { from { opacity: 0; filter: blur(10px); transform: translateY(18px); } }
-  @media (prefers-reduced-motion: reduce) { .intro { display: none; } .js *, .js *::after { transition: none !important; animation: none !important; filter: none !important; opacity: 1 !important; } .js .title span, .js .chip, .js .bt .in, .js .hd { transform: none !important; } .js .ly { scale: 1 !important; } }
+  @media (prefers-reduced-motion: reduce) { .intro { display: none; } .js *, .js *::after { transition: none !important; animation: none !important; filter: none !important; opacity: 1 !important; } .js .title span, .js .bt, .js .bt .in, .js .hd { transform: none !important; } .js .ly { scale: 1 !important; } }
 
   @media (min-width: 700px) { .hero { max-width: 480px; margin: 0 auto; } }
 </style>
 </head>
 <body>
-<div class="intro" aria-hidden="true"><img src="logo.png" alt=""></div>
+<div class="intro" aria-hidden="true"><img src="logo-bronze.png" alt=""></div>
 
-<main class="hero" id="hero" data-v="1" data-bg="a">
+<main class="hero" id="hero" data-v="1">
   <div class="ly sky"><img src="sky.webp" alt="" width="1206" height="1494"></div>
-  <div class="dim"></div>
   <h1 class="title" id="title" aria-label="Soloviy — коттеджный посёлок под Оренбургом"><span>S</span><span>o</span><span>l</span><span>o</span><span>v</span><span>i</span><span>y</span></h1>
   <div class="ly fg"><img src="house-fg.webp" alt="Двухэтажный дом с террасой в посёлке Soloviy" width="1206" height="1494" fetchpriority="high"></div>
-  <div class="dark"></div>
-  <div class="ly cut"><img src="house-cut.webp" alt="" width="1206" height="1494"></div>
 
   <header class="hd">
-    <a class="brand" href="#"><img src="logo.png" alt="Логотип Soloviy" width="44" height="44"></a>
+    <a class="brand" href="#"><img src="logo-bronze.png" alt="Логотип Soloviy" width="44" height="44"></a>
     <a class="call" href="tel:+79228993550" aria-label="Позвонить 8 (922) 899-35-50"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
   </header>
 
@@ -212,7 +178,6 @@
 </main>
 
 <div class="vs" id="vs" aria-label="Варианты"><button class="on" type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></div>
-<div class="vs vs2" id="vs2" aria-label="Фон"><button type="button" data-bg="0">Фото</button><button class="on" type="button" data-bg="a">Тёмный фон</button><button type="button" data-bg="b">Вырез</button></div>
 
 <script>
 (function () {
@@ -222,7 +187,6 @@
   var q = new URLSearchParams(location.search);
   if (q.has('demo') || !/vercel\.app$/.test(location.hostname)) d.classList.add('demo');
   if (/^[1-4]$/.test(q.get('v'))) h.dataset.v = q.get('v');
-  if (/^(0|a|b)$/.test(q.get('bg'))) h.dataset.bg = q.get('bg');
 
   function bt() { return h.querySelector('.b' + h.dataset.v); }
 
@@ -239,11 +203,11 @@
       if (ground - bh * 0.722 < roofMin) { bh = Math.max(W * 1.05 * 1494 / 1206, (ground - roofMin) / 0.722); bw = bh * 1206 / 1494; }
     }
     var by = ground - bh, bx = W * 0.5 - bw * 0.56;
-    if (h.dataset.bg === 'b') {                          // вырез: дом целиком, по центру, над нижним блоком
-      bw = Math.min((W - 20) / 0.85, (top - 24 - roofMin) / (0.717 - 0.278) * 1206 / 1494); bh = bw * 1494 / 1206;
-      by = top - 24 - bh * 0.717; bx = W * 0.5 - bw * 0.538;
-    }
     [].forEach.call(lys, function (l) { l.style.width = bw + 'px'; l.style.left = bx + 'px'; l.style.top = by + 'px'; });
+    if (by > 0) {                                        // небо тянем до самого верха, без полосы
+      var sw = bw * ground / bh, sk = h.querySelector('.sky');
+      sk.style.width = sw + 'px'; sk.style.left = (bx + bw * 0.56 - sw * 0.56) + 'px'; sk.style.top = '0px';
+    }
     var roof = by + bh * 0.278;
     if (roof - th * 0.8 < hdB) { th = Math.max(56, (roof - hdB) / 0.8); fs = th / 0.8; }
     t.style.fontSize = fs + 'px';
@@ -266,11 +230,6 @@
   addEventListener('resize', layout);
 
   // переключение вариантов
-  var vb = document.getElementById('vs2').children;
-  [].forEach.call(vb, function (b) {
-    b.classList.toggle('on', b.dataset.bg === h.dataset.bg);
-    b.addEventListener('click', function () { [].forEach.call(vb, function (x) { x.classList.remove('on'); }); b.classList.add('on'); h.dataset.bg = b.dataset.bg; layout(); });
-  });
   var vs = document.getElementById('vs').children;
   [].forEach.call(vs, function (b, i) {
     if (String(i + 1) === h.dataset.v) { [].forEach.call(vs, function (x) { x.classList.remove('on'); }); b.classList.add('on'); }
