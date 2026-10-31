@@ -1136,10 +1136,64 @@
   @media (min-width: 700px) { .mnav__sheet { left: auto; right: 20px; top: 84px; bottom: auto; width: 420px; border-radius: 26px; border-bottom: 1px solid rgba(255,255,255,.08); transform: translateY(-12px) scale(.98); opacity: 0; transition: transform .45s var(--ease), opacity .35s; } body.mopen .mnav__sheet { opacity: 1; } .mnav__grab { display: none; } .mnav__veil { background: rgba(0,0,0,.35); } }
   /* иконки в плитках меню слева, поменьше */
   .mnav__ul a svg { right: auto; left: 12px; top: 12px; width: 40px; height: 40px; opacity: .35; stroke-width: 1.4; }
+  /* анимации загрузки (демо) */
+  .pre { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #0b0b0b; pointer-events: none; }
+  .pre > div { display: none; }
+  .pre[data-v="a"] .pre__a, .pre[data-v="b"] .pre__b, .pre[data-v="c"] .pre__c, .pre[data-v="d"] .pre__d { display: grid; }
+  .pre.gone { display: none; }
+  /* A: логотип + круг */
+  .pre[data-v="a"] { clip-path: circle(150% at 50% 50%); }
+  .pre__logo { width: 84px; height: 84px; border-radius: 24px; background: var(--F); display: grid; place-items: center; opacity: 0; transform: scale(.6) rotate(-8deg); box-shadow: 0 0 60px color-mix(in srgb, var(--A) 50%, transparent); }
+  .pre__logo svg { width: 44px; height: 44px; fill: #0b0b0b; }
+  .pre.go .pre__logo { animation: preLogo .9s var(--ease) .1s forwards; }
+  @keyframes preLogo { to { opacity: 1; transform: none; } }
+  .pre[data-v="a"].out { clip-path: circle(0% at 50% 50%); transition: clip-path 1s cubic-bezier(.7,0,.2,1); }
+  /* B: проценты и полоса, шторка вверх */
+  .pre__b { justify-content: center; justify-items: center; column-gap: 6px; grid-template-columns: auto auto; align-items: end; }
+  .pre__b b { justify-self: end; } .pre__b > span { justify-self: start; }
+  .pre__b b { font: 500 clamp(80px, 24vw, 200px)/.8 var(--f); letter-spacing: -.06em; color: #fff; }
+  .pre__b > span { font: 500 28px var(--f); color: var(--A); padding-bottom: 8px; }
+  .pre__bar { grid-column: 1 / -1; width: min(70vw, 360px); height: 3px; border-radius: 3px; background: rgba(255,255,255,.12); margin-top: 22px; overflow: hidden; }
+  .pre__bar i { display: block; height: 100%; width: 0; background: var(--F); }
+  .pre__b small { grid-column: 1 / -1; margin-top: 14px; font: 600 11px var(--f); letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+  .pre[data-v="b"].out { transform: translateY(-100%); transition: transform .9s cubic-bezier(.7,0,.2,1); }
+  /* C: слово по буквам, разъезд на две половины */
+  .pre[data-v="c"] { background: none; }
+  .pre__c { position: absolute; inset: 0; place-items: center; }
+  .pre__half { position: absolute; left: 0; right: 0; height: 50%; background: #0b0b0b; transition: transform 1s cubic-bezier(.7,0,.2,1); }
+  .pre__half--t { top: 0; border-bottom: 1px solid color-mix(in srgb, var(--A) 60%, transparent); } .pre__half--b { bottom: 0; }
+  .pre__word { position: relative; z-index: 2; display: flex; overflow: hidden; font: 700 clamp(30px, 9vw, 80px)/1.1 var(--f); letter-spacing: -.05em; color: #fff; transition: opacity .3s; }
+  .pre__word span { display: block; transform: translateY(110%); }
+  .pre.go .pre__word span { animation: preUp .7s var(--ease) forwards; animation-delay: calc(var(--i) * .04s + .1s); }
+  .pre__word span:nth-child(n+3) { color: var(--A); }
+  @keyframes preUp { to { transform: none; } }
+  .pre[data-v="c"].out .pre__word { opacity: 0; }
+  .pre[data-v="c"].out .pre__half--t { transform: translateY(-100%); } .pre[data-v="c"].out .pre__half--b { transform: translateY(100%); }
+  /* D: рисуется дом, заливается, растворение с приближением */
+  .pre__d { justify-items: center; gap: 18px; }
+  .pre__house { width: 120px; height: 120px; overflow: visible; }
+  .pre__house path { fill: transparent; stroke: var(--A); stroke-width: 2.5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .pre.go .pre__house path { animation: preDraw 1.2s ease-in-out .1s forwards, preFill .5s ease 1.25s forwards; }
+  @keyframes preDraw { to { stroke-dashoffset: 0; } }
+  @keyframes preFill { to { fill: var(--A); } }
+  .pre__d small { font: 600 12px var(--f); letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); opacity: 0; }
+  .pre.go .pre__d small { animation: preLogo .6s ease .6s forwards; }
+  .pre[data-v="d"].out { opacity: 0; transform: scale(1.15); transition: opacity .7s, transform .9s var(--ease); }
+  .lsw { position: fixed; z-index: 210; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(11,11,11,.9); border: 1px solid rgba(255,255,255,.15); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: rgba(255,255,255,.7); white-space: nowrap; }
+  .lsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
+  .lsw button.on { background: var(--F); }
+  .lsw__r { background: rgba(255,255,255,.1) !important; font-size: 16px !important; }
 </style>
 </head>
 <body class="t-bright">
 
+<div class="pre" id="pre" data-v="a" aria-hidden="true">
+  <div class="pre__a"><i class="pre__logo"><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></i></div>
+  <div class="pre__b"><b id="preN">0</b><span>%</span><i class="pre__bar"><i id="preBar"></i></i><small>КСДевелопмент</small></div>
+  <div class="pre__c"><div class="pre__half pre__half--t"></div><div class="pre__half pre__half--b"></div><p class="pre__word"><span style="--i:0">К</span><span style="--i:1">С</span><span style="--i:2">Д</span><span style="--i:3">е</span><span style="--i:4">в</span><span style="--i:5">е</span><span style="--i:6">л</span><span style="--i:7">о</span><span style="--i:8">п</span><span style="--i:9">м</span><span style="--i:10">е</span><span style="--i:11">н</span><span style="--i:12">т</span></p></div>
+  <div class="pre__d"><svg class="pre__house" viewBox="0 0 100 100"><path pathLength="1" d="M16 88V46L50 18l34 28v42H62V62H38v26z"/></svg><small>Строим дома в Перми</small></div>
+</div>
+<div class="lsw" id="lsw">Загрузка: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button><button class="lsw__r" data-r="1" aria-label="Повторить">↻</button></div>
 <header class="nav" id="nav" data-v="c">
   <a class="logo" href="#top"><i><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></i>КСДевелопмент</a>
   <nav class="nav__ln glass"><a href="#about">О нас</a><a href="#what">Что строим</a><a href="#how">Как строим</a><a href="#projects">Дома</a><a href="#pick">Подбор дома</a></nav>
@@ -1349,7 +1403,21 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  var start = function () { document.body.classList.add('ld'); };
+  var pre = $('#pre'), preT = [];
+  var DUR = { a: [1200, 1000], b: [1700, 900], c: [1300, 1000], d: [1800, 800] };
+  var runPre = function (v) {
+    preT.forEach(clearTimeout); preT = [];
+    document.body.classList.remove('ld');
+    pre.className = 'pre'; pre.dataset.v = v; void pre.offsetWidth; pre.classList.add('go');
+    $$('#lsw button[data-v]').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); });
+    if (v === 'b') { var t0 = performance.now(); (function tick(t) { var k = Math.min(1, (t - t0) / 1500); var e = 1 - Math.pow(1 - k, 3); $('#preN').textContent = Math.round(e * 100); $('#preBar').style.width = (e * 100) + '%'; if (k < 1 && pre.dataset.v === 'b') requestAnimationFrame(tick); })(t0); }
+    var d = DUR[v];
+    preT.push(setTimeout(function () { pre.classList.add('out'); document.body.classList.add('ld'); }, d[0]));
+    preT.push(setTimeout(function () { pre.classList.add('gone'); }, d[0] + d[1]));
+  };
+  var lq = new URLSearchParams(location.search).get('l'); var lv = /^[abcd]$/.test(lq || '') ? lq : 'a';
+  $$('#lsw button').forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.v) lv = b.dataset.v; scrollTo(0, 0); runPre(lv); }); });
+  var start = function () { if (!start.done) { start.done = 1; runPre(lv); } };
   var hi = $('#hx img');
   if (hi.complete) requestAnimationFrame(function () { requestAnimationFrame(start); });
   else { hi.addEventListener('load', start); hi.addEventListener('error', start); setTimeout(start, 2500); }
