@@ -1009,6 +1009,20 @@
   .hy__man { top: auto; height: 76%; bottom: 0; }
   @media (min-width: 900px) { .hy__man { top: auto; height: 80%; } }
   .hy__glow { top: 48%; }
+  /* Илья выше + плашки */
+  .hy__man { top: 92px; bottom: auto; height: 66%; }
+  .hy__pl { position: absolute; z-index: 2; display: flex; align-items: center; gap: 9px; padding: 8px 12px 8px 8px; border-radius: 16px; background: rgba(20,20,20,.5); border: 1px solid rgba(255,255,255,.16); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #fff; white-space: nowrap; opacity: 0; transition: opacity .8s, transform 1s var(--ease); animation: plF 6s ease-in-out infinite; }
+  .hy__pl > i { width: 32px; height: 32px; flex: none; border-radius: 50%; background: var(--F); display: grid; place-items: center; }
+  .hy__pl > i .i { width: 16px; height: 16px; }
+  .hy__pl span { display: grid; gap: 1px; } .hy__pl b { font: 600 13px var(--f); } .hy__pl small { font-size: 10.5px; color: rgba(255,255,255,.65); }
+  .ld .hy__pl { opacity: 1; }
+  .hy__pl--1 { left: -4%; top: 16%; transition-delay: 1s; animation-delay: 0s; }
+  .hy__pl--2 { right: -2%; top: 40%; transition-delay: 1.2s; animation-delay: -2s; }
+  .hy__pl--3 { left: 2%; top: 62%; transition-delay: 1.4s; animation-delay: -4s; }
+  @keyframes plF { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @media (prefers-reduced-motion: reduce) { .hy__pl { animation: none; } }
+  @media (max-width: 899px) { .hy__pl small { display: none; } .hy__pl--1 { left: 4%; } .hy__pl--2 { right: 4%; } .hy__pl--3 { left: 6%; } }
+  @media (min-width: 900px) { .hy__man { top: 80px; height: 76%; } .hy__pl--1 { left: -22%; } .hy__pl--2 { right: -26%; } .hy__pl--3 { left: -18%; } }
 </style>
 </head>
 <body class="t-bright">
@@ -1020,30 +1034,10 @@
 </header>
 
 <main>
-<section class="hy" id="top" data-v="a">
+<section class="hy" id="top" data-v="b">
   <div class="hy__glow" aria-hidden="true"></div>
   <div class="hy__bgn" aria-hidden="true">Копысов</div>
-  <div class="hy__man" id="hx"><img src="img/ilya-cut.webp" alt="Илья Копысов, основатель КСДевелопмент" fetchpriority="high"><i class="hy__fr" aria-hidden="true"></i></div>
-  <div class="hy__bot">
-    <div class="hy__name" aria-hidden="true">Копысов</div>
-    <div class="hy__badge"><b>Илья Копысов</b><small>основатель КСДевелопмент</small></div>
-    <div class="hy__chips"><span>Одноэтажные</span><span>Двухэтажные</span><span>Виллы на Бали</span></div>
-    <div class="hy__row">
-      <h1 class="hy__h">Дома, в&nbsp;которых<br>живут <em>семьями</em></h1>
-      <a class="btn hy__btn" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="about" data-v="b">
-  <div class="wrap">
-
-    <!-- Вариант B: дома в цифрах -->
-    <div class="va va--b">
-      <span class="lbl rv">В цифрах</span>
-      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
-      <div class="bn">
-        <div class="bn__t bn__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><span class="pill">Новобродовский</span><div><b>160 м²</b><p>двухэтажный дом на 6 сотках</p></div></div>
+  <div class="hy__man" id="hx"><img src="img/ilya-cut.webp" alt="Илья Копысов, основатель КСДевелопмент" fetchpriority="high"><i class="hy__fr" aria-hidden="true"></i>
         <div class="bn__t bn__t--w rv" style="--d:.06s"><b>4</b><p>спальни в доме на 75 м² в Жебреях</p></div>
         <div class="bn__t bn__t--o rv" style="--d:.1s"><b>4 м</b><p>высота потолка, больше света и воздуха</p></div>
         <div class="bn__t bn__t--d rv" style="--d:.14s"><svg class="route" viewBox="0 0 300 90" aria-hidden="true"><path d="M14 70 C 80 70, 90 20, 150 30 S 240 60, 284 22" pathLength="1"/><circle cx="14" cy="70" r="6"/><circle cx="284" cy="22" r="8" class="h"/></svg><div class="route__l"><span>центр Перми</span><span>ваш дом</span></div><b>25 мин</b><p>от центра Перми до участка в Новобродовском</p><a href="#pick">Обсудить ваш дом <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
@@ -1204,7 +1198,7 @@
     <form class="mgr__f" id="mgrF"><input id="mgrI" placeholder="Ваш вопрос" autocomplete="off" aria-label="Ваш вопрос"><button type="submit" aria-label="Отправить"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
   </div>
 </div>
-<div class="qsw" id="hsw">Первый экран: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
+<div class="qsw" id="hsw">Первый экран: <button data-v="a">A</button><button class="on" data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
