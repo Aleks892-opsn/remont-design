@@ -5,279 +5,255 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>КСДевелопмент — частные дома в Перми</title>
 <meta name="description" content="КСДевелопмент: строим частные дома в Перми и пригороде качественно и в срок. И виллы на Бали.">
-<meta name="theme-color" content="#0b0b0b">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ff6a1a'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='900' font-size='26' text-anchor='middle' fill='%230b0b0b'%3EКС%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#eeeae3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%232e4636'/%3E%3Cpath d='M14 46V30l18-13 18 13v16' fill='none' stroke='%23eeeae3' stroke-width='4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap">
 <link rel="preload" as="image" href="img/pr-dali.webp" fetchpriority="high">
 <style>
   :root {
-    --bg: #f4f2ef; --paper: #fff; --ink: #0d0d0d; --ink2: #4a4744; --mute: #8f8a85; --line: rgba(13,13,13,.09);
-    --black: #0b0b0b; --card: #151515; --card2: #1d1d1d; --dline: rgba(255,255,255,.09); --dmute: rgba(255,255,255,.58);
-    --or: #ff6a1a; --or2: #ff9248;
-    --f: 'Montserrat', system-ui, -apple-system, sans-serif;
-    --r: 26px; --pad: 16px; --max: 1280px; --ease: cubic-bezier(.2,.75,.2,1);
+    --bg: #eeeae3; --bg2: #e4dfd6; --paper: #f7f5f1; --ink: #1c1e1a; --ink2: #50544c; --mute: #8a8c84; --line: rgba(28,30,26,.16);
+    --gr: #2e4636; --gr2: #3f5e4a; --cream: #eeeae3;
+    --serif: 'Cormorant', Georgia, serif; --sans: 'Manrope', system-ui, sans-serif;
+    --pad: 18px; --max: 1320px; --ease: cubic-bezier(.22,.7,.2,1);
   }
   *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
   html, body { overflow-x: clip; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.55 var(--f); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   button, input, select { font: inherit; color: inherit; }
   button { background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  h1, h2, h3, h4 { margin: 0; font-weight: 700; letter-spacing: -.045em; line-height: 1.02; }
+  h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 500; letter-spacing: -.01em; line-height: .98; }
   p { margin: 0; }
+  em { font-style: italic; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
-  svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
   /* общие */
-  .lbl { display: inline-flex; align-items: center; gap: 10px; font: 600 12px var(--f); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
-  .lbl b { font: 800 12px var(--f); color: var(--or); letter-spacing: 0; }
-  .lbl::after { content: ""; width: 36px; height: 1px; background: currentColor; opacity: .5; }
-  .h2 { font-size: clamp(34px, 8.6vw, 72px); margin-top: 14px; }
-  .h2 em { font-style: normal; color: var(--or); }
-  .sec { padding: 72px 0; }
-  .dark { background: var(--black); color: #fff; }
-  .dark .lbl { color: var(--dmute); }
-  .sec__hd { display: grid; gap: 16px; margin-bottom: 34px; }
-  .sec__hd p { color: var(--ink2); max-width: 460px; }
-  .dark .sec__hd p { color: var(--dmute); }
-  .btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; height: 56px; padding: 0 8px 0 24px; border-radius: 999px; background: var(--or); color: #fff; font-weight: 700; font-size: 15px; transition: transform .25s var(--ease), background .25s; }
-  .btn i { width: 40px; height: 40px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; transition: transform .35s var(--ease); }
-  .btn:hover i { transform: rotate(45deg); }
-  .btn:active { transform: scale(.97); }
-  .btn--g { background: transparent; color: inherit; border: 1px solid currentColor; padding: 0 24px; opacity: .9; }
+  .kick { display: flex; align-items: baseline; gap: 14px; font: 600 11px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--ink2); padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .kick b { font: italic 500 22px/1 var(--serif); letter-spacing: 0; color: var(--gr); text-transform: none; }
+  .kick span:last-child { margin-left: auto; color: var(--mute); }
+  .h2 { font-size: clamp(44px, 11vw, 104px); margin-top: 26px; }
+  .h2 em { color: var(--gr); }
+  .sec { padding: 80px 0; }
+  .lead { color: var(--ink2); font-size: 16px; max-width: 480px; margin-top: 18px; }
+  .lnk { display: inline-flex; align-items: center; gap: 12px; font: 600 13px var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 18px 0; border-bottom: 1px solid currentColor; }
+  .lnk svg { transition: transform .4s var(--ease); }
+  .lnk:hover svg { transform: translateX(6px); }
+  .bt { display: inline-flex; align-items: center; justify-content: center; gap: 12px; height: 58px; padding: 0 30px; background: var(--gr); color: var(--cream); font: 600 13px var(--sans); letter-spacing: .14em; text-transform: uppercase; transition: background .3s; }
+  .bt:hover { background: var(--gr2); }
+  .bt--l { background: transparent; color: inherit; border: 1px solid currentColor; }
+  .bt--l:hover { background: rgba(255,255,255,.08); }
 
   /* шапка */
-  .nav { position: fixed; z-index: 50; top: max(10px, env(safe-area-inset-top)); left: 10px; right: 10px; max-width: calc(var(--max) - 12px); margin: 0 auto; display: flex; align-items: center; gap: 8px; height: 60px; padding: 0 8px 0 10px; border-radius: 999px; background: rgba(15,15,15,.72); -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%); color: #fff; border: 1px solid rgba(255,255,255,.08); transition: transform .5s var(--ease); }
-  .logo { display: flex; align-items: center; gap: 10px; font: 800 15px var(--f); letter-spacing: -.02em; }
-  .logo b { width: 40px; height: 40px; border-radius: 13px; background: var(--or); color: var(--ink); display: grid; place-items: center; font: 900 14px var(--f); letter-spacing: -.04em; }
-  .nav__ln { display: none; margin-left: 18px; gap: 4px; }
-  .nav__ln a { padding: 9px 14px; border-radius: 999px; font: 500 13px var(--f); color: rgba(255,255,255,.75); transition: background .2s, color .2s; }
-  .nav__ln a:hover { background: rgba(255,255,255,.08); color: #fff; }
-  .nav__sp { flex: 1; }
-  .nav__tg { white-space: nowrap; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 14px; border-radius: 999px; background: var(--or); font: 700 13px var(--f); }
+  .nav { position: fixed; z-index: 50; top: 0; left: 0; right: 0; display: flex; align-items: center; height: 68px; padding: max(0px, env(safe-area-inset-top)) var(--pad) 0; color: #fff; transition: background .4s, color .4s, transform .5s var(--ease); }
+  .nav.solid { background: rgba(238,234,227,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: var(--ink); border-bottom: 1px solid var(--line); }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+  .logo span { font: 600 25px/1 var(--serif); letter-spacing: .01em; }
+  .logo small { display: block; font: 600 9px var(--sans); letter-spacing: .26em; text-transform: uppercase; opacity: .7; margin-top: 3px; }
+  .nav__ln { display: none; margin-left: auto; gap: 34px; font: 600 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+  .nav__ln a { opacity: .8; transition: opacity .2s; }
+  .nav__ln a:hover { opacity: 1; }
+  .nav__cta { margin-left: auto; font: 600 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 11px 16px; border: 1px solid currentColor; }
 
-  /* главный экран */
-  .hero { padding: calc(max(10px, env(safe-area-inset-top)) + 78px) 10px 10px; }
-  .hero__c { position: relative; max-width: var(--max); margin: 0 auto; border-radius: 32px; background: var(--black); color: #fff; overflow: hidden; padding: 26px 16px 16px; }
-  .hero__c::before { content: ""; position: absolute; width: 520px; height: 520px; right: -200px; top: -240px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,106,26,.45), transparent); pointer-events: none; }
-  .hero__top { position: relative; display: flex; align-items: center; gap: 10px; font: 600 12px var(--f); color: var(--dmute); letter-spacing: .04em; }
-  .live { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,.07); color: #fff; }
-  .live i { width: 7px; height: 7px; border-radius: 50%; background: #34d27b; box-shadow: 0 0 0 0 rgba(52,210,123,.6); animation: pulse 2s infinite; }
-  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(52,210,123,0); } 100% { box-shadow: 0 0 0 0 rgba(52,210,123,0); } }
-  .hero__h { position: relative; margin-top: 22px; font-size: clamp(40px, 11.6vw, 104px); line-height: .94; letter-spacing: -.055em; }
-  .hero__h span { display: block; }
-  .hero__h em { font-style: normal; color: var(--or); }
-  .hero__g { position: relative; display: grid; gap: 14px; margin-top: 24px; }
-  .hero__ph { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 3.4; }
-  .hero__ph img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 2.2s var(--ease); }
-  .ld .hero__ph img { transform: none; }
-  .chip { position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; border-radius: 16px; background: rgba(18,18,18,.6); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.12); font: 600 12px/1.25 var(--f); }
-  .chip b { display: block; font: 800 18px var(--f); letter-spacing: -.03em; }
-  .chip i { width: 36px; height: 36px; border-radius: 11px; background: var(--or); display: grid; place-items: center; flex: none; }
-  .chip--1 { left: 12px; bottom: 12px; }
-  .chip--2 { right: 12px; top: 12px; }
-  .hero__side { display: grid; gap: 14px; align-content: end; }
-  .hero__p { color: var(--dmute); font-size: 15px; max-width: 420px; }
-  .hero__btns { display: flex; flex-wrap: wrap; gap: 10px; }
-  .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-radius: 20px; background: var(--card); border: 1px solid var(--dline); }
-  .facts div { padding: 14px 12px; }
-  .facts div + div { border-left: 1px solid var(--dline); }
-  .facts b { display: block; font: 800 22px/1 var(--f); letter-spacing: -.04em; white-space: nowrap; }
-  .facts b small { font-size: 13px; color: var(--or); margin-left: 2px; }
-  .facts div > span { display: block; margin-top: 6px; font-size: 11.5px; line-height: 1.3; color: var(--dmute); }
+  /* главный экран: фото на весь экран */
+  .hero { position: relative; height: 100svh; min-height: 620px; color: #fff; overflow: hidden; }
+  .hero__im { position: absolute; inset: 0; }
+  .hero__im img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 2.6s var(--ease); }
+  .ld .hero__im img { transform: scale(1); }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,18,14,.45) 0%, rgba(14,18,14,.05) 30%, rgba(14,18,14,.15) 55%, rgba(14,18,14,.82) 100%); }
+  .hero__in { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) max(26px, env(safe-area-inset-bottom)); max-width: var(--max); margin: 0 auto; }
+  .hero__lc { display: flex; justify-content: space-between; font: 600 11px var(--sans); letter-spacing: .22em; text-transform: uppercase; opacity: .85; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,.35); }
+  .hero__h { margin-top: 22px; font-size: clamp(54px, 15vw, 168px); line-height: .9; }
+  .hero__h span { display: block; overflow: hidden; }
+  .hero__h span i { display: block; font-style: normal; transform: translateY(105%); transition: transform 1.3s var(--ease); transition-delay: var(--d); }
+  .hero__h em { font-style: italic; }
+  .ld .hero__h span i { transform: none; }
+  .hero__ft { display: grid; gap: 20px; margin-top: 26px; }
+  .hero__ft p { max-width: 420px; color: rgba(255,255,255,.85); font-size: 15px; }
+  .hero__bt { display: flex; gap: 10px; flex-wrap: wrap; }
+  .fade { opacity: 0; transform: translateY(16px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d); }
+  .ld .fade { opacity: 1; transform: none; }
 
-  /* бегущая строка мест */
-  .run { overflow: hidden; padding: 26px 0 8px; }
-  .run__in { display: flex; width: max-content; animation: run 34s linear infinite; }
-  .run span { display: flex; align-items: center; gap: 26px; padding-right: 26px; font: 800 clamp(30px, 7vw, 64px)/1 var(--f); letter-spacing: -.05em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.2px rgba(13,13,13,.28); }
-  .run span:nth-child(3n+2) { color: var(--ink); -webkit-text-stroke: 0; }
-  .run span::after { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--or); }
-  @keyframes run { to { transform: translateX(-50%); } }
+  /* цифры полосой */
+  .nums { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+  .nums div { padding: 26px var(--pad) 24px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+  .nums div:nth-child(2n) { border-right: 0; }
+  .nums b { display: block; font: 500 56px/1 var(--serif); letter-spacing: -.02em; }
+  .nums b small { font: italic 500 22px var(--serif); color: var(--gr); margin-left: 4px; }
+  .nums span { display: block; margin-top: 8px; color: var(--ink2); font-size: 13px; }
 
-  /* что строим */
-  .cards { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 6px; scrollbar-width: none; }
-  .cards::-webkit-scrollbar { display: none; }
-  .kc { position: relative; flex: 0 0 78%; scroll-snap-align: start; border-radius: var(--r); overflow: hidden; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; }
-  .kc__im { position: relative; aspect-ratio: 4 / 3.2; overflow: hidden; }
-  .kc__im img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
-  .kc:hover .kc__im img { transform: scale(1.05); }
-  .kc__n { position: absolute; left: 14px; top: 12px; font: 800 44px/1 var(--f); color: #fff; letter-spacing: -.05em; text-shadow: 0 4px 20px rgba(0,0,0,.35); }
-  .kc__b { padding: 18px 18px 20px; display: grid; gap: 8px; flex: 1; }
-  .kc__b h3 { font-size: 22px; }
-  .kc__b p { color: var(--ink2); font-size: 14px; }
-  .kc__t { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
-  .kc__t span { padding: 6px 12px; border-radius: 999px; background: #f2efea; font: 600 12px var(--f); }
+  /* что строим: список-указатель */
+  .idx { margin-top: 40px; border-top: 1px solid var(--line); }
+  .ix { position: relative; display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); cursor: default; }
+  .ix > small { font: italic 500 20px var(--serif); color: var(--mute); }
+  .ix h3 { font-size: clamp(30px, 8vw, 64px); transition: color .3s, transform .5s var(--ease); }
+  .ix p { grid-column: 2 / 4; color: var(--ink2); font-size: 14px; max-width: 520px; }
+  .ix .tg { font: 600 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gr); white-space: nowrap; }
+  .ix__ph { display: none; }
+  .ix:hover h3 { color: var(--gr); transform: translateX(8px); }
 
   /* подбор дома */
-  .pick { display: grid; gap: 14px; }
-  .pick__ui { display: grid; gap: 12px; }
-  .q { padding: 18px; border-radius: 22px; background: var(--card); border: 1px solid var(--dline); }
-  .q small { display: block; font: 600 12px var(--f); color: var(--dmute); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
-  .seg { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 4px; border-radius: 16px; background: #0f0f0f; }
-  .seg i { position: absolute; top: 4px; bottom: 4px; left: 4px; border-radius: 12px; background: var(--or); transition: transform .45s var(--ease), width .45s var(--ease); }
-  .seg button { position: relative; height: 46px; font: 700 14px var(--f); color: var(--dmute); transition: color .3s; }
-  .seg button.on { color: #fff; }
-  .res { position: relative; border-radius: 24px; overflow: hidden; background: var(--card2); border: 1px solid var(--dline); }
-  .res__im { aspect-ratio: 16 / 11; overflow: hidden; }
-  .res__im img { width: 100%; height: 100%; object-fit: cover; transition: opacity .35s, transform .6s var(--ease); }
-  .res.sw .res__im img { opacity: 0; transform: scale(1.04); }
-  .res__b { padding: 18px; display: grid; gap: 12px; transition: opacity .3s; }
-  .res.sw .res__b { opacity: 0; }
-  .res__b small { color: var(--or); font: 700 12px var(--f); letter-spacing: .08em; text-transform: uppercase; }
-  .res__b h3 { font-size: 26px; }
-  .res__ch { display: flex; gap: 6px; flex-wrap: wrap; }
-  .res__ch span { padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.08); font: 600 12.5px var(--f); }
-  .res__cnt { position: absolute; right: 14px; top: 14px; padding: 6px 12px; border-radius: 999px; background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 600 12px var(--f); }
+  .pick { background: var(--gr); color: var(--cream); }
+  .pick .kick { color: rgba(238,234,227,.7); border-color: rgba(238,234,227,.2); }
+  .pick .kick b, .pick .h2 em { color: #c9d6c2; }
+  .pick .lead { color: rgba(238,234,227,.75); }
+  .pk { display: grid; gap: 28px; margin-top: 40px; }
+  .pk__q small { display: block; font: 600 11px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: rgba(238,234,227,.6); margin-bottom: 12px; }
+  .pk__o { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid rgba(238,234,227,.3); }
+  .pk__o button { flex: 1; min-width: 33%; height: 56px; font: 500 22px var(--serif); color: rgba(238,234,227,.7); border-right: 1px solid rgba(238,234,227,.3); transition: background .3s, color .3s; }
+  .pk__o button:last-child { border-right: 0; }
+  .pk__o button.on { background: var(--cream); color: var(--gr); }
+  .pk__r { position: relative; }
+  .pk__r figure { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+  .pk__r img { width: 100%; height: 100%; object-fit: cover; transition: opacity .4s, transform 1s var(--ease); }
+  .pk__r.sw img { opacity: 0; transform: scale(1.03); }
+  .pk__cap { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; padding-top: 16px; border-top: 1px solid rgba(238,234,227,.3); margin-top: 16px; transition: opacity .3s; }
+  .pk__r.sw .pk__cap { opacity: 0; }
+  .pk__cap h3 { font-size: 34px; }
+  .pk__cap small { display: block; font: 600 11px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: rgba(238,234,227,.6); margin-bottom: 6px; }
+  .pk__cap p { font: italic 500 20px/1.2 var(--serif); text-align: right; color: #c9d6c2; }
 
-  /* как строим */
-  .steps { display: grid; gap: 10px; }
-  .st { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: center; padding: 18px; border-radius: 22px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
-  .st b { font: 800 44px/1 var(--f); letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.4px var(--or); }
-  .st h4 { font-size: 18px; letter-spacing: -.03em; }
-  .st p { color: var(--ink2); font-size: 13.5px; margin-top: 4px; }
-  .st.hi { background: var(--or); color: #fff; border-color: transparent; }
-  .st.hi b { -webkit-text-stroke: 1.4px #fff; }
-  .st.hi p { color: rgba(255,255,255,.85); }
+  /* как строим: вертикальная линия */
+  .way { margin-top: 44px; position: relative; }
+  .way::before { content: ""; position: absolute; left: 21px; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .way__fill { position: absolute; left: 21px; top: 0; width: 1px; height: 0; background: var(--gr); }
+  .wy { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 18px; padding: 0 0 34px; }
+  .wy i { position: relative; z-index: 1; width: 43px; height: 43px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); display: grid; place-items: center; font: italic 500 18px var(--serif); font-style: normal; transition: background .4s, color .4s, border-color .4s; }
+  .wy.on i { background: var(--gr); color: var(--cream); border-color: var(--gr); }
+  .wy h3 { font-size: 34px; padding-top: 4px; }
+  .wy p { color: var(--ink2); margin-top: 6px; }
 
-  /* стройка онлайн — канал */
-  .tg { display: grid; gap: 14px; }
-  .tg__ph { border-radius: 26px; background: #17212b; padding: 0 0 14px; overflow: hidden; border: 1px solid var(--dline); max-width: 460px; width: 100%; justify-self: center; }
-  .tg__hd { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #1f2c38; }
-  .tg__hd b { width: 42px; height: 42px; border-radius: 50%; background: var(--or); color: var(--ink); display: grid; place-items: center; font: 900 13px var(--f); }
-  .tg__hd strong { display: block; font: 700 15px var(--f); }
-  .tg__hd small { color: #7d8b99; font-size: 12.5px; }
-  .tg__m { margin: 12px 14px 0; padding: 10px 12px 8px; border-radius: 16px 16px 16px 4px; background: #182533; font-size: 14px; line-height: 1.45; max-width: 92%; opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .7s var(--ease); }
-  .tg__m.in { opacity: 1; transform: none; }
-  .tg__m img { border-radius: 10px; margin: -2px -4px 8px; width: calc(100% + 8px); aspect-ratio: 16 / 10; object-fit: cover; }
-  .tg__m .n { color: var(--or2); font: 700 13px var(--f); margin-bottom: 2px; }
-  .tg__m time { display: block; text-align: right; color: #7d8b99; font-size: 11px; margin-top: 2px; }
-  .tg__side { display: grid; gap: 12px; align-content: center; }
-  .tg__side .it { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 20px; background: var(--card); border: 1px solid var(--dline); }
-  .tg__side .it i { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,106,26,.15); color: var(--or); display: grid; place-items: center; flex: none; }
-  .tg__side .it p { color: var(--dmute); font-size: 13.5px; margin-top: 3px; }
-  .tg__side h4 { font-size: 16px; letter-spacing: -.02em; }
+  /* стройка онлайн: журнал */
+  .log { background: var(--paper); }
+  .lg { display: grid; gap: 30px; margin-top: 40px; }
+  .lg__big { position: relative; }
+  .lg__big img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .lg__big figcaption { display: flex; justify-content: space-between; margin-top: 12px; font: 600 11px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+  .lg__en { border-top: 1px solid var(--line); }
+  .en { display: grid; grid-template-columns: 90px 1fr; gap: 14px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .en time { font: italic 500 18px/1.3 var(--serif); color: var(--gr); }
+  .en h4 { margin: 0; font: 600 15px var(--sans); }
+  .en p { margin-top: 6px; color: var(--ink2); font-size: 14.5px; }
+  .en .who { margin-top: 10px; font: 600 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
 
-  /* Илья */
-  .own { display: grid; gap: 0; border-radius: 30px; overflow: hidden; background: var(--or); color: #fff; }
-  .own__ph { aspect-ratio: 4 / 3; overflow: hidden; }
-  .own__ph img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.2) contrast(1.05); }
-  .own__b { padding: 26px 20px 24px; display: grid; gap: 18px; }
-  .own__q { font: 700 clamp(24px, 5.6vw, 40px)/1.12 var(--f); letter-spacing: -.04em; }
-  .own__q::before { content: "“"; display: block; font: 900 64px/.5 var(--f); opacity: .5; margin-bottom: 8px; }
-  .own__w { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .own__w strong { display: block; font: 800 18px var(--f); }
-  .own__w small { opacity: .8; }
-  .own .btn { background: var(--ink); }
+  /* Илья: цитата */
+  .own { text-align: center; }
+  .own__q { font: italic 500 clamp(32px, 8vw, 74px)/1.08 var(--serif); max-width: 1000px; margin: 30px auto 0; }
+  .own__q::before, .own__q::after { color: var(--gr); }
+  .own__q::before { content: "«"; } .own__q::after { content: "»"; }
+  .own__w { display: inline-flex; align-items: center; gap: 16px; margin-top: 36px; text-align: left; }
+  .own__w img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
+  .own__w strong { display: block; font: 600 22px/1.1 var(--serif); }
+  .own__w small { color: var(--ink2); font-size: 13px; }
 
-  /* проекты */
-  .prj { display: grid; gap: 12px; }
-  .pc { position: relative; border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 4.4; color: #fff; isolation: isolate; }
-  .pc img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s var(--ease); }
-  .pc::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.78)); }
-  .pc:hover img { transform: scale(1.05); }
-  .pc__b { position: absolute; left: 18px; right: 18px; bottom: 18px; display: grid; gap: 8px; }
-  .pc__b small { font: 600 12px var(--f); opacity: .8; letter-spacing: .04em; }
-  .pc__b h3 { font-size: 24px; }
-  .pc__t { display: flex; gap: 6px; flex-wrap: wrap; }
-  .pc__t span { padding: 6px 11px; border-radius: 999px; background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 600 12px var(--f); }
-  .pc__a { position: absolute; right: 14px; top: 14px; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; transition: transform .35s var(--ease); }
-  .pc:hover .pc__a { transform: rotate(45deg); }
+  /* дома: журнальная сетка */
+  .gal { display: grid; gap: 34px; margin-top: 44px; }
+  .gl { display: block; }
+  .gl figure { margin: 0; overflow: hidden; aspect-ratio: 4 / 5; }
+  .gl img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .gl:hover .rl.in img { transform: scale(1.04); }
+  .gl__c { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 14px; }
+  .gl__c h3 { font-size: 30px; }
+  .gl__c small { display: block; font: 600 11px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
+  .gl__c span { font: italic 500 20px var(--serif); color: var(--gr); white-space: nowrap; }
 
   /* Пермь / Бали */
-  .duo { display: grid; gap: 12px; }
-  .du { position: relative; border-radius: 30px; overflow: hidden; min-height: 300px; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; isolation: isolate; }
-  .du img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-  .du::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.72)); }
-  .du b { font: 800 clamp(48px, 13vw, 96px)/.9 var(--f); letter-spacing: -.06em; }
-  .du p { margin-top: 10px; max-width: 340px; color: rgba(255,255,255,.85); }
-  .du--b b { color: var(--or); }
+  .two { display: grid; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tw { padding: 44px var(--pad); display: grid; gap: 14px; }
+  .tw + .tw { border-top: 1px solid var(--line); }
+  .tw small { font: 600 11px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--mute); }
+  .tw b { font: 500 clamp(72px, 20vw, 180px)/.85 var(--serif); letter-spacing: -.02em; }
+  .tw:nth-child(2) b { font-style: italic; color: var(--gr); }
+  .tw p { color: var(--ink2); max-width: 380px; }
 
   /* вопросы */
-  .fq { display: grid; gap: 8px; }
-  .fq details { border-radius: 20px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
-  .fq summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 18px; cursor: pointer; font: 700 16px/1.3 var(--f); letter-spacing: -.02em; }
+  .fq { margin-top: 40px; border-top: 1px solid var(--line); }
+  .fq details { border-bottom: 1px solid var(--line); }
+  .fq summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; cursor: pointer; font: 500 clamp(24px, 6vw, 38px)/1.15 var(--serif); }
   .fq summary::-webkit-details-marker { display: none; }
-  .fq summary i { width: 34px; height: 34px; border-radius: 50%; background: #f2efea; display: grid; place-items: center; flex: none; transition: transform .35s var(--ease), background .3s, color .3s; }
-  .fq details[open] summary i { transform: rotate(45deg); background: var(--or); color: #fff; }
-  .fq details p { padding: 0 18px 18px; color: var(--ink2); }
+  .fq summary i { position: relative; width: 22px; height: 22px; flex: none; }
+  .fq summary i::before, .fq summary i::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: currentColor; transition: transform .4s var(--ease); }
+  .fq summary i::after { transform: rotate(90deg); }
+  .fq details[open] summary i::after { transform: rotate(0); }
+  .fq details p { padding: 0 0 24px; color: var(--ink2); max-width: 640px; }
 
   /* заявка */
-  .cta { border-radius: 32px; background: var(--black); color: #fff; padding: 28px 18px 18px; display: grid; gap: 24px; position: relative; overflow: hidden; }
-  .cta::before { content: ""; position: absolute; width: 520px; height: 520px; left: -220px; bottom: -300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,106,26,.4), transparent); pointer-events: none; }
-  .cta h2 { position: relative; font-size: clamp(38px, 10vw, 80px); }
-  .cta h2 em { font-style: normal; color: var(--or); }
-  .cta ul { position: relative; list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; color: var(--dmute); }
-  .cta li { display: flex; gap: 10px; align-items: center; }
-  .cta li::before { content: ""; width: 20px; height: 20px; border-radius: 50%; background: var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/12px no-repeat; flex: none; }
-  .frm { position: relative; display: grid; gap: 10px; padding: 16px; border-radius: 24px; background: var(--card); border: 1px solid var(--dline); }
-  .frm label { display: grid; gap: 6px; font: 600 12px var(--f); color: var(--dmute); }
-  .frm input, .frm select { height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid var(--dline); background: #0f0f0f; color: #fff; font-size: 15px; outline: none; transition: border-color .2s; }
-  .frm input:focus, .frm select:focus { border-color: var(--or); }
-  .frm .btn { width: 100%; margin-top: 4px; }
-  .frm .ok { display: none; padding: 14px; border-radius: 14px; background: rgba(52,210,123,.12); color: #8ff0b6; font-size: 14px; }
+  .ct { background: var(--ink); color: var(--cream); }
+  .ct .kick { color: rgba(238,234,227,.6); border-color: rgba(238,234,227,.18); }
+  .ct .kick b, .ct .h2 em { color: #a9bea1; }
+  .ct__g { display: grid; gap: 40px; margin-top: 10px; }
+  .frm { display: grid; gap: 4px; }
+  .frm label { display: block; padding: 16px 0 8px; border-bottom: 1px solid rgba(238,234,227,.25); font: 600 11px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: rgba(238,234,227,.55); transition: border-color .3s; }
+  .frm label:focus-within { border-color: var(--cream); }
+  .frm input, .frm select { display: block; width: 100%; margin-top: 8px; padding: 4px 0; background: none; border: 0; outline: none; color: var(--cream); font: 500 24px var(--serif); letter-spacing: 0; text-transform: none; }
+  .frm select option { color: var(--ink); }
+  .frm .bt { margin-top: 26px; background: var(--cream); color: var(--ink); }
+  .frm .ok { display: none; margin-top: 14px; font: italic 500 20px var(--serif); color: #a9bea1; }
   .frm.done .ok { display: block; }
+  .ct__l ul { list-style: none; margin: 26px 0 0; padding: 0; }
+  .ct__l li { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid rgba(238,234,227,.15); color: rgba(238,234,227,.8); }
+  .ct__l li b { font: italic 500 18px var(--serif); color: #a9bea1; }
 
   /* подвал */
-  .ft { padding: 40px 0 calc(28px + env(safe-area-inset-bottom)); }
-  .ft__big { font: 900 clamp(30px, 10.4vw, 128px)/.85 var(--f); letter-spacing: -.065em; color: var(--ink); white-space: nowrap; }
-  .ft__big em { font-style: normal; color: var(--or); }
-  .ft__g { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
-  .ft__g small { display: block; color: var(--mute); font-size: 12px; margin-bottom: 4px; }
-  .ft__g a, .ft__g span { font-weight: 600; font-size: 14px; }
-  .ft__b { display: flex; justify-content: space-between; margin-top: 26px; color: var(--mute); font-size: 12px; }
+  .ft { background: var(--ink); color: var(--cream); padding: 10px 0 calc(28px + env(safe-area-inset-bottom)); }
+  .ft__g { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 30px 0; border-top: 1px solid rgba(238,234,227,.15); }
+  .ft__g small { display: block; font: 600 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: rgba(238,234,227,.5); margin-bottom: 6px; }
+  .ft__g a, .ft__g span { font: 500 20px var(--serif); }
+  .ft__big { font: 500 clamp(44px, 13vw, 190px)/.9 var(--serif); letter-spacing: -.02em; white-space: nowrap; padding-top: 24px; border-top: 1px solid rgba(238,234,227,.15); }
+  .ft__big em { color: #a9bea1; }
+  .ft__b { display: flex; justify-content: space-between; margin-top: 20px; font-size: 12px; color: rgba(238,234,227,.5); }
 
   /* появление */
-  .rv { opacity: 0; transform: translate3d(0, 26px, 0); filter: blur(8px); transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
-  .rv.in { opacity: 1; transform: none; filter: blur(0); }
-  .hh { opacity: 0; transform: translate3d(0, 40%, 0); filter: blur(10px); transition: opacity 1s var(--ease), transform 1.2s var(--ease), filter 1s var(--ease); transition-delay: var(--d, 0s); }
-  .ld .hh { opacity: 1; transform: none; filter: blur(0); }
-  @media (prefers-reduced-motion: reduce) { .rv, .hh, .tg__m { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; } .run__in, .live i { animation: none; } }
+  .rv { opacity: 0; transform: translateY(30px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0s); }
+  .rv.in { opacity: 1; transform: none; }
+  .rl { overflow: hidden; }
+  .rl img { opacity: 0; transform: scale(1.14); transition: opacity 1.2s var(--ease), transform 1.6s var(--ease); }
+  .rl.in img { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .rv, .rl img, .fade, .hero__h span i, .hero__im img { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; } }
 
-  /* планшет и компьютер */
   @media (min-width: 760px) {
-    :root { --pad: 28px; }
-    .kc { flex-basis: 44%; }
-    .prj { grid-template-columns: repeat(2, 1fr); }
-    .duo { grid-template-columns: 1fr 1fr; }
-    .du { min-height: 420px; }
+    :root { --pad: 32px; }
+    .nums { grid-template-columns: repeat(4, 1fr); }
+    .nums div:nth-child(2n) { border-right: 1px solid var(--line); }
+    .nums div:last-child { border-right: 0; }
+    .gal { grid-template-columns: 1fr 1fr; }
+    .two { grid-template-columns: 1fr 1fr; }
+    .tw + .tw { border-top: 0; border-left: 1px solid var(--line); }
   }
   @media (min-width: 1024px) {
-    :root { --pad: 40px; }
-    .nav { padding: 0 8px 0 12px; height: 64px; }
+    :root { --pad: 48px; }
+    .sec { padding: 130px 0; }
     .nav__ln { display: flex; }
-    .sec { padding: 110px 0; }
-    .sec__hd { grid-template-columns: 1.2fr 1fr; align-items: end; margin-bottom: 48px; }
-    .sec__hd p { justify-self: end; }
-    .hero { padding: 92px 14px 14px; }
-    .hero__c { padding: 40px 40px 40px; min-height: calc(100vh - 106px); display: flex; flex-direction: column; }
-    .hero__h { font-size: clamp(64px, 7.4vw, 116px); max-width: 1100px; }
-    .hero__g { grid-template-columns: 1.55fr 1fr; gap: 20px; margin-top: auto; padding-top: 34px; }
-    .hero__ph { aspect-ratio: auto; height: 100%; min-height: 380px; }
-    .hero__p { font-size: 16px; }
-    .facts b { font-size: 34px; }
-    .facts div { padding: 18px 18px; }
-    .facts div > span { font-size: 12.5px; }
-    .cards { display: grid; grid-template-columns: repeat(4, 1fr); overflow: visible; margin: 0; padding: 0; }
-    .pick { grid-template-columns: 1fr 1.25fr; gap: 20px; align-items: stretch; }
-    .pick__ui { align-content: start; }
-    .res { display: grid; grid-template-rows: 1fr auto; }
-    .res__im { aspect-ratio: auto; min-height: 340px; }
-    .steps { grid-template-columns: repeat(5, 1fr); }
-    .st { grid-template-columns: 1fr; align-items: start; min-height: 230px; align-content: space-between; padding: 22px; }
-    .st b { font-size: 64px; }
-    .tg { grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-    .own { grid-template-columns: 1fr 1.15fr; }
-    .own__ph { aspect-ratio: auto; height: 100%; min-height: 460px; }
-    .own__b { padding: 44px; align-content: space-between; }
-    .prj { grid-template-columns: repeat(6, 1fr); }
-    .pc { grid-column: span 2; aspect-ratio: 4 / 4.6; }
-    .pc:nth-child(1), .pc:nth-child(2) { grid-column: span 3; aspect-ratio: 16 / 11; }
-    .cta { grid-template-columns: 1fr 1fr; padding: 52px; gap: 48px; align-items: center; }
-    .frm { padding: 24px; }
+    .nav__cta { margin-left: 40px; }
+    .hero__ft { grid-template-columns: 1fr auto; align-items: end; }
+    .sh { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: end; }
+    .sh .lead { justify-self: end; margin-top: 0; }
+    .ix { grid-template-columns: 80px 1fr 1.1fr 140px; padding: 30px 0; }
+    .ix p { grid-column: auto; }
+    .ix .tg { text-align: right; }
+    .ix__ph { display: block; position: absolute; right: 160px; top: 50%; width: 260px; height: 180px; object-fit: cover; opacity: 0; transform: translateY(-50%) scale(.92) rotate(-2deg); transition: opacity .4s, transform .6s var(--ease); pointer-events: none; z-index: 2; }
+    .ix:hover .ix__ph { opacity: 1; transform: translateY(-50%) scale(1) rotate(-2deg); }
+    .pk { grid-template-columns: 1fr 1.4fr; gap: 70px; align-items: start; }
+    .pk__qs { display: grid; gap: 28px; position: sticky; top: 110px; }
+    .way { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+    .way::before, .way__fill { left: 0; right: 0; top: 21px; bottom: auto; width: auto; height: 1px; }
+    .way__fill { width: 0; right: auto; }
+    .wy { grid-template-columns: 1fr; gap: 16px; padding: 0; }
+    .lg { grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: start; }
+    .lg__big { position: sticky; top: 110px; }
+    .gal { grid-template-columns: repeat(12, 1fr); gap: 40px 32px; }
+    .gl:nth-child(1) { grid-column: 1 / 8; } .gl:nth-child(1) figure { aspect-ratio: 16 / 11; }
+    .gl:nth-child(2) { grid-column: 8 / 13; margin-top: 120px; }
+    .gl:nth-child(3) { grid-column: 1 / 5; }
+    .gl:nth-child(4) { grid-column: 5 / 9; margin-top: 80px; }
+    .gl:nth-child(5) { grid-column: 9 / 13; margin-top: 160px; }
+    .tw { padding: 80px var(--pad); }
+    .ct__g { grid-template-columns: 1fr 1fr; gap: 90px; align-items: end; }
     .ft__g { grid-template-columns: repeat(4, 1fr); }
   }
 </style>
@@ -285,72 +261,57 @@
 <body>
 
 <header class="nav" id="nav">
-  <a class="logo" href="#top"><b>КС</b>КСДевелопмент</a>
-  <nav class="nav__ln"><a href="#what">Что строим</a><a href="#pick">Подбор дома</a><a href="#live">Стройка онлайн</a><a href="#projects">Дома</a><a href="#faq">Вопросы</a></nav>
-  <span class="nav__sp"></span>
-  <a class="nav__tg" href="#contact"><svg class="i" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg>Обсудить</a>
+  <a class="logo" href="#top"><svg viewBox="0 0 32 32"><path d="M4 28V14L16 5l12 9v14"/><path d="M12 28v-8h8v8"/></svg><div><span>КСДевелопмент</span><small>Пермь · Бали</small></div></a>
+  <nav class="nav__ln"><a href="#what">Дома</a><a href="#pick">Подбор</a><a href="#log">Стройка</a><a href="#gal">Объекты</a><a href="#faq">Вопросы</a></nav>
+  <a class="nav__cta" href="#contact">Связаться</a>
 </header>
 
 <main>
 <section class="hero" id="top">
-  <div class="hero__c">
-    <div class="hero__top hh" style="--d:.15s"><span class="live"><i></i>Строим сейчас</span><span>Пермь · Бали</span></div>
-    <h1 class="hero__h"><span class="hh" style="--d:.25s">Частные дома</span><span class="hh" style="--d:.35s">в Перми <em>для семьи</em></span></h1>
-    <div class="hero__g">
-      <div class="hero__ph hh" style="--d:.45s">
-        <img src="img/pr-dali.webp" alt="Двухэтажный частный дом у леса" fetchpriority="high">
-        <div class="chip chip--2"><i><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></i><div><b>160 м²</b>Новобродовский</div></div>
-        <div class="chip chip--1"><span class="live" style="background:none;padding:0;height:auto"><i></i></span><div>Сейчас на объекте<br><b style="font-size:14px">кладка 2 этажа</b></div></div>
-      </div>
-      <div class="hero__side">
-        <p class="hero__p hh" style="--d:.55s">Строим частные дома в Перми и пригороде качественно и в срок. Показываем, как создаём жильё для комфортной семейной жизни загородом.</p>
-        <div class="hero__btns hh" style="--d:.62s"><a class="btn" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a><a class="btn btn--g" href="#projects">Наши дома</a></div>
-        <div class="facts hh" style="--d:.7s">
-          <div><b><span data-count="75">0</span><small>м²</small></b><span>дом на 4 спальни</span></div>
-          <div><b><span data-count="160">0</span><small>м²</small></b><span>двухэтажный дом</span></div>
-          <div><b><span data-count="25">0</span><small>мин</small></b><span>от центра Перми</span></div>
-        </div>
-      </div>
+  <div class="hero__im"><img src="img/pr-dali.webp" alt="Двухэтажный частный дом у леса" fetchpriority="high"></div>
+  <div class="hero__in">
+    <div class="hero__lc fade" style="--d:.2s"><span>Частные дома</span><span>Пермь и пригород</span></div>
+    <h1 class="hero__h"><span><i style="--d:.35s">Дом, где</i></span><span><i style="--d:.48s">растёт <em>семья</em></i></span></h1>
+    <div class="hero__ft">
+      <p class="fade" style="--d:.8s">Строим частные дома в Перми качественно и в срок. Показываем, как создаём жильё для комфортной семейной жизни загородом.</p>
+      <div class="hero__bt fade" style="--d:.9s"><a class="bt" href="#pick">Подобрать дом</a><a class="bt bt--l" href="#gal">Наши объекты</a></div>
     </div>
   </div>
 </section>
 
-<div class="run" aria-hidden="true"><div class="run__in">
-  <span>Новобродовский</span><span>Жебреи</span><span>Большая Мось</span><span>Усть-Качка</span><span>Пермь</span><span>Бали</span>
-  <span>Новобродовский</span><span>Жебреи</span><span>Большая Мось</span><span>Усть-Качка</span><span>Пермь</span><span>Бали</span>
-</div></div>
+<div class="nums">
+  <div class="rv"><b data-count="75">0<small>м²</small></b><span>дом на 4 спальни в Жебреях</span></div>
+  <div class="rv" style="--d:.06s"><b data-count="160">0<small>м²</small></b><span>двухэтажный дом в Новобродовском</span></div>
+  <div class="rv" style="--d:.12s"><b data-count="25">0<small>мин</small></b><span>от центра Перми до участка</span></div>
+  <div class="rv" style="--d:.18s"><b data-count="4">0<small>м</small></b><span>высота потолка в доме на 75 м²</span></div>
+</div>
 
 <section class="sec" id="what">
   <div class="wrap">
-    <div class="sec__hd">
-      <div><span class="lbl rv"><b>01</b>Что строим</span><h2 class="h2 rv" style="--d:.06s">От уютного <em>одноэтажного</em><br>до виллы на Бали</h2></div>
-      <p class="rv" style="--d:.1s">Частные дома в Перми и пригороде, от компактных до двухэтажных. Каждый дом продумываем под семью.</p>
-    </div>
-    <div class="cards">
-      <article class="kc rv"><div class="kc__im"><img src="img/sv-house.webp" alt="Одноэтажный дом" loading="lazy"><span class="kc__n">01</span></div><div class="kc__b"><h3>Одноэтажные дома</h3><p>Даже на 75 м² помещаются 4 спальни, кухня-гостиная и терраса.</p><div class="kc__t"><span>от 75 м²</span><span>Пермь</span></div></div></article>
-      <article class="kc rv" style="--d:.06s"><div class="kc__im"><img src="img/sv-shell.webp" alt="Двухэтажный дом" loading="lazy"><span class="kc__n">02</span></div><div class="kc__b"><h3>Двухэтажные дома</h3><p>Например, 160 м² на 6 сотках, напротив леса и в 25 минутах от центра.</p><div class="kc__t"><span>130–160 м²</span><span>2 этажа</span></div></div></article>
-      <article class="kc rv" style="--d:.12s"><div class="kc__im"><img src="img/pr-villa.webp" alt="Вилла" loading="lazy"><span class="kc__n">03</span></div><div class="kc__b"><h3>Виллы на Бали</h3><p>Строим виллы на Бали. Расскажем, как всё устроено.</p><div class="kc__t"><span>Бали</span></div></div></article>
-      <article class="kc rv" style="--d:.18s"><div class="kc__im"><img src="img/pr-lake.webp" alt="Дом у леса" loading="lazy"><span class="kc__n">04</span></div><div class="kc__b"><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p><div class="kc__t"><span>по запросу</span></div></div></article>
+    <div class="kick rv"><b>i.</b><span>Что строим</span><span>01 / 04</span></div>
+    <div class="sh"><h2 class="h2 rv">Четыре вида<br><em>загородной</em> жизни</h2><p class="lead rv">Наведите на строку, чтобы увидеть дом. Каждый проект продумываем под семью, которая будет в нём жить.</p></div>
+    <div class="idx">
+      <div class="ix rv"><small>01</small><h3>Одноэтажный</h3><p>Даже на 75 м² помещаются 4 спальни, кухня-гостиная с панорамными окнами и терраса.</p><span class="tg">от 75 м²</span><img class="ix__ph" src="img/pr-pines.webp" alt="" loading="lazy"></div>
+      <div class="ix rv"><small>02</small><h3>Двухэтажный</h3><p>160 м² на 6 сотках, в 25 минутах от центра и прямо напротив леса.</p><span class="tg">130–160 м²</span><img class="ix__ph" src="img/pr-dali.webp" alt="" loading="lazy"></div>
+      <div class="ix rv"><small>03</small><h3>Вилла на Бали</h3><p>Илья сам ведёт стройки вилл на Бали. Расскажем, как всё устроено.</p><span class="tg">Бали</span><img class="ix__ph" src="img/pr-villa.webp" alt="" loading="lazy"></div>
+      <div class="ix rv"><small>04</small><h3>Инвестиция</h3><p>Дом как вложение: подберём участок и проект под вашу задачу.</p><span class="tg">по запросу</span><img class="ix__ph" src="img/pr-lake.webp" alt="" loading="lazy"></div>
     </div>
   </div>
 </section>
 
-<section class="sec dark" id="pick">
+<section class="sec pick" id="pick">
   <div class="wrap">
-    <div class="sec__hd">
-      <div><span class="lbl rv"><b>02</b>Подбор дома</span><h2 class="h2 rv" style="--d:.06s">Какой дом<br>нужен <em>вашей семье?</em></h2></div>
-      <p class="rv" style="--d:.1s">Выберите этажность и площадь, и мы покажем похожий дом, который уже построили или строим.</p>
-    </div>
-    <div class="pick">
-      <div class="pick__ui">
-        <div class="q rv"><small>Этажей</small><div class="seg" data-k="fl"><i></i><button class="on" data-v="1">1 этаж</button><button data-v="2">2 этажа</button></div></div>
-        <div class="q rv" style="--d:.06s"><small>Площадь</small><div class="seg" data-k="ar"><i></i><button class="on" data-v="s">до 100 м²</button><button data-v="m">100–150</button><button data-v="l">150+</button></div></div>
-        <a class="btn rv" style="--d:.12s" href="#contact" id="pickBtn">Обсудить такой дом<i><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+    <div class="kick rv"><b>ii.</b><span>Подбор дома</span><span>02 / 04</span></div>
+    <div class="sh"><h2 class="h2 rv">Какой дом<br>нужен <em>вам?</em></h2><p class="lead rv">Ответьте на два вопроса, и мы покажем похожий дом, который уже построили или строим сейчас.</p></div>
+    <div class="pk">
+      <div class="pk__qs">
+        <div class="pk__q rv"><small>Этажей</small><div class="pk__o" data-k="fl"><button class="on" data-v="1">Один</button><button data-v="2">Два</button></div></div>
+        <div class="pk__q rv" style="--d:.06s"><small>Площадь</small><div class="pk__o" data-k="ar"><button class="on" data-v="s">до 100</button><button data-v="m">100–150</button><button data-v="l">150+</button></div></div>
+        <a class="lnk rv" style="--d:.12s;color:var(--cream)" href="#contact">Обсудить такой дом <svg class="i" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
       </div>
-      <div class="res rv" style="--d:.1s" id="res">
-        <div class="res__im"><img id="resImg" src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"></div>
-        <span class="res__cnt" id="resCnt">Похожий дом</span>
-        <div class="res__b"><small id="resP">Пермский край</small><h3 id="resH">Дом в Жебреях</h3><div class="res__ch" id="resCh"><span>75 м²</span><span>4 спальни</span><span>потолок 4 м</span></div></div>
+      <div class="pk__r rv" id="res" style="--d:.1s">
+        <figure><img id="resImg" src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"></figure>
+        <div class="pk__cap"><div><small id="resP">Жебреи</small><h3 id="resH">Дом на 4 спальни</h3></div><p id="resCh">75 м²<br>потолок 4 м</p></div>
       </div>
     </div>
   </div>
@@ -358,108 +319,93 @@
 
 <section class="sec" id="how">
   <div class="wrap">
-    <div class="sec__hd">
-      <div><span class="lbl rv"><b>03</b>Как строим</span><h2 class="h2 rv" style="--d:.06s">Пять шагов<br>до <em>своего дома</em></h2></div>
-      <p class="rv" style="--d:.1s">Понятный путь от первого разговора до ключей. А ход стройки видно в нашем канале.</p>
-    </div>
-    <div class="steps">
-      <div class="st rv"><b>01</b><div><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div></div>
-      <div class="st rv" style="--d:.05s"><b>02</b><div><h4>Проект</h4><p>Подбираем планировку под вашу семью.</p></div></div>
-      <div class="st rv" style="--d:.1s"><b>03</b><div><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div></div>
-      <div class="st hi rv" style="--d:.15s"><b>04</b><div><h4>Стройка</h4><p>Показываем ход работ в Telegram.</p></div></div>
-      <div class="st rv" style="--d:.2s"><b>05</b><div><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div></div>
+    <div class="kick rv"><b>iii.</b><span>Как строим</span><span>03 / 04</span></div>
+    <h2 class="h2 rv">Пять шагов<br>до <em>ключей</em></h2>
+    <div class="way" id="way">
+      <span class="way__fill" id="wayF"></span>
+      <div class="wy"><i>1</i><div><h3>Участок</h3><p>Смотрим участок, подъезды и окружение.</p></div></div>
+      <div class="wy"><i>2</i><div><h3>Проект</h3><p>Подбираем планировку под вашу семью.</p></div></div>
+      <div class="wy"><i>3</i><div><h3>Договор</h3><p>Фиксируем, что и когда строим.</p></div></div>
+      <div class="wy"><i>4</i><div><h3>Стройка</h3><p>Показываем каждый этап в нашем канале.</p></div></div>
+      <div class="wy"><i>5</i><div><h3>Ключи</h3><p>Принимаете готовый дом вместе с нами.</p></div></div>
     </div>
   </div>
 </section>
 
-<section class="sec dark" id="live">
+<section class="sec log" id="log">
   <div class="wrap">
-    <div class="tg">
+    <div class="kick rv"><b>iv.</b><span>Журнал стройки</span><span>04 / 04</span></div>
+    <div class="lg">
+      <figure class="lg__big rl" style="margin:0"><img src="img/found.webp" alt="Фундамент частного дома" loading="lazy"><figcaption><span>Временное фото</span><span>Заменим на ваше</span></figcaption></figure>
       <div>
-        <span class="lbl rv"><b>04</b>Стройка онлайн</span>
-        <h2 class="h2 rv" style="--d:.06s">Пока Илья<br>на Бали, <em>Пермь<br>строится</em></h2>
-        <div class="tg__side" style="margin-top:26px">
-          <div class="it rv"><i><svg class="i" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg></i><div><h4>Ход стройки в канале</h4><p>Показываем каждый этап, от фундамента до финала.</p></div></div>
-          <div class="it rv" style="--d:.06s"><i><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i><div><h4>Владимир на объекте</h4><p>Рассказывает, что происходит на стройке в Перми.</p></div></div>
+        <h2 class="h2 rv" style="margin-top:0">Пока Илья на Бали,<br><em>Пермь строится</em></h2>
+        <p class="lead rv">Ход каждой стройки мы показываем в Telegram и Instagram. Вот последние записи.</p>
+        <div class="lg__en" style="margin-top:34px">
+          <div class="en rv"><time>Сейчас</time><div><h4>Дом 160 м², Новобродовский</h4><p>На втором этаже уже залит армопояс, продолжается кладка стен. Совсем скоро дом будет готов.</p><div class="who">Владимир, на объекте</div></div></div>
+          <div class="en rv"><time>Готов</time><div><h4>Дом 75 м², Жебреи</h4><p>4 спальни, кухня-гостиная с панорамными окнами, потолок 4 метра и терраса для отдыха.</p><div class="who">Обзор в канале</div></div></div>
+          <div class="en rv"><time>От и до</time><div><h4>Одноэтажный дом, Большая Мось</h4><p>Весь процесс стройки на улице Дубравной, от начала и практически до конца.</p><div class="who">Видео в канале</div></div></div>
         </div>
-      </div>
-      <div class="tg__ph rv" style="--d:.1s" id="tgPh">
-        <div class="tg__hd"><b>КС</b><div><strong>КСДевелопмент</strong><small>канал</small></div></div>
-        <div class="tg__m"><div class="n">КСДевелопмент</div>🏡 Новый ход строительства в Новобродовском! Пока я строю виллы на Бали, Владимир показывает, что происходит на стройке в Перми.<time>12:40</time></div>
-        <div class="tg__m"><img src="img/site.webp" alt="Кладка стен второго этажа" loading="lazy">На втором этаже уже залит армопояс, продолжается кладка стен. Совсем скоро дом будет готов.<time>12:41</time></div>
-        <div class="tg__m">Дом 160 м² на 6 сотках, 25 минут от центра, прямо напротив леса 🌲<time>12:42</time></div>
+        <a class="lnk rv" style="margin-top:20px" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">Смотреть канал <svg class="i" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="owner">
+<section class="sec own" id="owner">
   <div class="wrap">
-    <div class="own rv">
-      <div class="own__ph"><img src="img/plan.webp" alt="Илья Копысов на объекте" loading="lazy"></div>
-      <div class="own__b">
-        <span class="lbl" style="color:rgba(255,255,255,.8)"><b style="color:#fff">05</b>Кто строит</span>
-        <p class="own__q">Показываю, как мы создаём жильё для комфортной семейной жизни загородом.</p>
-        <div class="own__w"><div><strong>Илья Копысов</strong><small>основатель КСДевелопмент</small></div><a class="btn" href="#contact">Написать Илье<i><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a></div>
-      </div>
+    <div class="kick rv" style="justify-content:center;border:0"><b>—</b><span>Основатель</span></div>
+    <p class="own__q rv">Показываю, как мы создаём жильё для комфортной семейной жизни загородом.</p>
+    <div class="own__w rv"><img src="img/plan.webp" alt="" loading="lazy"><div><strong>Илья Копысов</strong><small>КСДевелопмент · Пермь и Бали</small></div></div>
+  </div>
+</section>
+
+<section class="sec" id="gal" style="padding-top:0">
+  <div class="wrap">
+    <div class="kick rv"><b>v.</b><span>Объекты</span><span>Пермский край</span></div>
+    <div class="sh"><h2 class="h2 rv">Дома, которые<br><em>уже стоят</em></h2><p class="lead rv">Объекты из нашего канала. Любой можно посмотреть вживую.</p></div>
+    <div class="gal">
+      <a class="gl rv" href="#contact"><figure class="rl"><img src="img/pr-dali.webp" alt="Дом в Новобродовском" loading="lazy"></figure><div class="gl__c"><div><small>Новобродовский</small><h3>Дом напротив леса</h3></div><span>160 м²</span></div></a>
+      <a class="gl rv" href="#contact"><figure class="rl"><img src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"></figure><div class="gl__c"><div><small>Жебреи</small><h3>Четыре спальни</h3></div><span>75 м²</span></div></a>
+      <a class="gl rv" href="#contact"><figure class="rl"><img src="img/pr-lake.webp" alt="Дом в Большой Моси" loading="lazy"></figure><div class="gl__c"><div><small>Большая Мось</small><h3>На Дубравной</h3></div><span>1 этаж</span></div></a>
+      <a class="gl rv" href="#contact"><figure class="rl"><img src="img/pr-villa.webp" alt="Дом 130 м²" loading="lazy"></figure><div class="gl__c"><div><small>Пермь</small><h3>Два этажа</h3></div><span>130 м²</span></div></a>
+      <a class="gl rv" href="#contact"><figure class="rl"><img src="img/pr-green.webp" alt="Дом в Усть-Качке" loading="lazy"></figure><div class="gl__c"><div><small>Усть-Качка</small><h3>Загородный дом</h3></div><span>140–150 м²</span></div></a>
     </div>
   </div>
 </section>
 
-<section class="sec" id="projects" style="padding-top:20px">
-  <div class="wrap">
-    <div class="sec__hd">
-      <div><span class="lbl rv"><b>06</b>Наши дома</span><h2 class="h2 rv" style="--d:.06s">Дома, которые<br><em>уже стоят</em> под Пермью</h2></div>
-      <p class="rv" style="--d:.1s">Объекты из нашего канала. Любой можно посмотреть вживую.</p>
-    </div>
-    <div class="prj">
-      <a class="pc rv" href="#contact"><img src="img/pr-dali.webp" alt="Дом в Новобродовском" loading="lazy"><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><div class="pc__b"><small>Новобродовский · 25 мин от центра</small><h3>Дом напротив леса</h3><div class="pc__t"><span>160 м²</span><span>2 этажа</span><span>6 соток</span></div></div></a>
-      <a class="pc rv" style="--d:.06s" href="#contact"><img src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><div class="pc__b"><small>Жебреи</small><h3>4 спальни на 75 м²</h3><div class="pc__t"><span>75 м²</span><span>потолок 4 м</span><span>терраса</span></div></div></a>
-      <a class="pc rv" href="#contact"><img src="img/pr-lake.webp" alt="Дом в Большой Моси" loading="lazy"><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><div class="pc__b"><small>Большая Мось, ул. Дубравная</small><h3>Одноэтажный дом</h3><div class="pc__t"><span>1 этаж</span></div></div></a>
-      <a class="pc rv" style="--d:.06s" href="#contact"><img src="img/pr-villa.webp" alt="Дом 130 м²" loading="lazy"><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><div class="pc__b"><small>Пермь</small><h3>Два полных этажа</h3><div class="pc__t"><span>130 м²</span><span>2 этажа</span></div></div></a>
-      <a class="pc rv" style="--d:.12s" href="#contact"><img src="img/pr-green.webp" alt="Дом в Усть-Качке" loading="lazy"><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><div class="pc__b"><small>Усть-Качка</small><h3>Загородный дом</h3><div class="pc__t"><span>140–150 м²</span></div></div></a>
-    </div>
-  </div>
-</section>
+<div class="two">
+  <div class="tw rv"><small>Где строим</small><b>Пермь</b><p>Частные дома в городе и пригороде: Новобродовский, Жебреи, Большая Мось, Усть-Качка.</p></div>
+  <div class="tw rv" style="--d:.08s"><small>И ещё</small><b>Бали</b><p>Виллы на Бали. Илья сам ведёт эти стройки.</p></div>
+</div>
 
-<section class="sec" style="padding-top:0">
+<section class="sec" id="faq">
   <div class="wrap">
-    <div class="duo">
-      <div class="du rv"><img src="img/sv-house-w.webp" alt="Дом в Перми" loading="lazy"><b>Пермь</b><p>Частные дома в городе и пригороде: от компактных до двухэтажных.</p></div>
-      <div class="du du--b rv" style="--d:.08s"><img src="img/pr-villa.webp" alt="Вилла" loading="lazy"><b>Бали</b><p>Виллы на Бали. Илья сам ведёт эти стройки.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="faq" style="padding-top:20px">
-  <div class="wrap">
-    <div class="sec__hd">
-      <div><span class="lbl rv"><b>07</b>Вопросы</span><h2 class="h2 rv" style="--d:.06s">Коротко<br>о <em>главном</em></h2></div>
-    </div>
+    <div class="kick rv"><b>vi.</b><span>Вопросы</span></div>
+    <h2 class="h2 rv">Коротко <em>о главном</em></h2>
     <div class="fq">
-      <details class="rv" open><summary>Где вы строите?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>В Перми и пригороде: Новобродовский, Жебреи, Большая Мось, Усть-Качка. Напишите, где ваш участок.</p></details>
-      <details class="rv"><summary>Какие дома вы строите?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>От компактных одноэтажных, где на 75 м² помещаются 4 спальни, до двухэтажных на 160 м².</p></details>
-      <details class="rv"><summary>Можно посмотреть, как вы строите?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Да. Ход стройки каждого дома мы показываем в Telegram и Instagram, а готовые дома покажем вживую.</p></details>
-      <details class="rv"><summary>Вы строите на Бали?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Да, строим виллы на Бали. Напишите, и расскажем, как всё устроено.</p></details>
-      <details class="rv"><summary>У меня свой проект. Возьмётесь?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Напишите нам: посмотрим проект и обсудим, как его построить.</p></details>
+      <details class="rv" open><summary>Где вы строите?<i></i></summary><p>В Перми и пригороде: Новобродовский, Жебреи, Большая Мось, Усть-Качка. Напишите, где ваш участок.</p></details>
+      <details class="rv"><summary>Какие дома вы строите?<i></i></summary><p>От компактных одноэтажных, где на 75 м² помещаются 4 спальни, до двухэтажных на 160 м².</p></details>
+      <details class="rv"><summary>Можно посмотреть, как вы строите?<i></i></summary><p>Да. Ход стройки каждого дома мы показываем в Telegram и Instagram, а готовые дома покажем вживую.</p></details>
+      <details class="rv"><summary>Вы строите на Бали?<i></i></summary><p>Да, строим виллы на Бали. Напишите, и расскажем, как всё устроено.</p></details>
+      <details class="rv"><summary>У меня свой проект. Возьмётесь?<i></i></summary><p>Напишите нам: посмотрим проект и обсудим, как его построить.</p></details>
     </div>
   </div>
 </section>
 
-<section class="sec" id="contact" style="padding-top:0">
+<section class="sec ct" id="contact">
   <div class="wrap">
-    <div class="cta rv">
-      <div>
-        <span class="lbl"><b>08</b>Заявка</span>
-        <h2 style="margin-top:16px">Обсудим<br>ваш <em>дом</em></h2>
-        <ul><li>Подберём проект под ваш участок</li><li>Посчитаем стоимость дома</li><li>Покажем наши дома вживую</li></ul>
+    <div class="kick rv"><b>vii.</b><span>Заявка</span></div>
+    <div class="ct__g">
+      <div class="ct__l">
+        <h2 class="h2 rv">Обсудим<br>ваш <em>дом</em></h2>
+        <ul class="rv"><li><b>01</b>Подберём проект под ваш участок</li><li><b>02</b>Посчитаем стоимость дома</li><li><b>03</b>Покажем наши дома вживую</li></ul>
       </div>
-      <form class="frm" id="frm" novalidate>
+      <form class="frm rv" id="frm" novalidate>
         <label>Имя<input name="n" autocomplete="name" placeholder="Как к вам обращаться"></label>
-        <label>Телефон<input name="t" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
-        <label>Что строим<select name="k" id="frmK"><option>Одноэтажный дом</option><option>Двухэтажный дом</option><option>Вилла на Бали</option><option>Инвестиции</option></select></label>
-        <button class="btn" type="submit">Отправить<i><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></i></button>
-        <div class="ok"><b>Заявка отправлена.</b> Мы свяжемся с вами в ближайшее время.</div>
+        <label>Телефон<input name="t" type="tel" autocomplete="tel" placeholder="+7"></label>
+        <label>Что строим<select name="k" id="frmK"><option>Одноэтажный дом</option><option>Двухэтажный дом</option><option>Вилла на Бали</option><option>Инвестиция</option></select></label>
+        <button class="bt" type="submit">Отправить заявку</button>
+        <div class="ok">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
       </form>
     </div>
   </div>
@@ -468,14 +414,14 @@
 
 <footer class="ft">
   <div class="wrap">
-    <div class="ft__big rv">КС<em>Девелопмент</em></div>
     <div class="ft__g">
       <div><small>Telegram</small><a href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">@KSDevelopment1</a></div>
       <div><small>Instagram</small><span>@ilyakopysov</span></div>
-      <div><small>Где строим</small><span>Пермь и пригород, Бали</span></div>
+      <div><small>Где строим</small><span>Пермь, Бали</span></div>
       <div><small>Телефон</small><span>Добавим ваш</span></div>
     </div>
-    <div class="ft__b"><span>© КСДевелопмент, 2026</span><a href="#top">Наверх ↑</a></div>
+    <div class="ft__big">КС<em>Девелопмент</em></div>
+    <div class="ft__b"><span>© 2026</span><a href="#top">Наверх ↑</a></div>
   </div>
 </footer>
 
@@ -485,69 +431,72 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // счётчики
-  var count = function (el) {
-    var to = +el.dataset.count, t0 = performance.now(), d = reduce ? 1 : 1300;
-    var step = function (t) { var k = Math.min(1, (t - t0) / d); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
-  };
-
-  // старт главного экрана
-  var start = function () { document.body.classList.add('ld'); setTimeout(function () { $$('.facts [data-count]').forEach(count); }, 800); };
-  var hi = $('.hero__ph img');
+  var start = function () { document.body.classList.add('ld'); };
+  var hi = $('.hero__im img');
   if (hi.complete) requestAnimationFrame(function () { requestAnimationFrame(start); });
   else { hi.addEventListener('load', start); hi.addEventListener('error', start); setTimeout(start, 2500); }
 
-  // появление при прокрутке
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
-  $$('.rv').forEach(function (el) { io.observe(el); });
-
-  // сообщения в канале появляются по очереди
-  var ph = $('#tgPh');
-  new IntersectionObserver(function (es, o) {
-    if (!es[0].isIntersecting) return; o.disconnect();
-    $$('.tg__m', ph).forEach(function (m, i) { setTimeout(function () { m.classList.add('in'); }, 350 + i * 650); });
-  }, { threshold: .3 }).observe(ph);
-
-  // шапка прячется при прокрутке вниз
+  // шапка: прозрачная над фото, светлая ниже; прячется при прокрутке вниз
   var nav = $('#nav'), ly = 0;
-  addEventListener('scroll', function () { var y = scrollY; nav.style.transform = (y > ly && y > 300) ? 'translateY(-130%)' : ''; ly = y; }, { passive: true });
+  var onS = function () {
+    var y = scrollY; nav.classList.toggle('solid', y > innerHeight * .8);
+    nav.style.transform = (y > ly && y > innerHeight) ? 'translateY(-100%)' : ''; ly = y;
+  };
+  addEventListener('scroll', onS, { passive: true }); onS();
+
+  // счётчики
+  var count = function (el) {
+    var to = +el.dataset.count, sm = el.querySelector('small').outerHTML, t0 = performance.now(), d = reduce ? 1 : 1400;
+    var st = function (t) { var k = Math.min(1, (t - t0) / d); el.innerHTML = Math.round(to * (1 - Math.pow(1 - k, 3))) + sm; if (k < 1) requestAnimationFrame(st); };
+    requestAnimationFrame(st);
+  };
+
+  // появление
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in'); io.unobserve(e.target);
+      var c = e.target.querySelector('[data-count]'); if (c) count(c);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+  $$('.rv, .rl').forEach(function (el) { io.observe(el); });
+
+  // шаги загораются по мере прокрутки
+  var way = $('#way'), fill = $('#wayF'), wys = $$('.wy', way);
+  var wayS = function () {
+    var r = way.getBoundingClientRect(), wide = innerWidth >= 1024;
+    var k = Math.max(0, Math.min(1, (innerHeight * .75 - r.top) / (r.height + innerHeight * .2)));
+    if (wide) { fill.style.width = (k * 100) + '%'; fill.style.height = ''; } else { fill.style.height = (k * 100) + '%'; fill.style.width = ''; }
+    wys.forEach(function (w, i) { w.classList.toggle('on', k > i / wys.length + .02); });
+  };
+  addEventListener('scroll', wayS, { passive: true }); addEventListener('resize', wayS); wayS();
 
   // подбор дома: только реальные объекты
   var H = {
-    '1s': ['img/pr-pines.webp', 'Пермский край', 'Дом в Жебреях', ['75 м²', '4 спальни', 'потолок 4 м']],
-    '1m': ['img/pr-lake.webp', 'Большая Мось', 'Дом на Дубравной', ['1 этаж', 'от начала до финала']],
-    '1l': ['img/pr-lake.webp', 'Большая Мось', 'Дом на Дубравной', ['1 этаж', 'от начала до финала']],
-    '2s': ['img/pr-villa.webp', 'Пермь', 'Два полных этажа', ['130 м²', '2 этажа']],
-    '2m': ['img/pr-green.webp', 'Усть-Качка', 'Загородный дом', ['140–150 м²', '2 этажа']],
-    '2l': ['img/pr-dali.webp', 'Новобродовский', 'Дом напротив леса', ['160 м²', '2 этажа', '6 соток']]
+    '1s': ['img/pr-pines.webp', 'Жебреи', 'Дом на 4 спальни', '75 м²<br>потолок 4 м'],
+    '1m': ['img/pr-lake.webp', 'Большая Мось', 'Дом на Дубравной', '1 этаж<br>от начала до финала'],
+    '1l': ['img/pr-lake.webp', 'Большая Мось', 'Дом на Дубравной', '1 этаж<br>от начала до финала'],
+    '2s': ['img/pr-villa.webp', 'Пермь', 'Два полных этажа', '130 м²<br>2 этажа'],
+    '2m': ['img/pr-green.webp', 'Усть-Качка', 'Загородный дом', '140–150 м²'],
+    '2l': ['img/pr-dali.webp', 'Новобродовский', 'Дом напротив леса', '160 м²<br>6 соток']
   };
   var st = { fl: '1', ar: 's' }, res = $('#res');
-  var show = function () {
-    var h = H[st.fl + st.ar]; res.classList.add('sw');
-    setTimeout(function () {
-      $('#resImg').src = h[0]; $('#resImg').alt = h[2]; $('#resP').textContent = h[1]; $('#resH').textContent = h[2];
-      $('#resCh').innerHTML = h[3].map(function (x) { return '<span>' + x + '</span>'; }).join('');
-      res.classList.remove('sw');
-    }, 280);
-    $('#frmK').value = st.fl === '1' ? 'Одноэтажный дом' : 'Двухэтажный дом';
-  };
-  $$('.seg').forEach(function (sg) {
-    var pill = $('i', sg), bs = $$('button', sg);
-    var place = function (b) { pill.style.width = b.offsetWidth + 'px'; pill.style.transform = 'translateX(' + (b.offsetLeft - 4) + 'px)'; };
+  $$('.pk__o').forEach(function (g) {
+    var bs = $$('button', g);
     bs.forEach(function (b) {
       b.addEventListener('click', function () {
-        bs.forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); place(b);
-        st[sg.dataset.k] = b.dataset.v; show();
+        bs.forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
+        st[g.dataset.k] = b.dataset.v;
+        var h = H[st.fl + st.ar]; res.classList.add('sw');
+        setTimeout(function () {
+          $('#resImg').src = h[0]; $('#resImg').alt = h[2]; $('#resP').textContent = h[1]; $('#resH').textContent = h[2]; $('#resCh').innerHTML = h[3];
+          res.classList.remove('sw');
+        }, 320);
+        $('#frmK').value = st.fl === '1' ? 'Одноэтажный дом' : 'Двухэтажный дом';
       });
     });
-    var init = function () { place($('button.on', sg)); };
-    init(); addEventListener('resize', init); if (document.fonts) document.fonts.ready.then(init);
   });
 
-  // форма (демо)
   $('#frm').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
 })();
 </script>
