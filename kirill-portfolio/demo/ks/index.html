@@ -196,6 +196,71 @@
   .ft__w { font: 800 clamp(34px, 11.2vw, 160px)/.85 var(--f); letter-spacing: -.07em; color: #deded9; white-space: nowrap; margin-top: 26px; }
   .ft__b { display: flex; justify-content: space-between; margin-top: 18px; font-size: 12px; color: var(--mute); }
 
+
+  /* карусель объектов */
+  .cases { background: var(--dark); color: #fff; border-radius: 32px; margin: 0 10px; padding: 70px 0 60px; overflow: hidden; text-align: center; }
+  .cases .h2 span { color: rgba(255,255,255,.4); }
+  .cases__p { max-width: 380px; margin: 14px auto 0; font-size: 13px; color: rgba(255,255,255,.5); }
+  .car { position: relative; height: 300px; margin-top: 40px; }
+  .cs { position: absolute; left: 50%; top: 0; width: 250px; margin-left: -125px; border-radius: 22px; overflow: hidden; background: #1b1b1b; text-align: left; transition: transform .7s var(--ease), opacity .6s, background .5s, color .5s; cursor: pointer; }
+  .cs figure { margin: 0; height: 120px; overflow: hidden; }
+  .cs figure img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.6) brightness(.6); transition: filter .6s, transform 1s var(--ease); }
+  .cs__b { padding: 14px 16px 18px; }
+  .cs__b small { font: 600 10.5px var(--f); color: var(--or); }
+  .cs__b h3 { font-size: 22px; letter-spacing: -.045em; margin-top: 4px; color: rgba(255,255,255,.45); transition: color .5s; }
+  .cs__b p { margin-top: 8px; font-size: 12px; line-height: 1.4; color: rgba(255,255,255,.3); transition: color .5s; }
+  .cs.on { background: #fff; color: var(--ink); box-shadow: 0 0 0 4px rgba(255,255,255,.12); }
+  .cs.on figure img { filter: none; }
+  .cs.on h3 { color: var(--ink); }
+  .cs.on p { color: var(--ink2); }
+  .car__nav { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+  .car__nav button { width: 44px; height: 44px; border-radius: 12px; background: #fff; color: var(--ink); display: grid; place-items: center; transition: transform .2s; }
+  .car__nav button.f { background: var(--or); color: #fff; }
+  .car__nav button:active { transform: scale(.92); }
+
+  /* финал: форма поверх фото и огромное слово */
+  .fin { position: relative; margin: 14px 10px 0; border-radius: 32px; overflow: hidden; background: radial-gradient(120% 80% at 50% 30%, #fff 0%, #ececea 55%, #dcdcd9 100%); padding: 30px 18px 0; isolation: isolate; }
+  .fin__house { position: absolute; z-index: -1; left: 50%; bottom: 330px; width: 200%; max-width: none; transform: translateX(-50%); -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 60%, transparent 100%); opacity: .95; }
+  .fin__glow { position: absolute; z-index: -1; width: 80%; aspect-ratio: 1; right: -20%; top: 30%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,90,31,.45), rgba(255,90,31,0)); }
+  .fin__g { display: grid; gap: 24px; }
+  .fin__l h2 { font-size: clamp(28px, 7vw, 44px); letter-spacing: -.05em; }
+  .fin__l p { margin-top: 10px; font-size: 13px; color: var(--ink2); max-width: 280px; }
+  .fin__l .cta { margin-top: 18px; }
+  .fcard { padding: 22px 18px 18px; border-radius: 26px; background: #fff; box-shadow: 0 30px 60px rgba(0,0,0,.1); text-align: center; }
+  .fcard h3 { font-size: 24px; letter-spacing: -.045em; line-height: 1.05; }
+  .fcard h3 span { color: var(--or); display: block; }
+  .fcard form { display: grid; gap: 10px; margin-top: 18px; }
+  .fcard input, .fcard select { height: 50px; padding: 0 20px; border-radius: 999px; border: 0; background: #f0f0ee; font: 500 14px var(--f); outline: none; box-shadow: inset 0 0 0 1px transparent; transition: box-shadow .2s; }
+  .fcard input:focus, .fcard select:focus { box-shadow: inset 0 0 0 1px var(--or); }
+  .fcard button { height: 52px; margin-top: 6px; border-radius: 999px; border: 1px solid var(--ink); font: 700 14px var(--f); transition: background .25s, color .25s; }
+  .fcard button:hover { background: var(--ink); color: #fff; }
+  .fcard .ok { display: none; font-size: 13px; color: #1f9d55; }
+  .fcard form.done .ok { display: block; }
+  .fin__w { margin-top: 70px; font: 800 clamp(90px, 30vw, 400px)/.78 var(--f); letter-spacing: -.08em; color: #fff; white-space: nowrap; text-align: center; margin-left: -.05em; }
+  .fin__ft { position: relative; display: grid; gap: 22px; margin: 0 -18px; padding: 30px 18px calc(22px + env(safe-area-inset-bottom)); background: #e2e2df; }
+  .fin__ft h4 { font-size: 26px; letter-spacing: -.045em; line-height: 1.05; }
+  .fin__ft .ghost { display: inline-flex; align-items: center; height: 40px; padding: 0 20px; margin-top: 14px; border-radius: 999px; border: 1px solid var(--ink); font: 600 12.5px var(--f); }
+  .fin__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .fin__cols b { display: block; font: 600 15px var(--f); letter-spacing: -.02em; margin-bottom: 6px; }
+  .fin__cols a, .fin__cols span { display: block; font-size: 12.5px; color: var(--ink2); line-height: 1.7; }
+  .fin__cp { font-size: 11px; color: var(--mute); }
+  @media (min-width: 1024px) {
+    .cases { margin: 0 14px; padding: 110px 0 80px; }
+    .car { height: 330px; margin-top: 56px; }
+    .cs { width: 290px; margin-left: -145px; }
+    .cs figure { height: 140px; }
+    .fin { margin: 14px 14px 0; padding: 60px 44px 0; }
+    .fin__house { width: 70%; bottom: 18%; }
+    .fin__ft { margin: 0; padding: 30px 0 28px; background: none; }
+    .fin__glow { width: 50%; right: -8%; top: 10%; }
+    .fin__g { grid-template-columns: 1fr 1fr 380px; align-items: start; }
+    .fin__l { padding-top: 70px; }
+    .fcard { grid-column: 3; padding: 30px 26px 24px; }
+    .fin__w { margin-top: 40px; }
+    .fin__ft { grid-template-columns: 1.4fr 1fr 1fr; align-items: start; }
+    .fin__cols { grid-column: span 2; grid-template-columns: repeat(3, 1fr); }
+  }
+
   .rv { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
   .rv.in { opacity: 1; transform: none; filter: blur(0); }
   @media (prefers-reduced-motion: reduce) { .rv, .hh, .hero__w span { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; } .hero__house { opacity: 1 !important; transform: translate(-50%, 0) !important; transition: none !important; } }
@@ -344,21 +409,23 @@
   </div>
 </section>
 
-<section class="sec" id="projects" style="padding-top:0">
+<section class="cases" id="projects">
   <div class="wrap">
     <span class="lbl rv"><i class="star"></i>Наши дома</span>
-    <h2 class="h2 rv" style="margin-top:14px">Дома, которые <span>уже стоят под Пермью</span></h2>
-    <div class="prj">
-      <a class="pc rv" href="#contact"><img src="img/pr-dali.webp" alt="Дом в Новобродовском" loading="lazy"><span class="pill">160 м²</span><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><h3>Дом напротив леса</h3><small>Новобродовский</small></a>
-      <a class="pc rv" style="--d:.06s" href="#contact"><img src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"><span class="pill">75 м²</span><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><h3>4 спальни</h3><small>Жебреи</small></a>
-      <a class="pc rv" href="#contact"><img src="img/pr-lake.webp" alt="Дом в Большой Моси" loading="lazy"><span class="pill">1 этаж</span><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><h3>Дом на Дубравной</h3><small>Большая Мось</small></a>
-      <a class="pc rv" style="--d:.06s" href="#contact"><img src="img/pr-villa.webp" alt="Дом 130 м²" loading="lazy"><span class="pill">130 м²</span><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><h3>Два этажа</h3><small>Пермь</small></a>
-      <a class="pc rv" style="--d:.12s" href="#contact"><img src="img/pr-green.webp" alt="Дом в Усть-Качке" loading="lazy"><span class="pill">140–150 м²</span><span class="pc__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span><h3>Загородный дом</h3><small>Усть-Качка</small></a>
-    </div>
+    <h2 class="h2 rv" style="margin-top:14px">Дома, которые <span>уже стоят</span></h2>
+    <p class="cases__p rv">Объекты из нашего канала. Листайте и выбирайте, какой посмотреть вживую.</p>
   </div>
+  <div class="car" id="car">
+    <div class="cs"><figure><img src="img/pr-dali.webp" alt="Дом в Новобродовском" loading="lazy"></figure><div class="cs__b"><small>Новобродовский · 160 м²</small><h3>Дом напротив леса</h3><p>Два этажа на 6 сотках, в 25 минутах от центра Перми.</p></div></div>
+    <div class="cs"><figure><img src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"></figure><div class="cs__b"><small>Жебреи · 75 м²</small><h3>Четыре спальни</h3><p>Кухня-гостиная с панорамными окнами, потолок 4 метра и терраса.</p></div></div>
+    <div class="cs"><figure><img src="img/pr-lake.webp" alt="Дом в Большой Моси" loading="lazy"></figure><div class="cs__b"><small>Большая Мось · 1 этаж</small><h3>Дом на Дубравной</h3><p>Показали всю стройку от начала и практически до конца.</p></div></div>
+    <div class="cs"><figure><img src="img/pr-villa.webp" alt="Дом 130 м²" loading="lazy"></figure><div class="cs__b"><small>Пермь · 130 м²</small><h3>Два полных этажа</h3><p>Двухэтажный дом с полноценными этажами.</p></div></div>
+    <div class="cs"><figure><img src="img/pr-green.webp" alt="Дом в Усть-Качке" loading="lazy"></figure><div class="cs__b"><small>Усть-Качка · 140–150 м²</small><h3>Загородный дом</h3><p>Дом для жизни за городом.</p></div></div>
+  </div>
+  <div class="car__nav"><button id="carP" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="f" id="carN" aria-label="Вперёд"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
 </section>
 
-<section class="sec" id="faq" style="padding-top:0">
+<section class="sec" id="faq">
   <div class="wrap">
     <span class="lbl rv"><i class="star"></i>Вопросы</span>
     <h2 class="h2 rv" style="margin-top:14px">Коротко <span>о главном</span></h2>
@@ -372,36 +439,40 @@
   </div>
 </section>
 
-<section class="ct" id="contact">
-  <div class="wrap ct__g">
-    <div>
-      <span class="lbl rv"><i class="star"></i>Заявка</span>
-      <h2 class="h2 rv" style="margin-top:14px">Обсудим <span>ваш дом</span></h2>
-      <ul class="rv"><li>Подберём проект под ваш участок</li><li>Посчитаем стоимость дома</li><li>Покажем наши дома вживую</li></ul>
+<section class="fin" id="contact">
+  <img class="fin__house" src="img/p_house2.webp" alt="" loading="lazy">
+  <div class="fin__glow"></div>
+  <div class="wrap" style="padding:0">
+    <div class="fin__g">
+      <div class="fin__l rv">
+        <h2>Готовы к своему дому?</h2>
+        <p>Расскажите, где участок и какой дом хотите. Подберём проект и покажем наши дома вживую.</p>
+        <a class="cta" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener"><b><img src="img/pr-dali.webp" alt=""></b>Написать в Telegram</a>
+      </div>
+      <div class="fcard rv" style="--d:.08s">
+        <h3><span>Обсудим</span>ваш дом</h3>
+        <form id="frm" novalidate>
+          <input name="n" autocomplete="name" placeholder="Ваше имя" aria-label="Имя">
+          <input name="t" type="tel" autocomplete="tel" placeholder="Телефон" aria-label="Телефон">
+          <select name="k" id="frmK" aria-label="Что строим"><option>Одноэтажный дом</option><option>Двухэтажный дом</option><option>Вилла на Бали</option><option>Инвестиция</option></select>
+          <button type="submit">Отправить заявку</button>
+          <div class="ok">Заявка отправлена, мы свяжемся с вами.</div>
+        </form>
+      </div>
     </div>
-    <form class="frm rv" id="frm" novalidate>
-      <label>Имя<input name="n" autocomplete="name" placeholder="Как к вам обращаться"></label>
-      <label>Телефон<input name="t" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
-      <label>Что строим<select name="k" id="frmK"><option>Одноэтажный дом</option><option>Двухэтажный дом</option><option>Вилла на Бали</option><option>Инвестиция</option></select></label>
-      <button type="submit">Отправить заявку</button>
-      <div class="ok">Заявка отправлена. Мы свяжемся с вами в ближайшее время.</div>
-    </form>
+    <div class="fin__w" aria-hidden="true">дома</div>
+    <div class="fin__ft">
+      <div><h4>Будем рады построить<br>ваш дом</h4><a class="ghost" href="#pick">Подобрать дом</a></div>
+      <div class="fin__cols">
+        <div><b>Где строим</b><span>Пермь и пригород</span><span>Бали</span></div>
+        <div><b>Соцсети</b><a href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">Telegram</a><span>Instagram @ilyakopysov</span></div>
+        <div><b>Контакты</b><span>Телефон добавим ваш</span><a href="#top">Наверх ↑</a></div>
+      </div>
+      <span class="fin__cp">© КСДевелопмент, 2026</span>
+    </div>
   </div>
 </section>
 </main>
-
-<footer class="ft">
-  <div class="wrap">
-    <div class="ft__g">
-      <div><small>Telegram</small><a href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">@KSDevelopment1</a></div>
-      <div><small>Instagram</small><span>@ilyakopysov</span></div>
-      <div><small>Где строим</small><span>Пермь и пригород, Бали</span></div>
-      <div><small>Телефон</small><span>Добавим ваш</span></div>
-    </div>
-    <div class="ft__w" aria-hidden="true">КСДевелопмент</div>
-    <div class="ft__b"><span>© КСДевелопмент, 2026</span><a href="#top">Наверх ↑</a></div>
-  </div>
-</footer>
 
 <script>
 (function () {
@@ -466,6 +537,27 @@
   });
 
   $('#frm').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
+
+  // карусель: центральная карточка светлая, соседние тёмные
+  var cs = $$('#car .cs'), cur = 0, N = cs.length;
+  var lay = function () {
+    var gap = innerWidth >= 1024 ? 310 : 210;
+    cs.forEach(function (c, i) {
+      var d = ((i - cur) % N + N) % N; if (d > N / 2) d -= N;
+      c.classList.toggle('on', d === 0);
+      c.style.transform = 'translateX(' + (d * gap) + 'px) scale(' + (d === 0 ? 1 : .86) + ')';
+      c.style.opacity = Math.abs(d) > 2 ? 0 : 1;
+      c.style.zIndex = 10 - Math.abs(d);
+    });
+  };
+  var go = function (k) { cur = (cur + k + N) % N; lay(); };
+  $('#carN').addEventListener('click', function () { go(1); });
+  $('#carP').addEventListener('click', function () { go(-1); });
+  cs.forEach(function (c, i) { c.addEventListener('click', function () { cur = i; lay(); }); });
+  var tx = 0, car = $('#car');
+  car.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  car.addEventListener('touchend', function (e) { var dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
+  addEventListener('resize', lay); lay();
 })();
 </script>
 </body>
