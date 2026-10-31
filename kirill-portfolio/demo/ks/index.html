@@ -657,6 +657,41 @@
   .pkf__tg { justify-self: center; margin-top: 4px; font: 600 12.5px var(--f); color: rgba(255,255,255,.6); text-decoration: underline; text-underline-offset: 3px; }
   .pkf form.done input, .pkf form.done select, .pkf form.done button, .pkf form.done .pkf__tg { display: none; }
   @media (min-width: 900px) { .res { grid-column: 2; grid-row: 1 / span 2; } .pk__go { grid-column: 1; grid-row: 2; align-self: start; } }
+  /* вопросы: варианты */
+  #faq .fqc, #faq .fqd { display: none; }
+  /* B: линии с номерами */
+  #faq[data-v="b"] .fq { counter-reset: fq; gap: 0; border-top: 1px solid rgba(255,255,255,.12); }
+  #faq[data-v="b"] .fq details { counter-increment: fq; background: none !important; border: 0 !important; border-bottom: 1px solid rgba(255,255,255,.12) !important; border-radius: 0; }
+  #faq[data-v="b"] .fq summary { padding: 22px 0; font-size: 17px; }
+  #faq[data-v="b"] .fq summary::before { content: counter(fq, decimal-leading-zero); font: 500 13px var(--f); color: rgba(255,255,255,.35); width: 30px; flex: none; }
+  #faq[data-v="b"] .fq summary { justify-content: flex-start; } #faq[data-v="b"] .fq summary i { margin-left: auto; background: none; border: 1px solid rgba(255,255,255,.2); }
+  #faq[data-v="b"] .fq details[open] summary { color: var(--A); }
+  #faq[data-v="b"] .fq details[open] summary i { background: var(--F) !important; border-color: transparent; color: #fff; }
+  #faq[data-v="b"] .fq details p { padding: 0 0 22px 30px; }
+  @media (min-width: 900px) { #faq[data-v="b"] .fq { grid-template-columns: 1fr; max-width: 900px; } }
+  /* C: вопросы-кнопки и панель ответа */
+  #faq[data-v="c"] .fq { display: none; }
+  #faq[data-v="c"] .fqc { display: grid; gap: 12px; margin-top: 30px; }
+  .fqc__q { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fqc__q button { padding: 12px 16px; border-radius: 999px; background: #141414; border: 1px solid rgba(255,255,255,.1); font: 600 13.5px var(--f); color: rgba(255,255,255,.75); text-align: left; transition: background .3s, color .3s; }
+  .fqc__q button.on { background: #fff; color: #111; border-color: #fff; }
+  .fqc__a { border-radius: 24px; background: var(--F); padding: 24px 22px 28px; min-height: 170px; }
+  .fqc__a small { font: 600 11px var(--f); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+  .fqc__a p { margin-top: 10px; font: 500 22px/1.25 var(--f); letter-spacing: -.03em; color: #fff; transition: opacity .25s; }
+  .fqc__a p.sw { opacity: 0; }
+  @media (min-width: 900px) { #faq[data-v="c"] .fqc { grid-template-columns: 1fr 1fr; align-items: stretch; } .fqc__q { flex-direction: column; align-items: flex-start; } .fqc__a { padding: 36px; } .fqc__a p { font-size: 30px; } }
+  /* D: открытый вопрос оранжевый + карточка «Не нашли ответ?» */
+  #faq[data-v="d"] .fq details[open] { background: var(--F) !important; border-color: transparent !important; }
+  #faq[data-v="d"] .fq details[open] p { color: rgba(255,255,255,.88); }
+  #faq[data-v="d"] .fq details[open] summary i { background: #fff !important; color: #111; }
+  #faq[data-v="d"] .fqd { display: flex; }
+  .fqd { margin-top: 8px; align-items: center; justify-content: space-between; gap: 14px; padding: 20px 18px; border-radius: 20px; background: #fbf7f4; color: #111; }
+  .fqd span { display: grid; gap: 3px; } .fqd b { font: 600 17px var(--f); } .fqd em { font-style: normal; font-size: 12.5px; color: rgba(17,17,17,.6); }
+  .fqd i { width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--F); color: #fff; display: grid; place-items: center; }
+  .qsw { position: fixed; z-index: 71; left: 50%; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 54px); transform: translate(-50%, 10px); opacity: 0; pointer-events: none; transition: .3s; display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(11,11,11,.9); border: 1px solid rgba(255,255,255,.15); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: rgba(255,255,255,.7); white-space: nowrap; }
+  .qsw.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+  .qsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
+  .qsw button.on { background: var(--F); }
 </style>
 </head>
 <body class="t-bright">
@@ -775,7 +810,7 @@
   </div>
 </section>
 
-<section class="sec" id="faq">
+<section class="sec" id="faq" data-v="a">
   <div class="wrap">
     <span class="lbl rv">Вопросы</span>
     <h2 class="h2 rv">Коротко <span>о главном</span></h2>
@@ -786,6 +821,8 @@
       <details class="rv"><summary>Вы строите на Бали?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Да. Напишите, и расскажем, как всё устроено.</p></details>
       <details class="rv"><summary>У меня свой проект. Возьмётесь?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Напишите нам: посмотрим проект и обсудим, как его построить.</p></details>
     </div>
+    <div class="fqc" id="fqc"><div class="fqc__q" id="fqcQ"></div><div class="fqc__a"><small>Ответ</small><p id="fqcA"></p></div></div>
+    <a class="fqd rv" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener"><span><b>Не нашли ответ?</b><em>Напишите Илье в Telegram, ответим лично.</em></span><i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
   </div>
 </section>
 
@@ -839,6 +876,7 @@
 </section>
 </main>
 <div style="height:14px"></div>
+<div class="qsw" id="qsw">Вопросы: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -949,6 +987,17 @@
       document.body.classList.remove('t-dark', 't-bright'); document.body.classList.add(b.dataset.t);
     });
   });
+  // варианты блока «Вопросы» (демо)
+  var fq = $('#faq'), qsw = $('#qsw'), fds = $$('#faq details'), fqA = $('#fqcA');
+  fds.forEach(function (d, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = $('summary', d).textContent;
+    b.addEventListener('click', function () { $$('#fqcQ button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); fqA.classList.add('sw'); setTimeout(function () { fqA.textContent = $('p', d).textContent; fqA.classList.remove('sw'); }, 200); });
+    $('#fqcQ').appendChild(b); if (!i) { b.classList.add('on'); fqA.textContent = $('p', d).textContent; }
+  });
+  var setQ = function (v) { fq.dataset.v = v; $$('#qsw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#faq .rv').forEach(function (el) { el.classList.add('in'); }); };
+  var qq = new URLSearchParams(location.search).get('q'); if (/^[abcd]$/.test(qq || '')) setQ(qq);
+  $$('#qsw button').forEach(function (b) { b.addEventListener('click', function () { setQ(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { qsw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .15 }).observe(fq);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
