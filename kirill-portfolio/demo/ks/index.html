@@ -1210,6 +1210,51 @@
   .hy__glow { animation: glowP 5s ease-in-out 2.5s infinite; }
   @keyframes glowP { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.18); } }
   @media (prefers-reduced-motion: reduce) { .hy__man img, .hy__man::after, .hy__glow { animation: none !important; } }
+  /* «Наши дома в цифрах»: варианты */
+  #about .nv { display: none; }
+  #about[data-nv="a"] .nv--a, #about[data-nv="b"] .nv--b { display: block; } #about[data-nv="c"] .nv--c { display: flex; } #about[data-nv="d"] .nv--d { display: grid; }
+  #about .nv--a > .bn { margin-top: 0; }
+  .nv--a { margin-top: 30px; }
+  /* B */
+  .nb { margin-top: 30px; border-top: 1px solid rgba(255,255,255,.12); }
+  .nb__r { display: grid; grid-template-columns: 46% 1fr; align-items: end; gap: 16px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .nb__r b { font: 500 clamp(56px, 17vw, 140px)/.82 var(--f); letter-spacing: -.06em; color: #fff; display: flex; align-items: baseline; gap: 6px; }
+  .nb__r b small { font: 500 clamp(16px, 4vw, 28px) var(--f); letter-spacing: -.02em; color: var(--A); }
+  .nb__r p { font-size: 14px; line-height: 1.35; color: #fff; }
+  .nb__r span { display: block; margin-top: 6px; font: 600 10.5px var(--f); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+  .nb__r:first-child b { color: var(--A); } .nb__r:first-child b small { color: #fff; }
+  /* C */
+  .nc { position: relative; margin-top: 30px; border-radius: 26px; overflow: hidden; min-height: 560px; display: flex; align-items: flex-end; padding: 10px; isolation: isolate; }
+  .nc > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .nc::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(11,11,11,0) 35%, rgba(11,11,11,.55)); }
+  .nc__p { width: 100%; display: grid; grid-template-columns: 1fr 1fr; border-radius: 20px; background: rgba(20,20,20,.55); border: 1px solid rgba(255,255,255,.16); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+  .nc__p > div { padding: 16px; border-right: 1px solid rgba(255,255,255,.12); border-bottom: 1px solid rgba(255,255,255,.12); }
+  .nc__p > div:nth-child(2n) { border-right: 0; } .nc__p > div:nth-child(n+3) { border-bottom: 0; }
+  .nc__p b { font: 500 40px/.9 var(--f); letter-spacing: -.05em; display: flex; align-items: baseline; gap: 4px; }
+  .nc__p b small { font-size: 14px; color: var(--A); letter-spacing: 0; }
+  .nc__p p { margin-top: 8px; font-size: 12px; line-height: 1.35; color: rgba(255,255,255,.75); }
+  /* D */
+  .nd { margin-top: 30px; display: grid; gap: 10px; }
+  .nd__f { position: relative; margin: 0; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 3; }
+  .nd__f img { width: 100%; height: 100%; object-fit: cover; }
+  .nd__f figcaption { position: absolute; left: 12px; bottom: 12px; padding: 7px 12px; border-radius: 999px; background: rgba(11,11,11,.5); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 600 12px var(--f); }
+  .nd__l { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .nd__i { padding: 18px 16px; border-radius: 20px; background: #141414; border: 1px solid rgba(255,255,255,.08); }
+  .nd__i b { font: 500 46px/.9 var(--f); letter-spacing: -.05em; display: flex; align-items: baseline; gap: 4px; }
+  .nd__i b small { font-size: 15px; color: rgba(255,255,255,.55); letter-spacing: 0; }
+  .nd__i p { margin-top: 10px; font-size: 12.5px; line-height: 1.35; color: rgba(255,255,255,.6); }
+  .nd__i--o { background: var(--F); border-color: transparent; } .nd__i--o b small, .nd__i--o p { color: rgba(255,255,255,.88); }
+  @media (min-width: 900px) {
+    .nb__r { grid-template-columns: 40% 1fr 1fr; } .nb__r > div { grid-column: 3; } .nb__r p { font-size: 17px; }
+    .nc { min-height: 640px; padding: 16px; } .nc__p { grid-template-columns: repeat(4, 1fr); } .nc__p > div { border-bottom: 0 !important; border-right: 1px solid rgba(255,255,255,.12) !important; padding: 22px; } .nc__p > div:last-child { border-right: 0 !important; } .nc__p b { font-size: 56px; }
+    .nd { grid-template-columns: 1.1fr 1fr; gap: 14px; } .nd__f { aspect-ratio: auto; } .nd__l { gap: 14px; } .nd__i { padding: 26px; } .nd__i b { font-size: 64px; }
+  }
+  .nsw { position: fixed; z-index: 71; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translate(-50%, 10px); opacity: 0; pointer-events: none; transition: .3s; display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(11,11,11,.9); border: 1px solid rgba(255,255,255,.15); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: rgba(255,255,255,.7); white-space: nowrap; }
+  .nsw.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+  .nsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
+  .nsw button.on { background: var(--F); }
+  .mnav:not(.x) { visibility: hidden; transition: visibility 0s .6s; }
+  body.mopen .mnav { visibility: visible; transition-delay: 0s; }
 </style>
 </head>
 <body class="t-bright">
@@ -1252,19 +1297,22 @@
   </div>
 </section>
 
-<section class="sec" id="about" data-v="b">
+<section class="sec" id="about" data-v="b" data-nv="a">
   <div class="wrap">
 
     <!-- Вариант B: дома в цифрах -->
     <div class="va va--b">
       <span class="lbl rv">В цифрах</span>
       <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
-      <div class="bn">
+      <div class="nv nv--a"><div class="bn">
         <div class="bn__t bn__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><span class="pill">Новобродовский</span><div><b>160 м²</b><p>двухэтажный дом на 6 сотках</p></div></div>
         <div class="bn__t bn__t--w rv" style="--d:.06s"><b>4</b><p>спальни в доме на 75 м² в Жебреях</p></div>
         <div class="bn__t bn__t--o rv" style="--d:.1s"><b>4 м</b><p>высота потолка, больше света и воздуха</p></div>
         <div class="bn__t bn__t--d rv" style="--d:.14s"><svg class="route" viewBox="0 0 300 90" aria-hidden="true"><path d="M14 70 C 80 70, 90 20, 150 30 S 240 60, 284 22" pathLength="1"/><circle cx="14" cy="70" r="6"/><circle cx="284" cy="22" r="8" class="h"/></svg><div class="route__l"><span>центр Перми</span><span>ваш дом</span></div><b>25 мин</b><p>от центра Перми до участка в Новобродовском</p><a href="#pick">Обсудить ваш дом <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </div>
+      </div></div>
+      <div class="nb nv nv--b"><div class="nb__r rv"><b>160<small>м²</small></b><div><p>Двухэтажный дом на 6 сотках</p><span>Новобродовский</span></div></div><div class="nb__r rv"><b>4<small>спальни</small></b><div><p>В одноэтажном доме на 75 м²</p><span>Жебреи</span></div></div><div class="nb__r rv"><b>4<small>м</small></b><div><p>Высота потолка, больше света и воздуха</p><span>в доме на 75 м²</span></div></div><div class="nb__r rv"><b>25<small>мин</small></b><div><p>От центра Перми до участка</p><span>Новобродовский</span></div></div></div>
+      <div class="nc nv nv--c rv"><img src="img/pr-dali.webp" alt="Дом в Новобродовском" loading="lazy"><div class="nc__p"><div><b>160<small>м²</small></b><p>Двухэтажный дом на 6 сотках</p></div><div><b>4<small>спальни</small></b><p>В одноэтажном доме на 75 м²</p></div><div><b>4<small>м</small></b><p>Высота потолка, больше света и воздуха</p></div><div><b>25<small>мин</small></b><p>От центра Перми до участка</p></div></div></div>
+      <div class="nd nv nv--d"><figure class="nd__f rv"><img src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy"><figcaption>Жебреи · 75 м²</figcaption></figure><div class="nd__l"><div class="nd__i rv nd__i--o"><b>160<small>м²</small></b><p>Двухэтажный дом на 6 сотках</p></div><div class="nd__i rv"><b>4<small>спальни</small></b><p>В одноэтажном доме на 75 м²</p></div><div class="nd__i rv"><b>4<small>м</small></b><p>Высота потолка, больше света и воздуха</p></div><div class="nd__i rv"><b>25<small>мин</small></b><p>От центра Перми до участка</p></div></div></div>
     </div>
 
   </div>
@@ -1423,6 +1471,7 @@
 </div>
 <div class="qsw" id="hsw">Первый экран: <button data-v="a">A</button><button class="on" data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="qsw show" id="nsw" style="bottom:calc(max(16px, env(safe-area-inset-bottom)) + 108px)">Меню: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
+<div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -1596,6 +1645,12 @@
   var par = function (dx, dy) { if (scrollY > innerHeight) return; hxm.style.transform = 'translateX(-50%) translate(' + (dx * 10) + 'px,' + (dy * 6) + 'px)'; };
   addEventListener('mousemove', function (e) { par(e.clientX / innerWidth - .5, e.clientY / innerHeight - .5); }, { passive: true });
   addEventListener('deviceorientation', function (e) { if (e.gamma == null) return; par(Math.max(-1, Math.min(1, e.gamma / 30)) / 2, Math.max(-1, Math.min(1, (e.beta - 45) / 30)) / 2); }, { passive: true });
+  // варианты «Наши дома в цифрах» (демо)
+  var abt = $('#about'), numsw = $('#numsw');
+  var setNum = function (v) { abt.dataset.nv = v; $$('#numsw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#about .rv').forEach(function (el) { el.classList.add('in'); }); };
+  var numq = new URLSearchParams(location.search).get('num'); if (/^[abcd]$/.test(numq || '')) setNum(numq);
+  $$('#numsw button').forEach(function (b) { b.addEventListener('click', function () { setNum(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { numsw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .15 }).observe(abt);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
