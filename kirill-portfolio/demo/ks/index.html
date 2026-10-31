@@ -1034,6 +1034,12 @@
   .hy__pl--3::after { left: 100%; } .hy__pl--3::before { left: calc(100% + 34px); }
   @keyframes plDot { 0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--A) 45%, transparent), 0 0 10px var(--A); } 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--A) 20%, transparent), 0 0 18px var(--A); } }
   @media (max-width: 899px) { .hy__pl--2 { right: 3%; top: 41%; } .hy__pl--3 { left: 4%; top: 60%; } .hy__pl::after { width: 22px; } .hy__pl--2::before { right: calc(100% + 22px); } .hy__pl--3::before { left: calc(100% + 22px); } }
+  /* Илья обрезан снизу */
+  .hy__man img { -webkit-mask-image: linear-gradient(180deg, #000 52%, transparent 76%) !important; mask-image: linear-gradient(180deg, #000 52%, transparent 76%) !important; }
+  .hy { height: 88svh; min-height: 600px; }
+  .hy__pl--3 { top: 54% !important; }
+  @media (min-width: 900px) { .hy { height: 100vh; } .hy__man img { -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 82%) !important; mask-image: linear-gradient(180deg, #000 55%, transparent 82%) !important; } .hy__pl--3 { top: 56% !important; } }
+  @media (max-width: 899px) { .hy__man { height: 76%; top: 86px; } }
 </style>
 </head>
 <body class="t-bright">
