@@ -492,6 +492,17 @@
   @keyframes shine { 0%, 60% { left: -60%; } 100% { left: 130%; } }
   .b2__t--w > div, .b2__t--o > div { position: relative; z-index: 1; }
 
+
+  /* приглушённые плашки */
+  .b2__t--w, .b2__t--o { background: linear-gradient(160deg, #24120d, #150a08) !important; box-shadow: none !important; border: 1px solid rgba(255,110,50,.16); }
+  .b2__t--w::after, .b2__t--o::after { display: none; }
+  .b2__t--w .plan, .b2__t--o .hgt { opacity: .22 !important; }
+  .b2__t--w .plan .w, .b2__t--o .hgt .w { stroke: var(--or2) !important; }
+  .b2__t--w .plan .r { fill: var(--or) !important; }
+  .in .b2__t--w .plan .r { opacity: .5 !important; }
+  .b2__t--o .hgt .a { stroke: var(--or2) !important; }
+  .b2__t--w p, .b2__t--o p { color: var(--mute); opacity: 1; }
+
   .rv { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
   .rv.in { opacity: 1; transform: none; filter: blur(0); }
   @media (prefers-reduced-motion: reduce) { .rv, .hh, .hero__h span b, .hero__im img { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; } }
