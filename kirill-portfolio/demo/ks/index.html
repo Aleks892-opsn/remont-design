@@ -1045,6 +1045,15 @@
   .hy__pl--3 { top: 58% !important; }
   @media (max-width: 899px) { .hy__man { height: 72%; } }
   @media (min-width: 900px) { .hy { height: 100vh; } .hy__man img { -webkit-mask-image: linear-gradient(180deg, #000 66%, transparent 94%) !important; mask-image: linear-gradient(180deg, #000 66%, transparent 94%) !important; } }
+  /* плашки ниже + белая плашка с именем */
+  .hy__pl--2 { top: 50% !important; }
+  .hy__pl--3 { top: 66% !important; }
+  .hy__pl--w { left: 2%; top: 43%; background: #fbf7f4; border-color: transparent; color: #111; padding: 9px 14px; box-shadow: 0 12px 30px rgba(0,0,0,.35); -webkit-backdrop-filter: none; backdrop-filter: none; transition-delay: 1s; animation-delay: -1s; }
+  .hy__pl--w small { display: block !important; color: rgba(17,17,17,.55); }
+  .hy__pl--w::after { left: 100%; background: linear-gradient(90deg, rgba(255,255,255,.8), rgba(255,255,255,.15)); }
+  .hy__pl--w::before { left: calc(100% + 34px); }
+  @media (max-width: 899px) { .hy__pl--w { left: 4%; } .hy__pl--w::before { left: calc(100% + 22px); } }
+  @media (min-width: 900px) { .hy__pl--w { left: -22%; } }
 </style>
 </head>
 <body class="t-bright">
@@ -1061,6 +1070,7 @@
   <div class="hy__bgn" aria-hidden="true">Копысов</div>
   <div class="hy__man" id="hx"><img src="img/ilya-cut.webp" alt="Илья Копысов, основатель КСДевелопмент" fetchpriority="high"><i class="hy__fr" aria-hidden="true"></i>
     <div class="hy__pl hy__pl--2"><i><svg class="i" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></i><span><b>1–2 этажа</b><small>дома для жизни семьёй</small></span></div>
+    <div class="hy__pl hy__pl--w"><span><b>Илья Копысов</b><small>основатель КСДевелопмент</small></span></div>
     <a class="hy__pl hy__pl--3" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener"><i><svg class="i" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg></i><span><b>Стройка на виду</b><small>каждый этап в канале</small></span></a>
   </div>
   <div class="hy__bot">
