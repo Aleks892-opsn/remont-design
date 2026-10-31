@@ -507,25 +507,6 @@
   .b2__t--o .hgt .a { stroke: var(--or2) !important; }
   .b2__t--w p, .b2__t--o p { color: var(--mute); opacity: 1; }
 
-  /* листание карточек «Что строим»: соседние карточки уходят назад, фото едет */
-  @media (max-width: 1023px) {
-    .anim .stair { padding-bottom: 70px; }
-    .anim .stair .sc, .anim .stair .sc.rv { margin-top: 0 !important; filter: none; transition: opacity .25s linear; will-change: transform, opacity; transform-origin: 50% 80%; }
-    .anim .stair .sc:hover { transform: none; }
-
-    .anim .stair .sc > :not(img) { transition: none; }
-    .stp { display: flex; align-items: center; gap: 14px; margin-top: 4px; font: 600 12px var(--f); color: var(--mute); }
-    .stp b { color: #fff; font-weight: 600; }
-    .stp i { position: relative; flex: 1; height: 2px; border-radius: 2px; background: rgba(255,255,255,.12); overflow: hidden; }
-    .stp i em { position: absolute; left: 0; top: 0; bottom: 0; width: 25%; border-radius: 2px; background: linear-gradient(90deg, var(--red), var(--or2)); }
-  }
-  @media (min-width: 1024px) { .stp { display: none; } }
-  .stp { display: none !important; }
-  @media (max-width: 1023px) { .anim .stp { display: flex !important; } }
-  .asw { position: fixed; z-index: 70; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(20,12,10,.88); border: 1px solid rgba(255,120,60,.3); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: rgba(255,255,255,.7); white-space: nowrap; }
-  .asw button { height: 34px; padding: 0 14px; border-radius: 999px; font: 700 12px var(--f); color: #fff; }
-  .asw button.on { background: var(--or); }
-
   .rv { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
   .rv.in { opacity: 1; transform: none; filter: blur(0); }
   @media (prefers-reduced-motion: reduce) { .rv, .hh, .hero__h span b, .hero__im img { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; } }
@@ -652,7 +633,6 @@
       <div class="sc sc--ph rv" style="--d:.12s"><img src="img/pr-villa.webp" alt="" loading="lazy"><span class="pill">Бали</span><i></i><h3>Виллы на Бали</h3><p>Илья сам ведёт эти стройки.</p></div>
       <div class="sc sc--ph rv" style="--d:.18s"><img src="img/pr-lake.webp" alt="" loading="lazy"><span class="pill">по запросу</span><i></i><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p></div>
     </div>
-    <div class="stp" aria-hidden="true"><span><b id="stpN">01</b> / 04</span><i><em id="stpB"></em></i><span>листайте</span></div>
   </div>
 </section>
 
@@ -803,7 +783,6 @@
 </section>
 </main>
 <div style="height:14px"></div>
-<div class="asw" id="asw">Карточки «Что строим»: <button class="on" data-a="1">с анимацией</button><button data-a="0">без</button></div>
 
 <script>
 (function () {
@@ -903,35 +882,6 @@
       $$('#about .rv').forEach(function (el) { el.classList.add('in'); });
     });
   });
-  // листание карточек «Что строим»
-  var stair = $('.stair'), scs = $$('.stair .sc'), stN = $('#stpN'), stB = $('#stpB'), sRaf = 0;
-  var stairFx = function () {
-    sRaf = 0;
-    if (innerWidth >= 1024 || !document.body.classList.contains('anim')) { scs.forEach(function (c) { c.style.transform = c.style.opacity = ''; var im = $('img', c); if (im) im.style.transform = ''; }); return; }
-    var ref = stair.getBoundingClientRect().left + parseFloat(getComputedStyle(stair).paddingLeft);
-    scs.forEach(function (c) {
-      var r = c.getBoundingClientRect(), d = (r.left - ref) / (r.width + 10), a = Math.min(Math.abs(d), 1);
-      var e = a * a * (3 - 2 * a);                       // плавное сглаживание
-      c.style.transform = 'translateY(' + (e * 56).toFixed(1) + 'px)';
-      c.style.opacity = '';
-      var im = $('img', c); if (im) im.style.transform = '';
-    });
-    var max = stair.scrollWidth - stair.clientWidth, k = max > 0 ? stair.scrollLeft / max : 0;
-    stB.style.width = (25 + k * 75) + '%';
-    stN.textContent = '0' + (Math.round(k * (scs.length - 1)) + 1);
-  };
-  var stairReq = function () { if (!sRaf) sRaf = requestAnimationFrame(stairFx); };
-  stair.addEventListener('scroll', stairReq, { passive: true }); addEventListener('resize', stairReq); stairFx();
-  // переключатель: с анимацией / без
-  var aq = new URLSearchParams(location.search).get('anim'); if (aq !== '0') document.body.classList.add('anim');
-  $$('#asw button').forEach(function (b) {
-    b.classList.toggle('on', (b.dataset.a === '1') === document.body.classList.contains('anim'));
-    b.addEventListener('click', function () {
-      $$('#asw button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
-      document.body.classList.toggle('anim', b.dataset.a === '1'); stairFx();
-    });
-  });
-  stairFx();
   $('#frm').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
 })();
 </script>
