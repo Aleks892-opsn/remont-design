@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>КСДевелопмент — частные дома в Перми</title>
 <meta name="description" content="КСДевелопмент: строим частные дома в Перми и пригороде качественно и в срок. И виллы на Бали.">
-<meta name="theme-color" content="#0a0605">
+<meta name="theme-color" content="#ff2a0a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ff4d12'/%3E%3Cpath d='M16 46V30l16-12 16 12v16H38V36H26v10z' fill='%230a0605'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -297,9 +297,28 @@
     .fin__ft { grid-template-columns: 1.4fr 2fr auto; align-items: start; }
     .fin__cols { grid-template-columns: repeat(3, 1fr); }
   }
+
+  /* всё в тёплом оранжевом тоне, как в референсе */
+  body { background: #0d0604; }
+  main img { filter: sepia(.85) saturate(3.2) hue-rotate(-16deg) contrast(1.08) brightness(.88) !important; }
+  .hero__im img { filter: sepia(.9) saturate(3.6) hue-rotate(-18deg) contrast(1.12) brightness(.95) !important; }
+  .cs figure img { filter: sepia(.9) saturate(2.6) hue-rotate(-16deg) brightness(.45) !important; }
+  .cs.on figure img { filter: sepia(.85) saturate(3) hue-rotate(-16deg) contrast(1.05) brightness(.95) !important; }
+  .hero::after { background: linear-gradient(160deg, rgba(255,77,18,.45), rgba(160,25,0,.2) 55%, transparent) !important; mix-blend-mode: soft-light !important; }
+  .hero::before { background: radial-gradient(55% 55% at 72% 38%, rgba(255,110,30,.45), transparent 70%), linear-gradient(180deg, rgba(13,6,4,.5) 0%, rgba(13,6,4,.05) 30%, rgba(13,6,4,.35) 62%, #0d0604 100%), linear-gradient(90deg, rgba(13,6,4,.8) 0%, rgba(13,6,4,0) 60%) !important; }
+  .frame { position: fixed; inset: 0; z-index: 60; pointer-events: none; border: 6px solid transparent; border-image: linear-gradient(180deg, #ff2a0a, #ff7a1a) 1; }
+  .sec, .cases { position: relative; }
+  #about::before, #log::before, .cases::before { content: ""; position: absolute; z-index: -1; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,77,18,.22), transparent); pointer-events: none; }
+  #about::before { right: -260px; top: 80px; }
+  #log::before { left: -300px; top: 0; }
+  .cases::before { left: 50%; margin-left: -310px; top: 120px; }
+  main { position: relative; isolation: isolate; }
+  .tc, .jc, .q, .fq details, .bx:not(.bx--im), .sc:not(.sc--or):not(.sc--ph) { background: linear-gradient(160deg, #1e0f0b, #140a08); border-color: rgba(255,110,50,.14); }
+  .h2 span, .big__t span:not(.on) { color: rgba(255,170,130,.45); }
 </style>
 </head>
 <body>
+<div class="frame" aria-hidden="true"></div>
 
 <header class="nav" id="nav">
   <a class="logo" href="#top"><i><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></i>КСДевелопмент</a>
