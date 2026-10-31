@@ -713,6 +713,61 @@
   .mgr__f input:focus { border-color: var(--A); }
   .mgr__f button { width: 48px; height: 48px; flex: none; border-radius: 50%; background: var(--F); color: #fff; display: grid; place-items: center; }
   @media (min-width: 700px) { .mgr__p { left: auto; right: 24px; bottom: 24px; width: 400px; } }
+  /* пять шагов: варианты */
+  #how .stp { display: none; }
+  /* B: линия времени */
+  #how[data-v="b"] .proc { position: relative; gap: 0; }
+  #how[data-v="b"] .proc::before { content: ""; position: absolute; left: 22px; top: 22px; bottom: 22px; width: 1px; background: rgba(255,255,255,.14); }
+  #how[data-v="b"] .pr { position: relative; grid-template-columns: 44px 1fr; background: none !important; border: 0 !important; padding: 0 0 30px; align-items: start; min-height: 0; }
+  #how[data-v="b"] .pr .ic { border-radius: 50%; background: #141414; border: 1px solid rgba(255,255,255,.18); color: var(--A); }
+  #how[data-v="b"] .pr--hi .ic { background: var(--F); border-color: transparent; color: #fff; }
+  #how[data-v="b"] .pr > b { grid-column: 2; grid-row: 1; font: 600 11px var(--f); letter-spacing: .12em; color: var(--A) !important; margin: 0; justify-self: start; order: 0; }
+  #how[data-v="b"] .pr .ic { grid-row: 1 / span 2; }
+  #how[data-v="b"] .pr > b { align-self: end; padding-bottom: 2px; }
+  #how[data-v="b"] .pr > div { grid-column: 2; grid-row: 2; padding-top: 4px; }
+  #how[data-v="b"] .pr h4 { font-size: 19px; }
+  #how[data-v="b"] .pr p { font-size: 13.5px; color: rgba(255,255,255,.6) !important; }
+  @media (min-width: 900px) {
+    #how[data-v="b"] .proc { grid-template-columns: repeat(5, 1fr); gap: 20px; }
+    #how[data-v="b"] .proc::before { left: 22px; right: 22px; top: 22px; bottom: auto; width: auto; height: 1px; }
+    #how[data-v="b"] .pr { grid-template-columns: 1fr; padding: 0; align-content: start; }
+    #how[data-v="b"] .pr .ic, #how[data-v="b"] .pr > b, #how[data-v="b"] .pr > div { grid-column: 1; grid-row: auto; }
+    #how[data-v="b"] .pr .ic { order: 0; } #how[data-v="b"] .pr > b { order: 1; } #how[data-v="b"] .pr > div { order: 2; }
+    #how[data-v="b"] .pr > b { margin-top: 18px; } #how[data-v="b"] .pr > div { padding-top: 8px; }
+  }
+  /* C: крупные карточки с листанием */
+  #how[data-v="c"] .proc { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-left: calc(var(--pad) * -1); margin-right: calc(var(--pad) * -1); padding: 0 var(--pad) 4px; gap: 10px; }
+  #how[data-v="c"] .proc::-webkit-scrollbar { display: none; }
+  #how[data-v="c"] .pr { flex: 0 0 72%; scroll-snap-align: start; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; align-items: start; min-height: 290px; padding: 20px; border-radius: 22px; }
+  #how[data-v="c"] .pr > b { order: -1; justify-self: start; margin: 0; font: 400 64px/1 var(--f); letter-spacing: -.06em; color: rgba(255,255,255,.18); }
+  #how[data-v="c"] .pr--hi > b { color: rgba(255,255,255,.6) !important; }
+  #how[data-v="c"] .pr .ic { margin-top: 18px; }
+  #how[data-v="c"] .pr > div { align-self: end; }
+  #how[data-v="c"] .pr h4 { font-size: 20px; }
+  #how[data-v="c"] .pr p { font-size: 13px; }
+  @media (min-width: 900px) { #how[data-v="c"] .proc { display: grid; grid-template-columns: repeat(5, 1fr); overflow: visible; margin: 34px 0 0; padding: 0; } #how[data-v="c"] .pr { min-height: 340px; } #how[data-v="c"] .pr:nth-child(even) { margin-top: 40px; } }
+  /* D: шаги вкладками */
+  #how[data-v="d"] .proc { display: none; }
+  #how[data-v="d"] .stp { display: grid; gap: 12px; margin-top: 30px; }
+  .stp__bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .stp__bar i { height: 4px; border-radius: 4px; background: rgba(255,255,255,.12); transition: background .4s; }
+  .stp__bar i.on { background: var(--F); }
+  .stp__tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); }
+  .stp__tabs::-webkit-scrollbar { display: none; }
+  .stp__tabs button { flex: none; height: 42px; padding: 0 16px; border-radius: 999px; background: #141414; border: 1px solid rgba(255,255,255,.1); font: 600 13px var(--f); color: rgba(255,255,255,.7); transition: background .3s, color .3s; }
+  .stp__tabs button span { color: rgba(255,255,255,.4); margin-right: 6px; }
+  .stp__tabs button.on { background: #fff; color: #111; } .stp__tabs button.on span { color: var(--A); }
+  .stp__p { border-radius: 24px; background: var(--F); padding: 22px; min-height: 260px; display: grid; grid-template-rows: auto 1fr auto auto; color: #fff; }
+  .stp__top { display: flex; justify-content: space-between; align-items: center; }
+  .stp__top small { font: 600 11px var(--f); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+  .stp__top i { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.18); display: grid; place-items: center; }
+  .stp__p h3 { align-self: end; font: 500 clamp(34px, 9vw, 56px)/1 var(--f); letter-spacing: -.05em; margin-top: 30px; }
+  .stp__p p { margin-top: 10px; font-size: 14px; color: rgba(255,255,255,.88); }
+  .stp__p h3, .stp__p p { transition: opacity .25s, transform .3s; } .stp__p.sw h3, .stp__p.sw p { opacity: 0; transform: translateY(6px); }
+  .stp__nav { display: flex; gap: 8px; margin-top: 20px; }
+  .stp__nav button { width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; }
+  .stp__nav button:first-child { background: rgba(255,255,255,.18); color: #fff; }
+  @media (min-width: 900px) { .stp__p { padding: 40px; min-height: 340px; } .stp__tabs { margin: 0; padding: 0; } }
 </style>
 </head>
 <body class="t-bright">
@@ -770,7 +825,7 @@
   </div>
 </section>
 
-<section class="sec" id="how">
+<section class="sec" id="how" data-v="a">
   <div class="wrap">
     <div class="shd rv"><b>[03]</b><span>Как строим</span><i>↘</i></div>
     <h2 class="h2 rv" style="margin-top:0">Пять шагов <span>до своего дома</span></h2>
@@ -781,6 +836,7 @@
       <div class="pr pr--hi rv" style="--d:.15s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><b>04</b></div>
       <div class="pr rv" style="--d:.2s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/></svg></span><div><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><b>05</b></div>
     </div>
+    <div class="stp" id="stp"><div class="stp__bar" id="stpBar"></div><div class="stp__tabs" id="stpTabs"></div><div class="stp__p"><div class="stp__top"><small id="stpN">Шаг 1 из 5</small><i id="stpI"></i></div><h3 id="stpH"></h3><p id="stpP"></p><div class="stp__nav"><button type="button" id="stpPrev" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="stpNext" aria-label="Дальше"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div></div>
   </div>
 </section>
 
@@ -905,6 +961,7 @@
     <form class="mgr__f" id="mgrF"><input id="mgrI" placeholder="Ваш вопрос" autocomplete="off" aria-label="Ваш вопрос"><button type="submit" aria-label="Отправить"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
   </div>
 </div>
+<div class="qsw" id="ssw">Этапы: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -1034,6 +1091,19 @@
       add(/\d{6,}/.test(v.replace(/\D/g, '')) ? 'Спасибо, записали номер. Менеджер свяжется с вами.' : (mstep++ ? 'Принято, передали менеджеру.' : 'Спасибо за вопрос! Оставьте номер телефона, чтобы менеджер мог ответить подробно.'), 'mm--in');
     }, 900);
   });
+  // варианты блока «Пять шагов» (демо)
+  var how = $('#how'), ssw = $('#ssw'), prs = $$('#how .pr'), sc = 0;
+  prs.forEach(function (pr, i) { $('#stpBar').appendChild(document.createElement('i'));
+    var b = document.createElement('button'); b.type = 'button'; b.innerHTML = '<span>0' + (i + 1) + '</span>' + $('h4', pr).textContent; b.addEventListener('click', function () { showS(i); }); $('#stpTabs').appendChild(b); });
+  var showS = function (i) { sc = (i + prs.length) % prs.length; var pr = prs[sc], pn = $('.stp__p', how);
+    $$('#stpTabs button').forEach(function (b, k) { b.classList.toggle('on', k === sc); });
+    $$('#stpBar i').forEach(function (b, k) { b.classList.toggle('on', k <= sc); });
+    pn.classList.add('sw'); setTimeout(function () { $('#stpN').textContent = 'Шаг ' + (sc + 1) + ' из ' + prs.length; $('#stpI').innerHTML = $('.ic', pr).innerHTML; $('#stpH').textContent = $('h4', pr).textContent; $('#stpP').textContent = $('p', pr).textContent; pn.classList.remove('sw'); }, 200); };
+  showS(0); $('#stpPrev').addEventListener('click', function () { showS(sc - 1); }); $('#stpNext').addEventListener('click', function () { showS(sc + 1); });
+  var setS = function (v) { how.dataset.v = v; $$('#ssw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#how .rv').forEach(function (el) { el.classList.add('in'); }); };
+  var sq = new URLSearchParams(location.search).get('s'); if (/^[abcd]$/.test(sq || '')) setS(sq);
+  $$('#ssw button').forEach(function (b) { b.addEventListener('click', function () { setS(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { ssw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .15 }).observe(how);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
