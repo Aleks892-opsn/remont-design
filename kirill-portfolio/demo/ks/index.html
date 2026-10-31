@@ -511,7 +511,7 @@
   /* листание карточек «Что строим»: соседние карточки уходят назад, фото едет */
   @media (max-width: 1023px) {
     .stair { padding-bottom: 70px; }
-    .stair .sc, .stair .sc.rv { margin-top: 0 !important; filter: none; transition: opacity .25s linear; will-change: transform; transform-origin: 50% 80%; }
+    .stair .sc, .stair .sc.rv { margin-top: 0 !important; filter: none; transition: opacity .25s linear; will-change: transform, opacity; transform-origin: 50% 80%; }
     .stair .sc:hover { transform: none; }
 
     .stair .sc > :not(img) { transition: none; }
@@ -898,29 +898,25 @@
       $$('#about .rv').forEach(function (el) { el.classList.add('in'); });
     });
   });
-  // листание карточек «Что строим»: карточки плавно догоняют свою цель (подъём/опускание)
+  // листание карточек «Что строим»
   var stair = $('.stair'), scs = $$('.stair .sc'), stN = $('#stpN'), stB = $('#stpB'), sRaf = 0;
-  var cur = scs.map(function () { return 0; }), bar = 25;
-  var tick = function () {
+  var stairFx = function () {
     sRaf = 0;
-    if (innerWidth >= 1024) { scs.forEach(function (c) { c.style.transform = ''; }); return; }
-    var ref = stair.getBoundingClientRect().left + parseFloat(getComputedStyle(stair).paddingLeft), moving = false;
-    scs.forEach(function (c, i) {
-      var r = c.getBoundingClientRect(), d = Math.min(Math.abs((r.left - ref) / (r.width + 10)), 1);
-      var t = d * d * (3 - 2 * d) * 56;
-      cur[i] += (t - cur[i]) * .12;
-      if (Math.abs(t - cur[i]) > .1) moving = true; else cur[i] = t;
-      c.style.transform = 'translate3d(0,' + cur[i].toFixed(2) + 'px,0)';
+    if (innerWidth >= 1024) { scs.forEach(function (c) { c.style.transform = c.style.opacity = ''; var im = $('img', c); if (im) im.style.transform = ''; }); return; }
+    var ref = stair.getBoundingClientRect().left + parseFloat(getComputedStyle(stair).paddingLeft);
+    scs.forEach(function (c) {
+      var r = c.getBoundingClientRect(), d = (r.left - ref) / (r.width + 10), a = Math.min(Math.abs(d), 1);
+      var e = a * a * (3 - 2 * a);                       // плавное сглаживание
+      c.style.transform = 'translateY(' + (e * 56).toFixed(1) + 'px)';
+      c.style.opacity = '';
+      var im = $('img', c); if (im) im.style.transform = '';
     });
-    var max = stair.scrollWidth - stair.clientWidth, k = max > 0 ? stair.scrollLeft / max : 0, bt = 25 + k * 75;
-    bar += (bt - bar) * .15; if (Math.abs(bt - bar) > .1) moving = true; else bar = bt;
-    stB.style.width = bar.toFixed(2) + '%';
+    var max = stair.scrollWidth - stair.clientWidth, k = max > 0 ? stair.scrollLeft / max : 0;
+    stB.style.width = (25 + k * 75) + '%';
     stN.textContent = '0' + (Math.round(k * (scs.length - 1)) + 1);
-    if (moving) sRaf = requestAnimationFrame(tick);
   };
-  var stairReq = function () { if (!sRaf) sRaf = requestAnimationFrame(tick); };
-  stair.addEventListener('scroll', stairReq, { passive: true }); addEventListener('resize', stairReq);
-  (function init() { var ref = stair.getBoundingClientRect().left; scs.forEach(function (c, i) { var r = c.getBoundingClientRect(), d = Math.min(Math.abs((r.left - ref - parseFloat(getComputedStyle(stair).paddingLeft)) / (r.width + 10)), 1); cur[i] = d * d * (3 - 2 * d) * 56; }); stairReq(); })();
+  var stairReq = function () { if (!sRaf) sRaf = requestAnimationFrame(stairFx); };
+  stair.addEventListener('scroll', stairReq, { passive: true }); addEventListener('resize', stairReq); stairFx();
   $('#frm').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
 })();
 </script>
