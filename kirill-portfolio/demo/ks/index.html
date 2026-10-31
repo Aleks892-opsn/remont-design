@@ -363,6 +363,9 @@
   .bn__t--big .pill { position: absolute; left: 14px; top: 14px; }
   .bn__t--w { background: #fbf7f4; color: #111; }
   .bn__t--o { background: radial-gradient(80% 70% at 30% 30%, #ff2a0a, #b0170a 60%, #3a0805); }
+  .bn__t--d .route { margin-bottom: 4px; flex: none; }
+  .bn__t--d { justify-content: flex-start; }
+  .bn__t--d .route__l { margin-bottom: 14px; }
   .bn__t--d { grid-column: 1 / -1; background: linear-gradient(160deg, #1e0f0b, #140a08); border: 1px solid rgba(255,110,50,.14); }
   .bn__t--d a { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font: 600 13px var(--f); color: var(--or2); }
 
@@ -380,7 +383,8 @@
     .lv { grid-template-columns: 1.3fr 1fr; gap: 30px; align-items: stretch; }
     .lv__ph { aspect-ratio: auto; min-height: 520px; }
     .lv__r { align-content: center; gap: 24px; }
-    .bn { grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 260px 200px; gap: 14px; }
+    .bn { grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 240px 270px; gap: 14px; }
+    .bn__t--d .route { height: 70px; }
     .bn__t--big { grid-column: 1; grid-row: 1 / 3; min-height: 0; padding: 26px; }
     .bn__t--d { grid-column: 2 / 4; }
     .pl__r { grid-template-columns: 1fr 1fr auto; padding: 26px 0; }
@@ -600,23 +604,8 @@
   </div>
 </section>
 
-<section class="sec" id="about" data-v="b1">
+<section class="sec" id="about" data-v="b">
   <div class="wrap">
-
-    <!-- Вариант A: как идёт стройка, на примере дома из канала -->
-    <div class="va va--a">
-      <span class="lbl rv">Стройка на виду</span>
-      <h2 class="h2 rv">Каждый этап <span><em>у вас на виду</em></span></h2>
-      <div class="lv rv">
-        <div class="lv__ph"><img src="img/found.webp" alt="" loading="lazy"><span class="lv__live">Пример из канала</span>
-          <div class="lv__st"><b>Новобродовский</b><div class="lv__steps"><span class="d">Фундамент</span><span class="d">Стены</span><span class="d">Кровля</span><span class="d">Окна</span><span class="d">Отделка</span></div></div></div>
-        <div class="lv__r">
-          <p class="lv__t">Показываем стройку каждого дома в Telegram. <span>Например, двухэтажный дом в Новобродовском: от фундамента до кладки второго этажа.</span></p>
-          <div class="lv__g"><div><b>160 м²</b><small>площадь</small></div><div><b>6 соток</b><small>участок</small></div><div><b>25 мин</b><small>до центра</small></div><div><b>2 этажа</b><small>дом</small></div></div>
-          <a class="btn" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">Смотреть ход стройки<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-        </div>
-      </div>
-    </div>
 
     <!-- Вариант B: дома в цифрах -->
     <div class="va va--b">
@@ -626,69 +615,13 @@
         <div class="bn__t bn__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><span class="pill">Новобродовский</span><div><b>160 м²</b><p>двухэтажный дом на 6 сотках напротив леса</p></div></div>
         <div class="bn__t bn__t--w rv" style="--d:.06s"><b>4</b><p>спальни в доме на 75 м² в Жебреях</p></div>
         <div class="bn__t bn__t--o rv" style="--d:.1s"><b>4 м</b><p>высота потолка, больше света и воздуха</p></div>
-        <div class="bn__t bn__t--d rv" style="--d:.14s"><b>25 мин</b><p>от центра Перми до участка</p><a href="#contact">Обсудить ваш дом <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <div class="bn__t bn__t--d rv" style="--d:.14s"><svg class="route" viewBox="0 0 300 90" aria-hidden="true"><path d="M14 70 C 80 70, 90 20, 150 30 S 240 60, 284 22" pathLength="1"/><circle cx="14" cy="70" r="6"/><circle cx="284" cy="22" r="8" class="h"/></svg><div class="route__l"><span>центр Перми</span><span>ваш дом</span></div><b>25 мин</b><p>от центра Перми до участка в Новобродовском</p><a href="#contact">Обсудить ваш дом <svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </div>
     </div>
 
-
-    <!-- B1: фото в каждой плитке, цифры считаются -->
-    <div class="va va--b1">
-      <span class="lbl rv">В цифрах</span>
-      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
-      <div class="b1">
-        <div class="b1__t b1__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><span class="pill">Новобродовский</span><div><b><span data-n="160">0</span> м²</b><p>двухэтажный дом на 6 сотках напротив леса</p></div></div>
-        <div class="b1__t rv" style="--d:.05s"><img src="img/pr-pines.webp" alt="" loading="lazy"><span class="pill">Жебреи</span><div><b><span data-n="4">0</span> спальни</b><p>в доме на 75 м²</p></div></div>
-        <div class="b1__t b1__t--o rv" style="--d:.1s"><div><b><span data-n="4">0</span> м</b><p>высота потолка: больше света и воздуха</p></div></div>
-        <div class="b1__t b1__t--wide rv" style="--d:.15s"><img src="img/pr-green.webp" alt="" loading="lazy"><span class="pill">Усть-Качка</span><div><b>140–150 м²</b><p>загородный дом</p></div></div>
-        <div class="b1__t b1__t--d rv" style="--d:.2s"><div><b><span data-n="25">0</span> мин</b><p>от центра Перми до участка в Новобродовском</p></div><a class="btn" href="#contact">Обсудить ваш дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
-      </div>
-    </div>
-
-    <!-- B2: плитки с графикой -->
-    <div class="va va--b2">
-      <span class="lbl rv">В цифрах</span>
-      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
-      <div class="b2">
-        <div class="b2__t b2__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><div><b>160 м²</b><p>Новобродовский</p><div class="b2__ch"><span>2 этажа</span><span>6 соток</span><span>напротив леса</span></div></div></div>
-        <div class="b2__t b2__t--w rv" style="--d:.05s"><svg class="plan" viewBox="0 0 120 84" aria-hidden="true"><rect x="2" y="2" width="116" height="80" rx="4" class="w"/><path d="M42 2v42M78 2v42M2 44h116M60 44v38" class="w"/><rect x="5" y="5" width="34" height="36" class="r"/><rect x="45" y="5" width="30" height="36" class="r"/><rect x="81" y="5" width="34" height="36" class="r"/><rect x="5" y="47" width="52" height="32" class="r"/><text x="88" y="67">кухня</text></svg><div><b>4 спальни</b><p>на 75 м², плюс кухня-гостиная и терраса</p></div></div>
-        <div class="b2__t b2__t--o rv" style="--d:.1s"><svg class="hgt" viewBox="0 0 120 92" aria-hidden="true"><path d="M8 88h104M18 88V30l42-24 42 24v58" class="w"/><path d="M34 84V36" class="a"/><path d="M28 42l6-7 6 7M28 78l6 7 6-7" class="a h"/><text x="46" y="64">4 м</text></svg><div><b>4 м</b><p>потолок в доме на 75 м²</p></div></div>
-        <div class="b2__t b2__t--d rv" style="--d:.15s">
-          <svg class="route" viewBox="0 0 300 90" aria-hidden="true"><path d="M14 70 C 80 70, 90 20, 150 30 S 240 60, 284 22" pathLength="1"/><circle cx="14" cy="70" r="6"/><circle cx="284" cy="22" r="8" class="h"/></svg>
-          <div class="route__l"><span>центр Перми</span><span>ваш дом</span></div>
-          <div><b>25 мин</b><p>до участка в Новобродовском</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- B3: крупные цифры строками -->
-    <div class="va va--b3">
-      <span class="lbl rv">В цифрах</span>
-      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
-      <div class="b3">
-        <a class="b3__r rv" href="#projects"><b>160 м²</b><p><strong>Двухэтажный дом</strong>Новобродовский, напротив леса</p><img src="img/pr-dali.webp" alt="" loading="lazy"></a>
-        <a class="b3__r rv" href="#projects"><b>75 м²</b><p><strong>Четыре спальни</strong>Жебреи, кухня-гостиная и терраса</p><img src="img/pr-pines.webp" alt="" loading="lazy"></a>
-        <a class="b3__r rv" href="#projects"><b>4 м</b><p><strong>Высота потолка</strong>больше света и воздуха в доме</p><img src="img/terrace.webp" alt="" loading="lazy"></a>
-        <a class="b3__r rv" href="#projects"><b>6 соток</b><p><strong>Участок</strong>под двухэтажный дом на 160 м²</p><img src="img/found.webp" alt="" loading="lazy"></a>
-        <a class="b3__r rv" href="#contact"><b>25 мин</b><p><strong>До центра Перми</strong>из Новобродовского</p><img src="img/pr-green.webp" alt="" loading="lazy"></a>
-      </div>
-    </div>
-
-    <!-- Вариант C: где строим -->
-    <div class="va va--c">
-      <span class="lbl rv">Где строим</span>
-      <h2 class="h2 rv">Строим там, <span>где хочется жить</span></h2>
-      <div class="pl">
-        <a class="pl__r on rv" href="#projects"><img src="img/pr-dali.webp" alt="" loading="lazy"><b>Новобродовский</b><span>160 м² · 2 этажа · напротив леса</span><em>2 этажа</em></a>
-        <a class="pl__r rv" href="#projects"><img src="img/pr-pines.webp" alt="" loading="lazy"><b>Жебреи</b><span>75 м² · 4 спальни · потолок 4 м</span><em>1 этаж</em></a>
-        <a class="pl__r rv" href="#projects"><img src="img/pr-lake.webp" alt="" loading="lazy"><b>Большая Мось</b><span>1 этаж · стройка от начала до конца</span><em>1 этаж</em></a>
-        <a class="pl__r rv" href="#projects"><img src="img/pr-green.webp" alt="" loading="lazy"><b>Усть-Качка</b><span>140–150 м² · загородный дом</span><em>дом</em></a>
-        <a class="pl__r rv" href="#projects"><img src="img/pr-villa.webp" alt="" loading="lazy"><b>Бали</b><span>виллы, Илья ведёт сам</span><em>виллы</em></a>
-      </div>
-    </div>
 
   </div>
 </section>
-<div class="vsw" id="vsw" aria-label="Варианты блока"><span>Блок</span><button data-v="b">B</button><button class="on" data-v="b1">1</button><button data-v="b2">2</button><button data-v="b3">3</button></div>
 
 <section id="what" style="padding-bottom:40px">
   <div class="wrap">
