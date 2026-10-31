@@ -575,7 +575,7 @@
 
   /* три цвета: чёрный, белый и один оранжевый. Тёмный или яркий оранжевый выбирается переключателем */
   body.t-dark { --A: #ff3a14; --F: radial-gradient(90% 80% at 30% 25%, #ff2a0a 0%, #b0170a 55%, #3a0805 100%); }
-  body.t-bright { --A: #ff5a1f; --F: linear-gradient(160deg, #ff5a1f 0%, #f0401a 55%, #dc2c10 100%); }
+  body.t-bright { --A: #ff4d12; --F: radial-gradient(110% 90% at 25% 15%, #ff7a2a 0%, #ff4d12 35%, #e8300c 70%, #b81a06 100%); }
   body { background: #0b0b0b !important; }
   .hero::before { background: linear-gradient(180deg, rgba(11,11,11,.55) 0%, rgba(11,11,11,.1) 30%, rgba(11,11,11,.4) 62%, #0b0b0b 100%), linear-gradient(90deg, rgba(11,11,11,.75) 0%, rgba(11,11,11,0) 60%) !important; }
   #about::before, #log::before, .cases::before, .pick::before, .ct::before, .fin::after, .hero__glow { background: none !important; }
@@ -599,6 +599,10 @@
   .csw button { height: 34px; padding: 0 14px; border-radius: 999px; font: 700 12px var(--f); color: #fff; display: flex; align-items: center; gap: 7px; }
   .csw button i { width: 12px; height: 12px; border-radius: 50%; }
   .csw button.on { background: rgba(255,255,255,.14); }
+  .st--or, .st--or *, .sc--or, .sc--or h3, .sc--or p, .pr--hi, .pr--hi *, .octa h2, .octa p, .kq--r, .kq--r *, .jc--hi, .jc--hi h3, .jc--hi h4, .jc--hi p, .jc--hi b, .btn, .seg i, .fcard button, .bx .go, .car__nav button.f { color: #fff !important; }
+  .bn__t--o { background: #fbf7f4 !important; color: #111 !important; }
+  .bn__t--o p { color: rgba(17,17,17,.6) !important; }
+  .bn__t--o b { color: #111 !important; }
 </style>
 </head>
 <body class="t-bright">
@@ -809,7 +813,7 @@
 </section>
 </main>
 <div style="height:14px"></div>
-<div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:linear-gradient(160deg,#ff5a1f,#dc2c10)"></i>оранжевый</button></div>
+<div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
 (function () {
