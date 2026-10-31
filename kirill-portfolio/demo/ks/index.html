@@ -768,6 +768,11 @@
   .stp__nav button { width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; }
   .stp__nav button:first-child { background: rgba(255,255,255,.18); color: #fff; }
   @media (min-width: 900px) { .stp__p { padding: 40px; min-height: 340px; } .stp__tabs { margin: 0; padding: 0; } }
+  .stp__ft { display: flex; align-items: center; gap: 16px; margin-top: 22px; }
+  .stp__ft .stp__bar { flex: 1; }
+  .stp__ft .stp__bar i { background: rgba(255,255,255,.25); }
+  .stp__ft .stp__bar i.on { background: #fff; }
+  .stp__ft .stp__nav { margin-top: 0; }
 </style>
 </head>
 <body class="t-bright">
@@ -825,7 +830,7 @@
   </div>
 </section>
 
-<section class="sec" id="how" data-v="a">
+<section class="sec" id="how" data-v="d">
   <div class="wrap">
     <div class="shd rv"><b>[03]</b><span>Как строим</span><i>↘</i></div>
     <h2 class="h2 rv" style="margin-top:0">Пять шагов <span>до своего дома</span></h2>
@@ -836,7 +841,7 @@
       <div class="pr pr--hi rv" style="--d:.15s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><b>04</b></div>
       <div class="pr rv" style="--d:.2s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/></svg></span><div><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><b>05</b></div>
     </div>
-    <div class="stp" id="stp"><div class="stp__bar" id="stpBar"></div><div class="stp__tabs" id="stpTabs"></div><div class="stp__p"><div class="stp__top"><small id="stpN">Шаг 1 из 5</small><i id="stpI"></i></div><h3 id="stpH"></h3><p id="stpP"></p><div class="stp__nav"><button type="button" id="stpPrev" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="stpNext" aria-label="Дальше"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div></div>
+    <div class="stp" id="stp"><div class="stp__tabs" id="stpTabs"></div><div class="stp__p"><div class="stp__top"><small id="stpN">Шаг 1 из 5</small><i id="stpI"></i></div><h3 id="stpH"></h3><p id="stpP"></p><div class="stp__ft"><div class="stp__bar" id="stpBar"></div><div class="stp__nav"><button type="button" id="stpPrev" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="stpNext" aria-label="Дальше"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div></div></div>
   </div>
 </section>
 
@@ -961,7 +966,6 @@
     <form class="mgr__f" id="mgrF"><input id="mgrI" placeholder="Ваш вопрос" autocomplete="off" aria-label="Ваш вопрос"><button type="submit" aria-label="Отправить"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
   </div>
 </div>
-<div class="qsw" id="ssw">Этапы: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -1092,7 +1096,7 @@
     }, 900);
   });
   // варианты блока «Пять шагов» (демо)
-  var how = $('#how'), ssw = $('#ssw'), prs = $$('#how .pr'), sc = 0;
+  var how = $('#how'), prs = $$('#how .pr'), sc = 0;
   prs.forEach(function (pr, i) { $('#stpBar').appendChild(document.createElement('i'));
     var b = document.createElement('button'); b.type = 'button'; b.innerHTML = '<span>0' + (i + 1) + '</span>' + $('h4', pr).textContent; b.addEventListener('click', function () { showS(i); }); $('#stpTabs').appendChild(b); });
   var showS = function (i) { sc = (i + prs.length) % prs.length; var pr = prs[sc], pn = $('.stp__p', how);
@@ -1100,10 +1104,6 @@
     $$('#stpBar i').forEach(function (b, k) { b.classList.toggle('on', k <= sc); });
     pn.classList.add('sw'); setTimeout(function () { $('#stpN').textContent = 'Шаг ' + (sc + 1) + ' из ' + prs.length; $('#stpI').innerHTML = $('.ic', pr).innerHTML; $('#stpH').textContent = $('h4', pr).textContent; $('#stpP').textContent = $('p', pr).textContent; pn.classList.remove('sw'); }, 200); };
   showS(0); $('#stpPrev').addEventListener('click', function () { showS(sc - 1); }); $('#stpNext').addEventListener('click', function () { showS(sc + 1); });
-  var setS = function (v) { how.dataset.v = v; $$('#ssw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#how .rv').forEach(function (el) { el.classList.add('in'); }); };
-  var sq = new URLSearchParams(location.search).get('s'); if (/^[abcd]$/.test(sq || '')) setS(sq);
-  $$('#ssw button').forEach(function (b) { b.addEventListener('click', function () { setS(b.dataset.v); }); });
-  new IntersectionObserver(function (es) { ssw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .15 }).observe(how);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
