@@ -858,6 +858,66 @@
     .own--v .own__vid { position: relative; inset: auto; z-index: 0; grid-column: 2; grid-row: 1; aspect-ratio: 4 / 5; border-radius: 22px; }
     .own--v > div:not(.own__vid) { grid-column: 1; grid-row: 1; }
   }
+  /* первый экран: Илья */
+  .hero__man { position: absolute; z-index: -1; right: -14px; bottom: 40%; height: 47%; aspect-ratio: 720 / 1052; pointer-events: none; }
+  .hero__man::before { content: ""; position: absolute; left: -30%; right: -30%; top: 5%; bottom: -10%; z-index: -1; background: radial-gradient(closest-side, color-mix(in srgb, var(--A) 55%, transparent), transparent 75%); filter: blur(10px); opacity: .85; }
+  .hero__man img { height: 100%; width: auto; display: block; -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 97%); mask-image: linear-gradient(180deg, #000 55%, transparent 97%); filter: drop-shadow(0 0 30px rgba(0,0,0,.35)); opacity: 0; transform: translateY(24px); transition: opacity 1.2s .5s, transform 1.4s .5s var(--ease); }
+  .ld .hero__man img { opacity: 1; transform: none; }
+  @media (min-width: 900px) {
+    .hero__man { right: 5%; bottom: 0; height: 88%; }
+    .hero__man img { -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 98%); mask-image: linear-gradient(180deg, #000 62%, transparent 98%); }
+  }
+  /* первый экран: персональный */
+  .hx { position: relative; min-height: 100svh; overflow: hidden; isolation: isolate; background: #0b0b0b; display: flex; flex-direction: column; }
+  .hx__glow { position: absolute; z-index: -2; left: 50%; top: 58%; width: 150vw; height: 110vw; max-width: 1500px; max-height: 1100px; transform: translate(-50%, -50%); background: radial-gradient(closest-side, color-mix(in srgb, var(--A) 60%, transparent), color-mix(in srgb, var(--A) 18%, transparent) 55%, transparent 80%); }
+  .hx::after { content: ""; position: absolute; inset: auto 0 0; height: 18%; z-index: 3; background: linear-gradient(180deg, transparent, #0b0b0b); pointer-events: none; }
+  .hx__in { position: relative; z-index: 4; padding: 104px var(--pad) 0; max-width: var(--max); margin: 0 auto; width: 100%; }
+  .hx__h { font: 500 clamp(28px, 7.4vw, 52px)/1.04 var(--f); letter-spacing: -.045em; max-width: 13ch; }
+  .hx__h span { display: block; color: rgba(255,255,255,.5); }
+  .hx__btn { margin-top: 20px; }
+  .hx__man { position: absolute; z-index: 1; left: 50%; bottom: 0; height: 66%; aspect-ratio: 720 / 1052; transform: translateX(-46%); }
+  .hx__man img { height: 100%; width: auto; display: block; opacity: 0; transform: translateY(30px) scale(.98); transition: opacity 1.2s .3s, transform 1.6s .3s var(--ease); }
+  .ld .hx__man img { opacity: 1; transform: none; }
+  .hx__fr { position: absolute; left: 26%; top: 7%; width: 48%; height: 26%; opacity: 0; transition: opacity .8s 1.3s;
+    background: linear-gradient(#fff,#fff) 0 0/16px 1.5px, linear-gradient(#fff,#fff) 0 0/1.5px 16px, linear-gradient(#fff,#fff) 100% 0/16px 1.5px, linear-gradient(#fff,#fff) 100% 0/1.5px 16px, linear-gradient(#fff,#fff) 0 100%/16px 1.5px, linear-gradient(#fff,#fff) 0 100%/1.5px 16px, linear-gradient(#fff,#fff) 100% 100%/16px 1.5px, linear-gradient(#fff,#fff) 100% 100%/1.5px 16px; background-repeat: no-repeat; }
+  .ld .hx__fr { opacity: .75; }
+  .hx__tags { position: absolute; z-index: 2; display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid rgba(255,255,255,.35); padding-bottom: 8px; font: 500 11px var(--f); color: rgba(255,255,255,.85); }
+  .hx__tags span { position: relative; }
+  .hx__tags span::after { content: ""; position: absolute; left: 50%; bottom: -12px; width: 1px; height: 8px; background: rgba(255,255,255,.6); }
+  .hx__tags--l { left: var(--pad); width: 44%; bottom: 31%; flex-direction: column; border: 0; gap: 8px; }
+  .hx__tags--l span::after, .hx__tags--r span::after { display: none; }
+  .hx__tags--l span, .hx__tags--r span { padding: 6px 11px; border-radius: 999px; background: rgba(11,11,11,.45); border: 1px solid rgba(255,255,255,.18); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); align-self: flex-start; }
+  .hx__tags--r { right: var(--pad); bottom: 44%; flex-direction: column; border: 0; gap: 8px; align-items: flex-end; }
+  .hx__tags--r span { align-self: flex-end; }
+  .hx__name { position: absolute; z-index: 5; left: 0; right: 0; bottom: 2%; text-align: center; pointer-events: none; }
+  .hx__name span { display: inline-block; font: 600 clamp(64px, 21vw, 300px)/.8 var(--f); letter-spacing: -.07em; background: linear-gradient(180deg, #fff 30%, color-mix(in srgb, var(--A) 70%, #fff) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: 0; transform: translateY(40px); transition: opacity 1s .6s, transform 1.4s .6s var(--ease); }
+  .ld .hx__name span { opacity: 1; transform: none; }
+  @media (min-width: 900px) {
+    .hx { min-height: 100vh; }
+    .hx__in { padding-top: 150px; }
+    .hx__h { font-size: clamp(40px, 3.6vw, 60px); }
+    .hx__man { height: 86%; transform: translateX(-50%); }
+    .hx__tags { font-size: 13px; }
+    .hx__tags--l, .hx__tags--r { flex-direction: row; width: auto; gap: 30px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.3); align-items: flex-end; }
+    .hx__tags--l span, .hx__tags--r span { background: none; border: 0; padding: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .hx__tags--l span::after, .hx__tags--r span::after { display: block; }
+    .hx__tags--l { left: max(var(--pad), calc(50% - 640px)); bottom: 36%; width: 30%; justify-content: space-between; }
+    .hx__tags--r { right: max(var(--pad), calc(50% - 640px)); bottom: 50%; width: 28%; justify-content: space-between; }
+    .hx__name { bottom: 1%; }
+  }
+  .hx__h { font-size: clamp(26px, 7vw, 52px); max-width: 17ch; }
+  .hx__fr { left: 20%; width: 50%; top: 6%; height: 27%; }
+  .hx__tags--r { display: none; }
+  .hx__tags--l { flex-direction: row; left: var(--pad); right: var(--pad); width: auto; bottom: 22%; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.35); gap: 6px; }
+  .hx__tags--l span { background: none; border: 0; padding: 0 0 2px; -webkit-backdrop-filter: none; backdrop-filter: none; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+  .hx__tags--l span::after { display: block; }
+  @media (min-width: 900px) {
+    .hx__tags--r { display: flex; }
+    .hx__tags--l { left: max(var(--pad), calc(50% - 640px)); right: auto; width: 30%; bottom: 36%; }
+    .hx__name span { font-size: clamp(120px, 15.5vw, 260px); }
+    .hx__fr { left: 22%; width: 50%; top: 5%; height: 25%; }
+  }
+  @media (min-width: 900px) { .hx__h { font-size: clamp(36px, 3.1vw, 52px); } }
 </style>
 </head>
 <body class="t-bright">
@@ -869,19 +929,16 @@
 </header>
 
 <main>
-<section class="hero" id="top">
-  <div class="hero__im"><picture><source media="(min-width: 900px)" srcset="img/hero-dusk-w.webp"><img src="img/hero-dusk-m.webp" alt="Частный дом с подсветкой на закате" fetchpriority="high"></picture></div>
-  <div class="hero__lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-  <div class="hero__w" aria-hidden="true">пермь</div>
-  <div class="hero__in">
-    <div class="hero__tag hh" style="--d:.2s"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Строим в Перми и пригороде, а ещё виллы на Бали</div>
-    <h1 class="hero__h"><span><b style="--d:.3s">Дома, в которых</b></span><span><b style="--d:.42s">живут <em>семьями</em></b></span></h1>
-    <p class="hero__p hh" style="--d:.6s">Частные дома качественно и в срок, под вашу семью и ваш участок.</p>
-    <div class="hero__row hh" style="--d:.7s">
-      <a class="btn" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
-    </div>
-    <div class="places hh" style="--d:.9s"><small>Где строим</small><span>Новобродовский</span><span>Жебреи</span><span>Большая Мось</span><span>Усть-Качка</span><span>Бали</span></div>
+<section class="hx" id="top">
+  <div class="hx__glow" aria-hidden="true"></div>
+  <div class="hx__in">
+    <h1 class="hx__h hh" style="--d:.2s">Частные дома в&nbsp;Перми и&nbsp;на&nbsp;Бали <span>от&nbsp;Ильи Копысова</span></h1>
+    <a class="btn hx__btn hh" style="--d:.35s" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
   </div>
+  <div class="hx__man" id="hx"><img src="img/ilya-cut.webp" alt="Илья Копысов, основатель КСДевелопмент" fetchpriority="high"><i class="hx__fr" aria-hidden="true"></i></div>
+  <div class="hx__tags hx__tags--l hh" style="--d:.7s" aria-hidden="true"><span>Одноэтажные</span><span>Двухэтажные</span><span>Виллы на&nbsp;Бали</span></div>
+  <div class="hx__tags hx__tags--r hh" style="--d:.85s" aria-hidden="true"><span>Новобродовский</span><span>Жебреи</span><span>Большая Мось</span></div>
+  <div class="hx__name" aria-hidden="true"><span>Копысов</span></div>
 </section>
 
 <section class="sec" id="about" data-v="b">
@@ -1061,7 +1118,7 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   var start = function () { document.body.classList.add('ld'); };
-  var hi = $('.hero__im img');
+  var hi = $('#hx img');
   if (hi.complete) requestAnimationFrame(function () { requestAnimationFrame(start); });
   else { hi.addEventListener('load', start); hi.addEventListener('error', start); setTimeout(start, 2500); }
 
