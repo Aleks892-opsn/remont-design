@@ -1200,6 +1200,16 @@
   .hy__row > .hy__h { transition-delay: 1.75s !important; }
   .hy__row > .hy__btn { transition-delay: 1.95s !important; }
   .hy__bot > * { transition-delay: 1.75s; }
+  /* микро-движения Ильи */
+  .hy__man { will-change: transform; transition: transform .8s var(--ease); }
+  .ld .hy__man img { animation: ilBreath 6s ease-in-out 2.4s infinite; transform-origin: 50% 90%; }
+  @keyframes ilBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.012) translateY(-2px); } }
+  .hy__man::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: linear-gradient(105deg, transparent 40%, rgba(255,200,150,.18) 50%, transparent 60%) no-repeat; background-size: 250% 100%; background-position: 150% 0; -webkit-mask: url(img/ilya-cut.webp) top center / auto 100% no-repeat; mask: url(img/ilya-cut.webp) top center / auto 100% no-repeat; }
+  .ld .hy__man::after { animation: ilShine 7s ease-in-out 3s infinite; }
+  @keyframes ilShine { 0%, 70% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
+  .hy__glow { animation: glowP 5s ease-in-out 2.5s infinite; }
+  @keyframes glowP { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.18); } }
+  @media (prefers-reduced-motion: reduce) { .hy__man img, .hy__man::after, .hy__glow { animation: none !important; } }
 </style>
 </head>
 <body class="t-bright">
@@ -1581,6 +1591,11 @@
   var setN = function (v) { $('#nav').dataset.v = v; $$('#nsw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); };
   var nq = new URLSearchParams(location.search).get('n'); if (/^[abcd]$/.test(nq || '')) setN(nq);
   $$('#nsw button').forEach(function (b) { b.addEventListener('click', function () { setN(b.dataset.v); }); });
+  // лёгкий параллакс Ильи за курсором / наклоном телефона
+  var hxm = $('#hx'), hxb = $('.hy__glow');
+  var par = function (dx, dy) { if (scrollY > innerHeight) return; hxm.style.transform = 'translateX(-50%) translate(' + (dx * 10) + 'px,' + (dy * 6) + 'px)'; };
+  addEventListener('mousemove', function (e) { par(e.clientX / innerWidth - .5, e.clientY / innerHeight - .5); }, { passive: true });
+  addEventListener('deviceorientation', function (e) { if (e.gamma == null) return; par(Math.max(-1, Math.min(1, e.gamma / 30)) / 2, Math.max(-1, Math.min(1, (e.beta - 45) / 30)) / 2); }, { passive: true });
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
