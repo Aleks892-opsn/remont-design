@@ -1104,6 +1104,10 @@
   @media (min-width: 900px) { .nav[data-v="b"] .nav__bg, .nav[data-v="d"] .nav__bg { display: none; } .nav[data-v="b"] { padding-left: 18px; } }
   /* переключатели демо скрыты */
   .qsw, .csw, .vsw, .asw { display: none !important; }
+  /* низ первого экрана: темнее, текст выше */
+  .hy::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%; z-index: 2; pointer-events: none; background: linear-gradient(180deg, transparent 0%, rgba(11,11,11,.6) 30%, rgba(11,11,11,.9) 65%, #0b0b0b 100%); }
+  .hy__bot { padding-bottom: 64px !important; }
+  @media (min-width: 900px) { .hy__bot { padding-bottom: 80px !important; } }
 </style>
 </head>
 <body class="t-bright">
