@@ -644,6 +644,20 @@
   .bsw.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
   .bsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
   .bsw button.on { background: var(--F); }
+  .pkf { display: grid; gap: 10px; padding: 18px; border-radius: 22px; background: #141414; border: 1px solid rgba(255,255,255,.08); }
+  .pkf__h { display: grid; gap: 4px; margin-bottom: 4px; }
+  .pkf__h b { font: 600 20px var(--f); letter-spacing: -.03em; }
+  .pkf__h span { font-size: 12.5px; color: rgba(255,255,255,.6); }
+  .pkf input { height: 50px; padding: 0 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); font: 500 14px var(--f); color: #fff; outline: none; transition: border-color .2s; }
+  .pkf input::placeholder { color: rgba(255,255,255,.45); }
+  .pkf input:focus { border-color: var(--A); }
+  .pkf button { height: 52px; margin-top: 4px; border-radius: 999px; background: var(--F); color: #fff; font: 700 14px var(--f); display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .pkf button i { display: grid; place-items: center; }
+  .pkf__tg { justify-self: center; font: 600 12.5px var(--f); color: rgba(255,255,255,.6); text-decoration: underline; text-underline-offset: 3px; }
+  .pkf__ok { display: none; font-size: 13px; color: #8ff0b6; text-align: center; }
+  .pkf.done .pkf__ok { display: block; }
+  .pkf.done input, .pkf.done button, .pkf.done .pkf__tg { display: none; }
+  @media (min-width: 900px) { .res { grid-column: 2; grid-row: 1 / span 2; } .pkf { grid-column: 1; grid-row: 2; align-self: end; } }
 </style>
 </head>
 <body class="t-bright">
@@ -782,12 +796,19 @@
       <div class="pk__ui">
         <div class="q rv"><small>Этажей</small><div class="seg" data-k="fl"><i></i><button class="on" data-v="1">1 этаж</button><button data-v="2">2 этажа</button></div></div>
         <div class="q rv" style="--d:.06s"><small>Площадь</small><div class="seg" data-k="ar"><i></i><button class="on" data-v="s">до 100</button><button data-v="m">100–150</button><button data-v="l">150+</button></div></div>
-        <a class="btn btn--w rv" style="--d:.12s" href="#contact">Обсудить такой дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
       </div>
       <div class="res rv" style="--d:.1s" id="res">
         <img id="resImg" src="img/pr-pines.webp" alt="Дом в Жебреях" loading="lazy">
         <div class="res__b"><small id="resP">Жебреи</small><h3 id="resH">Одноэтажный дом</h3><div class="res__ch" id="resCh"><span>75 м²</span></div></div>
       </div>
+      <form class="pkf rv" id="pkf" novalidate>
+        <div class="pkf__h"><b>Обсудим этот дом</b><span id="pkfSum">1 этаж · до 100 м² · похожий дом: Жебреи</span></div>
+        <input name="n" placeholder="Ваше имя" autocomplete="name" aria-label="Ваше имя">
+        <input name="t" type="tel" placeholder="Телефон" autocomplete="tel" inputmode="tel" aria-label="Телефон">
+        <button type="submit">Отправить заявку<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+        <a class="pkf__tg" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">или написать в Telegram</a>
+        <p class="pkf__ok">Заявка отправлена. Мы свяжемся с вами и обсудим этот дом.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -900,6 +921,7 @@
           res.classList.remove('sw');
         }, 300);
         $('#frmK').value = st.fl === '1' ? 'Одноэтажный дом' : 'Двухэтажный дом';
+        $('#pkfSum').textContent = (st.fl === '1' ? '1 этаж' : '2 этажа') + ' · ' + ({ s: 'до 100 м²', m: '100–150 м²', l: '150+ м²' })[st.ar] + ' · похожий дом: ' + h[1];
       });
     });
     var init = function () { place($('button.on', sg)); };
@@ -952,6 +974,7 @@
       document.body.classList.remove('t-dark', 't-bright'); document.body.classList.add(b.dataset.t);
     });
   });
+  $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   $('#frm').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
 })();
 </script>
