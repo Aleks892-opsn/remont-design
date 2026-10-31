@@ -848,6 +848,16 @@
   .fn__cols a { text-decoration-color: color-mix(in srgb, var(--A) 60%, transparent); }
   .fn__bot { color: rgba(17,17,17,.55); } .fn__bot a { color: #111; }
   .fin .fin__w { color: rgba(17,17,17,.07) !important; }
+  /* основатель: видео */
+  .own__vid { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+  .own__vid video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+  .own--v { min-height: 560px; }
+  @media (min-width: 900px) {
+    .own--v { display: grid; grid-template-columns: 1fr 380px; gap: 50px; align-items: end; background: #141414; }
+    .own--v::after { display: none; }
+    .own--v .own__vid { position: relative; inset: auto; z-index: 0; grid-column: 2; grid-row: 1; aspect-ratio: 4 / 5; border-radius: 22px; }
+    .own--v > div:not(.own__vid) { grid-column: 1; grid-row: 1; }
+  }
 </style>
 </head>
 <body class="t-bright">
@@ -948,8 +958,8 @@
 
 <section class="sec" id="owner" style="padding-top:0">
   <div class="wrap">
-    <div class="own rv">
-      <img src="img/plan.webp" alt="" loading="lazy">
+    <div class="own own--v rv">
+      <div class="own__vid"><video src="img/ilya.mp4" poster="img/ilya-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Илья Копысов на стройке"></video></div>
       <div>
         <span class="lbl">Основатель</span>
         <p class="own__q" style="margin-top:16px">«Показываю, как мы создаём жильё для <em>комфортной семейной жизни</em> загородом»</p>
