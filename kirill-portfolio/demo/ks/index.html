@@ -1102,11 +1102,13 @@
   .nav[data-v="d"] .nav__c { background: var(--F) !important; color: #fff; }
   .nav[data-v="d"] .nav__bg { display: flex; background: #111; border: 0; }
   @media (min-width: 900px) { .nav[data-v="b"] .nav__bg, .nav[data-v="d"] .nav__bg { display: none; } .nav[data-v="b"] { padding-left: 18px; } }
+  /* переключатели демо скрыты */
+  .qsw, .csw, .vsw, .asw { display: none !important; }
 </style>
 </head>
 <body class="t-bright">
 
-<header class="nav" id="nav" data-v="a">
+<header class="nav" id="nav" data-v="c">
   <a class="logo" href="#top"><i><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></i>КСДевелопмент</a>
   <nav class="nav__ln glass"><a href="#about">О нас</a><a href="#what">Что строим</a><a href="#how">Как строим</a><a href="#projects">Дома</a><a href="#pick">Подбор дома</a></nav>
   <a class="nav__c" href="#pick">Обсудить</a>
