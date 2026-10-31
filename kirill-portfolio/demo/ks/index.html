@@ -324,7 +324,7 @@
 
   /* варианты блока после главного */
   .va { display: none; }
-  #about[data-v="a"] .va--a, #about[data-v="b"] .va--b, #about[data-v="c"] .va--c { display: block; }
+  #about[data-v="a"] .va--a, #about[data-v="b"] .va--b, #about[data-v="c"] .va--c, #about[data-v="b1"] .va--b1, #about[data-v="b2"] .va--b2, #about[data-v="b3"] .va--b3 { display: block; }
   .vsw { position: fixed; z-index: 70; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(20,12,10,.85); border: 1px solid rgba(255,120,60,.3); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: var(--ink2); }
   .vsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
   .vsw button.on { background: var(--or); }
@@ -389,6 +389,76 @@
     .pl__r img { display: block; position: absolute; right: 120px; top: 50%; width: 220px; height: 150px; object-fit: cover; border-radius: 16px; opacity: 0; transform: translateY(-50%) scale(.9) rotate(-3deg); transition: opacity .35s, transform .5s var(--ease); pointer-events: none; z-index: 2; }
     .pl__r:hover img { opacity: 1; transform: translateY(-50%) scale(1) rotate(-3deg); }
     .pl__r:hover { padding-left: 14px; }
+  }
+
+
+  /* B1 */
+  .b1 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px; }
+  .b1__t { position: relative; border-radius: 22px; padding: 16px; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; isolation: isolate; background: #1a0d0a; }
+  .b1__t img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s var(--ease); }
+  .b1__t:hover img { transform: scale(1.06); }
+  .b1__t:has(img)::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,6,4,.15) 25%, rgba(13,6,4,.88)); }
+  .b1__t .pill { position: absolute; left: 12px; top: 12px; }
+  .b1__t b { display: block; font: 400 clamp(28px, 7.4vw, 52px)/.95 var(--f); letter-spacing: -.055em; }
+  .b1__t p { margin-top: 6px; font-size: 11.5px; line-height: 1.4; color: rgba(255,255,255,.8); }
+  .b1__t--big { grid-column: 1 / -1; min-height: 300px; }
+  .b1__t--wide { grid-column: 1 / -1; min-height: 220px; }
+  .b1__t b { white-space: nowrap; }
+  .b1__t--o { background: radial-gradient(80% 70% at 30% 30%, #ff2a0a, #b0170a 60%, #3a0805); }
+  .b1__t--d { grid-column: 1 / -1; min-height: 0; gap: 16px; background: linear-gradient(160deg, #1e0f0b, #140a08); border: 1px solid rgba(255,110,50,.14); }
+  .b1__t--d .btn { align-self: flex-start; }
+
+  /* B2 */
+  .b2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px; }
+  .b2__t { position: relative; border-radius: 22px; padding: 16px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; isolation: isolate; }
+  .b2__t b { display: block; font: 400 clamp(26px, 7vw, 52px)/.95 var(--f); white-space: nowrap; letter-spacing: -.055em; }
+  .b2__t p { margin-top: 6px; font-size: 11.5px; line-height: 1.4; opacity: .82; }
+  .b2__t--big { grid-column: 1 / -1; min-height: 320px; justify-content: flex-end; }
+  .b2__t--big img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .b2__t--big::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,6,4,.1) 30%, rgba(13,6,4,.88)); }
+  .b2__ch { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .b2__ch span { padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 600 11.5px var(--f); }
+  .b2__t--w { background: #fbf7f4; color: #111; }
+  .beds { display: grid; grid-template-columns: repeat(2, 38px); gap: 6px; }
+  .beds span { width: 38px; height: 38px; border-radius: 11px; background: #f1e7e1; display: grid; place-items: center; color: var(--red); opacity: 0; transform: scale(.6); transition: opacity .5s, transform .6s var(--ease); }
+  .beds span svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .in .beds span { opacity: 1; transform: none; }
+  .in .beds span:nth-child(2) { transition-delay: .12s; } .in .beds span:nth-child(3) { transition-delay: .24s; } .in .beds span:nth-child(4) { transition-delay: .36s; }
+  .b2__t--o { background: radial-gradient(80% 70% at 30% 30%, #ff2a0a, #b0170a 60%, #3a0805); }
+  .rul { position: relative; height: 92px; width: 60px; border-left: 2px solid #fff; display: flex; flex-direction: column; justify-content: space-between; transform-origin: bottom; transform: scaleY(0); transition: transform 1.1s var(--ease); }
+  .in .rul { transform: none; }
+  .rul i { display: block; width: 10px; height: 1.5px; background: rgba(255,255,255,.8); }
+  .rul i:nth-child(odd) { width: 18px; }
+  .rul em { position: absolute; left: 24px; top: -4px; font: italic 600 13px var(--f); }
+  .b2__t--d { grid-column: 1 / -1; min-height: 0; gap: 14px; background: linear-gradient(160deg, #1e0f0b, #140a08); border: 1px solid rgba(255,110,50,.14); }
+  .route { width: 100%; height: 80px; overflow: visible; }
+  .route path { fill: none; stroke: var(--or2); stroke-width: 2.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease) .3s; }
+  .in .route path { stroke-dashoffset: 0; }
+  .route circle { fill: #fff; }
+  .route circle.h { fill: var(--or); filter: drop-shadow(0 0 8px var(--or)); }
+  .route__l { display: flex; justify-content: space-between; font: 500 11px var(--f); color: var(--mute); margin-top: -6px; }
+
+  /* B3 */
+  .b3 { margin-top: 30px; border-top: 1px solid var(--line); }
+  .b3__r { position: relative; display: grid; grid-template-columns: 1fr 72px; gap: 6px 14px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .b3__r b { grid-column: 1; font: 500 clamp(44px, 13vw, 120px)/.9 var(--f); letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1px rgba(255,170,130,.55); transition: color .5s, -webkit-text-stroke-color .5s; }
+  .b3__r.in b { color: #fff; -webkit-text-stroke-color: transparent; transition-delay: .3s; }
+  .b3__r:hover b { color: var(--or2); }
+  .b3__r p { grid-column: 1; font-size: 12.5px; color: var(--mute); }
+  .b3__r p strong { display: block; color: #fff; font: 600 14px var(--f); margin-bottom: 2px; }
+  .b3__r img { grid-column: 2; grid-row: 1 / 3; width: 72px; height: 72px; border-radius: 16px; object-fit: cover; }
+
+  @media (min-width: 1024px) {
+    .b1 { grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 250px 250px; gap: 14px; }
+    .b1__t--big { grid-column: 1; grid-row: 1 / 3; min-height: 0; padding: 26px; }
+    .b1__t--d { grid-column: 3; grid-row: 2; justify-content: space-between; }
+    .b1__t--wide { grid-column: 2; grid-row: 2; min-height: 0; }
+    .b2 { grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 260px 210px; gap: 14px; }
+    .b2__t--big { grid-column: 1; grid-row: 1 / 3; min-height: 0; padding: 26px; }
+    .b2__t--d { grid-column: 2 / 4; }
+    .b3__r { grid-template-columns: 1.2fr 1fr 160px; padding: 26px 0; }
+    .b3__r p { grid-column: 2; grid-row: 1; font-size: 14px; }
+    .b3__r img { grid-column: 3; grid-row: 1; width: 160px; height: 104px; }
   }
 
   .rv { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
@@ -488,7 +558,7 @@
   </div>
 </section>
 
-<section class="sec" id="about" data-v="a">
+<section class="sec" id="about" data-v="b1">
   <div class="wrap">
 
     <!-- Вариант A: как идёт стройка, на примере дома из канала -->
@@ -518,6 +588,49 @@
       </div>
     </div>
 
+
+    <!-- B1: фото в каждой плитке, цифры считаются -->
+    <div class="va va--b1">
+      <span class="lbl rv">В цифрах</span>
+      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
+      <div class="b1">
+        <div class="b1__t b1__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><span class="pill">Новобродовский</span><div><b><span data-n="160">0</span> м²</b><p>двухэтажный дом на 6 сотках напротив леса</p></div></div>
+        <div class="b1__t rv" style="--d:.05s"><img src="img/pr-pines.webp" alt="" loading="lazy"><span class="pill">Жебреи</span><div><b><span data-n="4">0</span> спальни</b><p>в доме на 75 м²</p></div></div>
+        <div class="b1__t b1__t--o rv" style="--d:.1s"><div><b><span data-n="4">0</span> м</b><p>высота потолка: больше света и воздуха</p></div></div>
+        <div class="b1__t b1__t--wide rv" style="--d:.15s"><img src="img/pr-green.webp" alt="" loading="lazy"><span class="pill">Усть-Качка</span><div><b>140–150 м²</b><p>загородный дом</p></div></div>
+        <div class="b1__t b1__t--d rv" style="--d:.2s"><div><b><span data-n="25">0</span> мин</b><p>от центра Перми до участка в Новобродовском</p></div><a class="btn" href="#contact">Обсудить ваш дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
+      </div>
+    </div>
+
+    <!-- B2: плитки с графикой -->
+    <div class="va va--b2">
+      <span class="lbl rv">В цифрах</span>
+      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
+      <div class="b2">
+        <div class="b2__t b2__t--big rv"><img src="img/pr-dali.webp" alt="" loading="lazy"><div><b>160 м²</b><p>Новобродовский</p><div class="b2__ch"><span>2 этажа</span><span>6 соток</span><span>напротив леса</span></div></div></div>
+        <div class="b2__t b2__t--w rv" style="--d:.05s"><div class="beds"><span><svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg></span></div><div><b>4 спальни</b><p>на 75 м², плюс кухня-гостиная и терраса</p></div></div>
+        <div class="b2__t b2__t--o rv" style="--d:.1s"><div class="rul"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><em>4 м</em></div><div><b>4 м</b><p>потолок в доме на 75 м²</p></div></div>
+        <div class="b2__t b2__t--d rv" style="--d:.15s">
+          <svg class="route" viewBox="0 0 300 90" aria-hidden="true"><path d="M14 70 C 80 70, 90 20, 150 30 S 240 60, 284 22" pathLength="1"/><circle cx="14" cy="70" r="6"/><circle cx="284" cy="22" r="8" class="h"/></svg>
+          <div class="route__l"><span>центр Перми</span><span>ваш дом</span></div>
+          <div><b>25 мин</b><p>до участка в Новобродовском</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B3: крупные цифры строками -->
+    <div class="va va--b3">
+      <span class="lbl rv">В цифрах</span>
+      <h2 class="h2 rv">Наши дома <span>в цифрах</span></h2>
+      <div class="b3">
+        <a class="b3__r rv" href="#projects"><b>160 м²</b><p><strong>Двухэтажный дом</strong>Новобродовский, напротив леса</p><img src="img/pr-dali.webp" alt="" loading="lazy"></a>
+        <a class="b3__r rv" href="#projects"><b>75 м²</b><p><strong>Четыре спальни</strong>Жебреи, кухня-гостиная и терраса</p><img src="img/pr-pines.webp" alt="" loading="lazy"></a>
+        <a class="b3__r rv" href="#projects"><b>4 м</b><p><strong>Высота потолка</strong>больше света и воздуха в доме</p><img src="img/terrace.webp" alt="" loading="lazy"></a>
+        <a class="b3__r rv" href="#projects"><b>6 соток</b><p><strong>Участок</strong>под двухэтажный дом на 160 м²</p><img src="img/found.webp" alt="" loading="lazy"></a>
+        <a class="b3__r rv" href="#contact"><b>25 мин</b><p><strong>До центра Перми</strong>из Новобродовского</p><img src="img/pr-green.webp" alt="" loading="lazy"></a>
+      </div>
+    </div>
+
     <!-- Вариант C: где строим -->
     <div class="va va--c">
       <span class="lbl rv">Где строим</span>
@@ -533,7 +646,7 @@
 
   </div>
 </section>
-<div class="vsw" id="vsw" aria-label="Варианты блока"><span>Блок</span><button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button></div>
+<div class="vsw" id="vsw" aria-label="Варианты блока"><span>Блок</span><button data-v="b">B</button><button class="on" data-v="b1">1</button><button data-v="b2">2</button><button data-v="b3">3</button></div>
 
 <section id="what" style="padding-bottom:40px">
   <div class="wrap">
@@ -778,9 +891,15 @@
   addEventListener('resize', lay); lay();
 
   $$('.kc3__nav button').forEach(function (b) { b.addEventListener('click', function () { var k = $('#kc3'); k.scrollBy({ left: +b.dataset.k * k.clientWidth * .75, behavior: 'smooth' }); }); });
+  // счёт цифр в B1
+  var cio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) return; cio.unobserve(e.target);
+    var el = e.target, to = +el.dataset.n, t0 = performance.now();
+    (function st(t) { var k = Math.min(1, (t - t0) / 1300); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(st); })(t0);
+  }); }, { threshold: .5 });
+  $$('[data-n]').forEach(function (el) { cio.observe(el); });
   // переключатель вариантов блока (демо)
   var ab = $('#about'), vb = $$('#vsw button');
-  var vq = new URLSearchParams(location.search).get('v'); if (/^[abc]$/.test(vq || '')) ab.dataset.v = vq;
+  var vq = new URLSearchParams(location.search).get('v'); if (/^(a|b|c|b1|b2|b3)$/.test(vq || '')) ab.dataset.v = vq;
   vb.forEach(function (b) {
     b.classList.toggle('on', b.dataset.v === ab.dataset.v);
     b.addEventListener('click', function () {
