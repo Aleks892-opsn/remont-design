@@ -1183,6 +1183,23 @@
   .lsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
   .lsw button.on { background: var(--F); }
   .lsw__r { background: rgba(255,255,255,.1) !important; font-size: 16px !important; }
+  /* загрузка D + поэтапное появление первого экрана */
+  .lsw { display: none !important; }
+  .nav { opacity: 0; transform: translateY(-14px); transition: opacity .6s .15s, transform .8s .15s var(--ease), background .4s, border-color .4s; }
+  .ld .nav { opacity: 1; transform: none; }
+  .hy__glow { opacity: 0; transform: translate(-50%, -50%) scale(.85); transition: opacity 1.2s .1s, transform 1.6s .1s var(--ease); }
+  .ld .hy__glow { opacity: 1; transform: translate(-50%, -50%); }
+  .hy__man img { transition: opacity 1s .35s, transform 1.4s .35s var(--ease) !important; }
+  .hy__fr { opacity: 0 !important; transform: scale(1.12); transition: opacity .6s 1s, transform .8s 1s var(--ease); }
+  .ld .hy__fr { opacity: .7 !important; transform: none; }
+  .hy__pl { transform: translateY(14px); transition: opacity .6s, transform .8s var(--ease) !important; }
+  .ld .hy__pl { transform: none; }
+  .hy__pl--w { transition-delay: 1.3s !important; }
+  .hy__pl--2 { transition-delay: 1.5s !important; }
+  .hy__row > * { transition: opacity .8s, transform 1s var(--ease) !important; }
+  .hy__row > .hy__h { transition-delay: 1.75s !important; }
+  .hy__row > .hy__btn { transition-delay: 1.95s !important; }
+  .hy__bot > * { transition-delay: 1.75s; }
 </style>
 </head>
 <body class="t-bright">
@@ -1415,7 +1432,7 @@
     preT.push(setTimeout(function () { pre.classList.add('out'); document.body.classList.add('ld'); }, d[0]));
     preT.push(setTimeout(function () { pre.classList.add('gone'); }, d[0] + d[1]));
   };
-  var lq = new URLSearchParams(location.search).get('l'); var lv = /^[abcd]$/.test(lq || '') ? lq : 'a';
+  var lq = new URLSearchParams(location.search).get('l'); var lv = /^[abcd]$/.test(lq || '') ? lq : 'd';
   $$('#lsw button').forEach(function (b) { b.addEventListener('click', function () { if (b.dataset.v) lv = b.dataset.v; scrollTo(0, 0); runPre(lv); }); });
   var start = function () { if (!start.done) { start.done = 1; runPre(lv); } };
   var hi = $('#hx img');
