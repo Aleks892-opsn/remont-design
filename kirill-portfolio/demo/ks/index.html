@@ -510,10 +510,10 @@
 
   /* листание карточек «Что строим»: соседние карточки уходят назад, фото едет */
   @media (max-width: 1023px) {
-    .stair { perspective: 1000px; padding-bottom: 18px; }
+    .stair { padding-bottom: 70px; }
     .stair .sc, .stair .sc.rv { margin-top: 0 !important; filter: none; transition: opacity .25s linear; will-change: transform, opacity; transform-origin: 50% 80%; }
     .stair .sc:hover { transform: none; }
-    .stair .sc img { transform: scale(1.3); transition: none; will-change: transform; }
+
     .stair .sc > :not(img) { transition: none; }
     .stp { display: flex; align-items: center; gap: 14px; margin-top: 4px; font: 600 12px var(--f); color: var(--mute); }
     .stp b { color: #fff; font-weight: 600; }
@@ -905,10 +905,11 @@
     if (innerWidth >= 1024) { scs.forEach(function (c) { c.style.transform = c.style.opacity = ''; var im = $('img', c); if (im) im.style.transform = ''; }); return; }
     var ref = stair.getBoundingClientRect().left + parseFloat(getComputedStyle(stair).paddingLeft);
     scs.forEach(function (c) {
-      var r = c.getBoundingClientRect(), d = (r.left - ref) / (r.width + 10), a = Math.min(Math.abs(d), 1.6);
-      c.style.transform = 'translateY(' + (a * 22).toFixed(1) + 'px) rotateY(' + (-d * 16).toFixed(1) + 'deg) scale(' + (1 - a * .1).toFixed(3) + ')';
-      c.style.opacity = (1 - Math.min(a, 1) * .45).toFixed(2);
-      var im = $('img', c); if (im) im.style.transform = 'scale(1.3) translateX(' + (-d * 14).toFixed(1) + '%)';
+      var r = c.getBoundingClientRect(), d = (r.left - ref) / (r.width + 10), a = Math.min(Math.abs(d), 1);
+      var e = a * a * (3 - 2 * a);                       // плавное сглаживание
+      c.style.transform = 'translateY(' + (e * 56).toFixed(1) + 'px)';
+      c.style.opacity = '';
+      var im = $('img', c); if (im) im.style.transform = '';
     });
     var max = stair.scrollWidth - stair.clientWidth, k = max > 0 ? stair.scrollLeft / max : 0;
     stB.style.width = (25 + k * 75) + '%';
