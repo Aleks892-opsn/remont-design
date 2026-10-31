@@ -685,13 +685,34 @@
   #faq[data-v="d"] .fq details[open] p { color: rgba(255,255,255,.88); }
   #faq[data-v="d"] .fq details[open] summary i { background: #fff !important; color: #111; }
   #faq[data-v="c"] .fqd, #faq[data-v="d"] .fqd { display: flex; }
-  .fqd { margin-top: 8px; align-items: center; justify-content: space-between; gap: 14px; padding: 20px 18px; border-radius: 20px; background: #fbf7f4; color: #111; }
-  .fqd span { display: grid; gap: 3px; } .fqd b { font: 600 17px var(--f); } .fqd em { font-style: normal; font-size: 12.5px; color: rgba(17,17,17,.6); }
-  .fqd i { width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--F); color: #fff; display: grid; place-items: center; }
+  .fqd { margin-top: 8px; width: 100%; align-items: center; gap: 14px; padding: 16px; border-radius: 20px; background: #222; border: 1px solid rgba(255,255,255,.08); color: #fff; text-align: left; transition: background .25s; }
+  .fqd:hover { background: #2a2a2a; }
+  .fqd span { display: grid; gap: 3px; flex: 1; } .fqd b { font: 600 17px var(--f); } .fqd em { font-style: normal; font-size: 12.5px; color: rgba(255,255,255,.6); }
+  .fqd__av { width: 48px; height: 48px; flex: none; border-radius: 50%; background: var(--F); color: #fff; display: grid; place-items: center; }
+  .fqd__ar { width: 36px; height: 36px; flex: none; border-radius: 50%; background: rgba(255,255,255,.08); display: grid; place-items: center; }
   .qsw { position: fixed; z-index: 71; left: 50%; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 54px); transform: translate(-50%, 10px); opacity: 0; pointer-events: none; transition: .3s; display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(11,11,11,.9); border: 1px solid rgba(255,255,255,.15); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: rgba(255,255,255,.7); white-space: nowrap; }
   .qsw.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
   .qsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; }
   .qsw button.on { background: var(--F); }
+  .mgr { position: fixed; inset: 0; z-index: 90; pointer-events: none; }
+  .mgr__bg { position: absolute; inset: 0; background: rgba(0,0,0,.55); opacity: 0; transition: opacity .35s; }
+  .mgr__p { position: absolute; left: 10px; right: 10px; bottom: 10px; max-height: min(620px, 82vh); display: flex; flex-direction: column; border-radius: 26px; background: #161616; border: 1px solid rgba(255,255,255,.1); overflow: hidden; transform: translateY(30px); opacity: 0; transition: transform .45s var(--ease), opacity .35s; }
+  .mgr.open { pointer-events: auto; } .mgr.open .mgr__bg { opacity: 1; } .mgr.open .mgr__p { transform: none; opacity: 1; }
+  .mgr__h { display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 16px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .mgr__h .fqd__av { width: 42px; height: 42px; }
+  .mgr__h div { flex: 1; display: grid; gap: 2px; } .mgr__h b { font: 600 15px var(--f); } .mgr__h small { font-size: 12px; color: rgba(255,255,255,.55); }
+  .mgr__x { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.08); display: grid; place-items: center; color: #fff; }
+  .mgr__m { flex: 1; min-height: 260px; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .mm { max-width: 82%; padding: 11px 14px; border-radius: 18px; font-size: 14px; line-height: 1.4; animation: mmIn .35s var(--ease); }
+  .mm--in { align-self: flex-start; background: #262626; border-bottom-left-radius: 6px; }
+  .mm--out { align-self: flex-end; background: var(--F); color: #fff; border-bottom-right-radius: 6px; }
+  .mm--t { color: rgba(255,255,255,.5); letter-spacing: .2em; }
+  @keyframes mmIn { from { opacity: 0; transform: translateY(8px); } }
+  .mgr__f { display: flex; gap: 8px; padding: 12px; border-top: 1px solid rgba(255,255,255,.08); }
+  .mgr__f input { flex: 1; min-width: 0; height: 48px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: #0e0e0e; font: 500 14px var(--f); color: #fff; outline: none; }
+  .mgr__f input:focus { border-color: var(--A); }
+  .mgr__f button { width: 48px; height: 48px; flex: none; border-radius: 50%; background: var(--F); color: #fff; display: grid; place-items: center; }
+  @media (min-width: 700px) { .mgr__p { left: auto; right: 24px; bottom: 24px; width: 400px; } }
 </style>
 </head>
 <body class="t-bright">
@@ -822,7 +843,7 @@
       <details class="rv"><summary>У меня свой проект. Возьмётесь?<i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Да, посмотрим ваш проект и обсудим, как его построить.</p></details>
     </div>
     <div class="fqc" id="fqc"><div class="fqc__q" id="fqcQ"></div><div class="fqc__a"><small>Ответ</small><p id="fqcA"></p></div></div>
-    <a class="fqd rv" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener"><span><b>Не нашли ответ?</b><em>Спросите менеджера в Telegram.</em></span><i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+    <button class="fqd rv" type="button" id="mgrOpen"><i class="fqd__av"><svg class="i" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></i><span><b>Не нашли ответ?</b><em>Спросите менеджера прямо здесь, на сайте.</em></span><i class="fqd__ar"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
   </div>
 </section>
 
@@ -876,6 +897,14 @@
 </section>
 </main>
 <div style="height:14px"></div>
+<div class="mgr" id="mgr" aria-hidden="true">
+  <div class="mgr__bg" data-close></div>
+  <div class="mgr__p" role="dialog" aria-label="Чат с менеджером">
+    <div class="mgr__h"><i class="fqd__av"><svg class="i" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></i><div><b>Менеджер КСДевелопмент</b><small>Ответим здесь, в чате</small></div><button type="button" class="mgr__x" data-close aria-label="Закрыть"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="mgr__m" id="mgrM"><div class="mm mm--in">Здравствуйте! Я менеджер КСДевелопмент. Задайте вопрос о доме, участке или стройке.</div></div>
+    <form class="mgr__f" id="mgrF"><input id="mgrI" placeholder="Ваш вопрос" autocomplete="off" aria-label="Ваш вопрос"><button type="submit" aria-label="Отправить"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+  </div>
+</div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -992,6 +1021,18 @@
     var b = document.createElement('button'); b.type = 'button'; b.textContent = $('summary', d).textContent;
     b.addEventListener('click', function () { $$('#fqcQ button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); fqA.classList.add('sw'); setTimeout(function () { fqA.textContent = $('p', d).textContent; fqA.classList.remove('sw'); }, 200); });
     $('#fqcQ').appendChild(b); if (!i) { b.classList.add('on'); fqA.textContent = $('p', d).textContent; }
+  });
+  // чат с менеджером (демо)
+  var mgr = $('#mgr'), mgrM = $('#mgrM'), mgrI = $('#mgrI'), mstep = 0;
+  var add = function (t, c) { var d = document.createElement('div'); d.className = 'mm ' + c; d.textContent = t; mgrM.appendChild(d); mgrM.scrollTop = mgrM.scrollHeight; return d; };
+  $('#mgrOpen').addEventListener('click', function () { mgr.classList.add('open'); mgr.setAttribute('aria-hidden', 'false'); setTimeout(function () { mgrI.focus(); }, 400); });
+  $$('#mgr [data-close]').forEach(function (el) { el.addEventListener('click', function () { mgr.classList.remove('open'); mgr.setAttribute('aria-hidden', 'true'); }); });
+  $('#mgrF').addEventListener('submit', function (e) {
+    e.preventDefault(); var v = mgrI.value.trim(); if (!v) return; add(v, 'mm--out'); mgrI.value = '';
+    var t = add('•••', 'mm--in mm--t');
+    setTimeout(function () { t.remove();
+      add(/\d{6,}/.test(v.replace(/\D/g, '')) ? 'Спасибо, записали номер. Менеджер свяжется с вами.' : (mstep++ ? 'Принято, передали менеджеру.' : 'Спасибо за вопрос! Оставьте номер телефона, чтобы менеджер мог ответить подробно.'), 'mm--in');
+    }, 900);
   });
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
