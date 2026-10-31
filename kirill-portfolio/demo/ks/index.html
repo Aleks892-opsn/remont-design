@@ -60,7 +60,7 @@
   .hero__im img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: saturate(1.15) contrast(1.05); transform: scale(1.1); transition: transform 2.6s var(--ease); }
   .ld .hero__im img { transform: scale(1); }
   .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(60% 50% at 70% 35%, rgba(255,110,30,.3), transparent 70%), linear-gradient(180deg, rgba(10,6,5,.55) 0%, rgba(10,6,5,.1) 30%, rgba(10,6,5,.4) 62%, var(--bg) 100%), linear-gradient(90deg, rgba(10,6,5,.75) 0%, rgba(10,6,5,0) 60%); }
-  .hero::after { content: ""; position: absolute; inset: 0; z-index: -2; background: linear-gradient(160deg, rgba(255,77,18,.3), rgba(140,20,0,.1) 50%, transparent); mix-blend-mode: color; pointer-events: none; }
+  .hero::after { content: none; }
   .hero__lines { position: absolute; inset: 0; z-index: -1; display: flex; justify-content: space-between; padding: 0 12%; pointer-events: none; }
   .hero__lines i { width: 1px; background: linear-gradient(180deg, transparent, rgba(255,255,255,.08), transparent); }
   .hero__in { padding: 120px var(--pad) 26px; max-width: var(--max); margin: 0 auto; width: 100%; }
@@ -98,7 +98,7 @@
   .ab { display: grid; gap: 14px; margin-top: 30px; }
   .ab__ph { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 4.6; }
   .ab__ph img { width: 100%; height: 100%; object-fit: cover; }
-  .ab__ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(170deg, rgba(255,77,18,.55), rgba(120,20,0,.3) 45%, rgba(10,6,5,.45)); mix-blend-mode: multiply; }
+  .ab__ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(13,6,4,.6)); }
   .ab__r { display: grid; gap: 14px; align-content: start; }
   .ab__t { font: 500 clamp(19px, 4.6vw, 26px)/1.35 var(--f); letter-spacing: -.03em; }
   .ab__t b { font-weight: 600; }
@@ -112,8 +112,8 @@
   .bx ul { list-style: none; margin: 14px 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 6px; font: 600 11px var(--f); color: var(--ink2); }
   .bx .go { display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--red), var(--or)); font: 600 12.5px var(--f); }
   .bx--im { position: relative; overflow: hidden; background: var(--red); isolation: isolate; border: 0; }
-  .bx--im img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; mix-blend-mode: luminosity; opacity: .5; }
-  .bx--im::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(217,35,15,.25), rgba(217,35,15,.85)); }
+  .bx--im img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .bx--im::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,6,4,.15), rgba(13,6,4,.85)); }
   .bx--im .t { display: flex; justify-content: space-between; font: 600 10.5px var(--f); }
   .bx--im .t i { font-style: normal; opacity: .8; }
 
@@ -126,7 +126,7 @@
   .sc:hover img { transform: scale(1.06); }
   .sc--ph::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10,6,5,0) 35%, rgba(10,6,5,.85)); }
   .sc--or { background: linear-gradient(160deg, var(--or), var(--red)); border: 0; }
-  .sc--or img { mix-blend-mode: luminosity; opacity: .35; }
+  .sc--or img { opacity: 0; }
   .sc .pill { position: absolute; top: 14px; left: 14px; }
   .sc i { width: 8px; height: 8px; border-radius: 50%; background: var(--or); margin-bottom: 10px; box-shadow: 0 0 10px var(--or); }
   .sc--or i { background: #fff; box-shadow: none; }
@@ -185,7 +185,7 @@
   .car { position: relative; height: 300px; margin-top: 40px; }
   .cs { position: absolute; left: 50%; top: 0; width: 250px; margin-left: -125px; border-radius: 22px; overflow: hidden; background: var(--card); border: 1px solid var(--line); text-align: left; transition: transform .7s var(--ease), opacity .6s, background .5s; cursor: pointer; }
   .cs figure { margin: 0; height: 120px; overflow: hidden; }
-  .cs figure img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.6) brightness(.55); transition: filter .6s; }
+  .cs figure img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.5); transition: filter .6s; }
   .cs__b { padding: 14px 16px 18px; }
   .cs__b small { font: 600 10.5px var(--f); color: var(--or2); }
   .cs__b h3 { font-size: 22px; letter-spacing: -.045em; margin-top: 4px; color: rgba(255,255,255,.45); transition: color .5s; }
@@ -201,8 +201,8 @@
   .car__nav button:active { transform: scale(.92); }
 
   .own { position: relative; border-radius: 28px; overflow: hidden; min-height: 460px; display: flex; align-items: flex-end; padding: 22px; isolation: isolate; }
-  .own img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; filter: grayscale(1) contrast(1.1); }
-  .own::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(160deg, rgba(255,77,18,.6), rgba(120,15,0,.6) 50%, rgba(10,6,5,.92)); mix-blend-mode: multiply; }
+  .own img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .own::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,6,4,.1) 20%, rgba(13,6,4,.92)); }
   .own__q { font: 500 clamp(24px, 5.8vw, 48px)/1.12 var(--f); letter-spacing: -.045em; max-width: 760px; }
   .own__q em { color: var(--or2); }
   .own__w { margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
@@ -237,13 +237,89 @@
   .fcard button { height: 52px; margin-top: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--red), var(--or)); font: 700 14px var(--f); }
   .fcard .ok { display: none; font-size: 13px; color: #8ff0b6; }
   .fcard form.done .ok { display: block; }
-  .fin__w { margin-top: 60px; font: 800 clamp(80px, 27vw, 380px)/.78 var(--f); letter-spacing: -.08em; color: rgba(255,255,255,.08); white-space: nowrap; text-align: center; }
-  .fin__ft { display: grid; gap: 22px; padding: 30px 0 calc(22px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+  .fin__w { margin-top: 60px; font: 800 clamp(36px, 10.6vw, 160px)/.85 var(--f); letter-spacing: -.08em; color: rgba(255,255,255,.08); white-space: nowrap; text-align: center; }
+  .fin__ft { display: grid; gap: 22px; padding: 30px 0 0; border-top: 1px solid var(--line); margin-top: 50px; }
   .fin__ft h4 { font-size: 24px; letter-spacing: -.045em; line-height: 1.05; }
   .fin__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .fin__cols b { display: block; font: 600 14px var(--f); margin-bottom: 6px; }
   .fin__cols a, .fin__cols span { display: block; font-size: 12.5px; color: var(--mute); line-height: 1.7; }
   .fin__cp { font-size: 11px; color: var(--mute); }
+
+
+  /* оранжевая полоса фактов (Novacraft) */
+  .fbar { display: grid; grid-template-columns: 1fr 1fr; border-radius: 22px; overflow: hidden; background: linear-gradient(90deg, var(--red), var(--or)); margin-top: 40px; }
+  .fbar div { padding: 18px 16px; }
+  .fbar div:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.25); }
+  .fbar div:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.25); }
+  .fbar b { display: block; font: 500 34px/1 var(--f); letter-spacing: -.05em; }
+  .fbar span { display: block; margin-top: 6px; font-size: 11.5px; color: rgba(255,255,255,.85); }
+
+  /* шапки разделов как в Kontour */
+  .shd { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 34px; font: 500 12px var(--f); letter-spacing: .14em; text-transform: uppercase; }
+  .shd b { color: var(--or2); font-weight: 600; letter-spacing: 0; }
+  .shd span { flex: 1; text-align: center; font: 500 clamp(15px, 3.6vw, 24px) var(--f); letter-spacing: .02em; }
+  .shd i { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-style: normal; color: var(--ink2); }
+
+  /* карточки-цифры (Kontour) */
+  .kc3 { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 34px calc(var(--pad) * -1) 0; padding: 0 var(--pad) 4px; scrollbar-width: none; text-align: left; }
+  .kc3::-webkit-scrollbar { display: none; }
+  .kq { position: relative; flex: 0 0 72%; scroll-snap-align: start; aspect-ratio: 1 / 1.05; border-radius: 18px; overflow: hidden; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; isolation: isolate; }
+  .kq b { font: 400 clamp(44px, 12vw, 64px)/.9 var(--f); letter-spacing: -.06em; }
+  .kq h4 { font: 600 13px var(--f); }
+  .kq p { margin-top: 6px; font-size: 11.5px; line-height: 1.4; opacity: .8; }
+  .kq--r { background: radial-gradient(70% 60% at 40% 40%, #ff2a0a, #b0170a 55%, #2a0604); }
+  .kq--w { background: #fbf7f4; color: #111; }
+  .kq--p img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .kq--p::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(13,6,4,.35), rgba(13,6,4,.1) 40%, rgba(13,6,4,.85)); }
+  .kc3__nav { display: flex; gap: 8px; margin-top: 18px; }
+  .kc3__nav button { width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; }
+  .kc3__nav button.f { background: var(--or); color: #fff; }
+
+  /* стрелка в карточках лесенки (Folium) */
+  .sc .ar { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.5); display: grid; place-items: center; margin-top: 14px; transition: background .3s, color .3s; }
+  .sc:hover .ar { background: #fff; color: #111; }
+  .sc h3 em { font-style: normal; color: var(--or2); }
+
+  /* как строим (Novacraft) */
+  .proc { display: grid; gap: 10px; margin-top: 34px; }
+  .pr { display: grid; grid-template-columns: 44px 1fr auto; gap: 14px; align-items: center; padding: 16px; border-radius: 18px; background: linear-gradient(160deg, #1e0f0b, #140a08); border: 1px solid rgba(255,110,50,.14); }
+  .pr .ic { width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,138,42,.4); color: var(--or2); display: grid; place-items: center; }
+  .pr h4 { font: 600 15px var(--f); }
+  .pr p { font-size: 12.5px; color: var(--mute); margin-top: 3px; }
+  .pr > b { font: 500 13px var(--f); color: var(--mute); }
+  .pr--hi { background: linear-gradient(90deg, var(--red), var(--or)); border: 0; }
+  .pr--hi .ic { border-color: rgba(255,255,255,.6); color: #fff; }
+  .pr--hi p, .pr--hi > b { color: rgba(255,255,255,.85); }
+
+  /* оранжевый блок-призыв (Novacraft) */
+  .octa { position: relative; overflow: hidden; border-radius: 26px; background: linear-gradient(120deg, var(--red), var(--or)); padding: 30px 22px; display: grid; gap: 18px; isolation: isolate; }
+  .octa img { position: absolute; right: 0; top: 0; width: 60%; height: 100%; object-fit: cover; z-index: -1; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .5; }
+  .octa h2 { font-size: clamp(28px, 7vw, 52px); }
+  .octa p { font-size: 13px; color: rgba(255,255,255,.85); max-width: 340px; }
+  .octa .btn { justify-self: start; background: #111; box-shadow: none; }
+
+  /* подвал с оранжевым градиентом (ScaleX) */
+  .fin__glowft { position: relative; margin: 0 -18px; padding: 0 18px; background: linear-gradient(180deg, transparent 0%, rgba(217,35,15,.55) 45%, #ff6a1a 100%); }
+  .fin__w { color: transparent !important; background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,210,150,.7)); -webkit-background-clip: text; background-clip: text; margin-top: 0 !important; padding-top: 30px; }
+
+  @media (min-width: 760px) {
+    .fbar { grid-template-columns: repeat(4, 1fr); }
+    .fbar div { border-bottom: 0 !important; border-right: 1px solid rgba(255,255,255,.25); }
+    .fbar div:last-child { border-right: 0; }
+    .kq { flex-basis: 40%; }
+    .proc { grid-template-columns: repeat(5, 1fr); }
+    .pr { grid-template-columns: 1fr; align-items: start; min-height: 200px; align-content: space-between; }
+    .pr > b { order: -1; justify-self: end; margin-top: -44px; }
+  }
+  @media (min-width: 1024px) {
+    .fbar div { padding: 24px 26px; }
+    .fbar b { font-size: 44px; }
+    .kc3 { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; margin: 50px 0 0; padding: 0; gap: 14px; }
+    .kq { aspect-ratio: 1 / .95; }
+    .kc3__nav { display: none; }
+    .octa { grid-template-columns: 1fr auto; padding: 50px; align-items: end; }
+    .fin__glowft { margin: 0 -44px; padding: 0 44px; }
+  }
 
   .rv { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity .9s var(--ease), transform 1s var(--ease), filter .9s var(--ease); transition-delay: var(--d, 0s); }
   .rv.in { opacity: 1; transform: none; filter: blur(0); }
@@ -300,11 +376,6 @@
 
   /* всё в тёплом оранжевом тоне, как в референсе */
   body { background: #0d0604; }
-  main img { filter: sepia(.85) saturate(3.2) hue-rotate(-16deg) contrast(1.08) brightness(.88) !important; }
-  .hero__im img { filter: sepia(.9) saturate(3.6) hue-rotate(-18deg) contrast(1.12) brightness(.95) !important; }
-  .cs figure img { filter: sepia(.9) saturate(2.6) hue-rotate(-16deg) brightness(.45) !important; }
-  .cs.on figure img { filter: sepia(.85) saturate(3) hue-rotate(-16deg) contrast(1.05) brightness(.95) !important; }
-  .hero::after { background: linear-gradient(160deg, rgba(255,77,18,.45), rgba(160,25,0,.2) 55%, transparent) !important; mix-blend-mode: soft-light !important; }
   .hero::before { background: radial-gradient(55% 55% at 72% 38%, rgba(255,110,30,.45), transparent 70%), linear-gradient(180deg, rgba(13,6,4,.5) 0%, rgba(13,6,4,.05) 30%, rgba(13,6,4,.35) 62%, #0d0604 100%), linear-gradient(90deg, rgba(13,6,4,.8) 0%, rgba(13,6,4,0) 60%) !important; }
   .frame { position: fixed; inset: 0; z-index: 60; pointer-events: none; border: 6px solid transparent; border-image: linear-gradient(180deg, #ff2a0a, #ff7a1a) 1; }
   .sec, .cases { position: relative; }
@@ -362,18 +433,24 @@
         </div>
       </div>
     </div>
+    <div class="fbar rv">
+      <div><b>75 м²</b><span>дом на 4 спальни</span></div>
+      <div><b>160 м²</b><span>двухэтажный дом</span></div>
+      <div><b>25 мин</b><span>от центра Перми</span></div>
+      <div><b>4 м</b><span>высота потолка в доме 75 м²</span></div>
+    </div>
   </div>
 </section>
 
 <section id="what" style="padding-bottom:40px">
   <div class="wrap">
-    <span class="lbl rv">Что строим</span>
-    <h2 class="h2 rv">От уютного дома <span>до виллы на Бали</span></h2>
+    <div class="shd rv"><b>[01]</b><span>Что строим</span><i>↘</i></div>
+    <h2 class="h2 rv" style="margin-top:0">От уютного дома <span>до виллы на Бали</span></h2>
     <div class="stair">
-      <div class="sc rv"><span class="pill">Пермь</span><i></i><h3>Одноэтажные дома от 75 м²</h3><p>4 спальни, кухня-гостиная с панорамными окнами и терраса.</p></div>
-      <div class="sc sc--or rv" style="--d:.06s"><img src="img/sv-shell.webp" alt="" loading="lazy"><span class="pill" style="border-color:rgba(255,255,255,.6)">2 этажа</span><i></i><h3>Двухэтажные дома до 160 м²</h3><p style="color:rgba(255,255,255,.85)">На 6 сотках, в 25 минутах от центра.</p></div>
-      <div class="sc sc--ph rv" style="--d:.12s"><img src="img/pr-villa.webp" alt="" loading="lazy"><span class="pill">Бали</span><i></i><h3>Виллы на Бали</h3><p>Илья сам ведёт эти стройки.</p></div>
-      <div class="sc sc--ph rv" style="--d:.18s"><img src="img/pr-lake.webp" alt="" loading="lazy"><span class="pill">по запросу</span><i></i><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p></div>
+      <div class="sc rv"><span class="pill">01 / 1 этаж</span><i></i><h3>Одноэтажные дома <em>от 75 м²</em></h3><p>4 спальни, кухня-гостиная с панорамными окнами и терраса.</p><span class="ar"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="sc sc--or rv" style="--d:.06s"><img src="img/sv-shell.webp" alt="" loading="lazy"><span class="pill" style="border-color:rgba(255,255,255,.6)">02 / 2 этажа</span><i></i><h3>Двухэтажные дома до 160 м²</h3><p style="color:rgba(255,255,255,.85)">На 6 сотках, в 25 минутах от центра.</p><span class="ar"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="sc sc--ph rv" style="--d:.12s"><img src="img/pr-villa.webp" alt="" loading="lazy"><span class="pill">03 / Бали</span><i></i><h3>Виллы на Бали</h3><p>Илья сам ведёт эти стройки.</p><span class="ar"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="sc sc--ph rv" style="--d:.18s"><img src="img/pr-lake.webp" alt="" loading="lazy"><span class="pill">04 / Инвестиции</span><i></i><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p><span class="ar"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
     </div>
   </div>
 </section>
@@ -382,11 +459,12 @@
   <div class="wrap">
     <p class="big__t" id="bigT">Строим с душой. Показываем каждый этап.</p>
     <p class="big__p rv">Ход стройки каждого дома мы выкладываем в Telegram и Instagram, а готовые дома покажем вживую.</p>
-    <div class="tri">
-      <div class="tc rv"><figure><img src="img/pr-pines.webp" alt="" loading="lazy"></figure><h4>Продуманные планировки</h4><p>Даже на 75 м² помещаются 4 спальни и кухня-гостиная.</p></div>
-      <div class="tc rv" style="--d:.06s"><span class="tc__ic"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg></span><h4>Стройка на виду</h4><p>Видео и фото с объектов: от фундамента до готового дома.</p><h4 style="margin-top:auto;font-size:13px;color:var(--or2)">@KSDevelopment1</h4></div>
-      <div class="tc rv" style="--d:.12s"><div class="tc__glow"><svg viewBox="0 0 24 24"><path d="M4 21V11l8-6 8 6v10h-5v-6H9v6z"/></svg></div><h4>Архитектура без случайностей</h4><p>От пропорций фасада до мельчайших деталей.</p></div>
+    <div class="kc3" id="kc3">
+      <div class="kq kq--r rv"><b>6 соток</b><div><h4>Участок в Новобродовском</h4><p>Двухэтажный дом на 160 м² прямо напротив леса.</p></div></div>
+      <div class="kq kq--w rv" style="--d:.06s"><b>4 м</b><div><h4>Потолок в доме на 75 м²</h4><p>Больше света и воздуха даже в компактном доме.</p></div></div>
+      <div class="kq kq--p rv" style="--d:.12s"><img src="img/plan.webp" alt="" loading="lazy"><b>Пермь</b><div><h4>Владимир на объекте</h4><p>Показывает ход стройки, пока Илья строит виллы на Бали.</p></div></div>
     </div>
+    <div class="kc3__nav"><button aria-label="Назад" data-k="-1"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="f" aria-label="Вперёд" data-k="1"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
   </div>
 </section>
 
@@ -408,7 +486,21 @@
   </div>
 </section>
 
-<section class="sec" id="log">
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="shd rv"><b>[02]</b><span>Как строим</span><i>↘</i></div>
+    <h2 class="h2 rv" style="margin-top:0">Пять шагов <span>до своего дома</span></h2>
+    <div class="proc">
+      <div class="pr rv"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><b>01</b></div>
+      <div class="pr rv" style="--d:.05s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h9M12 3v18"/></svg></span><div><h4>Проект</h4><p>Подбираем планировку под вашу семью.</p></div><b>02</b></div>
+      <div class="pr rv" style="--d:.1s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="m9 14 2 2 4-4"/></svg></span><div><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><b>03</b></div>
+      <div class="pr pr--hi rv" style="--d:.15s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></span><div><h4>Стройка</h4><p>Показываем каждый этап в канале.</p></div><b>04</b></div>
+      <div class="pr rv" style="--d:.2s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/></svg></span><div><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><b>05</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="log" style="padding-top:0">
   <div class="wrap">
     <span class="lbl rv">Стройка онлайн</span>
     <h2 class="h2 rv">Пока Илья на Бали, <span><em>Пермь строится</em></span></h2>
@@ -449,6 +541,16 @@
   </div>
 </section>
 
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="octa rv">
+      <img src="img/pr-dali.webp" alt="" loading="lazy">
+      <div><h2>Построим ваш дом вместе</h2><p style="margin-top:12px">Есть участок или только мечта о доме? Напишите, и мы подберём проект.</p></div>
+      <a class="btn" href="#contact">Обсудить<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="faq" style="padding-top:0">
   <div class="wrap">
     <span class="lbl rv">Вопросы</span>
@@ -484,7 +586,7 @@
         </form>
       </div>
     </div>
-    <div class="fin__w" aria-hidden="true">дома</div>
+    <div class="fin__glowft">
     <div class="fin__ft">
       <h4>Будем рады построить<br>ваш дом</h4>
       <div class="fin__cols">
@@ -493,6 +595,8 @@
         <div><b>Контакты</b><span>Телефон добавим ваш</span><a href="#top">Наверх ↑</a></div>
       </div>
       <span class="fin__cp">© КСДевелопмент, 2026</span>
+    </div>
+    <div class="fin__w" aria-hidden="true">КСДевелопмент</div>
     </div>
   </div>
 </section>
@@ -580,6 +684,7 @@
   car.addEventListener('touchend', function (e) { var dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
   addEventListener('resize', lay); lay();
 
+  $$('.kc3__nav button').forEach(function (b) { b.addEventListener('click', function () { var k = $('#kc3'); k.scrollBy({ left: +b.dataset.k * k.clientWidth * .75, behavior: 'smooth' }); }); });
   $('#frm').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
 })();
 </script>
