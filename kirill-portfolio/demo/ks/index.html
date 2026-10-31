@@ -918,6 +918,45 @@
     .hx__fr { left: 22%; width: 50%; top: 5%; height: 25%; }
   }
   @media (min-width: 900px) { .hx__h { font-size: clamp(36px, 3.1vw, 52px); } }
+  /* первый экран: варианты */
+  .hx__bgn, .hx__card, .hx__badge { display: none; }
+  /* B: фамилия за спиной, текст снизу */
+  .hx[data-v="b"] .hx__name, .hx[data-v="b"] .hx__fr, .hx[data-v="b"] .hx__tags--r { display: none; }
+  .hx[data-v="b"] .hx__bgn { display: block; position: absolute; z-index: 0; left: 50%; top: 13%; transform: translateX(-50%); font: 700 clamp(80px, 26vw, 360px)/.8 var(--f); letter-spacing: -.07em; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.28); white-space: nowrap; writing-mode: vertical-rl; transform: translateX(-50%) rotate(180deg); }
+  .hx[data-v="b"] .hx__man { height: 72%; bottom: 22%; }
+  .hx[data-v="b"] .hx__man img { -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 96%); mask-image: linear-gradient(180deg, #000 60%, transparent 96%); }
+  .hx[data-v="b"] .hx__in { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) 34px; }
+  .hx[data-v="b"] .hx__tags--l { bottom: auto; top: 96px; }
+  /* C: оранжевая карточка, голова выходит за край */
+  .hx[data-v="c"] .hx__name, .hx[data-v="c"] .hx__fr, .hx[data-v="c"] .hx__tags, .hx[data-v="c"] .hx__glow { display: none; }
+  .hx[data-v="c"]::after { display: none; }
+  .hx[data-v="c"] .hx__card { display: block; position: absolute; z-index: 0; left: var(--pad); right: var(--pad); bottom: 14px; height: 44%; border-radius: 28px; background: var(--F); }
+  .hx[data-v="c"] .hx__man { bottom: 14px; height: 62%; }
+  .hx[data-v="c"] .hx__badge { display: grid; position: absolute; z-index: 3; left: calc(var(--pad) + 14px); bottom: 30px; gap: 2px; padding: 10px 14px; border-radius: 14px; background: rgba(11,11,11,.4); border: 1px solid rgba(255,255,255,.2); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .hx__badge b { font: 600 14px var(--f); } .hx__badge small { font-size: 11px; color: rgba(255,255,255,.75); }
+  /* D: светлый */
+  .hx[data-v="d"] { background: #fbf7f4; color: #111; }
+  .hx[data-v="d"]::after { background: linear-gradient(180deg, transparent, #fbf7f4); }
+  .hx[data-v="d"] .hx__glow { opacity: .55; }
+  .hx[data-v="d"] .hx__h span { color: rgba(17,17,17,.45); }
+  .hx[data-v="d"] .hx__tags { color: #111; border-color: rgba(17,17,17,.3) !important; }
+  .hx[data-v="d"] .hx__tags span { text-shadow: none; } .hx[data-v="d"] .hx__tags span::after { background: rgba(17,17,17,.5); }
+  .hx[data-v="d"] .hx__fr { filter: invert(1); }
+  .hx[data-v="d"] .hx__name span { background: linear-gradient(180deg, #111 30%, var(--A) 100%); -webkit-background-clip: text; background-clip: text; }
+  @media (min-width: 900px) {
+    .hx[data-v="b"] .hx__bgn { writing-mode: horizontal-tb; transform: translateX(-50%); top: 16%; font-size: clamp(160px, 19vw, 320px); }
+    .hx[data-v="b"] .hx__man { height: 84%; bottom: 0; }
+    .hx[data-v="b"] .hx__in { position: relative; bottom: auto; padding: 150px var(--pad) 0; }
+    .hx[data-v="b"] .hx__tags--l { top: auto; bottom: 10%; }
+    .hx[data-v="c"] .hx__card { left: max(var(--pad), calc(50% - 660px)); right: max(var(--pad), calc(50% - 660px)); height: 52%; bottom: 24px; }
+    .hx[data-v="c"] .hx__man { bottom: 24px; height: 82%; left: auto; right: max(calc(var(--pad) + 40px), calc(50% - 600px)); transform: none; }
+    .hx[data-v="c"] .hx__badge { left: max(calc(var(--pad) + 40px), calc(50% - 620px)); bottom: 60px; }
+  }
+  .hx[data-v="b"] .hx__bgn { writing-mode: horizontal-tb; transform: translateX(-50%); top: 31%; font-size: 25vw; -webkit-text-stroke: 1.2px rgba(255,255,255,.3); }
+  body[data-h="d"] #nav:not(.solid) .logo, body[data-h="d"] #nav:not(.solid) .nav__ln a { color: #111; }
+  body[data-h="d"] #nav:not(.solid) .nav__ln { background: rgba(17,17,17,.04); border-color: rgba(17,17,17,.12); }
+  @media (min-width: 900px) { .hx[data-v="b"] .hx__bgn { top: 40%; font-size: clamp(160px, 19vw, 320px); } }
+  @media (max-width: 899px) { .hx[data-v="d"] .hx__tags { display: none; } }
 </style>
 </head>
 <body class="t-bright">
@@ -929,8 +968,10 @@
 </header>
 
 <main>
-<section class="hx" id="top">
+<section class="hx" id="top" data-v="a">
   <div class="hx__glow" aria-hidden="true"></div>
+  <div class="hx__bgn" aria-hidden="true">Копысов</div>
+  <div class="hx__card" aria-hidden="true"></div>
   <div class="hx__in">
     <h1 class="hx__h hh" style="--d:.2s">Частные дома в&nbsp;Перми и&nbsp;на&nbsp;Бали <span>от&nbsp;Ильи Копысова</span></h1>
     <a class="btn hx__btn hh" style="--d:.35s" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
@@ -939,6 +980,7 @@
   <div class="hx__tags hx__tags--l hh" style="--d:.7s" aria-hidden="true"><span>Одноэтажные</span><span>Двухэтажные</span><span>Виллы на&nbsp;Бали</span></div>
   <div class="hx__tags hx__tags--r hh" style="--d:.85s" aria-hidden="true"><span>Новобродовский</span><span>Жебреи</span><span>Большая Мось</span></div>
   <div class="hx__name" aria-hidden="true"><span>Копысов</span></div>
+  <div class="hx__badge"><b>Илья Копысов</b><small>основатель КСДевелопмент</small></div>
 </section>
 
 <section class="sec" id="about" data-v="b">
@@ -1110,6 +1152,7 @@
     <form class="mgr__f" id="mgrF"><input id="mgrI" placeholder="Ваш вопрос" autocomplete="off" aria-label="Ваш вопрос"><button type="submit" aria-label="Отправить"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
   </div>
 </div>
+<div class="qsw" id="hsw">Первый экран: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -1248,6 +1291,12 @@
     $$('#stpBar i').forEach(function (b, k) { b.classList.toggle('on', k <= sc); });
     pn.classList.add('sw'); setTimeout(function () { $('#stpN').textContent = 'Шаг ' + (sc + 1) + ' из ' + prs.length; $('#stpI').innerHTML = $('.ic', pr).innerHTML; $('#stpH').textContent = $('h4', pr).textContent; $('#stpP').textContent = $('p', pr).textContent; pn.classList.remove('sw'); }, 200); };
   showS(0); $('#stpPrev').addEventListener('click', function () { showS(sc - 1); }); $('#stpNext').addEventListener('click', function () { showS(sc + 1); });
+  // варианты первого экрана (демо)
+  var hx = $('#top'), hsw = $('#hsw');
+  var setH = function (v) { hx.dataset.v = v; document.body.dataset.h = v; $$('#hsw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); };
+  var hq = new URLSearchParams(location.search).get('h'); if (/^[abcd]$/.test(hq || '')) setH(hq);
+  $$('#hsw button').forEach(function (b) { b.addEventListener('click', function () { setH(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { hsw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .3 }).observe(hx);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
