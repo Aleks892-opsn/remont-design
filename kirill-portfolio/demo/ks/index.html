@@ -953,10 +953,59 @@
     .hx[data-v="c"] .hx__badge { left: max(calc(var(--pad) + 40px), calc(50% - 620px)); bottom: 60px; }
   }
   .hx[data-v="b"] .hx__bgn { writing-mode: horizontal-tb; transform: translateX(-50%); top: 31%; font-size: 25vw; -webkit-text-stroke: 1.2px rgba(255,255,255,.3); }
-  body[data-h="d"] #nav:not(.solid) .logo, body[data-h="d"] #nav:not(.solid) .nav__ln a { color: #111; }
-  body[data-h="d"] #nav:not(.solid) .nav__ln { background: rgba(17,17,17,.04); border-color: rgba(17,17,17,.12); }
   @media (min-width: 900px) { .hx[data-v="b"] .hx__bgn { top: 40%; font-size: clamp(160px, 19vw, 320px); } }
   @media (max-width: 899px) { .hx[data-v="d"] .hx__tags { display: none; } }
+  /* первый экран v2: текст снизу */
+  .hy { position: relative; height: 100svh; min-height: 620px; overflow: hidden; isolation: isolate; background: #0b0b0b; }
+  .hy__glow { position: absolute; z-index: -2; left: 50%; top: 40%; width: 140vw; height: 120vw; max-width: 1400px; max-height: 1000px; transform: translate(-50%, -50%); background: radial-gradient(closest-side, color-mix(in srgb, var(--A) 60%, transparent), color-mix(in srgb, var(--A) 16%, transparent) 55%, transparent 80%); }
+  .hy__bgn { display: none; }
+  .hy__man { position: absolute; z-index: 1; left: 50%; top: 84px; bottom: 0; transform: translateX(-50%); display: flex; justify-content: center; }
+  .hy__man img { height: 100%; width: auto; max-width: none; display: block; object-fit: contain; object-position: top; opacity: 0; transform: translateY(30px); transition: opacity 1.2s .2s, transform 1.6s .2s var(--ease); }
+  .ld .hy__man img { opacity: 1; transform: none; }
+  .hy__fr { display: none; }
+  .hy__bot { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 120px var(--pad) 26px; background: linear-gradient(180deg, transparent 0%, rgba(11,11,11,.75) 38%, #0b0b0b 72%); display: grid; gap: 14px; max-width: var(--max); margin: 0 auto; }
+  .hy__name, .hy__badge, .hy__chips { display: none; }
+  .hy__row { display: grid; gap: 16px; }
+  .hy__h { font: 500 clamp(30px, 8.4vw, 64px)/1 var(--f); letter-spacing: -.05em; max-width: 12ch; }
+  .hy__h em { color: var(--A); }
+  .hy__btn { justify-self: start; }
+  .hy__name { font: 600 clamp(64px, 21vw, 260px)/.8 var(--f); letter-spacing: -.07em; background: linear-gradient(180deg, #fff 35%, color-mix(in srgb, var(--A) 70%, #fff)); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; }
+  .hy__badge { justify-self: start; gap: 2px; padding: 9px 13px; border-radius: 14px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .hy__badge b { font: 600 13.5px var(--f); } .hy__badge small { font-size: 11px; color: rgba(255,255,255,.65); }
+  .hy__chips { gap: 6px; flex-wrap: wrap; }
+  .hy__chips span { padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); font: 500 12px var(--f); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .hy__bot > *, .hy__row > * { opacity: 0; transform: translateY(16px); transition: opacity .9s .7s, transform 1.1s .7s var(--ease); }
+  .ld .hy__bot > *, .ld .hy__row > * { opacity: 1; transform: none; }
+  /* A: фамилия + строка */
+  .hy[data-v="a"] .hy__name { display: block; margin-bottom: 6px; }
+  .hy[data-v="a"] .hy__bot { padding-top: 40px; background: linear-gradient(180deg, transparent 0%, rgba(11,11,11,.6) 30%, #0b0b0b 62%); }
+  .hy[data-v="a"] .hy__h { font-size: clamp(24px, 6.4vw, 44px); max-width: 14ch; }
+  /* B: плашка с именем */
+  .hy[data-v="b"] .hy__badge { display: grid; }
+  .hy[data-v="b"] .hy__fr { display: block; position: absolute; left: 34%; width: 32%; top: 4%; height: 22%; opacity: .7; background: linear-gradient(#fff,#fff) 0 0/16px 1.5px, linear-gradient(#fff,#fff) 0 0/1.5px 16px, linear-gradient(#fff,#fff) 100% 0/16px 1.5px, linear-gradient(#fff,#fff) 100% 0/1.5px 16px, linear-gradient(#fff,#fff) 0 100%/16px 1.5px, linear-gradient(#fff,#fff) 0 100%/1.5px 16px, linear-gradient(#fff,#fff) 100% 100%/16px 1.5px, linear-gradient(#fff,#fff) 100% 100%/1.5px 16px; background-repeat: no-repeat; }
+  /* C: оранжевая карточка снизу */
+  .hy[data-v="c"] .hy__bot { left: var(--pad); right: var(--pad); bottom: 14px; padding: 22px; border-radius: 26px; background: var(--F); }
+  .hy[data-v="c"] .hy__h em { color: #fff; opacity: .7; }
+  .hy[data-v="c"] .hy__btn { background: #fff !important; color: #111; } .hy[data-v="c"] .hy__btn i { background: var(--F); color: #fff; }
+  .hy[data-v="c"] .hy__glow { opacity: .5; }
+  /* D: фамилия за головой + теги */
+  .hy[data-v="d"] .hy__bgn { display: block; position: absolute; z-index: 0; left: 50%; top: 96px; transform: translateX(-50%); font: 700 clamp(72px, 25vw, 340px)/.8 var(--f); letter-spacing: -.07em; color: transparent; -webkit-text-stroke: 1.4px rgba(255,255,255,.32); white-space: nowrap; }
+  .hy[data-v="d"] .hy__chips { display: flex; }
+  @media (min-width: 900px) {
+    .hy { height: 100vh; min-height: 700px; }
+    .hy__man { top: 70px; }
+    .hy__bot { padding: 160px var(--pad) 40px; }
+    .hy__row { grid-template-columns: 1fr auto; align-items: end; }
+    .hy__btn { justify-self: end; }
+    .hy[data-v="a"] .hy__name { font-size: clamp(140px, 15vw, 260px); }
+    .hy[data-v="a"] .hy__row { grid-template-columns: 1fr auto; }
+    .hy[data-v="c"] .hy__bot { left: max(var(--pad), calc(50% - 640px)); right: max(var(--pad), calc(50% - 640px)); padding: 34px 40px; bottom: 24px; }
+    .hy[data-v="d"] .hy__bgn { top: 90px; font-size: clamp(180px, 20vw, 340px); }
+  }
+  .hy[data-v="c"] .hy__btn { color: #111 !important; }
+  .hy__name { font-size: clamp(60px, 19vw, 260px); }
+  @media (min-width: 900px) { .hy__h { max-width: 16ch; font-size: clamp(40px, 4vw, 64px); } .hy[data-v="a"] .hy__h { max-width: 20ch; font-size: clamp(26px, 2.2vw, 38px); } .hy[data-v="a"] .hy__name { font-size: clamp(140px, 15vw, 260px); } }
+  .hy__h { max-width: none !important; }
 </style>
 </head>
 <body class="t-bright">
@@ -968,19 +1017,19 @@
 </header>
 
 <main>
-<section class="hx" id="top" data-v="a">
-  <div class="hx__glow" aria-hidden="true"></div>
-  <div class="hx__bgn" aria-hidden="true">Копысов</div>
-  <div class="hx__card" aria-hidden="true"></div>
-  <div class="hx__in">
-    <h1 class="hx__h hh" style="--d:.2s">Частные дома в&nbsp;Перми и&nbsp;на&nbsp;Бали <span>от&nbsp;Ильи Копысова</span></h1>
-    <a class="btn hx__btn hh" style="--d:.35s" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+<section class="hy" id="top" data-v="a">
+  <div class="hy__glow" aria-hidden="true"></div>
+  <div class="hy__bgn" aria-hidden="true">Копысов</div>
+  <div class="hy__man" id="hx"><img src="img/ilya-cut.webp" alt="Илья Копысов, основатель КСДевелопмент" fetchpriority="high"><i class="hy__fr" aria-hidden="true"></i></div>
+  <div class="hy__bot">
+    <div class="hy__name" aria-hidden="true">Копысов</div>
+    <div class="hy__badge"><b>Илья Копысов</b><small>основатель КСДевелопмент</small></div>
+    <div class="hy__chips"><span>Одноэтажные</span><span>Двухэтажные</span><span>Виллы на Бали</span></div>
+    <div class="hy__row">
+      <h1 class="hy__h">Дома, в&nbsp;которых<br>живут <em>семьями</em></h1>
+      <a class="btn hy__btn" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+    </div>
   </div>
-  <div class="hx__man" id="hx"><img src="img/ilya-cut.webp" alt="Илья Копысов, основатель КСДевелопмент" fetchpriority="high"><i class="hx__fr" aria-hidden="true"></i></div>
-  <div class="hx__tags hx__tags--l hh" style="--d:.7s" aria-hidden="true"><span>Одноэтажные</span><span>Двухэтажные</span><span>Виллы на&nbsp;Бали</span></div>
-  <div class="hx__tags hx__tags--r hh" style="--d:.85s" aria-hidden="true"><span>Новобродовский</span><span>Жебреи</span><span>Большая Мось</span></div>
-  <div class="hx__name" aria-hidden="true"><span>Копысов</span></div>
-  <div class="hx__badge"><b>Илья Копысов</b><small>основатель КСДевелопмент</small></div>
 </section>
 
 <section class="sec" id="about" data-v="b">
