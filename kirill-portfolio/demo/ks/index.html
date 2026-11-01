@@ -1882,6 +1882,8 @@
   @media (max-width: 899px) { .hy { height: max(95svh, 690px) !important; } }
   /* меню не скачет при прокрутке */
   .ld .nav { transform: none !important; transition: opacity .6s .15s, background .3s, border-color .3s !important; }
+  /* меню: без размытия фона и без смены вида при прокрутке (на iPhone размытие у закреплённого меню дёргается) */
+  .nav, .nav.solid { background: rgba(14,14,14,.92) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-color: rgba(255,255,255,.08) !important; -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0) !important; will-change: transform; transition: opacity .6s .15s !important; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"КСДевелопмент","description":"Строительство частных домов в Перми и пригороде, виллы на Бали","founder":{"@type":"Person","name":"Илья Копысов"},"areaServed":["Пермь","Новобродовский","Жебреи","Большая Мось","Усть-Качка","Бали"],"address":{"@type":"PostalAddress","addressLocality":"Пермь","addressCountry":"RU"},"sameAs":["https://t.me/KSDevelopment1","https://instagram.com/ilyakopysov"]}</script>
 </head>
