@@ -1500,6 +1500,70 @@
   .nj__it em { max-width: 170px; white-space: normal; font-style: normal; font-size: 13px; line-height: 1.35; color: rgba(255,255,255,.65); }
   .nj__it i { font-style: normal; font-size: 26px; color: var(--A); }
   @media (prefers-reduced-motion: reduce) { .nj__tr { animation: none; } }
+  /* ===== «Что строим»: варианты ===== */
+  #what .wv { display: none; }
+  #what[data-w="a"] .wv--a { display: flex; } #what[data-w="b"] .wv--b, #what[data-w="d"] .wv--d { display: block; } #what[data-w="c"] .wv--c { display: block; }
+  @media (min-width: 900px) { #what[data-w="a"] .wv--a { display: grid; } }
+  /* 1 — вкладки и большое фото */
+  .wt { margin-top: 30px; }
+  .wt__tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 4px; }
+  .wt__tabs::-webkit-scrollbar { display: none; }
+  .wt__b { flex: none; height: 44px; padding: 0 16px; border-radius: 999px; background: #fff; border: 1px solid rgba(17,17,17,.1); color: #111; font: 600 13.5px var(--f); transition: background .3s, color .3s; }
+  .wt__b span { margin-right: 8px; color: var(--A); font-size: 11px; }
+  .wt__b.on { background: #111; color: #fff; border-color: #111; }
+  .wt__stage { position: relative; margin-top: 12px; height: 500px; border-radius: 26px; overflow: hidden; background: #111; }
+  .wt__p { position: absolute; inset: 0; margin: 0; clip-path: inset(0 0 0 100%); transition: clip-path .9s cubic-bezier(.7,0,.2,1); }
+  .wt__p.on { clip-path: inset(0 0 0 0); z-index: 1; } .wt__p.was { clip-path: inset(0 0 0 0); z-index: 0; }
+  .wt__p img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); transition: transform 1.6s var(--ease); } .wt__p.on img { transform: none; }
+  .wt__p::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.82)); }
+  .wt__p figcaption { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 22px; color: #fff; }
+  .wt__p em { font: 600 11px var(--f); font-style: normal; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .wt__p h3 { margin-top: 14px; font: 800 clamp(34px, 9vw, 64px)/1 var(--f); letter-spacing: -.05em; }
+  .wt__p p { margin-top: 10px; font-size: 15px; color: rgba(255,255,255,.88); max-width: 420px; }
+  .wt__p a { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font: 700 14px var(--f); color: #fff; padding-bottom: 4px; border-bottom: 2px solid var(--A); }
+  .wt__p a .i { width: 16px; height: 16px; }
+  @media (min-width: 900px) { .wt__stage { height: 600px; } .wt__p figcaption { left: 44px; bottom: 44px; } }
+  /* 2 — горизонтальная лента при прокрутке */
+  .wh { position: relative; height: 320vh; margin-top: 20px; }
+  .wh__pin { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; margin: 0 calc(var(--pad) * -1); }
+  .wh__tr { display: flex; gap: 14px; padding: 0 var(--pad); width: max-content; will-change: transform; }
+  .wh__c { position: relative; flex: none; width: 78vw; max-width: 460px; height: 62svh; max-height: 560px; border-radius: 26px; overflow: hidden; color: #fff; }
+  .wh__c img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .wh__c::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.1) 35%, rgba(0,0,0,.82)); }
+  .wh__c > div { position: absolute; z-index: 1; left: 20px; right: 20px; bottom: 20px; }
+  .wh__c em { font: 600 11px var(--f); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+  .wh__c h3 { margin-top: 8px; font: 800 clamp(30px, 8vw, 46px)/1 var(--f); letter-spacing: -.05em; }
+  .wh__c p { margin-top: 8px; font-size: 14px; color: rgba(255,255,255,.85); }
+  .wh__n { position: absolute; z-index: 1; top: 16px; right: 18px; font: 800 64px/1 var(--f); letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.7); }
+  .wh__end { flex: none; width: 70vw; max-width: 380px; height: 62svh; max-height: 560px; border-radius: 26px; background: var(--F); color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; gap: 18px; }
+  .wh__end b { font: 800 32px/1.05 var(--f); letter-spacing: -.04em; } .wh__end .btn { background: #fff !important; color: #111; align-self: flex-start; } .wh__end .btn i { background: var(--F); color: #fff; }
+  .wh__bar { margin: 22px var(--pad) 0; height: 3px; border-radius: 3px; background: rgba(17,17,17,.1); } .wh__bar i { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--F); }
+  /* 3 — список с превью фото */
+  .wl { position: relative; margin-top: 30px; border-top: 1px solid rgba(17,17,17,.14); }
+  .wl__r { position: relative; display: grid; grid-template-columns: 34px 1fr auto; align-items: center; column-gap: 12px; padding: 22px 0; border-bottom: 1px solid rgba(17,17,17,.14); color: #111; overflow: hidden; }
+  .wl__n { font: 600 12px var(--f); color: var(--A); }
+  .wl__h { font: 800 clamp(28px, 7.6vw, 72px)/1 var(--f); letter-spacing: -.05em; transition: transform .5s var(--ease), color .3s; }
+  .wl__t { grid-column: 2; margin-top: 8px; font-size: 13.5px; color: rgba(17,17,17,.6); }
+  .wl__pl { display: none; }
+  .wl__a { grid-row: 1 / span 2; grid-column: 3; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(17,17,17,.2); display: grid; place-items: center; transition: background .3s, color .3s, transform .4s var(--ease); }
+  .wl__a .i { width: 18px; height: 18px; }
+  .wl__m { grid-column: 1 / -1; width: 100%; height: 190px; object-fit: cover; border-radius: 18px; margin-top: 14px; }
+  .wl__r:hover .wl__a { background: var(--F); color: #fff; border-color: transparent; transform: rotate(45deg); }
+  .wl__f { display: none; }
+  @media (hover: hover) and (min-width: 900px) {
+    .wl__m { display: none; }
+    .wl__r { grid-template-columns: 60px 1.4fr 1fr 140px 60px; padding: 30px 0; }
+    .wl__t { grid-column: 3; margin: 0; font-size: 15px; } .wl__pl { display: block; font: 600 11px var(--f); letter-spacing: .12em; text-transform: uppercase; color: rgba(17,17,17,.45); }
+    .wl__a { grid-row: auto; grid-column: 5; }
+    .wl__r:hover .wl__h { transform: translateX(14px); color: var(--A); }
+    .wl__f { display: block; position: fixed; z-index: 30; left: 0; top: 0; width: 300px; height: 220px; border-radius: 20px; overflow: hidden; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.6) rotate(-6deg); transition: opacity .35s, transform .5s var(--ease); box-shadow: 0 30px 60px rgba(0,0,0,.3); }
+    .wl__f.on { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+    .wl__f img { width: 100%; height: 100%; object-fit: cover; }
+  }
+  .wsw { position: fixed; z-index: 71; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translate(-50%, 10px); opacity: 0; pointer-events: none; transition: .3s; display: flex; align-items: center; gap: 4px; padding: 5px 5px 5px 14px; border-radius: 999px; background: rgba(11,11,11,.9); border: 1px solid rgba(255,255,255,.15); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 600 12px var(--f); color: rgba(255,255,255,.7); white-space: nowrap; }
+  .wsw.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+  .wsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; } .wsw button.on { background: var(--F); }
+  @media (min-width: 900px) { .wl__h { font-size: clamp(36px, 3.6vw, 56px); white-space: nowrap; } }
 </style>
 </head>
 <body class="t-bright">
@@ -1577,16 +1641,19 @@
 </section>
 </div>
 
-<section id="what" style="padding-bottom:40px">
+<section id="what" data-w="a" style="padding-bottom:40px">
   <div class="wrap">
     <span class="lbl rv">Что строим</span>
     <h2 class="h2 rv">От уютного дома <span>до <span class="u">виллы на Бали<svg class="uline" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></span></h2>
-    <div class="stair">
+    <div class="stair wv wv--a">
       <div class="sc rv"><span class="pill">Пермь</span><i></i><h3>Одноэтажные дома</h3><p>Кухня-гостиная с панорамными окнами и терраса.</p></div>
       <div class="sc sc--or rv" style="--d:.06s"><img src="img/sv-shell.webp" alt="" loading="lazy"><span class="pill" style="border-color:rgba(255,255,255,.6)">2 этажа</span><i></i><h3>Двухэтажные дома</h3><p style="color:rgba(255,255,255,.85)">Когда семье нужно больше места.</p></div>
       <div class="sc sc--ph rv" style="--d:.12s"><img src="img/pr-villa.webp" alt="" loading="lazy"><span class="pill">Бали</span><i></i><h3>Виллы на Бали</h3><p>Илья сам ведёт эти стройки.</p></div>
       <div class="sc sc--ph rv" style="--d:.18s"><img src="img/pr-lake.webp" alt="" loading="lazy"><span class="pill">по запросу</span><i></i><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p></div>
     </div>
+    <div class="wt wv wv--b rv"><div class="wt__tabs"><button type="button" class="wt__b on" data-i="0"><span>01</span>Одноэтажные дома</button><button type="button" class="wt__b" data-i="1"><span>02</span>Двухэтажные дома</button><button type="button" class="wt__b" data-i="2"><span>03</span>Виллы на Бали</button><button type="button" class="wt__b" data-i="3"><span>04</span>Дом как инвестиция</button></div><div class="wt__stage"><figure class="wt__p on"><img src="img/pr-pines.webp" alt="Одноэтажные дома" loading="lazy"><figcaption><em>Пермь</em><h3>Одноэтажные дома</h3><p>Кухня-гостиная с панорамными окнами и терраса.</p><a href="#pick">Подобрать такой дом <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a></figcaption></figure><figure class="wt__p"><img src="img/pr-dali.webp" alt="Двухэтажные дома" loading="lazy"><figcaption><em>2 этажа</em><h3>Двухэтажные дома</h3><p>Когда семье нужно больше места.</p><a href="#pick">Подобрать такой дом <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a></figcaption></figure><figure class="wt__p"><img src="img/pr-villa.webp" alt="Виллы на Бали" loading="lazy"><figcaption><em>Бали</em><h3>Виллы на Бали</h3><p>Илья сам ведёт эти стройки.</p><a href="#pick">Подобрать такой дом <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a></figcaption></figure><figure class="wt__p"><img src="img/pr-lake.webp" alt="Дом как инвестиция" loading="lazy"><figcaption><em>по запросу</em><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p><a href="#pick">Подобрать такой дом <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a></figcaption></figure></div></div>
+    <div class="wh wv wv--c" id="wh"><div class="wh__pin"><div class="wh__tr" id="whTr"><article class="wh__c"><img src="img/pr-pines.webp" alt="Одноэтажные дома" loading="lazy"><span class="wh__n">01</span><div><em>Пермь</em><h3>Одноэтажные дома</h3><p>Кухня-гостиная с панорамными окнами и терраса.</p></div></article><article class="wh__c"><img src="img/pr-dali.webp" alt="Двухэтажные дома" loading="lazy"><span class="wh__n">02</span><div><em>2 этажа</em><h3>Двухэтажные дома</h3><p>Когда семье нужно больше места.</p></div></article><article class="wh__c"><img src="img/pr-villa.webp" alt="Виллы на Бали" loading="lazy"><span class="wh__n">03</span><div><em>Бали</em><h3>Виллы на Бали</h3><p>Илья сам ведёт эти стройки.</p></div></article><article class="wh__c"><img src="img/pr-lake.webp" alt="Дом как инвестиция" loading="lazy"><span class="wh__n">04</span><div><em>по запросу</em><h3>Дом как инвестиция</h3><p>Подберём участок и проект под вашу задачу.</p></div></article><div class="wh__end"><b>Не нашли свой вариант?</b><a class="btn" href="#pick">Подобрать дом<i><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></i></a></div></div><div class="wh__bar"><i id="whBar"></i></div></div></div>
+    <div class="wl wv wv--d"><a class="wl__r rv" href="#pick" data-img="img/pr-pines.webp"><span class="wl__n">01</span><span class="wl__h">Одноэтажные дома</span><span class="wl__t">Кухня-гостиная с панорамными окнами и терраса.</span><span class="wl__pl">Пермь</span><i class="wl__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></i><img class="wl__m" src="img/pr-pines.webp" alt="" loading="lazy"></a><a class="wl__r rv" href="#pick" data-img="img/pr-dali.webp"><span class="wl__n">02</span><span class="wl__h">Двухэтажные дома</span><span class="wl__t">Когда семье нужно больше места.</span><span class="wl__pl">2 этажа</span><i class="wl__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></i><img class="wl__m" src="img/pr-dali.webp" alt="" loading="lazy"></a><a class="wl__r rv" href="#pick" data-img="img/pr-villa.webp"><span class="wl__n">03</span><span class="wl__h">Виллы на Бали</span><span class="wl__t">Илья сам ведёт эти стройки.</span><span class="wl__pl">Бали</span><i class="wl__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></i><img class="wl__m" src="img/pr-villa.webp" alt="" loading="lazy"></a><a class="wl__r rv" href="#pick" data-img="img/pr-lake.webp"><span class="wl__n">04</span><span class="wl__h">Дом как инвестиция</span><span class="wl__t">Подберём участок и проект под вашу задачу.</span><span class="wl__pl">по запросу</span><i class="wl__a"><svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></i><img class="wl__m" src="img/pr-lake.webp" alt="" loading="lazy"></a><div class="wl__f" id="wlF"><img id="wlI" src="img/pr-pines.webp" alt=""></div></div>
   </div>
 </section>
 
@@ -1724,6 +1791,7 @@
 <div class="qsw" id="hsw">Первый экран: <button data-v="a">A</button><button class="on" data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="qsw show" id="nsw" style="bottom:calc(max(16px, env(safe-area-inset-bottom)) + 108px)">Меню: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="h">1</button><button data-v="i">2</button><button data-v="j">3</button></div>
+<div class="wsw" id="wsw">Что строим: <button class="on" data-v="a">A</button><button data-v="b">1</button><button data-v="c">2</button><button data-v="d">3</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -1919,6 +1987,23 @@
   // «В цифрах» 2: точки на фото
   var niP = $$('.ni__p'); niP.forEach(function (b) { b.addEventListener('click', function () { var on = b.classList.contains('on'); niP.forEach(function (x) { x.classList.remove('on'); }); if (!on) b.classList.add('on'); }); });
   if (niP[0]) niP[0].classList.add('on');
+  // «Что строим»: варианты (демо)
+  var wht = $('#what'), wsw = $('#wsw');
+  var setW = function (v) { wht.dataset.w = v; $$('#wsw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#what .rv').forEach(function (el) { el.classList.add('in'); }); whU(); };
+  $$('#wsw button').forEach(function (b) { b.addEventListener('click', function () { setW(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { wsw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .05 }).observe(wht);
+  // 1: вкладки
+  var wtB = $$('.wt__b'), wtP = $$('.wt__p'), wtC = 0;
+  wtB.forEach(function (b, k) { b.addEventListener('click', function () { if (k === wtC) return; wtP.forEach(function (p2) { p2.classList.remove('was'); }); wtP[wtC].classList.add('was'); wtP[wtC].classList.remove('on'); wtC = k; wtP[k].classList.add('on'); wtB.forEach(function (x, j) { x.classList.toggle('on', j === k); }); }); });
+  // 2: горизонтальная лента
+  var wh = $('#wh'), whTr = $('#whTr'), whBar = $('#whBar');
+  function whU() { if (!wh || !wh.offsetParent) return; var r = wh.getBoundingClientRect(), k = Math.max(0, Math.min(1, -r.top / (r.height - innerHeight))); var mx = whTr.scrollWidth - innerWidth + 40; whTr.style.transform = 'translateX(' + (-k * Math.max(0, mx)) + 'px)'; whBar.style.width = (k * 100) + '%'; }
+  addEventListener('scroll', whU, { passive: true }); addEventListener('resize', whU);
+  // 3: превью фото за курсором
+  var wlF = $('#wlF'), wlI = $('#wlI');
+  $$('.wl__r').forEach(function (r) { r.addEventListener('mouseenter', function () { wlI.src = r.dataset.img; wlF.classList.add('on'); }); r.addEventListener('mouseleave', function () { wlF.classList.remove('on'); }); });
+  addEventListener('mousemove', function (e) { if (wlF) { wlF.style.left = e.clientX + 'px'; wlF.style.top = e.clientY + 'px'; } }, { passive: true });
+  var wq = new URLSearchParams(location.search).get('w'); if (/^[abcd]$/.test(wq || '')) setW(wq);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
