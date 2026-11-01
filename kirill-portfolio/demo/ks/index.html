@@ -1878,6 +1878,12 @@
   .rv { filter: none !important; transition: opacity .8s var(--ease), transform .9s var(--ease) !important; transition-delay: var(--d, 0s) !important; }
   .hh { filter: none !important; transition: opacity .9s var(--ease), transform .9s var(--ease) !important; transition-delay: var(--d, 0s) !important; }
   .wp__im img { transition: none !important; will-change: transform; }
+  /* телефон: размер Ильи от ширины экрана, а не от высоты (во встроенных браузерах экран ниже) */
+  @media (max-width: 899px) {
+    .hy { height: max(95svh, calc(96px + 112vw + 230px)) !important; min-height: 0 !important; }
+    .hy__man { top: 86px !important; bottom: auto !important; height: auto !important; width: min(100vw, 560px); }
+    .hy__man img { width: 100%; height: auto; }
+  }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"КСДевелопмент","description":"Строительство частных домов в Перми и пригороде, виллы на Бали","founder":{"@type":"Person","name":"Илья Копысов"},"areaServed":["Пермь","Новобродовский","Жебреи","Большая Мось","Усть-Качка","Бали"],"address":{"@type":"PostalAddress","addressLocality":"Пермь","addressCountry":"RU"},"sameAs":["https://t.me/KSDevelopment1","https://instagram.com/ilyakopysov"]}</script>
 </head>
