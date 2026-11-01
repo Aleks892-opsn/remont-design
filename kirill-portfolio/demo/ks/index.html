@@ -1810,6 +1810,32 @@
   .hq__l p { display: none; margin-top: 4px; font-size: 12.5px; line-height: 1.35; color: rgba(255,255,255,.6); }
   @media (min-width: 900px) { .hq__l p { display: block; } .hq__l { width: 19%; } }
   @media (min-width: 900px) { .hq__box { max-width: 640px; } .hq__l h4 { font-size: 18px; } .hq__l b { font-size: 24px; } }
+  /* ===== «Пять шагов» 17: окно в форме дома ===== */
+  #how[data-hs="l"] .hv--l { display: block; } #how[data-hs="l"] { overflow: visible; }
+  .hw { position: relative; height: 420vh; margin-top: 10px; }
+  .hw__pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: auto auto auto; align-content: center; justify-items: center; gap: 18px; }
+  .hw__win { position: relative; width: min(78vw, 320px); aspect-ratio: 1 / 1; }
+  .hw__mask { position: absolute; inset: 0; clip-path: polygon(50% 2%, 98% 38%, 98% 98%, 2% 98%, 2% 38%); overflow: hidden; background: #000; }
+  .hw__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.15); transition: opacity .8s, transform 1.4s var(--ease); }
+  .hw__im.on { opacity: 1; transform: none; }
+  .hw__out { position: absolute; inset: -10px; width: calc(100% + 20px); height: calc(100% + 20px); overflow: visible; }
+  .hw__out path { fill: none; stroke: var(--A); stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: var(--p, 1); stroke-linejoin: round; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--A) 60%, transparent)); }
+  .hw__badge { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); padding: 6px 12px; border-radius: 999px; background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font: 700 12px var(--f); color: #fff; }
+  .hw__txt { position: relative; width: 100%; max-width: 420px; height: 110px; text-align: center; }
+  .hw__t { position: absolute; inset: 0; opacity: 0; transform: translateY(18px); transition: opacity .5s, transform .6s var(--ease); }
+  .hw__t.on { opacity: 1; transform: none; }
+  .hw__t span { font: 600 11px var(--f); letter-spacing: .14em; text-transform: uppercase; color: var(--A); } .hw__t h4 { margin-top: 6px; font: 800 clamp(34px, 9vw, 56px)/1 var(--f); letter-spacing: -.05em; } .hw__t p { margin-top: 8px; font-size: 15px; color: rgba(255,255,255,.7); }
+  .hw__list { list-style: none; padding: 0; margin: 0; display: flex; gap: 6px; }
+  .hw__list li { font-size: 0; width: 34px; height: 4px; border-radius: 4px; background: rgba(255,255,255,.15); transition: background .4s, width .4s; } .hw__list li b { display: none; }
+  .hw__list li.on { background: var(--F); width: 54px; } .hw__list li.done { background: color-mix(in srgb, var(--A) 50%, transparent); }
+  @media (min-width: 900px) {
+    .hw__pin { grid-template-columns: 1fr 1fr; grid-template-rows: none; align-items: center; justify-items: stretch; gap: 60px; max-width: 1100px; margin: 0 auto; }
+    .hw__win { width: min(40vw, 460px); justify-self: center; grid-row: 1 / span 2; }
+    .hw__txt { height: 170px; text-align: left; max-width: none; align-self: end; } .hw__t h4 { font-size: 72px; } .hw__t p { font-size: 18px; }
+    .hw__list { flex-direction: column; gap: 10px; align-self: start; } .hw__list li { width: auto; height: auto; background: none; font: 700 18px var(--f); color: rgba(255,255,255,.3); display: flex; gap: 12px; } .hw__list li b { display: inline; color: inherit; font-size: 12px; padding-top: 4px; }
+    .hw__list li.on { background: none; width: auto; color: #fff; } .hw__list li.on b { color: var(--A); } .hw__list li.done { background: none; color: rgba(255,255,255,.55); }
+  }
+  .hw__out path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; opacity: .9; }
 </style>
 </head>
 <body class="t-bright">
@@ -1925,7 +1951,7 @@
   <div class="car__nav"><button id="carP" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="f" id="carN" aria-label="Вперёд"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
 </section>
 
-<section class="sec pnl" id="how" data-v="a" data-hs="k">
+<section class="sec pnl" id="how" data-v="a" data-hs="l">
   <i class="ribs" aria-hidden="true"></i><i class="grid-bg" aria-hidden="true"></i>
   <div class="wrap">
     <div class="shd rv"><b>[03]</b><span>Как строим</span><i>↘</i></div>
@@ -1938,6 +1964,7 @@
       <div class="pr rv" style="--d:.2s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/></svg></span><div><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><b>05</b></div>
     </div>
     <div class="stp" id="stp"><div class="stp__tabs" id="stpTabs"></div><div class="stp__p"><div class="stp__top"><small id="stpN">Шаг 1 из 5</small><i id="stpI"></i></div><h3 id="stpH"></h3><p id="stpP"></p><div class="stp__ft"><div class="stp__bar" id="stpBar"></div><div class="stp__nav"><button type="button" id="stpPrev" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="stpNext" aria-label="Дальше"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div></div></div>
+    <div class="hw hv hv--l" id="hw"><div class="hw__pin"><div class="hw__win"><div class="hw__mask"><img class="hw__im on" src="img/found.webp" alt="Участок" loading="lazy"><img class="hw__im" src="img/plan.webp" alt="Проект" loading="lazy"><img class="hw__im" src="img/modern.webp" alt="Договор" loading="lazy"><img class="hw__im" src="img/site.webp" alt="Стройка" loading="lazy"><img class="hw__im" src="img/terrace.webp" alt="Ключи" loading="lazy"></div><svg class="hw__out" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M50 2 L98 38 L98 98 L2 98 L2 38 Z"/></svg><span class="hw__badge" id="hwB">01 / 05</span></div><div class="hw__txt"><div class="hw__t on"><span>Шаг 01</span><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><div class="hw__t"><span>Шаг 02</span><h4>Проект</h4><p>Готовим проект и смету дома.</p></div><div class="hw__t"><span>Шаг 03</span><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><div class="hw__t"><span>Шаг 04</span><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><div class="hw__t"><span>Шаг 05</span><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div></div><ol class="hw__list"><li class=on><b>01</b>Участок</li><li><b>02</b>Проект</li><li><b>03</b>Договор</li><li><b>04</b>Стройка</li><li><b>05</b>Ключи</li></ol></div></div>
     <div class="hq hv hv--k" id="hq"><div class="hq__box"><svg class="hq__svg" viewBox="0 0 500 440" aria-hidden="true"><path class="hq__ghost" d="M10 420 H102 V340 H194 V260 H286 V180 H378 V100 H470"/><path class="hq__tr" d="M10 420 H102"/><path class="hq__tr" d="M102 340 H194"/><path class="hq__tr" d="M194 260 H286"/><path class="hq__tr" d="M286 180 H378"/><path class="hq__tr" d="M378 100 H470"/><path class="hq__ln" id="hqL" pathLength="1" d="M10 420 H102 V340 H194 V260 H286 V180 H378 V100 H470"/><g class="hq__home" transform="translate(440 52)"><path d="M0 20 18 4 36 20v22H0z"/><path d="M14 42V30h8v12" class="hq__door"/></g></svg><div class="hq__l" style="left:2.00%;top:95.45%"><b>01</b><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><div class="hq__l" style="left:20.40%;top:77.27%"><b>02</b><h4>Проект</h4><p>Готовим проект и смету дома.</p></div><div class="hq__l" style="left:38.80%;top:59.09%"><b>03</b><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><div class="hq__l" style="left:57.20%;top:40.91%"><b>04</b><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><div class="hq__l" style="left:75.60%;top:22.73%"><b>05</b><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><i class="hq__dot" id="hqD"></i></div></div>
     <div class="hk hv hv--h rv"><div class="hk__ring"><svg viewBox="0 0 300 300"><circle cx="150" cy="150" r="130" class="hk__bg"/><path class="hk__seg" data-i="0" d="M156.8 20.2 A130 130 0 0 1 271.4 103.4"/><path class="hk__seg" data-i="1" d="M275.6 116.4 A130 130 0 0 1 231.8 251.0"/><path class="hk__seg" data-i="2" d="M220.8 259.0 A130 130 0 0 1 79.2 259.0"/><path class="hk__seg" data-i="3" d="M68.2 251.0 A130 130 0 0 1 24.4 116.4"/><path class="hk__seg" data-i="4" d="M28.6 103.4 A130 130 0 0 1 143.2 20.2"/></svg><button type="button" class="hk__lb" data-i="0" style="--a:-54deg">01</button><button type="button" class="hk__lb" data-i="1" style="--a:18deg">02</button><button type="button" class="hk__lb" data-i="2" style="--a:90deg">03</button><button type="button" class="hk__lb" data-i="3" style="--a:162deg">04</button><button type="button" class="hk__lb" data-i="4" style="--a:234deg">05</button><div class="hk__c"><b id="hkN">01</b><h4 id="hkH">Участок</h4><p id="hkP">Смотрим участок, подъезды и окружение.</p></div></div></div>
     <div class="hl hv hv--i" id="hl"><div class="hl__wrap"><div class="hl__s" style="--k:0"><div class="hl__tx"><b>01</b><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><div class="hl__bar"></div></div><div class="hl__s" style="--k:1"><div class="hl__tx"><b>02</b><h4>Проект</h4><p>Готовим проект и смету дома.</p></div><div class="hl__bar"></div></div><div class="hl__s" style="--k:2"><div class="hl__tx"><b>03</b><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><div class="hl__bar"></div></div><div class="hl__s" style="--k:3"><div class="hl__tx"><b>04</b><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><div class="hl__bar"></div></div><div class="hl__s" style="--k:4"><div class="hl__tx"><b>05</b><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><div class="hl__bar"></div></div><i class="hl__man" id="hlM"></i></div></div>
@@ -2062,7 +2089,7 @@
 <div class="qsw show" id="nsw" style="bottom:calc(max(16px, env(safe-area-inset-bottom)) + 108px)">Меню: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="h">1</button><button data-v="i">2</button><button data-v="j">3</button></div>
 <div class="wsw" id="wsw">Что строим: <button class="on" data-v="b">1</button><button data-v="h">7</button><button data-v="i">8</button><button data-v="j">9</button></div>
-<div class="wsw" id="hsw2">Шаги: <button data-v="a">A</button><button data-v="i">14</button><button class="on" data-v="k">16</button></div>
+<div class="wsw" id="hsw2">Шаги: <button data-v="a">A</button><button data-v="k">16</button><button class="on" data-v="l">17</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -2319,7 +2346,7 @@
   var hdB = $$('.hd__b'), hdL = $$('.hd__l'), hdS = [['Участок','Смотрим участок, подъезды и окружение.'],['Проект','Готовим проект и смету дома.'],['Договор','Фиксируем, что и когда строим.'],['Стройка','Строим и держим вас в курсе.'],['Ключи','Принимаете готовый дом вместе с нами.']], hdT;
   var hdGo = function (k) { hdB.forEach(function (b, j) { b.classList.toggle('on', j === k); }); hdL.forEach(function (l, j) { l.classList.toggle('on', j <= k); }); $('#hdN').textContent = '0' + (k + 1); $('#hdH').textContent = hdS[k][0]; $('#hdP').textContent = hdS[k][1]; clearTimeout(hdT); hdT = setTimeout(function () { hdGo((k + 1) % 5); }, 3500); };
   hdB.forEach(function (b, k) { b.addEventListener('click', function () { hdGo(k); }); }); if (hdB.length) hdGo(0);
-  var hsq = new URLSearchParams(location.search).get('hs'); if (/^[a-k]$/.test(hsq || '')) setHs(hsq);
+  var hsq = new URLSearchParams(location.search).get('hs'); if (/^[a-l]$/.test(hsq || '')) setHs(hsq);
   // 10: лента шагов
   var hx2 = $('#hx2'), hx2T = $('#hx2T'), hx2C = $$('.hx2__c');
   var hx2U = function () { if (!hx2 || !hx2.offsetParent) return; var r = hx2.getBoundingClientRect(), k = Math.max(0, Math.min(1, -r.top / (r.height - innerHeight))); var mx = hx2T.scrollWidth - innerWidth + 40; hx2T.style.transform = 'translateX(' + (-k * Math.max(0, mx)) + 'px)'; $('#hx2B').style.width = (k * 100) + '%'; var i = Math.min(4, Math.round(k * 4)); $('#hx2N').textContent = '0' + (i + 1); hx2C.forEach(function (c, j) { c.classList.toggle('on', j === i); }); };
@@ -2362,6 +2389,12 @@
     var n = Math.min(5, Math.floor(k * 5 + .15)); hqT.forEach(function (t, j) { t.classList.toggle('on', j < n); }); hqLb.forEach(function (l, j) { l.classList.toggle('on', j < Math.max(1, n)); }); hq.classList.toggle('done', k > .985); };
   addEventListener('scroll', hqU, { passive: true }); addEventListener('resize', hqU); setTimeout(hqU, 300);
   var _setHs3 = setHs; setHs = function (v) { _setHs3(v); setTimeout(hqU, 50); };
+  // 17: окно-дом
+  var hwE = $('#hw'), hwI = $$('.hw__im'), hwT = $$('.hw__t'), hwL = $$('.hw__list li'), hwC = -1;
+  var hwU = function () { if (!hwE || !hwE.offsetParent) return; var r = hwE.getBoundingClientRect(), k = Math.max(0, Math.min(.999, -r.top / (r.height - innerHeight))); hwE.style.setProperty('--p', 1 - Math.min(1, k * 1.15)); var i = Math.floor(k * 5); if (i === hwC) return; hwC = i;
+    [hwI, hwT].forEach(function (L) { L.forEach(function (e, j) { e.classList.toggle('on', j === i); }); }); hwL.forEach(function (e, j) { e.classList.toggle('on', j === i); e.classList.toggle('done', j < i); }); $('#hwB').textContent = '0' + (i + 1) + ' / 05'; };
+  addEventListener('scroll', hwU, { passive: true }); setTimeout(hwU, 300);
+  var _setHs4 = setHs; setHs = function (v) { _setHs4(v); hwC = -1; setTimeout(hwU, 50); };
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
