@@ -1838,6 +1838,12 @@
   .hw__out path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; opacity: .9; }
   #hsw2 { display: none !important; }
   #owner { padding: 64px 0; } @media (min-width: 900px) { #owner { padding: 90px 0; } }
+  /* подбор дома: белые плашки выбора */
+  .pick .q { background: #fbf7f4 !important; border-color: transparent !important; }
+  .pick .q::after { display: none !important; }
+  .pick .q small { color: rgba(17,17,17,.55); }
+  .pick .seg { background: #ece6dc; }
+  .pick .seg button { color: rgba(17,17,17,.6); } .pick .seg button.on { color: #fff; }
 </style>
 </head>
 <body class="t-bright">
