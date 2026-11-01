@@ -1740,6 +1740,12 @@
   .wp__tx h3 { margin-top: 6px; font: 800 clamp(32px, 9vw, 60px)/1 var(--f); letter-spacing: -.05em; } .wp__tx p { margin-top: 8px; font-size: 14.5px; color: rgba(255,255,255,.85); max-width: 420px; }
   @media (min-width: 900px) { .wp { margin: 40px 0 0; gap: 10px; } .wp__b { height: 380px; border-radius: 26px; } .wp__tx { left: 44px; bottom: 36px; } }
   .wr__scene { height: 400px; } @media (min-width: 900px) { .wr__scene { height: 560px; } }
+  /* «Что строим» 9: без плавающих букв, мягкое затемнение */
+  .wp__big { display: none !important; }
+  .wp__im { inset: -10% 0; }
+  .wp__b::after { background: linear-gradient(180deg, rgba(0,0,0,.05) 25%, rgba(0,0,0,.78)), linear-gradient(90deg, rgba(0,0,0,.45), rgba(0,0,0,0) 70%); }
+  .wp__im img { transition: transform .2s linear; }
+  #wsw { display: none !important; }
 </style>
 </head>
 <body class="t-bright">
@@ -1817,7 +1823,7 @@
 </section>
 </div>
 
-<section id="what" data-w="b" style="padding-bottom:40px">
+<section id="what" data-w="j" style="padding-bottom:40px">
   <div class="wrap">
     <span class="lbl rv">Что строим</span>
     <h2 class="h2 rv">От уютного дома <span>до <span class="u">виллы на Бали<svg class="uline" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></span></h2>
@@ -2263,7 +2269,7 @@
     var wx = 0; $('#wrS').addEventListener('touchstart', function (e) { wx = e.touches[0].clientX; }, { passive: true }); $('#wrS').addEventListener('touchend', function (e) { var d = e.changedTouches[0].clientX - wx; if (Math.abs(d) > 40) wrGo(d < 0 ? 1 : -1); }); }
   // 9: параллакс полос
   var wpB = $$('.wp__b');
-  var wpU = function () { if (!wpB.length || !wpB[0].offsetParent) return; wpB.forEach(function (b, k) { var r = b.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; var c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; $('img', b).style.transform = 'translateY(' + (c * 60) + 'px)'; $('.wp__big', b).style.setProperty('--tx', ((k % 2 ? 1 : -1) * c * 140 - (k % 2 ? 60 : 0)) + 'px'); }); };
+  var wpU = function () { if (!wpB.length || !wpB[0].offsetParent) return; wpB.forEach(function (b, k) { var r = b.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; var c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; $('img', b).style.transform = 'translateY(' + (c * 34) + 'px)'; $('.wp__big', b).style.setProperty('--tx', ((k % 2 ? 1 : -1) * c * 140 - (k % 2 ? 60 : 0)) + 'px'); }); };
   addEventListener('scroll', wpU, { passive: true }); setTimeout(wpU, 100);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
