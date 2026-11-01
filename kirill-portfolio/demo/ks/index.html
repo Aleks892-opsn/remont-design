@@ -1880,6 +1880,8 @@
   .wp__im img { transition: none !important; will-change: transform; }
   /* телефон: высота первого экрана не меньше, чем в демо, чтобы Илья везде был одного размера */
   @media (max-width: 899px) { .hy { height: max(95svh, 690px) !important; } }
+  /* меню не скачет при прокрутке */
+  .ld .nav { transform: none !important; transition: opacity .6s .15s, background .3s, border-color .3s !important; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"КСДевелопмент","description":"Строительство частных домов в Перми и пригороде, виллы на Бали","founder":{"@type":"Person","name":"Илья Копысов"},"areaServed":["Пермь","Новобродовский","Жебреи","Большая Мось","Усть-Качка","Бали"],"address":{"@type":"PostalAddress","addressLocality":"Пермь","addressCountry":"RU"},"sameAs":["https://t.me/KSDevelopment1","https://instagram.com/ilyakopysov"]}</script>
 </head>
@@ -2188,7 +2190,7 @@
   var nav = $('#nav'), ly = 0;
   var onS = function () {
     var y = scrollY; nav.classList.toggle('solid', y > 60);
-    nav.style.transform = (y > ly && y > 400) ? 'translateY(-140%)' : ''; ly = y; fill();
+    ly = y; fill();
   };
   addEventListener('scroll', onS, { passive: true }); onS();
 
