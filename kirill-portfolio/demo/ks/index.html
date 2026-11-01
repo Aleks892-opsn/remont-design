@@ -1339,6 +1339,35 @@
   .h2 { font-weight: 700; letter-spacing: -.045em; line-height: 1.02; }
   .h2 span:not(.u) { font-weight: 700; }
   .hy__h, .fn__top h4, .big__t, .own__q { font-weight: 700 !important; letter-spacing: -.045em; }
+  /* ===== Чередование как у FORTE: светлые блоки и тёмные панели ===== */
+  body, body.t-bright, body.t-dark { background: #f2efe9 !important; }
+  .hy { background: #0b0b0b; }
+  #what, #projects, #owner, #faq { color: #111; }
+  #what .h2, #projects .h2, #owner .h2, #faq .h2 { color: #111; }
+  #what .h2 span:not(.u), #projects .h2 span:not(.u), #faq .h2 span:not(.u) { color: rgba(17,17,17,.38) !important; }
+  #what .h2 .u, #projects .h2 .u, #faq .h2 .u { color: #111 !important; }
+  #what .lbl, #projects .lbl, #faq .lbl { color: #111; border-color: rgba(17,17,17,.12); background: #fff; }
+  /* Что строим */
+  #what .sc:not(.sc--or):not(.sc--ph) { background: #fff !important; border: 1px solid rgba(17,17,17,.08) !important; color: #111; box-shadow: 0 10px 30px rgba(17,17,17,.06); }
+  #what .sc:not(.sc--or):not(.sc--ph) p { color: rgba(17,17,17,.6); }
+  #what .sc:not(.sc--or):not(.sc--ph) .pill { color: #111; border-color: rgba(17,17,17,.2); }
+  #what .sc:not(.sc--or):not(.sc--ph) .ar { border-color: rgba(17,17,17,.3); }
+  /* Дома */
+  #projects .cases__p { color: rgba(17,17,17,.6); }
+  #projects .cs:not(.on) { background: #fff !important; border-color: rgba(17,17,17,.08) !important; }
+  #projects .cs:not(.on) figure img { filter: none; }
+  #projects .cs:not(.on) h3 { color: rgba(17,17,17,.75); } #projects .cs:not(.on) p { color: rgba(17,17,17,.5); }
+  #projects .car__nav button:not(.f) { background: #111; color: #fff; }
+  /* Основатель */
+  #owner .own { box-shadow: 0 20px 50px rgba(17,17,17,.15); }
+  /* Вопросы */
+  #faq .fqc__q button { background: #fff; color: #111; border-color: rgba(17,17,17,.1); }
+  #faq .fqc__q button.on { background: #111; color: #fff; border-color: #111; }
+  #faq .fqd { background: #111; }
+  #faq .fqd:hover { background: #1b1b1b; }
+  /* подвал на светлом фоне — отделяем */
+  .fin { border: 1px solid rgba(17,17,17,.08); box-shadow: 0 20px 50px rgba(17,17,17,.06); }
+  #owner .own, #owner .own * { color: #fff; } #owner .own em { color: var(--A); } #owner .own small { color: rgba(255,255,255,.65); }
 </style>
 </head>
 <body class="t-bright">
