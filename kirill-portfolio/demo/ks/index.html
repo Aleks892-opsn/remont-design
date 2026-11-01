@@ -1872,6 +1872,8 @@
   .kd2__c em { font: 600 11px var(--f); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--A); } .kd2__c h4 { margin-top: 6px; font: 800 24px/1.05 var(--f); letter-spacing: -.035em; } .kd2__c p { margin-top: 6px; font-size: 13.5px; color: rgba(17,17,17,.65); }
   .kd2__tg { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-radius: 22px; background: var(--F); color: #fff; } .kd2__tg b { font: 800 20px var(--f); letter-spacing: -.02em; } .kd2__tg i { width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; }
   @media (min-width: 900px) { .kd2 { grid-template-columns: repeat(4, 1fr); gap: 14px; } .kd2__c { min-height: 280px; } .kd2__tg { grid-column: 1 / -1; } }
+  /* версия для показа клиенту: переключатели демо скрыты (вернуть: ?demo) */
+  body:not(.demo) .wsw, body:not(.demo) .nsw, body:not(.demo) .qsw, body:not(.demo) .csw, body:not(.demo) .lsw { display: none !important; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"КСДевелопмент","description":"Строительство частных домов в Перми и пригороде, виллы на Бали","founder":{"@type":"Person","name":"Илья Копысов"},"areaServed":["Пермь","Новобродовский","Жебреи","Большая Мось","Усть-Качка","Бали"],"address":{"@type":"PostalAddress","addressLocality":"Пермь","addressCountry":"RU"},"sameAs":["https://t.me/KSDevelopment1","https://instagram.com/ilyakopysov"]}</script>
 </head>
@@ -2132,7 +2134,7 @@
 <div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="h">1</button><button data-v="i">2</button><button data-v="j">3</button></div>
 <div class="wsw" id="wsw">Что строим: <button class="on" data-v="b">1</button><button data-v="h">7</button><button data-v="i">8</button><button data-v="j">9</button></div>
 <div class="wsw" id="hsw2">Шаги: <button data-v="a">A</button><button data-v="k">16</button><button class="on" data-v="l">17</button></div>
-<div class="wsw" id="ksw" style="display:flex">Из чего строим: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
+<div class="wsw" id="ksw">Из чего строим: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -2454,6 +2456,7 @@
     [hwI, hwT].forEach(function (L) { L.forEach(function (e, j) { e.classList.toggle('on', j === i); }); }); hwL.forEach(function (e, j) { e.classList.toggle('on', j === i); e.classList.toggle('done', j < i); }); $('#hwB').textContent = '0' + (i + 1) + ' / 05'; };
   addEventListener('scroll', hwU, { passive: true }); setTimeout(hwU, 300);
   var _setHs4 = setHs; setHs = function (v) { _setHs4(v); hwC = -1; setTimeout(hwU, 50); };
+  if (/[?&]demo/.test(location.search)) document.body.classList.add('demo');
   // «Из чего строим»: варианты (демо)
   var kbE = $('#kb'), ksw = $('#ksw');
   var setK2 = function (v) { kbE.dataset.k = v; $$('#ksw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#kb .rv').forEach(function (el) { el.classList.add('in'); }); };
