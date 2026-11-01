@@ -1848,6 +1848,30 @@
   .own::after { background: linear-gradient(180deg, rgba(11,11,11,.35) 0%, rgba(11,11,11,.6) 35%, rgba(11,11,11,.94) 70%) !important; }
   .own img { filter: saturate(.6) brightness(.8); }
   @media (min-width: 900px) { .ko { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; } .ko__c { grid-template-columns: 1fr !important; row-gap: 10px; align-content: start; } .ko__c > i { grid-row: auto !important; } .ko__b { grid-column: 1 / -1; } .ko__c:nth-child(3) { border-right: 1px solid rgba(255,255,255,.25) !important; } .ko__c:nth-child(4) { border-right: 0 !important; } }
+  /* ===== «Из чего строим»: варианты ===== */
+  #kb .kv2 { display: none !important; }
+  #kb[data-k="a"] .kv2--a, #kb[data-k="b"] .kv2--b, #kb[data-k="c"] .kv2--c, #kb[data-k="d"] .kv2--d { display: grid !important; }
+  /* B — разрез дома */
+  .kl2 { margin-top: 34px; gap: 6px; max-width: 760px; margin-left: auto; margin-right: auto; text-align: left; }
+  .kl2__l { position: relative; display: grid; grid-template-columns: 54px 1fr; gap: 14px; align-items: center; padding: 20px 18px; border-radius: 18px; background: color-mix(in srgb, var(--A) calc(18% + var(--k) * 20%), #1a1a1a); width: calc(100% - (3 - var(--k)) * 4%); justify-self: center; transform: translateY(20px); opacity: 0; transition: transform .7s var(--ease), opacity .6s; transition-delay: calc((3 - var(--k)) * .15s); }
+  .kl2.in .kl2__l { transform: none; opacity: 1; }
+  .kl2__l:first-child { clip-path: polygon(0 34%, 50% 0, 100% 34%, 100% 100%, 0 100%); padding-top: 54px; }
+  .kl2__n { font: 800 34px/1 var(--f); letter-spacing: -.05em; color: rgba(255,255,255,.55); }
+  .kl2__l b { font: 600 11px var(--f); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.75); } .kl2__l h4 { margin-top: 2px; font: 800 20px/1.1 var(--f); letter-spacing: -.03em; } .kl2__l p { margin-top: 4px; font-size: 13px; color: rgba(255,255,255,.8); }
+  /* C — фото-карточки */
+  .kc2 { margin-top: 34px; gap: 10px; text-align: left; }
+  .kc2__c { position: relative; overflow: hidden; min-height: 300px; border-radius: 22px; display: flex; align-items: flex-end; }
+  .kc2__c img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); } .kc2__c:hover img { transform: scale(1.06); }
+  .kc2__c::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05) 20%, rgba(0,0,0,.88)); }
+  .kc2__c > div { position: relative; z-index: 1; padding: 20px; } .kc2__c em { font: 600 11px var(--f); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--A); } .kc2__c h4 { margin-top: 6px; font: 800 24px/1.05 var(--f); letter-spacing: -.035em; } .kc2__c p { margin-top: 6px; font-size: 13.5px; color: rgba(255,255,255,.82); }
+  @media (min-width: 900px) { .kc2 { grid-template-columns: 1fr 1fr; gap: 14px; } .kc2__c { min-height: 360px; } }
+  /* D — белые карточки */
+  .kd2 { margin-top: 34px; gap: 10px; text-align: left; }
+  .kd2__c { position: relative; overflow: hidden; padding: 22px; border-radius: 22px; background: #fbf7f4; color: #111; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .kd2__n { position: absolute; right: 14px; top: 4px; font: 800 96px/1 var(--f); letter-spacing: -.07em; color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--A) 55%, transparent); }
+  .kd2__c em { font: 600 11px var(--f); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--A); } .kd2__c h4 { margin-top: 6px; font: 800 24px/1.05 var(--f); letter-spacing: -.035em; } .kd2__c p { margin-top: 6px; font-size: 13.5px; color: rgba(17,17,17,.65); }
+  .kd2__tg { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-radius: 22px; background: var(--F); color: #fff; } .kd2__tg b { font: 800 20px var(--f); letter-spacing: -.02em; } .kd2__tg i { width: 44px; height: 44px; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; }
+  @media (min-width: 900px) { .kd2 { grid-template-columns: repeat(4, 1fr); gap: 14px; } .kd2__c { min-height: 280px; } .kd2__tg { grid-column: 1 / -1; } }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"КСДевелопмент","description":"Строительство частных домов в Перми и пригороде, виллы на Бали","founder":{"@type":"Person","name":"Илья Копысов"},"areaServed":["Пермь","Новобродовский","Жебреи","Большая Мось","Усть-Качка","Бали"],"address":{"@type":"PostalAddress","addressLocality":"Пермь","addressCountry":"RU"},"sameAs":["https://t.me/KSDevelopment1","https://instagram.com/ilyakopysov"]}</script>
 </head>
@@ -2014,12 +2038,15 @@
   </div>
 </section>
 
-<section class="sec pnl big" id="kb">
+<section class="sec pnl big" id="kb" data-k="a">
   <i class="ribs" aria-hidden="true"></i><i class="grid-bg" aria-hidden="true"></i>
   <div class="wrap">
     <p class="big__t" id="bigT">Из чего строим. Показываем каждый этап.</p>
     <p class="big__p rv">О технологии рассказываем в роликах в нашем канале.</p>
-    <div class="ko rv"><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><path d="M3 20h18M5 20l3-8h8l3 8"/><path d="M9 12V8h6v4"/></svg></i><b>Участок</b><h4>Начинаем с подготовки</h4><p>Грунт, геология, уровень воды и нормальное уплотнение: это база, от которой зависит дом.</p></div><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M6 14v-3h12v3"/></svg></i><b>Фундамент</b><h4>Без шаблонных решений</h4><p>Фундамент подбираем с учётом особенностей участка.</p></div><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="8" height="5"/><rect x="13" y="5" width="8" height="5"/><rect x="8" y="12" width="8" height="5"/><path d="M3 19h18"/></svg></i><b>Стены</b><h4>Дома из газоблока</h4><p>В канале рассказываем, почему выбрали именно эту технологию.</p></div><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><path d="M3 9h18M3 15h18"/><path d="M6 9v6M12 9v6M18 9v6"/></svg></i><b>Армопояс</b><h4>Не «необязательная» деталь</h4><p>Многие считают армопояс тем, на чём можно сэкономить. Рассказываем, почему это не так.</p></div><a class="btn btn--w ko__b" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">Смотреть разборы в канале<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
+    <div class="ko kv2 kv2--a rv"><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><path d="M3 20h18M5 20l3-8h8l3 8"/><path d="M9 12V8h6v4"/></svg></i><b>Участок</b><h4>Начинаем с подготовки</h4><p>Грунт, геология, уровень воды и нормальное уплотнение: это база, от которой зависит дом.</p></div><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M6 14v-3h12v3"/></svg></i><b>Фундамент</b><h4>Без шаблонных решений</h4><p>Фундамент подбираем с учётом особенностей участка.</p></div><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="8" height="5"/><rect x="13" y="5" width="8" height="5"/><rect x="8" y="12" width="8" height="5"/><path d="M3 19h18"/></svg></i><b>Стены</b><h4>Дома из газоблока</h4><p>В канале рассказываем, почему выбрали именно эту технологию.</p></div><div class="ko__c"><i><svg class="i" viewBox="0 0 24 24"><path d="M3 9h18M3 15h18"/><path d="M6 9v6M12 9v6M18 9v6"/></svg></i><b>Армопояс</b><h4>Не «необязательная» деталь</h4><p>Многие считают армопояс тем, на чём можно сэкономить. Рассказываем, почему это не так.</p></div><a class="btn btn--w ko__b" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener">Смотреть разборы в канале<i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
+    <div class="kl2 kv2 kv2--b rv"><div class="kl2__l" style="--k:0"><span class="kl2__n">04</span><div><b>Армопояс</b><h4>Не «необязательная» деталь</h4><p>Многие считают армопояс тем, на чём можно сэкономить. Рассказываем, почему это не так.</p></div></div><div class="kl2__l" style="--k:1"><span class="kl2__n">03</span><div><b>Стены</b><h4>Дома из газоблока</h4><p>В канале рассказываем, почему выбрали именно эту технологию.</p></div></div><div class="kl2__l" style="--k:2"><span class="kl2__n">02</span><div><b>Фундамент</b><h4>Без шаблонных решений</h4><p>Фундамент подбираем с учётом особенностей участка.</p></div></div><div class="kl2__l" style="--k:3"><span class="kl2__n">01</span><div><b>Участок</b><h4>Начинаем с подготовки</h4><p>Грунт, геология, уровень воды и нормальное уплотнение: это база, от которой зависит дом.</p></div></div></div>
+    <div class="kc2 kv2 kv2--c"><article class="kc2__c rv" style="--d:0.0s"><img src="img/found.webp" alt="" loading="lazy"><div><em>01 · Участок</em><h4>Начинаем с подготовки</h4><p>Грунт, геология, уровень воды и нормальное уплотнение: это база, от которой зависит дом.</p></div></article><article class="kc2__c rv" style="--d:0.06s"><img src="img/site.webp" alt="" loading="lazy"><div><em>02 · Фундамент</em><h4>Без шаблонных решений</h4><p>Фундамент подбираем с учётом особенностей участка.</p></div></article><article class="kc2__c rv" style="--d:0.12s"><img src="img/modern.webp" alt="" loading="lazy"><div><em>03 · Стены</em><h4>Дома из газоблока</h4><p>В канале рассказываем, почему выбрали именно эту технологию.</p></div></article><article class="kc2__c rv" style="--d:0.18s"><img src="img/sv-shell.webp" alt="" loading="lazy"><div><em>04 · Армопояс</em><h4>Не «необязательная» деталь</h4><p>Многие считают армопояс тем, на чём можно сэкономить. Рассказываем, почему это не так.</p></div></article></div>
+    <div class="kd2 kv2 kv2--d"><div class="kd2__c rv" style="--d:0.0s"><span class="kd2__n">01</span><em>Участок</em><h4>Начинаем с подготовки</h4><p>Грунт, геология, уровень воды и нормальное уплотнение: это база, от которой зависит дом.</p></div><div class="kd2__c rv" style="--d:0.06s"><span class="kd2__n">02</span><em>Фундамент</em><h4>Без шаблонных решений</h4><p>Фундамент подбираем с учётом особенностей участка.</p></div><div class="kd2__c rv" style="--d:0.12s"><span class="kd2__n">03</span><em>Стены</em><h4>Дома из газоблока</h4><p>В канале рассказываем, почему выбрали именно эту технологию.</p></div><div class="kd2__c rv" style="--d:0.18s"><span class="kd2__n">04</span><em>Армопояс</em><h4>Не «необязательная» деталь</h4><p>Многие считают армопояс тем, на чём можно сэкономить. Рассказываем, почему это не так.</p></div><a class="kd2__tg" href="https://t.me/KSDevelopment1" target="_blank" rel="noopener"><b>Все разборы в канале</b><i><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
   </div>
 </section>
 
@@ -2105,6 +2132,7 @@
 <div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="h">1</button><button data-v="i">2</button><button data-v="j">3</button></div>
 <div class="wsw" id="wsw">Что строим: <button class="on" data-v="b">1</button><button data-v="h">7</button><button data-v="i">8</button><button data-v="j">9</button></div>
 <div class="wsw" id="hsw2">Шаги: <button data-v="a">A</button><button data-v="k">16</button><button class="on" data-v="l">17</button></div>
+<div class="wsw" id="ksw" style="display:flex">Из чего строим: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -2426,6 +2454,12 @@
     [hwI, hwT].forEach(function (L) { L.forEach(function (e, j) { e.classList.toggle('on', j === i); }); }); hwL.forEach(function (e, j) { e.classList.toggle('on', j === i); e.classList.toggle('done', j < i); }); $('#hwB').textContent = '0' + (i + 1) + ' / 05'; };
   addEventListener('scroll', hwU, { passive: true }); setTimeout(hwU, 300);
   var _setHs4 = setHs; setHs = function (v) { _setHs4(v); hwC = -1; setTimeout(hwU, 50); };
+  // «Из чего строим»: варианты (демо)
+  var kbE = $('#kb'), ksw = $('#ksw');
+  var setK2 = function (v) { kbE.dataset.k = v; $$('#ksw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#kb .rv').forEach(function (el) { el.classList.add('in'); }); };
+  $$('#ksw button').forEach(function (b) { b.addEventListener('click', function () { setK2(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { ksw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .1 }).observe(kbE);
+  var kq2 = new URLSearchParams(location.search).get('k'); if (/^[abcd]$/.test(kq2 || '')) setK2(kq2);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
