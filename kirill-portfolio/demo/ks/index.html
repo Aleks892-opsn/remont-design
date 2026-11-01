@@ -1450,6 +1450,56 @@
     .ng__i.on .ng__in b { font-size: 150px; } .ng__tx p { font-size: 16px; max-width: 360px; }
   }
   @media (max-width: 899px) { .ng__i.on .ng__in { flex-direction: column; align-items: flex-start; gap: 10px; } .ng__i.on .ng__in b { font-size: 96px; } }
+  /* ===== «В цифрах»: 1 прокрутка, 2 точки на фото, 3 бегущие строки ===== */
+  #about[data-nv="h"] .nv--h, #about[data-nv="i"] .nv--i, #about[data-nv="j"] .nv--j { display: block; }
+  #about[data-nv="h"], #about[data-nv="j"] { overflow: visible; }
+  #about[data-nv="h"] .ribs, #about[data-nv="h"] .grid-bg { border-radius: 34px; }
+  /* 1 */
+  .nh { position: relative; height: 340vh; margin-top: 30px; }
+  .nh__pin { position: sticky; top: 76px; height: calc(100svh - 96px); border-radius: 26px; overflow: hidden; background: #000; }
+  .nh__bg { position: absolute; inset: 0; margin: 0; opacity: 0; transform: scale(1.12); transition: opacity .8s, transform 1.4s var(--ease); }
+  .nh__bg.on { opacity: 1; transform: none; }
+  .nh__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .nh__sh { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15) 35%, rgba(0,0,0,.85)); }
+  .nh__n { position: absolute; left: 22px; right: 22px; bottom: 60px; opacity: 0; pointer-events: none; }
+  .nh__n em { display: inline-block; font: 600 11px var(--f); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: #fff; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transform: translateY(20px); transition: transform .7s var(--ease), opacity .5s; opacity: 0; }
+  .nh__n b { display: flex; align-items: baseline; gap: 10px; margin-top: 12px; font: 800 clamp(120px, 38vw, 300px)/.8 var(--f); letter-spacing: -.07em; color: #fff; clip-path: inset(0 0 100% 0); transform: translateY(40px); transition: clip-path .8s var(--ease), transform .9s var(--ease); }
+  .nh__n b small { font: 700 clamp(22px, 5vw, 40px) var(--f); letter-spacing: -.02em; color: var(--A); }
+  .nh__n p { margin-top: 14px; max-width: 420px; font-size: 16px; color: rgba(255,255,255,.9); opacity: 0; transform: translateY(16px); transition: opacity .6s .15s, transform .7s .15s var(--ease); }
+  .nh__n.on { opacity: 1; } .nh__n.on em, .nh__n.on p { opacity: 1; transform: none; } .nh__n.on b { clip-path: inset(-10% 0 -10% 0); transform: none; }
+  .nh__dots { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); display: grid; gap: 8px; }
+  .nh__dots i { width: 4px; height: 26px; border-radius: 4px; background: rgba(255,255,255,.3); transition: background .4s, height .4s; } .nh__dots i.on { background: var(--A); height: 44px; }
+  .nh__hint { position: absolute; left: 22px; top: 20px; font: 600 11px var(--f); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+  @media (min-width: 900px) { .nh__pin { top: 90px; height: calc(100vh - 120px); } .nh__n { left: 50px; bottom: 60px; } }
+  /* 2 */
+  .ni { position: relative; margin-top: 30px; height: 520px; border-radius: 26px; overflow: hidden; }
+  .ni > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ni__sh { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.35)); }
+  .ni__p { position: absolute; z-index: 1; width: 0; height: 0; }
+  .ni__p > i { position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px color-mix(in srgb, var(--A) 45%, transparent); }
+  .ni__p > i::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--A); animation: niPulse 2s ease-out infinite; }
+  @keyframes niPulse { from { transform: scale(1); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
+  .ni__c { position: absolute; left: 50%; bottom: 22px; transform: translate(-50%, 10px) scale(.92); opacity: 0; pointer-events: none; width: max-content; max-width: 220px; padding: 12px 14px; border-radius: 16px; background: rgba(20,20,20,.75); border: 1px solid rgba(255,255,255,.16); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); text-align: left; transition: opacity .35s, transform .45s var(--ease); }
+  .ni__c b { display: flex; align-items: baseline; gap: 5px; font: 800 40px/.9 var(--f); letter-spacing: -.05em; color: #fff; } .ni__c b small { font: 700 14px var(--f); color: var(--A); letter-spacing: 0; }
+  .ni__c em { display: block; margin-top: 6px; font-style: normal; font-size: 12px; line-height: 1.35; color: rgba(255,255,255,.8); }
+  .ni__p.on .ni__c { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  .ni__p.on > i { background: var(--A); box-shadow: 0 0 0 6px rgba(255,255,255,.35); }
+  .ni__hint { position: absolute; left: 18px; bottom: 16px; z-index: 1; padding: 7px 12px; border-radius: 999px; background: rgba(0,0,0,.45); font: 600 11.5px var(--f); color: rgba(255,255,255,.8); }
+  @media (min-width: 900px) { .ni { height: 620px; margin-top: 40px; } .ni__c { max-width: 260px; padding: 16px 18px; } .ni__c b { font-size: 56px; } }
+  /* 3 */
+  .nj { margin: 34px calc(var(--pad) * -1) 0; display: grid; gap: 12px; }
+  .nj__row { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .nj__tr { display: flex; width: max-content; animation: njA 34s linear infinite; }
+  .nj__row--b .nj__tr { animation-name: njB; animation-duration: 40s; }
+  .nj__row:hover .nj__tr { animation-play-state: paused; }
+  @keyframes njA { to { transform: translateX(-33.333%); } } @keyframes njB { from { transform: translateX(-33.333%); } to { transform: none; } }
+  .nj__it { display: flex; align-items: center; gap: 18px; padding: 0 18px; white-space: nowrap; }
+  .nj__it b { display: flex; align-items: baseline; gap: 8px; font: 800 clamp(84px, 22vw, 180px)/.9 var(--f); letter-spacing: -.07em; color: #fff; }
+  .nj__row--b .nj__it b { color: transparent; -webkit-text-stroke: 1.6px rgba(255,255,255,.55); }
+  .nj__it b small { font: 700 clamp(20px, 4vw, 34px) var(--f); letter-spacing: -.02em; color: var(--A); -webkit-text-stroke: 0; }
+  .nj__it em { max-width: 170px; white-space: normal; font-style: normal; font-size: 13px; line-height: 1.35; color: rgba(255,255,255,.65); }
+  .nj__it i { font-style: normal; font-size: 26px; color: var(--A); }
+  @media (prefers-reduced-motion: reduce) { .nj__tr { animation: none; } }
 </style>
 </head>
 <body class="t-bright">
@@ -1518,6 +1568,9 @@
       <div class="ne nv nv--e"><div class="ne__c rv ne__c--o" style="--d:0.0s"><svg class="ne__v ne__plan" viewBox="0 0 120 80"><path pathLength="1" d="M4 4h112v72H4z M4 40h46 M50 4v72 M50 50h66 M86 4v46"/></svg><div class="ne__t"><b><span data-n="160">0</span><small>м²</small></b><p>Двухэтажный дом на 6 сотках</p><em>Новобродовский</em></div></div><div class="ne__c rv" style="--d:0.08s"><div class="ne__v ne__rooms"><i></i><i></i><i></i><i></i></div><div class="ne__t"><b><span data-n="4">0</span><small>спальни</small></b><p>В одноэтажном доме на 75 м²</p><em>Жебреи</em></div></div><div class="ne__c rv" style="--d:0.16s"><div class="ne__v ne__ruler"><div class="ne__scale"><i></i><i></i><i></i><i></i><i></i></div><b class="ne__mk">4 м</b></div><div class="ne__t"><b><span data-n="4">0</span><small>м</small></b><p>Высота потолка: больше света и воздуха</p><em>в доме на 75 м²</em></div></div><div class="ne__c rv" style="--d:0.24s"><div class="ne__v ne__route"><svg viewBox="0 0 220 70"><path id="neR" pathLength="1" d="M10 55 C 60 55, 70 15, 110 22 S 170 50, 210 14"/></svg><i class="ne__dot"></i><span class="a">центр</span><span class="b">участок</span></div><div class="ne__t"><b><span data-n="25">0</span><small>мин</small></b><p>От центра Перми до участка</p><em>Новобродовский</em></div></div></div>
       <div class="nf nv nv--f rv"><div class="nf__stage"><figure class="nf__s on"><img src="img/pr-dali.webp" alt="" loading="lazy"><figcaption><em>Новобродовский</em><b>160<small>м²</small></b><p>Двухэтажный дом на 6 сотках</p></figcaption></figure><figure class="nf__s"><img src="img/pr-pines.webp" alt="" loading="lazy"><figcaption><em>Жебреи</em><b>4<small>спальни</small></b><p>В одноэтажном доме на 75 м²</p></figcaption></figure><figure class="nf__s"><img src="img/terrace.webp" alt="" loading="lazy"><figcaption><em>в доме на 75 м²</em><b>4<small>м</small></b><p>Высота потолка: больше света и воздуха</p></figcaption></figure><figure class="nf__s"><img src="img/found.webp" alt="" loading="lazy"><figcaption><em>Новобродовский</em><b>25<small>мин</small></b><p>От центра Перми до участка</p></figcaption></figure><div class="nf__cnt"><span id="nfN">01</span> / 04</div></div><div class="nf__list"><button class="nf__b on" type="button" data-i="0"><b>160<small>м²</small></b><span>Двухэтажный дом на 6 сотках</span><i class="nf__bar"><i></i></i></button><button class="nf__b" type="button" data-i="1"><b>4<small>спальни</small></b><span>В одноэтажном доме на 75 м²</span><i class="nf__bar"><i></i></i></button><button class="nf__b" type="button" data-i="2"><b>4<small>м</small></b><span>Высота потолка: больше света и воздуха</span><i class="nf__bar"><i></i></i></button><button class="nf__b" type="button" data-i="3"><b>25<small>мин</small></b><span>От центра Перми до участка</span><i class="nf__bar"><i></i></i></button></div></div>
       <div class="ng nv nv--g"><div class="ng__i rv on" tabindex="0"><img src="img/pr-dali.webp" alt="" loading="lazy"><div class="ng__in"><b>160<small>м²</small></b><div class="ng__tx"><p>Двухэтажный дом на 6 сотках</p><em>Новобродовский</em></div></div><span class="ng__k">01</span></div><div class="ng__i rv" tabindex="0"><img src="img/pr-pines.webp" alt="" loading="lazy"><div class="ng__in"><b>4<small>спальни</small></b><div class="ng__tx"><p>В одноэтажном доме на 75 м²</p><em>Жебреи</em></div></div><span class="ng__k">02</span></div><div class="ng__i rv" tabindex="0"><img src="img/terrace.webp" alt="" loading="lazy"><div class="ng__in"><b>4<small>м</small></b><div class="ng__tx"><p>Высота потолка: больше света и воздуха</p><em>в доме на 75 м²</em></div></div><span class="ng__k">03</span></div><div class="ng__i rv" tabindex="0"><img src="img/found.webp" alt="" loading="lazy"><div class="ng__in"><b>25<small>мин</small></b><div class="ng__tx"><p>От центра Перми до участка</p><em>Новобродовский</em></div></div><span class="ng__k">04</span></div></div>
+      <div class="nh nv nv--h" id="nh"><div class="nh__pin"><figure class="nh__bg on"><img src="img/pr-dali.webp" alt="" loading="lazy"></figure><figure class="nh__bg"><img src="img/pr-pines.webp" alt="" loading="lazy"></figure><figure class="nh__bg"><img src="img/terrace.webp" alt="" loading="lazy"></figure><figure class="nh__bg"><img src="img/found.webp" alt="" loading="lazy"></figure><div class="nh__sh"></div><div class="nh__n on"><em>Новобродовский</em><b>160<small>м²</small></b><p>Двухэтажный дом на 6 сотках</p></div><div class="nh__n"><em>Жебреи</em><b>4<small>спальни</small></b><p>В одноэтажном доме на 75 м²</p></div><div class="nh__n"><em>в доме на 75 м²</em><b>4<small>м</small></b><p>Высота потолка: больше света и воздуха</p></div><div class="nh__n"><em>Новобродовский</em><b>25<small>мин</small></b><p>От центра Перми до участка</p></div><div class="nh__dots"><i class="on"></i><i></i><i></i><i></i></div><div class="nh__hint">Листайте ↓</div></div></div>
+      <div class="ni nv nv--i rv"><img src="img/pr-dali.webp" alt="Дом в Новобродовском" loading="lazy"><div class="ni__sh"></div><button class="ni__p" type="button" style="left:50%;top:30%" data-k="0"><i></i><span class="ni__c"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках, Новобродовский</em></span></button><button class="ni__p" type="button" style="left:24%;top:58%" data-k="1"><i></i><span class="ni__c"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м², Жебреи</em></span></button><button class="ni__p" type="button" style="left:72%;top:52%" data-k="2"><i></i><span class="ni__c"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em></span></button><button class="ni__p" type="button" style="left:40%;top:80%" data-k="3"><i></i><span class="ni__c"><b>25<small>мин</small></b><em>От центра Перми до участка</em></span></button><p class="ni__hint">Нажмите на точку</p></div>
+      <div class="nj nv nv--j"><div class="nj__row nj__row--a"><div class="nj__tr"><span class="nj__it"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках</em><i>✦</i></span><span class="nj__it"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м²</em><i>✦</i></span><span class="nj__it"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em><i>✦</i></span><span class="nj__it"><b>25<small>мин</small></b><em>От центра Перми до участка</em><i>✦</i></span><span class="nj__it"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках</em><i>✦</i></span><span class="nj__it"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м²</em><i>✦</i></span><span class="nj__it"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em><i>✦</i></span><span class="nj__it"><b>25<small>мин</small></b><em>От центра Перми до участка</em><i>✦</i></span><span class="nj__it"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках</em><i>✦</i></span><span class="nj__it"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м²</em><i>✦</i></span><span class="nj__it"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em><i>✦</i></span><span class="nj__it"><b>25<small>мин</small></b><em>От центра Перми до участка</em><i>✦</i></span></div></div><div class="nj__row nj__row--b"><div class="nj__tr"><span class="nj__it"><b>25<small>мин</small></b><em>От центра Перми до участка</em><i>✦</i></span><span class="nj__it"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em><i>✦</i></span><span class="nj__it"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м²</em><i>✦</i></span><span class="nj__it"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках</em><i>✦</i></span><span class="nj__it"><b>25<small>мин</small></b><em>От центра Перми до участка</em><i>✦</i></span><span class="nj__it"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em><i>✦</i></span><span class="nj__it"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м²</em><i>✦</i></span><span class="nj__it"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках</em><i>✦</i></span><span class="nj__it"><b>25<small>мин</small></b><em>От центра Перми до участка</em><i>✦</i></span><span class="nj__it"><b>4<small>м</small></b><em>Высота потолка: больше света и воздуха</em><i>✦</i></span><span class="nj__it"><b>4<small>спальни</small></b><em>В одноэтажном доме на 75 м²</em><i>✦</i></span><span class="nj__it"><b>160<small>м²</small></b><em>Двухэтажный дом на 6 сотках</em><i>✦</i></span></div></div></div>
     </div>
 
   </div>
@@ -1670,7 +1723,7 @@
 </div>
 <div class="qsw" id="hsw">Первый экран: <button data-v="a">A</button><button class="on" data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="qsw show" id="nsw" style="bottom:calc(max(16px, env(safe-area-inset-bottom)) + 108px)">Меню: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
-<div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="e">E</button><button data-v="f">F</button><button data-v="g">G</button></div>
+<div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="h">1</button><button data-v="i">2</button><button data-v="j">3</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -1847,7 +1900,7 @@
   // варианты «Наши дома в цифрах» (демо)
   var abt = $('#about'), numsw = $('#numsw');
   var setNum = function (v) { abt.dataset.nv = v; $$('#numsw button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#about .rv').forEach(function (el) { el.classList.add('in'); }); };
-  var numq = new URLSearchParams(location.search).get('num'); if (/^[a-g]$/.test(numq || '')) setNum(numq);
+  var numq = new URLSearchParams(location.search).get('num'); if (/^[a-j]$/.test(numq || '')) setNum(numq);
   $$('#numsw button').forEach(function (b) { b.addEventListener('click', function () { setNum(b.dataset.v); }); });
   new IntersectionObserver(function (es) { numsw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .15 }).observe(abt);
   // «В цифрах» F: автопереключение витрины
@@ -1858,6 +1911,14 @@
   // «В цифрах» G: раскрытие полос
   var ngI = $$('.ng__i');
   ngI.forEach(function (it) { var on = function () { ngI.forEach(function (x) { x.classList.toggle('on', x === it); }); }; it.addEventListener('click', on); it.addEventListener('mouseenter', function () { if (matchMedia('(hover:hover)').matches) on(); }); it.addEventListener('keydown', function (e) { if (e.key === 'Enter') on(); }); });
+  // «В цифрах» 1: смена цифр при прокрутке
+  var nh = $('#nh');
+  if (nh) { var nhN = $$('.nh__n', nh), nhB = $$('.nh__bg', nh), nhD = $$('.nh__dots i', nh), nhC = -1;
+    var nhU = function () { if (!nh.offsetParent) return; var r = nh.getBoundingClientRect(), k = Math.max(0, Math.min(.999, -r.top / (r.height - innerHeight))), i = Math.floor(k * 4); if (i === nhC) return; nhC = i; [nhN, nhB, nhD].forEach(function (L) { L.forEach(function (e, j) { e.classList.toggle('on', j === i); }); }); };
+    addEventListener('scroll', nhU, { passive: true }); nhU(); }
+  // «В цифрах» 2: точки на фото
+  var niP = $$('.ni__p'); niP.forEach(function (b) { b.addEventListener('click', function () { var on = b.classList.contains('on'); niP.forEach(function (x) { x.classList.remove('on'); }); if (!on) b.classList.add('on'); }); });
+  if (niP[0]) niP[0].classList.add('on');
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
