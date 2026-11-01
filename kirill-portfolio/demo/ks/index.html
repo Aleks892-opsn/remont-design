@@ -1611,6 +1611,53 @@
   .wc__t { max-height: 0; overflow: hidden; font-size: 14px; color: rgba(17,17,17,.65); transition: max-height .5s var(--ease), margin .5s; }
   .wc__b.on .wc__k { color: var(--A); } .wc__b.on .wc__h { color: #111; } .wc__b.on .wc__t { max-height: 60px; margin-top: 6px; }
   @media (min-width: 900px) { .wc { grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; margin-top: 40px; } .wc__h { font-size: 38px; } .wc__b { padding: 22px 0; } }
+  /* ===== «Пять шагов»: 7 дорога, 8 огромная цифра, 9 дом собирается ===== */
+  #how .hv { display: none; }
+  #how[data-hs="a"] .hv--a { display: grid; } #how[data-hs="b"] .hv--b, #how[data-hs="c"] .hv--c { display: block; } #how[data-hs="d"] .hv--d { display: grid; }
+  #how[data-hs="c"] { overflow: visible; }
+  /* 7 */
+  .hr { margin-top: 30px; }
+  .hr__w { position: relative; width: 100%; max-width: 560px; height: 660px; margin: 0 auto; }
+  .hr__svg { position: absolute; left: 50%; top: 0; width: 310px; height: 640px; transform: translateX(-50%); overflow: visible; }
+  .hr__bg { fill: none; stroke: rgba(255,255,255,.1); stroke-width: 16; stroke-linecap: round; }
+  .hr__ln { fill: none; stroke: var(--A); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .hr__d { fill: #141414; stroke: rgba(255,255,255,.3); stroke-width: 2; transition: fill .4s, stroke .4s; } .hr__d.on { fill: var(--A); stroke: #fff; }
+  .hr__home path { fill: rgba(255,255,255,.12); transition: fill .5s; } .hr.done .hr__home path { fill: var(--A); }
+  .hr__s { position: absolute; width: 150px; transform: translateY(-14px); opacity: .35; transition: opacity .4s; }
+  .hr__s.on { opacity: 1; }
+  .hr__w { --o: calc(50% - 155px); }
+  .hr__s[style*="left"] { margin-left: var(--o); } .hr__s[style*="right"] { margin-right: var(--o); text-align: right; }
+  .hr__s b { font: 600 11px var(--f); color: var(--A); } .hr__s h4 { font: 800 22px/1.1 var(--f); letter-spacing: -.03em; margin-top: 2px; } .hr__s p { margin-top: 4px; font-size: 12.5px; line-height: 1.35; color: rgba(255,255,255,.6); }
+  /* 8 */
+  .hb { position: relative; height: 380vh; margin-top: 10px; }
+  .hb__pin { position: sticky; top: 0; height: 100svh; display: grid; align-content: center; gap: 18px; }
+  .hb__num { display: flex; align-items: flex-start; gap: 6px; }
+  .hb__num span { font: 800 clamp(160px, 50vw, 380px)/.78 var(--f); letter-spacing: -.08em; background: var(--F); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; transition: transform .5s var(--ease), opacity .3s; }
+  .hb__num span.sw { transform: translateY(-20px); opacity: 0; }
+  .hb__num small { font: 700 20px var(--f); color: rgba(255,255,255,.4); margin-top: 14px; }
+  .hb__txt { position: relative; min-height: 110px; }
+  .hb__t { position: absolute; inset: 0; opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .6s var(--ease); }
+  .hb__t.on { opacity: 1; transform: none; }
+  .hb__t h4 { font: 800 clamp(36px, 9vw, 64px)/1 var(--f); letter-spacing: -.05em; } .hb__t p { margin-top: 10px; font-size: 16px; color: rgba(255,255,255,.7); max-width: 420px; }
+  .hb__line { height: 3px; border-radius: 3px; background: rgba(255,255,255,.1); } .hb__line i { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--F); }
+  @media (min-width: 900px) { .hb__pin { grid-template-columns: auto 1fr; align-items: end; column-gap: 50px; } .hb__line { grid-column: 1 / -1; } .hb__txt { min-height: 160px; } }
+  /* 9 */
+  .hd { margin-top: 30px; gap: 14px; }
+  .hd__stage { position: relative; border-radius: 26px; padding: 26px 18px 22px; background: radial-gradient(80% 70% at 50% 30%, color-mix(in srgb, var(--A) 14%, transparent), transparent 70%), #1a1a1a; border: 1px solid rgba(255,255,255,.08); overflow: hidden; }
+  .hd__stage::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; }
+  .hd__svg { position: relative; width: 100%; max-width: 520px; display: block; margin: 0 auto; }
+  .hd__svg .ln { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 2; } .hd__svg .th { stroke-width: 1.2; stroke: rgba(255,255,255,.3); } .hd__svg .dash { fill: none; stroke: var(--A); stroke-width: 2; stroke-dasharray: 6 5; }
+  .hd__svg .o { fill: var(--A); stroke: var(--A); } .hd__svg .ln.o { fill: none; stroke-width: 2.5; stroke-linecap: round; }
+  .hd__svg .w { fill: #ece6dc; } .hd__svg .d { fill: #2a2a2a; } .hd__svg .y { fill: #ffd27a; }
+  .hd__l { opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .7s var(--ease); }
+  .hd__l.on { opacity: 1; transform: none; }
+  .hd__cap { position: relative; display: flex; align-items: flex-start; gap: 14px; margin-top: 18px; }
+  .hd__cap b { font: 800 46px/.85 var(--f); letter-spacing: -.05em; color: var(--A); }
+  .hd__cap h4 { font: 800 24px/1.1 var(--f); letter-spacing: -.03em; } .hd__cap p { margin-top: 4px; font-size: 14px; color: rgba(255,255,255,.65); }
+  .hd__tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .hd__b { padding: 10px 4px; border-radius: 14px; background: #1a1a1a; border: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.6); font: 600 11px var(--f); display: grid; gap: 2px; justify-items: center; transition: background .3s, color .3s; }
+  .hd__b span { font-size: 15px; font-weight: 800; color: rgba(255,255,255,.35); } .hd__b.on { background: var(--F); color: #fff; border-color: transparent; } .hd__b.on span { color: #fff; }
+  @media (min-width: 900px) { .hd { grid-template-columns: 1.5fr 1fr; align-items: stretch; } .hd__tabs { grid-template-columns: 1fr; } .hd__b { justify-items: start; grid-template-columns: 40px 1fr; align-items: center; padding: 18px; font-size: 16px; } .hd__stage { padding: 40px; } }
 </style>
 </head>
 <body class="t-bright">
@@ -1707,12 +1754,12 @@
   </div>
 </section>
 
-<section class="sec pnl" id="how" data-v="a">
+<section class="sec pnl" id="how" data-v="a" data-hs="a">
   <i class="ribs" aria-hidden="true"></i><i class="grid-bg" aria-hidden="true"></i>
   <div class="wrap">
     <div class="shd rv"><b>[03]</b><span>Как строим</span><i>↘</i></div>
     <h2 class="h2 rv" style="margin-top:0">Пять шагов <span>до <span class="u">своего дома<svg class="uline" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></span></h2>
-    <div class="proc">
+    <div class="proc hv hv--a">
       <div class="pr rv"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><b>01</b></div>
       <div class="pr rv" style="--d:.05s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h9M12 3v18"/></svg></span><div><h4>Проект</h4><p>Готовим проект и смету дома.</p></div><b>02</b></div>
       <div class="pr rv" style="--d:.1s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="m9 14 2 2 4-4"/></svg></span><div><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><b>03</b></div>
@@ -1720,6 +1767,15 @@
       <div class="pr rv" style="--d:.2s"><span class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/></svg></span><div><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div><b>05</b></div>
     </div>
     <div class="stp" id="stp"><div class="stp__tabs" id="stpTabs"></div><div class="stp__p"><div class="stp__top"><small id="stpN">Шаг 1 из 5</small><i id="stpI"></i></div><h3 id="stpH"></h3><p id="stpP"></p><div class="stp__ft"><div class="stp__bar" id="stpBar"></div><div class="stp__nav"><button type="button" id="stpPrev" aria-label="Назад"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="stpNext" aria-label="Дальше"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div></div></div>
+    <div class="hr hv hv--b" id="hr"><div class="hr__w"><svg class="hr__svg" viewBox="0 0 310 640" preserveAspectRatio="xMidYMin meet"><path class="hr__bg" d="M60 20 C 60 60, 60 70, 60 90 C 60 150, 250 140, 250 200 C 250 270, 70 260, 70 330 C 70 400, 250 390, 250 460 C 250 530, 90 520, 90 590"/><path class="hr__ln" id="hrL" pathLength="1" d="M60 20 C 60 60, 60 70, 60 90 C 60 150, 250 140, 250 200 C 250 270, 70 260, 70 330 C 70 400, 250 390, 250 460 C 250 530, 90 520, 90 590"/><circle class="hr__d" cx="60" cy="90" r="9"/><circle class="hr__d" cx="250" cy="200" r="9"/><circle class="hr__d" cx="70" cy="330" r="9"/><circle class="hr__d" cx="250" cy="460" r="9"/><circle class="hr__d" cx="90" cy="590" r="9"/><g class="hr__home" transform="translate(70 600)"><path d="M0 18 20 2 40 18v20H0z"/></g></svg><div class="hr__s" style="top:90px;left:calc(60px + 36px)"><b>01</b><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><div class="hr__s" style="top:200px;right:calc(310px - 250px + 36px)"><b>02</b><h4>Проект</h4><p>Готовим проект и смету дома.</p></div><div class="hr__s" style="top:330px;left:calc(70px + 36px)"><b>03</b><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><div class="hr__s" style="top:460px;right:calc(310px - 250px + 36px)"><b>04</b><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><div class="hr__s" style="top:590px;left:calc(90px + 36px)"><b>05</b><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div></div></div>
+    <div class="hb hv hv--c" id="hb"><div class="hb__pin"><div class="hb__num"><span id="hbN">01</span><small>/05</small></div><div class="hb__txt"><div class="hb__t on"><h4>Участок</h4><p>Смотрим участок, подъезды и окружение.</p></div><div class="hb__t"><h4>Проект</h4><p>Готовим проект и смету дома.</p></div><div class="hb__t"><h4>Договор</h4><p>Фиксируем, что и когда строим.</p></div><div class="hb__t"><h4>Стройка</h4><p>Строим и держим вас в курсе.</p></div><div class="hb__t"><h4>Ключи</h4><p>Принимаете готовый дом вместе с нами.</p></div></div><div class="hb__line"><i id="hbL"></i></div></div></div>
+    <div class="hd hv hv--d rv"><div class="hd__stage"><svg class="hd__svg" viewBox="0 0 300 220" aria-hidden="true">
+<g class="hd__l hd__l0"><path d="M10 200h280" class="ln"/><path d="M40 200l-8 6M80 200l-8 6M120 200l-8 6M160 200l-8 6M200 200l-8 6M240 200l-8 6M280 200l-8 6" class="ln th"/><rect x="60" y="150" width="180" height="50" rx="2" class="dash"/></g>
+<g class="hd__l hd__l1"><path d="M60 150h180M60 175h180M120 150v50M180 150v50" class="ln th"/><rect x="60" y="150" width="180" height="50" class="ln"/></g>
+<g class="hd__l hd__l2"><rect x="56" y="192" width="188" height="10" class="fill o"/></g>
+<g class="hd__l hd__l3"><rect x="64" y="110" width="172" height="82" class="fill w"/><rect x="84" y="128" width="34" height="30" class="fill d"/><rect x="182" y="128" width="34" height="30" class="fill d"/><rect x="134" y="146" width="32" height="46" class="fill d"/><path d="M52 112 150 46l98 66z" class="fill o"/></g>
+<g class="hd__l hd__l4"><rect x="84" y="128" width="34" height="30" class="fill y"/><rect x="182" y="128" width="34" height="30" class="fill y"/><circle cx="160" cy="170" r="2.5" class="fill o"/><path d="M150 30v-14M136 36l-8-10M164 36l8-10" class="ln o"/></g>
+</svg><div class="hd__cap"><b id="hdN">01</b><div><h4 id="hdH">Участок</h4><p id="hdP">Смотрим участок, подъезды и окружение.</p></div></div></div><div class="hd__tabs"><button type="button" class="hd__b on" data-i="0"><span>01</span>Участок</button><button type="button" class="hd__b" data-i="1"><span>02</span>Проект</button><button type="button" class="hd__b" data-i="2"><span>03</span>Договор</button><button type="button" class="hd__b" data-i="3"><span>04</span>Стройка</button><button type="button" class="hd__b" data-i="4"><span>05</span>Ключи</button></div></div>
   </div>
 </section>
 
@@ -1842,6 +1898,7 @@
 <div class="qsw show" id="nsw" style="bottom:calc(max(16px, env(safe-area-inset-bottom)) + 108px)">Меню: <button class="on" data-v="a">A</button><button data-v="b">B</button><button data-v="c">C</button><button data-v="d">D</button></div>
 <div class="nsw" id="numsw">В цифрах: <button class="on" data-v="a">A</button><button data-v="h">1</button><button data-v="i">2</button><button data-v="j">3</button></div>
 <div class="wsw" id="wsw">Что строим: <button class="on" data-v="b">1</button><button data-v="e">4</button><button data-v="f">5</button><button data-v="g">6</button></div>
+<div class="wsw" id="hsw2">Шаги: <button class="on" data-v="a">A</button><button data-v="b">7</button><button data-v="c">8</button><button data-v="d">9</button></div>
 <div class="csw" id="csw">Цвет: <button data-t="t-dark"><i style="background:radial-gradient(circle at 30% 30%,#ff2a0a,#b0170a 60%,#3a0805)"></i>тёмно-красный</button><button class="on" data-t="t-bright"><i style="background:radial-gradient(circle at 30% 25%,#ff7a2a,#ff4d12 40%,#b81a06)"></i>оранжевый</button></div>
 
 <script>
@@ -2082,6 +2139,23 @@
     wcI.forEach(function (im) { im.classList.remove('was'); }); wcI[wcC].classList.remove('on'); wcI[wcC].classList.add('was');
     wcI[k].style.setProperty('--x', (e.clientX && innerWidth >= 900 ? 0 : 50) + '%'); wcI[k].style.setProperty('--y', '50%'); void wcI[k].offsetWidth; wcI[k].classList.add('on');
     wcC = k; wcB.forEach(function (x2, j) { x2.classList.toggle('on', j === k); }); $('#wcTag').textContent = ['Пермь','2 этажа','Бали','по запросу'][k]; }); });
+  // «Пять шагов»: варианты (демо)
+  var hw = $('#how'), hsw2 = $('#hsw2');
+  var setHs = function (v) { hw.dataset.hs = v; $$('#hsw2 button').forEach(function (x) { x.classList.toggle('on', x.dataset.v === v); }); $$('#how .rv').forEach(function (el) { el.classList.add('in'); }); hrU(); hbU(); };
+  $$('#hsw2 button').forEach(function (b) { b.addEventListener('click', function () { setHs(b.dataset.v); }); });
+  new IntersectionObserver(function (es) { hsw2.classList.toggle('show', es[0].isIntersecting); }, { threshold: .05 }).observe(hw);
+  // 7: дорога рисуется при прокрутке
+  var hr = $('#hr'), hrL = $('#hrL'), hrS = $$('.hr__s'), hrD = $$('.hr__d');
+  function hrU() { if (!hr || !hr.offsetParent) return; var r = hr.getBoundingClientRect(), k = Math.max(0, Math.min(1, (innerHeight * .75 - r.top) / (r.height))); hrL.style.strokeDashoffset = 1 - k; var n = Math.floor(k * 5.2); hrS.forEach(function (e, j) { e.classList.toggle('on', j < n); }); hrD.forEach(function (e, j) { e.classList.toggle('on', j < n); }); hr.classList.toggle('done', k > .97); }
+  // 8: огромная цифра
+  var hb = $('#hb'), hbT = $$('.hb__t'), hbC = -1;
+  function hbU() { if (!hb || !hb.offsetParent) return; var r = hb.getBoundingClientRect(), k = Math.max(0, Math.min(.999, -r.top / (r.height - innerHeight))); $('#hbL').style.width = (k * 100) + '%'; var i = Math.floor(k * 5); if (i === hbC) return; hbC = i; var n = $('#hbN'); n.classList.add('sw'); setTimeout(function () { n.textContent = '0' + (i + 1); n.classList.remove('sw'); }, 220); hbT.forEach(function (e, j) { e.classList.toggle('on', j === i); }); }
+  addEventListener('scroll', function () { hrU(); hbU(); }, { passive: true });
+  // 9: дом собирается
+  var hdB = $$('.hd__b'), hdL = $$('.hd__l'), hdS = [['Участок','Смотрим участок, подъезды и окружение.'],['Проект','Готовим проект и смету дома.'],['Договор','Фиксируем, что и когда строим.'],['Стройка','Строим и держим вас в курсе.'],['Ключи','Принимаете готовый дом вместе с нами.']], hdT;
+  var hdGo = function (k) { hdB.forEach(function (b, j) { b.classList.toggle('on', j === k); }); hdL.forEach(function (l, j) { l.classList.toggle('on', j <= k); }); $('#hdN').textContent = '0' + (k + 1); $('#hdH').textContent = hdS[k][0]; $('#hdP').textContent = hdS[k][1]; clearTimeout(hdT); hdT = setTimeout(function () { hdGo((k + 1) % 5); }, 3500); };
+  hdB.forEach(function (b, k) { b.addEventListener('click', function () { hdGo(k); }); }); if (hdB.length) hdGo(0);
+  var hsq = new URLSearchParams(location.search).get('hs'); if (/^[abcd]$/.test(hsq || '')) setHs(hsq);
   $('#pkf').addEventListener('submit', function (e) { e.preventDefault(); this.classList.add('done'); });
   var pick = $('#pick'), pkBox = $('#pkfBox'), pkEl = $('.pk', pick);
   $('#pkGo').addEventListener('click', function () {
