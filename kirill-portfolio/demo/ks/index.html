@@ -1564,6 +1564,8 @@
   .wsw.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
   .wsw button { width: 34px; height: 34px; border-radius: 50%; font: 700 13px var(--f); color: #fff; } .wsw button.on { background: var(--F); }
   @media (min-width: 900px) { .wl__h { font-size: clamp(36px, 3.6vw, 56px); white-space: nowrap; } }
+  .wsw { display: none !important; }
+  .wt__p.was { z-index: 1 !important; }
 </style>
 </head>
 <body class="t-bright">
@@ -1641,7 +1643,7 @@
 </section>
 </div>
 
-<section id="what" data-w="a" style="padding-bottom:40px">
+<section id="what" data-w="b" style="padding-bottom:40px">
   <div class="wrap">
     <span class="lbl rv">Что строим</span>
     <h2 class="h2 rv">От уютного дома <span>до <span class="u">виллы на Бали<svg class="uline" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 8 C 50 2, 150 2, 198 7"/></svg></span></span></h2>
@@ -1993,8 +1995,21 @@
   $$('#wsw button').forEach(function (b) { b.addEventListener('click', function () { setW(b.dataset.v); }); });
   new IntersectionObserver(function (es) { wsw.classList.toggle('show', es[0].isIntersecting); }, { threshold: .05 }).observe(wht);
   // 1: вкладки
-  var wtB = $$('.wt__b'), wtP = $$('.wt__p'), wtC = 0;
-  wtB.forEach(function (b, k) { b.addEventListener('click', function () { if (k === wtC) return; wtP.forEach(function (p2) { p2.classList.remove('was'); }); wtP[wtC].classList.add('was'); wtP[wtC].classList.remove('on'); wtC = k; wtP[k].classList.add('on'); wtB.forEach(function (x, j) { x.classList.toggle('on', j === k); }); }); });
+  var wtB = $$('.wt__b'), wtP = $$('.wt__p'), wtC = 0, wtBusy = 0;
+  var wtGo = function (k) {
+    if (k === wtC || wtBusy) return; wtBusy = 1;
+    var prev = wtP[wtC], nx = wtP[k];
+    wtP.forEach(function (p2) { p2.classList.remove('was'); p2.style.zIndex = ''; });
+    prev.classList.remove('on'); prev.classList.add('was');
+    nx.style.transition = 'none'; nx.classList.remove('on'); nx.style.zIndex = 2; void nx.offsetWidth; nx.style.transition = '';
+    nx.classList.add('on');
+    wtC = k; wtB.forEach(function (x, j) { x.classList.toggle('on', j === k); });
+    setTimeout(function () { prev.classList.remove('was'); nx.style.zIndex = ''; wtBusy = 0; }, 950);
+  };
+  wtB.forEach(function (b, k) { b.addEventListener('click', function () { wtGo(k); }); });
+  var wtX = 0, wtS = $('.wt__stage');
+  if (wtS) { wtS.addEventListener('touchstart', function (e) { wtX = e.touches[0].clientX; }, { passive: true });
+    wtS.addEventListener('touchend', function (e) { var d = e.changedTouches[0].clientX - wtX; if (Math.abs(d) > 40) wtGo((wtC + (d < 0 ? 1 : wtP.length - 1)) % wtP.length); }); }
   // 2: горизонтальная лента
   var wh = $('#wh'), whTr = $('#whTr'), whBar = $('#whBar');
   function whU() { if (!wh || !wh.offsetParent) return; var r = wh.getBoundingClientRect(), k = Math.max(0, Math.min(1, -r.top / (r.height - innerHeight))); var mx = whTr.scrollWidth - innerWidth + 40; whTr.style.transform = 'translateX(' + (-k * Math.max(0, mx)) + 'px)'; whBar.style.width = (k * 100) + '%'; }
